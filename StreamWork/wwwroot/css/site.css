@@ -1,0 +1,184 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    width: 100%;
+    height: auto;
+    overflow-x: hidden;
+    overflow-y: hidden;  
+}
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+/* QR code generator */
+#qrCode {
+    margin: 15px;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 2000px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+   
+}
+.body-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.body-center2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: -2%;
+}
+.body-center3{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2%;
+}
+.body-center4 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin:2%
+}
+.buttonStyle {
+    height: 35px;
+    border-radius: 5px;
+    width: 115px;
+    background-color: #008080;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size:11px;
+    border:none;
+}
+.buttonStyleLogin {
+    height: 35px;
+    border-radius: 5px;
+    width: 115px;
+    background-color:white;
+    color: black;
+    font-family: 'Roboto', sans-serif;
+    font-size: 11px;
+    border-color: black;
+    border-width:thin
+}
+.buttonStyletutor {
+    height: 35px;
+    border-radius: 5px;
+    width: 160px;
+    font-size: 10px;
+    background-color: #008080;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 11px;
+    border: none;
+}
+.buttonStyleLearning {
+    height: 35px;
+    border-radius: 5px;
+    width: 170px;
+    background-color: transparent;
+    color: #008080;
+    font-family: 'Roboto', sans-serif;
+    font-size: 11px;
+    border: none;
+}
+.buttonStyleSignUp {
+    height: 35px;
+    border-radius: 5px;
+    width: 100px;
+    background-color: transparent;
+    color: #008080;
+    font-family: 'Roboto', sans-serif;
+    font-size: 11px;
+    border: none;
+}
+.parent {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+.Math {
+    display: inline-block;
+    margin: 10px;
+}
+.Literature {
+    display: inline-block;
+    margin: 10px;
+}
+.Engineering {
+    display: inline-block;
+    margin: 10px;
+}
+.DesignArt {
+    display: inline-block;
+    margin: 10px;
+}
+.Science {
+    display: inline-block;
+    margin: 10px;
+}
+
+.Buisness {
+    display: inline-block;
+    margin: 10px;
+}
+
+.Programming {
+    display: inline-block;
+    margin: 10px;
+}
+
+.Others {
+    display: inline-block;
+    margin: 10px;
+}
+.Tutor {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.LearningStreamWork {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: -2%;
+}
+.SignUpLoginPos {
+    float: right;
+    margin-top: -525px;
+    margin-right: -50px;
+    display: inline-flex;
+}
+.Terms {
+    float: right;
+    margin-top: -36px;
+}
+
+
+
+
+
+
+
+    
+

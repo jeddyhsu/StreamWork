@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamWork", "StreamWork\StreamWork.csproj", "{D3B3EFFE-1191-48DA-ADC5-C007E240A91D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D3B3EFFE-1191-48DA-ADC5-C007E240A91D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3B3EFFE-1191-48DA-ADC5-C007E240A91D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3B3EFFE-1191-48DA-ADC5-C007E240A91D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3B3EFFE-1191-48DA-ADC5-C007E240A91D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9D8729E2-0623-4B0E-BA7D-43722474B7F9}
+	EndGlobalSection
+EndGlobal
