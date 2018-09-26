@@ -15,6 +15,38 @@ namespace StreamWork.Controllers
             return View();
         }
 
+        public IActionResult Math()
+        {
+            return View();
+        }
+        public IActionResult Literature()
+        {
+            return View();
+        }
+        public IActionResult Engineering()
+        {
+            return View();
+        }
+        public IActionResult DesignArt()
+        {
+            return View();
+        }
+        public IActionResult Science()
+        {
+            return View();
+        }
+        public IActionResult Buisness()
+        {
+            return View();
+        }
+        public IActionResult Programming()
+        {
+            return View();
+        }
+        public IActionResult Other()
+        {
+            return View();
+        }
 
         public IActionResult Error()
         {
