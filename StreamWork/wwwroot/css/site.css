@@ -1,46 +1,11 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-    width: 100%;
-    height: auto;
-    overflow-x: hidden;
-    overflow-y: hidden;  
+﻿body{
+    margin:0;
 }
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-/* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
-}
-
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
-    width: 100%;
-}
-
-/* QR code generator */
-#qrCode {
-    margin: 15px;
-}
-
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 2000px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
-    }
-   
-}
-.body-center{
-    display: flex;
+.body-right {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+    
 }
 .body-center2 {
     display: flex;
@@ -163,18 +128,23 @@
     justify-content: center;
     margin: -2%;
 }
-.SignInLoginPos {
-    float: right;
-    margin-top: -480px;
-    margin-right: -50px;
-    display: inline-flex;
+.SignInLoginPos {  
+    float:right;
 }
+.container {
+    position: relative;
+}
+
 .Terms {
     float: right;
     margin-top: -36px;
 }
 
-
+span:before {
+    content: " ";
+    display: inline-block;
+    width: 32px;
+}
 
 
 
