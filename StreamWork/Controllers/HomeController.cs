@@ -35,7 +35,7 @@ namespace StreamWork.Controllers
         {
             return View();
         }
-        public IActionResult Buisness()
+        public IActionResult Business()
         {
             return View();
         }
