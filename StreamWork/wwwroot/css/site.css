@@ -35,6 +35,16 @@
     font-size:11px;
     border:none;
 }
+.buttonStyleStudent {
+    height: 20px;
+    border-radius: 5px;
+    width: 50px;
+    background-color: #008080;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size:8px;
+    border: none;
+}
 .buttonStyleLogin {
     height: 35px;
     border-radius: 5px;
@@ -98,78 +108,9 @@
     font-size: 11px;
     border: none;
 }
-.parent {
-    display: flex;
-    justify-content: center;
-    align-items: center; 
+.hr1 {
+    border: none;
+    border-left: 1px solid hsla(200, 10%, 50%,100);
+    height: 100vh;
+    width: 1px;
 }
-.Math {
-    display: inline-block;
-    margin: 10px;
-}
-.Literature {
-    display: inline-block;
-    margin: 10px;
-}
-.Engineering {
-    display: inline-block;
-    margin: 10px;
-}
-.DesignArt {
-    display: inline-block;
-    margin: 10px;
-}
-.Science {
-    display: inline-block;
-    margin: 10px;
-}
-
-.Business {
-    display: inline-block;
-    margin: 10px;
-}
-
-.Programming {
-    display: inline-block;
-    margin: 10px;
-}
-
-.Others {
-    display: inline-block;
-    margin: 10px;
-}
-.Tutor {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.LearningStreamWork {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: -2%;
-}
-.SignInLoginPos {  
-    float:right;
-}
-.container {
-    position: relative;
-}
-
-.Terms {
-    float: right;
-    margin-top: -36px;
-}
-
-span:before {
-    content: " ";
-    display: inline-block;
-    width: 32px;
-}
-
-
-
-
-
-    
-
