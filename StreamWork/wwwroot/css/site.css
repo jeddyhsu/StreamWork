@@ -170,10 +170,21 @@
     background-color: #bbb;
     border-radius: 50%;
 }
+.dot4 {
+    height:60px;
+    width: 60px;
+    border: 1px solid;
+    border-color: #000000;
+    border-radius: 50%;
+}
 .topnav input[type=text] {
   width:400px;
   height:50px;
 }
 .topnav input[type=text] {
     border: 1px solid #ccc;
+}
+.streamButtonStyle {
+    width:260px;
+    height:175px;
 }
