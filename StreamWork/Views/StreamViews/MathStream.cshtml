@@ -1,51 +1,74 @@
 ﻿
-@{  
+@{
     ViewData["Title"] = "MathStream";
 }
-<div class="container-fluid">
-    <div class="row" style="background-color:#F2F2F2">
-        <div class="col-sm-10">
-            <img src="~/images/StreamWorkLogo (2).png" width="250" height="70" onclick="window.open('http://streamwork20180916060520.azurewebsites.net/')" />
-            <div class="d-inline-flex">
-                <button class="btn buttonStylePages">Browse by subjects</button>
-                <button class="btn buttonStylePages  ">Find Tutors</button>
-                <button class="btn buttonStylePages ">Popular Livestreams</button>
-                <button class="btn buttonStylePages ml-sm-4">Become a Tutor</button>
-                <button class="btn buttonStylePages ml-sm-4">About StreamWork</button>
-            </div>
-        </div>
-        <div class="col-sm-2 p-0">
-            <div class="d-inline-flex">
-                <div>
-                    <h6 class="mt-sm-2">Johnny Appleseed</h6>
-                    <h6 class="float-right">#student</h6>
-                </div>
-                <div class="dot4 m-sm-2"></div>
-            </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <img src="~/images/StreamWorkLogo (2).png" width="250" height="70" onclick="window.open('http://streamwork20180916060520.azurewebsites.net/')" />
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ml-sm-3" style="font-size:14px;">
+                <a class="nav-link" href="#" style="color:#008080;">Browse by Subjects</a>
+            </li>
+            <li class="nav-item ml-sm-3" style="font-size:14px;">
+                <a class="nav-link" href="#" style="color:#008080;">Find Tutors</a>
+            </li>
+            <li class="nav-item ml-sm-3" style="font-size:14px;">
+                <a class="nav-link" href="#" style="color:#008080;">Popular Livestreams</a>
+            </li>
+            <li class="nav-item ml-sm-3" style="font-size:14px; ">
+                <a class="nav-link" href="#" style="color:#008080;">Become a Tutor</a>
+            </li>
+            <li class="nav-item ml-sm-3" style="font-size:14px;">
+                <a class="nav-link" href="#" style="color:#008080;">About StreamWork</a>
+            </li>
+        </ul>
+        <span class="navbar-text">
+            <a class="ml-sm-3 float-right">Johnny Appleseed</a>
+            <br />
+            <a class="ml-sm-3 float-right">#student</a>
 
-        </div>
+        </span>
+        <span class="dot ml-sm-3"></span>
     </div>
+</nav>
+
+<div class="container-fluid">
     <div class="row">
         <div class="col-sm-8 p-sm-0">
             <div class="embed-responsive-16by9">
-                <iframe
-                        width="835"
+                <iframe width="855"
                         height="550 "
                         src="http://www.youtube.com/embed/fxCEcPxUbYA"
                         frameborder="0"
                         allowfullscreen></iframe>
             </div>
         </div>
-        <div class="col-sm-3">
-            <h2 class=" float-left mt-sm-2">Calculus 2 Tutoring</h2>
-            <h6 class=" float-left mt-sm-3" style="font-size:12px">by Anika Stephannie</h6>
-            <h6 class=" float-left mt-sm-2">40,376 students in this classroom </h6>
+        <div class="col-sm-4">
+            <h2 class="mt-sm-2">Calculus 2 Tutoring</h2>
+            <h6 class="mt-sm-3" style="font-size:12px">by Anika Stephannie</h6>
+            <h6 class="mt-sm-2">40,376 students in this classroom </h6>
             <p style="font-size:12px" class=" float-left mt-sm-2">
                 As final week approaching, I would like to help you guys for Calculus I! Be sure to sub me for more math tutoring livestreams.
             </p>
-           <h4 class="float-left">Chat</h4>
+            <br />
+            <br />
+            <br />
+            <hr />
+            <h4>Chat</h4>
+            <p style="font-size:12px">If you saw a message that looks like a question, you can add this question to the queue.</p>
+            <input style="width:400px; height:246px; background-color:lightgray">
+            <br />
+            <br />
+            <input style="width:400px; height:125px; font-size: 10px;" placeholder="Respond to students here.If you want to mention a particular student, include his/her username.">
+            <br />
+            <br />
 
         </div>
-       
+        <div class="row">
+
+        </div>
     </div>
 </div>

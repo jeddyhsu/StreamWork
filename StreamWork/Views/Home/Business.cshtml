@@ -3,29 +3,39 @@
     ViewData["Title"] = "Business";
 }
 
-<div class="container-fluid">
-    <div class="row" style="background-color:#F2F2F2">
-        <div class="col-sm-10">
-            <img src="~/images/StreamWorkLogo (2).png" width="250" height="70" onclick="window.open('http://streamwork20180916060520.azurewebsites.net/')" />
-            <div class="btn-group">
-                <button class="btn buttonStylePages">Browse by subjects</button>
-                <button class="btn buttonStylePages  ">Find Tutors</button>
-                <button class="btn buttonStylePages ">Popular Livestreams</button>
-                <button class="btn buttonStylePages ml-sm-4">Become a Tutor</button>
-                <button class="btn buttonStylePages ml-sm-4">About StreamWork</button>
-            </div>
-        </div>
-        <div class="col-sm-2 p-0">
-            <div class=" btn-group">
-                <div>
-                    <h6 class="mt-sm-2">Johnny Appleseed</h6>
-                    <h6 class="float-right">#student</h6>
-                </div>
-                <div class="dot4 m-sm-2"></div>
-            </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <img src="~/images/StreamWorkLogo (2).png" width="250" height="70" onclick="window.open('http://streamwork20180916060520.azurewebsites.net/')" />
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ml-sm-3" style="font-size:14px;">
+                <a class="nav-link" href="#" style="color:#008080;">Browse by Subjects</a>
+            </li>
+            <li class="nav-item ml-sm-3" style="font-size:14px;">
+                <a class="nav-link" href="#" style="color:#008080;">Find Tutors</a>
+            </li>
+            <li class="nav-item ml-sm-3" style="font-size:14px;">
+                <a class="nav-link" href="#" style="color:#008080;">Popular Livestreams</a>
+            </li>
+            <li class="nav-item ml-sm-3" style="font-size:14px; ">
+                <a class="nav-link" href="#" style="color:#008080;">Become a Tutor</a>
+            </li>
+            <li class="nav-item ml-sm-3" style="font-size:14px;">
+                <a class="nav-link" href="#" style="color:#008080;">About StreamWork</a>
+            </li>
+        </ul>
+        <span class="navbar-text">
+            <a class="ml-sm-3 float-right">Johnny Appleseed</a>
+            <br />
+            <a class="ml-sm-3 float-right">#student</a>
 
-        </div>
+        </span>
+        <span class="dot ml-sm-3"></span>
     </div>
+</nav>
+<div class="container-fluid">
     <div class="row">
         <div class="col-sm-4 mt-sm-4">
             <h1 class="display-3"><b>Business</b></h1>
