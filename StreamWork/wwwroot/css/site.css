@@ -35,6 +35,20 @@
     font-size:11px;
     border:none;
 }
+.buttonInside {
+    position: relative;
+    margin-bottom: 10px;
+}
+.buttonStyle24 {
+    height: 50px;
+    border-radius: 5px;
+    width: 135px;
+    background-color: #008080;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 11px;
+    border: none;
+}
 .buttonStyles1 {
     height: 25px;
     border-radius: 5px;
@@ -75,6 +89,17 @@
     font-size: 11px;
     border-color: black;
     border-width:thin
+}
+.buttonStyleLogin24 {
+    height: 50px;
+    border-radius: 5px;
+    width: 150px;
+    background-color: white;
+    color: black;
+    font-family: 'Roboto', sans-serif;
+    font-size: 11px;
+    border-color: black;
+    border-width: thin
 }
 .buttonStyletutor {
     height: 35px;
