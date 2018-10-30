@@ -1,7 +1,7 @@
 @{ViewData["title"] = "Sign Up";}
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <img src="~/images/StreamWorkLogo (2).png" width="250" height="70" onclick="window.open('http://streamwork20180916060520.azurewebsites.net/')" />
+    <img src="~/images/StreamWorkLogo (2).png" width="250" height="70" onclick="window.open('/')" />
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -31,53 +31,28 @@
         <span class="dot ml-sm-3"></span>
     </div>
 </nav>
-<div class=" container-fluid">
+<div class="container-fluid">
     <div class="my-5">
         <div class="row">
-            <div class="col-sm-4"></div>
-            <div class="col-sm-4" style="background-color:#F0F0F0">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6" style="background-color:#F8F9FA; border-radius: 16px">
                 <div class="my-1">
-                    <div class="row">
-                        <h4>&ensp;Sign Up</h4>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            Email:
-                        </div>
-                        <div class="col-sm-1">
-                            <form>
-                                <input type="text">
-                            </form>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            Password:
-                        </div>
-                        <div class="col-sm-1">
-                            <form>
-                                <input type="password">
-                            </form>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3" style="line-height: 100%">
-                            Confirm password:
-                        </div>
-                        <div class="col-sm-1">
-                            <form>
-                                <input type="password">
-                            </form>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <input type="button" class="btn btn-outline-primary float-right" value="Sign Up" onclick="window.open('Profile')">
-                        </div>
-                    </div>
+                    <center>
+                        <br>
+                        <h1>Sign Up</h1> <br>
+                        <form>
+                            <input type="text" name="nameFirst" placeholder="First Name"> &nbsp; &nbsp;
+                            <input type="text" name="nameLast" placeholder="Last Name"> <br> <br>
+                            <input type="text" name="email" placeholder="Email Address" size="45"> <br> <br>
+                            <input type="text" name="phone" placeholder="Phone Number" size="45"> <br> <br>
+                            <input type="password" name="password" placeholder="Password" size="45"> <br> <br>
+                            <input type="password" name="passwordConfirm" placeholder="Reenter Password" size="45"> <br> <br>
+                            <input type="submit" value="Submit" onclick="window.open('Profile')"> <br> <br>
+                        </form>
+                    </center>
                 </div>
             </div>
-            <div class="col-sm-4"></div>
+            <div class="col-sm-3"></div>
         </div>
     </div>
 </div>
