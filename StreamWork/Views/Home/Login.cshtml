@@ -45,7 +45,7 @@
                         </div>
                         <div class="col-sm-1">
                             <form>
-                                <input type="text">
+                                <input id="username">
                             </form>
                         </div>
                     </div>
@@ -55,13 +55,13 @@
                         </div>
                         <div class="col-sm-1">
                             <form>
-                                <input type="password">
+                                <input id="password" type="password">
                             </form>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <input type="button" class="btn btn-outline-primary float-right" value="Log In" onclick="window.open('Profile')">
+                            <input type="button" class="btn btn-outline-primary float-right" value="Log In" onclick="confirmLogin()">
                         </div>
                     </div>
                 </div>
@@ -70,4 +70,31 @@
         </div>
     </div>
 </div>
-  
+ <script>
+     function confirmLogin() {
+         $.ajax({
+             url: '/Home/Login',
+             type: 'post',
+             dataType: 'json',
+             data: {
+                 'username': $("#username").val(),
+                 'password': $('#password').val()
+
+             },
+             success: function (data) {
+                 if (data.message === "Welcome") {
+
+                     window.open('/Home/Profile');
+                 }
+                 else {
+
+                     alert("Wrong Username or Password");
+                 }
+
+             }
+
+
+         });
+
+     }
+ </script>
