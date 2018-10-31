@@ -48,6 +48,11 @@
                             <input type="text" id="username" placeholder="username" size="45"> <br> <br>
                             <input type="password" id="password" placeholder="Password" size="45"> <br> <br>
                             <input type="password" id="passwordConfirm" placeholder="Reenter Password" size="45"> <br> <br>
+                            <strong>Login Type:</strong> &nbsp; &nbsp; &nbsp;
+                            <select id="role">
+                                <option value="student">Student</option>
+                                <option value="tutor">Tutor</option>
+                            </select> <br> <br>
                             <input type="button" value="SignUp" onclick="SignUp()"> <br> <br>
                         </form>
                     </center>
@@ -75,6 +80,7 @@
                 'username': $("#username").val(),
                 'password': $('#password').val(),
                 'passwordConfirm': $('#passwordConfirm').val(),
+                'role': $('#role').val(),
 
             },        
             success: function (data) {
