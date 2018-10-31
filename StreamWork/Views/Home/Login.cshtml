@@ -33,68 +33,49 @@
 <div class="container-fluid">
     <div class="my-5">
         <div class="row">
-            <div class="col-sm-4"></div>
-            <div class="col-sm-4" style="background-color:#F8F9FA">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6" style="background-color:#F8F9FA; border-radius: 16px">
                 <div class="my-1">
-                    <div class="row">
-                        <h4>&ensp;Login</h4>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            Email:
-                        </div>
-                        <div class="col-sm-1">
-                            <form>
-                                <input id="username">
-                            </form>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            Password:
-                        </div>
-                        <div class="col-sm-1">
-                            <form>
-                                <input id="password" type="password">
-                            </form>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <input type="button" class="btn btn-outline-primary float-right" value="Log In" onclick="confirmLogin()">
-                        </div>
-                    </div>
+                    <center>
+                        <br>
+                        <h1>Log In</h1> <br>
+                        <form>
+                            <input type="text" name="email" placeholder="Email Address" size="45"> <br> <br>
+                            <input type="password" name="password" placeholder="Password" size="45"> <br> <br>
+                            <input type="submit" value="Submit" onclick="confirmLogin(); window.open('Profile')"> <br> <br>
+                        </form>
+                    </center>
                 </div>
             </div>
-            <div class="col-sm-4"></div>
+            <div class="col-sm-3"></div>
         </div>
     </div>
 </div>
- <script>
-     function confirmLogin() {
-         $.ajax({
-             url: '/Home/Login',
-             type: 'post',
-             dataType: 'json',
-             data: {
-                 'username': $("#username").val(),
-                 'password': $('#password').val()
+<script>
+    function confirmLogin() {
+        $.ajax({
+            url: '/Home/Login',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                'username': $("#username").val(),
+                'password': $('#password').val()
 
-             },
-             success: function (data) {
-                 if (data.message === "Welcome") {
+            },
+            success: function (data) {
+                if (data.message === "Welcome") {
 
-                     window.open('/Home/Profile');
-                 }
-                 else {
+                    window.open('/Home/Profile');
+                }
+                else {
 
-                     alert("Wrong Username or Password");
-                 }
+                    alert("Wrong Username or Password");
+                }
 
-             }
+            }
 
 
-         });
+        });
 
-     }
- </script>
+    }
+</script>
