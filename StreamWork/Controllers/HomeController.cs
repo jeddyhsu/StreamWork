@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using StreamWork.Models;
 using System.Data;
 using System.Data.SqlClient;
+using System.Text;
+using Microsoft.AspNetCore.Http;
 namespace StreamWork.Controllers
 {
     public class HomeController : Controller
@@ -51,7 +53,7 @@ namespace StreamWork.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult SignUp(string username, string password, string confirmpassword)
+        public IActionResult SignUp(string nameFirst, string nameLast, string email, int phone, string username, string password, string passwordConfirm)
         {
             SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
@@ -61,7 +63,7 @@ namespace StreamWork.Controllers
             if (connection.State == ConnectionState.Open)
             {
                 
-                    SqlCommand sqlCommand = new SqlCommand("SELECT COUNT(*) FROM SignIN WHERE Username = @Username", connection);
+                    SqlCommand sqlCommand = new SqlCommand("SELECT COUNT(*) FROM SignUp WHERE Username = @Username", connection);
                     sqlCommand.Parameters.AddWithValue("@Username", username);
                     int num = (int)sqlCommand.ExecuteScalar();
                     if (num > 0)
@@ -72,13 +74,18 @@ namespace StreamWork.Controllers
                 else 
                 {
                     {
-                        if (password.Equals(confirmpassword))
+                        if (password.Equals(passwordConfirm))
                         {
-                            String query = "INSERT INTO SignIN(Password,Username)";
-                            query += "VALUES (@Password,@Username)";
+                            String query = "INSERT INTO SignUp(FirstName,LastName,Email,PhoneNumber,Username,Password)";
+                            query += "VALUES (@FirstName,@LastName,@Email,@PhoneNumber,@Username,@Password)";
                             SqlCommand cmd = new SqlCommand(query, connection);
+                            cmd.Parameters.AddWithValue("@FirstName", nameFirst);
+                            cmd.Parameters.AddWithValue("@LastName", nameLast);
+                            cmd.Parameters.AddWithValue("@Email", email);
+                            cmd.Parameters.AddWithValue("@PhoneNumber", phone);
                             cmd.Parameters.AddWithValue("@Username", username);
                             cmd.Parameters.AddWithValue("@Password", password);
+
                             cmd.ExecuteNonQuery();
                             a = "Sucsess";
                         }
@@ -112,15 +119,18 @@ namespace StreamWork.Controllers
             SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
 
-            String loginQuery = "SELECT COUNT(*) FROM SignIN WHERE Username = @Username AND Password = @Password";
+            String loginQuery = "SELECT COUNT(*) FROM SignUp WHERE Username = @Username AND Password = @Password";
             SqlCommand loginCommand = new SqlCommand(loginQuery, connection);
             loginCommand.Parameters.AddWithValue("@Username", username);
             loginCommand.Parameters.AddWithValue("@Password", password);
-
+            
            int val = (int) loginCommand.ExecuteScalar();
 
             if(val > 0)
             {
+                HttpContext.Session.SetString("UserProfile", username);
+                
+                
                 forJson = "Welcome";
             }
             else
@@ -142,7 +152,25 @@ namespace StreamWork.Controllers
 
         public IActionResult Profile()
         {
-            return View();
+            var model = new UserProfile();
+            SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+            var user = HttpContext.Session.GetString("UserProfile");
+            String loginQuery = "SELECT FirstName, LastName FROM SignUp WHERE Username = @Username";
+            SqlCommand loginCommand = new SqlCommand(loginQuery, connection);
+            loginCommand.Parameters.AddWithValue("@Username", user);
+            var reader = loginCommand.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+
+                    model.FirstName = reader.GetString(0);
+                    model.LastName = reader.GetString(1);
+                }
+            }
+           
+            return View(model);
         }
        
         public IActionResult Error()

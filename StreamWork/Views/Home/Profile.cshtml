@@ -1,7 +1,6 @@
-@{
-    var user = "Annika Stephiana";
-    ViewData["Title"] = user;
-}
+
+@model StreamWork.Models.UserProfile 
+
 
 <head>
     <style>
@@ -56,8 +55,8 @@
                 </div>
                 <div class="row ml-1" style="font-size: 64px; font-weight: 50; line-height: 115%;">
                     <label id="myLabel">
-                        Annika <br>
-                        Stephiana
+                        @Model.FirstName
+                        @Model.LastName
                     </label>
                 </div>
             </div>
@@ -189,8 +188,3 @@
         </div>
     </div>
 </body>
-
-<script>
-
-    document.getElementById('myLabel').innerHTML = ;
-</script>
