@@ -1,4 +1,4 @@
-@{ViewData["title"] = "Login";}
+@{ViewData["title"] = "Start Stream";}
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <img src="~/images/StreamWorkLogo (2).png" width="250" height="70" onclick="window.location.href='/'" />
@@ -33,17 +33,28 @@
 </nav>
 <div class="container-fluid">
     <div class="my-5">
-        <div class="row">            
+        <div class="row">
             <div class="col-sm-3"></div>
             <div class="col-sm-6" style="background-color:#F8F9FA; border-radius: 16px">
                 <div class="my-1">
                     <center>
                         <br>
-                        <h1>Log In</h1> <br>
+                        <h1>Sign Up</h1> <br>
                         <form>
-                            <input type="text" id="username" placeholder="username" size="45"> <br> <br>
-                            <input type="password" id="password" placeholder="Password" size="45"> <br> <br>
-                            <input type="button" value="Submit" onclick="Login()"> <br><br>
+                            <input type="text" id="title" placeholder="Stream Title"> &nbsp; &nbsp;
+                            <textarea id="description" style="width: 250px; height: 150px;" placeholder="Stream Description..."></textarea> <br> <br>
+                            <strong>Subject:</strong> &nbsp; &nbsp; &nbsp;
+                            <select id="subject">
+                                <option value="math">Mathematics</option>
+                                <option value="literature">Literature</option>
+                                <option value="engineering">Engineering</option>
+                                <option value="designArt">Design & Art</option>
+                                <option value="science">Science</option>
+                                <option value="business">Business</option>
+                                <option value="programming">Programming</option>
+                                <option value="other">Other</option>
+                            </select> <br> <br>
+                            <input type="button" value="Start Stream" onclick="MakeStream()"> <br> <br>
                         </form>
                     </center>
                 </div>
@@ -52,31 +63,47 @@
         </div>
     </div>
 </div>
+
 <script>
-    function Login() {
+    function MakeStream() {
+        // !!! WIP !!!
+
         $.ajax({
-            url: '/Home/Login',
+            url: '/Home/MakeStream',
             type: 'post',
             dataType: 'json',
+
             data: {
+                'nameFirst': $("#nameFirst").val(),
+                'nameLast': $("#nameLast").val(),
+                'email': $("#email").val(),
+                'phone': $("#phone").val(),
                 'username': $("#username").val(),
-                'password': $('#password').val()
+                'password': $('#password').val(),
+                'passwordConfirm': $('#passwordConfirm').val(),
+                'role': $('#role').val(),
 
-            },
+            },        
             success: function (data) {
-                if (data.message === "Welcome") {
+                if (data.message === "Success") {
 
-                    window.location.href='/Home/Profile';
+                    window.location.href='../StreamViews/MathStream';
+                }
+                else if (data.message === "Wrong confirmPassword") {
+
+                    alert("Passwords do not match");
                 }
                 else {
+                    alert("Username already exsists");
 
-                    alert("Wrong Username or Password");
                 }
-
+              
             }
-
+           
 
         });
 
     }
+    
 </script>
+  

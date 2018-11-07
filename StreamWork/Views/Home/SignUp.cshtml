@@ -1,7 +1,7 @@
 @{ViewData["title"] = "Sign Up";}
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <img src="~/images/StreamWorkLogo (2).png" width="250" height="70" onclick="window.open('/')" />
+    <img src="~/images/StreamWorkLogo (2).png" width="250" height="70" onclick="window.location.href='/'" />
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -48,6 +48,11 @@
                             <input type="text" id="username" placeholder="username" size="45"> <br> <br>
                             <input type="password" id="password" placeholder="Password" size="45"> <br> <br>
                             <input type="password" id="passwordConfirm" placeholder="Reenter Password" size="45"> <br> <br>
+                            <strong>Login Type:</strong> &nbsp; &nbsp; &nbsp;
+                            <select id="role">
+                                <option value="student">Student</option>
+                                <option value="tutor">Tutor</option>
+                            </select> <br> <br>
                             <input type="button" value="SignUp" onclick="SignUp()"> <br> <br>
                         </form>
                     </center>
@@ -73,12 +78,13 @@
                 'username': $("#username").val(),
                 'password': $('#password').val(),
                 'passwordConfirm': $('#passwordConfirm').val(),
+                'role': $('#role').val(),
 
             },        
             success: function (data) {
                 if (data.message === "Success") {
 
-                    window.open('/Home/Login');
+                    window.location.href='/Home/Login';
                 }
                 else if (data.message === "Wrong confirmPassword") {
 
