@@ -1,70 +1,52 @@
-<div class="text-right mt-4" >
-    <div class="col-sm-10"></div>
-    <div class="col-sm-2 btn-group m-0">
-        <button class="btn buttonStyleSignIn" onclick="window.open('Home/SignUp')">Sign Up</button>
-        <button class="btn buttonStyleLogin" onclick="window.open('Home/Login')">Login</button>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light text-center">
+    <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse " id="navbarText">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item m-2" style="font-size:14px; ">
+                <a class="btn buttonStyleLogin" style="color:#008080" onclick="window.open('Home/Login')">Login</a>
+            </li>
+            <li class="nav-item m-2" style="font-size:14px;">
+                <a class="btn buttonStyleSignIn" style="color:#008080" onclick="window.open('Home/SignUp')">Sign Up</a>
+            </li>
+        </ul>
     </div>
-</div>
-
-<div class="container">
-    <div class="mt-sm-4">
-        <div class="text-center">
-            <img src="~/images/StreamWorkLogo (2).png" width="317" height="83" />         
-                <p><font size="3"><i>online livestream tutoring</i></font></p>
-                <div class="mt-sm-4">
-                    <p><font size="3"><b>I'm a student and I need help with...</b></font></p>
-                </div>
-            <div class="col-xs-3"></div>
-            <div class="col-xs-6 btn-group">
-                <div class="mr-3">
-                    <button class="btn buttonStyle" onclick="window.open('Home/Math')">MATHEMATICS</button>
-                </div>
-                <div class="mr-3">
-                    <button class="btn buttonStyle" onclick="window.open('Home/Literature')">LITERATURE</button>
-                </div>
-                <div class="mr-3">
-                    <button class="btn buttonStyle" onclick="window.open('Home/Engineering')">ENGINEERING</button>
-                </div>
-                <div class="mr-3">
-                    <button class="btn buttonStyle" onclick="window.open('Home/DesignArt')">DESIGN & ART</button>
-                </div>
-            </div>
-
-            <div class="pt-3">
-                <div class="col-xs-3"></div>
-                <div class="col-xs-6 btn-group">
-
-                    <div class="mr-3">
-                        <button class="btn buttonStyle" onclick="window.open('Home/Science')">SCIENCE</button>
-                    </div>
-                    <div class="mr-3">
-                        <button class="btn buttonStyle" onclick="window.open('Home/Business')">BUSINESS</button>
-                    </div>
-                    <div class="mr-3">
-                        <button class="btn buttonStyle" onclick="window.open('Home/Programming')">PROGRAMMING</button>
-                    </div>
-                    <div class="mr-3">
-                        <button class="btn buttonStyle" onclick="window.open('Home/Other')">OTHERS...</button>
-                    </div>
-
-                </div>
-            </div>
-            <h1><font size="3"><b>I'm a tutor and I would like to help other students by</b> </font></h1>
-            <button class=" btn buttonStyletutor">STARTING A BROADCAST</button>
-            <div class="mt-4">
-                <p style="font-size:11px;">
-                    Made for ASU Tempe Undergrads,
-                    StreamWork is an online educational platform which <br />provides interactive peer-to-peer teaching and tutoring through livestream sessions.<br />
-                    Unlike mega-corporations like Youtube and Twitch which provide non-educational<br /> focused streaming among other things.
-
-                </p>              
-                    <button class="btn buttonStyleLearning">Learn more about StreamWork</button>
-            </div>
-        </div>
-         <div class=" text-left fixed-bottom ">
-                <div class="col-sm-12 ">
-                    <p><font size="1">Copyright 2017-2018 StreamWork Inc. All rights reserved</font></p>
-                </div>
-            </div>
+</nav>
+<section class="jumbotron text-center" style="background-color:white">
+    <div class="container">
+        <img src="~/images/StreamWorkLogo (2).png" width="317" height="83" />
+        <p><font size="3"><i>online livestream tutoring</i></font></p>
+        <p><font size="3"><b>I'm a student and I need help with...</b></font></p>
+        <p>
+            <a href="#" class="btn buttonStyle m-1" onclick="window.open('Home/Math')">MATHEMATICS</a>
+            <a href="#" class="btn buttonStyle m-1" onclick="window.open('Home/Literature')">LITERATURE</a>
+            <a href="#" class="btn buttonStyle m-1" onclick="window.open('Home/Engineering')">ENGINEERING</a>
+            <a href="#" class="btn buttonStyle m-1" onclick="window.open('Home/DesignArt')">DESIGN & ART</a>
+        </p>
+        <p>
+            <a href="#" class="btn buttonStyle m-1" onclick="window.open('Home/Science')">SCIENCE</a>
+            <a href="#" class="btn buttonStyle m-1" onclick="window.open('Home/Business')">BUSINESS</a>
+            <a href="#" class="btn buttonStyle m-1" onclick="window.open('Home/Programming')">PROGRAMMING</a>
+            <a href="#" class="btn buttonStyle m-1" onclick="window.open('Home/Other')">OTHERS...</a>
+        </p>
+        <h1><font size="3"><b>I'm a tutor and I would like to help other students by</b> </font></h1>
+        <a href="#" class=" btn buttonStyletutor">STARTING A BROADCAST</a>
+        <p style="font-size:11px" class="mt-4">
+            Made for ASU Tempe Undergrads,
+            StreamWork is an online educational platform which <br />provides interactive peer-to-peer teaching and tutoring through livestream sessions.<br />
+            Unlike mega-corporations like Youtube and Twitch which provide non-educational<br /> focused streaming among other things.
+        </p>
+        <p class="float-left">
+            <font size="1">Copyright 2017-2018 StreamWork Inc. All rights reserved</font>
+        </p>
     </div>
-</div>
+</section>
+
+
+
+
+
+
+

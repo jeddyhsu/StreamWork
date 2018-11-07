@@ -13,9 +13,10 @@ namespace StreamWork.Controllers
 {
     public class HomeController : Controller
     {
+       
         String connectionString = "Data Source=RITHVIK-LAPTOP\\RITHVIKSSQL;Initial Catalog=StreamWorkSignIn;Integrated Security=True";
         public IActionResult Index()
-        {
+        {   
             return View();
         }
 
