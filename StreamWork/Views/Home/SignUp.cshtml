@@ -1,68 +1,27 @@
 @{ViewData["title"] = "Sign Up";}
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <img src="~/images/StreamWorkLogo (2).png" width="250" height="70" onclick="window.location.href='/'" />
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item ml-sm-3" style="font-size:14px;">
-                <a class="nav-link" href="#" style="color:#008080;">Browse by Subjects</a>
-            </li>
-            <li class="nav-item ml-sm-3" style="font-size:14px;">
-                <a class="nav-link" href="#" style="color:#008080;">Find Tutors</a>
-            </li>
-            <li class="nav-item ml-sm-3" style="font-size:14px;">
-                <a class="nav-link" href="#" style="color:#008080;">Popular Livestreams</a>
-            </li>
-            <li class="nav-item ml-sm-3" style="font-size:14px; ">
-                <a class="nav-link" href="#" style="color:#008080;">Become a Tutor</a>
-            </li>
-            <li class="nav-item ml-sm-3" style="font-size:14px;">
-                <a class="nav-link" href="#" style="color:#008080;">About StreamWork</a>
-            </li>
-        </ul>
-        <span class="navbar-text">
-            <a class="ml-sm-3 float-right">Johnny Appleseed</a>
-            <br />
-            <a class="ml-sm-3 float-right">#student</a>
-        </span>
-        <span class="dot ml-sm-3"></span>
-    </div>
-</nav>
-<div class="container-fluid">
-    <div class="my-5">
-        <div class="row">
-            <div class="col-sm-3"></div>
-            <div class="col-sm-6" style="background-color:#F8F9FA; border-radius: 16px">
-                <div class="my-1">
-                    <center>
-                        <br>
-                        <h1>Sign Up</h1> <br>
-                        <form>
-                            <input type="text" id="nameFirst" placeholder="First Name"> &nbsp; &nbsp;
-                            <input type="text" id="nameLast" placeholder="Last Name"> <br> <br>
-                            <input type="text" id="email" placeholder="Email Address" size="45"> <br> <br>
-                            <input type="text" id="phone" placeholder="Phone Number" size="45"> <br> <br>
-                            <input type="text" id="username" placeholder="username" size="45"> <br> <br>
-                            <input type="password" id="password" placeholder="Password" size="45"> <br> <br>
-                            <input type="password" id="passwordConfirm" placeholder="Reenter Password" size="45"> <br> <br>
-                            <strong>Login Type:</strong> &nbsp; &nbsp; &nbsp;
-                            <select id="role">
-                                <option value="student">Student</option>
-                                <option value="tutor">Tutor</option>
-                            </select> <br> <br>
-                            <input type="button" value="SignUp" onclick="SignUp()"> <br> <br>
-                        </form>
-                    </center>
-                </div>
-            </div>
-            <div class="col-sm-3"></div>
-        </div>
-    </div>
+<br />
+<br />
+<br />
+<div class=" text-center">
+    <form class="form-sign">
+        <img src="~/images/StreamWorkLogo (2).png" width="250" height="70" onclick="window.location.href='/'" />
+        <h1>Sign Up</h1> <br>
+        <input type="text" class="form-control" id="nameFirst" placeholder="First Name"><br>
+        <input type="text" class="form-control" id="nameLast" placeholder="Last Name"> <br>
+        <input type="text" class="form-control" id="email" placeholder="Email Address" size="45"> <br> 
+        <input type="text" class="form-control" id="phone" placeholder="Phone Number" size="45"> <br> 
+        <input type="text" class="form-control" id="username" placeholder="Username" size="45"> <br> 
+        <input type="password" class="form-control" id="password" placeholder="Password" size="45"><br> 
+        <input type="password" class="form-control" id="passwordConfirm" placeholder="Reenter Password" size="45"> <br> <br>
+        <strong>Login Type:</strong> &nbsp; &nbsp; &nbsp;
+        <select id="role">
+            <option value="student">Student</option>
+            <option value="tutor">Tutor</option>
+        </select> <br> <br>
+        <input type="button"  class="btn btn-block" value="SignUp" onclick="SignUp()" style="background-color:#008080; color: white"> <br> <br>
+    </form>
 </div>
-
 <script>
     function SignUp() {
         $.ajax({
