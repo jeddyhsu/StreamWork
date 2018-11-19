@@ -184,11 +184,18 @@
 .break{
     word-wrap:break-word;
 }
+.test {
+    width: 270px;
+    height: 320px;
+    background-color: yellow;
+}
 .dot2 {
-    height: 55px;
-    width: 75px;
-    background-color: #bbb;
+    height: 85px;
+    width: 125px;
+    border: 1px solid;
+    border-color: #000000;
     border-radius: 50%;
+    align-items: center;
 }
 .dot3 {
     height: 55px;
