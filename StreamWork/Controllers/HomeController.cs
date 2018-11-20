@@ -145,7 +145,7 @@ namespace StreamWork.Controllers
 
 
                         forJson = "Welcome";
-                        connection.Close();
+                        
                     }
                     else
                     {
@@ -160,10 +160,11 @@ namespace StreamWork.Controllers
                 {
                     connection.Close();
                 }
+                
             }
 
-
             return Json(new { Message = forJson });
+
 
         }
 
