@@ -57,16 +57,16 @@ namespace StreamWork.Controllers
         }
         [HttpPost]
        
-        public IActionResult SignUp([FromServices] IConfiguration config, string nameFirst, string nameLast, string email, int phone, string username, string password, string passwordConfirm)
+        public IActionResult SignUp([FromServices] IConfiguration config, string nameFirst, string nameLast, string email, string phone, string username, string password, string passwordConfirm)
         {
            
             String a = "";
             using (SqlConnection connection = new SqlConnection(config["SQLConnectionString"]))
             {
+                connection.Open();
                 if (connection.State == ConnectionState.Open)
                 {
-                    connection.Open();
-                    SqlCommand sqlCommand = new SqlCommand("SELECT COUNT(*) FROM SignUp WHERE Username = @Username", connection);
+                    SqlCommand sqlCommand = new SqlCommand("SELECT COUNT(*) FROM LoginInfo WHERE Username = @Username", connection);
                     sqlCommand.Parameters.AddWithValue("@Username", username);
                     int num = (int)sqlCommand.ExecuteScalar();
                     if (num > 0)
@@ -79,7 +79,7 @@ namespace StreamWork.Controllers
                         {
                             if (password.Equals(passwordConfirm))
                             {
-                                String query = "INSERT INTO SignUp(FirstName,LastName,Email,PhoneNumber,Username,Password)";
+                                String query = "INSERT INTO LoginInfo(FirstName,LastName,Email,PhoneNumber,Username,Password)";
                                 query += "VALUES (@FirstName,@LastName,@Email,@PhoneNumber,@Username,@Password)";
                                 SqlCommand cmd = new SqlCommand(query, connection);
                                 cmd.Parameters.AddWithValue("@FirstName", nameFirst);
@@ -132,7 +132,7 @@ namespace StreamWork.Controllers
                 try
                 {
                     connection.Open();
-                    String loginQuery = "SELECT COUNT(*) FROM SignUp WHERE Username = @Username AND Password = @Password";
+                    String loginQuery = "SELECT COUNT(*) FROM LoginInfo WHERE Username = @Username AND Password = @Password";
                     SqlCommand loginCommand = new SqlCommand(loginQuery, connection);
                     loginCommand.Parameters.AddWithValue("@Username", username);
                     loginCommand.Parameters.AddWithValue("@Password", password);
@@ -184,7 +184,7 @@ namespace StreamWork.Controllers
 
                 connection.Open();
                 var user = HttpContext.Session.GetString("UserProfile");
-                String loginQuery = "SELECT FirstName, LastName FROM SignUp WHERE Username = @Username";
+                String loginQuery = "SELECT FirstName, LastName FROM LoginInfo WHERE Username = @Username";
                 SqlCommand loginCommand = new SqlCommand(loginQuery, connection);
                 loginCommand.Parameters.AddWithValue("@Username", user);
                 var reader = loginCommand.ExecuteReader();
