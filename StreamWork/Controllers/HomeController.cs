@@ -1,24 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StreamWork.Models;
-using System.Data;
 using System.Data.SqlClient;
-using System.Text;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using StreamWork.Base;
+using StreamWork.Core;
+using StreamWork.Config;
+using System.Collections.Generic;
+using Microsoft.Extensions.Options;
 
 namespace StreamWork.Controllers
 {
     public class HomeController : Controller
     {
-       
-        //String connectionString = "Data Source=RITHVIK-LAPTOP\\RITHVIKSSQL;Initial Catalog=StreamWorkSignIn;Integrated Security=True";
+
+        private readonly string _connectionString = "Data Source=localhost;Initial Catalog=Streamwork;Integrated Security=false;User=SA;Password=Streamwork2018";
+
         public IActionResult Index()
-        {   
+        {
             return View();
         }
 
@@ -26,179 +28,123 @@ namespace StreamWork.Controllers
         {
             return View();
         }
+
         public IActionResult Literature()
         {
             return View();
         }
+
         public IActionResult Engineering()
         {
             return View();
         }
+
         public IActionResult DesignArt()
         {
             return View();
         }
+
         public IActionResult Science()
-        {
-           
+        {   
             return View();
         }
+
         public IActionResult Business()
         {
             return View();
         }
+
         public IActionResult Programming()
         {
             return View();
         }
+
         public IActionResult Other()
         {
             return View();
         }
-        [HttpPost]
-       
-        public IActionResult SignUp([FromServices] IConfiguration config, string nameFirst, string nameLast, string email, string phone, string username, string password, string passwordConfirm)
+
+        [HttpPost]      
+        public async Task<IActionResult> SignUp( [FromServices] IOptionsSnapshot<StorageConfig> storageConfig, 
+                                                string nameFirst, string nameLast, string email, string phone, string username, string password, string passwordConfirm)
         {
-           
-            String a = "";
-            using (SqlConnection connection = new SqlConnection(config["SQLConnectionString"]))
+            string confirmation = "";
+            StreamWorkSignUp signUpProflie = new StreamWorkSignUp
             {
-                connection.Open();
-                if (connection.State == ConnectionState.Open)
-                {
-                    SqlCommand sqlCommand = new SqlCommand("SELECT COUNT(*) FROM LoginInfo WHERE Username = @Username", connection);
-                    sqlCommand.Parameters.AddWithValue("@Username", username);
-                    int num = (int)sqlCommand.ExecuteScalar();
-                    if (num > 0)
-                    {
-                        Console.WriteLine("Username already exsists");
-                        a = "Error";
-                    }
-                    else
-                    {
-                        {
-                            if (password.Equals(passwordConfirm))
-                            {
-                                String query = "INSERT INTO LoginInfo(FirstName,LastName,Email,PhoneNumber,Username,Password)";
-                                query += "VALUES (@FirstName,@LastName,@Email,@PhoneNumber,@Username,@Password)";
-                                SqlCommand cmd = new SqlCommand(query, connection);
-                                cmd.Parameters.AddWithValue("@FirstName", nameFirst);
-                                cmd.Parameters.AddWithValue("@LastName", nameLast);
-                                cmd.Parameters.AddWithValue("@Email", email);
-                                cmd.Parameters.AddWithValue("@PhoneNumber", phone);
-                                cmd.Parameters.AddWithValue("@Username", username);
-                                cmd.Parameters.AddWithValue("@Password", password);
-
-                                cmd.ExecuteNonQuery();
-                                a = "Sucsess";
-                                connection.Close();
-                            }
-                            else
-                            {
-                                a = "Wrong confirmPassword";
-                            }
-
-                        }
-
-                    }
-
-
-
-                }
-
-
-
-
+               Id = Guid.NewGuid().ToString(),
+                Name = nameFirst + "|" + nameLast,
+                EmailAddress = email,
+                PhoneNumber = phone,
+                Username = username,
+                Password = password,
+            };
+            var checkCurrentUsers = await DataStore.GetListAsync<StreamWorkSignUp>(_connectionString, storageConfig.Value, "AllSignedUpUsers", new List<string> { username });
+            int numberOfUsers = 0;
+            foreach(var user in checkCurrentUsers)
+            {
+                numberOfUsers++;
             }
-            return Json(new { Message = a });
-
-         
-            
-            
-            
+            if (numberOfUsers != 0)
+                confirmation = "Username already exsists";
+            else if (password != passwordConfirm)
+                confirmation = "Wrong Password";
+            else
+            {
+                var success = await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", signUpProflie.Id } }, signUpProflie);
+                confirmation = "Success";
+            }
+            return Json(new { Message = confirmation });
         }
+
         [HttpGet]
         public IActionResult SignUp()
         {
-
             return View();
         }
+
         [HttpPost]
-        public IActionResult Login([FromServices] IConfiguration config , string username, string password)
+        public async Task<IActionResult> Login([FromServices] IOptionsSnapshot<StorageConfig> storageConfig , string username, string password)
         {
-            String forJson = "";
-            using (SqlConnection connection = new SqlConnection(config["SQLConnectionString"]))
+            string confirmation = "";
+            if (storageConfig != null)
             {
-                try
+                int user = 0;
+                var checkforUser = await DataStore.GetListAsync<StreamWorkSignUp>(_connectionString, storageConfig.Value, "AllSignedUpUsers", new List<string> { username, password });
+                foreach (var u in checkforUser)
                 {
-                    connection.Open();
-                    String loginQuery = "SELECT COUNT(*) FROM LoginInfo WHERE Username = @Username AND Password = @Password";
-                    SqlCommand loginCommand = new SqlCommand(loginQuery, connection);
-                    loginCommand.Parameters.AddWithValue("@Username", username);
-                    loginCommand.Parameters.AddWithValue("@Password", password);
-
-                    int val = (int)loginCommand.ExecuteScalar();
-
-                    if (val > 0)
-                    {
-                        HttpContext.Session.SetString("UserProfile", username);
-
-
-                        forJson = "Welcome";
-                        
-                    }
-                    else
-                    {
-                        forJson = "Error";
-                    }
+                    user++;
                 }
-                catch (Exception ex)
+                if (user ==1)
                 {
-
-                }
-                finally
-                {
-                    connection.Close();
-                }
-                
+                    confirmation = "Welcome";
+                    HttpContext.Session.SetString("UserProfile", username);
+                }             
+            }
+            else
+            {
+                confirmation = "Wrong Password or Username ";
             }
 
-            return Json(new { Message = forJson });
-
-
+            return Json(new { Message = confirmation });
         }
 
         [HttpGet]
         public IActionResult Login()
-        {
-          
+        {     
             return View();
-
         }
 
-        public IActionResult Profile([FromServices] IConfiguration config)
+        public async Task<IActionResult> Profile([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
             var model = new UserProfile();
-            using (SqlConnection connection = new SqlConnection(config["SQLConnectionString"]))
+            var user = HttpContext.Session.GetString("UserProfile");
+            var getUserInfo = await DataStore.GetListAsync<StreamWorkSignUp>(_connectionString, storageConfig.Value, "GetUserInfo", new List<string> { user});
+            foreach (var u in getUserInfo)
             {
-
-                connection.Open();
-                var user = HttpContext.Session.GetString("UserProfile");
-                String loginQuery = "SELECT FirstName, LastName FROM LoginInfo WHERE Username = @Username";
-                SqlCommand loginCommand = new SqlCommand(loginQuery, connection);
-                loginCommand.Parameters.AddWithValue("@Username", user);
-                var reader = loginCommand.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-
-                        model.FirstName = reader.GetString(0);
-                        model.LastName = reader.GetString(1);
-                    }
-                }
+                var splitName = u.Name.Split(new char[] { '|' });
+                model.FirstName = splitName[0];
+                model.LastName = splitName[1];
             }
-           
             return View(model);
         }
        

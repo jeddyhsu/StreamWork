@@ -8,7 +8,7 @@ namespace StreamWork.Controllers
 {
     public class StreamViewsController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index( )
         {
             return View();
         }
