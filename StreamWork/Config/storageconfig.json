@@ -1,0 +1,24 @@
+﻿{
+    "EntityModels": [
+
+        {
+            "Name": "StreamWorkSignUp",
+            "StorageType": "SqlServer",
+            "Queries": [
+                {
+                    "Query": "SELECT * FROM [dbo].[StreamWorkSignUp] WHERE Username = '@x0'",
+                    "QueryId": "AllSignedUpUsers"
+                },
+
+              {
+                "Query": "SELECT * FROM [dbo].[StreamWorkSignUp] WHERE Username = '@x0' AND Password = '@x1'",
+                "QueryId": "AllSignedUpUsers"
+              },
+              {
+                "Query": "SELECT * FROM [dbo].[StreamWorkSignUp] WHERE Username = '@x0'",
+                "QueryId": "GetUserInfo"
+              }
+            ]
+        }
+    ]
+}
