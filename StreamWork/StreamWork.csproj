@@ -21,8 +21,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Config\storageconfig.json" />
+    <Content Remove="wwwroot\lib\bootstrap-4\css\bootstrap.css" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Config\storageconfig.json" />
+    <None Include="Config\storageconfig.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>
