@@ -12,7 +12,7 @@
 
               {
                 "Query": "SELECT * FROM [dbo].[StreamWorkSignUp] WHERE Username = '@x0' AND Password = '@x1'",
-                "QueryId": "AllSignedUpUsers"
+                "QueryId": "AllSignedUpUsers1"
               },
               {
                 "Query": "SELECT * FROM [dbo].[StreamWorkSignUp] WHERE Username = '@x0'",
