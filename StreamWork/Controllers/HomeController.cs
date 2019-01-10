@@ -66,17 +66,18 @@ namespace StreamWork.Controllers
 
         [HttpPost]      
         public async Task<IActionResult> SignUp( [FromServices] IOptionsSnapshot<StorageConfig> storageConfig, 
-                                                string nameFirst, string nameLast, string email, string phone, string username, string password, string passwordConfirm)
+                                                string nameFirst, string nameLast, string email, string phone, string username, string password, string passwordConfirm, string role)
         {
             string confirmation = "";
             StreamWorkSignUp signUpProflie = new StreamWorkSignUp
             {
-               Id = Guid.NewGuid().ToString(),
+                Id = Guid.NewGuid().ToString(),
                 Name = nameFirst + "|" + nameLast,
                 EmailAddress = email,
                 PhoneNumber = phone,
                 Username = username,
                 Password = password,
+                ProfileType = role
             };
             var checkCurrentUsers = await DataStore.GetListAsync<StreamWorkSignUp>(_connectionString, storageConfig.Value, "AllSignedUpUsers", new List<string> { username });
             int numberOfUsers = 0;
@@ -109,7 +110,7 @@ namespace StreamWork.Controllers
             if (storageConfig != null)
             {
                 int user = 0;
-                var checkforUser = await DataStore.GetListAsync<StreamWorkSignUp>(_connectionString, storageConfig.Value, "AllSignedUpUsers", new List<string> { username, password });
+                var checkforUser = await DataStore.GetListAsync<StreamWorkSignUp>(_connectionString, storageConfig.Value, "AllSignedUpUsers1", new List<string> { username, password });
                 foreach (var u in checkforUser)
                 {
                     user++;
