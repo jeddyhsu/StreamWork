@@ -14,7 +14,9 @@ namespace StreamWork.Controllers
     public class HomeController : Controller
     {
 
-        private readonly string _connectionString = "Server=tcp:streamwork.database.windows.net,1433;Initial Catalog=YoutubeStreamKeys;Persist Security Info=False;User ID=streamwork;Password=getshitdone0!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        private readonly string _connectionStringYoutube = "Server=tcp:streamwork.database.windows.net,1433;Initial Catalog=YouTubeStreamKeys;Persist Security Info=False;User ID=streamwork;Password=arizonastate1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        private readonly string _connectionStringSignIn = "Server=tcp:streamwork.database.windows.net,1433;Initial Catalog=StreamWorkSignUp;Persist Security Info=False;User ID=streamwork;Password=arizonastate1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+
 
         public IActionResult Index()
         {
@@ -23,7 +25,7 @@ namespace StreamWork.Controllers
         [HttpGet]
         public async Task<IActionResult> Math([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
-            var getAllStreams = await DataStore.GetListAsync<YoutubeStreamKeys>(_connectionString, storageConfig.Value, "AllStreamKeys", new List<string> { });
+            var getAllStreams = await DataStore.GetListAsync<YoutubeStreamKeys>(_connectionStringYoutube, storageConfig.Value, "AllStreamKeys", new List<string> { });
             return View(getAllStreams);
         }
    
@@ -77,7 +79,7 @@ namespace StreamWork.Controllers
                 Password = password,
                 ProfileType = role
             };
-            var checkCurrentUsers = await DataStore.GetListAsync<StreamWorkSignUp>(_connectionString, storageConfig.Value, "AllSignedUpUsers", new List<string> { username });
+            var checkCurrentUsers = await DataStore.GetListAsync<StreamWorkSignUp>(_connectionStringSignIn, storageConfig.Value, "AllSignedUpUsers", new List<string> { username });
             int numberOfUsers = 0;
             foreach(var user in checkCurrentUsers)
             {
@@ -89,7 +91,7 @@ namespace StreamWork.Controllers
                 confirmation = "Wrong Password";
             else
             {
-                var success = await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", signUpProflie.Id } }, signUpProflie);
+                var success = await DataStore.SaveAsync(_connectionStringSignIn, storageConfig.Value, new Dictionary<string, object> { { "Id", signUpProflie.Id } }, signUpProflie);
                 confirmation = "Success";
             }
             return Json(new { Message = confirmation });
@@ -108,7 +110,7 @@ namespace StreamWork.Controllers
             if (storageConfig != null)
             {
                 int user = 0;
-                var checkforUser = await DataStore.GetListAsync<StreamWorkSignUp>(_connectionString, storageConfig.Value, "AllSignedUpUsers1", new List<string> { username, password });
+                var checkforUser = await DataStore.GetListAsync<StreamWorkSignUp>(_connectionStringSignIn, storageConfig.Value, "AllSignedUpUsers1", new List<string> { username, password });
                 foreach (var u in checkforUser)
                 {
                     if(u.Password == password && u.Username == username)
@@ -140,7 +142,7 @@ namespace StreamWork.Controllers
         {
             var model = new UserProfile();
             var user = HttpContext.Session.GetString("UserProfile");
-            var getUserInfo = await DataStore.GetListAsync<StreamWorkSignUp>(_connectionString, storageConfig.Value, "GetUserInfo", new List<string> {user});
+            var getUserInfo = await DataStore.GetListAsync<StreamWorkSignUp>(_connectionStringSignIn, storageConfig.Value, "GetUserInfo", new List<string> {user});
             foreach (var u in getUserInfo)
             {
                 var splitName = u.Name.Split(new char[] { '|' });
@@ -155,7 +157,7 @@ namespace StreamWork.Controllers
         {
             var model = new UserProfile();
             var user = HttpContext.Session.GetString("UserProfile");
-            var getUserInfo = await DataStore.GetListAsync<StreamWorkSignUp>(_connectionString, storageConfig.Value, "GetUserInfo", new List<string> { user });
+            var getUserInfo = await DataStore.GetListAsync<StreamWorkSignUp>(_connectionStringSignIn, storageConfig.Value, "GetUserInfo", new List<string> { user });
             foreach (var u in getUserInfo)
             {
                 var splitName = u.Name.Split(new char[] { '|' });
@@ -174,7 +176,7 @@ namespace StreamWork.Controllers
                 Username = HttpContext.Session.GetString("UserProfile"),
                 StreamKey = streamKey
             };
-            var success = await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", key.Id } }, key);
+            var success = await DataStore.SaveAsync(_connectionStringYoutube, storageConfig.Value, new Dictionary<string, object> { { "Id", key.Id } }, key);
             return View();
         }
 
