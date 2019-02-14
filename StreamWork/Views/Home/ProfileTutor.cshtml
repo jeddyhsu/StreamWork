@@ -1,0 +1,89 @@
+﻿@model StreamWork.Models.UserProfile
+
+@{
+    ViewData["Title"] = "ProfileTutor";
+}
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <img src="~/images/Stream.png" width="250" height="70" onclick="window.open('/')" />
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item ml-sm-3" style="font-size:14px;">
+                    <a class="nav-link" href="#" style="color:#008080;">Browse by Subjects</a>
+                </li>
+                <li class="nav-item ml-sm-3" style="font-size:14px;">
+                    <a class="nav-link" href="#" style="color:#008080;">Find Tutors</a>
+                </li>
+                <li class="nav-item ml-sm-3" style="font-size:14px;">
+                    <a class="nav-link" href="#" style="color:#008080;">Popular Livestreams</a>
+                </li>
+                <li class="nav-item ml-sm-3" style="font-size:14px; ">
+                    <a class="nav-link" href="#" style="color:#008080;">Become a Tutor</a>
+                </li>
+                <li class="nav-item ml-sm-3" style="font-size:14px;">
+                    <a class="nav-link" href="#" style="color:#008080;">About StreamWork</a>
+                </li>
+            </ul>
+            <span class="navbar-text">
+                <a class="ml-sm-3 float-right">@Model.FirstName @Model.LastName</a>
+                <br />
+                <a class="ml-sm-3 float-right">#student</a>
+            </span>
+            <span class="dot ml-sm-3"></span>
+        </div>
+    </nav>
+    <button type="button" onclick="myFunction()" class="btn btn-info btn-lg" data-toggle="modal" data-target="#youtubeStreamKeyPopup">Open Modal</button>
+
+    <!-- Modal -->
+    <div id="youtubeStreamKeyPopup" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Youtube Stream Key</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <label>Enter Youtube Stream Key:</label>
+                    <input id="StreamKey" type="text" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" onclick="YoutubeStreamKey()">Start Broadcast</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    function myFunction(){
+        $('#youtubeStreamKeyPopup').modal('show')
+    }
+
+    function YoutubeStreamKey(){
+     $.ajax({
+            url: '/Home/ProfileTutor',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                'StreamKey': $("#StreamKey").val(),
+            },
+            success: function (data) {
+                if (data.message === "Welcome") {
+
+                    window.location.href = '/Home/ProfileTutor';
+                }
+                else {
+
+                    alert("Broadcast Failed to Start");
+                }
+
+            }
+
+
+        });
+    }
+</script>

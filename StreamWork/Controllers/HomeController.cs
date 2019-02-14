@@ -3,10 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StreamWork.Models;
-using System.Data.SqlClient;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
-using StreamWork.Base;
 using StreamWork.Core;
 using StreamWork.Config;
 using System.Collections.Generic;
@@ -17,18 +14,19 @@ namespace StreamWork.Controllers
     public class HomeController : Controller
     {
 
-        private readonly string _connectionString = "Data Source=localhost;Initial Catalog=Streamwork;Integrated Security=false;User=SA;Password=Streamwork2018";
+        private readonly string _connectionString = "Server=tcp:streamwork.database.windows.net,1433;Initial Catalog=YoutubeStreamKeys;Persist Security Info=False;User ID=streamwork;Password=getshitdone0!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
         public IActionResult Index()
         {
             return View();
         }
-
-        public IActionResult Math()
+        [HttpGet]
+        public async Task<IActionResult> Math([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
-            return View();
+            var getAllStreams = await DataStore.GetListAsync<YoutubeStreamKeys>(_connectionString, storageConfig.Value, "AllStreamKeys", new List<string> { });
+            return View(getAllStreams);
         }
-
+   
         public IActionResult Literature()
         {
             return View();
@@ -65,7 +63,7 @@ namespace StreamWork.Controllers
         }
 
         [HttpPost]      
-        public async Task<IActionResult> SignUp( [FromServices] IOptionsSnapshot<StorageConfig> storageConfig, 
+        public async Task<IActionResult> SignUp([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, 
                                                 string nameFirst, string nameLast, string email, string phone, string username, string password, string passwordConfirm, string role)
         {
             string confirmation = "";
@@ -113,9 +111,12 @@ namespace StreamWork.Controllers
                 var checkforUser = await DataStore.GetListAsync<StreamWorkSignUp>(_connectionString, storageConfig.Value, "AllSignedUpUsers1", new List<string> { username, password });
                 foreach (var u in checkforUser)
                 {
-                    user++;
+                    if(u.Password == password && u.Username == username)
+                    {
+                        user++;
+                    }
                 }
-                if (user ==1)
+                if (user == 1)
                 {
                     confirmation = "Welcome";
                     HttpContext.Session.SetString("UserProfile", username);
@@ -135,11 +136,11 @@ namespace StreamWork.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Profile([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        public async Task<IActionResult> ProfileStudent([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
             var model = new UserProfile();
             var user = HttpContext.Session.GetString("UserProfile");
-            var getUserInfo = await DataStore.GetListAsync<StreamWorkSignUp>(_connectionString, storageConfig.Value, "GetUserInfo", new List<string> { user});
+            var getUserInfo = await DataStore.GetListAsync<StreamWorkSignUp>(_connectionString, storageConfig.Value, "GetUserInfo", new List<string> {user});
             foreach (var u in getUserInfo)
             {
                 var splitName = u.Name.Split(new char[] { '|' });
@@ -148,7 +149,35 @@ namespace StreamWork.Controllers
             }
             return View(model);
         }
-       
+
+        [HttpGet]
+        public async Task<IActionResult> ProfileTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
+            var model = new UserProfile();
+            var user = HttpContext.Session.GetString("UserProfile");
+            var getUserInfo = await DataStore.GetListAsync<StreamWorkSignUp>(_connectionString, storageConfig.Value, "GetUserInfo", new List<string> { user });
+            foreach (var u in getUserInfo)
+            {
+                var splitName = u.Name.Split(new char[] { '|' });
+                model.FirstName = splitName[0];
+                model.LastName = splitName[1];
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ProfileTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamKey)
+        {
+            YoutubeStreamKeys key = new YoutubeStreamKeys
+            {
+                Id = Guid.NewGuid().ToString(),
+                Username = HttpContext.Session.GetString("UserProfile"),
+                StreamKey = streamKey
+            };
+            var success = await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", key.Id } }, key);
+            return View();
+        }
+
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
