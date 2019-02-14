@@ -1,88 +1,50 @@
-﻿
+﻿@model string 
+
 @{
     ViewData["Title"] = "MathStream";
 }
 <div style="font-family:'Roboto', sans-serif;">
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <img src="~/images/StreamWorkLogo (2).png" width="250" height="70" onclick="window.location.href='/'" />
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item ml-sm-3" style="font-size:14px;">
-                <a class="nav-link" href="#" style="color:#008080;">Browse by Subjects</a>
-            </li>
-            <li class="nav-item ml-sm-3" style="font-size:14px;">
-                <a class="nav-link" href="#" style="color:#008080;">Find Tutors</a>
-            </li>
-            <li class="nav-item ml-sm-3" style="font-size:14px;">
-                <a class="nav-link" href="#" style="color:#008080;">Popular Livestreams</a>
-            </li>
-            <li class="nav-item ml-sm-3" style="font-size:14px; ">
-                <a class="nav-link" href="#" style="color:#008080;">Become a Tutor</a>
-            </li>
-            <li class="nav-item ml-sm-3" style="font-size:14px;">
-                <a class="nav-link" href="#" style="color:#008080;">About StreamWork</a>
-            </li>
-        </ul>
-        <span class="navbar-text">
-            <a class="ml-sm-3 float-right">Johnny Appleseed</a>
-            <br />
-            <a class="ml-sm-3 float-right">#student</a>
-        </span>
-        <span class="dot ml-sm-3"></span>
-    </div>
-</nav>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-8 ">
-            <div class="row">
-                <iframe class="col-lg-12 col-md-12 col-sm-12" src="https://www.youtube.com/embed/Ocoh4kUfWbU" frameborder="0" height="580"></iframe>
-            </div>
-            <div class="row">
-                <div class="col-sm-12 mt-sm-4 text-center">
-                    <h1>"Can I square root a negative number?"</h1>
-                    <div class="btn-group mt-sm-3">
-                        <button class="mr-sm-5 btn buttonStyle24">Solved! You're helpful.</button>
-                        <button class="ml-sm-5 btn buttonStyleLogin24">Didn't get it. Explain again?</button>
-
-                    </div>
-                </div>
-            </div>
+    <nav class="navbar navbar-expand-lg  text-center" style="position:fixed;z-index:2 ;width:100%;background-color:#008080">
+        <img src="~/images/WhiteStreamWork.png" width="250" height="70" onclick="window.location.href='/'" />
+        <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item ml-sm-3" style="font-size:14px;">
+                    <a class="nav-link" href="#" style="color:white;">Browse by Subjects</a>
+                </li>
+                <li class="nav-item ml-sm-3" style="font-size:14px;">
+                    <a class="nav-link" href="#" style="color:white;">Find Tutors</a>
+                </li>
+                <li class="nav-item ml-sm-3" style="font-size:14px;">
+                    <a class="nav-link" href="#" style="color:white;">Popular Livestreams</a>
+                </li>
+                <li class="nav-item ml-sm-3" style="font-size:14px; ">
+                    <a class="nav-link" href="#" style="color:white;">Become a Tutor</a>
+                </li>
+                <li class="nav-item ml-sm-3" style="font-size:14px;">
+                    <a class="nav-link" href="#" style="color:white;">About StreamWork</a>
+                </li>
+            </ul>
         </div>
-       
-
-
-        <div class="col-sm-4">
-            <h2 class="mt-sm-2">Calculus 2 Tutoring</h2>
-            <h6 class="mt-sm-3" style="font-size:12px">by Anika Stephannie</h6>
-            <h6 class="mt-sm-2">40,376 students in this classroom </h6>
-            <p style="font-size:12px" class=" float-left mt-sm-2">
-                As final week approaching, I would like to help you guys for Calculus I! Be sure to sub me for more math tutoring livestreams.
-            </p>
-            <br />
-            <br />
-            <br />
-            <hr />
-            <row >
-                <div class="col-sm-12 text-center">
-                    <button class="btn buttonStyle  ">Donate</button>
-                </div>
-            </row>
-            <h4>Chat</h4>
-            <p style="font-size:12px">If you saw a message that looks like a question, you can add this question to the queue.</p>
-            <input style="width:400px; height:246px; background-color:lightgray">
-            <br />
-            <br />
-            <input style="width:400px; height:125px; font-size: 10px;" placeholder="Respond to students here.">
-            <br />
-            <br />
-
-        </div>
+    </nav>
+    <div class="container-fluid">
         <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-9 p-2">
+                <div style="padding-top:115px">
+                    <iframe width="100%" height="700" src="https://www.youtube.com/embed/@Model" frameborder="1"></iframe>
+                </div>
+            </div>
 
+            <div class="col-sm-12 col-md-12 col-lg-3 p-2">
+                <div style="padding-top:115px">
+                    <h6>Stream Chat</h6>
+                    <iframe frameborder="1" width="100%" height="400" src="https://www.youtube.com/live_chat?v=@Model&embed_domain=www.streamwork.live"></iframe>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>
-</div>
+

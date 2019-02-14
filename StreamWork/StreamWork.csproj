@@ -7,6 +7,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.1" />
+    <PackageReference Include="bootstrap" Version="4.2.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,10 +19,24 @@
     <Folder Include="Config\" />
     <Folder Include="Core\" />
     <Folder Include="Framework\" />
+    <Folder Include="Views\Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Config\storageconfig.json" />
     <Content Remove="wwwroot\lib\bootstrap-4\css\bootstrap.css" />
+    <Content Remove="Views\Home\Profile.cshtml" />
+    <Content Remove="wwwroot\images\icons8-user-50.png" />
+    <Content Remove="wwwroot\images\ProfilePic.png" />
+    <Content Remove="wwwroot\images\icons8-user-50-2.png" />
+    <Content Remove="wwwroot\images\ProfilePic2.png" />
+    <Content Remove="wwwroot\lib\bootstrap-4\css\bootstrap.css.map" />
+    <Content Remove="wwwroot\lib\bootstrap-4\css\bootstrap.min.css" />
+    <Content Remove="wwwroot\lib\bootstrap-4\css\bootstrap-reboot.min.css.map" />
+    <Content Remove="wwwroot\images\imageedit_15_5343918953.png" />
+    <Content Remove="wwwroot\images\StreamWorkWhite.png" />
+    <Content Remove="wwwroot\images\imageedit_31_2697617907.png" />
+    <Content Remove="wwwroot\images\StreamWorkW.png" />
+    <Content Remove="wwwroot\images\Stream.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Config\storageconfig.json">

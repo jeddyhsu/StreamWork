@@ -9,6 +9,5 @@ namespace StreamWork.Models
     {
         public string FirstName { get; set; } //property
         public string LastName { get; set; }
-
     }
 }

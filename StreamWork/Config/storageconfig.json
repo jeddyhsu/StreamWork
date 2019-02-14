@@ -19,6 +19,17 @@
                 "QueryId": "GetUserInfo"
               }
             ]
-        }
+        },
+
+      {
+        "Name": "YoutubeStreamKeys",
+        "StorageType": "SqlServer",
+        "Queries": [
+          {
+            "Query": "SELECT * FROM [dbo].[YoutubeStreamKeys]",
+            "QueryId": "AllStreamKeys"
+          },
+        ]
+      }
     ]
 }

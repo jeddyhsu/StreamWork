@@ -12,8 +12,8 @@ namespace StreamWork.Core
 {
     public static class DataStore
     {
-        private static readonly string _databaseName = "Streamwork";
-        private static readonly string _collectionName = "Streamwork";
+        private static readonly string _databaseName = "StreamWorkLive";
+        private static readonly string _collectionName = "StreamWorkLive";
 
 
         /// <summary>
