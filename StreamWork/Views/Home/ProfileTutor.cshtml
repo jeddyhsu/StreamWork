@@ -29,14 +29,14 @@
                 </li>
             </ul>
             <span class="navbar-text">
-                <a class="ml-sm-3 float-right">@Model.FirstName @Model.LastName</a>
+                <a class="ml-sm-3 float-right"></a>
                 <br />
                 <a class="ml-sm-3 float-right">#student</a>
             </span>
             <span class="dot ml-sm-3"></span>
         </div>
     </nav>
-    <button type="button" onclick="myFunction()" class="btn btn-info btn-lg" data-toggle="modal" data-target="#youtubeStreamKeyPopup">Open Modal</button>
+    <button type="button" onclick="myFunction()" class="btn btn-info btn-lg" data-toggle="modal" data-target="#youtubeStreamKeyPopup">Start Broadcast</button>
 
     <!-- Modal -->
     <div id="youtubeStreamKeyPopup" class="modal fade" role="dialog">
@@ -44,21 +44,35 @@
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Youtube Stream Key</h4>
+                    <h4 class="modal-title">Start Broadcast</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
-                <div class="modal-body">
-                    <label>Enter Youtube Stream Key:</label>
-                    <input id="StreamKey" type="text" />
+                @if (Model.ChannelId == null)
+                {
+                    <div class="modal-body">
+                        <label>Enter Youtube Channel Id:</label>
+                        <input id="StreamKey" type="text" />
+                        <button onclick="YoutubeStreamKey()">Enter ID</button>
+                    </div>
+                }
+                <div class="modal-body" style="align-items:center">
+                    <label>Pick the subject you are streaming:</label>
+                    <br />
+                    <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Math')">MATHEMATICS</a>
+                    <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Literature')">LITERATURE</a>
+                    <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Design&Art')">DESIGN & ART</a>
+                    <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Science')">SCIENCE</a>
+                    <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Business')">BUSINESS</a>
+                    <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Programming')">PROGRAMMING</a>
+                    <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Other')">OTHERS...</a>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" onclick="YoutubeStreamKey()">Start Broadcast</button>
-                </div>
+
             </div>
         </div>
     </div>
 </body>
 <script>
+
     function myFunction(){
         $('#youtubeStreamKeyPopup').modal('show')
     }
@@ -72,7 +86,7 @@
                 'StreamKey': $("#StreamKey").val(),
             },
             success: function (data) {
-                if (data.message === "Welcome") {
+                if (data.message === "Success") {
 
                     window.location.href = '/Home/ProfileTutor';
                 }
@@ -83,7 +97,28 @@
 
             }
 
+        });
+    }
 
+    function PushStream(subject){
+        debugger;
+        $.ajax({
+                url: '/Home/ProfileTutor',
+                type: 'post',
+                dataType: 'json',
+                data:{
+                    'Subject': subject
+                },
+                success: function (data) {
+                    if (data.message === "Success") {
+                      alert("Your broadcast will start in " + subject + " once you start your stream on Youtube");
+                      $('#youtubeStreamKeyPopup').modal('hide')
+                    }
+                    else {
+
+                        alert("Broadcast Failed to Start");
+                    }
+                }
         });
     }
 </script>

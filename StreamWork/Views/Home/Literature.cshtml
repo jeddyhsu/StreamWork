@@ -1,197 +1,148 @@
-﻿
+﻿@model List<YoutubeAPI>
 @{
     ViewData["Title"] = "Literature";
 }
-
-
 <div style="font-family:'Roboto', sans-serif;">
-
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light text-center">
-        <img src="~/images/StreamWorkLogo (2).png" width="250" height="70" onclick="window.location.href='/'" />
-
+    <nav class="navbar navbar-expand-lg  text-center" style="position:fixed;z-index:2 ;width:100%;background-color:#008080">
+        <img src="~/images/WhiteStreamWork.png" width="250" height="70" onclick="window.location.href='/'" />
         <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item ml-sm-3" style="font-size:14px;">
-                    <a class="nav-link" href="#" style="color:#008080;">Browse by Subjects</a>
+                    <a class="nav-link" href="#" style="color:white;">Browse by Subjects</a>
                 </li>
                 <li class="nav-item ml-sm-3" style="font-size:14px;">
-                    <a class="nav-link" href="#" style="color:#008080;">Find Tutors</a>
+                    <a class="nav-link" href="#" style="color:white;">Find Tutors</a>
                 </li>
                 <li class="nav-item ml-sm-3" style="font-size:14px;">
-                    <a class="nav-link" href="#" style="color:#008080;">Popular Livestreams</a>
+                    <a class="nav-link" href="#" style="color:white;">Popular Livestreams</a>
                 </li>
                 <li class="nav-item ml-sm-3" style="font-size:14px; ">
-                    <a class="nav-link" href="#" style="color:#008080;">Become a Tutor</a>
+                    <a class="nav-link" href="#" style="color:white;">Become a Tutor</a>
                 </li>
                 <li class="nav-item ml-sm-3" style="font-size:14px;">
-                    <a class="nav-link" href="#" style="color:#008080;">About StreamWork</a>
+                    <a id="button" class="nav-link" href="#" style="color:white;">About StreamWork</a>
                 </li>
             </ul>
-            <span class="navbar-text">
-                <a class="ml-sm-3 float-right">Johnny Appleseed</a>
-                <br />
-                <a class="ml-sm-3 float-right">#student</a>
-
-            </span>
-            <span class="dot ml-sm-3"></span>
         </div>
     </nav>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-12">
-                <h1 style="font-size:7vw; font-family:'Roboto', sans-serif;">Literature</h1>
-
-            </div>
-            <div class="col-sm-2 mt-sm-4">
-
-            </div>
-            <div class="col-sm-4 mt-sm-5">
-
-            </div>
-        </div>
-        <div class="row">
-            <div class=" col-lg-9 col-sm-12">
-                <h5 class=" ">POPULAR LIVESTREAMS</h5>
+            <div class=" col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                <h1 style="font-size:7vw; font-family:'Roboto', sans-serif;padding-top:125px">Literature</h1>
+                <h5>POPULAR LIVESTREAMS</h5>
                 <hr />
-                <div class="row text-center">
-                    <div class="col-sm-4 mt-4">
-                        <div class="card" style="height:11rem" onclick="window.location.href='../StreamViews/MathStream'">
-                            <img class="card-img-top" />
-                            <div class="card-body">
-                                <h5 class="card-title">Calculus I Tutoring: Limits </h5>
-                                <p class="card-text" style="font-size:10px">
-                                    <b>111,235</b> students were attended<br />
-                                    <b>47,371</b> students re-watched
-                                </p>
+                <div class="row">
 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4 mt-4">
-                        <div class="card" style="height:11rem" onclick="window.location.href='../StreamViews/MathStream'">
-                            <img class="card-img-top">
-                            <div class="card-body ">
-                                <h5 class="card-title">Calculus II FINAL EXAM Q&A!</h5>
-                                <p class="card-text " style="font-size:10px">
-                                    <b>123,219</b> students were attended<br />
-                                    <b>42,078 </b> students re-watched
-                                </p>
+                    @if (Model.ToArray().Length == 0)
+                    {
+                        <h4>No Livestreams Going On Right Now</h4>
+                    }
 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4 mt-4">
-                        <div class="card" style="height:11rem" onclick="window.location.href='../StreamViews/MathStream'">
-                            <img class="card-img-top">
-                            <div class="card-body ">
-                                <h5 class="card-title">Everything about Circle: Explained</h5>
-                                <p class="card-text " style="font-size:10px">
-                                    <b>123,219</b> students were attended<br />
-                                    <b>42,078 </b> students re-watched
-                                </p>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4 mt-4">
-                        <div class="card" style="height:11rem" onclick="window.location.href='../StreamViews/MathStream'">
-                            <img class="card-img-top" />
-                            <div class="card-body">
-                                <h5 class="card-title">Calculus I Tutoring: Limits </h5>
-                                <p class="card-text" style="font-size:10px">
-                                    <b>111,235</b> students were attended<br />
-                                    <b>47,371</b> students re-watched
-                                </p>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4 mt-4">
-                        <div class="card" style="height:11rem" onclick="window.location.href='../StreamViews/MathStream'">
-                            <img class="card-img-top">
-                            <div class="card-body ">
-                                <h5 class="card-title">Calculus II FINAL EXAM Q&A!</h5>
-                                <p class="card-text " style="font-size:10px">
-                                    <b>123,219</b> students were attended<br />
-                                    <b>42,078 </b> students re-watched
-                                </p>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4 mt-4">
-                        <div class="card" style="height:11rem" onclick="window.location.href='../StreamViews/MathStream'">
-                            <img class="card-img-top">
-                            <div class="card-body ">
-                                <h5 class="card-title">Everything about Circle: Explained</h5>
-                                <p class="card-text " style="font-size:10px">
-                                    <b>123,219</b> students were attended<br />
-                                    <b>42,078 </b> students re-watched
-                                </p>
-
-                            </div>
-                        </div>
-                    </div>
+                    else
+                    {
+                        foreach (var videoInfo in Model)
+                        {
+                            if (videoInfo.Items[0].Snippet.LiveBroadcastContent == "live")
+                            {
+                                <div class="col-lg-4 col-md-6 mt-4">
+                                    <input type="image" width="100%" height="80%" src=@videoInfo.Items[0].Snippet.Thumbnails.High.Url.ToString() onclick="window.location.href='../StreamViews/MathStream?streamKey=' + ('@videoInfo.Items[0].Id.VideoId.ToString()');">
+                                </div>
+                            }
+                        }
+                    }
                 </div>
             </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-10">
+                <div class="sidenav">
+                    <h3 style="font-size:1vw; color:white;">Popular Literature Streamtutors</h3>
+                    <div class="card pt-3 pd-3" style="display:block;background-color:black;border:none">
+                        <div class=" card-title tutors">
+                            <input type="image" src="~/images/Pro.png" />
+                            <h3 style="font-size:1vw; color:white">THE MATH WIZARD</h3>
+                            <h6 style="font-size:0.9vw; color:white">600,000 views</h6>
+                            <h6 style="font-size:0.9vw; color:white"></h6>
+                        </div>
+                    </div>
 
-            <div class="col-lg-3">
-                <h6 class="mt-1">TOP LITERATURE STREAMTUTORS</h6>
-                <hr />
-                <div class="row pt-3">
-                    <div class="col-3"></div>
-                    <div class="dot col-6"></div>
-                    <div class="col-sm-12 text-center">
-                        <p>ThatAlogrithmGirl</p>
-                        <p style="font-size:12px;">
-                            In the world of Computer Science and Math.
-                        </p>
-                        <p style="font-size:12px;"><b>999,967</b> student fans</p>
+                    <div class="card pt-3 pd-3" style="display:block;background-color:black;border:none">
+                        <div class=" card-title tutors">
+                            <input type="image" src="~/images/Pro.png" />
+                            <h3 style="font-size:1vw; color:white">THE Algorithm Genius</h3>
+                            <h6 style="font-size:0.9vw; color:white">550,000 views</h6>
+                            <h6 style="font-size:0.9vw; color:white"> 38,000 current viewers</h6>
+                        </div>
                     </div>
-                </div>
+                    <div class="card pt-3 pd-3" style="display:block;background-color:black;border:none">
+                        <div class=" card-title tutors">
+                            <input type="image" src="~/images/Pro.png" />
+                            <h3 style="font-size:1vw; color:white">MATHMAN</h3>
+                            <h6 style="font-size:0.9vw; color:white">410,000 views</h6>
+                            <h6 style="font-size:0.9vw; color:white">37,000 current viewers</h6>
 
-                <div class="row pt-3">
-                    <div class="col-3"></div>
-                    <div class="dot col-6"></div>
-                    <div class="col-sm-12 text-center">
-                        <p>ThatAlogrithmGirl</p>
-                        <p style="font-size:12px;">
-                            In the world of Computer Science and Math.
-                        </p>
-                        <p style="font-size:12px;"><b>999,967</b> student fans</p>
+                        </div>
                     </div>
-                </div>
-                <div class="row pt-3">
-                    <div class="col-3"></div>
-                    <div class="dot col-6"></div>
-                    <div class="col-sm-12 text-center">
-                        <p>ThatAlogrithmGirl</p>
-                        <p style="font-size:12px;">
-                            In the world of Computer Science and Math.
-                        </p>
-                        <p style="font-size:12px;"><b>999,967</b> student fans</p>
+                    <div class="card pt-3 pd-3" style="display:block;background-color:black;border:none">
+                        <div class=" card-title tutors">
+                            <input type="image" src="~/images/Pro.png" />
+                            <h3 style="font-size:1vw; color:white">IAMMATH</h3>
+                            <h6 style="font-size:0.9vw; color:white">419,030 views</h6>
+                            <h6 style="font-size:0.9vw; color:white">36,000 current viewers</h6>
+
+                        </div>
                     </div>
-                </div>
-                <div class="text-center pt-lg-2 pt-sm-4">
-                    <button class="btn buttonStyleLearning">See all 2,019 math StreamTutor</button>
-                    <p style="font-size:12px">Joseph, as a student who get help from Streamwork, you can also be a StreamTutor at the same time - no extra Streamwork account needed!</p>
-                    <button class="btn buttonStyles mb-sm-3"> I WANT TO BE A STREAMTUTOR </button>
+                    <div class="card pt-3 pd-3" style="display:block;background-color:black;border:none">
+                        <div class=" card-title tutors">
+                            <input type="image" src="~/images/Pro.png" />
+                            <h3 style="font-size:1vw; color:white">AutomaticCalculus</h3>
+                            <h6 style="font-size:0.9vw; color:white">415,450 views</h6>
+                            <h6 style="font-size:0.9vw; color:white">39,034 current viewers</h6>
+                        </div>
+                    </div>
+                    <div class="pt-3">
+                        <button class="btn buttonStyletutor" style="width:15vw">Want to become a streamtutor?</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 
 <script>
-    $(document).ready(function () {
+$(document).ready(function () {
         $("#nav").click(function () {
-            $("#navbarText").slideToggle();
+           $("#navbarText").slideToggle();
         });
-
     });
-</script>
+
+ function StreamView(key){
+
+ }</script>
+
+<style>
+    .sidenav {
+        height: 100%;
+        width: 17%;
+        position: fixed;
+        z-index: 1;
+        top: 85px;
+        right: 0;
+        background-color: black;
+        overflow-x: hidden;
+        padding-top: 20px;
+        text-align: center;
+    }
+
+    .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+    }
+
+    .tutors:hover {
+        background-color: #008080;
+    }
+</style>

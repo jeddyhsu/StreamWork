@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using StreamWork.Base;
 using StreamWork.Config;
+using StreamWork.Models;
 
 namespace StreamWork.Core
 {
@@ -14,12 +17,8 @@ namespace StreamWork.Core
     {
         private static readonly string _databaseName = "StreamWorkLive";
         private static readonly string _collectionName = "StreamWorkLive";
-
-
-        /// <summary>
-        /// Get data from storage
-        /// All exceptions are bubbled up.
-        /// </summary>
+       
+       
         public async static Task<T> GetAsync<T>(string _connectionString,
                                                 StorageConfig storageConfig, 
                                                 Dictionary<string, object> keys) where T : class
@@ -177,6 +176,27 @@ namespace StreamWork.Core
                 return name + key;
             else
                 return key.ToString();
+        }
+
+        public static YoutubeAPI CallAPI(string URL)
+        {
+            WebRequest webRequest = WebRequest.Create(URL);
+            webRequest.Credentials = CredentialCache.DefaultCredentials;
+            WebResponse response = webRequest.GetResponse();
+            Console.WriteLine(((HttpWebResponse)response).StatusDescription);
+              
+            Stream dataStream = response.GetResponseStream();
+           
+            StreamReader reader = new StreamReader(dataStream);
+              
+            string responseFromServer = reader.ReadToEnd();
+            reader.Close();
+            response.Close();
+            YoutubeAPI API = Newtonsoft.Json.JsonConvert.DeserializeObject<YoutubeAPI>(responseFromServer);
+            return API ;
+           
+
+
         }
     }
 }
