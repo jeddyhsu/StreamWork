@@ -21,6 +21,7 @@ namespace StreamWork.Controllers
         {
             return View();
         }
+
         [HttpGet]
         public async Task<IActionResult> Math([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
