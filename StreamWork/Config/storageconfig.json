@@ -26,9 +26,13 @@
         "StorageType": "SqlServer",
         "Queries": [
           {
-            "Query": "SELECT * FROM [dbo].[YoutubeStreamKeys]",
+            "Query": "SELECT * FROM [dbo].[YoutubeStreamKeys] WHERE SubjectStreaming = '@x0'",
             "QueryId": "AllStreamKeys"
           },
+          {
+            "Query": "SELECT * FROM [dbo].[YoutubeStreamKeys] WHERE Username = '@x0'",
+            "QueryId": "UserChannelKey"
+          }
         ]
       }
     ]
