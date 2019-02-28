@@ -173,10 +173,10 @@ namespace StreamWork.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ProfileTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamKey, string subject)
+        public async Task<IActionResult> ProfileTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamKey, string subject, string check)
         {
             string confirmation = "";
-            if(streamKey != null)
+            if (streamKey != null)
             {
                 var _streamKey = streamKey.Replace('C', 'U');
                 YoutubeStreamKeys key = new YoutubeStreamKeys
@@ -198,7 +198,8 @@ namespace StreamWork.Controllers
                 }
                 return Json(new { Message = confirmation });
             }
-            else
+
+            if (subject != null)
             {
                 var userChannel = await DataStore.GetListAsync<YoutubeStreamKeys>(_connectionStringYoutube, storageConfig.Value, "UserChannelKey", new List<string> { HttpContext.Session.GetString("UserProfile") });
                 userChannel[0].SubjectStreaming = subject;
@@ -214,6 +215,27 @@ namespace StreamWork.Controllers
                 return Json(new { Message = confirmation });
             }
 
+            if (check != null)
+            {
+                var userChannel = await DataStore.GetListAsync<YoutubeStreamKeys>(_connectionStringYoutube, storageConfig.Value, "UserChannelKey", new List<string> { HttpContext.Session.GetString("UserProfile") });
+                var API = DataStore.CallAPI("https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=" + userChannel[0].ChannelKeyAPI + "&type=video&eventType=live&key=AIzaSyAc-l1crG8HuT2XtrmDxkIui9y9ALBnXA0");
+                if(API.Items.Length == 0)
+                {
+                    userChannel[0].SubjectStreaming = null;
+                    var success = await DataStore.SaveAsync(_connectionStringYoutube, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel[0].Id } }, userChannel[0]);
+                    if (success)
+                    {
+                        confirmation = "Success";
+                    }
+                    else
+                    {
+                        confirmation = "Fail";
+                    }
+                }
+
+            }
+
+            return Json(new { Message = confirmation });
         }
 
         public IActionResult Error()
@@ -225,11 +247,10 @@ namespace StreamWork.Controllers
         {
 
             List<YoutubeAPI> list = new List<YoutubeAPI>();
-            var getAllStreams = await DataStore.GetListAsync<YoutubeStreamKeys>(_connectionStringYoutube, storageConfig.Value, "AllStreamKeys", new List<string> { subject });
+            var getAllStreams = await DataStore.GetListAsync<YoutubeStreamKeys>(_connectionStringYoutube, storageConfig.Value, "AllStreamKeys", new List<string> {subject});
             foreach (var channelId in getAllStreams)
             {
-                var API = DataStore.CallAPI("https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=" + channelId.ChannelKeyAPI + "&type=video&eventType=live&key=AIzaSyAcVJ6RM4gnnnF-ffGJ-IU5H-QV0KpoKUA");
-
+                var API =  DataStore.CallAPI("https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=" + channelId.ChannelKeyAPI + "&type=video&eventType=live&key=AIzaSyAc-l1crG8HuT2XtrmDxkIui9y9ALBnXA0");
                 if (API.Items.Length == 0)
                 {
                     channelId.SubjectStreaming = null;
