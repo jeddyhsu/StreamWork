@@ -36,7 +36,7 @@
             <span class="dot ml-sm-3"></span>
         </div>
     </nav>
-    <button type="button" onclick="myFunction()" class="btn btn-info btn-lg" data-toggle="modal" data-target="#youtubeStreamKeyPopup">Start Broadcast</button>
+    <button type="button" onclick="myFunction('CheckBroadcast')" class="btn btn-info btn-lg" data-toggle="modal" data-target="#youtubeStreamKeyPopup">Start Broadcast</button>
 
     <!-- Modal -->
     <div id="youtubeStreamKeyPopup" class="modal fade" role="dialog">
@@ -71,10 +71,26 @@
         </div>
     </div>
 </body>
-<script>
-
-    function myFunction(){
+<script>function myFunction(check){
         $('#youtubeStreamKeyPopup').modal('show')
+        $.ajax({
+                url: '/Home/ProfileTutor',
+                type: 'post',
+                dataType: 'json',
+                data:{
+                    'Check': check
+                },
+                success: function (data) {
+                    if (data.message === "Success") {
+                      alert("Your broadcast will start in " + subject + " once you start your stream on Youtube");
+                      $('#youtubeStreamKeyPopup').modal('hide')
+                    }
+                    else {
+
+                        alert("Broadcast Failed to Start");
+                    }
+                }
+        });
     }
 
     function YoutubeStreamKey(){
@@ -120,5 +136,4 @@
                     }
                 }
         });
-    }
-</script>
+    }</script>
