@@ -185,7 +185,8 @@ namespace StreamWork.Controllers
                     Username = HttpContext.Session.GetString("UserProfile"),
                     ChannelKey = _streamKey,
                     ChannelKeyAPI = streamKey,
-                    SubjectStreaming = null
+                    SubjectStreaming = null,
+                    StreamThumbnail = null
                 };
                 var success = await DataStore.SaveAsync(_connectionStringYoutube, storageConfig.Value, new Dictionary<string, object> { { "Id", key.Id } }, key);
                 if (success)
@@ -202,7 +203,19 @@ namespace StreamWork.Controllers
             if (subject != null)
             {
                 var userChannel = await DataStore.GetListAsync<YoutubeStreamKeys>(_connectionStringYoutube, storageConfig.Value, "UserChannelKey", new List<string> { HttpContext.Session.GetString("UserProfile") });
+                var API = DataStore.CallAPI("https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=" + userChannel[0].ChannelKeyAPI + "&type=video&eventType=live&key=AIzaSyBYwRZy4H_sDxv83XPpuSSwTOtUFql3sQI");
+                if (API.Items.Length == 0)
+                {
+                    userChannel[0].SubjectStreaming = null;
+                    userChannel[0].StreamThumbnail = null;
+                    userChannel[0].StreamID = null;
+                    confirmation = "No Stream";
+                    var s = await DataStore.SaveAsync(_connectionStringYoutube, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel[0].Id } }, userChannel[0]);
+                    return Json(new { Message = confirmation });
+                }
                 userChannel[0].SubjectStreaming = subject;
+                userChannel[0].StreamThumbnail = API.Items[0].Snippet.Thumbnails.High.Url.ToString();
+                userChannel[0].StreamID = API.Items[0].Id.VideoId;
                 var success = await DataStore.SaveAsync(_connectionStringYoutube, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel[0].Id } }, userChannel[0]);
                 if (success)
                 {
@@ -214,27 +227,6 @@ namespace StreamWork.Controllers
                 }
                 return Json(new { Message = confirmation });
             }
-
-            if (check != null)
-            {
-                var userChannel = await DataStore.GetListAsync<YoutubeStreamKeys>(_connectionStringYoutube, storageConfig.Value, "UserChannelKey", new List<string> { HttpContext.Session.GetString("UserProfile") });
-                var API = DataStore.CallAPI("https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=" + userChannel[0].ChannelKeyAPI + "&type=video&eventType=live&key=AIzaSyAc-l1crG8HuT2XtrmDxkIui9y9ALBnXA0");
-                if(API.Items.Length == 0)
-                {
-                    userChannel[0].SubjectStreaming = null;
-                    var success = await DataStore.SaveAsync(_connectionStringYoutube, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel[0].Id } }, userChannel[0]);
-                    if (success)
-                    {
-                        confirmation = "Success";
-                    }
-                    else
-                    {
-                        confirmation = "Fail";
-                    }
-                }
-
-            }
-
             return Json(new { Message = confirmation });
         }
 
@@ -243,24 +235,13 @@ namespace StreamWork.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        private async Task<List<YoutubeAPI>> GetStreams([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject)
+        private async Task<List<YoutubeStreamKeys>> GetStreams([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject)
         {
-
-            List<YoutubeAPI> list = new List<YoutubeAPI>();
+            List<YoutubeStreamKeys> list = new List<YoutubeStreamKeys>();
             var getAllStreams = await DataStore.GetListAsync<YoutubeStreamKeys>(_connectionStringYoutube, storageConfig.Value, "AllStreamKeys", new List<string> {subject});
-            foreach (var channelId in getAllStreams)
+            foreach (var streams in getAllStreams)
             {
-                var API =  DataStore.CallAPI("https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=" + channelId.ChannelKeyAPI + "&type=video&eventType=live&key=AIzaSyAc-l1crG8HuT2XtrmDxkIui9y9ALBnXA0");
-                if (API.Items.Length == 0)
-                {
-                    channelId.SubjectStreaming = null;
-                    var success = await DataStore.SaveAsync(_connectionStringYoutube, storageConfig.Value, new Dictionary<string, object> { { "Id", getAllStreams[0].Id } }, getAllStreams[0]);
-                }
-                else
-                {
-                    list.Add(API);
-                }
-
+                list.Add(streams);
             }
             return list;
         }
