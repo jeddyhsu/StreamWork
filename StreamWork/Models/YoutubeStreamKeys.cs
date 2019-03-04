@@ -13,6 +13,8 @@ namespace StreamWork.Models
         public string ChannelKeyAPI { get; set; }
         public string Username { get; set; }
         public string SubjectStreaming { get; set; }
+        public string StreamThumbnail { get; set; }
+        public string StreamID { get; set; }
 
         [Timestamp]
         public byte[] RowVersion { get; set; }
