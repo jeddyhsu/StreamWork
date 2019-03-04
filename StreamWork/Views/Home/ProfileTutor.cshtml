@@ -72,9 +72,9 @@
     </div>
 </body>
 <script>
-
-    function myFunction(){
+function myFunction(){
         $('#youtubeStreamKeyPopup').modal('show')
+
     }
 
     function YoutubeStreamKey(){
@@ -111,14 +111,13 @@
                 },
                 success: function (data) {
                     if (data.message === "Success") {
-                      alert("Your broadcast will start in " + subject + " once you start your stream on Youtube");
+                      alert("Your broadcast will start in " + subject);
                       $('#youtubeStreamKeyPopup').modal('hide')
                     }
                     else {
 
-                        alert("Broadcast Failed to Start");
+                        alert("You haven't started the stream yet!");
                     }
                 }
         });
-    }
-</script>
+    }</script>
