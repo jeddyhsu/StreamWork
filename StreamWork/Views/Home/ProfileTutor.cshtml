@@ -5,71 +5,130 @@
 }
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <img src="~/images/Stream.png" width="250" height="70" onclick="window.location.href='/'" />
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item ml-sm-3" style="font-size:14px;">
-                    <a class="nav-link" href="#" style="color:#008080;">Browse by Subjects</a>
-                </li>
-                <li class="nav-item ml-sm-3" style="font-size:14px;">
-                    <a class="nav-link" href="#" style="color:#008080;">Find Tutors</a>
-                </li>
-                <li class="nav-item ml-sm-3" style="font-size:14px;">
-                    <a class="nav-link" href="#" style="color:#008080;">Popular Livestreams</a>
-                </li>
-                <li class="nav-item ml-sm-3" style="font-size:14px; ">
-                    <a class="nav-link" href="#" style="color:#008080;">Become a Tutor</a>
-                </li>
-                <li class="nav-item ml-sm-3" style="font-size:14px;">
-                    <a class="nav-link" href="#" style="color:#008080;">About StreamWork</a>
-                </li>
-            </ul>
-            <span class="navbar-text">
-                <a class="ml-sm-3 float-right"></a>
-                <br />
-                <a class="ml-sm-3 float-right">#student</a>
-            </span>
-            <span class="dot ml-sm-3"></span>
+    <div class="row">
+        <div class="col-12">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <img src="~/images/Stream.png" width="250" height="70" onclick="window.location.href='/'" />
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarText">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item ml-sm-3" style="font-size:14px;">
+                            <a class="nav-link" href="#" style="color:#008080;">Browse by Subjects</a>
+                        </li>
+                        <li class="nav-item ml-sm-3" style="font-size:14px;">
+                            <a class="nav-link" href="#" style="color:#008080;">Find Tutors</a>
+                        </li>
+                        <li class="nav-item ml-sm-3" style="font-size:14px;">
+                            <a class="nav-link" href="#" style="color:#008080;">Popular Livestreams</a>
+                        </li>
+                        <li class="nav-item ml-sm-3" style="font-size:14px; ">
+                            <a class="nav-link" href="#" style="color:#008080;">Become a Tutor</a>
+                        </li>
+                        <li class="nav-item ml-sm-3" style="font-size:14px;">
+                            <a class="nav-link" href="#" style="color:#008080;">About StreamWork</a>
+                        </li>
+                    </ul>
+                    <span class="navbar-text">
+                        <a class="ml-sm-3 float-right"></a>
+                        <br />
+                        <a class="ml-sm-3 float-right">#student</a>
+                    </span>
+                    <span class="dot ml-sm-3"></span>
+                </div>
+            </nav>
         </div>
-    </nav>
-    <button type="button" onclick="myFunction()" class="btn btn-info btn-lg" data-toggle="modal" data-target="#youtubeStreamKeyPopup">Start Broadcast</button>
-
-    <!-- Modal -->
-    <div id="youtubeStreamKeyPopup" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Start Broadcast</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            Username
+        </div>
+        <div class="col-sm-9">
+            <div class="row">
+                <div class="col-sm-4">
+                    Current/Most recent stream heading
                 </div>
-                @if (Model.ChannelId == null)
-                {
-                    <div class="modal-body">
-                        <label>Enter Youtube Channel Id:</label>
-                        <input id="StreamKey" type="text" />
-                        <button onclick="YoutubeStreamKey()">Enter ID</button>
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    Scheduled Stream heading
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    Current/Most recent stream 
+                </div>
+                <div class="col-sm-4">
+                    Stream description
+                </div>
+                <div class="col-sm-4">
+                    Scheduled Stream / Start/Stop stream / Schedule stream
+                    <button type="button" onclick="myFunction()" class="btn btn-info btn-lg" data-toggle="modal" data-target="#youtubeStreamKeyPopup">Start Broadcast</button>
+
+                    <!-- Modal -->
+
+                    <div id="youtubeStreamKeyPopup" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Start Broadcast</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                @if (Model.ChannelId == null)
+                                {
+                                    <div class="modal-body">
+                                        <label>Enter Youtube Channel Id:</label>
+                                        <input id="StreamKey" type="text" />
+                                        <button onclick="YoutubeStreamKey()">Enter ID</button>
+                                    </div>
+                                }
+                                <div class="modal-body" style="align-items:center">
+                                    <label>Pick the subject you are streaming:</label>
+                                    <br />
+                                    <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Math')">MATHEMATICS</a>
+                                    <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Literature')">LITERATURE</a>
+                                    <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Design&Art')">DESIGN & ART</a>
+                                    <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Science')">SCIENCE</a>
+                                    <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Business')">BUSINESS</a>
+                                    <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Programming')">PROGRAMMING</a>
+                                    <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Other')">OTHERS...</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                }
-                <div class="modal-body" style="align-items:center">
-                    <label>Pick the subject you are streaming:</label>
-                    <br />
-                    <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Math')">MATHEMATICS</a>
-                    <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Literature')">LITERATURE</a>
-                    <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Design&Art')">DESIGN & ART</a>
-                    <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Science')">SCIENCE</a>
-                    <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Business')">BUSINESS</a>
-                    <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Programming')">PROGRAMMING</a>
-                    <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Other')">OTHERS...</a>
                 </div>
-
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-sm-3">
+            Description
+        </div>
+        <div class="col-sm-9">
+            <div class="row">
+                <div class="col-sm-4">
+                    Past livestreams heading
+                </div>
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    More livestreams
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    Stream
+                </div>
+                <div class="col-sm-4">
+                    Stream
+                </div>
+                <div class="col-sm-4">
+                    Stream
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 <script>
 function myFunction(){
