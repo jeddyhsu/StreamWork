@@ -1,123 +1,231 @@
-﻿@model StreamWork.Models.UserProfile
+﻿@model StreamWork.ViewModels.ProfileTutorViewModel
 
 @{
     ViewData["Title"] = "ProfileTutor";
 }
 
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <img src="~/images/Stream.png" width="250" height="70" onclick="window.location.href='/'" />
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item ml-sm-3" style="font-size:14px;">
-                    <a class="nav-link" href="#" style="color:#008080;">Browse by Subjects</a>
-                </li>
-                <li class="nav-item ml-sm-3" style="font-size:14px;">
-                    <a class="nav-link" href="#" style="color:#008080;">Find Tutors</a>
-                </li>
-                <li class="nav-item ml-sm-3" style="font-size:14px;">
-                    <a class="nav-link" href="#" style="color:#008080;">Popular Livestreams</a>
-                </li>
-                <li class="nav-item ml-sm-3" style="font-size:14px; ">
-                    <a class="nav-link" href="#" style="color:#008080;">Become a Tutor</a>
-                </li>
-                <li class="nav-item ml-sm-3" style="font-size:14px;">
-                    <a class="nav-link" href="#" style="color:#008080;">About StreamWork</a>
-                </li>
-            </ul>
-            <span class="navbar-text">
-                <a class="ml-sm-3 float-right"></a>
-                <br />
-                <a class="ml-sm-3 float-right">#student</a>
-            </span>
-            <span class="dot ml-sm-3"></span>
-        </div>
-    </nav>
-    <button type="button" onclick="myFunction()" class="btn btn-info btn-lg" data-toggle="modal" data-target="#youtubeStreamKeyPopup">Start Broadcast</button>
+<div>
 
-    <!-- Modal -->
-    <div id="youtubeStreamKeyPopup" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Start Broadcast</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <div style="font-family:'Roboto', sans-serif;">
+        <nav class="navbar navbar-expand-lg  text-center" style="position:fixed;z-index:2 ;width:100%;background-color:#008080">
+            <img src="/images/WhiteStreamWork.png" width="250" height="70" onclick="window.location.href='/'">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item ml-sm-3" style="font-size:14px;">
+                        <a class="nav-link" href="#" style="color:white;">Browse by Subjects</a>
+                    </li>
+                    <li class="nav-item ml-sm-3" style="font-size:14px;">
+                        <a class="nav-link" href="#" style="color:white;">Find Tutors</a>
+                    </li>
+                    <li class="nav-item ml-sm-3" style="font-size:14px;">
+                        <a class="nav-link" href="#" style="color:white;">Popular Livestreams</a>
+                    </li>
+                    <li class="nav-item ml-sm-3" style="font-size:14px; ">
+                        <a class="nav-link" href="#" style="color:white;">Become a Tutor</a>
+                    </li>
+                    <li class="nav-item ml-sm-3" style="font-size:14px;">
+                        <a id="button" class="nav-link" href="#" style="color:white;">About StreamWork</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-4">
+                    <h1 class="display-1" style="padding-top:125px">@Model.userProfile.FirstName <br> @Model.userProfile.LastName</h1>
+                    <button type="button" id="Broadcast" onclick="myFunction()" class="btn btn-info btn-lg" data-toggle="modal" data-target="#youtubeStreamKeyPopup">Start Broadcast</button>
+                    @if (Model.youtubeStreamKeys[0].StreamID == null)
+                    {
+                        <script>
+                       var x = false;
+                    document.getElementById("Broadcast").innerText = 'Start Broadcast';</script>
+                        <div id="youtubeStreamKeyPopup" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Start Broadcast</h4>
+                                        <button type="button" class="close" data-dismiss="modal">×</button>
+                                    </div>
+                                    <div class="modal-body" style="align-items:center">
+                                        @if (Model.userProfile.ChannelId == null)
+                                        {
+                                            <div class="modal-body">
+                                                <label>Enter Youtube Channel Id:</label>
+                                                <input id="StreamKey" type="text" />
+                                                <button onclick="YoutubeStreamKey()">Enter ID</button>
+                                            </div>
+                                        }
+                                        <label>Pick the subject you are streaming:</label>
+                                        <br>
+                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Math')">MATHEMATICS</a>
+                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Literature')">LITERATURE</a>
+                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Design&amp;Art')">DESIGN &amp; ART</a>
+                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Science')">SCIENCE</a>
+                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Business')">BUSINESS</a>
+                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Programming')">PROGRAMMING</a>
+                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Other')">OTHERS...</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <script>
+var x = true;
+                    document.getElementById("Broadcast").innerText = 'Stop/Change Broadcast';</script>
+                        <div id="youtubeStopChangePopup" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Stop/Change Broadcast</h4>
+                                        <button type="button" class="close" data-dismiss="modal">×</button>
+
+                                    </div>
+                                    <div class="modal-body" style="align-items:center">
+                                        <button type="button" onclick="StopStream('Stop')" class="btn btn-info btn-lg" data-toggle="modal" data-target="#youtubeStopChangePopup">Stop/Change Broadcast</button>
+                                    </div>
+
+                                    <div class="modal-body" style="align-items:center">
+                                        <label>Pick the subject you are streaming:</label>
+                                        <br>
+                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Math')">MATHEMATICS</a>
+                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Literature')">LITERATURE</a>
+                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Design&amp;Art')">DESIGN &amp; ART</a>
+                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Science')">SCIENCE</a>
+                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Business')">BUSINESS</a>
+                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Programming')">PROGRAMMING</a>
+                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Other')">OTHERS...</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+
                 </div>
-                @if (Model.ChannelId == null)
-                {
-                    <div class="modal-body">
-                        <label>Enter Youtube Channel Id:</label>
-                        <input id="StreamKey" type="text" />
-                        <button onclick="YoutubeStreamKey()">Enter ID</button>
+                <div class="col-sm-8">
+                    <h3 style="padding-top:150px">LIVESTREAMING NOW</h3>
+                    <div class="row">
+                        @if (Model.youtubeStreamKeys[0].StreamThumbnail != null)
+                        {
+
+                                <div class="col-lg-5 col-md-7 mt-5">
+                                    <input type="image" width="100%" height="80%" src=@Model.youtubeStreamKeys[0].StreamThumbnail onclick="window.location.href='../StreamViews/StreamPage?streamKey=' + ('@Model.youtubeStreamKeys[0].StreamID');">
+                                </div>
+
+                        }
+                        else
+                        {
+                            <div class="col-lg-5 col-md-7 mt-5">
+                                <canvas id="myCanvas" width="350" height="300" style="border:1px solid #000000;"></canvas>
+                            </div>
+                        }
+
                     </div>
-                }
-                <div class="modal-body" style="align-items:center">
-                    <label>Pick the subject you are streaming:</label>
-                    <br />
-                    <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Math')">MATHEMATICS</a>
-                    <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Literature')">LITERATURE</a>
-                    <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Design&Art')">DESIGN & ART</a>
-                    <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Science')">SCIENCE</a>
-                    <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Business')">BUSINESS</a>
-                    <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Programming')">PROGRAMMING</a>
-                    <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Other')">OTHERS...</a>
+                    <h3 style="padding-top:25px">PAST LIVESTREAMS</h3>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 mt-4">
+                            <input type="image" width="100%" height="80%" src="https://img.youtube.com/vi/LSMJJyNaTOY/hqdefault.jpg">
+                        </div>
+                        <div class="col-lg-4 col-md-6 mt-4">
+                            <input type="image" width="100%" height="80%" src="https://img.youtube.com/vi/LSMJJyNaTOY/hqdefault.jpg">
+                        </div>
+                        <div class="col-lg-4 col-md-6 mt-4">
+                            <input type="image" width="100%" height="80%" src="https://img.youtube.com/vi/LSMJJyNaTOY/hqdefault.jpg">
+                        </div>
+                    </div>
                 </div>
-
             </div>
         </div>
     </div>
-</body>
-<script>
-function myFunction(){
-        $('#youtubeStreamKeyPopup').modal('show')
 
-    }
+    <script>
+    var c = document.getElementById("myCanvas");
+   var ctx = c.getContext("2d");
+   ctx.font = "30px Georgia";
+   ctx.fillText("Tutor Offline", 85, 150);
 
-    function YoutubeStreamKey(){
-     $.ajax({
-            url: '/Home/ProfileTutor',
-            type: 'post',
-            dataType: 'json',
-            data: {
-                'StreamKey': $("#StreamKey").val(),
-            },
-            success: function (data) {
-                if (data.message === "Success") {
+   function myFunction() {
+        if (x == false){
+            $('#youtubeStreamKeyPopup').modal('show');
+        }
+        else{
+             $('#youtubeStopChangePopup').modal('show');
+        }
+   }
 
-                    window.location.href = '/Home/ProfileTutor';
-                }
-                else {
+   function YoutubeStreamKey() {
+       $.ajax({
+           url: '/Home/ProfileTutor',
+           type: 'post',
+           dataType: 'json',
+           data: {
+               'StreamKey': $("#StreamKey").val(),
+           },
+           success: function (data) {
+               if (data.message === "Success") {
 
-                    alert("Broadcast Failed to Start");
-                }
+                   window.location.href = '/Home/ProfileTutor';
+               } else {
 
-            }
+                   alert("Broadcast Failed to Start");
+               }
+           }
+       });
+   }
 
-        });
-    }
+   function StopStream(stop) {
+       $.ajax({
+           url: '/Home/ProfileTutor',
+           type: 'post',
+           dataType: 'json',
+           data: {
+               'Stop': stop
+           },
+           success: function (data) {
+               if (data.message === "Success") {
+                   window.location.href = '/Home/ProfileTutor';
+                   alert("Your broadcast has stopped");
+                   document.getElementById("Broadcast").disabled = false;
+                   $('#youtubeStreamKeyPopup').modal('hide')
+                   document.getElementById("Broadcast").innerText = 'Start Broadcast';
+               } else {
 
-    function PushStream(subject){
-        debugger;
-        $.ajax({
-                url: '/Home/ProfileTutor',
-                type: 'post',
-                dataType: 'json',
-                data:{
-                    'Subject': subject
-                },
-                success: function (data) {
-                    if (data.message === "Success") {
-                      alert("Your broadcast will start in " + subject);
-                      $('#youtubeStreamKeyPopup').modal('hide')
-                    }
-                    else {
+                   alert("Broadcast Failed to Start");
+               }
+           }
+       });
+   }
 
-                        alert("You haven't started the stream yet!");
-                    }
-                }
-        });
-    }</script>
+   function PushStream(subject) {
+       debugger;
+       document.getElementById("Broadcast").disabled = true;
+       alert("Your broadcast will start shortly in " + subject + " when you start your stream on Youtube. A notification will be sent when your broadcast is playing.");
+       $('#youtubeStreamKeyPopup').modal('hide')
+       $('#youtubeStopChangePopup').modal('hide');
+       $.ajax({
+           url: '/Home/ProfileTutor',
+           type: 'post',
+           dataType: 'json',
+           data: {
+               'Subject': subject
+           },
+           success: function (data) {
+               if (data.message === "Success") {
+                   alert("Your broadcast has started in " + subject);
+                   document.getElementById("Broadcast").disabled = false;
+                   $('#youtubeStreamKeyPopup').modal('hide')
+                   document.getElementById("Broadcast").innerText = 'Stop/Change Broadcast';
+                   x = true;
+               }
+           }
+       });
+   }</script>
+
+</div>
