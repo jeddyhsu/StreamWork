@@ -8,9 +8,9 @@ namespace StreamWork.Controllers
         {
             return View();
         }
-        public IActionResult MathStream(string streamKey) {
+        public IActionResult StreamPage(string streamKey) {
 
-            return View ("MathStream",streamKey);
+            return View ("StreamPage",streamKey);
         }
     }
 }
