@@ -20,6 +20,7 @@
     <Folder Include="Core\" />
     <Folder Include="Framework\" />
     <Folder Include="Views\Helpers\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Config\storageconfig.json" />
