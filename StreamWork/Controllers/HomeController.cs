@@ -241,6 +241,10 @@ namespace StreamWork.Controllers
             return Json(new { Message = confirmation });
         }
 
+        public IActionResult BecomeTutor () {
+            return View();
+        }
+
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
