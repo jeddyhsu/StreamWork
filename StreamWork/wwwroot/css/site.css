@@ -1,4 +1,4 @@
-﻿body{
+﻿vbody{
     margin:0;
 }
 .body-right {
@@ -254,4 +254,33 @@
     background-color: #111;
     overflow-x: hidden;
     padding-top: 20px;
+
+}
+
+lds-dual-ring {
+    display: block;
+    width: 100px;
+    height: 100px;
+}
+
+.lds-dual-ring:after {
+    content: " ";
+    display: block;
+    width: 100px;
+    height: 100px;
+    margin-left: 35%;
+    border-radius: 50%;
+    border: 5px solid black;
+    border-color: black transparent black transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+}
+
+@keyframes lds-dual-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }

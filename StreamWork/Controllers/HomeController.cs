@@ -261,8 +261,8 @@ namespace StreamWork.Controllers
         {
             bool b = true;
             while (b)
-            {
-                await Task.Delay(5000);
+            { 
+            await Task.Delay(5000);
                 var API = DataStore.CallAPI("https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=" + userChannel[0].ChannelKeyAPI + "&type=video&eventType=live&key=AIzaSyAc-l1crG8HuT2XtrmDxkIui9y9ALBnXA0");
                 if (API.Items.Length == 1)
                 {
@@ -271,7 +271,6 @@ namespace StreamWork.Controllers
                     userChannel[0].StreamID = API.Items[0].Id.VideoId;
                     await DataStore.SaveAsync(_connectionStringYoutube, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel[0].Id } }, userChannel[0]);
                     b = false;
-
                 }               
             }
             return true;
