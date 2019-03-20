@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 
 namespace StreamWork.Controllers
 {
@@ -6,6 +7,7 @@ namespace StreamWork.Controllers
     {
         public IActionResult Index()
         {
+           
             return View();
         }
     }
