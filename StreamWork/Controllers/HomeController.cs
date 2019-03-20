@@ -263,7 +263,7 @@ namespace StreamWork.Controllers
             while (b)
             { 
             await Task.Delay(5000);
-                var API = DataStore.CallAPI("https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=" + userChannel[0].ChannelKeyAPI + "&type=video&eventType=live&key=AIzaSyAc-l1crG8HuT2XtrmDxkIui9y9ALBnXA0");
+                var API = DataStore.CallAPI("https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=" + userChannel[0].ChannelKeyAPI + "&type=video&eventType=live&key=AIzaSyAk_G6WQE-W9gldyF_CvNLLHaSs4psLuIA");
                 if (API.Items.Length == 1)
                 {
                     userChannel[0].SubjectStreaming = subject;
