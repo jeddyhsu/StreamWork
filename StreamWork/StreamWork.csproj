@@ -43,6 +43,9 @@
     <Content Remove="wwwroot\images\broadcast.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Views\Home\EmptyCSSFile.css" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Config\storageconfig.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
