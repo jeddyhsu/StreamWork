@@ -42,14 +42,14 @@
                             <p class="card-text">Description could go here in the future.</p>
                             <button id="Broadcast" onclick="myFunction()" class="btn btn-info btn-lg" data-toggle="modal" data-target="#youtubeStreamKeyPopup">Start Broadcast</button>
                         </div>
-                    </div>
+                    </div>  
 
-                    @if (Model.youtubeStreamKeys[0].StreamID == null)
+                    @if (Model.youtubeStreamKeys[0].SubjectStreaming == null)
                     {
                         <script>
-                       var changeBroadcastButtonText = false;
-                       document.getElementById("Broadcast").innerText = 'Start Broadcast';
+                        document.getElementById("Broadcast").innerText = 'Start Broadcast';
                        </script>
+
                         <div id="youtubeStreamKeyPopup" class="modal fade" role="dialog">
                             <div class="modal-dialog">
                                 <!-- Modal content-->
@@ -65,7 +65,7 @@
                                         <div style="margin-left:10px">
                                             <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Math')">MATHEMATICS</a>
                                             <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Literature')">LITERATURE</a>
-                                            <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Design&amp;Art')">DESIGN &amp; ART</a>
+                                            <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Design&Art')">DESIGN&ART</a>
                                             <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Science')">SCIENCE</a>
                                             <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Business')">BUSINESS</a>
                                             <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Programming')">PROGRAMMING</a>
@@ -84,7 +84,6 @@
                     else
                     {
                         <script>
-                         changeBroadcastButtonText = true;
                          document.getElementById("Broadcast").innerText = 'Stop/Change Broadcast';
                          </script>
                         <div id="youtubeStopChangePopup" class="modal fade" role="dialog">
@@ -94,27 +93,26 @@
                                     <div class="modal-header">
                                         <h4 class="modal-title">Stop/Change Broadcast</h4>
                                         <button type="button" class="close" data-dismiss="modal">×</button>
-
                                     </div>
                                     <div class="modal-body" style="align-items:center">
-                                        <button type="button" onclick="StopStream('Stop')" class="btn btn-info btn-lg" data-toggle="modal" data-target="#youtubeStopChangePopup">Stop/Change Broadcast</button>
+                                        <button style="display:block; margin-left:auto; margin-right:auto" type="button" onclick="StopStream('Stop')" class="btn btn-info btn-lg" data-toggle="modal" data-target="#youtubeStopChangePopup">Stop Broadcast</button>
                                     </div>
 
                                     <div class="modal-body" style="align-items:center">
-                                        <label>Pick the subject you are streaming:</label>
+                                        <label>Pick the subject you want to change to:</label>
                                         <br>
                                         <div style="margin-left:10px">
-                                            <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Math')">MATHEMATICS</a>
-                                            <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Literature')">LITERATURE</a>
-                                            <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Design&amp;Art')">DESIGN &amp; ART</a>
-                                            <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Science')">SCIENCE</a>
-                                            <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Business')">BUSINESS</a>
-                                            <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Programming')">PROGRAMMING</a>
+                                            <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="ChangeStream('Math')">MATHEMATICS</a>
+                                            <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="ChangeStream('Literature')">LITERATURE</a>
+                                            <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="ChangeStream('Design&Art')">DESIGN&ART</a>
+                                            <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="ChangeStream('Science')">SCIENCE</a>
+                                            <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="ChangeStream('Business')">BUSINESS</a>
+                                            <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="ChangeStream('Programming')">PROGRAMMING</a>
 
                                         </div>
                                         <div style="margin-left:80px">
-                                            <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Engineering')">ENGINEERING</a>
-                                            <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Other')">OTHER</a>
+                                            <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="ChangeStream('Engineering')">ENGINEERING</a>
+                                            <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="ChangeStream('Other')">OTHER</a>
                                         </div>
 
                                     </div>
@@ -170,8 +168,9 @@
 </div>
 
 <script>
-   function myFunction() {
-        if (changeBroadcastButtonText == false){
+function myFunction() {
+
+        if (document.getElementById('Broadcast').innerText == "Start Broadcast"){
             $('#youtubeStreamKeyPopup').modal('show');
         }
         else{
@@ -238,6 +237,36 @@
            dataType: 'json',
            data: {
                'Subject': subject
+           },
+           success: function (data) {
+               if (data.message === "Success") {
+                   $('#youtubeStreamKeyPopup').modal('hide')
+                   $('#loadingPopup').modal('hide')
+                   document.getElementById("Broadcast").disabled = false;
+                   document.getElementById("Broadcast").innerText = 'Stop/Change Broadcast';
+                   alert("Your broadcast has started in " + subject);
+                   location.reload();
+               }
+           }
+       });
+   }
+
+    function ChangeStream(subject) {
+       debugger;
+        $('#loadingPopup').modal({
+        backdrop: 'static',
+        keyboard: false
+     });
+       document.getElementById("Broadcast").disabled = true;
+       $('#youtubeStreamKeyPopup').modal('hide')
+       $('#youtubeStopChangePopup').modal('hide');
+       $('#loadingPopup').modal('show');
+       $.ajax({
+           url: '/Home/ProfileTutor',
+           type: 'post',
+           dataType: 'json',
+           data: {
+               'Change': subject
            },
            success: function (data) {
                if (data.message === "Success") {
