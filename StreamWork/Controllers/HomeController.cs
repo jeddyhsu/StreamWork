@@ -192,7 +192,7 @@ namespace StreamWork.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ProfileTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamKey, string subject, string stop)
+        public async Task<IActionResult> ProfileTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamKey, string subject, string stop, string change)
         {
             string confirmation = "";
             if (streamKey != null)
@@ -229,7 +229,15 @@ namespace StreamWork.Controllers
                 }
             }
 
-            if(stop != null)
+            if(change != null)
+            {
+                var userChannel = await DataStore.GetListAsync<YoutubeStreamKeys>(_connectionStringYoutube, storageConfig.Value, "UserChannelKey", new List<string> { HttpContext.Session.GetString("UserProfile") });
+                userChannel[0].SubjectStreaming = change;
+                await DataStore.SaveAsync(_connectionStringYoutube, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel[0].Id } }, userChannel[0]);
+                confirmation = "Success";
+            }
+
+            if (stop != null)
             {
                 var userChannel = await DataStore.GetListAsync<YoutubeStreamKeys>(_connectionStringYoutube, storageConfig.Value, "UserChannelKey", new List<string> { HttpContext.Session.GetString("UserProfile") });
                 userChannel[0].SubjectStreaming = null;
