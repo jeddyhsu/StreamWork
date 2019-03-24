@@ -22,6 +22,10 @@ namespace StreamWork.Controllers
 
         public IActionResult Index()
         {
+            if(Request.Host.ToString() == "streamwork.live")
+            {
+                return Redirect("https://www.streamwork.live");
+            }
             return View();
         }
 
