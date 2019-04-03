@@ -183,20 +183,14 @@ namespace StreamWork.Core
             WebRequest webRequest = WebRequest.Create(URL);
             webRequest.Credentials = CredentialCache.DefaultCredentials;
             WebResponse response = webRequest.GetResponse();
-            Console.WriteLine(((HttpWebResponse)response).StatusDescription);
-              
+            Console.WriteLine(((HttpWebResponse)response).StatusDescription);      
             Stream dataStream = response.GetResponseStream();
-           
             StreamReader reader = new StreamReader(dataStream);
-              
             string responseFromServer = reader.ReadToEnd();
             reader.Close();
             response.Close();
-            YoutubeAPI API = Newtonsoft.Json.JsonConvert.DeserializeObject<YoutubeAPI>(responseFromServer);
+            var API = Newtonsoft.Json.JsonConvert.DeserializeObject<YoutubeAPI>(responseFromServer);
             return API ;
-           
-
-
         }
     }
 }

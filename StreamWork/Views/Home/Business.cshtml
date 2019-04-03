@@ -1,9 +1,9 @@
-﻿@model List<YoutubeStreamKeys>
+﻿@model StreamWork.ViewModels.SubjectViewModel
 @{
     ViewData["Title"] = "Business";
 }
 <div style="font-family:'Roboto', sans-serif;">
-    <nav class="navbar navbar-expand-lg navbar-light text-center" style="position:fixed;z-index:2 ;width:100%;background-color:#008080">
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light text-center" style="background-color:#008080">
         <img src="~/images/WhiteStreamWork.png" width="250" height="70" onclick="window.location.href='/'" />
         <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -31,83 +31,48 @@
     <div class="container-fluid">
         <div class="row">
             <div class=" col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                <h1 style="font-size:7vw; font-family:'Roboto', sans-serif;padding-top:125px">Business</h1>
+                <h1 style="font-size:8.5vw; font-family:'Roboto'">Business</h1>
                 <h5>POPULAR LIVESTREAMS</h5>
                 <hr />
                 <div class="row">
 
-                    @if (Model.ToArray().Length == 0)
+                    @if (Model.streamList.ToArray().Length == 0)
+                       
                     {
-                        <div class="col-12 m-5">
-                            <h4 class="text-center">No Livestreams Going On Right Now</h4>
-                        </div>
-                    }
-
-                    else
-                    {
-                        foreach (var videoInfo in Model)
+                        foreach (var videoInfo in Model.streamList)
                         {
                             if (videoInfo.StreamThumbnail != null)
                             {
                                 <div class="col-lg-4 col-md-6 mt-4">
-                                    <input type="image" width="100%" height="80%" src=@videoInfo.StreamThumbnail onclick="window.location.href='../StreamViews/MathStream?streamKey=' + ('@videoInfo.StreamID');">
+                                    <input type="image" width="100%" height="80%" src=@videoInfo.StreamThumbnail onclick="window.location.href='../StreamViews/StreamPage?streamKey=' + ('@videoInfo.StreamID');">
                                 </div>
                             }
                         }
                     }
                 </div>
             </div>
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-10">
-                <div class="sidenav">
-                    <h3 style="font-size:1vw; color:white;">Popular Business Streamtutors</h3>
-                    <div class="card pt-3 pd-3" style="display:block;background-color:black;border:none">
-                        <div class=" card-title tutors">
-                            <input type="image" src="~/images/Pro.png" />
-                            <h3 style="font-size:1vw; color:white">THE MATH WIZARD</h3>
-                            <h6 style="font-size:0.9vw; color:white">600,000 views</h6>
-                            <h6 style="font-size:0.9vw; color:white"></h6>
-                        </div>
-                    </div>
+             <nav class="col-md-2 d-none d-md-block sidebar ">
+                <div class="sidebar-sticky">
+                    <h5 class="m-3">Popular StreamTutors</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                @foreach (var tutor in Model.streamTutorList)
+                                {
+                                    <div class="card pt-3 pd-3" style="display:block;background-color:black;border:none">
+                                        <div class=" card-title tutors">
+                                            <input type="image" src="~/images/Pro.png" />
+                                            <h3 style="font-size:1vw; color:white">@tutor.Name.Replace('|',' ')</h3>
+                                        </div>
+                                    </div>
+                                }
 
-                    <div class="card pt-3 pd-3" style="display:block;background-color:black;border:none">
-                        <div class=" card-title tutors">
-                            <input type="image" src="~/images/Pro.png" />
-                            <h3 style="font-size:1vw; color:white">THE Algorithm Genius</h3>
-                            <h6 style="font-size:0.9vw; color:white">550,000 views</h6>
-                            <h6 style="font-size:0.9vw; color:white"> 38,000 current viewers</h6>
-                        </div>
-                    </div>
-                    <div class="card pt-3 pd-3" style="display:block;background-color:black;border:none">
-                        <div class=" card-title tutors">
-                            <input type="image" src="~/images/Pro.png" />
-                            <h3 style="font-size:1vw; color:white">MATHMAN</h3>
-                            <h6 style="font-size:0.9vw; color:white">410,000 views</h6>
-                            <h6 style="font-size:0.9vw; color:white">37,000 current viewers</h6>
+                            </a>
+                        </li>
 
-                        </div>
-                    </div>
-                    <div class="card pt-3 pd-3" style="display:block;background-color:black;border:none">
-                        <div class=" card-title tutors">
-                            <input type="image" src="~/images/Pro.png" />
-                            <h3 style="font-size:1vw; color:white">IAMMATH</h3>
-                            <h6 style="font-size:0.9vw; color:white">419,030 views</h6>
-                            <h6 style="font-size:0.9vw; color:white">36,000 current viewers</h6>
-
-                        </div>
-                    </div>
-                    <div class="card pt-3 pd-3" style="display:block;background-color:black;border:none">
-                        <div class=" card-title tutors">
-                            <input type="image" src="~/images/Pro.png" />
-                            <h3 style="font-size:1vw; color:white">AutomaticCalculus</h3>
-                            <h6 style="font-size:0.9vw; color:white">415,450 views</h6>
-                            <h6 style="font-size:0.9vw; color:white">39,034 current viewers</h6>
-                        </div>
-                    </div>
-                    <div class="pt-3">
-                        <button class="btn buttonStyletutor" style="width:15vw">Want to become a streamtutor?</button>
-                    </div>
+                    </ul>
                 </div>
-            </div>
+            </nav>
         </div>
     </div>
 </div>
@@ -124,7 +89,7 @@ $(document).ready(function () {
  }</script>
 
 <style>
-    .sidenav {
+    .sidebar {
         height: 100%;
         width: 17%;
         position: fixed;
@@ -135,6 +100,7 @@ $(document).ready(function () {
         overflow-x: hidden;
         padding-top: 20px;
         text-align: center;
+        color:white;
     }
 
     .center {
