@@ -5,18 +5,18 @@
             "Name": "StreamWorkSignUp",
             "StorageType": "SqlServer",
             "Queries": [
+              {
+                "Query": "SELECT * FROM [dbo].[StreamWorkSignUp]",
+                "QueryId": "AllSignedUpUsers"
+              },
                 {
                     "Query": "SELECT * FROM [dbo].[StreamWorkSignUp] WHERE Username = '@x0'",
-                    "QueryId": "AllSignedUpUsers"
+                    "QueryId": "PaticularSignedUpUsers"
                 },
 
               {
                 "Query": "SELECT * FROM [dbo].[StreamWorkSignUp] WHERE Username = '@x0' AND Password = '@x1'",
-                "QueryId": "AllSignedUpUsers1"
-              },
-              {
-                "Query": "SELECT * FROM [dbo].[StreamWorkSignUp] WHERE Username = '@x0'",
-                "QueryId": "GetUserInfo"
+                "QueryId": "AllSignedUpUsersWithPassword"
               }
             ]
         },
