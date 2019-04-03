@@ -47,6 +47,7 @@
     <Content Remove="wwwroot\images\faviconwhite.ico" />
     <Content Remove="wwwroot\images\rsz_1rsz_pencil_PJC_icon.ico" />
     <Content Remove="wwwroot\images\faviconBlack.ico" />
+    <Content Remove="wwwroot\images\favicon2.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Views\Home\EmptyCSSFile.css" />
@@ -55,5 +56,6 @@
     <None Include="Config\storageconfig.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="wwwroot\images\favicon2.ico" />
   </ItemGroup>
 </Project>
