@@ -15,10 +15,6 @@ namespace StreamWork.Core
 {
     public static class DataStore
     {
-        private static readonly string _databaseName = "StreamWorkLive";
-        private static readonly string _collectionName = "StreamWorkLive";
-       
-       
         public async static Task<T> GetAsync<T>(string _connectionString,
                                                 StorageConfig storageConfig, 
                                                 Dictionary<string, object> keys) where T : class
