@@ -46,134 +46,105 @@
                                         <button id="Broadcast" onclick="myFunction()" class="btn btn-info" data-toggle="modal" data-target="#youtubeStreamKeyPopup">Start Broadcast</button>
                                         <hr />
                                         <h3 class="card-title">Account Summary</h3>
-                                        <p class="card-text">Views</p>
+                                        <h6 style="text-align:start" class="m-3">Broadcasts:</h6>
+                                        <h6 style="text-align:start" class="m-3">Views:</h6>
+                                        <h6 style="text-align:start" class="m-3">Donations:</h6>
+
                                     </div>
                                 </div>
                             </li>
-
-
                         </ul>
                     </div>
                 </nav>
-
-
                 @if (Model.youtubeStreamKeys[0].SubjectStreaming == null)
-    {
-            <script>document.getElementById("Broadcast").innerText = 'Start Broadcast';</script>
+                {
+                    <script>document.getElementById("Broadcast").innerText = 'Start Broadcast';</script>
+                    <div id="youtubeStreamKeyPopup" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Start Broadcast</h4>
+                                    <button type="button" class="close" data-dismiss="modal">×</button>
+                                </div>
+                                <div class="modal-body" style="align-items:center">
+                                    <label>Pick the subject you are streaming:</label>
+                                    <br>
+                                    <div style="margin-left:10px">
+                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Math')">MATHEMATICS</a>
+                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Literature')">LITERATURE</a>
+                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Design&Art')">DESIGN&ART</a>
+                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Science')">SCIENCE</a>
+                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Business')">BUSINESS</a>
+                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Programming')">PROGRAMMING</a>
 
-            <div id="youtubeStreamKeyPopup" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Start Broadcast</h4>
-                            <button type="button" class="close" data-dismiss="modal">×</button>
-                        </div>
-                        <div class="modal-body" style="align-items:center">
-
-                            <label>Pick the subject you are streaming:</label>
-                            <br>
-                            <div style="margin-left:10px">
-                                <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Math')">MATHEMATICS</a>
-                                <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Literature')">LITERATURE</a>
-                                <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Design&Art')">DESIGN&ART</a>
-                                <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Science')">SCIENCE</a>
-                                <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Business')">BUSINESS</a>
-                                <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Programming')">PROGRAMMING</a>
-
+                                    </div>
+                                    <div style="margin-left:80px">
+                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Engineering')">ENGINEERING</a>
+                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Other')">OTHER</a>
+                                    </div>
+                                </div>
                             </div>
-                            <div style="margin-left:80px">
-                                <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Engineering')">ENGINEERING</a>
-                                <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Other')">OTHER</a>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <script>document.getElementById("Broadcast").innerText = 'Stop/Change Broadcast';</script>
+                    <div id="youtubeStopChangePopup" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Stop/Change Broadcast</h4>
+                                    <button type="button" class="close" data-dismiss="modal">×</button>
+                                </div>
+                                <div class="modal-body" style="align-items:center">
+                                    <button style="display:block; margin-left:auto; margin-right:auto" type="button" onclick="StopStream('Stop')" class="btn btn-info btn-lg" data-toggle="modal" data-target="#youtubeStopChangePopup">Stop Broadcast</button>
+                                </div>
+                                <div class="modal-body" style="align-items:center">
+                                    <label>Pick the subject you want to change to:</label>
+                                    <br>
+                                    <div style="margin-left:10px">
+                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="ChangeStream('Math')">MATHEMATICS</a>
+                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="ChangeStream('Literature')">LITERATURE</a>
+                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="ChangeStream('Design&Art')">DESIGN&ART</a>
+                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="ChangeStream('Science')">SCIENCE</a>
+                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="ChangeStream('Business')">BUSINESS</a>
+                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="ChangeStream('Programming')">PROGRAMMING</a>
+                                    </div>
+                                    <div style="margin-left:80px">
+                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="ChangeStream('Engineering')">ENGINEERING</a>
+                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="ChangeStream('Other')">OTHER</a>
+                                    </div>
+                                </div>
                             </div>
-
                         </div>
                     </div>
-                </div>
-            </div>
-}
-else
-{
-            <script>document.getElementById("Broadcast").innerText = 'Stop/Change Broadcast';</script>
-            <div id="youtubeStopChangePopup" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Stop/Change Broadcast</h4>
-                            <button type="button" class="close" data-dismiss="modal">×</button>
+                }
+                <div class="col-sm-12 col-md-12 col-lg-9 mt-3">
+                    <h3>PAST LIVESTREAMS</h3>
+                    <div class="row">
+                        @foreach(var stream in Model.archivedVideos){
+                        <div class="col-lg-4 col-md-6 mt-4">
+                            <input type="image" width="100%" height="80%" src=@stream.StreamThumbnail onclick="window.location.href='../StreamViews/StreamPage?streamKey=' + ('@stream.StreamID');">
                         </div>
-                        <div class="modal-body" style="align-items:center">
-                            <button style="display:block; margin-left:auto; margin-right:auto" type="button" onclick="StopStream('Stop')" class="btn btn-info btn-lg" data-toggle="modal" data-target="#youtubeStopChangePopup">Stop Broadcast</button>
-                        </div>
-
-                        <div class="modal-body" style="align-items:center">
-                            <label>Pick the subject you want to change to:</label>
-                            <br>
-                            <div style="margin-left:10px">
-                                <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="ChangeStream('Math')">MATHEMATICS</a>
-                                <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="ChangeStream('Literature')">LITERATURE</a>
-                                <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="ChangeStream('Design&Art')">DESIGN&ART</a>
-                                <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="ChangeStream('Science')">SCIENCE</a>
-                                <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="ChangeStream('Business')">BUSINESS</a>
-                                <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="ChangeStream('Programming')">PROGRAMMING</a>
-
-                            </div>
-                            <div style="margin-left:80px">
-                                <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="ChangeStream('Engineering')">ENGINEERING</a>
-                                <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="ChangeStream('Other')">OTHER</a>
-                            </div>
-
-                        </div>
+                        }
                     </div>
-                </div>
-            </div>
-}
-            <div class="col-sm-12 col-md-12 col-lg-9 mt-3">
-                <h3>PAST LIVESTREAMS</h3>
-                <div class="row">
-
-                    <div class="col-lg-4 col-md-6 mt-4">
-                        <input type="image" width="100%" height="80%" src="/images/profile1.png">
-                    </div>
-                    <div class="col-lg-4 col-md-6 mt-4">
-                        <input type="image" width="100%" height="80%" src="/images/profile2.png">
-                    </div>
-                    <div class="col-lg-4 col-md-6 mt-4">
-                        <input type="image" width="100%" height="80%" src="/images/profile3.png">
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 mt-4">
-                        <input type="image" width="100%" height="80%" src="/images/profile1.png">
-                    </div>
-                    <div class="col-lg-4 col-md-6 mt-4">
-                        <input type="image" width="100%" height="80%" src="/images/profile2.png">
-                    </div>
-                    <div class="col-lg-4 col-md-6 mt-4">
-                        <input type="image" width="100%" height="80%" src="/images/profile3.png">
-                    </div>
-
-
-                </div>
-            </div>
-
-            </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div id="loadingPopup" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-body" style="align-items:center">
-                    <h2>Retrieving Stream From Youtube</h2>
-                    <div style="display:block;margin-left:auto;margin-right:auto;" class="lds-dual-ring"></div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+<div id="loadingPopup" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body" style="align-items:center">
+                <h2>Retrieving Stream From Youtube</h2>
+                <div style="display:block;margin-left:auto;margin-right:auto;" class="lds-dual-ring"></div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
 function myFunction() {
