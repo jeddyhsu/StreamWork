@@ -1,39 +1,52 @@
 ﻿{
-    "EntityModels": [
-
+  "EntityModels": [
+    {
+      "Name": "StreamWorkLogin",
+      "StorageType": "SqlServer",
+      "Queries": [
         {
-            "Name": "StreamWorkSignUp",
-            "StorageType": "SqlServer",
-            "Queries": [
-              {
-                "Query": "SELECT * FROM [dbo].[StreamWorkSignUp]",
-                "QueryId": "AllSignedUpUsers"
-              },
-                {
-                    "Query": "SELECT * FROM [dbo].[StreamWorkSignUp] WHERE Username = '@x0'",
-                    "QueryId": "PaticularSignedUpUsers"
-                },
-
-              {
-                "Query": "SELECT * FROM [dbo].[StreamWorkSignUp] WHERE Username = '@x0' AND Password = '@x1'",
-                "QueryId": "AllSignedUpUsersWithPassword"
-              }
-            ]
+          "Query": "SELECT * FROM [dbo].[StreamWorkLogin]",
+          "QueryId": "AllSignedUpUsers"
         },
+        {
+          "Query": "SELECT * FROM [dbo].[StreamWorkLogin] WHERE Username = '@x0'",
+          "QueryId": "PaticularSignedUpUsers"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[StreamWorkLogin] WHERE Username = '@x0' AND Password = '@x1'",
+          "QueryId": "AllSignedUpUsersWithPassword"
+        }
+      ]
+    },
 
-      {
-        "Name": "YoutubeStreamKeys",
-        "StorageType": "SqlServer",
-        "Queries": [
-          {
-            "Query": "SELECT * FROM [dbo].[YoutubeStreamKeys] WHERE SubjectStreaming = '@x0'",
-            "QueryId": "AllStreamKeys"
-          },
-          {
-            "Query": "SELECT * FROM [dbo].[YoutubeStreamKeys] WHERE Username = '@x0'",
-            "QueryId": "UserChannelKey"
-          }
-        ]
-      }
-    ]
+    {
+      "Name": "YoutubeChannelID",
+      "StorageType": "SqlServer",
+      "Queries": [
+        {
+          "Query": "SELECT * FROM [dbo].[YoutubeChannelID] WHERE SubjectStreaming = '@x0'",
+          "QueryId": "AllStreamKeys"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[YoutubeChannelID] WHERE Username = '@x0'",
+          "QueryId": "UserChannelKey"
+        }
+      ]
+    },
+
+    {
+      "Name": "ArchivedStreams",
+      "StorageType": "SqlServer",
+      "Queries": [
+        {
+          "Query": "SELECT * FROM [dbo].[ArchivedStreams]",
+          "QueryId": "AllArchivedVideos"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[ArchivedStreams] WHERE Username = '@x0'",
+          "QueryId": "UserArchivedVideos"
+        }
+      ]
+    }
+  ]
 }

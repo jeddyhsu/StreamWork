@@ -6,7 +6,7 @@ namespace StreamWork.ViewModels
 {
     public class SubjectViewModel
     {
-        public List<YoutubeStreamKeys> streamList { get; set; }
-        public List<StreamWorkSignUp> streamTutorList { get; set; }
+        public List<YoutubeChannelID> streamList { get; set; }
+        public List<StreamWorkLogin> streamTutorList { get; set; }
     }
 }
