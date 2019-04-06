@@ -27,17 +27,18 @@
                 </li>
             </ul>
         </div>
+            <div class="col-sm-12 col-lg-3">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+            </div>
     </nav>
     <div class="container-fluid">
         <div class="row">
             <div class=" col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                <h1 style="font-size:8.5vw; font-family:'Roboto'">Other</h1>
+                <h1 style="font-size:8.5vw; font-family:'Roboto'" class="pt-3">Other</h1>
                 <h5>POPULAR LIVESTREAMS</h5>
                 <hr />
                 <div class="row">
-
                     @if (Model.streamList.ToArray().Length > 0)
-                       
                     {
                         foreach (var videoInfo in Model.streamList)
                         {
@@ -53,7 +54,7 @@
             </div>
              <nav class="col-md-2 d-none d-md-block sidebar ">
                 <div class="sidebar-sticky">
-                    <h5 class="m-3">Popular StreamTutors</h5>
+                    <h5 class="m-3" style="font-size:1vw">Popular StreamTutors</h5>
                     <ul class="nav flex-column">
                         <li class="nav-item">
                             <a class="nav-link active" href="#">
@@ -66,10 +67,8 @@
                                         </div>
                                     </div>
                                 }
-
                             </a>
                         </li>
-
                     </ul>
                 </div>
             </nav>
@@ -93,7 +92,7 @@ $(document).ready(function () {
         height: 100%;
         width: 17%;
         position: fixed;
-        z-index: 1;
+        z-index: 3;
         top: 85px;
         right: 0;
         background-color: black;
@@ -111,6 +110,8 @@ $(document).ready(function () {
     }
 
     .tutors:hover {
-        background-color: #008080;
+         border:double;
+        border-color: #008080;
+        width:100%;
     }
 </style>
