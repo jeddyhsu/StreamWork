@@ -30,10 +30,8 @@ namespace StreamWork.Controllers
             return View();
         }
 
-        [HttpGet]
         public async Task<IActionResult> Math([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
-
             return View(await PopulateSubjectPage(storageConfig,"Math"));
         }
 
@@ -75,6 +73,17 @@ namespace StreamWork.Controllers
         public IActionResult BecomeTutor()
         {
             return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ProfileView(string Tutor,[FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
+            ProfileViewModel profile = new ProfileViewModel
+            {
+                archivedStreams = await DataStore.GetListAsync<ArchivedStreams>(_connectionString, storageConfig.Value, "UserArchivedVideos", new List<string> { Tutor }),
+                users = await DataStore.GetListAsync<StreamWorkLogin>(_connectionString, storageConfig.Value, "PaticularSignedUpUsers", new List<string> { Tutor })
+            };
+            return View(profile);
         }
 
         public IActionResult Error()
