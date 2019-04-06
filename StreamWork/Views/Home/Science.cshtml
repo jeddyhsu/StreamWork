@@ -59,9 +59,9 @@
                             <a class="nav-link active" href="#">
                                 @foreach (var tutor in Model.streamTutorList)
                                 {
-                                    <div class="card pt-3 pd-3" style="display:block;background-color:black;border:none">
+                                    <div class="card pt-3 pd-3" style="display:block;background-color:black;border:none" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@tutor.Username');">
                                         <div class=" card-title tutors">
-                                            <input type="image" src="~/images/Pro.png" />
+                                            <input type="image" src="~/images/Pro.png" /> 
                                             <h3 style="font-size:1vw; color:white">@tutor.Name.Replace('|',' ')</h3>
                                         </div>
                                     </div>
@@ -111,6 +111,8 @@ $(document).ready(function () {
     }
 
     .tutors:hover {
-        background-color: #008080;
+        border:double;
+        border-color: #008080;
+        width:100%;
     }
 </style>
