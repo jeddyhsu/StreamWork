@@ -3,7 +3,7 @@
     ViewData["Title"] = "Mathematics";
 }
 <div style="font-family:'Roboto', sans-serif;">
-    <nav class="navbar sticky-top navbar-expand-lg text-center" style="background-color:#008080">
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light text-center" style="background-color:#008080">
         <img src="~/images/WhiteStreamWork.png" width="250" height="70" onclick="window.location.href='/'" />
         <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -25,13 +25,14 @@
             <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
         </div>
     </nav>
-    <div class="container-fluid" style="font-family:'Roboto'">
+    <div class="container-fluid">
         <div class="row">
-            <div class=" col-lg-10 col-md-10 col-sm-12 col-xs-12">
-                <h1 style="font-size:8.5vw;" class="pt-3">Mathematics</h1>
+            <div class=" col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                <h1 style="font-size:5vw; font-family:'Roboto'" class="pt-3">Mathematics</h1>
                 <h5>POPULAR LIVESTREAMS</h5>
                 <hr />
                 <div class="row">
+
                     @if (Model.streamList.ToArray().Length > 0)
                     {
                         foreach (var videoInfo in Model.streamList)
@@ -46,9 +47,9 @@
                     }
                 </div>
             </div>
-            <nav class="col-md-2 d-none d-md-block sidebar ">
+             <nav class="col-md-2 d-none d-md-block sidebar ">
                 <div class="sidebar-sticky">
-                    <h5 class="m-3" style="font-size:1vw">Popular StreamTutors</h5>
+                    <h5 class="m-2" style="font-size:1.2vw; font-weight:bold;">Popular StreamTutors</h5>
                     <ul class="nav flex-column">
                         <li class="nav-item">
                             <a class="nav-link active" href="#">
@@ -71,14 +72,15 @@
 </div>
 
 <script>
-$(document).ready(function () {
+    $(document).ready(function () {
         $("#nav").click(function () {
            $("#navbarText").slideToggle();
         });
     });
 
-   
-</script>
+ function StreamView(key){
+
+ }</script>
 
 <style>
     .sidebar {
@@ -99,6 +101,12 @@ $(document).ready(function () {
         margin-left: auto;
         margin-right: auto;
         width: 50%;
+    }
+
+    .tutors {
+        border: double;
+        border-color: #000000;
+        width: 100%;
     }
 
     .tutors:hover {
