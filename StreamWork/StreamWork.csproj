@@ -32,9 +32,44 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="wwwroot\images\favicon2.ico" />
+    <None Include="wwwroot\images\RithvikArun.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\images\Math.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\images\Screen Shot 2019-04-10 at 16.19.03.png" />
+    <Content Remove="wwwroot\images\FakeGirl.png" />
+    <Content Remove="wwwroot\images\me.jpg" />
+    <Content Remove="wwwroot\images\RithvikArun.jpeg" />
+    <Content Remove="wwwroot\images\Math.jpg" />
+    <Content Remove="wwwroot\images\StreamWork_Brand_v1.0.png" />
+    <Content Remove="wwwroot\images\BrandSW.png" />
+    <Content Remove="wwwroot\images\StreamWork_SubjectCard_v1.2 lit.png" />
+    <Content Remove="wwwroot\images\StreamWork_SubjectCard_v1.2 math.png" />
+    <Content Remove="wwwroot\images\MathCard.png" />
+    <Content Remove="wwwroot\images\LiteratureCard.png" />
+    <Content Remove="wwwroot\images\StreamWork_Button_v1.0 %281%29.png" />
+    <Content Remove="wwwroot\images\StartBoradcast.png" />
+    <Content Remove="wwwroot\images\StreamWork_SubjectCard_v1.2 hum.png" />
+    <Content Remove="wwwroot\images\StreamWork_SubjectCard_v1.2 law.png" />
+    <Content Remove="wwwroot\images\LawCard.png" />
+    <Content Remove="wwwroot\images\StreamWork_SubjectCard_v1.2 art.png" />
+    <Content Remove="wwwroot\images\ArtCard.png" />
+    <Content Remove="wwwroot\images\StreamWork_SubjectCard_v1.2.1 hum.png" />
+    <Content Remove="wwwroot\images\HumanitiesCard.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="Views\Home\ProfileView.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\FakeGirl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\DummyGirl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\JaredHsu.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
