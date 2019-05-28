@@ -117,7 +117,11 @@ namespace StreamWork.Controllers
         {
             List<StreamWorkLogin> list = new List<StreamWorkLogin>();
             var getCurrentUsers = await DataStore.GetListAsync<StreamWorkLogin>(_connectionString, storageConfig.Value, "AllSignedUpUsers", null);
-            list = getCurrentUsers;
+            foreach (StreamWorkLogin user in getCurrentUsers) {
+                if (user.ProfileType.Equals("tutor")) {
+                    list.Add(user);
+                }
+            }
             return list;
         }
 
