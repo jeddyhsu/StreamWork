@@ -35,7 +35,7 @@ namespace StreamWork.Controllers
             return View(await PopulateSubjectPage(storageConfig,"Math"));
         }
 
-        public async Task<IActionResult> Literature([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        public async Task<IActionResult> Humanities([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
             return View(await PopulateSubjectPage(storageConfig,"Literature"));
         }
@@ -105,9 +105,11 @@ namespace StreamWork.Controllers
         {
             var streams = await GetStreams(storageConfig, subject);
             var tutors = await GetPopularStreamTutors(storageConfig);
-            SubjectViewModel model = new SubjectViewModel();
-            model.streamList = streams;
-            model.streamTutorList = tutors;
+            SubjectViewModel model = new SubjectViewModel
+            {
+                streamList = streams,
+                streamTutorList = tutors
+            };
             return model;
         }
 
