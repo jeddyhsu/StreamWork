@@ -35,9 +35,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="wwwroot\images\Math.jpg" />
-    <None Include="wwwroot\images\ArtCard.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="wwwroot\images\MathCard.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -67,7 +64,6 @@
     <Content Remove="wwwroot\images\StreamWork_SubjectCard_v1.2 law.png" />
     <Content Remove="wwwroot\images\LawCard.png" />
     <Content Remove="wwwroot\images\StreamWork_SubjectCard_v1.2 art.png" />
-    <Content Remove="wwwroot\images\ArtCard.png" />
     <Content Remove="wwwroot\images\StreamWork_SubjectCard_v1.2.1 hum.png" />
     <Content Remove="wwwroot\images\HumanitiesCard.png" />
     <Content Remove="wwwroot\images\streamworkbonc_16_hm1_icon.ico" />
@@ -77,16 +73,18 @@
     <Content Remove="wwwroot\images\StreamWork_SubjectCard_v1.2 othr.png" />
     <Content Remove="wwwroot\images\StreamWork_SubjectCard_v1.2 sci.png" />
     <Content Remove="wwwroot\images\BusinessCard.png" />
-    <Content Remove="wwwroot\images\EngineeringCard.png" />
-    <Content Remove="wwwroot\images\OtherCard.png" />
     <Content Remove="wwwroot\images\Other.png" />
     <Content Remove="wwwroot\images\Engineering.png" />
     <Content Remove="wwwroot\images\Business.png" />
     <Content Remove="wwwroot\images\Science.png" />
-    <Content Remove="wwwroot\images\ScienceCard.png" />
     <Content Remove="wwwroot\images\ECard.png" />
     <Content Remove="wwwroot\images\BCard.png" />
     <Content Remove="wwwroot\images\OtCard.png" />
+    <Content Remove="wwwroot\images\StreamWork_SubjectCard_v1.2.1 buss.png" />
+    <Content Remove="wwwroot\images\StreamWork_SubjectCard_v1.2.1 engs.png" />
+    <Content Remove="wwwroot\images\StreamWork_SubjectCard_v1.2.1 other.png" />
+    <Content Remove="wwwroot\images\StreamWork_SubjectCard_v1.2.1 sci.png" />
+    <Content Remove="wwwroot\images\StreamWork_SubjectCard_v1.2.1 art.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="Views\Home\ProfileView.cshtml">
@@ -119,19 +117,10 @@
     <Content Update="wwwroot\images\Science.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\ScienceCard.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\images\SCard.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Update="wwwroot\images\ECard.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="wwwroot\images\BCard.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\images\BuCard.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="wwwroot\images\OtCard.png">
@@ -140,7 +129,19 @@
     <Content Update="wwwroot\images\OthCard.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\OCard.png">
+    <Content Update="wwwroot\images\BuisnessCard.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\Art.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\EngineeringCard.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\OtherCard.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\ScienceCard.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
