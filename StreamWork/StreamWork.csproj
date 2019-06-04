@@ -31,16 +31,23 @@
     <None Include="Config\storageconfig.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="wwwroot\images\favicon2.ico" />
     <None Include="wwwroot\images\RithvikArun.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="wwwroot\images\Math.jpg" />
-    <None Include="wwwroot\images\ArtCard.png" />
-    <None Include="wwwroot\images\MathCard.png" />
+    <None Include="wwwroot\images\ArtCard.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\images\MathCard.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="wwwroot\images\LiteratureCard.png" />
-    <None Include="wwwroot\images\HumanitiesCard.png" />
-    <None Include="wwwroot\images\LawCard.png" />
+    <None Include="wwwroot\images\HumanitiesCard.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\images\LawCard.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\images\Screen Shot 2019-04-10 at 16.19.03.png" />
@@ -63,6 +70,16 @@
     <Content Remove="wwwroot\images\ArtCard.png" />
     <Content Remove="wwwroot\images\StreamWork_SubjectCard_v1.2.1 hum.png" />
     <Content Remove="wwwroot\images\HumanitiesCard.png" />
+    <Content Remove="wwwroot\images\streamworkbonc_16_hm1_icon.ico" />
+    <Content Remove="wwwroot\images\favicon.ico" />
+    <Content Remove="wwwroot\images\StreamWork_SubjectCard_v1.2 buss.png" />
+    <Content Remove="wwwroot\images\StreamWork_SubjectCard_v1.2 engn.png" />
+    <Content Remove="wwwroot\images\StreamWork_SubjectCard_v1.2 othr.png" />
+    <Content Remove="wwwroot\images\StreamWork_SubjectCard_v1.2 sci.png" />
+    <Content Remove="wwwroot\images\BusinessCard.png" />
+    <Content Remove="wwwroot\images\EngineeringCard.png" />
+    <Content Remove="wwwroot\images\OtherCard.png" />
+    <Content Remove="wwwroot\images\ScienceCard.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="Views\Home\ProfileView.cshtml">
@@ -75,6 +92,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="wwwroot\images\JaredHsu.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\favicon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

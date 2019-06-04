@@ -60,7 +60,7 @@ namespace StreamWork.Controllers
             return View(await PopulateSubjectPage(storageConfig, "Business"));
         }
 
-        public async Task<IActionResult> Programming([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        public async Task<IActionResult> Law([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
             return View(await PopulateSubjectPage(storageConfig, "Programming"));
         }
