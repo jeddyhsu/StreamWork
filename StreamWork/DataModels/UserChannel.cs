@@ -4,7 +4,7 @@ using StreamWork.Framework;
 
 namespace StreamWork.Models
 {
-    public class YoutubeChannelID : IStorageBase<YoutubeChannelID>
+    public class UserChannel : IStorageBase<UserChannel>
     {
         [Key]
         public string Id { get; set; }
@@ -14,11 +14,13 @@ namespace StreamWork.Models
         public string SubjectStreaming { get; set; }
         public string StreamThumbnail { get; set; }
         public string StreamID { get; set; }
+        public string StreamTitle { get; set; }
+        public string VideoURL { get; set; }
 
         [Timestamp]
         public byte[] RowVersion { get; set; }
 
-        public virtual void Configure(EntityTypeBuilder<YoutubeChannelID> builder)
+        public virtual void Configure(EntityTypeBuilder<UserChannel> builder)
         {
 
         }
