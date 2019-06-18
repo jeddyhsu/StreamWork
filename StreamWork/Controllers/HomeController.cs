@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Options;
 using StreamWork.ViewModels;
 using StreamWork.DataModels;
+using System.IO;
+using System.Data.Common;
 
 namespace StreamWork.Controllers
 {
@@ -17,13 +19,13 @@ namespace StreamWork.Controllers
     {
 
         private readonly string _connectionString = "Server=tcp:streamwork.database.windows.net,1433;Initial Catalog=StreamWork;Persist Security Info=False;User ID=streamwork;Password=arizonastate1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-
+        private readonly string _blobconnectionString = "DefaultEndpointsProtocol=https;AccountName=streamworkblob;AccountKey=//JfVlcPLOyzT3vRHxlY1lJ4NUpduVfiTmuHJHK1u/0vWzP8V5YHPLkPPGD2PVxEwTdNirqHzWYSk7c2vZ80Vg==;EndpointSuffix=core.windows.net";
 
         private bool checker;
 
         public IActionResult Index()
         {
-            if(Request.Host.ToString() == "streamwork.live")
+            if (Request.Host.ToString() == "streamwork.live")
             {
                 return Redirect("https://www.streamwork.live");
             }
@@ -32,27 +34,17 @@ namespace StreamWork.Controllers
 
         public async Task<IActionResult> Math([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
-            return View(await PopulateSubjectPage(storageConfig,"Math"));
-        }
-
-        public async Task<IActionResult> Humanities([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
-        {
-            return View(await PopulateSubjectPage(storageConfig,"Literature"));
-        }
-
-        public async Task<IActionResult> Engineering([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
-        {
-            return View(await PopulateSubjectPage(storageConfig, "Engineering"));
-        }
-
-        public async Task<IActionResult> DesignArt([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
-        {
-            return View(await PopulateSubjectPage(storageConfig, "DesignArt"));
+            return View(await PopulateSubjectPage(storageConfig, "Mathematics"));
         }
 
         public async Task<IActionResult> Science([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
             return View(await PopulateSubjectPage(storageConfig, "Science"));
+        }
+
+        public async Task<IActionResult> Engineering([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
+            return View(await PopulateSubjectPage(storageConfig, "Engineering"));
         }
 
         public async Task<IActionResult> Business([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
@@ -62,7 +54,17 @@ namespace StreamWork.Controllers
 
         public async Task<IActionResult> Law([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
-            return View(await PopulateSubjectPage(storageConfig, "Programming"));
+            return View(await PopulateSubjectPage(storageConfig, "Law"));
+        }
+
+        public async Task<IActionResult> DesignArt([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
+            return View(await PopulateSubjectPage(storageConfig, "Art"));
+        }
+
+        public async Task<IActionResult> Humanities([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
+            return View(await PopulateSubjectPage(storageConfig, "Humanities"));
         }
 
         public async Task<IActionResult> Other([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
@@ -80,13 +82,39 @@ namespace StreamWork.Controllers
             return View();
         }
 
-        [HttpGet]
-        public async Task<IActionResult> ProfileView(string Tutor,[FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        private async Task<UserChannel> GetUserChannelInfo([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
-            ProfileViewModel profile = new ProfileViewModel
+            var channel = await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, "UserChannelKey", new List<string> { HttpContext.Session.GetString("UserProfile") });
+            return channel[0];
+        }
+
+        //private async void SaveIntoBlobContainer(IFormFile file, string streamName, string streamSubject, [FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        //{
+        //    //Gets users channel
+        //    var userChannel = await GetUserChannelInfo(storageConfig);
+        //    //Connects to blob storage and saves thumbnail from user
+        //    CloudStorageAccount cloudStorage = CloudStorageAccount.Parse(_blobconnectionString);
+        //    CloudBlobClient blobClient = cloudStorage.CreateCloudBlobClient();
+        //    CloudBlobContainer blobContainer = blobClient.GetContainerReference("streamworkblobcontainer");
+        //    CloudBlockBlob blockBlob = blobContainer.GetBlockBlobReference(streamName);
+        //    using (Stream stream = file.OpenReadStream())
+        //    {
+        //        blockBlob.UploadFromStream(stream);
+        //    }
+        //    //Populates stream title and stream thumbnail url and saves it into sql database
+        //    userChannel.StreamID = streamName;
+        //    userChannel.StreamThumbnail = blockBlob.Uri.AbsoluteUri;
+        //    userChannel.SubjectStreaming = streamSubject;
+        //    await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
+        //}
+
+        [HttpGet]
+        public async Task<IActionResult> ProfileView(string Tutor, [FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
+            ProfileTutorViewModel profile = new ProfileTutorViewModel
             {
-                archivedStreams = await DataStore.GetListAsync<ArchivedStreams>(_connectionString, storageConfig.Value, "UserArchivedVideos", new List<string> { Tutor }),
-                users = await DataStore.GetListAsync<StreamWorkLogin>(_connectionString, storageConfig.Value, "PaticularSignedUpUsers", new List<string> { Tutor })
+                userArchivedVideos = await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, "UserArchivedVideos", new List<string> { Tutor }),
+                userLogins = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, "PaticularSignedUpUsers", new List<string> { Tutor })
             };
             return View(profile);
         }
@@ -96,60 +124,38 @@ namespace StreamWork.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        private async void PopulateTutorPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
-        {
-            var userChannel = await DataStore.GetListAsync<YoutubeChannelID>(_connectionString, storageConfig.Value, "UserChannelKey", new List<string> { HttpContext.Session.GetString("UserProfile") });
-        }
-
-        private async Task<SubjectViewModel> PopulateSubjectPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject)
+        private async Task<ProfileTutorViewModel> PopulateSubjectPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject)
         {
             var streams = await GetStreams(storageConfig, subject);
             var tutors = await GetPopularStreamTutors(storageConfig);
-            SubjectViewModel model = new SubjectViewModel
+            ProfileTutorViewModel model = new ProfileTutorViewModel
             {
-                streamList = streams,
-                streamTutorList = tutors
+                userChannels = streams,
+                userLogins = tutors
             };
             return model;
         }
 
-        private async Task<List<StreamWorkLogin>> GetPopularStreamTutors([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        private async Task<List<UserLogin>> GetPopularStreamTutors([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
-            List<StreamWorkLogin> list = new List<StreamWorkLogin>();
-            var getCurrentUsers = await DataStore.GetListAsync<StreamWorkLogin>(_connectionString, storageConfig.Value, "AllSignedUpUsers", null);
-            foreach (StreamWorkLogin user in getCurrentUsers) {
-                if (user.ProfileType.Equals("tutor")) {
+            List<UserLogin> list = new List<UserLogin>();
+            var getCurrentUsers = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, "AllSignedUpUsers", null);
+            foreach (UserLogin user in getCurrentUsers)
+            {
+                if (user.ProfileType.Equals("tutor"))
+                {
                     list.Add(user);
                 }
             }
             return list;
         }
 
-        private async Task<List<YoutubeChannelID>> GetStreams([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject)
+        private async Task<List<UserChannel>> GetStreams([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject)
         {
-            List<YoutubeChannelID> list = new List<YoutubeChannelID>();
-            var getAllStreams = await DataStore.GetListAsync<YoutubeChannelID>(_connectionString, storageConfig.Value, "AllStreamKeys", new List<string> { subject });
+            List<UserChannel> list = new List<UserChannel>();
+            var getAllStreams = await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, "AllStreamKeys", new List<string> { subject });
             list = getAllStreams;
             return list;
-        }
-
-        private async Task<bool> CallAPIForConnectingToLiveStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, List<YoutubeChannelID> userChannel, string subject)
-        {
-            bool b = true;
-            while (b)
-            {
-                await Task.Delay(5000);
-                var API = DataStore.CallAPI("https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=" + userChannel[0].ChannelKeyAPI + "&type=video&eventType=live&key=AIzaSyAk_G6WQE-W9gldyF_CvNLLHaSs4psLuIA");
-                if (API.Items.Length == 1)
-                {
-                    userChannel[0].SubjectStreaming = subject;
-                    userChannel[0].StreamThumbnail = API.Items[0].Snippet.Thumbnails.High.Url.ToString();
-                    userChannel[0].StreamID = API.Items[0].Id.VideoId;
-                    await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel[0].Id } }, userChannel[0]);
-                    b = false;
-                }
-            }
-            return true;
         }
 
         [HttpPost]
@@ -157,7 +163,7 @@ namespace StreamWork.Controllers
                                                 string nameFirst, string nameLast, string email, string phone, string username, string password, string passwordConfirm, string channelId, string role)
         {
             string confirmation = "";
-            StreamWorkLogin signUpProflie = new StreamWorkLogin
+            UserLogin signUpProflie = new UserLogin
             {
                 Id = Guid.NewGuid().ToString(),
                 Name = nameFirst + "|" + nameLast,
@@ -167,7 +173,7 @@ namespace StreamWork.Controllers
                 ProfileType = role
             };
             var _streamKey = channelId.Replace('C', 'U');
-            YoutubeChannelID key = new YoutubeChannelID
+            UserChannel key = new UserChannel
             {
                 Id = Guid.NewGuid().ToString(),
                 Username = username,
@@ -176,7 +182,7 @@ namespace StreamWork.Controllers
                 SubjectStreaming = null,
                 StreamThumbnail = null
             };
-            var checkCurrentUsers = await DataStore.GetListAsync<StreamWorkLogin>(_connectionString, storageConfig.Value, "PaticularSignedUpUsers", new List<string> { username });
+            var checkCurrentUsers = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, "PaticularSignedUpUsers", new List<string> { username });
             int numberOfUsers = 0;
             foreach (var user in checkCurrentUsers)
             {
@@ -208,7 +214,7 @@ namespace StreamWork.Controllers
             if (storageConfig != null)
             {
                 int user = 0;
-                var checkforUser = await DataStore.GetListAsync<StreamWorkLogin>(_connectionString, storageConfig.Value, "AllSignedUpUsersWithPassword", new List<string> { username, password });
+                var checkforUser = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, "AllSignedUpUsersWithPassword", new List<string> { username, password });
                 foreach (var u in checkforUser)
                 {
                     if (u.Password == password && u.Username == username)
@@ -226,7 +232,6 @@ namespace StreamWork.Controllers
             {
                 confirmation = "Wrong Password or Username ";
             }
-
             return Json(new { Message = confirmation });
         }
 
@@ -240,7 +245,7 @@ namespace StreamWork.Controllers
         {
             var model = new UserProfile();
             var user = HttpContext.Session.GetString("UserProfile");
-            var getUserInfo = await DataStore.GetListAsync<StreamWorkLogin>(_connectionString, storageConfig.Value, "PaticularSignedUpUsers", new List<string> { user });
+            var getUserInfo = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, "PaticularSignedUpUsers", new List<string> { user });
             foreach (var u in getUserInfo)
             {
                 var splitName = u.Name.Split(new char[] { '|' });
@@ -255,84 +260,96 @@ namespace StreamWork.Controllers
         {
             var model = new UserProfile();
             var user = HttpContext.Session.GetString("UserProfile");
-            var getUserInfo = await DataStore.GetListAsync<StreamWorkLogin>(_connectionString, storageConfig.Value, "PaticularSignedUpUsers", new List<string> { user });
-            var userChannel = await DataStore.GetListAsync<YoutubeChannelID>(_connectionString, storageConfig.Value, "UserChannelKey", new List<string> { user });
+            var getUserInfo = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, "PaticularSignedUpUsers", new List<string> { user });
+            var userChannel = await GetUserChannelInfo(storageConfig);
             foreach (var u in getUserInfo)
             {
                 var splitName = u.Name.Split(new char[] { '|' });
                 model.FirstName = splitName[0];
                 model.LastName = splitName[1];
-                if (userChannel.ToArray().Length != 0)
+                if (userChannel != null)
                 {
-                    model.ChannelId = userChannel[0].ChannelKey;
+                    model.ChannelId = userChannel.ChannelKey;
                 }
             }
-            if (userChannel[0].StreamID == null && checker == false)
+            if (userChannel.StreamID == null && checker == false)
             {
-                userChannel[0].SubjectStreaming = null;
-                userChannel[0].StreamThumbnail = null;
-                userChannel[0].StreamID = null;
+                userChannel.SubjectStreaming = null;
+                userChannel.StreamThumbnail = null;
+                userChannel.StreamID = null;
                 checker = true;
             }
 
-            await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel[0].Id } }, userChannel[0]);
-            PopulateTutorPage(storageConfig);
+            await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
+           // PopulateTutorPage(storageConfig);
             ProfileTutorViewModel viewModel = new ProfileTutorViewModel
-            {
+            { 
                 userProfile = model,
-                youtubeStreamKeys = await DataStore.GetListAsync<YoutubeChannelID>(_connectionString, storageConfig.Value, "UserChannelKey", new List<string> { user }),
-                archivedVideos = await DataStore.GetListAsync<ArchivedStreams>(_connectionString, storageConfig.Value, "UserArchivedVideos", new List<string> { user })
+                userChannels = await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, "UserChannelKey", new List<string> { user }),
+                userArchivedVideos = await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, "UserArchivedVideos", new List<string> { user })
             };
 
             return View(viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> ProfileTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamKey, string subject, string stop, string change)
+        public async Task<IActionResult> ProfileTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamURL, string streamTitle, string streamSubject, string subject, string stop, string change)
         {
-            string confirmation = "";
+            var userChannel = await GetUserChannelInfo(storageConfig);
 
-            if (subject != null)
+            //Saves streamTitle, URl, and subject into sql database
+            if(streamURL != null && streamTitle != null && streamSubject != null)
             {
-                var userChannel = await DataStore.GetListAsync<YoutubeChannelID>(_connectionString, storageConfig.Value, "UserChannelKey", new List<string> { HttpContext.Session.GetString("UserProfile") });
+                var streamId = streamURL.Split(new char[] { '/' });
+                userChannel.StreamID = streamId[3] ;
+                userChannel.VideoURL = streamURL;
+                userChannel.SubjectStreaming = streamSubject;
+                userChannel.StreamThumbnail = "https://i.ytimg.com/vi/"+streamId[3]+"/hqdefault_live.jpg";
+                userChannel.StreamTitle = streamTitle;
 
-                if (await CallAPIForConnectingToLiveStream(storageConfig, userChannel, subject))
+                try
                 {
-                    confirmation = "Success";
+                    await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
                 }
-            }
+                catch (DbException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
 
+                return Json(new {Message = "Saved"});
+            }
+            //change stream subject
             if (change != null)
             {
-                var userChannel = await DataStore.GetListAsync<YoutubeChannelID>(_connectionString, storageConfig.Value, "UserChannelKey", new List<string> { HttpContext.Session.GetString("UserProfile") });
-                userChannel[0].SubjectStreaming = change;
-                await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel[0].Id } }, userChannel[0]);
-                confirmation = "Success";
+                userChannel.SubjectStreaming = change;
+                await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
             }
-
+            //stop stream and archvie video into database
             if (stop != null)
             {
-                var userChannel = await DataStore.GetListAsync<YoutubeChannelID>(_connectionString, storageConfig.Value, "UserChannelKey", new List<string> { HttpContext.Session.GetString("UserProfile") });
-
-                ArchivedStreams video = new ArchivedStreams
+                UserArchivedStreams video = new UserArchivedStreams
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Username = HttpContext.Session.GetString("UserProfile"),
-                    StreamID = userChannel[0].StreamID,
-                    StreamThumbnail = userChannel[0].StreamThumbnail,
-                    Subject = userChannel[0].SubjectStreaming
+                    Username = userChannel.Username,
+                    StreamID = userChannel.StreamID,
+                    StreamThumbnail = userChannel.StreamThumbnail,
+                    Subject = "https://i.ytimg.com/vi/"+ userChannel.StreamID + "/hqdefault.jpg",
+                    StreamTitle = userChannel.StreamTitle,
                 };
 
-                userChannel[0].SubjectStreaming = null;
-                userChannel[0].StreamThumbnail = null;
-                userChannel[0].StreamID = null;
+                userChannel.SubjectStreaming = null;
+                userChannel.StreamThumbnail = null;
+                userChannel.StreamID = null;
+                userChannel.StreamTitle = null;
+                userChannel.VideoURL = null;
 
                 await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", video.Id } }, video);
-                await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel[0].Id } }, userChannel[0]);
+                await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
 
-                confirmation = "Success";
+                return Json(new { Message = "Stopped" });
             }
-            return Json(new { Message = confirmation });
+
+            return Json(new { Message = "" });
         }
     }
 }
