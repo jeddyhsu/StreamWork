@@ -8,7 +8,8 @@ namespace StreamWork.ViewModels
     public class ProfileTutorViewModel
     {
         public UserProfile userProfile { get; set; }
-        public List<YoutubeChannelID> youtubeStreamKeys { get; set; }
-        public List<ArchivedStreams> archivedVideos { get; set; }
+        public List<UserChannel> userChannels { get; set; }
+        public List<UserArchivedStreams> userArchivedVideos { get; set; }
+        public List<UserLogin> userLogins { get; set; }
     }
 }

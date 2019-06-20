@@ -26,11 +26,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Views\Home\EmptyCSSFile.css" />
+    <None Remove="Config\storageconfig.json" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Config\storageconfig.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="wwwroot\images\RithvikArun.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -147,5 +145,9 @@
     <Content Update="wwwroot\images\ScienceCard.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="ViewModels\ProfileViewModel.cs" />
+    <Compile Remove="ViewModels\SubjectViewModel.cs" />
   </ItemGroup>
 </Project>

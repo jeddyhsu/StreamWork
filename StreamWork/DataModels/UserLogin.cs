@@ -4,7 +4,7 @@ using StreamWork.Framework;
 
 namespace StreamWork.Models
 {
-    public class StreamWorkLogin : IStorageBase<StreamWorkLogin>
+    public class UserLogin : IStorageBase<UserLogin>
     {
         [Key]
         public string Id { get; set; }
@@ -17,7 +17,7 @@ namespace StreamWork.Models
         [Timestamp]
         public byte[] RowVersion { get; set; }
 
-        public virtual void Configure(EntityTypeBuilder<StreamWorkLogin> builder)
+        public virtual void Configure(EntityTypeBuilder<UserLogin> builder)
         {
 
         }
