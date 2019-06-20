@@ -80,6 +80,11 @@ namespace StreamWork.Controllers
             return View();
         }
 
+        public IActionResult HowToStream()
+        {
+            return View();
+        }
+
         [HttpGet]
         public async Task<IActionResult> ProfileView(string Tutor,[FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
