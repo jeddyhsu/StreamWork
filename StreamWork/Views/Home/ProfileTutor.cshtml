@@ -35,88 +35,77 @@
                             <li class="nav-item">
                                 <div class="card text-center mt-3 border-0" style="color:white;">
                                     <div class="card-body" style="background-color:#006565">
-                                        <img  src="/images/RithvikArun.jpeg" style="width:50%; height:50%"/>
+                                        <br />
+                                        <br />
+                                         <br />
+                                        <img src="/images/RithvikArun.jpeg" style="width:50%; height:50%" />
                                         <h1 class="card-title mt-4" style=" font-size:1.8vw; color:lightgray"><b>@Model.userProfile.FirstName @Model.userProfile.LastName</b></h1>
                                         <p class="card-text" style="font-size:1vw; color:white">Calculus 2 / Geometrey / Limits</p>
                                         <p class="card-text" style="font-size:1vw; color:white">I am a math major at Arizona State Univeristy and work at Polytechnic Tutoring Center. </p>
-                                        <hr /> 
-                                        <button id="Broadcast" onclick="myFunction()" class="btn btn-info" data-toggle="modal" data-target="#youtubeStreamKeyPopup">Start Broadcast</button>
+                                        <hr />
+                                        <h3 style="font-size:1.5vw; color:white">Current Stream</h3>
+                                        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/live_stream?channel=@Model.userChannels[0].ChannelKeyAPI" frameborder="1"></iframe>
+                                        <br />
+                                        <br />
+                                        @if(@Model.userChannels[0].VideoURL != null){
+                                        <input align="middle" type="text" class="form-control" value="@Model.userChannels[0].VideoURL" id="streamURL" placeholder="Stream URL">
+                                        }
+                                        else{
+                                        <input align="middle" type="text" class="form-control" id="streamURL" placeholder="Stream URL">
+                                        }
+                                        <br />
+                                         @if(@Model.userChannels[0].StreamID != null){
+                                              <input align="middle" type="text" class="form-control" value="@Model.userChannels[0].StreamTitle" id="streamTitle" placeholder="Stream Title">
+                                        }
+                                        else{
+                                              <input align="middle" type="text" class="form-control" id="streamTitle" placeholder="Stream Title" />
+                                        }
+                                        <br />
+                                          @if(@Model.userChannels[0].SubjectStreaming != null){
+                                        <select style="width:100%" id="streamSubject">
+                                            <option>@Model.userChannels[0].SubjectStreaming</option>
+                                            <option value="Mathematics">Mathematics</option>
+                                            <option value="Science">Science</option>
+                                            <option value="Engineering">Engineering</option>
+                                            <option value="Business">Business</option>
+                                            <option value="Law">Law</option>
+                                            <option value="Art">Art</option>
+                                            <option value="Humanities">Humanities</option>
+                                            <option value="Other">Other</option>
+                                           
+                                        </select>
+                                          <br />
+                                          <br />
+                                          <button id="stopStream" type="button" class="btn btn-info btn-md" onclick="StopStream('stop')">Stop Stream</button>
+                                        }
+                                        else{
+                                            <select style="width:100%" id="streamSubject">
+                                                <option>Select Subject</option>
+                                                <option value="Mathematics">Mathematics</option>
+                                                <option value="Science">Science</option>
+                                                <option value="Engineering">Engineering</option>
+                                                <option value="Business">Business</option>
+                                                <option value="Law">Law</option>
+                                                <option value="Art">Art</option>
+                                                <option value="Humanities">Humanities</option>
+                                                <option value="Other">Other</option>
+                                            </select>
+
+                                        }
+
                                     </div>
                                 </div>
                             </li>
                         </ul>
                     </div>
                 </nav>
-                @if (Model.youtubeStreamKeys[0].SubjectStreaming == null)
-                {
-                    <script>document.getElementById("Broadcast").innerText = 'Start Broadcast';</script>
-                    <div id="youtubeStreamKeyPopup" class="modal fade" role="dialog">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title">Start Broadcast</h4>
-                                    <button type="button" class="close" data-dismiss="modal">×</button>
-                                </div>
-                                <div class="modal-body" style="align-items:center">
-                                    <label>Pick the subject you are streaming:</label>
-                                    <br>
-                                    <div style="margin-left:10px">
-                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Math')">MATHEMATICS</a>
-                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Literature')">LITERATURE</a>
-                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Design&Art')">DESIGN&ART</a>
-                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Science')">SCIENCE</a>
-                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Business')">BUSINESS</a>
-                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Programming')">PROGRAMMING</a>
-                                    
-                                    </div>
-                                    <div style="margin-left:80px">
-                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Engineering')">ENGINEERING</a>
-                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="PushStream('Other')">OTHER</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
-                else
-                {
-                    <script>document.getElementById("Broadcast").innerText = 'Stop/Change Broadcast';</script>
-                    <div id="youtubeStopChangePopup" class="modal fade" role="dialog">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title">Stop/Change Broadcast</h4>
-                                    <button type="button" class="close" data-dismiss="modal">×</button>
-                                </div>
-                                <div class="modal-body" style="align-items:center">
-                                    <button style="display:block; margin-left:auto; margin-right:auto" type="button" onclick="StopStream('Stop')" class="btn btn-info btn-lg" data-toggle="modal" data-target="#youtubeStopChangePopup">Stop Broadcast</button>
-                                </div>
-                                <div class="modal-body" style="align-items:center">
-                                    <label>Pick the subject you want to change to:</label>
-                                    <br>
-                                    <div style="margin-left:10px">
-                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="ChangeStream('Math')">MATHEMATICS</a>
-                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="ChangeStream('Literature')">LITERATURE</a>
-                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="ChangeStream('Design&Art')">DESIGN&ART</a>
-                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="ChangeStream('Science')">SCIENCE</a>
-                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="ChangeStream('Business')">BUSINESS</a>
-                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="ChangeStream('Programming')">PROGRAMMING</a>
-                                    </div>
-                                    <div style="margin-left:80px">
-                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="ChangeStream('Engineering')">ENGINEERING</a>
-                                        <a style="color:white" class="btn buttonStyle m-1" id="Subject" onclick="ChangeStream('Other')">OTHER</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
                 <div class="col-sm-12 col-md-12 col-lg-9 mt-3">
                     <h3>PAST LIVESTREAMS</h3>
                     <div class="row">
-                        @foreach(var stream in Model.archivedVideos){
+                        @foreach(var stream in Model.userArchivedVideos){
                         <div class="col-lg-4 col-md-6 mt-4">
                             <input type="image" width="100%" height="80%" src=@stream.StreamThumbnail onclick="window.location.href='../StreamViews/StreamPage?streamKey=' + ('@stream.StreamID');">
+                            <h5 style="font-family: 'Roboto'">@stream.StreamTitle</h5>
                         </div>
                         }
                     </div>
@@ -137,36 +126,30 @@
     </div>
 </div>
 
+
 <script>
-function myFunction() {
-
-        if (document.getElementById('Broadcast').innerText == "Start Broadcast"){
-            $('#youtubeStreamKeyPopup').modal('show');
-        }
-        else{
-             $('#youtubeStopChangePopup').modal('show');
-        }
-   }
-
-   function YoutubeStreamKey() {
-       $.ajax({
-           url: '/Home/ProfileTutor',
-           type: 'post',
-           dataType: 'json',
-           data: {
-               'StreamKey': $("#StreamKey").val(),
-           },
-           success: function (data) {
-               if (data.message === "Success") {
-
-                   window.location.href = '/Home/ProfileTutor';
-               } else {
-
-                   alert("Broadcast Failed to Start");
-               }
+$('select').on('change', function () {
+        $.ajax({
+            url: '/Home/ProfileTutor',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                'streamURL': $('#streamURL').val(),
+                'streamTitle': $('#streamTitle').val(),
+                'streamSubject': $('#streamSubject').val()
+            },
+            success: function (data) {
+               if (data.message === "Saved") {
+                   location.reload()
+                   alert("Boradcast has started")
+               } 
            }
-       });
-   }
+        });
+    })
+
+    </script>
+
+<script>
 
    function StopStream(stop) {
        $.ajax({
@@ -177,69 +160,11 @@ function myFunction() {
                'Stop': stop
            },
            success: function (data) {
-               if (data.message === "Success") {
-                   window.location.href = '/Home/ProfileTutor';
+               if (data.message === "Stopped") {
+                   location.reload()
                    alert("Your broadcast has stopped");
-                   $('#youtubeStreamKeyPopup').modal('hide')
-                   document.getElementById("Broadcast").disabled = false;
-                   document.getElementById("Broadcast").innerText = 'Start Broadcast';
                } else {
-
                    alert("Broadcast Failed to Start");
-               }
-           }
-       });
-   }
-
-   function PushStream(subject) {
-       debugger;
-        $('#loadingPopup').modal({
-        backdrop: 'static',
-        keyboard: false
-     });
-       document.getElementById("Broadcast").disabled = true;
-       $('#youtubeStreamKeyPopup').modal('hide')
-       $('#youtubeStopChangePopup').modal('hide');
-       $('#loadingPopup').modal('show');
-       $.ajax({
-           url: '/Home/ProfileTutor',
-           type: 'post',
-           dataType: 'json',
-           data: {
-               'Subject': subject
-           },
-           success: function (data) {
-               if (data.message === "Success") {
-                   $('#youtubeStreamKeyPopup').modal('hide')
-                   $('#loadingPopup').modal('hide')
-                   document.getElementById("Broadcast").disabled = false;
-                   document.getElementById("Broadcast").innerText = 'Stop/Change Broadcast';
-                   alert("Your broadcast has started in " + subject);
-                   location.reload();
-               }
-           }
-       });
-   }
-
-    function ChangeStream(subject) {
-       debugger;
-       document.getElementById("Broadcast").disabled = true;
-       $('#youtubeStreamKeyPopup').modal('hide')
-       $('#youtubeStopChangePopup').modal('hide');
-       $.ajax({
-           url: '/Home/ProfileTutor',
-           type: 'post',
-           dataType: 'json',
-           data: {
-               'Change': subject
-           },
-           success: function (data) {
-               if (data.message === "Success") {
-                   $('#youtubeStreamKeyPopup').modal('hide')
-                   document.getElementById("Broadcast").disabled = false;
-                   document.getElementById("Broadcast").innerText = 'Stop/Change Broadcast';
-                   alert("Your broadcast has started in " + subject);
-                   x = true;
                }
            }
        });
@@ -261,13 +186,31 @@ function myFunction() {
         width: 20%;
         position: fixed;
         z-index: 1;
-        top: 85px;
+        top: 0px;
+        bottom: 0px;
         right: 0;
+        overflow-y: scroll;
         background-color: #006565;
         overflow-x: hidden;
         color: white;
         text-align: center;
     }
+    img {
+        max-width: 460px;
+        max-height : 250px;
+    }
+
+    input[type="file"] {
+        display: none;
+    }
+
+    .custom-file-upload {
+       
+        display: inline-block;
+        padding: 6px 12px;
+        cursor: pointer;
+    }
+    
 </style>
 
 
