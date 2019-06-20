@@ -5,7 +5,7 @@ using StreamWork.Framework;
 
 namespace StreamWork.DataModels
 {
-    public class ArchivedStreams : IStorageBase<ArchivedStreams>
+    public class UserArchivedStreams : IStorageBase<UserArchivedStreams>
     {
         [Key]
         public string Id { get; set; }
@@ -13,11 +13,12 @@ namespace StreamWork.DataModels
         public string StreamID { get; set; }
         public string StreamThumbnail { get; set; }
         public string Subject { get; set; }
+        public string StreamTitle { get; set; }
 
         [Timestamp]
         public byte[] RowVersion { get; set; }
 
-        public virtual void Configure(EntityTypeBuilder<ArchivedStreams> builder)
+        public virtual void Configure(EntityTypeBuilder<UserArchivedStreams> builder)
         {
 
         }

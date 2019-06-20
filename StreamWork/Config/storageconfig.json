@@ -1,49 +1,49 @@
 ﻿{
   "EntityModels": [
     {
-      "Name": "StreamWorkLogin",
+      "Name": "UserLogin",
       "StorageType": "SqlServer",
       "Queries": [
         {
-          "Query": "SELECT * FROM [dbo].[StreamWorkLogin]",
+          "Query": "SELECT * FROM [dbo].[UserLogin]",
           "QueryId": "AllSignedUpUsers"
         },
         {
-          "Query": "SELECT * FROM [dbo].[StreamWorkLogin] WHERE Username = '@x0'",
+          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE Username = '@x0'",
           "QueryId": "PaticularSignedUpUsers"
         },
         {
-          "Query": "SELECT * FROM [dbo].[StreamWorkLogin] WHERE Username = '@x0' AND Password = '@x1'",
+          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE Username = '@x0' AND Password = '@x1'",
           "QueryId": "AllSignedUpUsersWithPassword"
         }
       ]
     },
 
     {
-      "Name": "YoutubeChannelID",
+      "Name": "UserChannel",
       "StorageType": "SqlServer",
       "Queries": [
         {
-          "Query": "SELECT * FROM [dbo].[YoutubeChannelID] WHERE SubjectStreaming = '@x0'",
+          "Query": "SELECT * FROM [dbo].[UserChannel] WHERE SubjectStreaming = '@x0'",
           "QueryId": "AllStreamKeys"
         },
         {
-          "Query": "SELECT * FROM [dbo].[YoutubeChannelID] WHERE Username = '@x0'",
+          "Query": "SELECT * FROM [dbo].[UserChannel] WHERE Username = '@x0'",
           "QueryId": "UserChannelKey"
         }
       ]
     },
 
     {
-      "Name": "ArchivedStreams",
+      "Name": "UserArchivedStreams",
       "StorageType": "SqlServer",
       "Queries": [
         {
-          "Query": "SELECT * FROM [dbo].[ArchivedStreams]",
+          "Query": "SELECT * FROM [dbo].[UserArchivedStreams]",
           "QueryId": "AllArchivedVideos"
         },
         {
-          "Query": "SELECT * FROM [dbo].[ArchivedStreams] WHERE Username = '@x0'",
+          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE Username = '@x0'",
           "QueryId": "UserArchivedVideos"
         }
       ]
