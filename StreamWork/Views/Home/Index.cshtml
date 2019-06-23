@@ -1,23 +1,38 @@
-
-<nav class="navbar navbar-expand-lg navbar-light  text-center">
-    <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation" id="nav">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse " id="navbarText">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item m-2" style="font-size:14px;">
-                <a class="btn buttonStyleSignIn pt-2" onclick="window.location.href='Home/SignUp'" id="sign">Sign Up</a>
-            </li>
-            <li class="nav-item m-2" style="font-size:14px;">
-                <a class="btn buttonStyleLogin pt-2" onclick="window.location.href='Home/Login'" style="background-color:#008080; color:white">Login</a>
-            </li>
-        </ul>
-    </div>
+﻿
+<nav class="navbar navbar-expand-lg navbar-light text-center" style="background-color:#008080;">
+        <img src="~/images/streamworkPencilWhite.png" height="70" onclick="window.location.href='/'" />
+        <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item ml-sm-4 mt-1" style="font-size:16px;">
+                    <a class="nav-link" href="/" style="color:white;">Browse by Subjects</a>
+                </li>
+                <li class="nav-item ml-sm-5 mt-1" style="font-size:16px; ">
+                    <a class="nav-link" href="/Home/BecomeTutor" style="color:white;">Become a Tutor</a>
+                </li>
+                <li class="nav-item ml-sm-5 mt-1" style="font-size:16px;">
+                    <a id="button" class="nav-link" href="/Home/About" style="color:white;">About</a>
+                </li>
+                <li class="nav-item ml-sm-5 mt-1" style="font-size:16px;">
+                    <a class="nav-link" href="/Home/HowToStream" style="color:white;">How to Stream</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item mt-1 ml-auto" style="font-size:16px;">
+                    <a class="btn buttonStyleSignIn pt-2" onclick="window.location.href='Home/SignUp'" id="sign" style="color:white"><b>Sign Up</b></a>
+                </li>
+                <li class="nav-item mt-1 ml-auto" style="font-size:16px;">
+                    <a class="btn buttonStyleLogin pt-2" onclick="window.location.href='Home/Login'" style="background-color:white; color:#008080"><b>Login</b></a>
+                </li>
+            </ul>
+        </div>
 </nav>
 <section class="jumbotron text-center" style="background-color:white">
     <div class="container">
         <img src="~/images/streamworklogo.png" width="317" height="87" />
-        <p><font size="3"><i>online livestream tutoring</i></font></p>
+        <p><font size="3"><i>online live-stream tutoring</i></font></p>
         <p><font size="3"><b>I'm a student and I need help with...</b></font></p>
         <div class="row">
             <div class="col-lg-3 mt-2" align="center">
@@ -107,7 +122,9 @@
         </div>
     </div>
 </section>
-<script>var x = 1;
+
+<script>
+var x = 1;
     $(document).ready(function () {
 
         $("#nav").click(function () {
@@ -115,4 +132,5 @@
             $("#navbarText").slideToggle();
 
         });
-    });</script>
+    });
+</script>

@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Options;
 using StreamWork.ViewModels;
 using StreamWork.DataModels;
-using System.IO;
 using System.Data.Common;
 
 namespace StreamWork.Controllers
@@ -336,7 +335,7 @@ namespace StreamWork.Controllers
                 {
                     Id = Guid.NewGuid().ToString(),
                     Username = userChannel.Username,
-                    StreamID = userChannel.StreamID,
+                     StreamID = userChannel.StreamID,
                     StreamThumbnail = userChannel.StreamThumbnail,
                     Subject = "https://i.ytimg.com/vi/"+ userChannel.StreamID + "/hqdefault.jpg",
                     StreamTitle = userChannel.StreamTitle,
