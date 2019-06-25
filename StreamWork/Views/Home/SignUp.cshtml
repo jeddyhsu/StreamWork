@@ -1,5 +1,23 @@
 @{ViewData["title"] = "Sign Up";}
 
+<script>
+    function updateChannelId () {
+        if ($("#role").val() == "tutor") {
+            $("#channelId").val("");
+            $("#channelIdDiv").show();
+        } else {
+            $("#channelIdDiv").hide();
+            $("#channelId").val("STUDENT");
+        }
+    }
+    $(document).ready(function () {
+        updateChannelId();
+        $("#role").change(function () {
+            updateChannelId();
+        });
+    });
+</script>
+
 <br />
 <br />
 <br />
@@ -7,21 +25,32 @@
     <form class="form-sign">
         <img src="~/images/streamworklogo.png" width="250" height="70" onclick="window.location.href='/'" />
         <h1>Sign Up</h1> <br>
-        <input type="text" class="form-control" id="nameFirst" placeholder="First Name"><br>
-        <input type="text" class="form-control" id="nameLast" placeholder="Last Name"> <br>
-        <input type="text" class="form-control" id="email" placeholder="Email Address" size="45"> <br>
-        <input type="text" class="form-control" id="username" placeholder="Username" size="45"> <br>
-        <input type="password" class="form-control" id="password" placeholder="Password" size="45"><br>
-        <input type="password" class="form-control" id="passwordConfirm" placeholder="Re-enter Password" size="45"> <br>
-        <input type="text" class="form-control" id="channelId" placeholder="YouTube Channel Id" size="45"> <br>
+        <input type="text" class="form-control" id="nameFirst" placeholder="First Name">
+        <input type="text" class="form-control mt-2" id="nameLast" placeholder="Last Name">
+        <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
+        <input type="text" class="form-control" id="email" placeholder="Email Address" size="45">
+        <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
+        <input type="text" class="form-control" id="username" placeholder="Username" size="45">
+        <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
+        <input type="password" class="form-control" id="password" placeholder="Password" size="45">
+        <input type="password" class="form-control mt-2" id="passwordConfirm" placeholder="Re-enter Password" size="45"> <br>
         <strong>Login Type:</strong> &nbsp; &nbsp; &nbsp;
         <select id="role">
-            <option value="student">Student</option>
+            <option value="student" selected>Student</option>
             <option value="tutor">Tutor</option>
         </select> <br> <br>
+        <div id="channelIdDiv">
+            <input type="text" class="form-control" id="channelId" placeholder="YouTube Channel Id" size="45">
+            <br>
+        </div>
         <input type="button" class="btn btn-block" value="Sign Up" onclick="SignUp()" style="background-color:#008080; color: white"> <br> <br>
     </form>
 </div>
+
+<script>
+    updateChannelId();
+</script>
+
 <script>
 function SignUp() {
         $.ajax({
@@ -59,4 +88,5 @@ function SignUp() {
         });
 
     }</script>
+<script></script>
   
