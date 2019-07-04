@@ -13,6 +13,9 @@ namespace StreamWork.Models
         public string Username { get; set; }
         public string Password { get; set; }
         public string ProfileType { get; set; }
+        public string ProfileCaption { get; set; }
+        public string ProfileParagraph { get; set; }
+        public string ProfilePicture { get; set; }
 
         [Timestamp]
         public byte[] RowVersion { get; set; }
