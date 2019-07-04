@@ -119,7 +119,6 @@ namespace StreamWork.Controllers
                 {
                     Console.WriteLine(e.Message);
                 }
-                
             }
            
             //Populates stream title and stream thumbnail url and saves it into sql database
