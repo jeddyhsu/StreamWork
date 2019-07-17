@@ -328,7 +328,7 @@ namespace StreamWork.Controllers
                 return Json(new { Message = "Success" });
             }
 
-            if(Request.Form.Keys.Count > 0)
+            if(Request.Form.Keys.Count > 0 && Request.Form.Files.Count > 0)
             {
                 var user = HttpContext.Session.GetString("UserProfile");
                 var getUserInfo = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, "PaticularSignedUpUsers", new List<string> { user });
