@@ -192,7 +192,8 @@ namespace StreamWork.Controllers
                 EmailAddress = email,
                 Username = username,
                 Password = password,
-                ProfileType = role
+                ProfileType = role,
+                ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/default-profile.png"
             };
             var _streamKey = channelId.Replace('C', 'U');
             UserChannel key = new UserChannel

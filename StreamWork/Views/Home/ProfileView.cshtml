@@ -30,7 +30,7 @@
                 <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
             </div>
         </nav>
-        <div class="container-fluid mt-3">
+         <div class="container-fluid mt-3">
             <div class="row">
                 <nav class="col-md-3 d-none d-lg-block sidebar">
                     <div class="sidebar-sticky">
@@ -38,25 +38,26 @@
                             <li class="nav-item">
                                 <div class="card text-center mt-3 border-0" style="color:white;">
                                     <div class="card-body" style="background-color:#006565">
-                                        <img src="/images/JaredHsu.jpg" style="width:50%; height:50%" />
-                                        <h1 class="card-title m-3" style=" font-size:1.8vw"> @Model.userLogins[0].Name.Replace('|', ' ')</h1>
-                                        <p class="card-text" style="font-size:1vw; color:white">Calculus 2 / Geometrey / Limits</p>
-                                        <p class="card-text" style="font-size:1vw; color:white">I am a math major at Arizona State Univeristy and work at Polytechnic Tutoring Center. </p>
+
+                                        <img src=@Model.userLogins[0].ProfilePicture style="width: 115px; height: 150px" />
+                                        <h1 class="card-title mt-4" style=" font-size:1.8vw; color:lightgray"><b>@Model.userLogins[0].Name.Replace('|', ' ')</b></h1>
+                                        <p class="card-text" style="font-size:1vw; color:white">@Model.userLogins[0].ProfileCaption</p>
+                                        <p class="card-text" style="font-size:1vw; color:white">@Model.userLogins[0].ProfileParagraph</p>
                                         <hr />
-                                       
+
                                     </div>
                                 </div>
                             </li>
                         </ul>
                     </div>
                 </nav>
-
                 <div class="col-sm-12 col-md-12 col-lg-9 mt-3">
                     <h3>PAST LIVESTREAMS</h3>
                     <div class="row">
                         @foreach(var stream in Model.userArchivedVideos){
                         <div class="col-lg-4 col-md-6 mt-4">
                             <input type="image" width="100%" height="80%" src=@stream.StreamThumbnail onclick="window.location.href='../StreamViews/StreamPage?streamKey=' + ('@stream.StreamID');">
+                            <h5 style="font-family: 'Roboto'">@stream.StreamTitle</h5>
                         </div>
                         }
                     </div>
