@@ -51,21 +51,21 @@
                     }
                 </div>
             </div>
-             <nav class="col-md-2 d-none d-md-block sidebar ">
+            <nav class="col-md-2 d-none d-md-block sidebar ">
                 <div class="sidebar-sticky">
                     <h5 class="m-2" style="font-size:1.2vw; font-weight:bold;">Popular StreamTutors</h5>
                     <ul class="nav flex-column">
                         <li class="nav-item">
                             <a class="nav-link active" href="#">
                                 @foreach (var tutor in Model.userLogins)
-                                {
-                                    <div class="card pt-3 pd-3" style="display:block;background-color:black;border:none" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@tutor.Username');">
-                                        <div class=" card-title tutors">
-                                            <input type="image" src="~/images/Pro.png" />
-                                            <h3 style="font-size:1vw; color:white">@tutor.Name.Replace('|',' ')</h3>
-                                        </div>
-                                    </div>
-                                }
+                    {
+                        <div class="card pt-3 pd-3" style="display:block;background-color:black;border:none" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@tutor.Username');">
+                            <div class=" card-title tutors">
+                                <input type="image" style="width: 115px; height: 150px" src=@tutor.ProfilePicture />
+                                <h3 style="font-size:1vw; color:white">@tutor.Name.Replace('|', ' ')</h3>
+                            </div>
+                        </div>
+        }
                             </a>
                         </li>
                     </ul>
