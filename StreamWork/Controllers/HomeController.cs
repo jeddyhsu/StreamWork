@@ -243,11 +243,18 @@ namespace StreamWork.Controllers
                     if (u.Password == password && u.Username == username)
                     {
                         user++;
+                        if (u.ProfileType == "tutor") {
+                            user++;
+                        }
                     }
                 }
                 if (user == 1)
                 {
                     confirmation = "Welcome";
+                    HttpContext.Session.SetString("UserProfile", username);
+                }
+                if (user == 2) {
+                    confirmation = "Welcome, StreamTutor";
                     HttpContext.Session.SetString("UserProfile", username);
                 }
             }
@@ -275,7 +282,13 @@ namespace StreamWork.Controllers
                 model.FirstName = splitName[0];
                 model.LastName = splitName[1];
             }
-            return View(model);
+
+            ProfileStudentViewModel viewModel = new ProfileStudentViewModel {
+                userProfile = model,
+                userLogins = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, "PaticularSignedUpUsers", new List<string> { user })
+            };
+
+            return View(viewModel);
         }
 
         [HttpGet]
