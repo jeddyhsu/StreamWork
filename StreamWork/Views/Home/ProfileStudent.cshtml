@@ -1,32 +1,185 @@
-﻿@model StreamWork.Models.UserProfile
+﻿@model StreamWork.ViewModels.ProfileStudentViewModel
 
 @{
     ViewData["Title"] = "ProfileStudent";
 }
-
-<body>
-    <nav class="navbar navbar-expand-lg text-center" style="position:fixed;z-index:2 ;width:100%;background-color:#008080">
-        <img src="~/images/WhiteStreamWork.png" width="250" height="70" onclick="window.location.href='/'" />
+<div style="font-family:'Roboto', sans-serif;">
+    <nav class="navbar sticky-top navbar-expand-lg  text-center" style="background-color:#008080">
+        <img src="~/images/streamworkPencilWhite.png" height="70" onclick="window.location.href='/'" />
         <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item ml-sm-5" style="font-size:14px;">
+                <li class="nav-item ml-sm-4 mt-1" style="font-size:15px;">
                     <a class="nav-link" href="/" style="color:white;">Browse by Subjects</a>
                 </li>
-                <li class="nav-item ml-sm-5" style="font-size:14px; ">
+                <li class="nav-item ml-sm-5 mt-1" style="font-size:14px; ">
                     <a class="nav-link" href="/Home/BecomeTutor" style="color:white;">Become a StreamTutor</a>
                 </li>
-                <li class="nav-item ml-sm-5" style="font-size:14px;">
+                <li class="nav-item ml-sm-5 mt-1" style="font-size:15px;">
                     <a id="button" class="nav-link" href="/Home/About" style="color:white;">About</a>
                 </li>
-                <li class="nav-item ml-sm-5" style="font-size:14px;">
+                <li class="nav-item ml-sm-5 mt-1" style="font-size:15px;">
                     <a class="nav-link" href="/Home/HowToStream" style="color:white;">How to Stream</a>
                 </li>
             </ul>
         </div>
+        <div class="btn-group justify-content-end">
+            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+            <img src=@Model.userLogins[0].ProfilePicture style="width:65px; height:85px" />
+            <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Edit Profile</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Logout</a>
+            </div>
+        </div>
     </nav>
-</body>
+    <div class="container-fluid mt-3">
+        <div class="row">
+            <nav class="col-md-3 d-none d-lg-block sidebar">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <div class="card text-center mt-3 border-0" style="color:white;">
+                                <div class="card-body" style="background-color:#006565">
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <img src=@Model.userLogins[0].ProfilePicture style="width: 115px; height: 150px" />
+                                    <h1 class="card-title mt-4" style=" font-size:1.8vw; color:lightgray"><b>@Model.userProfile.FirstName @Model.userProfile.LastName</b></h1>
+                                    <p class="card-text" style="font-size:1vw; color:white">@Model.userLogins[0].ProfileCaption</p>
+                                    <p class="card-text" style="font-size:1vw; color:white">@Model.userLogins[0].ProfileParagraph</p>
+                                    <hr />
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+
+
+<div id="myModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Profile</h5>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.userLogins[0].ProfileCaption" />
+                    <br />
+                    <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.userLogins[0].ProfileParagraph</textarea>
+                    <br />
+                    <input class="file-custom" id="file-upload" value="@Model.userLogins[0].ProfilePicture" type='file' onchange="readURL(this);" />
+                    <img id="blah" src=@Model.userLogins[0].ProfilePicture alt="your image" />
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="RegisterThumbnailAndStreamTitle()">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>function EditProfile() {
+        $('#myModal').modal('show')
+    }
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+
+
+    function RegisterThumbnailAndStreamTitle() {
+        var formData = new FormData();
+        var totalFiles = document.getElementById("file-upload").files.length;
+        if(totalFiles > 0){
+            for (var i = 0; i < totalFiles; i++) {
+            var file = document.getElementById("file-upload").files[i];
+            var streamName = $("#ProfileCaption").val() + "|" + $("#ProfileParagraph").val();
+            formData.append(streamName, file);
+            }
+        }
+        else{
+            var streamName = $("#ProfileCaption").val() + "|" + $("#ProfileParagraph").val();
+            formData.append(streamName, file);
+        }
+
+
+        $.ajax({
+            type: "POST",
+            url: '/Home/ProfileTutor',
+            data: formData,
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                if (data.message === "Success") {
+                    location.reload()
+                }
+            }
+        });
+    }</script>
+
+<style>
+    .dot {
+        height: 10vw;
+        width: 10vw;
+        background-color: white;
+        border-radius: 50%;
+        text-align: center;
+        color: black
+    }
+
+    .sidebar {
+        height: 100%;
+        width: 20%;
+        position: fixed;
+        z-index: 1;
+        top: 0px;
+        bottom: 0px;
+        right: 0;
+        overflow-y: scroll;
+        background-color: #006565;
+        overflow-x: hidden;
+        color: white;
+        text-align: center;
+    }
+
+    img {
+        max-width: 460px;
+        max-height: 250px;
+    }
+
+    img {
+        max-width: 115px;
+    }
+
+    .file-custom {
+        margin: 0;
+        padding: 2rem 1.5rem;
+        font: 1rem/1.5 "PT Sans", Arial, sans-serif;
+        color: #5a5a5a;
+    }
+</style>
 
 
