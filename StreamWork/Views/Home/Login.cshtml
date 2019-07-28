@@ -37,7 +37,9 @@ function Login() {
             },
             success: function (data) {
                 if (data.message === "Welcome") {
-
+                    window.location.href = '/Home/ProfileStudent';
+                }
+                else if (data.message == "Welcome, StreamTutor") {
                     window.location.href = '/Home/ProfileTutor';
                 }
                 else {
