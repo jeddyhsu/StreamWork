@@ -86,6 +86,7 @@
     <Content Remove="wwwroot\images\StreamWork_SubjectCard_v1.2.1 sci.png" />
     <Content Remove="wwwroot\images\StreamWork_SubjectCard_v1.2.1 art.png" />
     <Content Remove="wwwroot\images\OBSStreamKey.png" />
+    <Content Remove="wwwroot\images\Donate.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="Views\Home\ProfileView.cshtml">
@@ -146,6 +147,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="wwwroot\images\defualt.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\DonateDefualt.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
