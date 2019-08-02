@@ -126,7 +126,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Edit Profile</h5>
-
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -171,7 +170,8 @@
         });
     })</script>
 
-<script>function StopStream(stop) {
+<script>
+function StopStream(stop) {
         $.ajax({
             url: '/Home/ProfileTutor',
             type: 'post',
@@ -205,9 +205,7 @@
             reader.readAsDataURL(input.files[0]);
         }
     }
-
-
-
+   
     function RegisterThumbnailAndStreamTitle() {
         var formData = new FormData();
         var totalFiles = document.getElementById("file-upload").files.length;
