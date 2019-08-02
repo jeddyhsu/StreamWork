@@ -339,17 +339,35 @@ namespace StreamWork.Controllers
                 var profileCaption = fileSplit[0];
                 var profileParagraph = fileSplit[1];
                 await SaveIntoBlobContainer(file, profileCaption, profileParagraph, storageConfig);
+
+                var user = HttpContext.Session.GetString("UserProfile");
+                var getUserInfo = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, "PaticularSignedUpUsers", new List<string> { user });
+
+                var split1 = "";
+                var split2 = "";
+                foreach (string s in Request.Form.Keys)
+                {
+                    var array = s.Split(new char[] { '|' });
+                    split1 = array[0];
+                    split2 = array[1];
+                    break;
+                }
+
+                getUserInfo[0].ProfileCaption = split1;
+                getUserInfo[0].ProfileParagraph = split2;
+
+                await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", getUserInfo[0].Id } }, getUserInfo[0]);
                 return Json(new { Message = "Success" });
             }
 
-            if(Request.Form.Keys.Count > 0 && Request.Form.Files.Count > 0)
+            if (Request.Form.Keys.Count > 0)
             {
                 var user = HttpContext.Session.GetString("UserProfile");
                 var getUserInfo = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, "PaticularSignedUpUsers", new List<string> { user });
 
                 var split1 = "";
                 var split2 = "";
-                foreach(string s in Request.Form.Keys)
+                foreach (string s in Request.Form.Keys)
                 {
                     var array = s.Split(new char[] { '|' });
                     split1 = array[0];
