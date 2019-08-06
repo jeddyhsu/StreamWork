@@ -43,10 +43,21 @@ namespace StreamWork.Controllers
 
             if(channelKey != null)
             {
-                var channelInfo = DataStore.CallAPI("http://api.dacast.com/v2/channel/+"+channelKey+"?apikey=135034_bea5e11ca516995572c8&_format=JSON");
-
+                if (userChannel.ChannelKey == null)
+                {
+                    try
+                    {
+                        var channelInfo = DataStore.CallAPI("http://api.dacast.com/v2/channel/+" + channelKey + "?apikey=135034_bea5e11ca516995572c8&_format=JSON");
+                        userChannel.ChannelKey = channelInfo.Id.ToString();
+                        await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
+                        return Json(new { Message = "Success" });
+                    }
+                    catch (System.Net.WebException e)
+                    {
+                        return Json(new { Message = "Failed" });
+                    }
+                }
             }
-
 
             //Saves streamTitle, URl, and subject into sql database
             if (streamTitle != null && streamSubject != null)
