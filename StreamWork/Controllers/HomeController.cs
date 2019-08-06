@@ -10,10 +10,6 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Options;
 using StreamWork.ViewModels;
 using StreamWork.DataModels;
-using System.Data.Common;
-using Microsoft.Azure.Storage;
-using Microsoft.Azure.Storage.Blob;
-using System.IO;
 
 namespace StreamWork.Controllers
 {
@@ -21,9 +17,7 @@ namespace StreamWork.Controllers
     {
 
         private readonly string _connectionString = "Server=tcp:streamwork.database.windows.net,1433;Initial Catalog=StreamWork;Persist Security Info=False;User ID=streamwork;Password=arizonastate1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-        private readonly string _blobconnectionString = "DefaultEndpointsProtocol=https;AccountName=streamworkblob;AccountKey=//JfVlcPLOyzT3vRHxlY1lJ4NUpduVfiTmuHJHK1u/0vWzP8V5YHPLkPPGD2PVxEwTdNirqHzWYSk7c2vZ80Vg==;EndpointSuffix=core.windows.net";
 
-        private bool checker;
 
         public IActionResult Index()
         {
@@ -89,48 +83,6 @@ namespace StreamWork.Controllers
             return View();
         }
 
-        private async Task<UserChannel> GetUserChannelInfo([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
-        {
-            var channel = await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, "UserChannelKey", new List<string> { HttpContext.Session.GetString("UserProfile") });
-            return channel[0];
-        }
-
-        private async Task<bool> SaveIntoBlobContainer(IFormFile file, string profileCaption, string profileParagraph, [FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
-        {
-            //Gets users channel
-            var user = HttpContext.Session.GetString("UserProfile");
-            var getUserInfo = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, "PaticularSignedUpUsers", new List<string> { user });
-
-            //Connects to blob storage and saves thumbnail from user
-            CloudStorageAccount cloudStorage = CloudStorageAccount.Parse(_blobconnectionString);
-            CloudBlobClient blobClient = cloudStorage.CreateCloudBlobClient();
-            CloudBlobContainer blobContainer = blobClient.GetContainerReference("streamworkblobcontainer");
-            CloudBlockBlob blockBlob = blobContainer.GetBlockBlobReference(profileCaption);
-
-
-            using(MemoryStream ms = new MemoryStream())
-            {
-                try
-                {
-                    await file.CopyToAsync(ms);
-                    blockBlob.UploadFromByteArray(ms.ToArray(), 0, (int)file.Length);
-                }
-                catch(System.ObjectDisposedException e)
-                {
-                    Console.WriteLine(e.Message);
-                }
-            }
-           
-            //Populates stream title and stream thumbnail url and saves it into sql database
-            getUserInfo[0].ProfileCaption = profileCaption;
-            getUserInfo[0].ProfilePicture = blockBlob.Uri.AbsoluteUri;
-            getUserInfo[0].ProfileParagraph = profileParagraph;
-            await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", getUserInfo[0].Id } }, getUserInfo[0]);
-
-            return true;
-        }
-
-        
         [HttpGet]
         public async Task<IActionResult> ProfileView(string Tutor, [FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
@@ -243,7 +195,8 @@ namespace StreamWork.Controllers
                     if (u.Password == password && u.Username == username)
                     {
                         user++;
-                        if (u.ProfileType == "tutor") {
+                        if (u.ProfileType == "tutor")
+                        {
                             user++;
                         }
                     }
@@ -253,7 +206,8 @@ namespace StreamWork.Controllers
                     confirmation = "Welcome";
                     HttpContext.Session.SetString("UserProfile", username);
                 }
-                if (user == 2) {
+                if (user == 2)
+                {
                     confirmation = "Welcome, StreamTutor";
                     HttpContext.Session.SetString("UserProfile", username);
                 }
@@ -269,174 +223,6 @@ namespace StreamWork.Controllers
         public IActionResult Login()
         {
             return View();
-        }
-
-        public async Task<IActionResult> ProfileStudent([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
-        {
-            var model = new UserProfile();
-            var user = HttpContext.Session.GetString("UserProfile");
-            var getUserInfo = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, "PaticularSignedUpUsers", new List<string> { user });
-            foreach (var u in getUserInfo)
-            {
-                var splitName = u.Name.Split(new char[] { '|' });
-                model.FirstName = splitName[0];
-                model.LastName = splitName[1];
-            }
-
-            ProfileStudentViewModel viewModel = new ProfileStudentViewModel {
-                userProfile = model,
-                userLogins = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, "PaticularSignedUpUsers", new List<string> { user })
-            };
-
-            return View(viewModel);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> ProfileTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
-        {
-            var model = new UserProfile();
-            var user = HttpContext.Session.GetString("UserProfile");
-            var getUserInfo = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, "PaticularSignedUpUsers", new List<string> { user });
-            var userChannel = await GetUserChannelInfo(storageConfig);
-            foreach (var u in getUserInfo)
-            {
-                var splitName = u.Name.Split(new char[] { '|' });
-                model.FirstName = splitName[0];
-                model.LastName = splitName[1];
-                if (userChannel != null)
-                {
-                    model.ChannelId = userChannel.ChannelKey;
-                }
-            }
-            if (userChannel.StreamID == null && checker == false)
-            {
-                userChannel.SubjectStreaming = null;
-                userChannel.StreamThumbnail = null;
-                userChannel.StreamID = null;
-                checker = true;
-            }
-
-            await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
-           // PopulateTutorPage(storageConfig);
-            ProfileTutorViewModel viewModel = new ProfileTutorViewModel
-            { 
-                userProfile = model,
-                userLogins = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, "PaticularSignedUpUsers", new List<string> { user }),
-                userChannels = await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, "UserChannelKey", new List<string> { user }),
-                userArchivedVideos = await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, "UserArchivedVideos", new List<string> { user })
-            };
-
-            return View(viewModel);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> ProfileTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamURL, string streamTitle, string streamSubject, string subject, string stop, string change)
-        {
-            for (int i = 0; i < Request.Form.Files.Count; i++)
-            {
-                var file = Request.Form.Files[i];
-                var fileSplit = file.Name.Split(new char[] { '|' });
-                var profileCaption = fileSplit[0];
-                var profileParagraph = fileSplit[1];
-                await SaveIntoBlobContainer(file, profileCaption, profileParagraph, storageConfig);
-
-                var user = HttpContext.Session.GetString("UserProfile");
-                var getUserInfo = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, "PaticularSignedUpUsers", new List<string> { user });
-
-                var split1 = "";
-                var split2 = "";
-                foreach (string s in Request.Form.Keys)
-                {
-                    var array = s.Split(new char[] { '|' });
-                    split1 = array[0];
-                    split2 = array[1];
-                    break;
-                }
-
-                getUserInfo[0].ProfileCaption = split1;
-                getUserInfo[0].ProfileParagraph = split2;
-
-                await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", getUserInfo[0].Id } }, getUserInfo[0]);
-                return Json(new { Message = "Success" });
-            }
-
-            if (Request.Form.Keys.Count > 0)
-            {
-                var user = HttpContext.Session.GetString("UserProfile");
-                var getUserInfo = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, "PaticularSignedUpUsers", new List<string> { user });
-
-                var split1 = "";
-                var split2 = "";
-                foreach (string s in Request.Form.Keys)
-                {
-                    var array = s.Split(new char[] { '|' });
-                    split1 = array[0];
-                    split2 = array[1];
-                    break;
-                }
-
-                getUserInfo[0].ProfileCaption = split1;
-                getUserInfo[0].ProfileParagraph = split2;
-
-                await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", getUserInfo[0].Id } }, getUserInfo[0]);
-                return Json(new { Message = "Success" });
-            }
-
-            var userChannel = await GetUserChannelInfo(storageConfig);
-
-            //Saves streamTitle, URl, and subject into sql database
-            if(streamURL != null && streamTitle != null && streamSubject != null)
-            {
-                var streamId = streamURL.Split(new char[] { '/' });
-                userChannel.StreamID = streamId[3] ;
-                userChannel.VideoURL = streamURL;
-                userChannel.SubjectStreaming = streamSubject;
-                userChannel.StreamThumbnail = "https://i.ytimg.com/vi/"+streamId[3]+"/hqdefault_live.jpg";
-                userChannel.StreamTitle = streamTitle;
-
-                try
-                {
-                    await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
-                }
-                catch (DbException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-
-                return Json(new {Message = "Saved"});
-            }
-            //change stream subject
-            if (change != null)
-            {
-                userChannel.SubjectStreaming = change;
-                await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
-            }
-            //stop stream and archvie video into database
-            if (stop != null)
-            {
-                UserArchivedStreams video = new UserArchivedStreams
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    Username = userChannel.Username,
-                    StreamID = userChannel.StreamID,
-                    StreamThumbnail = userChannel.StreamThumbnail,
-                    Subject = "https://i.ytimg.com/vi/"+ userChannel.StreamID + "/hqdefault.jpg",
-                    StreamTitle = userChannel.StreamTitle,
-                };
-
-                userChannel.SubjectStreaming = null;
-                userChannel.StreamThumbnail = null;
-                userChannel.StreamID = null;
-                userChannel.StreamTitle = null;
-                userChannel.VideoURL = null;
-
-                await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", video.Id } }, video);
-                await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
-
-                return Json(new { Message = "Stopped" });
-            }
-
-            return Json(new { Message = "" });
         }
     }
 }
