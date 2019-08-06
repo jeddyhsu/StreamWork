@@ -6,6 +6,19 @@
     ViewData["Title"] = "TutorStream";
 }
 
+
+@if (Model.userChannels[0].ChannelKey == null)
+{
+    <script>
+           $(document).ready(function () {
+    $('#channelKeyModal').modal({
+    backdrop: 'static',
+    keyboard: false
+})
+})
+    </script>
+}
+
 <div style="font-family:'Roboto', sans-serif;">
         <nav class="navbar sticky-top navbar-expand-lg  text-center" style="background-color:#008080">
             <img src="~/images/streamworkPencilWhite.png" height="70" onclick="window.location.href='/'" />
@@ -37,7 +50,6 @@
         </nav>
 
         <div class="container-fluid mt-3">
-             @if(Model.userChannels[0].ChannelKey != null){
             <div class="row">
                 <nav class="col-md-3 d-none d-lg-block sidebar">
                     <div class="sidebar-sticky">
@@ -70,34 +82,7 @@
                 <div class="col-sm-12 col-md-12 col-lg-9 mt-3">
                     <iframe src="//iframe.dacast.com/b/135034/c/505211" width="100%" height="700px" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
                 </div>
-
             </div>
-             }else{
-
-                <div class="row">
-                <nav class="col-md-3 d-none d-lg-block sidebar">
-                    <div class="sidebar-sticky">
-                        <ul class="nav flex-column">
-                            <li class="nav-item">
-                                <div class="card text-center mt-3 border-0" style="color:white;">
-                                    <div class="card-body" style="background-color:#006565">
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <input align="middle" type="text" class="form-control" value="@Model.userChannels[0].StreamTitle" id="channelKey" placeholder="Channel Key">
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-                <div class="col-sm-12 col-md-12 col-lg-9 mt-3">
-                    <iframe src="//iframe.dacast.com/b/135034/c/505211" width="100%" height="700px" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
-                </div>
-            </div>
-             }
         </div>
     </div>
 
@@ -124,6 +109,27 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" onclick="RegisterThumbnailAndStreamTitle()">Save changes</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="channelKeyModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Enter Channel Key</h5>
+
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input id="channelKey" align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Channel Key" />
+
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="ValidateKey()">Validate Key</button>
             </div>
         </div>
     </div>

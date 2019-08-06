@@ -174,19 +174,19 @@ namespace StreamWork.Core
                 return key.ToString();
         }
 
-        //public static YoutubeAPI CallAPI(string URL)
-        //{
-        //    WebRequest webRequest = WebRequest.Create(URL);
-        //    webRequest.Credentials = CredentialCache.DefaultCredentials;
-        //    WebResponse response = webRequest.GetResponse();
-        //    Console.WriteLine(((HttpWebResponse)response).StatusDescription);      
-        //    Stream dataStream = response.GetResponseStream();
-        //    StreamReader reader = new StreamReader(dataStream);
-        //    string responseFromServer = reader.ReadToEnd();
-        //    reader.Close();
-        //    response.Close();
-        //    var API = Newtonsoft.Json.JsonConvert.DeserializeObject<YoutubeAPI>(responseFromServer);
-        //    return API ;
-        //}
+        public static ChannelAPI CallAPI(string URL)
+        {
+            WebRequest webRequest = WebRequest.Create(URL);
+            webRequest.Credentials = CredentialCache.DefaultCredentials;
+            WebResponse response = webRequest.GetResponse();
+            Console.WriteLine(((HttpWebResponse)response).StatusDescription);      
+            Stream dataStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(dataStream);
+            string responseFromServer = reader.ReadToEnd();
+            reader.Close();
+            response.Close();
+            var API = Newtonsoft.Json.JsonConvert.DeserializeObject<ChannelAPI>(responseFromServer);
+            return API ;
+        }
     }
 }

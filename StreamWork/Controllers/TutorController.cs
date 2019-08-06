@@ -37,9 +37,16 @@ namespace StreamWork.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> TutorStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamTitle, string streamSubject, string change)
+        public async Task<IActionResult> TutorStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamTitle, string streamSubject, string change, string channelKey)
         {
             var userChannel = await GetUserChannelInfo(storageConfig);
+
+            if(channelKey != null)
+            {
+                var channelInfo = DataStore.CallAPI("http://api.dacast.com/v2/channel/+"+channelKey+"?apikey=135034_bea5e11ca516995572c8&_format=JSON");
+
+            }
+
 
             //Saves streamTitle, URl, and subject into sql database
             if (streamTitle != null && streamSubject != null)
@@ -85,13 +92,13 @@ namespace StreamWork.Controllers
                     model.ChannelId = userChannel.ChannelKey;
                 }
             }
-            if (userChannel.StreamID == null && checker == false)
-            {
-                userChannel.SubjectStreaming = null;
-                userChannel.StreamThumbnail = null;
-                userChannel.StreamID = null;
-                checker = true;
-            }
+            //if (userChannel.StreamID == null && checker == false)
+            //{
+            //    userChannel.SubjectStreaming = null;
+            //    userChannel.StreamThumbnail = null;
+            //    userChannel.StreamID = null;
+            //    checker = true;
+            //}
 
             await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
            // PopulateTutorPage(storageConfig);
@@ -169,15 +176,12 @@ namespace StreamWork.Controllers
                 {
                     Id = Guid.NewGuid().ToString(),
                     Username = userChannel.Username,
-                    StreamID = userChannel.StreamID,
                     StreamThumbnail = userChannel.StreamThumbnail,
-                    Subject = "https://i.ytimg.com/vi/"+ userChannel.StreamID + "/hqdefault.jpg",
                     StreamTitle = userChannel.StreamTitle,
                 };
 
                 userChannel.SubjectStreaming = null;
                 userChannel.StreamThumbnail = null;
-                userChannel.StreamID = null;
                 userChannel.StreamTitle = null;
                 userChannel.VideoURL = null;
 
