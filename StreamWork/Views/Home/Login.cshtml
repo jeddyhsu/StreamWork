@@ -1,4 +1,4 @@
-@{ViewData["title"] = "Login";}
+﻿@{ViewData["title"] = "Login";}
 <br />
 <br />
 <br />
@@ -37,10 +37,10 @@ function Login() {
             },
             success: function (data) {
                 if (data.message === "Welcome") {
-                    window.location.href = '/Home/ProfileStudent';
+                    window.location.href = '/Student/ProfileStudent';
                 }
                 else if (data.message == "Welcome, StreamTutor") {
-                    window.location.href = '/Home/ProfileTutor';
+                    window.location.href = '/Tutor/ProfileTutor';
                 }
                 else {
 
