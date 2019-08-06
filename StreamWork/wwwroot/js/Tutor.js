@@ -88,4 +88,21 @@ function StopStream(stop) {
                 }
             }
         });
-    }
+}
+
+function ValidateKey() {
+    $.ajax({
+        url: '/Tutor/TutorStream',
+        type: 'post',
+        dataType: 'json',
+        data: {
+            'channelKey': $('#channelKey').val()
+        },
+         success: function (data) {
+            if (data.message === "Saved") {
+                location.reload()
+                alert("Key validated, welcome StreamTutor")
+            }
+        }
+    })
+}

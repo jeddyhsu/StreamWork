@@ -147,15 +147,16 @@ namespace StreamWork.Controllers
                 ProfileType = role,
                 ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/default-profile.png"
             };
-            var _streamKey = channelId.Replace('C', 'U');
+
             UserChannel key = new UserChannel
             {
                 Id = Guid.NewGuid().ToString(),
                 Username = username,
-                ChannelKey = _streamKey,
-                ChannelKeyAPI = channelId,
+                ChannelKey = null,
                 SubjectStreaming = null,
-                StreamThumbnail = null
+                StreamThumbnail = null,
+                StreamTitle = null,
+                VideoURL = null
             };
             var checkCurrentUsers = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, "PaticularSignedUpUsers", new List<string> { username });
             int numberOfUsers = 0;
