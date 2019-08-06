@@ -23,6 +23,7 @@ namespace StreamWork.Controllers
 
         private bool checker;
 
+        [HttpGet]
         public async Task<IActionResult> TutorStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
             var user = HttpContext.Session.GetString("UserProfile");
@@ -33,6 +34,38 @@ namespace StreamWork.Controllers
                 userArchivedVideos = await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, "UserArchivedVideos", new List<string> { user })
             };
             return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> TutorStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamTitle, string streamSubject, string change)
+        {
+            var userChannel = await GetUserChannelInfo(storageConfig);
+
+            //Saves streamTitle, URl, and subject into sql database
+            if (streamTitle != null && streamSubject != null)
+            {
+                userChannel.SubjectStreaming = streamSubject;
+                userChannel.StreamTitle = streamTitle;
+                try
+                {
+                    await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
+                }
+                catch (DbException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+
+                return Json(new { Message = "Saved" });
+            }
+            //change stream subject
+            if (change != null)
+            {
+                userChannel.SubjectStreaming = change;
+                await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
+                return Json(new { Message = "Saved" });
+            }
+
+            return Json(new { Message = "Failed" });
         }
 
         [HttpGet]
@@ -128,33 +161,7 @@ namespace StreamWork.Controllers
 
             var userChannel = await GetUserChannelInfo(storageConfig);
 
-            //Saves streamTitle, URl, and subject into sql database
-            if(streamURL != null && streamTitle != null && streamSubject != null)
-            {
-                var streamId = streamURL.Split(new char[] { '/' });
-                userChannel.StreamID = streamId[3] ;
-                userChannel.VideoURL = streamURL;
-                userChannel.SubjectStreaming = streamSubject;
-                userChannel.StreamThumbnail = "https://i.ytimg.com/vi/"+streamId[3]+"/hqdefault_live.jpg";
-                userChannel.StreamTitle = streamTitle;
-
-                try
-                {
-                    await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
-                }
-                catch (DbException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-
-                return Json(new {Message = "Saved"});
-            }
-            //change stream subject
-            if (change != null)
-            {
-                userChannel.SubjectStreaming = change;
-                await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
-            }
+            
             //stop stream and archvie video into database
             if (stop != null)
             {

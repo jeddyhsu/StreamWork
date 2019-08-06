@@ -1,4 +1,6 @@
-﻿@model StreamWork.ViewModels.ProfileTutorViewModel
+﻿<script src="~/js/Tutor.js"></script>
+
+@model StreamWork.ViewModels.ProfileTutorViewModel
 
 @{
     ViewData["Title"] = "TutorStream";
@@ -13,10 +15,10 @@
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item ml-sm-4 mt-1" style="font-size:15px;">  
-                        <a class="nav-link" href="/Home/ProfileTutor" style="color:white;">Dashboard</a>
+                        <a class="nav-link" href="/Tutor/ProfileTutor" style="color:white;">Dashboard</a>
                     </li>
                     <li class="nav-item ml-sm-5 mt-1" style="font-size:14px; ">
-                        <a class="nav-link" href="/Home/TutorStream" style="color:white;">Start Streaming</a>
+                        <a class="nav-link" href="/Tutor/TutorStream" style="color:white;">Start Streaming</a>
                     </li>
                     <li class="nav-item ml-sm-5 mt-1" style="font-size:15px;">
                         <a id="button" class="nav-link" href="/" style="color:white;">Home</a>
@@ -33,7 +35,9 @@
                 </div>
             </div>
         </nav>
+
         <div class="container-fluid mt-3">
+             @if(Model.userChannels[0].ChannelKey != null){
             <div class="row">
                 <nav class="col-md-3 d-none d-lg-block sidebar">
                     <div class="sidebar-sticky">
@@ -47,7 +51,7 @@
                                         <br />
                                         <br />
                                         <input align="middle" type="text" class="form-control" value="@Model.userChannels[0].StreamTitle" id="streamTitle" placeholder="Stream Title">
-                                         <select class="mt-5" style="width: 100%" id="streamSubject">
+                                        <select class="mt-5" style="width: 100%" id="streamSubject">
                                             <option value="Mathematics">Mathematics</option>
                                             <option value="Science">Science</option>
                                             <option value="Engineering">Engineering</option>
@@ -57,7 +61,6 @@
                                             <option value="Humanities">Humanities</option>
                                             <option value="Other">Other</option>
                                         </select>
-                                         <img class="mt-5" src="/images/StartBroadcast.png" style="width:250px">
                                     </div>
                                 </div>
                             </li>
@@ -66,10 +69,37 @@
                 </nav>
                 <div class="col-sm-12 col-md-12 col-lg-9 mt-3">
                     <iframe src="//iframe.dacast.com/b/135034/c/505211" width="100%" height="700px" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
-                </div>              </div>
+                </div>
+
+            </div>
+             }else{
+
+                <div class="row">
+                <nav class="col-md-3 d-none d-lg-block sidebar">
+                    <div class="sidebar-sticky">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <div class="card text-center mt-3 border-0" style="color:white;">
+                                    <div class="card-body" style="background-color:#006565">
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <input align="middle" type="text" class="form-control" value="@Model.userChannels[0].StreamTitle" id="channelKey" placeholder="Channel Key">
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <div class="col-sm-12 col-md-12 col-lg-9 mt-3">
+                    <iframe src="//iframe.dacast.com/b/135034/c/505211" width="100%" height="700px" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+                </div>
+            </div>
+             }
         </div>
     </div>
-    
 
 <div id="myModal" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -98,96 +128,6 @@
         </div>
     </div>
 </div>
-
-
-
-<script>$('select').on('change', function () {
-        $.ajax({
-            url: '/Home/ProfileTutor',
-            type: 'post',
-            dataType: 'json',
-            data: {
-                'streamURL': $('#streamURL').val(),
-                'streamTitle': $('#streamTitle').val(),
-                'streamSubject': $('#streamSubject').val()
-            },
-            success: function (data) {
-                if (data.message === "Saved") {
-                    location.reload()
-                    alert("Broadcast has started")
-                }
-            }
-        });
-    })</script>
-
-<script>
-function StopStream(stop) {
-        $.ajax({
-            url: '/Home/ProfileTutor',
-            type: 'post',
-            dataType: 'json',
-            data: {
-                'Stop': stop
-            },
-            success: function (data) {
-                if (data.message === "Stopped") {
-                    location.reload()
-                    alert("Your broadcast has stopped");
-                } else {
-                    alert("Broadcast Failed to Start");
-                }
-            }
-        });
-    }
-
-    function EditProfile() {
-        $('#myModal').modal('show')
-    }
-
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-                $('#blah')
-                    .attr('src', e.target.result);
-            };
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-   
-    function RegisterThumbnailAndStreamTitle() {
-        var formData = new FormData();
-        var totalFiles = document.getElementById("file-upload").files.length;
-        if(totalFiles > 0){
-            for (var i = 0; i < totalFiles; i++) {
-            var file = document.getElementById("file-upload").files[i];
-            var streamName = $("#ProfileCaption").val() + "|" + $("#ProfileParagraph").val();
-            formData.append(streamName, file);
-            }
-        }
-        else{
-            var streamName = $("#ProfileCaption").val() + "|" + $("#ProfileParagraph").val();
-            formData.append(streamName, file);
-        }
-
-
-        $.ajax({
-            type: "POST",
-            url: '/Home/ProfileTutor',
-            data: formData,
-            dataType: 'json',
-            contentType: false,
-            processData: false,
-            success: function (data) {
-                if (data.message === "Success") {
-                    location.reload()
-                }
-            }
-        });
-    }
-
-    </script>
 
 <style>
     .dot {
