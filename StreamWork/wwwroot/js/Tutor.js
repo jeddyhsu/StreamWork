@@ -1,8 +1,6 @@
 ﻿//Changes Stream
-$(document).ready(function () {
-
-    $('select').on('change', function () {
-        $.ajax({
+function RegisterStreamTitleAndStreamSubject() {
+      $.ajax({
             url: '/Tutor/TutorStream',
             type: 'post',
             dataType: 'json',
@@ -17,9 +15,7 @@ $(document).ready(function () {
                 }
             }
         });
-    });
-   
-});
+}
 
  //Opens editing MODAL
  function EditProfile() {
@@ -40,7 +36,7 @@ $(document).ready(function () {
     }
 
 //Sends profile caption and paragraph to backend for saving
-    function RegisterThumbnailAndStreamTitle() {
+    function RegisterProfilePhotoAndCaption() {
         var formData = new FormData();
         var totalFiles = document.getElementById("file-upload").files.length;
         if(totalFiles > 0){
@@ -98,11 +94,14 @@ function ValidateKey() {
         data: {
             'channelKey': $('#channelKey').val()
         },
-         success: function (data) {
-            if (data.message === "Saved") {
-                location.reload()
+        success: function (data) {
+            if (data.message === "Success") {
+                $('#channelKeyModal').modal('hide')
                 alert("Key validated, welcome StreamTutor")
             }
+            else {
+                alert("Invalid channel key, make sure you have entered the channel key correctley")
+            }
         }
-    })
+    });
 }
