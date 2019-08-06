@@ -22,6 +22,8 @@
     <Folder Include="Framework\" />
     <Folder Include="Views\Helpers\" />
     <Folder Include="ViewModels\" />
+    <Folder Include="Views\Tutor\" />
+    <Folder Include="Views\Student\" />
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>
@@ -156,5 +158,6 @@
   <ItemGroup>
     <Compile Remove="ViewModels\ProfileViewModel.cs" />
     <Compile Remove="ViewModels\SubjectViewModel.cs" />
+    <Compile Remove="Controllers\ProfileTutorController.cs" />
   </ItemGroup>
 </Project>
