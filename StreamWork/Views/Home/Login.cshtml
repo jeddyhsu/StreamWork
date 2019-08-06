@@ -1,4 +1,5 @@
-﻿@{ViewData["title"] = "Login";}
+﻿<script src="~/js/SignUpLogin.js"></script>
+@{ViewData["title"] = "Login";}
 <br />
 <br />
 <br />
@@ -7,7 +8,6 @@
 <br />
 <form class="form-sign">
     <div class=" text-center">
-
         <img src="~/images/streamworklogo.png" width="250" height="70" onclick="window.location.href='/'" />
         <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
         <label for="inputEmail" class="sr-only">Username</label>
@@ -23,34 +23,3 @@
         <div class="pt-2"> Don't have an account?  <a href="/Home/SignUp" style="color: rgb(0,160,160)">Sign Up!</a> </div>
     </div>
 </form>
-
-<script>
-function Login() {
-        $.ajax({
-            url: '/Home/Login',
-            type: 'post',
-            dataType: 'json',
-            data: {
-                'username': $("#username").val(),
-                'password': $('#password').val()
-
-            },
-            success: function (data) {
-                if (data.message === "Welcome") {
-                    window.location.href = '/Student/ProfileStudent';
-                }
-                else if (data.message == "Welcome, StreamTutor") {
-                    window.location.href = '/Tutor/ProfileTutor';
-                }
-                else {
-
-                    alert("Wrong Username or Password");
-                }
-
-            }
-
-
-        });
-
-    }
-    </script>

@@ -1,30 +1,13 @@
+﻿<script src="~/js/SignUpLogin.js"></script>
 @{ViewData["title"] = "Sign Up";}
-
-<script>
-    function updateChannelId () {
-        if ($("#role").val() == "tutor") {
-            $("#channelId").val("");
-            $("#channelIdDiv").show();
-        } else {
-            $("#channelIdDiv").hide();
-            $("#channelId").val("STUDENT");
-        }
-    }
-    $(document).ready(function () {
-        updateChannelId();
-        $("#role").change(function () {
-            updateChannelId();
-        });
-    });
-</script>
-
 <br />
 <br />
 <br />
 <div class=" text-center">
     <form class="form-sign">
         <img src="~/images/streamworklogo.png" width="250" height="70" onclick="window.location.href='/'" />
-        <h1>Sign Up</h1> <br>
+        <h1>Sign Up</h1>
+        <br>
         <input type="text" class="form-control" id="nameFirst" placeholder="First Name">
         <input type="text" class="form-control mt-2" id="nameLast" placeholder="Last Name">
         <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
@@ -38,55 +21,8 @@
         <select id="role">
             <option value="student" selected>Student</option>
             <option value="tutor">StreamTutor</option>
-        </select> <br> <br>
-        <div id="channelIdDiv">
-            <input type="text" class="form-control" id="channelId" placeholder="YouTube Channel Id" size="45">
-            <br>
-        </div>
+        </select>
+        <br> <br>
         <input type="button" class="btn btn-block" value="Sign Up" onclick="SignUp()" style="background-color:#008080; color: white"> <br> <br>
     </form>
 </div>
-
-<script>
-    updateChannelId();
-</script>
-
-<script>
-function SignUp() {
-        $.ajax({
-            url: '/Home/SignUp',
-            type: 'post',
-            dataType: 'json',
-
-            data: {
-                'nameFirst': $("#nameFirst").val(),
-                'nameLast': $("#nameLast").val(),
-                'email': $("#email").val(),
-                'username': $("#username").val(),
-                'password': $('#password').val(),
-                'passwordConfirm': $('#passwordConfirm').val(),
-                'channelId': $('#channelId').val(),
-                'role': $('#role').val(),
-            },
-            success: function (data) {
-                if (data.message === "Success") {
-
-                    window.location.href='/Home/Login';
-                }
-                else if (data.message === "Wrong Password") {
-
-                    alert("Passwords do not match");
-                }
-                else {
-                    alert("Username already exsists");
-
-                }
-
-            }
-
-
-        });
-
-    }</script>
-<script></script>
-  
