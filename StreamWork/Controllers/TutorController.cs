@@ -21,8 +21,6 @@ namespace StreamWork.Controllers
         private readonly string _connectionString = "Server=tcp:streamwork.database.windows.net,1433;Initial Catalog=StreamWork;Persist Security Info=False;User ID=streamwork;Password=arizonastate1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
         private readonly string _blobconnectionString = "DefaultEndpointsProtocol=https;AccountName=streamworkblob;AccountKey=//JfVlcPLOyzT3vRHxlY1lJ4NUpduVfiTmuHJHK1u/0vWzP8V5YHPLkPPGD2PVxEwTdNirqHzWYSk7c2vZ80Vg==;EndpointSuffix=core.windows.net";
 
-        private bool checker;
-
         [HttpGet]
         public async Task<IActionResult> TutorStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
@@ -103,14 +101,6 @@ namespace StreamWork.Controllers
                     model.ChannelId = userChannel.ChannelKey;
                 }
             }
-            //if (userChannel.StreamID == null && checker == false)
-            //{
-            //    userChannel.SubjectStreaming = null;
-            //    userChannel.StreamThumbnail = null;
-            //    userChannel.StreamID = null;
-            //    checker = true;
-            //}
-
             await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
            // PopulateTutorPage(storageConfig);
             ProfileTutorViewModel viewModel = new ProfileTutorViewModel
