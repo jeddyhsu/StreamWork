@@ -101,7 +101,7 @@ namespace StreamWork.Controllers
                     model.ChannelId = userChannel.ChannelKey;
                 }
             }
-            await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
+            if (userChannel != null) await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
            // PopulateTutorPage(storageConfig);
             ProfileTutorViewModel viewModel = new ProfileTutorViewModel
             { 
@@ -198,6 +198,7 @@ namespace StreamWork.Controllers
         private async Task<UserChannel> GetUserChannelInfo([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
             var channel = await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, "UserChannelKey", new List<string> { HttpContext.Session.GetString("UserProfile") });
+            if (channel.Count == 0) return null;
             return channel[0];
         }
 
