@@ -39,10 +39,10 @@
                                 <div class="card text-center mt-3 border-0" style="color:white;">
                                     <div class="card-body" style="background-color:#006565">
 
-                                        <img src=@Model.userLogins[0].ProfilePicture style="width: 115px; height: 150px" />
-                                        <h1 class="card-title mt-4" style=" font-size:1.8vw; color:lightgray"><b>@Model.userLogins[0].Name.Replace('|', ' ')</b></h1>
-                                        <p class="card-text" style="font-size:1vw; color:white">@Model.userLogins[0].ProfileCaption</p>
-                                        <p class="card-text" style="font-size:1vw; color:white">@Model.userLogins[0].ProfileParagraph</p>
+                                        <img src=@Model.userProfile.ProfilePicture style="width: 115px; height: 150px" />
+                                        <h1 class="card-title mt-4" style=" font-size:1.8vw; color:lightgray"><b>@Model.userProfile.Name.Replace('|',' ')</b></h1>
+                                        <p class="card-text" style="font-size:1vw; color:white">@Model.userProfile.ProfileCaption</p>
+                                        <p class="card-text" style="font-size:1vw; color:white">@Model.userProfile.ProfileParagraph</p>
                                         <hr />
 
                                     </div>
