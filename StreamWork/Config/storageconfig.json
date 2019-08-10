@@ -10,7 +10,7 @@
         },
         {
           "Query": "SELECT * FROM [dbo].[UserLogin] WHERE Username = '@x0'",
-          "QueryId": "PaticularSignedUpUsers"
+          "QueryId": "CurrentUser"
         },
         {
           "Query": "SELECT * FROM [dbo].[UserLogin] WHERE Username = '@x0' AND Password = '@x1'",
@@ -18,18 +18,17 @@
         }
       ]
     },
-
     {
       "Name": "UserChannel",
       "StorageType": "SqlServer",
       "Queries": [
         {
           "Query": "SELECT * FROM [dbo].[UserChannel] WHERE SubjectStreaming = '@x0'",
-          "QueryId": "AllStreamKeys"
+          "QueryId": "AllUserChannelsThatAreStreaming"
         },
         {
           "Query": "SELECT * FROM [dbo].[UserChannel] WHERE Username = '@x0'",
-          "QueryId": "UserChannelKey"
+          "QueryId": "CurrentUserChannel"
         }
       ]
     },
