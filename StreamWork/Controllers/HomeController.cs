@@ -20,9 +20,7 @@ namespace StreamWork.Controllers
 {
     public class HomeController : Controller
     {
-
-        private readonly string _connectionString = "Server=tcp:streamwork.database.windows.net,1433;Initial Catalog=StreamWork;Persist Security Info=False;User ID=streamwork;Password=arizonastate1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-
+        HelperFunctions helperFunctions = new HelperFunctions();
 
         public IActionResult Index()
         {
@@ -89,12 +87,12 @@ namespace StreamWork.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ProfileView(string Tutor, [FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        public async Task<IActionResult> ProfileView(string tutor, [FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
             ProfileTutorViewModel profile = new ProfileTutorViewModel
             {
-                userArchivedVideos = await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, "UserArchivedVideos", new List<string> { Tutor }),
-                userLogins = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, "PaticularSignedUpUsers", new List<string> { Tutor })
+                userArchivedVideos = await helperFunctions.GetArchivedStreams(storageConfig, "UserArchivedVideos", tutor),
+                userProfile = await helperFunctions.GetUserProfile(storageConfig, "CurrentUser", tutor)
             };
             return View(profile);
         }
@@ -123,12 +121,12 @@ namespace StreamWork.Controllers
 
         private async Task<ProfileTutorViewModel> PopulateSubjectPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject)
         {
-            var streams = await GetStreams(storageConfig, subject);
-            var tutors = await GetPopularStreamTutors(storageConfig);
+            var user = HttpContext.Session.GetString("UserProfile");
+       
             ProfileTutorViewModel model = new ProfileTutorViewModel
             {
-                userChannels = streams,
-                userLogins = tutors
+                userChannels = await helperFunctions.GetUserChannels(storageConfig, "AllUserChannelsThatAreStreaming", subject),
+                userLogins = await GetPopularStreamTutors(storageConfig),
             };
             return model;
         }
@@ -136,7 +134,7 @@ namespace StreamWork.Controllers
         private async Task<List<UserLogin>> GetPopularStreamTutors([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
             List<UserLogin> list = new List<UserLogin>();
-            var getCurrentUsers = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, "AllSignedUpUsers", null);
+            var getCurrentUsers = await DataStore.GetListAsync<UserLogin>(helperFunctions._connectionString, storageConfig.Value, "AllSignedUpUsers", null);
             foreach (UserLogin user in getCurrentUsers)
             {
                 if (user.ProfileType.Equals("tutor"))
@@ -144,13 +142,6 @@ namespace StreamWork.Controllers
                     list.Add(user);
                 }
             }
-            return list;
-        }
-
-        private async Task<List<UserChannel>> GetStreams([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject)
-        {
-            var getAllStreams = await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, "AllStreamKeys", new List<string> { subject });
-            List<UserChannel> list = getAllStreams;
             return list;
         }
 
@@ -180,7 +171,7 @@ namespace StreamWork.Controllers
                 StreamTitle = null,
                 VideoURL = null
             };
-            var checkCurrentUsers = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, "PaticularSignedUpUsers", new List<string> { username });
+            var checkCurrentUsers = await DataStore.GetListAsync<UserLogin>(helperFunctions._connectionString, storageConfig.Value, "CurrentUser", new List<string> { username });
             int numberOfUsers = 0;
             foreach (var user in checkCurrentUsers)
             {
@@ -192,8 +183,8 @@ namespace StreamWork.Controllers
                 confirmation = "Wrong Password";
             else
             {
-                await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", signUpProflie.Id } }, signUpProflie);
-                await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", key.Id } }, key);
+                await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", signUpProflie.Id } }, signUpProflie);
+                await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", key.Id } }, key);
                 confirmation = "Success";
             }
             return Json(new { Message = confirmation });
@@ -212,7 +203,7 @@ namespace StreamWork.Controllers
             if (storageConfig != null)
             {
                 int user = 0;
-                var checkforUser = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, "AllSignedUpUsersWithPassword", new List<string> { username, password });
+                var checkforUser = await DataStore.GetListAsync<UserLogin>(helperFunctions._connectionString, storageConfig.Value, "AllSignedUpUsersWithPassword", new List<string> { username, password });
                 foreach (var u in checkforUser)
                 {
                     if (u.Password == password && u.Username == username)
