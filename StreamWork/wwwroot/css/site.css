@@ -310,6 +310,12 @@ lds-dual-ring {
     animation: lds-dual-ring 1.2s linear infinite;
 }
 
+.bordered-image {
+    border-width: 2px;
+    border-color: black;
+    border-style: solid;
+}
+
 @keyframes lds-dual-ring {
     0% {
         transform: rotate(0deg);

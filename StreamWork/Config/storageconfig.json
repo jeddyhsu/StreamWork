@@ -47,6 +47,17 @@
           "QueryId": "UserArchivedVideos"
         }
       ]
+    },
+
+    {
+        "Name": "Donation",
+        "StorageType": "SqlServer",
+        "Queries": [
+            {
+                "Query": "SELECT * FROM [dbo].[Donation]",
+                "QueryId": "AllDonations"
+            }
+        ]
     }
   ]
 }

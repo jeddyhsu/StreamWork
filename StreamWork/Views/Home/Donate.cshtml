@@ -1,0 +1,18 @@
+﻿@model StreamWork.ViewModels.ProfileTutorViewModel
+
+@{ViewData["title"] = "Donate";}
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<div class="form-sign text-center">
+    <img src="~/images/streamworklogo.png" width="250" height="70" onclick="window.location.href='/'" />
+    <h1 class="h3 mb-3 font-weight-normal">You are donating to<br /> <b>@Model.userLogins[0].Name.Replace('|', ' ')</b></h1>
+    <img class="bordered-image" src="@Model.userLogins[0].ProfilePicture" style="width: 115px; height: 150px"/>
+    <br />
+    <br />
+    <input class="btn btn-lg  btn-block" type="button" value="Donate" style="background-color:#008080; color: white" onclick="Login()">
+</div>
