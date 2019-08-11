@@ -6,7 +6,7 @@ using StreamWork.Models;
 namespace StreamWork.ViewModels {
     public class ProfileTutorViewModel {
 
-        public UserProfile userProfile { get; set; }
+        public UserLogin userProfile { get; set; }
         public List<UserChannel> userChannels { get; set; }
         public List<UserArchivedStreams> userArchivedVideos { get; set; }
         public List<UserLogin> userLogins { get; set; }
