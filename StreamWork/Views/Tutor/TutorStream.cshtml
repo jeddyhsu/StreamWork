@@ -134,7 +134,8 @@ else if(Model.userChannels[0].StreamTitle == null && Model.userChannels[0].Subje
             </div>
             <div class="modal-body">
                 <form>
-                    <input align="middle" type="text" class="form-control" value="@Model.userChannels[0].StreamTitle" id="streamTitle" placeholder="Stream Title">                      <select class="mt-5" style="width: 100%" id="streamSubject">
+                    <input align="middle" type="text" class="form-control" value="@Model.userChannels[0].StreamTitle" id="streamTitle" placeholder="Stream Title">                      <select class="mt-1" style="width: 100%" id="streamSubject">
+                        <option value="Select Subject">Select Subject</option>
                         <option value="Mathematics">Mathematics</option>
                         <option value="Science">Science</option>
                         <option value="Engineering">Engineering</option>

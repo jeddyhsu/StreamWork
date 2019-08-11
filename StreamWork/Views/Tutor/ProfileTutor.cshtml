@@ -26,7 +26,7 @@
             </div>
             <div class="btn-group justify-content-end">
                 <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                <img src=@Model.userLogins[0].ProfilePicture style="width:65px; height:85px" />
+                <img src=@Model.userProfile.ProfilePicture style="width:65px; height:85px" />
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Edit Profile</a>
                     <div class="dropdown-divider"></div>
@@ -45,10 +45,13 @@
                                         <br />
                                         <br />
                                         <br />
-                                        <img src=@Model.userLogins[0].ProfilePicture style="width: 115px; height: 150px" />
-                                        <h1 class="card-title mt-4" style=" font-size:1.8vw; color:lightgray"><b>@Model.userProfile.FirstName @Model.userProfile.LastName</b></h1>
-                                        <p class="card-text" style="font-size:1vw; color:white">@Model.userLogins[0].ProfileCaption</p>
-                                        <p class="card-text" style="font-size:1vw; color:white">@Model.userLogins[0].ProfileParagraph</p>
+                                        <br />
+                                        <br />
+                                        <img src=@Model.userProfile.ProfilePicture style="width: 115px; height: 150px" />
+                                        <h1 class="card-title mt-4" style=" font-size:1.8vw; color:lightgray"><b>@Model.userProfile.Name.Replace('|',' ')</b></h1>
+                                        <p class="card-text" style="font-size:1vw; color:white">@Model.userProfile.ProfileCaption</p>
+                                        <p class="card-text" style="font-size:1vw; color:white">@Model.userProfile.ProfileParagraph</p>
+
                                     </div>
                                 </div>
                             </li>
@@ -81,12 +84,12 @@
             </div>
             <div class="modal-body">
                 <form>
-                    <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.userLogins[0].ProfileCaption"/>
+                    <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.userProfile.ProfileCaption"/>
                     <br />
-                    <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.userLogins[0].ProfileParagraph</textarea>
+                    <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.userProfile.ProfileParagraph</textarea>
                     <br />
-                    <input class="file-custom" id="file-upload" value="@Model.userLogins[0].ProfilePicture" type='file' onchange="readURL(this);" />
-                    <img id="blah" src=@Model.userLogins[0].ProfilePicture alt="your image" />
+                    <input class="file-custom" id="file-upload" value="@Model.userProfile.ProfilePicture" type='file' onchange="readURL(this);" />
+                    <img id="blah" src=@Model.userProfile.ProfilePicture alt="your image" />
                 </form>
             </div>
 
@@ -138,6 +141,7 @@
         font: 1rem/1.5 "PT Sans", Arial, sans-serif;
         color: #5a5a5a;
     }
+
 </style>
 
 

@@ -1,17 +1,26 @@
 ﻿//Changes Stream
 function RegisterStreamTitleAndStreamSubject() {
+
+    var streamTitle = $('#streamTitle').val();
+    var streamSubject = $('#streamSubject').val();
+
+    if (streamTitle == "" || streamSubject == 'Select Subject') {
+        alert("You must have title for your stream and you must select a subject")
+        return;
+    }
+
       $.ajax({
             url: '/Tutor/TutorStream',
             type: 'post',
             dataType: 'json',
             data: {
-                'streamTitle': $('#streamTitle').val(),
-                'streamSubject': $('#streamSubject').val()
+                'streamTitle': streamTitle,
+                'streamSubject': streamSubject
             },
             success: function (data) {
                 if (data.message === "Saved") {
                     location.reload()
-                    alert("Broadcast has started")
+                    alert("Your broadcast is visible to students!")
                 }
             }
         });
