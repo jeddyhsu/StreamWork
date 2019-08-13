@@ -100,7 +100,7 @@ namespace StreamWork.Controllers
         [HttpGet]
         public async Task<IActionResult> Donate(string Tutor, [FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
             ProfileTutorViewModel profile = new ProfileTutorViewModel {
-                userLogins = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, "PaticularSignedUpUsers", new List<string> { Tutor })
+                userLogins = await helperFunctions.GetUserLogins(storageConfig, "PaticularSignedUpUsers", Tutor)
             };
 
             Donation donation = new Donation {
@@ -109,7 +109,7 @@ namespace StreamWork.Controllers
                 Tutor = profile.userLogins[0].Username,
                 TimeSent = DateTime.Now.ToString(),
             };
-            await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", donation.Id } }, donation);
+            await helperFunctions.SaveDonation(storageConfig, donation);
 
             return View(profile);
         }
@@ -349,7 +349,7 @@ namespace StreamWork.Controllers
 
             donation.Error += "...DEBUG NOTES...IPNRequest.Body = " + ipnContext.IPNRequest.Body + "...RequestBody = " + ipnContext.RequestBody + "...Verification = " + ipnContext.Verification;
 
-            await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", donation.Id } }, donation);
+            await helperFunctions.SaveDonation(storageConfig, donation);
         }
     }
 }
