@@ -81,5 +81,10 @@ namespace StreamWork
 
             return true;
         }
+
+        public async Task<bool> SaveDonation([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, Donation donation) {
+            await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", donation.Id } }, donation);
+            return true;
+        }
     }
 }
