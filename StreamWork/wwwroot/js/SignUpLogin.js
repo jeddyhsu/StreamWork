@@ -28,6 +28,43 @@ function SignUp() {
     });
 }
 
+function TryLogin() {
+    $.ajax({
+        url: '/Home/TryLogin',
+        type: 'post',
+        dataType: 'json',
+        data: {
+            'tryLogin': "do"
+        },
+        success: function(data) {
+            var verified = false;
+            var profile = false;
+            var tutor = false;
+
+            if (data.message === "Welcome") {
+                verified = true;
+            } else if (data.message == "Welcome, StreamTutor") {
+                verified = true;
+                tutor = true;
+            }
+
+            if (verified) {
+                const urlParams = new URLSearchParams(window.location.search);
+                var dest = urlParams.get('dest');
+                if (dest == '-Home-Profile') {
+                    if (tutor) {
+                        window.location.href = '/Tutor/ProfileTutor';
+                    } else {
+                        window.location.href = '/Student/ProfileStudent';
+                    }
+                } else {
+                    window.location.href = dest.split('-').join('/');
+                }
+            }
+        },
+    });
+}
+
 //Handles logging in
 function Login() {
     $.ajax({
@@ -39,12 +76,31 @@ function Login() {
             'password': $('#password').val()
         },
         success: function(data) {
+            var verified = false;
+            var profile = false;
+            var tutor = false;
+
             if (data.message === "Welcome") {
-                window.location.href = '/Student/ProfileStudent';
+                verified = true;
             } else if (data.message == "Welcome, StreamTutor") {
-                window.location.href = '/Tutor/ProfileTutor';
+                verified = true;
+                tutor = true;
             } else {
                 alert("Wrong Username or Password");
+            }
+
+            if (verified) {
+                const urlParams = new URLSearchParams(window.location.search);
+                var dest = urlParams.get('dest');
+                if (dest == '-Home-Profile') {
+                    if (tutor) {
+                        window.location.href = '/Tutor/ProfileTutor';
+                    } else {
+                        window.location.href = '/Student/ProfileStudent';
+                    }
+                } else {
+                    window.location.href = dest.split('-').join('/');
+                }
             }
         }
     });
