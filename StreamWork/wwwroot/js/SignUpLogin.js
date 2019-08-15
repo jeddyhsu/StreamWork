@@ -28,6 +28,7 @@ function SignUp() {
     });
 }
 
+// Try to log in with session info
 function TryLogin() {
     $.ajax({
         url: '/Home/TryLogin',
@@ -103,5 +104,28 @@ function Login() {
                 }
             }
         }
+    });
+}
+
+// 
+function checkLoggedIn (url) {
+    $.ajax({
+        url: '/Home/TryLogin',
+        type: 'post',
+        dataType: 'json',
+        data: {
+            'tryLogin': "do"
+        },
+        success: function(data) {
+            var verified = false;
+            var profile = false;
+            var tutor = false;
+
+            if (data.message == "Welcome" || data.message == "Welcome, StreamTutor") {
+
+            } else {
+                window.location.href = '/Home/Login?dest=' + url.split('/').join('-');
+            }
+        },
     });
 }
