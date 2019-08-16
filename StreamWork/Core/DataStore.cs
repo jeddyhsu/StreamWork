@@ -158,10 +158,13 @@ namespace StreamWork.Core
 
             foreach (PropertyInfo sourceProperty in sourceType.GetRuntimeProperties())
             {
-                PropertyInfo destinationProperty = destinationType.GetRuntimeProperty(sourceProperty.Name);
-                if (destinationProperty != null)
+                if (sourceProperty.Name?.Equals("RowVersion") == false)
                 {
-                    destinationProperty.SetValue(destination, sourceProperty.GetValue(source, null), null);
+                    PropertyInfo destinationProperty = destinationType.GetRuntimeProperty(sourceProperty.Name);
+                    if (destinationProperty != null)
+                    {
+                        destinationProperty.SetValue(destination, sourceProperty.GetValue(source, null), null);
+                    }
                 }
             }
         }
@@ -175,7 +178,7 @@ namespace StreamWork.Core
                 return key.ToString();
         }
 
-        public static ChannelAPI CallAPI(string URL)
+        public static ChannelAPI CallChannelAPI(string URL)
         {
             WebRequest webRequest = WebRequest.Create(URL);
             webRequest.Credentials = CredentialCache.DefaultCredentials;
@@ -188,6 +191,36 @@ namespace StreamWork.Core
             response.Close();
             var API = Newtonsoft.Json.JsonConvert.DeserializeObject<ChannelAPI>(responseFromServer);
             return API ;
+        }
+
+        public static VideoArchiveAPI CallVideoArchiveAPI(string URL)
+        {
+            WebRequest webRequest = WebRequest.Create(URL);
+            webRequest.Credentials = CredentialCache.DefaultCredentials;
+            WebResponse response = webRequest.GetResponse();
+            Console.WriteLine(((HttpWebResponse)response).StatusDescription);
+            Stream dataStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(dataStream);
+            string responseFromServer = reader.ReadToEnd();
+            reader.Close();
+            response.Close();
+            var API = Newtonsoft.Json.JsonConvert.DeserializeObject<VideoArchiveAPI>(responseFromServer);
+            return API;
+        }
+
+        public static LiveRecordingAPI CallRecordingAPI(string URL)
+        {
+            WebRequest webRequest = WebRequest.Create(URL);
+            webRequest.Credentials = CredentialCache.DefaultCredentials;
+            WebResponse response = webRequest.GetResponse();
+            Console.WriteLine(((HttpWebResponse)response).StatusDescription);
+            Stream dataStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(dataStream);
+            string responseFromServer = reader.ReadToEnd();
+            reader.Close();
+            response.Close();
+            var API = Newtonsoft.Json.JsonConvert.DeserializeObject<LiveRecordingAPI>(responseFromServer);
+            return API;
         }
     }
 }

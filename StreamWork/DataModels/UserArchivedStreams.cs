@@ -12,7 +12,7 @@ namespace StreamWork.DataModels
         public string Username { get; set; }
         public string StreamID { get; set; }
         public string StreamThumbnail { get; set; }
-        public string Subject { get; set; }
+        public string StreamSubject { get; set; }
         public string StreamTitle { get; set; }
 
         [Timestamp]
