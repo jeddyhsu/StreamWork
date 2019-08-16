@@ -196,6 +196,19 @@ namespace StreamWork.Controllers
         }
 
         [HttpPost]
+        public IActionResult TryLogin([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string placeholder) {
+            try {
+                HttpContext.Session.GetString("UserProfile");
+                if (HttpContext.Session.GetString("Tutor").Equals("true")) {
+                    return Json(new { Message = "Welcome, StreamTutor" });
+                }
+                return Json(new { Message = "Welcome" });
+            } catch {
+                return Json(new { Message = "Wrong Password or Username " });
+            }
+        }
+
+        [HttpPost]
         public async Task<IActionResult> Login([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string username, string password)
         {
             string confirmation = "";
@@ -218,11 +231,13 @@ namespace StreamWork.Controllers
                 {
                     confirmation = "Welcome";
                     HttpContext.Session.SetString("UserProfile", username);
+                    HttpContext.Session.SetString("Tutor", "false");
                 }
                 if (user == 2)
                 {
                     confirmation = "Welcome, StreamTutor";
                     HttpContext.Session.SetString("UserProfile", username);
+                    HttpContext.Session.SetString("Tutor", "true");
                 }
             }
             else
