@@ -23,7 +23,7 @@
       "StorageType": "SqlServer",
       "Queries": [
         {
-          "Query": "SELECT * FROM [dbo].[UserChannel] WHERE SubjectStreaming = '@x0'",
+          "Query": "SELECT * FROM [dbo].[UserChannel] WHERE StreamSubject = '@x0'",
           "QueryId": "AllUserChannelsThatAreStreaming"
         },
         {
