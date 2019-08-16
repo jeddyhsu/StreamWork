@@ -78,7 +78,7 @@ function RegisterStreamTitleAndStreamSubject() {
 //Stop LiveStream
 function StopStream(stop) {
         $.ajax({
-            url: '/Tutor/ProfileTutor',
+            url: '/Tutor/TutorStream',
             type: 'post',
             dataType: 'json',
             data: {

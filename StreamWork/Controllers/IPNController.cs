@@ -13,10 +13,12 @@ using StreamWork.Models;
 
 namespace StreamWork.Controllers { // IPN = Instant Payment Notification
     public class IPNController : Controller {
+
         private readonly string _connectionString = "Server=tcp:streamwork.database.windows.net,1433;Initial Catalog=StreamWork;Persist Security Info=False;User ID=streamwork;Password=arizonastate1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
         private IOptionsSnapshot<StorageConfig> storageConfig;
 
         private class IPNContext {
+
             public HttpRequest IPNRequest { get; set; }
 
             public string RequestBody { get; set; }

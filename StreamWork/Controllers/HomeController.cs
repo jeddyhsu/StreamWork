@@ -166,10 +166,9 @@ namespace StreamWork.Controllers
                 Id = Guid.NewGuid().ToString(),
                 Username = username,
                 ChannelKey = null,
-                SubjectStreaming = null,
+                StreamSubject = null,
                 StreamThumbnail = null,
                 StreamTitle = null,
-                VideoURL = null
             };
             var checkCurrentUsers = await DataStore.GetListAsync<UserLogin>(helperFunctions._connectionString, storageConfig.Value, "CurrentUser", new List<string> { username });
             int numberOfUsers = 0;
