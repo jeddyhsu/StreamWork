@@ -1,5 +1,4 @@
 ﻿<script src="~/js/Tutor.js"></script>
-<script src="//player.dacast.com/js/player.js"></script>
 
 @model StreamWork.ViewModels.ProfileTutorViewModel
 
@@ -74,21 +73,9 @@ else if(Model.userChannels[0].StreamTitle == null && Model.userChannels[0].Strea
                   </nav>
                   <div class="col-sm-12 col-md-12 col-lg-9 mt-3">
 
-                      <div id="dacastPlayer"></div>
-                      <script>
-                              window.addEventListener("click", function () {
-                              var myPlayer = dacast("135034_c_505911", 'dacastPlayer', {
-                                  width: 350,
-                                  height: 200
-                              });
-                              if (myPlayer.playing() == true) {
-                                  alert("It's Playing'")
-                              }
-                              else {
-                                  alert("Nope not Playing")
-                              }
-                          });</script>
+                      <iframe src="//iframe.dacast.com/b/135034/c/@Model.userChannels[0].ChannelKey" width="100%" height="700px" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
                   </div>
+              </div>
           </div>
       </div>
 
@@ -111,6 +98,7 @@ else if(Model.userChannels[0].StreamTitle == null && Model.userChannels[0].Strea
                     <img id="blah" src=@Model.userLogins[0].ProfilePicture alt="your image" />
                 </form>
             </div>
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" onclick="RegisterProfilePhotoAndCaption()">Save changes</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -164,7 +152,6 @@ else if(Model.userChannels[0].StreamTitle == null && Model.userChannels[0].Strea
         </div>
     </div>
 </div>
-          </div>
 
 <style>
     .dot {

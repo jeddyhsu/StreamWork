@@ -11,6 +11,7 @@ using StreamWork.Config;
 using StreamWork.Core;
 using StreamWork.DataModels;
 using StreamWork.Models;
+using StreamWork.ViewModels;
 
 namespace StreamWork
 {
