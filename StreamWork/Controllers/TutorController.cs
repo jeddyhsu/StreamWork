@@ -58,8 +58,6 @@ namespace StreamWork.Controllers
             //Saves streamTitle, URl, and subject into sql database
             if (streamTitle != null && streamSubject != null)
             {
-                //Need some way of checking that stream is playing so that a streamer cannot start going live on streamWork before obs!!!!!!!!
-
                 ThreadClass handlevideoarchiving = new ThreadClass(storageConfig, userChannel[0], streamTitle, streamSubject);
                 handlevideoarchiving.RunThread();
                 return Json(new { Message = "Saved" });
