@@ -1,7 +1,6 @@
 ﻿
 //Changes Stream
 function RegisterStreamTitleAndStreamSubject() {
-
     var streamTitle = $('#streamTitle').val();
     var streamSubject = $('#streamSubject').val();
 
