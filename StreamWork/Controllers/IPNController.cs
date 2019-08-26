@@ -17,13 +17,15 @@ namespace StreamWork.Controllers { // IPN = Instant Payment Notification
         private readonly string _connectionString = "Server=tcp:streamwork.database.windows.net,1433;Initial Catalog=StreamWork;Persist Security Info=False;User ID=streamwork;Password=arizonastate1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
         private IOptionsSnapshot<StorageConfig> storageConfig;
 
+        HelperFunctions helperFunctions = new HelperFunctions();
+
         private class IPNContext {
 
             public HttpRequest IPNRequest { get; set; }
 
             public string RequestBody { get; set; }
 
-            public string Verification { get; set; } = String.Empty;
+            public string Verification { get; set; } = string.Empty;
         }
 
         public IActionResult IPN ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
@@ -92,7 +94,7 @@ namespace StreamWork.Controllers { // IPN = Instant Payment Notification
                 Student = "student123", // Earlier
                 Tutor = "streamtutor123", // Earlier
                 Val = "20.00",
-                TimeSent = DateTime.Now.ToString(), // Earlier
+                TimeSent = DateTime.Now.ToString(), // Earlier // NOTE: timestamp is 7 hours ahead of us
                 Verified = "FALSE",
                 Error = ""
             };
@@ -118,7 +120,7 @@ namespace StreamWork.Controllers { // IPN = Instant Payment Notification
 
             donation.Error += "...DEBUG NOTES...IPNRequest.Body = " + ipnContext.IPNRequest.Body + "...RequestBody = " + ipnContext.RequestBody + "...Verification = " + ipnContext.Verification;
 
-            await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "id", donation.Id } }, donation );
+            await helperFunctions.SaveDonation(storageConfig, donation);
         }
     }
 }
