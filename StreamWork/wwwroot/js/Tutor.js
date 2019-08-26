@@ -1,6 +1,6 @@
-﻿//Changes Stream
+﻿
+//Changes Stream
 function RegisterStreamTitleAndStreamSubject() {
-
     var streamTitle = $('#streamTitle').val();
     var streamSubject = $('#streamSubject').val();
 
@@ -113,4 +113,13 @@ function ValidateKey() {
             }
         }
     });
+}
+
+function PrintLoad() {
+    alert("data has loaded!!!")
+}
+
+function RetreivePlayer() {
+    var myPlayer = dacast.players["135034_c_505911"];
+    //var isPlaying = myPlayer.playing();
 }
