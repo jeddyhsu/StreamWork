@@ -43,13 +43,14 @@ namespace StreamWork.Threads
                     await Task.Delay(10000, cancellationToken);
 
                     var liveRecording = DataStore.CallRecordingAPI("https://api.dacast.com/v2/channel/recording/watch" + userChannel.ChannelKey + "/recording/watch?apikey=135034_9d5e445816dfcd2a96ad&_format=JSON");
-                    if(liveRecording.RecordingStatus == "off")
-                    {
-                        return false;
-                    }
                     if (liveRecording.RecordingStatus == "recording")
                     {
                         Console.WriteLine("Recording");
+                    }
+                    else
+                    {
+                        await StopStreamAndArchive();
+                        await ClearChannelStreamInfo();
                     }
                    
                 }

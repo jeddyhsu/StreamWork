@@ -59,8 +59,6 @@ else if(Model.userChannels[0].StreamTitle == null && Model.userChannels[0].Strea
                   </div>
               </div>
           </nav>
-
-
           <div class="container-fluid mt-3">
               <div class="row">
                   <nav class="col-md-3 d-none d-lg-block sidebar">
@@ -75,19 +73,22 @@ else if(Model.userChannels[0].StreamTitle == null && Model.userChannels[0].Strea
                   <div class="col-sm-12 col-md-12 col-lg-9 mt-3">
 
                       <div id="dacastPlayer"></div>
-                      <script>
-                              window.addEventListener("click", function () {
+                      <script>window.addEventListener("load", function () {
                               var myPlayer = dacast("135034_c_505911", 'dacastPlayer', {
-                                  width: 350,
-                                  height: 200
+                                  width: 1400,
+                                  height: 800
                               });
-                              if (myPlayer.playing() == true) {
-                                  alert("It's Playing'")
+                          });</script>
+                      <script>function CheckForStream() {
+                              var player = dacast.players["135034_c_505911"]
+
+                              if (player.currentTime() == 0) {
+                                  alert("It looks like your stream hasn't been started on OBS. Start the stream on OBS and once you see your stream on this page then enter the title and subject.")
                               }
                               else {
-                                  alert("Nope not Playing")
+                                  RegisterStreamTitleAndStreamSubject()
                               }
-                          });</script>
+                          }</script>
                   </div>
           </div>
       </div>
@@ -159,7 +160,7 @@ else if(Model.userChannels[0].StreamTitle == null && Model.userChannels[0].Strea
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="RegisterStreamTitleAndStreamSubject()">Start Stream</button>
+                <button type="button" class="btn btn-primary" onclick="CheckForStream()">Start Stream</button>
             </div>
         </div>
     </div>
