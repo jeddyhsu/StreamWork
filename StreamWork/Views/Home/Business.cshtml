@@ -64,14 +64,14 @@
                         <li class="nav-item">
                             <a class="nav-link active" href="#">
                                 @foreach (var tutor in Model.userLogins)
-                    {
+                            {
                         <div class="card pt-3 pd-3" style="display:block;background-color:black;border:none" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@tutor.Username');">
                             <div class=" card-title tutors">
                                 <input type="image" style="width: 115px; height: 150px" src=@tutor.ProfilePicture />
                                 <h3 style="font-size:1vw; color:white">@tutor.Name.Replace('|', ' ')</h3>
                             </div>
                         </div>
-        }
+                            }
                             </a>
                         </li>
                     </ul>
