@@ -178,7 +178,8 @@ namespace StreamWork.Core
                 return key.ToString();
         }
 
-        public static ChannelAPI CallChannelAPI(string URL)
+        //Takes Generic Type - use for any api that has json format
+        public static T CallAPI<T>(string URL)
         {
             WebRequest webRequest = WebRequest.Create(URL);
             webRequest.Credentials = CredentialCache.DefaultCredentials;
@@ -189,38 +190,22 @@ namespace StreamWork.Core
             string responseFromServer = reader.ReadToEnd();
             reader.Close();
             response.Close();
-            var API = Newtonsoft.Json.JsonConvert.DeserializeObject<ChannelAPI>(responseFromServer);
+            var API = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responseFromServer);
             return API ;
         }
 
-        public static VideoArchiveAPI CallVideoArchiveAPI(string URL)
+        //Use for just URL calls
+        public static string GetChatID(string url)
         {
-            WebRequest webRequest = WebRequest.Create(URL);
-            webRequest.Credentials = CredentialCache.DefaultCredentials;
-            WebResponse response = webRequest.GetResponse();
-            Console.WriteLine(((HttpWebResponse)response).StatusDescription);
+            WebRequest request = WebRequest.Create(url);
+            request.Credentials = CredentialCache.DefaultCredentials;
+            WebResponse response = request.GetResponse();
             Stream dataStream = response.GetResponseStream();
             StreamReader reader = new StreamReader(dataStream);
             string responseFromServer = reader.ReadToEnd();
             reader.Close();
             response.Close();
-            var API = Newtonsoft.Json.JsonConvert.DeserializeObject<VideoArchiveAPI>(responseFromServer);
-            return API;
-        }
-
-        public static LiveRecordingAPI CallRecordingAPI(string URL)
-        {
-            WebRequest webRequest = WebRequest.Create(URL);
-            webRequest.Credentials = CredentialCache.DefaultCredentials;
-            WebResponse response = webRequest.GetResponse();
-            Console.WriteLine(((HttpWebResponse)response).StatusDescription);
-            Stream dataStream = response.GetResponseStream();
-            StreamReader reader = new StreamReader(dataStream);
-            string responseFromServer = reader.ReadToEnd();
-            reader.Close();
-            response.Close();
-            var API = Newtonsoft.Json.JsonConvert.DeserializeObject<LiveRecordingAPI>(responseFromServer);
-            return API;
+            return responseFromServer;
         }
     }
 }

@@ -37,15 +37,14 @@
                 <h5>POPULAR LIVESTREAMS</h5>
                 <hr />
                 <div class="row">
-
-                    @if (Model.userChannels.ToArray().Length > 0)
+                @if (Model.userChannels.ToArray().Length > 0)
                     {
                         foreach (var videoInfo in Model.userChannels)
                         {
                             if (videoInfo.StreamTitle != null)
                             {
                                 <div class="col-lg-3 col-md-6 mt-4">
-                                    <input type="image" width="100%" height="80%" src="~/images/StreamworkLogo.png" onclick="window.location.href='../StreamViews/StreamPage?streamKey=' + ('@videoInfo.ChannelKey');">
+                                    <input type="image" width="100%" height="80%" src="~/images/StreamworkLogo.png" onclick="window.location.href='../StreamViews/StreamPage?streamKeyandchatId=' + ('@videoInfo.ChannelKey') + ('|') + ('@Model.userChannels[0].ChatId');">
                                     <div class="row">
                                     <h5 class="m-3" style="font-family:'Roboto'"><b>@Model.userChannels[0].StreamTitle</b></h5>
                                     </div>

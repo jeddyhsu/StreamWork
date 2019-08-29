@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using StreamWork.Config;
 using StreamWork.Core;
+using StreamWork.DaCastAPI;
 using StreamWork.DataModels;
 using StreamWork.Models;
 
@@ -42,7 +43,7 @@ namespace StreamWork.Threads
                 {
                     await Task.Delay(10000, cancellationToken);
 
-                    var liveRecording = DataStore.CallRecordingAPI("https://api.dacast.com/v2/channel/recording/watch" + userChannel.ChannelKey + "/recording/watch?apikey=135034_9d5e445816dfcd2a96ad&_format=JSON");
+                    var liveRecording = DataStore.CallAPI<LiveRecordingAPI>("https://api.dacast.com/v2/channel/recording/watch" + userChannel.ChannelKey + "/recording/watch?apikey=135034_9d5e445816dfcd2a96ad&_format=JSON");
                     if (liveRecording.RecordingStatus == "recording")
                     {
                         Console.WriteLine("Recording");
@@ -64,7 +65,7 @@ namespace StreamWork.Threads
             var currentDate = DateTime.Now.ToString("ddd/MMM/d/yyyy").Replace('/', ' ');
 
             //strict format!!!
-            var archivedVideo = DataStore.CallVideoArchiveAPI("https://api.dacast.com/v2/vod?apikey=135034_9d5e445816dfcd2a96ad&title=" + "(" + userChannel.ChannelKey + ")" + " - " + currentDate);
+            var archivedVideo = DataStore.CallAPI<VideoArchiveAPI>("https://api.dacast.com/v2/vod?apikey=135034_9d5e445816dfcd2a96ad&title=" + "(" + userChannel.ChannelKey + ")" + " - " + currentDate);
 
             UserArchivedStreams archivedStream = new UserArchivedStreams
             {
