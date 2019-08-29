@@ -61,15 +61,6 @@ else if(Model.userChannels[0].StreamTitle == null && Model.userChannels[0].Strea
           </nav>
           <div class="container-fluid mt-3">
               <div class="row">
-                  <nav class="col-md-3 d-none d-lg-block sidebar">
-                      <div class="sidebar-sticky">
-                          <ul class="nav flex-column">
-                              <li class="nav-item" style="margin-top:150px">
-
-                              </li>
-                          </ul>
-                      </div>
-                  </nav>
                   <div class="col-sm-12 col-md-12 col-lg-9 mt-3">
 
                       <div id="dacastPlayer"></div>
@@ -90,7 +81,13 @@ else if(Model.userChannels[0].StreamTitle == null && Model.userChannels[0].Strea
                               }
                           }</script>
                   </div>
-          </div>
+                  <div class="col-sm-12 col-md-12 col-lg-3 mt-3">
+                      @if(true){
+                          var split = Model.userChannels[0].ChatId.Split(new char [] {'|'});
+                      }
+                      <iframe src="https://www6.cbox.ws/box/?boxid=829647&boxtag=oq4rEn&tid=@Model" width="100%" height="530" allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>
+                  </div>
+              </div>
       </div>
 
 <div id="myModal" class="modal" tabindex="-1" role="dialog">

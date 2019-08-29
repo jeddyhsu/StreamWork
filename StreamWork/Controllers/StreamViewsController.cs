@@ -8,9 +8,11 @@ namespace StreamWork.Controllers
         {
             return View();
         }
-        public IActionResult StreamPage(string streamKey) {
-
-            return View ("StreamPage",streamKey);
+        public IActionResult StreamPage(string streamKeyandchatId)
+        {
+            var split = streamKeyandchatId.Split(new char[] { '|' });
+            string[] arr = { split[0], split[1], split[2] };
+            return View ("StreamPage", arr);
         }
     }
 }
