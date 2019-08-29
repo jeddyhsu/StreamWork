@@ -170,6 +170,7 @@ namespace StreamWork.Controllers
                 StreamSubject = null,
                 StreamThumbnail = null,
                 StreamTitle = null,
+                ChatId = FormatChatId(DataStore.GetChatID("https://www.cbox.ws/apis/threads.php?id=6-829647-oq4rEn&key=ae1682707f17dbc2c473d946d2d1d7c3&act=mkthread"))
             };
             var checkCurrentUsers = await DataStore.GetListAsync<UserLogin>(helperFunctions._connectionString, storageConfig.Value, "CurrentUser", new List<string> { username });
             int numberOfUsers = 0;
@@ -252,6 +253,13 @@ namespace StreamWork.Controllers
         public IActionResult Login()
         {
             return View();
+        }
+
+        private string FormatChatId(string chatID)
+        {
+            var formattedphrase = chatID.Split(new char[] { '\t' });
+            var formattedChatID = formattedphrase[2].Split(new char[] { '\n' });
+            return formattedphrase[1] + "|" + formattedChatID[0];
         }
     }
 }

@@ -13,6 +13,7 @@ namespace StreamWork.Models
         public string StreamSubject { get; set; }
         public string StreamTitle { get; set; }
         public string StreamThumbnail { get; set; }
+        public string ChatId { get; set; }
 
         [Timestamp]
         public byte[] RowVersion { get; set; }

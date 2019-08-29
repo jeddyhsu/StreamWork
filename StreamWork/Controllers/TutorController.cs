@@ -9,6 +9,7 @@ using Microsoft.Extensions.Options;
 using StreamWork.ViewModels;
 using StreamWork.DataModels;
 using StreamWork.Threads;
+using StreamWork.DaCastAPI;
 
 namespace StreamWork.Controllers
 {
@@ -43,7 +44,7 @@ namespace StreamWork.Controllers
                 {
                     try
                     {
-                        var channelInfo = DataStore.CallChannelAPI("http://api.dacast.com/v2/channel/+" + channelKey + "?apikey=135034_9d5e445816dfcd2a96ad&_format=JSON");
+                        var channelInfo = DataStore.CallAPI<ChannelAPI>("http://api.dacast.com/v2/channel/+" + channelKey + "?apikey=135034_9d5e445816dfcd2a96ad&_format=JSON");
                         userChannel[0].ChannelKey = channelInfo.Id.ToString();
                         await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel[0].Id } }, userChannel[0]);
                         return Json(new { Message = "Success" });
