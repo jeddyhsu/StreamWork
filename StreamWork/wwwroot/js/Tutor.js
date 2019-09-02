@@ -74,26 +74,6 @@ function RegisterStreamTitleAndStreamSubject() {
             }
         });
     }
-    
-//Stop LiveStream
-function StopStream(stop) {
-        $.ajax({
-            url: '/Tutor/TutorStream',
-            type: 'post',
-            dataType: 'json',
-            data: {
-                'Stop': stop
-            },
-            success: function (data) {
-                if (data.message === "Stopped") {
-                    location.reload()
-                    alert("Your broadcast has stopped");
-                } else {
-                    alert("Broadcast Failed to Start");
-                }
-            }
-        });
-}
 
 function ValidateKey() {
     $.ajax({
