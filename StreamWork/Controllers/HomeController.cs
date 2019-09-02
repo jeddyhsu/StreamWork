@@ -92,6 +92,7 @@ namespace StreamWork.Controllers
         {
             ProfileTutorViewModel profile = new ProfileTutorViewModel
             {
+                userChannels = await helperFunctions.GetUserChannels(storageConfig, "CurrentUserChannel", tutor),
                 userArchivedVideos = await helperFunctions.GetArchivedStreams(storageConfig, "UserArchivedVideos", tutor),
                 userProfile = await helperFunctions.GetUserProfile(storageConfig, "CurrentUser", tutor)
             };
