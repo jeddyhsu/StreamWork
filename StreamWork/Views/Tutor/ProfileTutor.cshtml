@@ -26,7 +26,7 @@
             </div>
             <div class="btn-group justify-content-end">
                 <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                <img src=@Model.userProfile.ProfilePicture style="width:65px; height:85px" />
+                <img src=@Model.userProfile.ProfilePicture style="width:75px; height:95px; border-radius:50%" />
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Edit Profile</a>
                     <div class="dropdown-divider"></div>
@@ -47,7 +47,7 @@
                                         <br />
                                         <br />
                                         <br />
-                                        <img src=@Model.userProfile.ProfilePicture style="width: 115px; height: 150px" />
+                                        <img src=@Model.userProfile.ProfilePicture style="width: 115px; height: 150px; border-radius:50%" />
                                         <h1 class="card-title mt-4" style=" font-size:1.8vw; color:lightgray"><b>@Model.userProfile.Name.Replace('|',' ')</b></h1>
                                         <p class="card-text" style="font-size:1vw; color:white">@Model.userProfile.ProfileCaption</p>
                                         <p class="card-text" style="font-size:1vw; color:white">@Model.userProfile.ProfileParagraph</p>
@@ -88,7 +88,7 @@
                     <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.userProfile.ProfileParagraph</textarea>
                     <br />
                     <input class="file-custom" id="file-upload" value="@Model.userProfile.ProfilePicture" type='file' onchange="readURL(this);" />
-                    <img id="blah" src=@Model.userProfile.ProfilePicture alt="your image" />
+                    <img id="blah" src=@Model.userProfile.ProfilePicture alt="your image" style="border-radius:50%" />
                 </form>
             </div>
 

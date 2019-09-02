@@ -56,7 +56,7 @@ namespace StreamWork
             CloudStorageAccount cloudStorage = CloudStorageAccount.Parse(_blobconnectionString);
             CloudBlobClient blobClient = cloudStorage.CreateCloudBlobClient();
             CloudBlobContainer blobContainer = blobClient.GetContainerReference("streamworkblobcontainer");
-            CloudBlockBlob blockBlob = blobContainer.GetBlockBlobReference(profileCaption);
+            CloudBlockBlob blockBlob = blobContainer.GetBlockBlobReference(userProfile.Id);
 
 
             using (MemoryStream ms = new MemoryStream())
@@ -72,7 +72,6 @@ namespace StreamWork
                 }
             }
 
-            //Populates stream title and stream thumbnail url and saves it into sql database
             userProfile.ProfileCaption = profileCaption;
             userProfile.ProfilePicture = blockBlob.Uri.AbsoluteUri;
             userProfile.ProfileParagraph = profileParagraph;
