@@ -53,7 +53,7 @@ namespace StreamWork.Threads
                         await StopStreamAndArchive();
                         await ClearChannelStreamInfo();
                     }
-                   
+                    
                 }
             }, TaskCreationOptions.LongRunning);
             return false;
