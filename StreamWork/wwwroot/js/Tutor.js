@@ -28,7 +28,7 @@ function RegisterStreamTitleAndStreamSubject() {
 
  //Opens editing MODAL
  function EditProfile() {
-        $('#myModal').modal('show')
+        $('#editModal').modal('show')
     }
     
 //Reads picture url and sends to backend for saving
