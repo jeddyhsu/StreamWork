@@ -50,7 +50,6 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> Business([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
             return View(await PopulateSubjectPage(storageConfig, "Business"));
-<<<<<<< HEAD
         }
 
         public async Task<IActionResult> Law([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
@@ -79,49 +78,16 @@ namespace StreamWork.Controllers
         }
 
         public IActionResult About()
-=======
-        }
-
-        public async Task<IActionResult> Law([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
-        {
-            return View(await PopulateSubjectPage(storageConfig, "Law"));
-        }
-
-        public async Task<IActionResult> DesignArt([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
-        {
-            return View(await PopulateSubjectPage(storageConfig, "Art"));
-        }
-
-        public async Task<IActionResult> Humanities([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
-        {
-            return View(await PopulateSubjectPage(storageConfig, "Humanities"));
-        }
-
-        public async Task<IActionResult> Other([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
-        {
-            return View(await PopulateSubjectPage(storageConfig, "Other"));
-        }
-
-        public IActionResult BecomeTutor()
->>>>>>> 73b258aa5c0d0314f359ed902569113428663deb
         {
             return View();
         }
 
-<<<<<<< HEAD
         public IActionResult HowToStream()
-=======
-        public IActionResult About()
->>>>>>> 73b258aa5c0d0314f359ed902569113428663deb
         {
             return View();
         }
 
-<<<<<<< HEAD
         public IActionResult SplashPage()
-=======
-        public IActionResult HowToStream()
->>>>>>> 73b258aa5c0d0314f359ed902569113428663deb
         {
             return View();
         }
@@ -131,7 +97,6 @@ namespace StreamWork.Controllers
         {
             ProfileTutorViewModel profile = new ProfileTutorViewModel
             {
-                userChannels = await helperFunctions.GetUserChannels(storageConfig, "CurrentUserChannel", tutor),
                 userArchivedVideos = await helperFunctions.GetArchivedStreams(storageConfig, "UserArchivedVideos", tutor),
                 userProfile = await helperFunctions.GetUserProfile(storageConfig, "CurrentUser", tutor)
             };
@@ -139,12 +104,15 @@ namespace StreamWork.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Donate(string Tutor, [FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
-            ProfileTutorViewModel profile = new ProfileTutorViewModel {
+        public async Task<IActionResult> Donate(string Tutor, [FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
+            ProfileTutorViewModel profile = new ProfileTutorViewModel
+            {
                 userLogins = await helperFunctions.GetUserLogins(storageConfig, "PaticularSignedUpUsers", Tutor)
             };
 
-            Donation donation = new Donation {
+            Donation donation = new Donation
+            {
                 Id = Guid.NewGuid().ToString(),
                 Student = HttpContext.Session.GetString("UserProfile"),
                 Tutor = profile.userLogins[0].Username,
@@ -163,7 +131,7 @@ namespace StreamWork.Controllers
         private async Task<ProfileTutorViewModel> PopulateSubjectPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject)
         {
             var user = HttpContext.Session.GetString("UserProfile");
-       
+
             ProfileTutorViewModel model = new ProfileTutorViewModel
             {
                 userChannels = await helperFunctions.GetUserChannels(storageConfig, "AllUserChannelsThatAreStreaming", subject),
@@ -238,14 +206,19 @@ namespace StreamWork.Controllers
         }
 
         [HttpPost]
-        public IActionResult TryLogin([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string placeholder) {
-            try {
+        public IActionResult TryLogin([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string placeholder)
+        {
+            try
+            {
                 HttpContext.Session.GetString("UserProfile");
-                if (HttpContext.Session.GetString("Tutor").Equals("true")) {
+                if (HttpContext.Session.GetString("Tutor").Equals("true"))
+                {
                     return Json(new { Message = "Welcome, StreamTutor" });
                 }
                 return Json(new { Message = "Welcome" });
-            } catch {
+            }
+            catch
+            {
                 return Json(new { Message = "Wrong Password or Username " });
             }
         }
