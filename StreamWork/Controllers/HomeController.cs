@@ -50,6 +50,7 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> Business([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
             return View(await PopulateSubjectPage(storageConfig, "Business"));
+<<<<<<< HEAD
         }
 
         public async Task<IActionResult> Law([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
@@ -78,11 +79,49 @@ namespace StreamWork.Controllers
         }
 
         public IActionResult About()
+=======
+        }
+
+        public async Task<IActionResult> Law([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
+            return View(await PopulateSubjectPage(storageConfig, "Law"));
+        }
+
+        public async Task<IActionResult> DesignArt([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
+            return View(await PopulateSubjectPage(storageConfig, "Art"));
+        }
+
+        public async Task<IActionResult> Humanities([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
+            return View(await PopulateSubjectPage(storageConfig, "Humanities"));
+        }
+
+        public async Task<IActionResult> Other([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
+            return View(await PopulateSubjectPage(storageConfig, "Other"));
+        }
+
+        public IActionResult BecomeTutor()
+>>>>>>> 73b258aa5c0d0314f359ed902569113428663deb
         {
             return View();
         }
 
+<<<<<<< HEAD
         public IActionResult HowToStream()
+=======
+        public IActionResult About()
+>>>>>>> 73b258aa5c0d0314f359ed902569113428663deb
+        {
+            return View();
+        }
+
+<<<<<<< HEAD
+        public IActionResult SplashPage()
+=======
+        public IActionResult HowToStream()
+>>>>>>> 73b258aa5c0d0314f359ed902569113428663deb
         {
             return View();
         }
