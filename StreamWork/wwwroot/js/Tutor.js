@@ -1,8 +1,9 @@
 ﻿
 //Changes Stream
-function RegisterStreamTitleAndStreamSubject() {
+function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail() {
     var streamTitle = $('#streamTitle').val();
     var streamSubject = $('#streamSubject').val();
+    var streamThumbnail = $('#streamThumbnail').val();
 
     if (streamTitle == "" || streamSubject == 'Select Subject') {
         alert("You must have title for your stream and you must select a subject")
@@ -15,7 +16,8 @@ function RegisterStreamTitleAndStreamSubject() {
             dataType: 'json',
             data: {
                 'streamTitle': streamTitle,
-                'streamSubject': streamSubject
+                'streamSubject': streamSubject,
+                'streamThumbnail': streamThumbnail
             },
             success: function (data) {
                 if (data.message === "Saved") {
@@ -32,14 +34,21 @@ function RegisterStreamTitleAndStreamSubject() {
     }
     
 //Reads picture url and sends to backend for saving
- function readURL(input) {
+ function readURL(input,pictureType) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
-
+            if (pictureType == 'Thumbnail') {
+                reader.onload = function (e) {
+                    $('#previewThumbnail')
+                        .attr('src', e.target.result);
+                }
+            }
+            else {
             reader.onload = function (e) {
-                $('#blah')
-                    .attr('src', e.target.result);
-            };
+                    $('#previewProfilePic')
+                        .attr('src', e.target.result);
+                }
+            }
             reader.readAsDataURL(input.files[0]);
         }
     }
