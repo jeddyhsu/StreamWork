@@ -155,7 +155,18 @@ else if(Model.userChannels[0].StreamTitle == null && Model.userChannels[0].Strea
                         <option value="Humanities">Humanities</option>
                         <option value="Other">Other</option>
                     </select>
+                    <br />
+                    <br />
+                    <h5 style="color:white">Add A Custom Thumbnail</h5>
+                    <img src="~/images/MathDefault.png" style="width:100%" />
+                    <br />
+                    <br />
+                    <div class="upload-uploadbtn-wrapper">
+                      <button class="uploadbtn" style="margin-left:125px">Upload a Thumbnail</button>
+                      <input type="file" name="myfile" />
+                    </div>
                 </form>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn" style="background-color:black; color: white" onclick="CheckForStream()">Start Stream</button>
@@ -189,15 +200,6 @@ else if(Model.userChannels[0].StreamTitle == null && Model.userChannels[0].Strea
         color: white;
         text-align: center;
     }
-
-    img {
-        max-width: 460px;
-        max-height: 250px;
-    }
-
-    img {
-        max-width: 115px;
-    }
     
      .file-custom{
         margin: 0;
@@ -205,4 +207,28 @@ else if(Model.userChannels[0].StreamTitle == null && Model.userChannels[0].Strea
         font: 1rem/1.5 "PT Sans", Arial, sans-serif;
         color: #5a5a5a;
     }
+
+     .upload-uploadbtn-wrapper{
+         position: relative;
+         overflow:hidden;
+         display:inline-block;
+        
+     }
+
+    .uploadbtn {
+        border: 2px solid #006565;
+        color: #006565;
+        background-color: white;
+        padding: 8px 20px;
+        border-radius: 8px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+     .upload-uploadbtn-wrapper input[type=file]{
+         font-size: 100px;
+         position: absolute;
+         left:0;
+         top:0;
+         opacity:0;
+     }
 </style>

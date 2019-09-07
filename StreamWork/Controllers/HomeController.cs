@@ -9,12 +9,6 @@ using StreamWork.Config;
 using System.Collections.Generic;
 using Microsoft.Extensions.Options;
 using StreamWork.ViewModels;
-using StreamWork.DataModels;
-
-// THE FOLLOWING WILL BE DELETED AFTER TESTING
-using System.IO;
-using System.Net;
-using System.Text;
 
 namespace StreamWork.Controllers
 {
