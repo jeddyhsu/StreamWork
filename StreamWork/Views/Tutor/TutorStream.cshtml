@@ -102,12 +102,17 @@ else if(Model.userChannels[0].StreamTitle == null && Model.userChannels[0].Strea
             </div>
             <div class="modal-body">
                 <form>
-                    <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.userLogins[0].ProfileCaption"/>
+                    <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.userLogins[0].ProfileCaption" />
                     <br />
                     <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.userLogins[0].ProfileParagraph</textarea>
                     <br />
-                    <input class="file-custom" id="file-upload" value="@Model.userLogins[0].ProfilePicture" type='file' style="border-radius:50%" onchange="readURL(this);" />
-                    <img id="blah" src=@Model.userLogins[0].ProfilePicture alt="your image" style="border-radius: 50%" />
+                    <img id="preview" src=@Model.userLogins[0].ProfilePicture alt="your image" style="border-radius: 50%" />
+                    <br />
+                    <div class="upload-uploadbtn-wrapper">
+                        <button class="uploadbtn" style="margin-left: 110px">Upload a Profile Picture</button>
+                        <input id="file-upload" type='file'style="border-radius:50%" onchange="readURL(this);" />
+                    </div>
+
                 </form>
             </div>
             <div class="modal-footer">
@@ -158,12 +163,12 @@ else if(Model.userChannels[0].StreamTitle == null && Model.userChannels[0].Strea
                     <br />
                     <br />
                     <h5 style="color:white">Add A Custom Thumbnail</h5>
-                    <img src="~/images/MathDefault.png" style="width:100%" />
+                    <img id="previewThumbnail" src="~/images/MathDefault.png" alt="your image" style="width:100%" />
                     <br />
                     <br />
                     <div class="upload-uploadbtn-wrapper">
-                      <button class="uploadbtn" style="margin-left:125px">Upload a Thumbnail</button>
-                      <input type="file" name="myfile" />
+                        <button class="uploadbtn" style="margin-left:125px">Upload a Thumbnail</button>
+                        <input id="file-upload" type='file' onchange="readURL(this,'Thumbnail');" />
                     </div>
                 </form>
 
@@ -200,14 +205,7 @@ else if(Model.userChannels[0].StreamTitle == null && Model.userChannels[0].Strea
         color: white;
         text-align: center;
     }
-    
-     .file-custom{
-        margin: 0;
-        padding: 2rem 1.5rem;
-        font: 1rem/1.5 "PT Sans", Arial, sans-serif;
-        color: #5a5a5a;
-    }
-
+   
      .upload-uploadbtn-wrapper{
          position: relative;
          overflow:hidden;
