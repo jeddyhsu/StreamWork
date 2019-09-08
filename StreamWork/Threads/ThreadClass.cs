@@ -18,14 +18,16 @@ namespace StreamWork.Threads
         UserChannel userChannel;
         string streamTitle;
         string streamSubject;
+        string streamThumbnail;
 
-        public ThreadClass(IOptionsSnapshot<StorageConfig> storageConfig, UserChannel userChannel, string streamTitle, string streamSubject)
+        public ThreadClass(IOptionsSnapshot<StorageConfig> storageConfig, UserChannel userChannel, string streamTitle, string streamSubject, string streamThumbnail)
         {
             helperFunctions = new HelperFunctions();
             this.userChannel = userChannel;
             this.storageConfig = storageConfig;
             this.streamTitle = streamTitle;
             this.streamSubject = streamSubject;
+            this.streamThumbnail = streamThumbnail;
         }
 
         public bool RunThread()
@@ -34,16 +36,23 @@ namespace StreamWork.Threads
             var cancellationToken = new CancellationToken();
             Task.Factory.StartNew(async () =>
             {
-                userChannel.StreamSubject = streamSubject;
-                userChannel.StreamTitle = streamTitle;
-                userChannel.StreamThumbnail = "default";
-                await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
+                try
+                {
+                    userChannel.StreamSubject = streamSubject;
+                    userChannel.StreamTitle = streamTitle;
+                    userChannel.StreamThumbnail = streamThumbnail;
+                    await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
+                }
+                catch(Microsoft.EntityFrameworkCore.DbUpdateException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
 
                 while (true)
                 {
                     await Task.Delay(10000, cancellationToken);
 
-                    var liveRecording = DataStore.CallAPI<LiveRecordingAPI>("https://api.dacast.com/v2/channel/recording/watch" + userChannel.ChannelKey + "/recording/watch?apikey=135034_9d5e445816dfcd2a96ad&_format=JSON");
+                    var liveRecording = DataStore.CallAPI<LiveRecordingAPI>("https://api.dacast.com/v2/channel/" + userChannel.ChannelKey + "/recording/watch?apikey=135034_9d5e445816dfcd2a96ad&_format=JSON");
                     if (liveRecording.RecordingStatus == "recording")
                     {
                         Console.WriteLine("Recording");
@@ -56,6 +65,7 @@ namespace StreamWork.Threads
                     
                 }
             }, TaskCreationOptions.LongRunning);
+
             return false;
         }
 
@@ -74,7 +84,7 @@ namespace StreamWork.Threads
                 StreamID = archivedVideo.Data[0].Id.ToString(),
                 StreamTitle = userChannel.StreamTitle,
                 StreamSubject = userChannel.StreamSubject,
-                StreamThumbnail = archivedVideo.Data[0].Pictures.Thumbnail[0].ToString(),
+                StreamThumbnail = streamThumbnail,
             };
             await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", archivedStream.Id } }, archivedStream);
             return true;
