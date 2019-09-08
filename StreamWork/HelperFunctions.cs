@@ -48,16 +48,13 @@ namespace StreamWork
         }
 
         //Saves profilePicture into container on Azure
-        public async Task<bool> SaveIntoBlobContainer(IFormFile file, string profileCaption, string profileParagraph, [FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string user)
-        {
-            var userProfile = await GetUserProfile(storageConfig, "CurrentUser", user);
-
+        public async Task<string> SaveIntoBlobContainer(IFormFile file, [FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string user, string reference)
+        { 
             //Connects to blob storage and saves thumbnail from user
             CloudStorageAccount cloudStorage = CloudStorageAccount.Parse(_blobconnectionString);
             CloudBlobClient blobClient = cloudStorage.CreateCloudBlobClient();
             CloudBlobContainer blobContainer = blobClient.GetContainerReference("streamworkblobcontainer");
-            CloudBlockBlob blockBlob = blobContainer.GetBlockBlobReference(userProfile.Id);
-
+            CloudBlockBlob blockBlob = blobContainer.GetBlockBlobReference(reference);
 
             using (MemoryStream ms = new MemoryStream())
             {
@@ -72,17 +69,14 @@ namespace StreamWork
                 }
             }
 
-            userProfile.ProfileCaption = profileCaption;
-            userProfile.ProfilePicture = blockBlob.Uri.AbsoluteUri;
-            userProfile.ProfileParagraph = profileParagraph;
-            await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
-
-            return true;
+            return blockBlob.Uri.AbsoluteUri;
         }
 
         public async Task<bool> SaveDonation([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, Donation donation) {
             await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", donation.Id } }, donation);
             return true;
         }
+
+
     }
 }
