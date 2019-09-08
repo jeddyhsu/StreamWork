@@ -33,7 +33,7 @@ namespace StreamWork.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> TutorStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamTitle, string streamSubject, string change, string channelKey, string stop)
+        public async Task<IActionResult> TutorStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string change, string channelKey)
         {
             var user = HttpContext.Session.GetString("UserProfile");
             var userChannel = await helperFunctions.GetUserChannels(storageConfig, "CurrentUserChannel", user);
@@ -57,23 +57,23 @@ namespace StreamWork.Controllers
             }
 
             //Saves streamTitle, URl, and subject into sql database
-            if (streamTitle != null && streamSubject != null)
+            if (Request.Form.Files.Count != 0)
             {
-                ThreadClass handlevideoarchiving = new ThreadClass(storageConfig, userChannel[0], streamTitle, streamSubject);
+                var streamInfo = Request.Form.Files[0].Name.Split(new char[] { '|' });
+                var streamTitle = streamInfo[0];
+                var streamSubject = streamInfo[1];
+                var streamThumbnail = await helperFunctions.SaveIntoBlobContainer(Request.Form.Files[0], storageConfig, user, userChannel[0].Id);
+                ThreadClass handlevideoarchiving = new ThreadClass(storageConfig, userChannel[0], streamTitle, streamSubject, streamThumbnail);
                 handlevideoarchiving.RunThread();
                 return Json(new { Message = "Saved" });
             }
+
             //change stream subject
-            if (change != null)
+            if (change != null) 
             {
                 userChannel[0].StreamSubject = change;
                 await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel[0].Id } }, userChannel[0]);
                 return Json(new { Message = "Saved" });
-            }
-
-            if (stop != null)
-            {
-                return Json(new { Message = "Stopped" });
             }
 
             return Json(new { Message = "Failed" });
@@ -98,6 +98,7 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> ProfileTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string stop)
         {
             var user = HttpContext.Session.GetString("UserProfile");
+            var userProfile = await helperFunctions.GetUserProfile(storageConfig, "CurrentUser", user);
 
             for (int i = 0; i < Request.Form.Files.Count; i++)
             {
@@ -105,7 +106,11 @@ namespace StreamWork.Controllers
                 var fileSplit = file.Name.Split(new char[] { '|' });
                 var profileCaption = fileSplit[0];
                 var profileParagraph = fileSplit[1];
-                await helperFunctions.SaveIntoBlobContainer(file, profileCaption, profileParagraph, storageConfig, user);
+                var profilePicture = await helperFunctions.SaveIntoBlobContainer(file, storageConfig, user, userProfile.Id);
+                userProfile.ProfileCaption = profileCaption;
+                userProfile.ProfilePicture = profilePicture;
+                userProfile.ProfileParagraph = profileParagraph;
+                await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
                 return Json(new { Message = "Success" });
             }
 
@@ -127,7 +132,7 @@ namespace StreamWork.Controllers
                 getUserInfo[0].ProfileParagraph = split2;
 
                 await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", getUserInfo[0].Id } }, getUserInfo[0]);
-                return Json(new { Message = "Success" });
+                return Json(new { Message = "Success"});
             }
             return Json(new { Message = "" });
         }

@@ -3,22 +3,27 @@
 function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail() {
     var streamTitle = $('#streamTitle').val();
     var streamSubject = $('#streamSubject').val();
-    var streamThumbnail = $('#streamThumbnail').val();
-
+    var formData = new FormData()
+   
     if (streamTitle == "" || streamSubject == 'Select Subject') {
         alert("You must have title for your stream and you must select a subject")
         return;
     }
 
+    var streamInfo = streamTitle + '|' + streamSubject;
+    var totalFile = document.getElementById("uploadThumbnail").files.length;
+    if (totalFile != 0) {
+       formData.append(streamInfo,document.getElementById("uploadThumbnail").files[0])
+    }
+
+
       $.ajax({
             url: '/Tutor/TutorStream',
             type: 'post',
             dataType: 'json',
-            data: {
-                'streamTitle': streamTitle,
-                'streamSubject': streamSubject,
-                'streamThumbnail': streamThumbnail
-            },
+            data: formData,
+            contentType: false,
+            processData: false,
             success: function (data) {
                 if (data.message === "Saved") {
                     location.reload()
@@ -56,10 +61,10 @@ function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail() {
 //Sends profile caption and paragraph to backend for saving
     function RegisterProfilePhotoAndCaption() {
         var formData = new FormData();
-        var totalFiles = document.getElementById("file-upload").files.length;
+        var totalFiles = document.getElementById("uploadProfilePic").files.length;
         if(totalFiles > 0){
             for (var i = 0; i < totalFiles; i++) {
-            var file = document.getElementById("file-upload").files[i];
+            var file = document.getElementById("uploadProfilePic").files[i];
             var streamName = $("#ProfileCaption").val() + "|" + $("#ProfileParagraph").val();
             formData.append(streamName, file);
             }
