@@ -16,6 +16,7 @@ function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail() {
        formData.append(streamInfo,document.getElementById("uploadThumbnail").files[0])
     }
 
+
       $.ajax({
             url: '/Tutor/TutorStream',
             type: 'post',
@@ -24,9 +25,9 @@ function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail() {
             contentType: false,
             processData: false,
             success: function (data) {
-                if (data.message === "Saved") {;
-                    alert("Your broadcast is visible to students!");
-                    location.reload();
+                if (data.message === "Saved") {
+                    location.reload()
+                    alert("Your broadcast is visible to students!")
                 }
             }
         });

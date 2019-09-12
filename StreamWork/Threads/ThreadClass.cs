@@ -50,7 +50,7 @@ namespace StreamWork.Threads
 
                 while (true)
                 {
-                    await Task.Delay(60000, cancellationToken);
+                    await Task.Delay(10000, cancellationToken);
 
                     var liveRecording = DataStore.CallAPI<LiveRecordingAPI>("https://api.dacast.com/v2/channel/" + userChannel.ChannelKey + "/recording/watch?apikey=135034_9d5e445816dfcd2a96ad&_format=JSON");
                     if (liveRecording.RecordingStatus == "recording")
@@ -82,19 +82,11 @@ namespace StreamWork.Threads
                 Id = Guid.NewGuid().ToString(),
                 Username = userChannel.Username,
                 StreamID = archivedVideo.Data[0].Id.ToString(),
-                StreamTitle = streamTitle,
-                StreamSubject = streamSubject,
-                StreamThumbnail = streamThumbnail
+                StreamTitle = userChannel.StreamTitle,
+                StreamSubject = userChannel.StreamSubject,
+                StreamThumbnail = streamThumbnail,
             };
-            try
-            {
-                await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", archivedStream.Id } }, archivedStream);
-            }
-            catch (Microsoft.EntityFrameworkCore.DbUpdateException e)
-            {
-                Console.WriteLine(e.InnerException);
-            }
-          
+            await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", archivedStream.Id } }, archivedStream);
             return true;
         }
 
