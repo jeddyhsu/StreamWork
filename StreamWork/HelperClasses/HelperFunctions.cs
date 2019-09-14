@@ -79,7 +79,7 @@ namespace StreamWork
             return true;
         }
 
-
+        //sends to any email from streamworktutor@gmail.com provided the 'to' 'subject' & 'body'
         public void SendEmailToAnyEmail(string to, string subject, string body)
         {
             SmtpClient client = new SmtpClient("smtp.gmail.com", 587)
