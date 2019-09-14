@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -78,5 +80,15 @@ namespace StreamWork
         }
 
 
+        public void SendEmailToAnyEmail(string to, string subject, string body)
+        {
+            SmtpClient client = new SmtpClient("smtp.gmail.com", 587)
+            {
+                Credentials = new NetworkCredential("streamworktutor@gmail.com", "STREAMW0RK!"),
+                EnableSsl = true
+            };
+
+            client.Send("streamworktutor@gmail.com", to, subject, body);
+        } 
     }
 }

@@ -9,6 +9,8 @@ using StreamWork.Config;
 using System.Collections.Generic;
 using Microsoft.Extensions.Options;
 using StreamWork.ViewModels;
+using System.Net.Mail;
+using System.Net;
 
 namespace StreamWork.Controllers
 {
@@ -267,6 +269,19 @@ namespace StreamWork.Controllers
             var formattedphrase = chatID.Split(new char[] { '\t' });
             var formattedChatID = formattedphrase[2].Split(new char[] { '\n' });
             return formattedphrase[1] + "|" + formattedChatID[0];
+        }
+
+        [HttpGet]
+        public IActionResult PasswordRecovery()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult PasswordRecovery(string username)
+        { 
+
+            return View();
         }
     }
 }
