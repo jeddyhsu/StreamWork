@@ -9,8 +9,6 @@ using StreamWork.Config;
 using System.Collections.Generic;
 using Microsoft.Extensions.Options;
 using StreamWork.ViewModels;
-using System.Net.Mail;
-using System.Net;
 
 namespace StreamWork.Controllers
 {
@@ -91,8 +89,10 @@ namespace StreamWork.Controllers
         [HttpGet]
         public async Task<IActionResult> ProfileView(string tutor, [FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
+            var user = HttpContext.Session.GetString("UserProfile");
             ProfileTutorViewModel profile = new ProfileTutorViewModel
             {
+                userChannels = await helperFunctions.GetUserChannels(storageConfig, "CurrentUserChannel", user),
                 userArchivedVideos = await helperFunctions.GetArchivedStreams(storageConfig, "UserArchivedVideos", tutor),
                 userProfile = await helperFunctions.GetUserProfile(storageConfig, "CurrentUser", tutor)
             };
