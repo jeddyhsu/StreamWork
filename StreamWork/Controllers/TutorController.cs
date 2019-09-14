@@ -90,7 +90,6 @@ namespace StreamWork.Controllers
                 userChannels = await helperFunctions.GetUserChannels(storageConfig, "CurrentUserChannel", user),
                 userArchivedVideos = await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, "UserArchivedVideos", new List<string> { user })
             };
-
             return View(viewModel);
         }
 
