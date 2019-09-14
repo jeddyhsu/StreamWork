@@ -141,10 +141,11 @@ function RecoverPassword() {
         },
         success: function (data) {
             if (data.message === 'Success') {
-                alert('Yay')
+                alert('Email sent! Check your email for the password')
+                window.location.href = '/Home/Login'
             }
             else {
-                alert('Noooo')
+                alert('Error')
             }
         }
     })

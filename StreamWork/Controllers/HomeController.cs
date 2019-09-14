@@ -278,10 +278,11 @@ namespace StreamWork.Controllers
         }
 
         [HttpPost]
-        public IActionResult PasswordRecovery(string username)
-        { 
-
-            return View();
+        public async Task<IActionResult> PasswordRecovery([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string username)
+        {
+            var userProfile = await helperFunctions.GetUserProfile(storageConfig, "CurrentUser", username);
+            helperFunctions.SendEmailToAnyEmail(userProfile.EmailAddress, "Password Recovery", "Your password is " + userProfile.Password);
+            return Json(new { Message = "Success"});
         }
     }
 }
