@@ -14,5 +14,10 @@ namespace StreamWork.Controllers
             string[] arr = { split[0], split[1], split[2] };
             return View ("StreamPage", arr);
         }
+
+        public IActionResult StreamPlaybackPage(string streamId)
+        {
+            return View("StreamPlaybackPage", streamId);
+        }
     }
 }
