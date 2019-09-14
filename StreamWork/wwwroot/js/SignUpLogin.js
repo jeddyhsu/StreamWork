@@ -129,3 +129,23 @@ function checkLoggedIn (url) {
         },
     });
 }
+
+
+function RecoverPassword() {
+    $.ajax({
+        url: '/Home/PasswordRecovery',
+        type: 'post',
+        dataType: 'json',
+        data: {
+            'username': $("#username").val(),
+        },
+        success: function (data) {
+            if (data.message === 'Success') {
+                alert('Yay')
+            }
+            else {
+                alert('Noooo')
+            }
+        }
+    })
+}
