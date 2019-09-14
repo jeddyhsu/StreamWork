@@ -1,7 +1,7 @@
 ﻿@model StreamWork.ViewModels.ProfileTutorViewModel
 
 @{
-    ViewData["Title"] = "ProfileTutor";
+    ViewData["Title"] = "ProfileView";
 }
 <div>
     <div style="font-family:'Roboto', sans-serif;">
@@ -43,7 +43,7 @@
                                         <p class="card-text" style="font-size:1vw; color:white">@Model.userProfile.ProfileCaption</p>
                                         <p class="card-text" style="font-size:1vw; color:white">@Model.userProfile.ProfileParagraph</p>
                                         <hr />
-                                        <img src="~/images/Donate.png" style="width:150px; height:55px" onclick="window.location.href='Donate?Tutor=' + ('@Model.userChannels[0].Username')" />
+
                                     </div>
                                 </div>
                             </li>
@@ -55,7 +55,7 @@
                     <div class="row">
                         @foreach(var stream in Model.userArchivedVideos){
                         <div class="col-lg-4 col-md-6 mt-4">
-                            <input type="image" width="100%" height="80%" src=@stream.StreamThumbnail onclick="window.location.href='../StreamViews/StreamPage?streamKey=' + ('@stream.StreamID');">
+                            <input type="image" width="100%" height="80%" src=@stream.StreamThumbnail  onclick="window.location.href='../StreamViews/StreamPlaybackPage?streamId=' + ('@stream.StreamID')">
                             <h5 style="font-family: 'Roboto'">@stream.StreamTitle</h5>
                         </div>
                         }
