@@ -13,8 +13,12 @@ function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail() {
     var streamInfo = streamTitle + '|' + streamSubject;
     var totalFile = document.getElementById("uploadThumbnail").files.length;
     if (totalFile != 0) {
-       formData.append(streamInfo,document.getElementById("uploadThumbnail").files[0])
+        formData.append(streamInfo, document.getElementById("uploadThumbnail").files[0])
     }
+    else {
+        formData.append(streamInfo, 'No Thumbnail');
+    }
+
 
       $.ajax({
             url: '/Tutor/TutorStream',

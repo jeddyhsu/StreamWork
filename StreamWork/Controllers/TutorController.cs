@@ -68,6 +68,21 @@ namespace StreamWork.Controllers
                 return Json(new { Message = "Saved" });
             }
 
+            //Saves if there is no thumbnail uploaded
+            if (Request.Form.Count != 0)
+            {
+                var streamInfo = new string[2];
+                foreach (var key in Request.Form.Keys)
+                {
+                     streamInfo = key.Split(new char[] { '|' });
+                }
+                var streamTitle = streamInfo[0];
+                var streamSubject = streamInfo[1];
+                ThreadClass handlevideoarchiving = new ThreadClass(storageConfig, userChannel[0], streamTitle, streamSubject, "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/MathDefault.png");
+                handlevideoarchiving.RunThread();
+                return Json(new { Message = "Saved" });
+            }
+
             //change stream subject
             if (change != null) 
             {
