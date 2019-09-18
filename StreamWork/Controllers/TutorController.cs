@@ -157,15 +157,17 @@ namespace StreamWork.Controllers
         {
             string defaultURL = "";
 
-            Hashtable defaultPic = new Hashtable();
-            defaultPic.Add("Mathematics", "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/MathDefault.png");
-            defaultPic.Add("Humanities", "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/HumanitiesDefault.png");
-            defaultPic.Add("Science", "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/ScienceDefault.png");
-            defaultPic.Add("Business", "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/BusinessDefault.png");
-            defaultPic.Add("Engineering", "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/EngineeringDefault.png");
-            defaultPic.Add("Law", "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/LawDefault.png");
-            defaultPic.Add("Art", "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/ArtDefault.png");
-            defaultPic.Add("Other", "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/OtherDefualt.png");
+            Hashtable defaultPic = new Hashtable
+            {
+                { "Mathematics", "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/MathDefault.png" },
+                { "Humanities", "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/HumanitiesDefault.png" },
+                { "Science", "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/ScienceDefault.png" },
+                { "Business", "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/BusinessDefault.png" },
+                { "Engineering", "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/EngineeringDefault.png" },
+                { "Law", "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/LawDefault.png" },
+                { "Art", "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/ArtDefault.png" },
+                { "Other", "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/OtherDefualt.png" }
+            };
 
             ICollection key = defaultPic.Keys;
 
