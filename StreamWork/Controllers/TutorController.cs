@@ -10,6 +10,7 @@ using StreamWork.ViewModels;
 using StreamWork.DataModels;
 using StreamWork.Threads;
 using StreamWork.DaCastAPI;
+using System.Collections;
 
 namespace StreamWork.Controllers
 {
@@ -78,7 +79,7 @@ namespace StreamWork.Controllers
                 }
                 var streamTitle = streamInfo[0];
                 var streamSubject = streamInfo[1];
-                ThreadClass handlevideoarchiving = new ThreadClass(storageConfig, userChannel[0], streamTitle, streamSubject, "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/MathDefault.png");
+                ThreadClass handlevideoarchiving = new ThreadClass(storageConfig, userChannel[0], streamTitle, streamSubject, GetCorrespondingDefaultThumbnail(streamSubject));
                 handlevideoarchiving.RunThread();
                 return Json(new { Message = "Saved" });
             }
@@ -149,6 +150,34 @@ namespace StreamWork.Controllers
                 return Json(new { Message = "Success"});
             }
             return Json(new { Message = "" });
+        }
+
+        //Uses a hashtable to add default thumbnails based on subject
+        private string GetCorrespondingDefaultThumbnail(string subject)
+        {
+            string defaultURL = "";
+
+            Hashtable defaultPic = new Hashtable();
+            defaultPic.Add("Mathematics", "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/MathDefault.png");
+            defaultPic.Add("Humanities", "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/HumanitiesDefault.png");
+            defaultPic.Add("Science", "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/ScienceDefault.png");
+            defaultPic.Add("Business", "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/BusinessDefault.png");
+            defaultPic.Add("Engineering", "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/EngineeringDefault.png");
+            defaultPic.Add("Law", "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/LawDefault.png");
+            defaultPic.Add("Art", "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/ArtDefault.png");
+            defaultPic.Add("Other", "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/OtherDefualt.png");
+
+            ICollection key = defaultPic.Keys;
+
+            foreach(string pic in key)
+            {
+                if (pic == subject)
+                {
+                    defaultURL = ((string)defaultPic[pic]);
+                }
+            }
+
+            return defaultURL;
         }
     }
 }
