@@ -178,7 +178,6 @@ namespace StreamWork.Controllers
                     defaultURL = ((string)defaultPic[pic]);
                 }
             }
-
             return defaultURL;
         }
     }
