@@ -65,13 +65,14 @@ else if(Model.userChannels[0].StreamTitle == null && Model.userChannels[0].Strea
 
                       <div id="dacastPlayer"></div>
                       <script>window.addEventListener("load", function () {
-                              var myPlayer = dacast("135034_c_505911", 'dacastPlayer', {
+                              var myPlayer = dacast("135034_c_@Model.userChannels[0].ChannelKey", 'dacastPlayer', {
                                   width: 1400,
                                   height: 800
                               });
                           });</script>
-                      <script>function CheckForStream() {
-                              var player = dacast.players["135034_c_505911"]
+                      <script>
+                    function CheckForStream() {
+                              var player = dacast.players["135034_c_@Model.userChannels[0].ChannelKey"]
 
                               if (player.currentTime() == 0) {
                                   alert("It looks like your stream hasn't been started on OBS. Start the stream on OBS and once you see your stream on this page then enter the title and subject.")
