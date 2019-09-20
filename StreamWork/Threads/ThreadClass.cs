@@ -64,6 +64,7 @@ namespace StreamWork.Threads
                         {
                             await StopStreamAndArchive();
                             await ClearChannelStreamInfo();
+                            x = false;
                         }
                     }
                     catch(System.IndexOutOfRangeException e)
