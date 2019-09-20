@@ -115,39 +115,40 @@ namespace StreamWork.Controllers
             var user = HttpContext.Session.GetString("UserProfile");
             var userProfile = await helperFunctions.GetUserProfile(storageConfig, "CurrentUser", user);
 
-            for (int i = 0; i < Request.Form.Files.Count; i++)
+            //Handles if there is a profile picture with the caption or about paragraph
+            if (Request.Form.Files.Count > 0)
             {
-                var file = Request.Form.Files[i];
+                var file = Request.Form.Files[0];
                 var fileSplit = file.Name.Split(new char[] { '|' });
                 var profileCaption = fileSplit[0];
                 var profileParagraph = fileSplit[1];
                 var profilePicture = await helperFunctions.SaveIntoBlobContainer(file, storageConfig, user, userProfile.Id);
-                userProfile.ProfileCaption = profileCaption;
+                userProfile.ProfileCaption = profileCaption != "NA" ? profileCaption : null;
                 userProfile.ProfilePicture = profilePicture;
-                userProfile.ProfileParagraph = profileParagraph;
+                userProfile.ProfileParagraph = profileParagraph != "NA" ? profileParagraph : null;
                 await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
                 return Json(new { Message = "Success" });
             }
 
+            //Handles if there is not a profile picture with the caption or about paragraph
             if (Request.Form.Keys.Count > 0)
             {
                 var getUserInfo = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, "CurrentUser", new List<string> { user });
-
-                var split1 = "";
-                var split2 = "";
+                var profileCaption = "";
+                var profileParagraph = "";
                 foreach (string s in Request.Form.Keys)
                 {
                     var array = s.Split(new char[] { '|' });
-                    split1 = array[0];
-                    split2 = array[1];
+                    profileCaption = array[0];
+                    profileParagraph = array[1];
                     break;
                 }
 
-                getUserInfo[0].ProfileCaption = split1;
-                getUserInfo[0].ProfileParagraph = split2;
+                getUserInfo[0].ProfileCaption = profileCaption != "NA" ? profileCaption : null;
+                getUserInfo[0].ProfileParagraph = profileParagraph != "NA" ? profileParagraph : null;
 
                 await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", getUserInfo[0].Id } }, getUserInfo[0]);
-                return Json(new { Message = "Success"});
+                return Json(new { Message = "Success" });
             }
             return Json(new { Message = "" });
         }
