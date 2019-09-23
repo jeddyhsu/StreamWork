@@ -150,3 +150,32 @@ function RecoverPassword() {
         }
     })
 }
+
+function ChangePassword() {
+
+    //gets url path with parameters
+    var path = (location.pathname+location.search).substr(1)
+
+    $.ajax({
+        url: '/Home/ChangePassword',
+        type: 'post',
+        dataType: 'json',
+        data: {
+            'newPassword': $('#newPassword').val(),
+            'confirmNewPassword': $('#confirmNewPassword').val(),
+            'path': path
+        },
+        success: function (data) {
+            if (data.message === 'Success') {
+                alert('Password has been changed!')
+                window.location.href = '/Home/Login'
+            }
+            else if (data.message === 'Invalid Password Match') {
+                alert('Passwords do not match. Please try again.')
+            }
+            else {
+                alert('Error')
+            }
+        }
+    })
+}
