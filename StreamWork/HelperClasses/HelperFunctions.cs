@@ -4,6 +4,7 @@ using System.IO;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using System.Web;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Storage;
@@ -82,14 +83,23 @@ namespace StreamWork
         //sends to any email from streamworktutor@gmail.com provided the 'to' 'subject' & 'body'
         public void SendEmailToAnyEmail(string to, string subject, string body)
         {
-            //For localhost use smpt.gmail.com
-            SmtpClient client = new SmtpClient("smtp.streamwork.live", 587)
+            //For localhost use smtp.gmail.com
+            SmtpClient client = new SmtpClient("smtp.gmail.com", 587)
             {
                 Credentials = new NetworkCredential("streamworktutor@gmail.com", "STREAMW0RK0!"),
                 EnableSsl = true
             };
 
             client.Send("streamworktutor@gmail.com", to, subject, body);
-        } 
+        }
+
+        public string CreateUri(string username)
+        {
+            var uriBuilder = new UriBuilder("http://localhost:58539/Home/ChangePassword");
+            var query = HttpUtility.ParseQueryString(uriBuilder.Query);
+            query["username"] = username;
+            uriBuilder.Query = query.ToString();
+            return uriBuilder.ToString();
+        }
     }
 }

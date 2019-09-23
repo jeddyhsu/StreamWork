@@ -9,13 +9,13 @@ using StreamWork.Config;
 using System.Collections.Generic;
 using Microsoft.Extensions.Options;
 using StreamWork.ViewModels;
+using System.Web;
 
 namespace StreamWork.Controllers
 {
     public class HomeController : Controller
     {
         HelperFunctions helperFunctions = new HelperFunctions();
-
 
         public IActionResult Index()
         {
@@ -281,8 +281,29 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> PasswordRecovery([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string username)
         {
             var userProfile = await helperFunctions.GetUserProfile(storageConfig, "CurrentUser", username);
-            helperFunctions.SendEmailToAnyEmail(userProfile.EmailAddress, "Password Recovery", "Your password is " + userProfile.Password);
+            helperFunctions.SendEmailToAnyEmail(userProfile.EmailAddress, "Password Recovery", helperFunctions.CreateUri(userProfile.Username));
             return Json(new { Message = "Success"});
         }
+
+        [HttpGet]
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string newPassword, string confirmNewPassword, string path)
+        {
+            if (newPassword == confirmNewPassword)
+            {
+                var pathFormat = path.Split(new char[] { '=' });
+                var username = pathFormat[1];
+                var userProfile = await helperFunctions.GetUserProfile(storageConfig, "CurrentUser", username);
+                userProfile.Password = newPassword;
+                await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
+                return Json(new { Message = "Success" });
+            }   
+            return Json(new { Message = "Invalid Password Match" });
+         }
     }
 }
