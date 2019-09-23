@@ -84,7 +84,7 @@ namespace StreamWork
         public void SendEmailToAnyEmail(string to, string subject, string body)
         {
             //For localhost use smtp.gmail.com
-            SmtpClient client = new SmtpClient("smtp.gmail.com", 587)
+            SmtpClient client = new SmtpClient("streamwork.live", 587)
             {
                 Credentials = new NetworkCredential("streamworktutor@gmail.com", "STREAMW0RK0!"),
                 EnableSsl = true
