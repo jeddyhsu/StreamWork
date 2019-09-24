@@ -93,7 +93,7 @@ function Login() {
             if (verified) {
                 const urlParams = new URLSearchParams(window.location.search);
                 var dest = urlParams.get('dest');
-                if (dest == '-Home-Profile') {
+                if (dest == '-Home-Profile' || !dest) {
                     if (tutor) {
                         window.location.href = '/Tutor/ProfileTutor';
                     } else {
