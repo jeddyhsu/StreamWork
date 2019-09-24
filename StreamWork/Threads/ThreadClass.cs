@@ -48,21 +48,29 @@ namespace StreamWork.Threads
                     Console.WriteLine(e.Message);
                 }
 
-                while (true)
+                bool x = true;
+                while (x)
                 {
-                    await Task.Delay(10000, cancellationToken);
+                    await Task.Delay(60000, cancellationToken);
 
-                    var liveRecording = DataStore.CallAPI<LiveRecordingAPI>("https://api.dacast.com/v2/channel/" + userChannel.ChannelKey + "/recording/watch?apikey=135034_9d5e445816dfcd2a96ad&_format=JSON");
-                    if (liveRecording.RecordingStatus == "recording")
+                    try
                     {
-                        Console.WriteLine("Recording");
+                        var liveRecording = DataStore.CallAPI<LiveRecordingAPI>("https://api.dacast.com/v2/channel/" + userChannel.ChannelKey + "/recording/watch?apikey=135034_9d5e445816dfcd2a96ad&_format=JSON");
+                        if (liveRecording.RecordingStatus == "recording")
+                        {
+                            Console.WriteLine("Recording");
+                        }
+                        else
+                        {
+                            await StopStreamAndArchive();
+                            await ClearChannelStreamInfo();
+                            x = false;
+                        }
                     }
-                    else
+                    catch(System.IndexOutOfRangeException e)
                     {
-                        await StopStreamAndArchive();
-                        await ClearChannelStreamInfo();
+                        x = true;
                     }
-                    
                 }
             }, TaskCreationOptions.LongRunning);
 
@@ -82,11 +90,19 @@ namespace StreamWork.Threads
                 Id = Guid.NewGuid().ToString(),
                 Username = userChannel.Username,
                 StreamID = archivedVideo.Data[0].Id.ToString(),
-                StreamTitle = userChannel.StreamTitle,
-                StreamSubject = userChannel.StreamSubject,
-                StreamThumbnail = streamThumbnail,
+                StreamTitle = streamTitle,
+                StreamSubject = streamSubject,
+                StreamThumbnail = streamThumbnail
             };
-            await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", archivedStream.Id } }, archivedStream);
+            try
+            {
+                await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", archivedStream.Id } }, archivedStream);
+            }
+            catch (Microsoft.EntityFrameworkCore.DbUpdateException e)
+            {
+                Console.WriteLine(e.InnerException);
+            }
+          
             return true;
         }
 
