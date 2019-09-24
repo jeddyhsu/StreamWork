@@ -13,7 +13,10 @@ function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail() {
     var streamInfo = streamTitle + '|' + streamSubject;
     var totalFile = document.getElementById("uploadThumbnail").files.length;
     if (totalFile != 0) {
-       formData.append(streamInfo,document.getElementById("uploadThumbnail").files[0])
+        formData.append(streamInfo, document.getElementById("uploadThumbnail").files[0])
+    }
+    else {
+        formData.append(streamInfo, 'No Thumbnail');
     }
 
 
@@ -25,9 +28,9 @@ function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail() {
             contentType: false,
             processData: false,
             success: function (data) {
-                if (data.message === "Saved") {
-                    location.reload()
-                    alert("Your broadcast is visible to students!")
+                if (data.message === "Saved") {;
+                    alert("Your broadcast is visible to students!");
+                    location.reload();
                 }
             }
         });
@@ -61,17 +64,31 @@ function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail() {
 //Sends profile caption and paragraph to backend for saving
     function RegisterProfilePhotoAndCaption() {
         var formData = new FormData();
+        var profileCaption = $("#ProfileCaption").val()
+        var profileParagraph = $("#ProfileParagraph").val()
+        var userInfo = "";
+
+         if (profileCaption != "" && profileParagraph == "") {
+                    userInfo = profileCaption + "|" + "NA";
+                }
+                else if (profileCaption == "" && profileParagraph != "") {
+                    userInfo = "NA" + "|" + profileParagraph;
+                }
+                else if (profileCaption != "" && profileParagraph != "") {
+                    userInfo = profileCaption + "|" + profileParagraph;
+                }
+                else {
+                    userInfo = "NA|NA"
+                }
+              
+
         var totalFiles = document.getElementById("uploadProfilePic").files.length;
-        if(totalFiles > 0){
-            for (var i = 0; i < totalFiles; i++) {
-            var file = document.getElementById("uploadProfilePic").files[i];
-            var streamName = $("#ProfileCaption").val() + "|" + $("#ProfileParagraph").val();
-            formData.append(streamName, file);
-            }
+        if(totalFiles != 0){
+             formData.append(userInfo, document.getElementById("uploadProfilePic").files[0]);
         }
-        else{
-            var streamName = $("#ProfileCaption").val() + "|" + $("#ProfileParagraph").val();
-            formData.append(streamName, file);
+        else {
+
+            formData.append(userInfo, "No Profile Pic");
         }
        
         $.ajax({
@@ -101,6 +118,7 @@ function ValidateKey() {
             if (data.message === "Success") {
                 $('#channelKeyModal').modal('hide')
                 alert("Key validated, welcome StreamTutor")
+                location.reload()
             }
             else {
                 alert("Invalid channel key, make sure you have entered the channel key correctley")

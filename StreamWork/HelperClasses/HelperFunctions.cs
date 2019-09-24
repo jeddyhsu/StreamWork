@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
+using System.Web;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Storage;
@@ -77,6 +80,25 @@ namespace StreamWork
             return true;
         }
 
+        //sends to any email from streamworktutor@gmail.com provided the 'to' 'subject' & 'body'
+        public void SendEmailToAnyEmail(string to, string subject, string body)
+        {
+            SmtpClient client = new SmtpClient("smtp.gmail.com", 587)
+            {
+                Credentials = new NetworkCredential("streamworktutor@gmail.com", "STREAMW0RK0!"),
+                EnableSsl = true
+            };
 
+            client.Send("streamworktutor@gmail.com", to, subject, body);
+        }
+
+        public string CreateUri(string username)
+        {
+            var uriBuilder = new UriBuilder("https://streamwork.live/Home/ChangePassword");
+            var query = HttpUtility.ParseQueryString(uriBuilder.Query);
+            query["username"] = username;
+            uriBuilder.Query = query.ToString();
+            return uriBuilder.ToString();
+        }
     }
 }
