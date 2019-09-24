@@ -47,11 +47,12 @@
                                     <br />
                                     <br />
                                     <br />
-                                    <img src=@Model.userLogins[0].ProfilePicture style="width: 115px; height: 150px" />
-                                    <h1 class="card-title mt-4" style=" font-size:1.8vw; color:lightgray"><b>@Model.userProfile.FirstName @Model.userProfile.LastName</b></h1>
+                                    <br />
+                                    <br />
+                                    <img src=@Model.userLogins[0].ProfilePicture style="width: 115px; height: 150px; border-radius:50%" />
+                                    <h1 class="card-title mt-4" style=" font-size:1.8vw; color:lightgray"><b>@Model.userLogins[0].Name.Replace('|',' ')</b></h1>
                                     <p class="card-text" style="font-size:1vw; color:white">@Model.userLogins[0].ProfileCaption</p>
                                     <p class="card-text" style="font-size:1vw; color:white">@Model.userLogins[0].ProfileParagraph</p>
-                                    <hr />
                                 </div>
                             </div>
                         </li>
@@ -62,12 +63,11 @@
     </div>
 </div>
 
-<div id="myModal" class="modal" tabindex="-1" role="dialog">
+<div id="editModal" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content" style="background-color: #008080">
             <div class="modal-header">
-                <h5 class="modal-title">Edit Profile</h5>
-
+                <h5 class="modal-title" style="color:white">Edit Profile</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -78,13 +78,18 @@
                     <br />
                     <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.userLogins[0].ProfileParagraph</textarea>
                     <br />
-                    <input class="file-custom" id="file-upload" value="@Model.userLogins[0].ProfilePicture" type='file' onchange="readURL(this);" />
-                    <img id="blah" src=@Model.userLogins[0].ProfilePicture alt="your image" />
+                    <img id="previewProfilePic" src=@Model.userLogins[0].ProfilePicture alt="your image" style="border-radius: 50%; width:25%; display:block;margin-left:auto;margin-right:auto" />
+                    <br />
+                    <div class="upload-uploadbtn-wrapper">
+                        <button class="uploadbtn" style="margin-left:110px">Upload a Profile Picture</button>
+                        <input id="uploadProfilePic" type='file' onchange="readURL(this,'ProfilePic');" />
+                    </div>
+
                 </form>
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="RegisterThumbnailAndStreamTitle()">Save changes</button>
+                <button type="button" style="background-color:black; color:white" class="btn" onclick="RegisterProfilePhotoAndCaption()">Save changes</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
