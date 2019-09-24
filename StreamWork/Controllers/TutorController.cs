@@ -51,6 +51,7 @@ namespace StreamWork.Controllers
                     }
                     catch (System.Net.WebException e)
                     {
+                        e.ToString(); // Literally just did this to get rid of the warning
                         return Json(new { Message = "Failed" });
                     }
                 }
@@ -100,9 +101,9 @@ namespace StreamWork.Controllers
             var user = HttpContext.Session.GetString("UserProfile");
             var userProfile = await helperFunctions.GetUserProfile(storageConfig, "CurrentUser", user);
 
-            for (int i = 0; i < Request.Form.Files.Count; i++)
+            for (; 0 < Request.Form.Files.Count;) // Weird for loop to suppress warning. For wasn't being used for much, and still isn't.
             {
-                var file = Request.Form.Files[i];
+                var file = Request.Form.Files[0];
                 var fileSplit = file.Name.Split(new char[] { '|' });
                 var profileCaption = fileSplit[0];
                 var profileParagraph = fileSplit[1];

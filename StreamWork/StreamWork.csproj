@@ -93,6 +93,7 @@
     <Content Remove="wwwroot\images\StreamWork_SubjectCard_v1.2.1 art.png" />
     <Content Remove="wwwroot\images\OBSStreamKey.png" />
     <Content Remove="wwwroot\images\Donate.png" />
+    <Content Remove="Views\IPN\Recieve.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="Views\Home\ProfileView.cshtml">
