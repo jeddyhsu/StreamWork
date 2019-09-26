@@ -29,5 +29,15 @@ namespace StreamWork.Controllers
             };
             return View(viewModel);
         }
+
+        public async Task<IActionResult> ArchivedStreams([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
+            var user = HttpContext.Session.GetString("UserProfile");
+            ProfileStudentViewModel viewModel = new ProfileStudentViewModel
+            {
+                userLogins = await helperFunctions.GetUserLogins(storageConfig, "CurrentUser", user)
+            };
+            return View(viewModel);
+        }
     }
 }
