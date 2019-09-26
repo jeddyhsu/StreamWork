@@ -13,7 +13,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item ml-sm-4 mt-1" style="font-size:15px;">  
+                    <li class="nav-item ml-sm-4 mt-1" style="font-size:15px;">
                         <a class="nav-link" href="/Tutor/ProfileTutor" style="color:white;">Dashboard</a>
                     </li>
                     <li class="nav-item ml-sm-5 mt-1" style="font-size:14px; ">
@@ -24,19 +24,21 @@
                     </li>
                 </ul>
             </div>
-            <div class="btn-group justify-content-end">
-                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+            <div class="btn-group">
                 <img src=@Model.userProfile.ProfilePicture style="width:75px; height:95px; border-radius:50%" />
-                <div class="dropdown-menu dropdown-menu-right">
+                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #008080; border:none; margin-right:35px"></button>
+                <div class="dropdown-menu">
                     <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Edit Profile</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Settings</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Logout</a>
                 </div>
-            </div>
+              </div>
         </nav>
         <div class="container-fluid">
             <div class="row">
-                <nav class="col-md-3 d-none d-lg-block sidebar">
+                <div class="col-lg-3 d-none d-lg-block sidebar">
                     <div class="sidebar-sticky">
                         <ul class="nav flex-column">
                             <li class="nav-item">
@@ -56,10 +58,11 @@
                             </li>
                         </ul>
                     </div>
-                </nav>
+                </div>
+                <div class="col-lg-3"></div>
                 <div class="col-sm-12 col-md-12 col-lg-9 mt-3">
                     <h3>PAST LIVESTREAMS</h3>
-                    <div class="row">
+                     <div class="row">
                         @foreach(var stream in Model.userArchivedVideos){
                         <div class="col-lg-3 col-md-6">
                             <input type="image" width="100%" height="80%" src=@stream.StreamThumbnail onclick="window.location.href='../StreamViews/StreamPlaybackPage?streamId=' + ('@stream.StreamID')">
@@ -87,7 +90,7 @@
                     <br />
                     <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.userProfile.ProfileParagraph</textarea>
                     <br />
-                    <img id="previewProfilePic" src=@Model.userProfile.ProfilePicture alt="your image" style="border-radius: 50%; width:25%; display:block;margin-left:auto;margin-right:auto" />
+                    <img id="previewProfilePic" src=@Model.userProfile.ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
                     <br />
                     <div class="upload-uploadbtn-wrapper">
                         <button class="uploadbtn" style="margin-left:110px">Upload a Profile Picture</button>
@@ -117,17 +120,19 @@
 
     .sidebar {
         height: 100%;
-        width: 20%;
+        width: 30%;
         position: fixed;
         z-index: 1;
         top: 0px;
         bottom: 0px;
-        right: 0;
+        left: 0;
         overflow-y: scroll;
         background-color: #006565;
         overflow-x: hidden;
         color: white;
         text-align: center;
+        margin:0px;
+        padding:0px
     }
    
     .upload-uploadbtn-wrapper {

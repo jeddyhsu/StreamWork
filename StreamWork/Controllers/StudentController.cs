@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using StreamWork.Config;
-using StreamWork.Core;
 using StreamWork.Models;
 using StreamWork.ViewModels;
 
@@ -30,7 +27,6 @@ namespace StreamWork.Controllers
             {
                 userLogins = await helperFunctions.GetUserLogins(storageConfig, "CurrentUser", user)
             };
-
             return View(viewModel);
         }
     }
