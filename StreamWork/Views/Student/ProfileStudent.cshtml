@@ -50,7 +50,7 @@
                                     <br />
                                     <br />
                                     <img src=@Model.userLogins[0].ProfilePicture style="width: 115px; height: 150px; border-radius:50%" />
-                                    <h1 class="card-title mt-4" style=" font-size:1.8vw; color:lightgray"><b>@Model.userLogins[0].Name.Replace('|',' ')</b></h1>
+                                    <h1 class="card-title mt-4" style=" font-size:1.8vw; color:lightgray"><b>@Model.userLogins[0].Name.Replace('|', ' ')</b></h1>
                                     <p class="card-text" style="font-size:1vw; color:white">@Model.userLogins[0].ProfileCaption</p>
                                     <p class="card-text" style="font-size:1vw; color:white">@Model.userLogins[0].ProfileParagraph</p>
                                 </div>
@@ -136,6 +136,28 @@
         font: 1rem/1.5 "PT Sans", Arial, sans-serif;
         color: #5a5a5a;
     }
+
+    .upload-uploadbtn-wrapper {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+    }
+
+    .uploadbtn {
+        border: 2px solid #006565;
+        color: #006565;
+        background-color: white;
+        padding: 8px 20px;
+        border-radius: 8px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .upload-uploadbtn-wrapper input[type=file] {
+        font-size: 100px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+    }
 </style>
-
-
