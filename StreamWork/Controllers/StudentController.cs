@@ -30,12 +30,26 @@ namespace StreamWork.Controllers
             return View(viewModel);
         }
 
+       [HttpGet]
         public async Task<IActionResult> ArchivedStreams([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
             var user = HttpContext.Session.GetString("UserProfile");
             ProfileStudentViewModel viewModel = new ProfileStudentViewModel
             {
-                userLogins = await helperFunctions.GetUserLogins(storageConfig, "CurrentUser", user)
+                userLogins = await helperFunctions.GetUserLogins(storageConfig, "CurrentUser", user),
+                userArchivedStreams = await helperFunctions.GetArchivedStreams(storageConfig, "AllArchivedVideos",user)
+            };
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ArchivedStreams([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject)
+        {
+            var user = HttpContext.Session.GetString("UserProfile");
+            ProfileStudentViewModel viewModel = new ProfileStudentViewModel
+            {
+                userLogins = await helperFunctions.GetUserLogins(storageConfig, "CurrentUser", user),
+                userArchivedStreams = await helperFunctions.GetArchivedStreams(storageConfig, "UserArchivedVideosBasedOnSubject", subject)
             };
             return View(viewModel);
         }
