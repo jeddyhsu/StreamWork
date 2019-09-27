@@ -44,6 +44,10 @@
         {
           "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE Username = '@x0'",
           "QueryId": "UserArchivedVideos"
+        },
+        {
+            "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE StreamSubject = '@x0'",
+            "QueryId": "UserArchivedVideosBasedOnSubject"
         }
       ]
     },
