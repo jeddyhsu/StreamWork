@@ -1,8 +1,7 @@
-﻿<script src="~/js/Tutor.js"></script>
+﻿@model StreamWork.ViewModels.ProfileTutorViewModel
+<script src="~/js/Tutor.js"></script>
 <script src="//player.dacast.com/js/player.js"></script>
-
-@model StreamWork.ViewModels.ProfileTutorViewModel
-
+<script src="~/js/EditProfile.js"></script>
 @{
     ViewData["Title"] = "TutorStream";
 }
@@ -206,28 +205,4 @@ else if(Model.userChannels[0].StreamTitle == null && Model.userChannels[0].Strea
         color: white;
         text-align: center;
     }
-   
-     .upload-uploadbtn-wrapper{
-         position: relative;
-         overflow:hidden;
-         display:inline-block;
-        
-     }
-
-    .uploadbtn {
-        border: 2px solid #006565;
-        color: #006565;
-        background-color: white;
-        padding: 8px 20px;
-        border-radius: 8px;
-        font-size: 20px;
-        font-weight: bold;
-    }
-     .upload-uploadbtn-wrapper input[type=file]{
-         font-size: 100px;
-         position: absolute;
-         left:0;
-         top:0;
-         opacity:0;
-     }
 </style>
