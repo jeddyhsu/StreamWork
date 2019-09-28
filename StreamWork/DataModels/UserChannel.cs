@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using StreamWork.Framework;
 
-namespace StreamWork.Models
+namespace StreamWork.DataModels
 {
     public class UserChannel : IStorageBase<UserChannel>
     {

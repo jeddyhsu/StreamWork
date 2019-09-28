@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using StreamWork.Framework;
 
-namespace StreamWork.Models
+namespace StreamWork.DataModels
 {
     public class UserLogin : IStorageBase<UserLogin>
     {
@@ -16,6 +16,7 @@ namespace StreamWork.Models
         public string ProfileCaption { get; set; }
         public string ProfileParagraph { get; set; }
         public string ProfilePicture { get; set; }
+        public string LoggedIn { get; set; }
 
         [Timestamp]
         public byte[] RowVersion { get; set; }
