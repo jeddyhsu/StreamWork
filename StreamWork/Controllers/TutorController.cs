@@ -26,6 +26,7 @@ namespace StreamWork.Controllers
             var user = HttpContext.Session.GetString("UserProfile");
             ProfileTutorViewModel viewModel = new ProfileTutorViewModel
             {
+                userProfile = await helperFunctions.GetUserProfile(storageConfig, "CurrentUser", user),
                 userLogins = await helperFunctions.GetUserLogins(storageConfig, "CurrentUser", user),
                 userChannels = await helperFunctions.GetUserChannels(storageConfig, "CurrentUserChannel", user),
                 userArchivedVideos = await helperFunctions.GetArchivedStreams(storageConfig, "UserArchivedVideos", user)
@@ -104,6 +105,7 @@ namespace StreamWork.Controllers
             ProfileTutorViewModel viewModel = new ProfileTutorViewModel
             {
                 userProfile = await helperFunctions.GetUserProfile(storageConfig, "CurrentUser", user),
+                userLogins = await helperFunctions.GetUserLogins(storageConfig, "CurrentUser", user),
                 userChannels = await helperFunctions.GetUserChannels(storageConfig, "CurrentUserChannel", user),
                 userArchivedVideos = await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, "UserArchivedVideos", new List<string> { user })
             };
