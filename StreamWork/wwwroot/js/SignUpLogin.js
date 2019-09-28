@@ -115,6 +115,12 @@ function checkLoggedIn (loggedIn, url) {
 }
 
 
+function NavigateToPage (url) {
+    window.location.href = '/Home/Login?dest=' + url.split('/').join('-');
+    return
+}
+
+
 function RecoverPassword() {
     $.ajax({
         url: '/Home/PasswordRecovery',
