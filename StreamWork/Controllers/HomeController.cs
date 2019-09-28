@@ -160,47 +160,46 @@ namespace StreamWork.Controllers
 
         [HttpPost]
         public async Task<IActionResult> SignUp([FromServices] IOptionsSnapshot<StorageConfig> storageConfig,
-                                                string nameFirst, string nameLast, string email, string phone, string username, string password, string passwordConfirm, string channelId, string role)
+                                                string nameFirst, string nameLast, string email, string username, string password, string passwordConfirm, string role)
         {
-            string confirmation = "";
-            UserLogin signUpProflie = new UserLogin
-            {
-                Id = Guid.NewGuid().ToString(),
-                Name = nameFirst + "|" + nameLast,
-                EmailAddress = email,
-                Username = username,
-                Password = password,
-                ProfileType = role,
-                ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/default-profile.png"
-            };
 
-            UserChannel key = new UserChannel
-            {
-                Id = Guid.NewGuid().ToString(),
-                Username = username,
-                ChannelKey = null,
-                StreamSubject = null,
-                StreamThumbnail = null,
-                StreamTitle = null,
-                ChatId = FormatChatId(DataStore.GetChatID("https://www.cbox.ws/apis/threads.php?id=6-829647-oq4rEn&key=ae1682707f17dbc2c473d946d2d1d7c3&act=mkthread"))
-            };
             var checkCurrentUsers = await DataStore.GetListAsync<UserLogin>(helperFunctions._connectionString, storageConfig.Value, "CurrentUser", new List<string> { username });
-            int numberOfUsers = 0;
-            foreach (var user in checkCurrentUsers)
+            if (!(checkCurrentUsers.Count >= 1))
             {
-                numberOfUsers++;
-            }
-            if (numberOfUsers != 0)
-                confirmation = "Username already exsists";
-            else if (password != passwordConfirm)
-                confirmation = "Wrong Password";
-            else
-            {
+                if (password != passwordConfirm)
+                {
+                    return Json(new { Message = "Passwords do not match" });
+                }
+                if (role == "tutor")
+                {
+                    UserChannel userChannel = new UserChannel
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        Username = username,
+                        ChannelKey = null,
+                        StreamSubject = null,
+                        StreamThumbnail = null,
+                        StreamTitle = null,
+                        ChatId = FormatChatId(DataStore.GetChatID("https://www.cbox.ws/apis/threads.php?id=6-829647-oq4rEn&key=ae1682707f17dbc2c473d946d2d1d7c3&act=mkthread"))
+                    };
+
+                    await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
+                }
+
+                UserLogin signUpProflie = new UserLogin
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = nameFirst + "|" + nameLast,
+                    EmailAddress = email,
+                    Username = username,
+                    Password = password,
+                    ProfileType = role,
+                    ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/default-profile.png"
+                };
+
                 await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", signUpProflie.Id } }, signUpProflie);
-                await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", key.Id } }, key);
-                confirmation = "Success";
             }
-            return Json(new { Message = confirmation });
+             return Json(new { Message = "Username already exsists" });
         }
 
         [HttpGet]
@@ -239,7 +238,7 @@ namespace StreamWork.Controllers
                 {
                     HttpContext.Session.SetString("UserProfile", username);
                     HttpContext.Session.SetString("Tutor", "false");
-                    return Json(new { Message = "Welcome StreamTutor" });
+                    return Json(new { Message = "Welcome, StreamTutor" });
                 }
                 else
                 {
