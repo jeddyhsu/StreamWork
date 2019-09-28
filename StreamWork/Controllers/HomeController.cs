@@ -139,6 +139,7 @@ namespace StreamWork.Controllers
             {
                 userChannels = await helperFunctions.GetUserChannels(storageConfig, "AllUserChannelsThatAreStreaming", subject),
                 userLogins = await GetPopularStreamTutors(storageConfig),
+                userProfile = user != null ? await helperFunctions.GetUserProfile(storageConfig, "CurrentUser", user) : null
             };
             return model;
         }
