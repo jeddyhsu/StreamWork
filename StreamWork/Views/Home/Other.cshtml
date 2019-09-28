@@ -1,6 +1,6 @@
 ﻿@model StreamWork.ViewModels.ProfileTutorViewModel
 <script src="~/js/SignUpLogin.js"></script>
-<script src="~/js/Tutor.js"></script>
+<script src="~/js/EditProfile.js"></script>
 <script>checkLoggedIn("/Home/Other");</script>
 @{
     ViewData["Title"] = "Other";
@@ -99,22 +99,24 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+             <div class="modal-body">
+                @if(Model.userProfile != null){
                 <form>
-                    <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.userLogins[0].ProfileCaption"/>
+                    <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.userProfile.ProfileCaption" />
                     <br />
-                    <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.userLogins[0].ProfileParagraph</textarea>
+                    <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.userProfile.ProfileParagraph</textarea>
                     <br />
-                    <img id="previewProfilePic" src=@Model.userLogins[0].ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
+                    <img id="previewProfilePic" src=@Model.userProfile.ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
                     <br />
                     <div class="upload-uploadbtn-wrapper">
                         <button class="uploadbtn" style="margin-left:110px">Upload a Profile Picture</button>
-                        <input id ="uploadProfilePic" type='file'  onchange="readURL(this,'ProfilePic');" />
+                        <input id="uploadProfilePic" type='file' onchange="readURL(this,'ProfilePic');" />
                     </div>
 
                 </form>
-            </div>
+                }
 
+            </div>
             <div class="modal-footer">
                 <button type="button" style="background-color:black; color:white" class="btn" onclick="RegisterProfilePhotoAndCaption()">Save changes</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

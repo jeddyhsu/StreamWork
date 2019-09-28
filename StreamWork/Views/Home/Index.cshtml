@@ -1,5 +1,5 @@
 ﻿@model StreamWork.DataModels.UserLogin
-
+<script src="~/js/EditProfile.js"></script>
 <nav class="navbar navbar-expand-lg navbar-light text-center" style="background-color:#008080;">
         <img src="~/images/streamworkPencilWhite.png" height="70" onclick="window.location.href='/'" />
         <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,6 +40,39 @@
                          <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Settings</a>
                          <div class="dropdown-divider"></div>
                          <a class="dropdown-item" href="#">Logout</a>
+                     </div>
+                 </div>
+
+                 <div id="editModal" class="modal" tabindex="-1" role="dialog">
+                     <div class="modal-dialog" role="document">
+                         <div class="modal-content" style="background-color: #008080">
+                             <div class="modal-header">
+                                 <h5 class="modal-title" style="color:white">Edit Profile</h5>
+                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                     <span aria-hidden="true">&times;</span>
+                                 </button>
+                             </div>
+                             <div class="modal-body">
+                                 <form>
+                                     <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.ProfileCaption" />
+                                     <br />
+                                     <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.ProfileParagraph</textarea>
+                                     <br />
+                                     <img id="previewProfilePic" src=@Model.ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
+                                     <br />
+                                     <div class="upload-uploadbtn-wrapper">
+                                         <button class="uploadbtn" style="margin-left:110px">Upload a Profile Picture</button>
+                                         <input id="uploadProfilePic" type='file' onchange="readURL(this,'ProfilePic');" />
+                                     </div>
+                    
+                                 </form>
+                             </div>
+
+                             <div class="modal-footer">
+                                 <button type="button" style="background-color:black; color:white" class="btn" onclick="RegisterProfilePhotoAndCaption()">Save changes</button>
+                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                             </div>
+                         </div>
                      </div>
                  </div>
             }
@@ -147,6 +180,8 @@
     </div>
 </div>
 
+
+
 <script>
 var x = 1;
     $(document).ready(function () {
@@ -158,53 +193,3 @@ var x = 1;
         });
     });
 </script>
-
-<style>
-    .dot {
-        height: 10vw;
-        width: 10vw;
-        background-color: white;
-        border-radius: 50%;
-        text-align: center;
-        color: black
-    }
-
-    .sidebar {
-        height: 100%;
-        width: 20%;
-        position: fixed;
-        z-index: 1;
-        top: 0px;
-        bottom: 0px;
-        right: 0;
-        overflow-y: scroll;
-        background-color: #006565;
-        overflow-x: hidden;
-        color: white;
-        text-align: center;
-    }
-   
-     .upload-uploadbtn-wrapper{
-         position: relative;
-         overflow:hidden;
-         display:inline-block;
-        
-     }
-
-    .uploadbtn {
-        border: 2px solid #006565;
-        color: #006565;
-        background-color: white;
-        padding: 8px 20px;
-        border-radius: 8px;
-        font-size: 20px;
-        font-weight: bold;
-    }
-     .upload-uploadbtn-wrapper input[type=file]{
-         font-size: 100px;
-         position: absolute;
-         left:0;
-         top:0;
-         opacity:0;
-     }
-</style>
