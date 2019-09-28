@@ -162,9 +162,8 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> SignUp([FromServices] IOptionsSnapshot<StorageConfig> storageConfig,
                                                 string nameFirst, string nameLast, string email, string username, string password, string passwordConfirm, string role)
         {
-
             var checkCurrentUsers = await DataStore.GetListAsync<UserLogin>(helperFunctions._connectionString, storageConfig.Value, "CurrentUser", new List<string> { username });
-            if (!(checkCurrentUsers.Count >= 1))
+            if (checkCurrentUsers.Count >= 1)
             {
                 if (password != passwordConfirm)
                 {
@@ -182,7 +181,6 @@ namespace StreamWork.Controllers
                         StreamTitle = null,
                         ChatId = FormatChatId(DataStore.GetChatID("https://www.cbox.ws/apis/threads.php?id=6-829647-oq4rEn&key=ae1682707f17dbc2c473d946d2d1d7c3&act=mkthread"))
                     };
-
                     await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
                 }
 
@@ -196,7 +194,6 @@ namespace StreamWork.Controllers
                     ProfileType = role,
                     ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/default-profile.png"
                 };
-
                 await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", signUpProflie.Id } }, signUpProflie);
             }
              return Json(new { Message = "Username already exsists" });
