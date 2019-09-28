@@ -1,0 +1,51 @@
+﻿
+.dot {
+    height: 10vw;
+    width: 10vw;
+    background-color: white;
+    border-radius: 50%;
+    text-align: center;
+    color: black
+}
+
+.sidebar {
+    height: 100%;
+    width: 30%;
+    position: fixed;
+    z-index: 1;
+    top: 0px;
+    bottom: 0px;
+    left: 0;
+    overflow-y: scroll;
+    background-color: #006565;
+    overflow-x: hidden;
+    color: white;
+    text-align: center;
+    margin: 0px;
+    padding: 0px
+}
+
+.upload-uploadbtn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.uploadbtn {
+    border: 2px solid #006565;
+    color: #006565;
+    background-color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.upload-uploadbtn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
+

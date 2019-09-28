@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Options;
 using StreamWork.ViewModels;
 using System.Web;
+using StreamWork.DataModels;
 
 namespace StreamWork.Controllers
 {
@@ -17,13 +18,19 @@ namespace StreamWork.Controllers
     {
         HelperFunctions helperFunctions = new HelperFunctions();
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
             if (Request.Host.ToString() == "streamwork.live")
             {
                 return Redirect("https://www.streamwork.live");
             }
-            return View();
+            var user = HttpContext.Session.GetString("UserProfile");
+            if(user == null)
+            {
+                return View();
+            }
+            var userProfile = await helperFunctions.GetUserProfile(storageConfig, "CurrentUser", user);
+            return View(userProfile);
         }
 
         public async Task<IActionResult> Math([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
@@ -222,40 +229,25 @@ namespace StreamWork.Controllers
         [HttpPost]
         public async Task<IActionResult> Login([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string username, string password)
         {
-            string confirmation = "";
-            if (storageConfig != null)
+            var checkforUser = await DataStore.GetListAsync<UserLogin>(helperFunctions._connectionString, storageConfig.Value, "AllSignedUpUsersWithPassword", new List<string> { username, password });
+            if (checkforUser.Count == 1)
             {
-                int user = 0;
-                var checkforUser = await DataStore.GetListAsync<UserLogin>(helperFunctions._connectionString, storageConfig.Value, "AllSignedUpUsersWithPassword", new List<string> { username, password });
-                foreach (var u in checkforUser)
+                checkforUser[0].LoggedIn = "Logged In";
+                await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", checkforUser[0].Id } }, checkforUser[0]);
+                if (checkforUser[0].ProfileType == "tutor")
                 {
-                    if (u.Password == password && u.Username == username)
-                    {
-                        user++;
-                        if (u.ProfileType == "tutor")
-                        {
-                            user++;
-                        }
-                    }
-                }
-                if (user == 1)
-                {
-                    confirmation = "Welcome";
                     HttpContext.Session.SetString("UserProfile", username);
                     HttpContext.Session.SetString("Tutor", "false");
+                    return Json(new { Message = "Welcome StreamTutor" });
                 }
-                if (user == 2)
+                else
                 {
-                    confirmation = "Welcome, StreamTutor";
                     HttpContext.Session.SetString("UserProfile", username);
-                    HttpContext.Session.SetString("Tutor", "true");
+                    HttpContext.Session.SetString("Tutor", "false");
+                    return Json(new { Message = "Welcome Student" });
                 }
             }
-            else
-            {
-                confirmation = "Wrong Password or Username ";
-            }
-            return Json(new { Message = confirmation });
+            return Json(new { Message = "Wrong Password or Username" });
         }
 
         [HttpGet]
