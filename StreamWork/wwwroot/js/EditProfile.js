@@ -67,3 +67,12 @@
             reader.readAsDataURL(input.files[0]);
         }
     }
+
+function Dashboard(profileType) {
+    if (profileType == "tutor") {
+        window.location.href = "/Tutor/ProfileTutor"
+    }
+    else {
+         window.location.href = "/Student/ProfileStudent"
+    }
+}
