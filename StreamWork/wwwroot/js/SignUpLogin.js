@@ -121,6 +121,16 @@ function NavigateToPage (url) {
 }
 
 
+    function StartBroadcast(profileType, loggedIn){
+        if(profileType == "tutor" && loggedIn != ""){
+            window.location.href = "/Tutor/ProfileTutor"
+        }
+        else{
+            window.location.href="Home/Login?-Home-Profile"
+        }
+    }
+
+
 function RecoverPassword() {
     $.ajax({
         url: '/Home/PasswordRecovery',
