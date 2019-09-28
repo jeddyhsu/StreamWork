@@ -101,7 +101,8 @@ namespace StreamWork.Controllers
             {
                 userChannels = await helperFunctions.GetUserChannels(storageConfig, "CurrentUserChannel", user),
                 userArchivedVideos = await helperFunctions.GetArchivedStreams(storageConfig, "UserArchivedVideos", tutor),
-                userProfile = await helperFunctions.GetUserProfile(storageConfig, "CurrentUser", tutor)
+                userProfile = await helperFunctions.GetUserProfile(storageConfig, "CurrentUser", tutor),
+                userProfile2 = await helperFunctions.GetUserProfile(storageConfig, "CurrentUser", user)
             };
             return View(profile);
         }
