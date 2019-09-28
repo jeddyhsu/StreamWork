@@ -1,7 +1,14 @@
 ﻿@model StreamWork.ViewModels.ProfileTutorViewModel
 <script src="~/js/SignUpLogin.js"></script>
 <script src="~/js/EditProfile.js"></script>
-<script>checkLoggedIn("/Home/Science");</script>
+@if(Model.userProfile != null){
+    <script>checkLoggedIn('@Model.userProfile.LoggedIn',"/Home/Science");</script>
+}
+else{
+    <script>
+        window.location.href = '/Home/Login?dest=' + url.split('/').join('-');
+    </script>
+}
 @{
     ViewData["Title"] = "Science";
 }
@@ -28,7 +35,7 @@
             </ul>
         </div>
         <dv class="btn-group">
-            <img src=@Model.userLogins[0].ProfilePicture style="width:75px; height:95px; border-radius:50%" />
+            <img src=@Model.userProfile.ProfilePicture style="width:75px; height:95px; border-radius:50%" />
             <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #008080; border:none; margin-right:35px"></button>
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="#" id="EditProfile" onclick="Dashboard('@Model.userProfile.ProfileType')">Dashboard</a>
@@ -37,7 +44,7 @@
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Settings</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Logout</a>
+                <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
             </div>
         </dv>
     </nav>
