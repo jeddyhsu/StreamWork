@@ -1,6 +1,6 @@
 using System;
 
-namespace StreamWork.Models
+namespace StreamWork.DataModels
 {
     public class ErrorViewModel
     {

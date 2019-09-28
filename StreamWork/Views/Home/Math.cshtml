@@ -1,6 +1,7 @@
-﻿<script src="~/js/SignUpLogin.js"></script>
+﻿@model StreamWork.ViewModels.ProfileTutorViewModel
+<script src="~/js/SignUpLogin.js"></script>
+<script src="~/js/Tutor.js"></script>
 <script>checkLoggedIn("/Home/Math");</script>
-@model StreamWork.ViewModels.ProfileTutorViewModel
 @{
     ViewData["Title"] = "Mathematics";
 }
@@ -26,9 +27,17 @@
                 </li>
             </ul>
         </div>
-        <div class="col-sm-12 col-lg-3">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-        </div>
+         <div class="btn-group">
+                     <img src=@Model.userLogins[0].ProfilePicture style="width:75px; height:95px; border-radius:50%" />
+                     <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #008080; border:none; margin-right:35px"></button>
+                     <div class="dropdown-menu">
+                         <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Edit Profile</a>
+                         <div class="dropdown-divider"></div>
+                         <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Settings</a>
+                         <div class="dropdown-divider"></div>
+                         <a class="dropdown-item" href="#">Logout</a>
+                     </div>
+                 </div>
     </nav>
     <div class="container-fluid">
         <div class="row">
@@ -60,7 +69,7 @@
             </div>
              <nav class="col-md-2 d-none d-md-block sidebar ">
                 <div class="sidebar-sticky">
-                    <h5 class="m-2" style="font-size:1.2vw; font-weight:bold;">Popular StreamTutors</h5>
+                    <h5 class="mt-5" style="font-size:1.2vw; font-weight:bold;">Popular StreamTutors</h5>
                     <ul class="nav flex-column">
                         <li class="nav-item">
                             <a class="nav-link active" href="#">
@@ -82,6 +91,39 @@
     </div>
 </div>
 
+<div id="editModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color: #008080">
+            <div class="modal-header">
+                <h5 class="modal-title" style="color:white">Edit Profile</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.userLogins[0].ProfileCaption"/>
+                    <br />
+                    <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.userLogins[0].ProfileParagraph</textarea>
+                    <br />
+                    <img id="previewProfilePic" src=@Model.userLogins[0].ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
+                    <br />
+                    <div class="upload-uploadbtn-wrapper">
+                        <button class="uploadbtn" style="margin-left:110px">Upload a Profile Picture</button>
+                        <input id ="uploadProfilePic" type='file'  onchange="readURL(this,'ProfilePic');" />
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" style="background-color:black; color:white" class="btn" onclick="RegisterProfilePhotoAndCaption()">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     $(document).ready(function () {
         $("#nav").click(function () {
@@ -96,7 +138,7 @@
         width: 20%;
         position: fixed;
         z-index: 1;
-        top: 85px;
+        top:   85px;
         right: 0;
         background-color: black;
         overflow-x: hidden;

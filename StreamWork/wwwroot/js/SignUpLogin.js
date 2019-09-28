@@ -81,7 +81,7 @@ function Login() {
             var profile = false;
             var tutor = false;
 
-            if (data.message === "Welcome") {
+            if (data.message === "Welcome Student") {
                 verified = true;
             } else if (data.message == "Welcome, StreamTutor") {
                 verified = true;
