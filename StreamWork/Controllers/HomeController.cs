@@ -295,5 +295,21 @@ namespace StreamWork.Controllers
             }   
             return Json(new { Message = "Invalid Password Match" });
          }
+
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string logout)
+        {
+            var user = HttpContext.Session.GetString("UserProfile");
+            var userProfile = await helperFunctions.GetUserProfile(storageConfig, "CurrentUser", user);
+            userProfile.LoggedIn = null;
+            await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
+            return Json(new { Message = "Success" });
+        }
     }
 }
