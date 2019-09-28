@@ -1,13 +1,12 @@
 ﻿@model StreamWork.ViewModels.ProfileTutorViewModel
 <script src="~/js/SignUpLogin.js"></script>
 <script src="~/js/EditProfile.js"></script>
-@if(Model.userProfile != null){
-    <script>checkLoggedIn('@Model.userProfile.LoggedIn',"/Home/Science");</script>
+@if (Model.userProfile == null)
+{
+<script>NavigateToPage('/Home/Science')</script>
 }
 else{
-    <script>
-        window.location.href = '/Home/Login?dest=' + url.split('/').join('-');
-    </script>
+<script>checkLoggedIn('@Model.userProfile.LoggedIn',"/Home/Science");</script>
 }
 @{
     ViewData["Title"] = "Science";
@@ -34,19 +33,22 @@ else{
                 </li>
             </ul>
         </div>
-        <dv class="btn-group">
+         @if (Model.userProfile != null)
+            {
+        <div class="btn-group">
             <img src=@Model.userProfile.ProfilePicture style="width:75px; height:95px; border-radius:50%" />
             <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #008080; border:none; margin-right:35px"></button>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="#" id="EditProfile" onclick="Dashboard('@Model.userProfile.ProfileType')">Dashboard</a>
+                <a class="dropdown-item" href="#" id="Dashboard" onclick="Dashboard('@Model.userProfile.ProfileType')">Dashboard</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Edit Profile</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Settings</a>
+                <a class="dropdown-item" href="#" id="EditProfile">Settings</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
             </div>
-        </dv>
+        </div>
+            }       
     </nav>
     <div class="container-fluid">
         <div class="row">
