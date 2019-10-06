@@ -39,6 +39,7 @@ namespace StreamWork.Controllers
         {
             var user = HttpContext.Session.GetString("UserProfile");
             var userChannel = await helperFunctions.GetUserChannels(storageConfig, "CurrentUserChannel", user);
+            var userLogin = await helperFunctions.GetUserLogins(storageConfig, "CurrentUser", user);
 
             if (channelKey != null)
             {
@@ -66,7 +67,7 @@ namespace StreamWork.Controllers
                 var streamTitle = streamInfo[0];
                 var streamSubject = streamInfo[1];
                 var streamThumbnail = await helperFunctions.SaveIntoBlobContainer(Request.Form.Files[0], storageConfig, user, userChannel[0].Id);
-                ThreadClass handlevideoarchiving = new ThreadClass(storageConfig, userChannel[0], streamTitle, streamSubject, streamThumbnail);
+                ThreadClass handlevideoarchiving = new ThreadClass(storageConfig, userChannel[0], userLogin[0], streamTitle, streamSubject, streamThumbnail);
                 handlevideoarchiving.RunThread();
                 return Json(new { Message = "Saved" });
             }
@@ -81,7 +82,7 @@ namespace StreamWork.Controllers
                 }
                 var streamTitle = streamInfo[0];
                 var streamSubject = streamInfo[1];
-                ThreadClass handlevideoarchiving = new ThreadClass(storageConfig, userChannel[0], streamTitle, streamSubject, GetCorrespondingDefaultThumbnail(streamSubject));
+                ThreadClass handlevideoarchiving = new ThreadClass(storageConfig, userChannel[0], userLogin[0], streamTitle, streamSubject, GetCorrespondingDefaultThumbnail(streamSubject));
                 handlevideoarchiving.RunThread();
                 return Json(new { Message = "Saved" });
             }

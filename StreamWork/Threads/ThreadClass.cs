@@ -16,14 +16,16 @@ namespace StreamWork.Threads
         HelperFunctions helperFunctions;
         IOptionsSnapshot<StorageConfig> storageConfig;
         UserChannel userChannel;
+        UserLogin userLogin;
         string streamTitle;
         string streamSubject;
         string streamThumbnail;
 
-        public ThreadClass(IOptionsSnapshot<StorageConfig> storageConfig, UserChannel userChannel, string streamTitle, string streamSubject, string streamThumbnail)
+        public ThreadClass(IOptionsSnapshot<StorageConfig> storageConfig, UserChannel userChannel, UserLogin userLogin, string streamTitle, string streamSubject, string streamThumbnail)
         {
             helperFunctions = new HelperFunctions();
             this.userChannel = userChannel;
+            this.userLogin = userLogin;
             this.storageConfig = storageConfig;
             this.streamTitle = streamTitle;
             this.streamSubject = streamSubject;
@@ -92,7 +94,8 @@ namespace StreamWork.Threads
                 StreamID = archivedVideo.Data[0].Id.ToString(),
                 StreamTitle = streamTitle,
                 StreamSubject = streamSubject,
-                StreamThumbnail = streamThumbnail
+                StreamThumbnail = streamThumbnail,
+                ProfilePicture = userLogin.ProfilePicture
             };
             try
             {
