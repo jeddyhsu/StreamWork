@@ -351,4 +351,20 @@ lds-dual-ring {
     opacity: 0;
 }
 
+.edit-editbtn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.editbtn {
+    border: 2px solid #006565;
+    color: #006565;
+    background-color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
 

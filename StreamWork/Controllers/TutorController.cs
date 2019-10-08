@@ -84,7 +84,7 @@ namespace StreamWork.Controllers
                 }
                 var streamTitle = streamInfo[0];
                 var streamSubject = streamInfo[1];
-                ThreadClass handlevideoarchiving = new ThreadClass(storageConfig, userChannel[0], userLogin[0], streamTitle, streamSubject, GetCorrespondingDefaultThumbnail(streamSubject));
+                ThreadClass handlevideoarchiving = new ThreadClass(storageConfig, userChannel[0], userLogin[0], streamTitle, streamSubject, tutorHelperFunctions.GetCorrespondingDefaultThumbnail(streamSubject));
                 handlevideoarchiving.RunThread();
                 return Json(new { Message = "Saved" });
             }
