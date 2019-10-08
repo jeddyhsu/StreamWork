@@ -131,6 +131,8 @@ namespace StreamWork.Controllers
                 userProfile.ProfilePicture = profilePicture;
                 userProfile.ProfileParagraph = profileParagraph != "NA" ? profileParagraph : null;
                 await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
+                if(userProfile.ProfileType == "tutor")
+                    await ChangeAllArchivedStreamProfilePhotos(storageConfig, user, profilePicture); //only if tutor
                 return Json(new { Message = "Success" });
             }
 
@@ -147,7 +149,6 @@ namespace StreamWork.Controllers
                     profileParagraph = array[1];
                     break;
                 }
-
                 getUserInfo[0].ProfileCaption = profileCaption != "NA" ? profileCaption : null;
                 getUserInfo[0].ProfileParagraph = profileParagraph != "NA" ? profileParagraph : null;
 
@@ -184,6 +185,16 @@ namespace StreamWork.Controllers
                 }
             }
             return defaultURL;
+        }
+
+        private async Task ChangeAllArchivedStreamProfilePhotos([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string user, string profilePicture)
+        {
+            var allArchivedStreams = await helperFunctions.GetArchivedStreams(storageConfig, "UserArchivedVideos", user);
+            foreach(var stream in allArchivedStreams)
+            {
+                stream.ProfilePicture = profilePicture;
+                await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", stream.Id } }, stream);
+            }
         }
     }
 }
