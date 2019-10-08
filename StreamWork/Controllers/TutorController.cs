@@ -11,12 +11,14 @@ using StreamWork.DataModels;
 using StreamWork.Threads;
 using StreamWork.DaCastAPI;
 using System.Collections;
+using StreamWork.HelperClasses;
 
 namespace StreamWork.Controllers
 {
     public class TutorController : Controller
     {
         HelperFunctions helperFunctions = new HelperFunctions();
+        TutorHelperFunctions tutorHelperFunctions = new TutorHelperFunctions();
 
         private readonly string _connectionString = "Server=tcp:streamwork.database.windows.net,1433;Initial Catalog=StreamWork;Persist Security Info=False;User ID=streamwork;Password=arizonastate1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
@@ -132,7 +134,7 @@ namespace StreamWork.Controllers
                 userProfile.ProfileParagraph = profileParagraph != "NA" ? profileParagraph : null;
                 await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
                 if(userProfile.ProfileType == "tutor")
-                    await ChangeAllArchivedStreamAndUserChannelProfilePhotos(storageConfig, user, profilePicture); //only if tutor
+                    await tutorHelperFunctions.ChangeAllArchivedStreamAndUserChannelProfilePhotos(storageConfig, user, profilePicture); //only if tutor
                 return Json(new { Message = "Success" });
             }
 
@@ -161,48 +163,6 @@ namespace StreamWork.Controllers
         public IActionResult TutorSettings()
         {
             return View();
-        }
-
-        //Uses a hashtable to add default thumbnails based on subject
-        private string GetCorrespondingDefaultThumbnail(string subject)
-        {
-            string defaultURL = "";
-
-            Hashtable defaultPic = new Hashtable
-            {
-                { "Mathematics", "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/MathDefault.png" },
-                { "Humanities", "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/HumanitiesDefault.png" },
-                { "Science", "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/ScienceDefault.png" },
-                { "Business", "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/BusinessDefault.png" },
-                { "Engineering", "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/EngineeringDefault.png" },
-                { "Law", "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/LawDefault.png" },
-                { "Art", "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/ArtDefault.png" },
-                { "Other", "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/OtherDefualt.png" }
-            };
-
-            ICollection key = defaultPic.Keys;
-
-            foreach(string pic in key)
-            {
-                if (pic == subject)
-                {
-                    defaultURL = ((string)defaultPic[pic]);
-                }
-            }
-            return defaultURL;
-        }
-
-        private async Task ChangeAllArchivedStreamAndUserChannelProfilePhotos([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string user, string profilePicture)
-        {
-            var allArchivedStreams = await helperFunctions.GetArchivedStreams(storageConfig, "UserArchivedVideos", user);
-            var userChannel = await helperFunctions.GetUserChannels(storageConfig, "CurrentUserChannel", user);
-            foreach(var stream in allArchivedStreams)
-            {
-                stream.ProfilePicture = profilePicture;
-                await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", stream.Id } }, stream);
-            }
-            userChannel[0].ProfilePicture = profilePicture;
-            await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel[0].Id } }, userChannel[0]);
         }
     }
 }

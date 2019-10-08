@@ -15,7 +15,7 @@ using StreamWork.Core;
 using StreamWork.DataModels;
 using StreamWork.Models;
 
-namespace StreamWork
+namespace StreamWork.HelperClasses
 {
     public class HelperFunctions
     {
