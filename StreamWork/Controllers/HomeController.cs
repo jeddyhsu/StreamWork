@@ -9,7 +9,6 @@ using StreamWork.Config;
 using System.Collections.Generic;
 using Microsoft.Extensions.Options;
 using StreamWork.ViewModels;
-using System.Web;
 using StreamWork.DataModels;
 
 namespace StreamWork.Controllers
@@ -170,6 +169,19 @@ namespace StreamWork.Controllers
                 {
                     return Json(new { Message = "Passwords do not match" });
                 }
+
+                UserLogin signUpProflie = new UserLogin
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = nameFirst + "|" + nameLast,
+                    EmailAddress = email,
+                    Username = username,
+                    Password = password,
+                    ProfileType = role,
+                    ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/default-profile.png"
+                };
+                await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", signUpProflie.Id } }, signUpProflie);
+
                 if (role == "tutor")
                 {
                     UserChannel userChannel = new UserChannel
@@ -184,18 +196,6 @@ namespace StreamWork.Controllers
                     };
                     await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
                 }
-
-                UserLogin signUpProflie = new UserLogin
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    Name = nameFirst + "|" + nameLast,
-                    EmailAddress = email,
-                    Username = username,
-                    Password = password,
-                    ProfileType = role,
-                    ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/default-profile.png"
-                };
-                await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", signUpProflie.Id } }, signUpProflie);
             }
              return Json(new { Message = "Username already exsists" });
         }

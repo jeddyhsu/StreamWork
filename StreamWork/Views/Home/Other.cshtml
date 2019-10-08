@@ -65,11 +65,17 @@ else{
                              if (videoInfo.StreamTitle != null)
                             {
                                  <div class="col-lg-3 col-md-6 mt-4">
-                                    <input type="image" width="100%" height="80%" src=@Model.userChannels[0].StreamThumbnail onclick="window.location.href='../StreamViews/StreamPage?streamKeyandchatId=' + ('@videoInfo.ChannelKey') + ('|') + ('@Model.userChannels[0].ChatId');">
+                                    <input type="image" width="100%" height="80%" src=@videoInfo.StreamThumbnail onclick="window.location.href='../StreamViews/StreamPage?streamKeyandchatId=' + ('@videoInfo.ChannelKey') + ('|') + ('@Model.userChannels[0].ChatId');">
                                     <div class="row">
-                                    <h5 class="m-3" style="font-family:'Roboto'"><b>@Model.userChannels[0].StreamTitle</b></h5>
+                                        <div class="col-3 pr-0">
+                                             <input type="image" width="80%" height="70%" style="border-radius:50%" src=@videoInfo.ProfilePicture onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@videoInfo.Username');" />
+                                        </div>
+                                        <div class="col-9 pl-0">
+                                            <h5 style="font-family: 'Roboto';">@videoInfo.StreamTitle</h5>
+                                            <h6 style="font-family: 'Roboto'">@videoInfo.StreamSubject</h6>
+                                            <h6 style="font-family: 'Roboto';">@videoInfo.Username</h6>
+                                        </div>
                                     </div>
-
                                 </div>
                             }
                         }

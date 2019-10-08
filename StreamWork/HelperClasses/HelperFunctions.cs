@@ -25,7 +25,7 @@ namespace StreamWork
         //Gets set of userchannels with the query that you specify
         public async Task<List<UserChannel>> GetUserChannels([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string query, string user)
         {
-            var channels = await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, query, new List<string> { user});
+            var channels = await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, query, new List<string> {user});
             return channels;
         }
 
