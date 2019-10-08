@@ -53,5 +53,10 @@ namespace StreamWork.Controllers
             };
             return View(viewModel);
         }
+
+        public IActionResult StudentSettings()
+        {
+            return View();
+        }
     }
 }

@@ -158,6 +158,11 @@ namespace StreamWork.Controllers
             return Json(new { Message = "" });
         }
 
+        public IActionResult TutorSettings()
+        {
+            return View();
+        }
+
         //Uses a hashtable to add default thumbnails based on subject
         private string GetCorrespondingDefaultThumbnail(string subject)
         {
