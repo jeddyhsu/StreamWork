@@ -1,3 +1,70 @@
-﻿@{
-    ViewData["Title"] = "TutorSettings";
+﻿@model StreamWork.ViewModels.ProfileTutorViewModel
+@{
+ViewData["Title"] = "TutorSettings";
 }
+<div style="font-family:'Roboto', sans-serif;">
+<nav class="navbar sticky-top navbar-expand-lg  text-center" style="background-color:#008080">
+   <img src="~/images/streamworkPencilWhite.png" height="70" onclick="" />
+   <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+   <span class="navbar-toggler-icon"></span>
+   </button>
+   <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+         <li class="nav-item ml-sm-4 mt-1" style="font-size:15px;">
+            <a class="nav-link" href="/Tutor/ProfileTutor" style="color:white;">Dashboard</a>
+         </li>
+         <li class="nav-item ml-sm-5 mt-1" style="font-size:14px; ">
+            <a class="nav-link" href="/Tutor/TutorStream" style="color:white;">Start Streaming</a>
+         </li>
+         <li class="nav-item ml-sm-5 mt-1" style="font-size:15px;">
+            <a id="button" class="nav-link" href="/" style="color:white;">Home</a>
+         </li>
+      </ul>
+   </div>
+   <div class="btn-group">
+      <img src=@Model.userProfile.ProfilePicture style="width:75px; height:95px; border-radius:50%" />
+      <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #008080; border:none; margin-right:35px"></button>
+      <div class="dropdown-menu">
+         <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Edit Profile</a>
+         <div class="dropdown-divider"></div>
+         <a class="dropdown-item" href="#" id="EditProfile">Settings</a>
+         <div class="dropdown-divider"></div>
+         <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
+      </div>
+   </div>
+</nav>
+<div class="container-fluid">
+   <div class="row">
+      <div class="col-lg-4 col-md-6 col-sm-12">
+         <br />
+         <div class="card" style="background-color: black">
+            <div class="card-header">
+               <h1 class="text-center" style="color:white">Overview</h1>
+            </div>
+            <div class="card-body">
+               <form>
+                  <img id="previewProfilePic" src=@Model.userProfile.ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
+                  <div class="row">
+                     <div class="col-6">
+                        <div>
+                           <div style="font-size: 20px; color:white">
+                              <label>First Name</label>
+                           </div>
+                           <input type="text" style="border-radius:5px" value="@Model.userProfile.Name.Replace('|',' ')" />
+                        </div>
+                     </div>
+                     <div class="col-6">
+                        <div>
+                           <div style="font-size: 20px; color:white">
+                              <label>Last Name</label>
+                           </div>
+                           <input type="text" style="border-radius:5px" value="@Model.userProfile.Name.Replace('|',' ')" />
+                        </div>
+                     </div>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

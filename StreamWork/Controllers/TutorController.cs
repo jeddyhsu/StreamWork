@@ -160,9 +160,17 @@ namespace StreamWork.Controllers
             return Json(new { Message = "" });
         }
 
-        public IActionResult TutorSettings()
+        public async Task<IActionResult> TutorSettings([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
-            return View();
+            var user = HttpContext.Session.GetString("UserProfile");
+            ProfileTutorViewModel viewModel = new ProfileTutorViewModel
+            {
+                userProfile = await helperFunctions.GetUserProfile(storageConfig, "CurrentUser", user),
+                userLogins = await helperFunctions.GetUserLogins(storageConfig, "CurrentUser", user),
+                userChannels = await helperFunctions.GetUserChannels(storageConfig, "CurrentUserChannel", user),
+                userArchivedVideos = await helperFunctions.GetArchivedStreams(storageConfig, "UserArchivedVideos", user)
+            };
+            return View(viewModel);
         }
     }
 }
