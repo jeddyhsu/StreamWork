@@ -36,7 +36,7 @@ namespace StreamWork.Controllers {
             }
 
             //Store the IPN received from PayPal
-            LogRequest(ipnContext);
+            Task.Run(() => LogRequest(ipnContext));
 
             //Fire and forget verification task
             Task.Run(() => VerifyTask(ipnContext));
@@ -76,8 +76,13 @@ namespace StreamWork.Controllers {
         }
 
 
-        private void LogRequest (IPNContext ipnContext) {
+        private async Task LogRequest (IPNContext ipnContext) {
             // Persist the request values into a database or temporary data store
+
+            await helperFunctions.LogIPNRequest(storageConfig, new IPNRequestBody {
+                Id = Guid.NewGuid().ToString(),
+                RequestBody = ipnContext.RequestBody
+            });
         }
 
         private async Task ProcessVerificationResponse (IPNContext ipnContext, string error) {

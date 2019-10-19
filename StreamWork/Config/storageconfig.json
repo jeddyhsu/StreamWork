@@ -61,6 +61,17 @@
                 "QueryId": "AllDonations"
             }
         ]
+    },
+
+    {
+        "Name": "IPNRequestBody",
+        "StorageType": "SqlServer",
+        "Queries": [
+            {
+                "Query": "SELECT * FROM [dbo].[IPNRequestBody]",
+                "QueryId": "AllIPNRequests"
+            }
+        ]
     }
   ]
 }
