@@ -22,7 +22,7 @@ function SignUp() {
 
                 alert("Passwords do not match");
             } else {
-                alert("Username already exsists");
+                alert("Username already exists");
             }
         }
     });

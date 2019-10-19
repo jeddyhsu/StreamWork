@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using StreamWork.Framework;
 
@@ -9,8 +10,10 @@ namespace StreamWork.Models {
         public string TransactionId { get; set; }
         public string PayerEmail { get; set; }
         public string Student { get; set; }
-        public string Val { get; set; }
-        public string TimeSent { get; set; }
+        public string Tutor { get; set; }
+        public string PaymentType { get; set; }
+        public decimal Val { get; set; }
+        public DateTime TimeSent { get; set; }
         public string Verified { get; set; }
         public string Error { get; set; }
 

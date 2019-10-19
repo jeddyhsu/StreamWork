@@ -144,14 +144,14 @@ namespace StreamWork.Controllers
                                                 string nameFirst, string nameLast, string email, string username, string password, string passwordConfirm, string role)
         {
             var checkCurrentUsers = await DataStore.GetListAsync<UserLogin>(helperFunctions._connectionString, storageConfig.Value, "CurrentUser", new List<string> { username });
-            if (checkCurrentUsers.Count >= 1)
+            if (checkCurrentUsers.Count == 0)
             {
                 if (password != passwordConfirm)
                 {
                     return Json(new { Message = "Passwords do not match" });
                 }
 
-                UserLogin signUpProflie = new UserLogin
+                UserLogin signUpProfile = new UserLogin
                 {
                     Id = Guid.NewGuid().ToString(),
                     Name = nameFirst + "|" + nameLast,
@@ -159,9 +159,11 @@ namespace StreamWork.Controllers
                     Username = username,
                     Password = password,
                     ProfileType = role,
-                    ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/default-profile.png"
+                    ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/default-profile.png",
+                    Balance = (decimal) 0f,
+                    Expiration = DateTime.UtcNow
                 };
-                await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", signUpProflie.Id } }, signUpProflie);
+                await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", signUpProfile.Id } }, signUpProfile);
 
                 if (role == "tutor")
                 {
@@ -177,8 +179,9 @@ namespace StreamWork.Controllers
                     };
                     await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
                 }
+                return Json(new { Message = "Success" });
             }
-             return Json(new { Message = "Username already exsists" });
+            return Json(new { Message = "Username already exists" });
         }
 
         [HttpGet]

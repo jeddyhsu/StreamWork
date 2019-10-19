@@ -59,6 +59,11 @@
             {
                 "Query": "SELECT * FROM [dbo].[Payment]",
                 "QueryId": "AllPayments"
+            },
+
+            {
+                "Query": "SELECT * FROM [dbo].[Payment] WHERE TransactionId = '@x0'",
+                "QueryId": "PaymentsById"
             }
         ]
     },

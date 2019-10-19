@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using StreamWork.Framework;
 
@@ -14,8 +15,10 @@ namespace StreamWork.DataModels
         public string Password { get; set; }
         public string ProfileType { get; set; }
         public string ProfileCaption { get; set; }
-        public string ProfileParagraph { get; set; }
         public string ProfilePicture { get; set; }
+        public string ProfileParagraph { get; set; }
+        public decimal Balance { get; set; }
+        public DateTime Expiration { get; set; }
         public string LoggedIn { get; set; }
 
         [Timestamp]
