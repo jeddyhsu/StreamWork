@@ -53,12 +53,12 @@
     },
 
     {
-        "Name": "Donation",
+        "Name": "Payment",
         "StorageType": "SqlServer",
         "Queries": [
             {
-                "Query": "SELECT * FROM [dbo].[Donation]",
-                "QueryId": "AllDonations"
+                "Query": "SELECT * FROM [dbo].[Payment]",
+                "QueryId": "AllPayments"
             }
         ]
     },

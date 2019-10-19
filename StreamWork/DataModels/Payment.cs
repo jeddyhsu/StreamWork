@@ -3,11 +3,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using StreamWork.Framework;
 
 namespace StreamWork.Models {
-    public class Donation : IStorageBase<Donation> {
+    public class Payment : IStorageBase<Payment> {
         [Key]
         public string Id { get; set; }
+        public string TransactionId { get; set; }
+        public string PayerEmail { get; set; }
         public string Student { get; set; }
-        public string Tutor { get; set; }
         public string Val { get; set; }
         public string TimeSent { get; set; }
         public string Verified { get; set; }
@@ -16,6 +17,6 @@ namespace StreamWork.Models {
         [Timestamp]
         public byte[] RowVersion { get; set; }
 
-        public virtual void Configure (EntityTypeBuilder<Donation> builder) { }
+        public virtual void Configure (EntityTypeBuilder<Payment> builder) { }
     }
 }

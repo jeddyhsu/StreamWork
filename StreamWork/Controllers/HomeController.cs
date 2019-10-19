@@ -107,26 +107,6 @@ namespace StreamWork.Controllers
             return View(profile);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Donate(string Tutor, [FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
-        {
-            ProfileTutorViewModel profile = new ProfileTutorViewModel
-            {
-                userLogins = await helperFunctions.GetUserLogins(storageConfig, "PaticularSignedUpUsers", Tutor)
-            };
-
-            Donation donation = new Donation
-            {
-                Id = Guid.NewGuid().ToString(),
-                Student = HttpContext.Session.GetString("UserProfile"),
-                Tutor = profile.userLogins[0].Username,
-                TimeSent = DateTime.Now.ToString(),
-            };
-            await helperFunctions.SaveDonation(storageConfig, donation);
-
-            return View(profile);
-        }
-
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

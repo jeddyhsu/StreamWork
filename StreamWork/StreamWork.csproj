@@ -26,7 +26,6 @@
     <Folder Include="Views\Tutor\" />
     <Folder Include="Views\Student\" />
     <Folder Include="DaCastAPI\" />
-    <Folder Include="Views\IPN\" />
     <Folder Include="Threads\" />
     <Folder Include="HelperClasses\" />
   </ItemGroup>
@@ -94,6 +93,7 @@
     <Content Remove="wwwroot\images\OBSStreamKey.png" />
     <Content Remove="wwwroot\images\Donate.png" />
     <Content Remove="Views\IPN\Recieve.cshtml" />
+    <Content Remove="Views\IPN\IPN.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="Views\Home\ProfileView.cshtml">
