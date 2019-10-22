@@ -42,7 +42,13 @@ namespace StreamWork.HelperClasses
         //Gets user login info with the query that you specify
         public async Task<UserLogin> GetUserProfile ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string query, string user) {
             var logins = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, query, new List<string> { user });
-            return logins[0];
+            if (logins.Count > 0) return logins[0];
+            return null;
+        }
+
+        public async Task UpdateUser ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, UserLogin user) {
+            await DataStore.DeleteAsync<UserLogin>(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", user.Id } });
+            await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", user.Id } }, user);
         }
 
         //Saves profilePicture into container on Azure
@@ -73,7 +79,8 @@ namespace StreamWork.HelperClasses
 
         public async Task<Payment> GetPayment ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string query, string txnID) {
             var payments = await DataStore.GetListAsync<Payment>(_connectionString, storageConfig.Value, query, new List<string> { txnID });
-            return payments[0];
+            if (payments.Count > 0) return payments[0];
+            return null;
         }
 
         public async Task<bool> LogIPNRequest ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, IPNRequestBody request) {
