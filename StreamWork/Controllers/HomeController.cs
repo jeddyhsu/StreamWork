@@ -29,7 +29,7 @@ namespace StreamWork.Controllers
             {
                 return View();
             }
-            var userProfile = await helperFunctions.GetUserProfile(storageConfig, "CurrentUser", user);
+            var userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
             return View(userProfile);
         }
 
@@ -99,10 +99,10 @@ namespace StreamWork.Controllers
             var user = HttpContext.Session.GetString("UserProfile");
             ProfileTutorViewModel profile = new ProfileTutorViewModel
             {
-                userChannels = await helperFunctions.GetUserChannels(storageConfig, "CurrentUserChannel", user),
-                userArchivedVideos = await helperFunctions.GetArchivedStreams(storageConfig, "UserArchivedVideos", tutor),
-                userProfile = await helperFunctions.GetUserProfile(storageConfig, "CurrentUser", tutor),
-                userProfile2 = await helperFunctions.GetUserProfile(storageConfig, "CurrentUser", user)
+                userChannels = await helperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user),
+                userArchivedVideos = await helperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, tutor),
+                userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, tutor),
+                userProfile2 = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user)
             };
             return View(profile);
         }
@@ -118,9 +118,9 @@ namespace StreamWork.Controllers
 
             ProfileTutorViewModel model = new ProfileTutorViewModel
             {
-                userChannels = await helperFunctions.GetUserChannels(storageConfig, "AllUserChannelsThatAreStreaming", subject),
+                userChannels = await helperFunctions.GetUserChannels(storageConfig, QueryHeaders.AllUserChannelsThatAreStreaming, subject),
                 userLogins = await GetPopularStreamTutors(storageConfig),
-                userProfile = user != null ? await helperFunctions.GetUserProfile(storageConfig, "CurrentUser", user) : null
+                userProfile = user != null ? await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user) : null
             };
             return model;
         }
@@ -179,7 +179,7 @@ namespace StreamWork.Controllers
                     };
                     await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
                 }
-                return Json(new { Message = "Success" });
+                return Json(new { Message = JsonResponse.Success.ToString()});
             }
             return Json(new { Message = "Username already exists" });
         }
@@ -254,9 +254,9 @@ namespace StreamWork.Controllers
         [HttpPost]
         public async Task<IActionResult> PasswordRecovery([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string username)
         {
-            var userProfile = await helperFunctions.GetUserProfile(storageConfig, "CurrentUser", username);
+            var userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
             helperFunctions.SendEmailToAnyEmail(userProfile.EmailAddress, "Password Recovery", helperFunctions.CreateUri(userProfile.Username));
-            return Json(new { Message = "Success"});
+            return Json(new { Message = JsonResponse.Success.ToString()});
         }
 
         [HttpGet]
@@ -272,10 +272,10 @@ namespace StreamWork.Controllers
             {
                 var pathFormat = path.Split(new char[] { '=' });
                 var username = pathFormat[1];
-                var userProfile = await helperFunctions.GetUserProfile(storageConfig, "CurrentUser", username);
+                var userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
                 userProfile.Password = newPassword;
                 await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
-                return Json(new { Message = "Success" });
+                return Json(new { Message = JsonResponse.Success.ToString()});
             }   
             return Json(new { Message = "Invalid Password Match" });
          }
@@ -290,10 +290,10 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> Logout([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string logout)
         {
             var user = HttpContext.Session.GetString("UserProfile");
-            var userProfile = await helperFunctions.GetUserProfile(storageConfig, "CurrentUser", user);
+            var userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
             userProfile.LoggedIn = null;
             await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
-            return Json(new { Message = "Success" });
+            return Json(new { Message = JsonResponse.Success.ToString()});
         }
     }
 }

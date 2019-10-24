@@ -1,4 +1,6 @@
 ﻿@model StreamWork.ViewModels.ProfileTutorViewModel
+<script src="~/js/EditProfile.js"></script>
+<script src="~/js/Settings.js"></script>
 @{
 ViewData["Title"] = "TutorSettings";
 }
@@ -48,17 +50,9 @@ ViewData["Title"] = "TutorSettings";
                      <div class="col-6 mt-5">
                         <div>
                            <div style="font-size: 20px; color:black">
-                              <label>First Name</label>
+                              <label>Name</label>
                            </div>
-                           <input type="text" style="border-radius:5px" value="@Model.userProfile.Name.Replace('|',' ')" />
-                        </div>
-                     </div>
-                     <div class="col-6 mt-5 ">
-                        <div>
-                           <div style="font-size: 20px; color:black">
-                              <label>Last Name</label>
-                           </div>
-                           <input type="text" style="border-radius:5px" value="@Model.userProfile.Name.Replace('|',' ')" />
+                           <input id="Name" type="text" style="border-radius:5px" value="@Model.userProfile.Name.Replace('|',' ')" />
                         </div>
                      </div>
                       <div class="col-6 mt-5">
@@ -90,7 +84,7 @@ ViewData["Title"] = "TutorSettings";
                            <div style="font-size: 20px; color:black">
                               <label>Profile Caption</label>
                            </div>
-                           <input type="text" style="border-radius:5px; width:100%" value="@Model.userProfile.ProfileCaption" />
+                           <input id="ProfileCaption" type="text" style="border-radius:5px; width:100%" value="@Model.userProfile.ProfileCaption" />
                         </div>
                      </div>
                       <div class="col-12 mt-5">
@@ -98,7 +92,7 @@ ViewData["Title"] = "TutorSettings";
                            <div style="font-size: 20px; color:black">
                               <label>Profile Caption</label>
                            </div>
-                           <textarea style="border-radius:5px; width:100%">@Model.userProfile.ProfileParagraph</textarea>
+                           <textarea id="ProfileParagraph" style="border-radius:5px; width:100%">@Model.userProfile.ProfileParagraph</textarea>
                         </div>
                      </div>
                   </div>
@@ -121,19 +115,19 @@ ViewData["Title"] = "TutorSettings";
                         <div>
                           <label>Current Password:</label>
                         </div>
-                         <input type="password" style="width:100%; border-radius:5px" id="CurrentPassword";/>
+                         <input id="CurrentPassword" type="password" style="width:100%; border-radius:5px";/>
                      </div>
                      <div class="col-12 mt-3">
                         <div>
                           <label>New Password:</label>
                         </div>
-                         <input type="password" style="width:100%; border-radius:5px" id="NewPassword";/>
+                         <input id="NewPassword" type="password" style="width:100%; border-radius:5px";/>
                      </div>
                     <div class="col-12 mt-3">
                         <div>
                           <label>Confirm Password:</label>
                         </div>
-                         <input type="password" style="width:100%; border-radius:5px" id="ConfirmPassword";/>
+                         <input id="ConfirmPassword" type="password" style="width:100%; border-radius:5px";/>
                      </div>
                    </div>
                    <button class="editbtn mt-4" onclick="EditProfile()" style="display:block; margin-left:auto; margin-right:auto;">Change Password</button>
@@ -152,4 +146,5 @@ ViewData["Title"] = "TutorSettings";
          </div>
       </div>
    </div>
+</div>
 </div>

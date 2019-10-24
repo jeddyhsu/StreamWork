@@ -27,11 +27,11 @@
                 <img src=@Model.userProfile.ProfilePicture style="width:75px; height:95px; border-radius:50%" />
                 <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #008080; border:none; margin-right:35px"></button>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Edit Profile</a>
+                    <a class="dropdown-item" href="#" id="EditProfile" onclick="">Edit Profile</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="/Tutor/TutorSettings" id="EditProfile">Settings</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
+                    <a class="dropdown-item" href="#" onclick="">Logout</a>
                 </div>
               </div>
         </nav>
@@ -65,7 +65,7 @@
                      <div class="row">
                         @foreach(var stream in Model.userArchivedVideos){
                         <div class="col-lg-4 col-md-6">
-                            <input type="image" width="100%" height="80%" src=@stream.StreamThumbnail onclick="window.location.href='../StreamViews/StreamPlaybackPage?streamId=' + ('@stream.StreamID')">
+                            <input type="image" width="100%" height="80%" src=@stream.StreamThumbnail onclick="@stream.StreamID">
                              <div class="row">
                                 <div class="col-3 pr-0">
                                     <input type="image" width="80%" height="80%" style="border-radius:50%" src=@stream.ProfilePicture/>

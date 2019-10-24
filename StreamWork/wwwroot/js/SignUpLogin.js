@@ -19,7 +19,6 @@ function SignUp() {
 
                 window.location.href = '/Home/Login';
             } else if (data.message === "Wrong Password") {
-
                 alert("Passwords do not match");
             } else {
                 alert("Username already exists");
@@ -141,7 +140,7 @@ function RecoverPassword() {
         },
         success: function (data) {
             if (data.message === 'Success') {
-                alert('Email sent! Check your email for the password')
+                alert('Email sent! Check your email to reset your password')
                 window.location.href = '/Home/Login'
             }
             else {
@@ -154,8 +153,7 @@ function RecoverPassword() {
 function ChangePassword() {
 
     //gets url path with parameters
-    var path = (location.pathname+location.search).substr(1)
-
+    var path = (location.pathname + location.search).substr(1);
     $.ajax({
         url: '/Home/ChangePassword',
         type: 'post',

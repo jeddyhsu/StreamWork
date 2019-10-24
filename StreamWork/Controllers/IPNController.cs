@@ -128,7 +128,7 @@ namespace StreamWork.Controllers {
                 var customParams = request["custom"].Split("~");
                 var username = customParams[0];
                 var tutorName = customParams.Length >= 2 ? customParams[1] : null;
-                var user = await helperFunctions.GetUserProfile(storageConfig, "CurrentUser", username);
+                var user = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
                 if (user == null) {
                     error = "UNMATCHED_USER " + error;
                 }
@@ -156,7 +156,7 @@ namespace StreamWork.Controllers {
                         error = "NO_TUTOR " + error;
 
                     } else {
-                        var tutors = await helperFunctions.GetUserLogins(storageConfig, "CurrentUser", tutorName);
+                        var tutors = await helperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, tutorName);
                         if (tutors.Count == 0) {
                             error = "UNMATCHED_TUTOR " + error;
                         }

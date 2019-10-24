@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using StreamWork.Models;
 using Microsoft.AspNetCore.Http;
 using StreamWork.Core;
 using StreamWork.Config;
@@ -10,7 +9,6 @@ using StreamWork.ViewModels;
 using StreamWork.DataModels;
 using StreamWork.Threads;
 using StreamWork.DaCastAPI;
-using System.Collections;
 using StreamWork.HelperClasses;
 
 namespace StreamWork.Controllers
@@ -28,10 +26,10 @@ namespace StreamWork.Controllers
             var user = HttpContext.Session.GetString("UserProfile");
             ProfileTutorViewModel viewModel = new ProfileTutorViewModel
             {
-                userProfile = await helperFunctions.GetUserProfile(storageConfig, "CurrentUser", user),
-                userLogins = await helperFunctions.GetUserLogins(storageConfig, "CurrentUser", user),
-                userChannels = await helperFunctions.GetUserChannels(storageConfig, "CurrentUserChannel", user),
-                userArchivedVideos = await helperFunctions.GetArchivedStreams(storageConfig, "UserArchivedVideos", user)
+                userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user),
+                userLogins = await helperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user),
+                userChannels = await helperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user),
+                userArchivedVideos = await helperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, user)
             };
             return View(viewModel);
         }
@@ -40,8 +38,8 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> TutorStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string change, string channelKey)
         {
             var user = HttpContext.Session.GetString("UserProfile");
-            var userChannel = await helperFunctions.GetUserChannels(storageConfig, "CurrentUserChannel", user);
-            var userLogin = await helperFunctions.GetUserLogins(storageConfig, "CurrentUser", user);
+            var userChannel = await helperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user);
+            var userLogin = await helperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user);
 
             if (channelKey != null)
             {
@@ -52,12 +50,12 @@ namespace StreamWork.Controllers
                         var channelInfo = DataStore.CallAPI<ChannelAPI>("http://api.dacast.com/v2/channel/+" + channelKey + "?apikey=135034_9d5e445816dfcd2a96ad&_format=JSON");
                         userChannel[0].ChannelKey = channelInfo.Id.ToString();
                         await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel[0].Id } }, userChannel[0]);
-                        return Json(new { Message = "Success" });
+                        return Json(new { Message = JsonResponse.Success.ToString()});
                     }
                     catch (System.Net.WebException e)
                     {
                         e.ToString(); // Literally just did this to get rid of the warning
-                        return Json(new { Message = "Failed" });
+                        return Json(new { Message = JsonResponse.Failed.ToString()});
                     }
                 }
             }
@@ -71,7 +69,7 @@ namespace StreamWork.Controllers
                 var streamThumbnail = await helperFunctions.SaveIntoBlobContainer(Request.Form.Files[0], storageConfig, user, userChannel[0].Id);
                 ThreadClass handlevideoarchiving = new ThreadClass(storageConfig, userChannel[0], userLogin[0], streamTitle, streamSubject, streamThumbnail);
                 handlevideoarchiving.RunThread();
-                return Json(new { Message = "Saved" });
+                return Json(new { Message = JsonResponse.Success.ToString()});
             }
 
             //Saves if there is no thumbnail uploaded
@@ -86,7 +84,7 @@ namespace StreamWork.Controllers
                 var streamSubject = streamInfo[1];
                 ThreadClass handlevideoarchiving = new ThreadClass(storageConfig, userChannel[0], userLogin[0], streamTitle, streamSubject, tutorHelperFunctions.GetCorrespondingDefaultThumbnail(streamSubject));
                 handlevideoarchiving.RunThread();
-                return Json(new { Message = "Saved" });
+                return Json(new { Message = JsonResponse.Success.ToString()});
             }
 
             //change stream subject
@@ -94,10 +92,10 @@ namespace StreamWork.Controllers
             {
                 userChannel[0].StreamSubject = change;
                 await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel[0].Id } }, userChannel[0]);
-                return Json(new { Message = "Saved" });
+                return Json(new { Message = JsonResponse.Success.ToString()});
             }
 
-            return Json(new { Message = "Failed" });
+            return Json(new { Message = JsonResponse.Failed.ToString() });
         }
 
         [HttpGet]
@@ -107,10 +105,10 @@ namespace StreamWork.Controllers
 
             ProfileTutorViewModel viewModel = new ProfileTutorViewModel
             {
-                userProfile = await helperFunctions.GetUserProfile(storageConfig, "CurrentUser", user),
-                userLogins = await helperFunctions.GetUserLogins(storageConfig, "CurrentUser", user),
-                userChannels = await helperFunctions.GetUserChannels(storageConfig, "CurrentUserChannel", user),
-                userArchivedVideos = await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, "UserArchivedVideos", new List<string> { user })
+                userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user),
+                userLogins = await helperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user),
+                userChannels = await helperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user),
+                userArchivedVideos = await helperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, user)
             };
             return View(viewModel);
         }
@@ -119,7 +117,7 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> ProfileTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string stop)
         {
             var user = HttpContext.Session.GetString("UserProfile");
-            var userProfile = await helperFunctions.GetUserProfile(storageConfig, "CurrentUser", user);
+            var userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
 
             //Handles if there is a profile picture with the caption or about paragraph
             if (Request.Form.Files.Count > 0)
@@ -135,7 +133,7 @@ namespace StreamWork.Controllers
                 await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
                 if(userProfile.ProfileType == "tutor")
                     await tutorHelperFunctions.ChangeAllArchivedStreamAndUserChannelProfilePhotos(storageConfig, user, profilePicture); //only if tutor
-                return Json(new { Message = "Success" });
+                return Json(new { Message = JsonResponse.Success.ToString() });
             }
 
             //Handles if there is not a profile picture with the caption or about paragraph
@@ -155,22 +153,56 @@ namespace StreamWork.Controllers
                 getUserInfo[0].ProfileParagraph = profileParagraph != "NA" ? profileParagraph : null;
 
                 await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", getUserInfo[0].Id } }, getUserInfo[0]);
-                return Json(new { Message = "Success" });
+                return Json(new { Message = JsonResponse.Success.ToString()});
             }
             return Json(new { Message = "" });
         }
 
+        [HttpGet]
         public async Task<IActionResult> TutorSettings([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
             var user = HttpContext.Session.GetString("UserProfile");
             ProfileTutorViewModel viewModel = new ProfileTutorViewModel
             {
-                userProfile = await helperFunctions.GetUserProfile(storageConfig, "CurrentUser", user),
-                userLogins = await helperFunctions.GetUserLogins(storageConfig, "CurrentUser", user),
-                userChannels = await helperFunctions.GetUserChannels(storageConfig, "CurrentUserChannel", user),
-                userArchivedVideos = await helperFunctions.GetArchivedStreams(storageConfig, "UserArchivedVideos", user)
+                userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user),
+                userLogins = await helperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user),
+                userChannels = await helperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user),
+                userArchivedVideos = await helperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, user)
             };
             return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> TutorSettings([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string name,
+                                                                                                                     string profileCaption,
+                                                                                                                     string profileParagraph,
+                                                                                                                     string currentPassword,
+                                                                                                                     string newPassword,
+                                                                                                                     string confirmPassword)
+        {
+            var user = HttpContext.Session.GetString("UserProfile");
+            var userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
+            userProfile.Name = name;
+            userProfile.ProfileCaption = profileCaption;
+            userProfile.ProfileParagraph = profileParagraph;
+            await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
+
+
+            if(currentPassword != null && newPassword != null && confirmPassword != null)
+            {
+                var userLogin = await helperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user);
+                if(currentPassword == userLogin[0].Password)
+                {
+                    userLogin[0].Password = newPassword;
+                    await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userLogin[0].Id } }, userLogin[0]);
+                }
+                else
+                {
+                    return Json(new { Message = JsonResponse.Failed.ToString()});
+                }
+            }
+
+            return Json(new { Message = JsonResponse.Success.ToString()});
         }
     }
 }

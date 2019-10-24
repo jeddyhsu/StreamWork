@@ -19,14 +19,14 @@ namespace StreamWork.Controllers
         {
             var model = new UserProfile();
             var user = HttpContext.Session.GetString("UserProfile");
-            var userProfile = await helperFunctions.GetUserProfile(storageConfig, "CurrentUser", user);
+            var userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
             var splitName = userProfile.Name.Split(new char[] { '|' });
             model.FirstName = splitName[0];
             model.LastName = splitName[1];
 
             ProfileStudentViewModel viewModel = new ProfileStudentViewModel
             {
-                userLogins = await helperFunctions.GetUserLogins(storageConfig, "CurrentUser", user)
+                userLogins = await helperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user)
             };
             return View(viewModel);
         }
@@ -37,8 +37,8 @@ namespace StreamWork.Controllers
             var user = HttpContext.Session.GetString("UserProfile");
             ProfileStudentViewModel viewModel = new ProfileStudentViewModel
             {
-                userLogins = await helperFunctions.GetUserLogins(storageConfig, "CurrentUser", user),
-                userArchivedStreams = await helperFunctions.GetArchivedStreams(storageConfig, "AllArchivedVideos",user)
+                userLogins = await helperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user),
+                userArchivedStreams = await helperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, user)
             };
             return View(viewModel);
         }
@@ -49,8 +49,8 @@ namespace StreamWork.Controllers
             var user = HttpContext.Session.GetString("UserProfile");
             ProfileStudentViewModel viewModel = new ProfileStudentViewModel
             {
-                userLogins = await helperFunctions.GetUserLogins(storageConfig, "CurrentUser", user),
-                userArchivedStreams = await helperFunctions.GetArchivedStreams(storageConfig, "UserArchivedVideosBasedOnSubject", subject)
+                userLogins = await helperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user),
+                userArchivedStreams = await helperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideosBasedOnSubject, subject)
             };
             return View(viewModel);
         }

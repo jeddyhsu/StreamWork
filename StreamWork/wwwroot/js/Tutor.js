@@ -19,21 +19,21 @@ function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail() {
         formData.append(streamInfo, 'No Thumbnail');
     }
 
-
-      $.ajax({
-            url: '/Tutor/TutorStream',
-            type: 'post',
-            dataType: 'json',
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: function (data) {
-                if (data.message === "Saved") {;
-                    alert("Your broadcast is visible to students!");
-                    location.reload();
-                }
+    $.ajax({
+        url: '/Tutor/TutorStream',
+        type: 'post',
+        dataType: 'json',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (data) {
+            if (data.message === "Success") {
+                ;
+                alert("Your broadcast is visible to students!");
+                location.reload();
             }
-        });
+        }
+    });   
 }
 
 function ValidateKey() {
