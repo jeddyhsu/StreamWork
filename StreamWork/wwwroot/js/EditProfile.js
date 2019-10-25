@@ -45,9 +45,10 @@
     }
 
  //Opens editing MODAL
+
  function EditProfile() {
         $('#editModal').modal('show')
-    }
+ }
     
 //Reads picture url and sends to backend for saving
  function readURL(input,pictureType) {

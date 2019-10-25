@@ -8,7 +8,6 @@ using StreamWork.Core;
 using StreamWork.DaCastAPI;
 using StreamWork.DataModels;
 using StreamWork.HelperClasses;
-using StreamWork.Models;
 
 namespace StreamWork.Threads
 {
@@ -70,8 +69,9 @@ namespace StreamWork.Threads
                             x = false;
                         }
                     }
-                    catch(System.IndexOutOfRangeException e)
+                    catch(IndexOutOfRangeException e)
                     {
+                        Console.WriteLine("Error in Thread class: " + e.Message);
                         x = true;
                     }
                 }

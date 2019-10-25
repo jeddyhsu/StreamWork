@@ -29,7 +29,7 @@
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Edit Profile</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/Tutor/TutorSettings" id="EditProfile">Settings</a>
+                    <a class="dropdown-item" href="/Tutor/TutorSettings" id="Settings">Settings</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#" onclick="">Logout</a>
                 </div>
@@ -103,7 +103,7 @@
                     <br />
                     <div class="upload-uploadbtn-wrapper">
                         <button class="uploadbtn" style="margin-left:110px">Upload a Profile Picture</button>
-                        <input id ="uploadProfilePic" type='file'  onchange="" />
+                        <input id ="uploadProfilePic" type='file' onchange="readURL(this,'ProfilePic')" />
                     </div>
                 </form>
             </div>
