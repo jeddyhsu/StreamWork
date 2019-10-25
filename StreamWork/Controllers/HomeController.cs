@@ -160,7 +160,8 @@ namespace StreamWork.Controllers
                     ProfileType = role,
                     ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/default-profile.png",
                     Balance = (decimal) 0f,
-                    Expiration = DateTime.UtcNow
+                    Expiration = DateTime.UtcNow,
+                    Trial = false
                 };
                 await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", signUpProfile.Id } }, signUpProfile);
 
@@ -295,6 +296,11 @@ namespace StreamWork.Controllers
             userProfile.LoggedIn = null;
             await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
             return Json(new { Message = JsonResponse.Success.ToString()});
+        }
+
+        [HttpGet]
+        public IActionResult Subscribe() {
+            return View();
         }
     }
 }

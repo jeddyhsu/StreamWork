@@ -19,6 +19,7 @@ namespace StreamWork.DataModels
         public string ProfileParagraph { get; set; }
         public decimal Balance { get; set; }
         public DateTime Expiration { get; set; }
+        public bool Trial { get; set; }
         public string LoggedIn { get; set; }
 
         [Timestamp]
