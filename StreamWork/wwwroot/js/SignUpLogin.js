@@ -144,7 +144,7 @@ function RecoverPassword() {
                 window.location.href = '/Home/Login'
             }
             else {
-                alert('Error')
+                alert('Invalid username')
             }
         }
     })

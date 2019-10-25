@@ -254,6 +254,8 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> PasswordRecovery([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string username)
         {
             var userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
+            if(userProfile == null)
+                return Json(new { Message = JsonResponse.Failed.ToString() });
             helperFunctions.SendEmailToAnyEmail(userProfile.EmailAddress, "Password Recovery", helperFunctions.CreateUri(userProfile.Username));
             return Json(new { Message = JsonResponse.Success.ToString()});
         }
