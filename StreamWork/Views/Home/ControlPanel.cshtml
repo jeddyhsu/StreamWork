@@ -1,0 +1,57 @@
+﻿@model List<StreamWork.DataModels.UserLogin>;
+
+@{
+    ViewData["Title"] = "Control Panel";
+}
+
+<style>
+    table tr th {
+        border: 1px solid black;
+    }
+</style>
+
+<script>
+    function setZero(user) {
+        $.ajax({
+            url: '/Home/ZeroTutorBalance',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                'username': user,
+            },
+            success: function (data) {
+                if (data.message === 'Success') {
+                    $('#' + user + '-balance').text('DONE');
+                }
+                else {
+                    alert('Error');
+                }
+            }
+        });
+    }
+</script>
+
+<p>Welcome, admin. With great power comes a table with lots of buttons.</p>
+
+<table>
+    <tr>
+        <th>Username</th>
+        <th>Name</th>
+        <th>Email Address</th>
+        <th>Amount Due</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (StreamWork.DataModels.UserLogin user in Model) {
+        <tr>
+            <th>@user.Username</th>
+            <th>@user.Name</th>
+            <th>@user.EmailAddress</th>
+            <th>
+                <div id="@user.Username-balance">@user.Balance</div>
+            </th>
+            <th>
+                <button onclick="setZero('@user.Username');">Set Amount Due to Zero</button>
+            </th>
+        </tr>
+    }
+</table>
