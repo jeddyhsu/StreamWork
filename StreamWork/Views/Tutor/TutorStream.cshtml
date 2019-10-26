@@ -54,7 +54,7 @@ else if(Model.userChannels[0].StreamTitle == null && Model.userChannels[0].Strea
                   <div class="dropdown-menu">
                       <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Edit Profile</a>
                       <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#" id="EditProfile">Settings</a>
+                      <a class="dropdown-item" href="#" id="Settings">Settings</a>
                       <div class="dropdown-divider"></div>
                       <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
                   </div>
@@ -63,7 +63,7 @@ else if(Model.userChannels[0].StreamTitle == null && Model.userChannels[0].Strea
           <div class="container-fluid mt-3">
               <div class="row">
                   <div class="col-sm-12 col-md-12 col-lg-9 mt-3">
-
+                      
                       <div id="dacastPlayer"></div>
                       <script>window.addEventListener("load", function () {
                               var myPlayer = dacast("135034_c_@Model.userChannels[0].ChannelKey", 'dacastPlayer', {

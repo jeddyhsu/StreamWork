@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
@@ -32,8 +34,34 @@ namespace StreamWork.Threads
             this.streamThumbnail = streamThumbnail;
         }
 
+        public async Task StartRecordingStream()
+        {
+            try
+            {
+                HttpClient httpClient = new HttpClient();
+                var response = await httpClient.PostAsync("https://api.dacast.com/v2/channel/505911/recording/start?apikey=135034_9d5e445816dfcd2a96ad",null);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Error in StartRecordingStream: " + ex.Message);
+            }
+        }
+
+        public void StopRecordingStream()
+        {
+            try
+            {
+                var startRecording = DataStore.CallAPI<string>("https://api.dacast.com/v2/channel/" + userChannel.ChannelKey + "/recording/stop?apikey=135034_9d5e445816dfcd2a96ad");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error in StopRecordingStream: " + ex.Message);
+            }
+        }
+
         public bool RunThread()
         {
+            bool tryAPI = true;
             //This thread handles getting streamed videos to our archive DB
             var cancellationToken = new CancellationToken();
             Task.Factory.StartNew(async () =>
@@ -49,12 +77,10 @@ namespace StreamWork.Threads
                 {
                     Console.WriteLine(e.Message);
                 }
-
-                bool x = true;
-                while (x)
+                
+                while (tryAPI)
                 {
-                    await Task.Delay(60000, cancellationToken);
-
+                    await Task.Delay(300000, cancellationToken);
                     try
                     {
                         var liveRecording = DataStore.CallAPI<LiveRecordingAPI>("https://api.dacast.com/v2/channel/" + userChannel.ChannelKey + "/recording/watch?apikey=135034_9d5e445816dfcd2a96ad&_format=JSON");
@@ -66,13 +92,13 @@ namespace StreamWork.Threads
                         {
                             await StopStreamAndArchive();
                             await ClearChannelStreamInfo();
-                            x = false;
+                            tryAPI = false;
                         }
                     }
                     catch(IndexOutOfRangeException e)
                     {
-                        Console.WriteLine("Error in Thread class: " + e.Message);
-                        x = true;
+                        Console.WriteLine("Error in RunThread: " + e.Message);
+                        tryAPI = true;
                     }
                 }
             }, TaskCreationOptions.LongRunning);

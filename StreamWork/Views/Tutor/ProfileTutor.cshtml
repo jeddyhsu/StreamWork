@@ -65,7 +65,7 @@
                      <div class="row">
                         @foreach(var stream in Model.userArchivedVideos){
                         <div class="col-lg-4 col-md-6">
-                            <input type="image" width="100%" height="80%" src=@stream.StreamThumbnail onclick="@stream.StreamID">
+                            <input type="image" width="100%" height="80%" src=@stream.StreamThumbnail onclick="onclick="window.location.href='../StreamViews/StreamPlaybackPage?streamId=' + ('@stream.StreamID')">
                              <div class="row">
                                 <div class="col-3 pr-0">
                                     <input type="image" width="80%" height="80%" style="border-radius:50%" src=@stream.ProfilePicture/>
