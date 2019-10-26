@@ -50,7 +50,7 @@ namespace StreamWork.Controllers {
         private async Task VerifyTask (IPNContext ipnContext) {
             string error = ipnContext.RequestBody;
             try {
-                var verificationRequest = WebRequest.Create("https://www.sandbox.paypal.com/cgi-bin/webscr");
+                var verificationRequest = WebRequest.Create("https://ipnpb.paypal.com/cgi-bin/webscr");
 
                 //Set values for the verification request
                 verificationRequest.Method = "POST";
@@ -108,7 +108,7 @@ namespace StreamWork.Controllers {
                         Error = "NO_DATA " + error
                     });
                 }
-                else if (ipnContext.Verification.Equals("VERIFIED") || request["test_ipn"].Equals("1")) {
+                else if (ipnContext.Verification.Equals("VERIFIED") || "1".Equals(request["test_ipn"])) {
                     // check that Payment_status=Completed
                     // check that Txn_id has not been previously processed
                     // check that Receiver_email is your Primary PayPal email
@@ -119,7 +119,7 @@ namespace StreamWork.Controllers {
                         error = "INCORRECT_RECEIVER " + error;
                     }
 
-                    if (!request["test_ipn"].Equals("1")) {
+                    if (!"1".Equals(request["test_ipn"])) {
                         error = "TEST " + error;
                     }
 
@@ -140,7 +140,7 @@ namespace StreamWork.Controllers {
                             error = "INCORRECT_CURRENCY " + error;
 
                         }
-                        else if (!request["mc_gross"].Equals("15.00")) {
+                        else if (!user.Trial && !request["mc_gross"].Equals("15.00")) {
                             error = "INCORRECT_VALUE" + error;
 
                         }
@@ -154,6 +154,7 @@ namespace StreamWork.Controllers {
                                     user.Expiration = user.Expiration.AddMonths(1);
                                 }
 
+                                user.Trial = true;
                                 await helperFunctions.UpdateUser(storageConfig, user);
                             }
                         }

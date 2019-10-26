@@ -119,15 +119,20 @@ function NavigateToPage (url) {
     return
 }
 
+function redirect () {
+    window.location.href = '/Home/Subscribe';
+    return;
+}
 
-    function StartBroadcast(profileType, loggedIn){
-        if(profileType == "tutor" && loggedIn != ""){
-            window.location.href = "/Tutor/ProfileTutor"
-        }
-        else{
-            window.location.href="Home/Login?-Home-Profile"
-        }
+
+function StartBroadcast(profileType, loggedIn){
+    if(profileType == "tutor" && loggedIn != ""){
+        window.location.href = "/Tutor/ProfileTutor"
     }
+    else{
+        window.location.href="Home/Login?-Home-Profile"
+    }
+}
 
 
 function RecoverPassword() {
