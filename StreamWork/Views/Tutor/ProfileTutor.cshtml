@@ -6,7 +6,7 @@
 }
     <div style="font-family:'Roboto', sans-serif;">
         <nav class="navbar sticky-top navbar-expand-lg  text-center" style="background-color:#008080">
-            <img src="~/images/streamworkPencilWhite.png" height="70" onclick="" />
+            <img src="~/images/streamworkPencilWhite.png" height="70" onclick="window.location.href='/'" />
             <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -52,7 +52,7 @@
                                         <h1 class="card-title mt-4" style=" font-size:1.8vw; color:lightgray"><b>@Model.userProfile.Name.Replace('|',' ')</b></h1>
                                         <p class="card-text" style="font-size:1vw; color:white">@Model.userProfile.ProfileCaption</p>
                                         <p class="card-text" style="font-size:1vw; color:white">@Model.userProfile.ProfileParagraph</p>
-                                        <button class="editbtn" onclick="EditProfile()" style="display:block; margin-left:auto; margin-right:auto;">Edit Profile</button>
+                                        <button class="editbtn" style="display:block; margin-left:auto; margin-right:auto;" onclick="EditProfile()">Edit Profile</button>
                                     </div>
                                 </div>
                             </li>
@@ -65,16 +65,20 @@
                      <div class="row">
                         @foreach(var stream in Model.userArchivedVideos){
                         <div class="col-lg-4 col-md-6">
-                            <input type="image" width="100%" height="80%" src=@stream.StreamThumbnail onclick="onclick="window.location.href='../StreamViews/StreamPlaybackPage?streamId=' + ('@stream.StreamID')">
-                             <div class="row">
+                            <div class="card" style="border-radius:5%">
+                              <input type="image" width="100%" height="70%" style="border-top-left-radius:5%; border-top-right-radius:5%" src=@stream.StreamThumbnail onclick="window.location.href='../StreamViews/StreamPlaybackPage?streamId=' + ('@stream.StreamID')">
+                              <div class="card-body" style="background-color:#008080 ;border-bottom-left-radius:5%; border-bottom-right-radius:5%" onclick="window.location.href='../StreamViews/StreamPlaybackPage?streamId=' + ('@stream.StreamID')">
+                                <div class="row">
                                 <div class="col-3 pr-0">
-                                    <input type="image" width="80%" height="80%" style="border-radius:50%" src=@stream.ProfilePicture/>
+                                    <input type="image" width="80%" height="100%" style="border-radius:50%" src=@stream.ProfilePicture/>
                                 </div>
-                                <div class="col-9 pl-0">
+                                 <div class="col-9 pl-0" style="color:white">
                                     <h5 style="font-family: 'Roboto';">@stream.StreamTitle</h5>
                                     <h6 style="font-family: 'Roboto'">@stream.StreamSubject</h6>
                                     <h6 style="font-family: 'Roboto';">@stream.Username</h6>
                                 </div>
+                                </div>
+                              </div>
                             </div>
                         </div>
                         }
