@@ -64,17 +64,21 @@
                     <h3>PAST LIVESTREAMS</h3>
                     <div class="row">
                         @foreach(var stream in Model.userArchivedVideos){
-                        <div class="col-lg-4 col-md-6 mt-4">
-                            <input type="image" width="100%" height="80%" src=@stream.StreamThumbnail  onclick="window.location.href='../StreamViews/StreamPlaybackPage?streamId=' + ('@stream.StreamID')">
-                           <div class="row">
+                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+                            <div class="card mt-3" style="border-radius:5%; border:none; min-width:200px;">
+                              <input type="image" width="100%" height="70%" style="border-top-left-radius:5%; border-top-right-radius:5%;" src=@stream.StreamThumbnail onclick="window.location.href='../StreamViews/StreamPlaybackPage?streamId=' + ('@stream.StreamID')">
+                              <div class="card-body" style="background-color:#008080 ;border-bottom-left-radius:5%; border-bottom-right-radius:5%; border:none" onclick="window.location.href='../StreamViews/StreamPlaybackPage?streamId=' + ('@stream.StreamID')">
+                                <div class="row">
                                 <div class="col-3 pr-0">
-                                    <input type="image" width="80%" height="70%" style="border-radius:50%" src=@stream.ProfilePicture onclick="window.location.href='../StreamViews/StreamPlaybackPage?streamId=' + ('@stream.StreamID')" />
+                                    <input type="image" width="80%" height="100%" style="border-radius:50%; min-width:50px;" src=@stream.ProfilePicture/>
                                 </div>
-                                <div class="col-9 pl-0">
-                                    <h5 style="font-family: 'Roboto';">@stream.StreamTitle</h5>
-                                    <h6 style="font-family: 'Roboto'">@stream.StreamSubject</h6>
-                                    <h6 style="font-family: 'Roboto';">@stream.Username</h6>
+                                 <div class="col-9 pl-3" style="color:white;">
+                                    <h5 class="text-truncate" style="font-family: 'Roboto'; font-size:15px;">@stream.StreamTitle</h5>
+                                    <h6 class="text-truncate" style="font-family: 'Roboto'; font-size:12px">@stream.StreamSubject</h6>
+                                    <h6 class="text-truncate" style="font-family: 'Roboto'; font-size:12px">@stream.Username</h6>
                                 </div>
+                                </div>
+                              </div>
                             </div>
                         </div>
                         }
