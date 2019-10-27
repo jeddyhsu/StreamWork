@@ -47,11 +47,12 @@ namespace StreamWork.Threads
             }
         }
 
-        public void StopRecordingStream()
+        public async Task StopRecordingStream()
         {
             try
             {
-                var startRecording = DataStore.CallAPI<string>("https://api.dacast.com/v2/channel/" + userChannel.ChannelKey + "/recording/stop?apikey=135034_9d5e445816dfcd2a96ad");
+                HttpClient httpClient = new HttpClient();
+                var response = await httpClient.PostAsync("https://api.dacast.com/v2/channel/505911/recording/stop?apikey=135034_9d5e445816dfcd2a96ad", null);
             }
             catch (Exception ex)
             {
