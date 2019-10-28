@@ -1,5 +1,6 @@
 ﻿
     //Sends profile caption and paragraph to backend for saving
+
     function RegisterProfilePhotoAndCaption() {
         var formData = new FormData();
         var profileCaption = $("#ProfileCaption").val()
