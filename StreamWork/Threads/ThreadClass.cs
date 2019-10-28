@@ -81,7 +81,7 @@ namespace StreamWork.Threads
                 
                 while (tryAPI)
                 {
-                    await Task.Delay(300000, cancellationToken);
+                    await Task.Delay(60000, cancellationToken);
                     try
                     {
                         var liveRecording = DataStore.CallAPI<LiveRecordingAPI>("https://api.dacast.com/v2/channel/" + userChannel.ChannelKey + "/recording/watch?apikey=135034_9d5e445816dfcd2a96ad&_format=JSON");

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Mail;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNetCore.Http;
@@ -106,6 +108,30 @@ namespace StreamWork.HelperClasses
             query["username"] = username;
             uriBuilder.Query = query.ToString();
             return uriBuilder.ToString();
+        }
+
+        public async Task<string> GetChatSecretKey([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string user)
+        {
+            var userChannel = await GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user);
+            var ids = userChannel[0].ChatId.Split("|");
+            var encodedUrl = HttpUtility.UrlEncode(Convert.ToBase64String(hmacSHA256("/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + ids[0] + "&tkey=" + ids[1] + "&nme=" + userChannel[0].Username, "3O08UU-OtQ_rycx3")));
+            var finalString = "https://www6.cbox.ws" + "/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + ids[0] + "&tkey=" + ids[1] + "&nme=" + userChannel[0].Username + "&sig=" + encodedUrl;
+            return finalString;
+        }
+
+        public string GetChatSecretKey(string tid, string tkey, string userName) //Overload for StreamPage
+        {
+            var encodedUrl = HttpUtility.UrlEncode(Convert.ToBase64String(hmacSHA256("/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + tid + "&tkey=" + tkey + "&nme=" + userName, "3O08UU-OtQ_rycx3")));
+            var finalString = "https://www6.cbox.ws" + "/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + tid + "&tkey=" + tkey + "&nme=" + userName + "&sig=" + encodedUrl;
+            return finalString;
+        }
+
+        public byte[] hmacSHA256(String data, String key) //Encryption to get ChatSecretKey
+        {
+            using (HMACSHA256 hmac = new HMACSHA256(Encoding.ASCII.GetBytes(key)))
+            {
+                return hmac.ComputeHash(Encoding.ASCII.GetBytes(data));
+            }
         }
     }
 }

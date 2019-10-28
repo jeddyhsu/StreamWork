@@ -10,6 +10,8 @@ using StreamWork.DataModels;
 using StreamWork.Threads;
 using StreamWork.DaCastAPI;
 using StreamWork.HelperClasses;
+using System.Web;
+using System;
 
 namespace StreamWork.Controllers
 {
@@ -29,7 +31,8 @@ namespace StreamWork.Controllers
                 userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user),
                 userLogins = await helperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user),
                 userChannels = await helperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user),
-                userArchivedVideos = await helperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, user)
+                userArchivedVideos = await helperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, user),
+                ChatSecretKey = await GetChatSecretKey(storageConfig, user)
             };
             return View(viewModel);
         }
@@ -204,6 +207,15 @@ namespace StreamWork.Controllers
             }
 
             return Json(new { Message = JsonResponse.Success.ToString()});
+        }
+
+        private async Task<string> GetChatSecretKey([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string user)
+        {
+            var userChannel = await helperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user);
+            var ids = userChannel[0].ChatId.Split("|");
+            var encodedUrl = HttpUtility.UrlEncode(Convert.ToBase64String(helperFunctions.hmacSHA256("/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + ids[0] + "&tkey=" + ids[1] + "&nme=" + userChannel[0].Username, "3O08UU-OtQ_rycx3")));
+            var finalString = "https://www6.cbox.ws" + "/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + ids[0] + "&tkey=" + ids[1] + "&nme=" + userChannel[0].Username + "&sig=" + encodedUrl ;
+            return finalString;
         }
     }
 }

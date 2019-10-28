@@ -10,6 +10,9 @@ using Microsoft.Extensions.Options;
 using StreamWork.ViewModels;
 using StreamWork.DataModels;
 using StreamWork.HelperClasses;
+using System.Web;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace StreamWork.Controllers
 {

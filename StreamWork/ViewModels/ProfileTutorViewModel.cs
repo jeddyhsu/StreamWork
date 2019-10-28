@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using StreamWork.DataModels;
-using StreamWork.Models;
 
 namespace StreamWork.ViewModels {
 
@@ -12,6 +10,8 @@ namespace StreamWork.ViewModels {
         public List<UserChannel> userChannels { get; set; }
         public List<UserArchivedStreams> userArchivedVideos { get; set; }
         public List<UserLogin> userLogins { get; set; }
+
+        public string ChatSecretKey { get; set; }
 
     }
 }

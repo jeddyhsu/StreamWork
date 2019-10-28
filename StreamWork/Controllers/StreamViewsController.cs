@@ -21,7 +21,9 @@ namespace StreamWork.Controllers
             var user = HttpContext.Session.GetString("UserProfile");
 
             var split = streamKeyandchatId.Split(new char[] { '|' });
-            string[] arr = { split[0], split[1], split[2] };
+            var secretChatKey = helperFunctions.GetChatSecretKey(split[1], split[2], user);
+            string[] arr = { split[0], secretChatKey };
+
             StreamPageViewModel model = new StreamPageViewModel {
                 profile = new ProfileTutorViewModel {
                     userProfile = user != null ? await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user) : null
