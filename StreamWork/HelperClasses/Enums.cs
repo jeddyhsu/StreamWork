@@ -13,6 +13,7 @@ namespace StreamWork.HelperClasses
     {
         CurrentUser,
         AllUserChannelsThatAreStreaming,
+        AllUserChannelsThatAreStreamingWithSpecifiedSubject,
         UserArchivedVideosBasedOnSubject,
         CurrentUserChannel,
         UserArchivedVideos,

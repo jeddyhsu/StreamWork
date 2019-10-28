@@ -26,7 +26,8 @@ namespace StreamWork.Controllers
 
             ProfileStudentViewModel viewModel = new ProfileStudentViewModel
             {
-                userLogins = await helperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user)
+                userLogins = await helperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user),
+                userChannels = await helperFunctions.GetUserChannels(storageConfig, QueryHeaders.AllUserChannelsThatAreStreaming, "NULL"),
             };
             return View(viewModel);
         }

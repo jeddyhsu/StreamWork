@@ -120,7 +120,7 @@ namespace StreamWork.Controllers
 
             ProfileTutorViewModel model = new ProfileTutorViewModel
             {
-                userChannels = await helperFunctions.GetUserChannels(storageConfig, QueryHeaders.AllUserChannelsThatAreStreaming, subject),
+                userChannels = await helperFunctions.GetUserChannels(storageConfig, QueryHeaders.AllUserChannelsThatAreStreamingWithSpecifiedSubject, subject),
                 userLogins = await GetPopularStreamTutors(storageConfig),
                 userProfile = user != null ? await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user) : null
             };

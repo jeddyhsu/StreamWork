@@ -24,6 +24,10 @@
       "Queries": [
         {
           "Query": "SELECT * FROM [dbo].[UserChannel] WHERE StreamSubject = '@x0'",
+          "QueryId": "AllUserChannelsThatAreStreamingWithSpecifiedSubject"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[UserChannel] WHERE StreamSubject != '@x0'",
           "QueryId": "AllUserChannelsThatAreStreaming"
         },
         {
