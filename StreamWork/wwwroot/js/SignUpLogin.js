@@ -1,17 +1,31 @@
 ﻿//Handles signing up
 function SignUpStudent() {
+
+    var nameFirst = $("#nameFirstS").val();
+    var nameLast = $("#nameLastS").val();
+    var email = $("#emailS").val();
+    var username = $("#usernameS").val();
+    var password = $('#passwordS').val();
+    var confirmPassword = $('#passwordConfirmS').val();
+    var role = 'student';
+
+    if (nameFirst == "" || nameLast == "" || email == "" || username == "" || password == "" || confirmPassword == "") {
+        alert("Please fill out all fields");
+        return;
+    }
+
     $.ajax({
         url: '/Home/SignUp',
         type: 'post',
         dataType: 'json',
         data: {
-            'nameFirst': $("#nameFirstS").val(),
-            'nameLast': $("#nameLastS").val(),
-            'email': $("#emailS").val(),
-            'username': $("#usernameS").val(),
-            'password': $('#passwordS').val(),
-            'passwordConfirm': $('#passwordConfirmS').val(),
-            'role': 'student',
+            'nameFirst': nameFirst,
+            'nameLast': nameLast,
+            'email': email,
+            'username': username,
+            'password': password,
+            'passwordConfirm': confirmPassword,
+            'role': role,
         },
         success: function(data) {
             if (data.message === "Success") {
@@ -38,7 +52,7 @@ function SignUpTutor() {
     var username = $("#usernameT").val();
     var password = $('#passwordT').val();
     var confirmPassword = $('#passwordConfirmT').val();
-    var role = 'Tutor';
+    var role = 'tutor';
 
     if (nameFirst == "" || nameLast == "" || email == "" || username == "" || password == "" || confirmPassword == "") {
         alert("Please fill out all fields");

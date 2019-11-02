@@ -185,7 +185,7 @@ namespace StreamWork.Controllers
                     Name = nameFirst + "|" + nameLast,
                     EmailAddress = email,
                     Username = username,
-                    Password = password,
+                    Password = helperFunctions.EncryptPassword(password),
                     ProfileType = role,
                     ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/default-profile.png",
                     Balance = (decimal) 0f,
@@ -240,7 +240,10 @@ namespace StreamWork.Controllers
         [HttpPost]
         public async Task<IActionResult> Login([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string username, string password)
         {
-            var checkforUser = await DataStore.GetListAsync<UserLogin>(helperFunctions._connectionString, storageConfig.Value, "AllSignedUpUsersWithPassword", new List<string> { username, password });
+            var userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
+            if (userProfile == null)
+                return Json(new { Message = "Error" });
+            var checkforUser = await DataStore.GetListAsync<UserLogin>(helperFunctions._connectionString, storageConfig.Value, "AllSignedUpUsersWithPassword", new List<string> { username, helperFunctions.DecryptPassword(userProfile.Password,password)}) ;
             if (checkforUser.Count == 1)
             {
                 checkforUser[0].LoggedIn = "Logged In";
@@ -304,7 +307,7 @@ namespace StreamWork.Controllers
                 var pathFormat = path.Split(new char[] { '=' });
                 var username = pathFormat[1];
                 var userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
-                userProfile.Password = newPassword;
+                userProfile.Password = helperFunctions.EncryptPassword(newPassword);
                 await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
                 return Json(new { Message = JsonResponse.Success.ToString()});
             }   

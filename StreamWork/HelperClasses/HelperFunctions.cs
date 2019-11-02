@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Storage;
@@ -137,12 +138,31 @@ namespace StreamWork.HelperClasses
             return finalString;
         }
 
-        public byte[] hmacSHA256(String data, String key) //Encryption to get ChatSecretKey
+        public byte[] hmacSHA256(string data, string key) //Encryption to get ChatSecretKey
         {
             using (HMACSHA256 hmac = new HMACSHA256(Encoding.ASCII.GetBytes(key)))
             {
                 return hmac.ComputeHash(Encoding.ASCII.GetBytes(data));
             }
+        }
+
+        public string EncryptPassword(string password) //Hash for passwords
+        {
+            byte[] salt = new byte[128 / 8];
+            using(var randomNumber = RandomNumberGenerator.Create())
+            {
+                randomNumber.GetBytes(salt);
+            }
+            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(password, salt, KeyDerivationPrf.HMACSHA1, 10000, (256 / 8)));
+            return hashed + "|" + salt;
+        }
+
+        public string DecryptPassword(string salt, string password) //Compare Hash
+        {
+            var decrypt = salt.Split('|');
+            var bytesSalt = Convert.FromBase64String(decrypt[1]);
+            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(password, bytesSalt, KeyDerivationPrf.HMACSHA1, 10000, (256 / 8)));
+            return hashed + "|" + decrypt[1];
         }
     }
 }
