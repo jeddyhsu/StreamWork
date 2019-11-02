@@ -40,6 +40,11 @@ function SignUpTutor() {
     var confirmPassword = $('#passwordConfirmT').val();
     var role = 'Tutor';
 
+    if (nameFirst == "" || nameLast == "" || email == "" || username == "" || password == "" || confirmPassword == "") {
+        alert("Please fill out all fields");
+        return;
+    }
+
     if (transcript.length != 1 && letterOfrec.length != 1 && resume.length != 1) {
         alert("A Transcript, Resume and Letter Of Recommandation are required");
         return;
