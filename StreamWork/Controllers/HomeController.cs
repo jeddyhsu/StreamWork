@@ -13,6 +13,9 @@ using StreamWork.HelperClasses;
 using System.Web;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.Extensions.Primitives;
+using System.Net.Mail;
+using System.IO;
 
 namespace StreamWork.Controllers
 {
@@ -145,6 +148,33 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> SignUp([FromServices] IOptionsSnapshot<StorageConfig> storageConfig,
                                                 string nameFirst, string nameLast, string email, string username, string password, string passwordConfirm, string role)
         {
+            //Checks for the attachments that tutors provide and sends them to streamwork for verification
+            if(Request.Form.Files.Count != 0)
+            {
+                List<string> values = new List<string>();
+                foreach(var key in Request.Form.Keys)
+                {
+                    Request.Form.TryGetValue(key, out StringValues value);
+                    values.Add(value);
+                }
+
+                nameFirst = values[0];
+                nameLast = values[1];
+                email = values[2];
+                username = values[3];
+                password = values[4];
+                passwordConfirm = values[5];
+                role = values[6];
+
+                var files = Request.Form.Files;
+                List<Attachment> attachments = new List<Attachment>();
+                foreach (var file in files)
+                {
+                    attachments.Add(new Attachment(file.OpenReadStream(),file.FileName));
+                }
+                helperFunctions.SendEmailToAnyEmail("streamworktutor@gmail.com", "streamworktutor@gmail.com","Tutor Eval",email,attachments);
+            }
+
             var checkCurrentUsers = await DataStore.GetListAsync<UserLogin>(helperFunctions._connectionString, storageConfig.Value, "CurrentUser", new List<string> { username });
             if (checkCurrentUsers.Count == 0)
             {
@@ -260,7 +290,7 @@ namespace StreamWork.Controllers
             var userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
             if(userProfile == null)
                 return Json(new { Message = JsonResponse.Failed.ToString() });
-            helperFunctions.SendEmailToAnyEmail(userProfile.EmailAddress, "Password Recovery", helperFunctions.CreateUri(userProfile.Username));
+            helperFunctions.SendEmailToAnyEmail("streamworktutor@gmail.com",userProfile.EmailAddress, "Password Recovery", helperFunctions.CreateUri(userProfile.Username),null);
             return Json(new { Message = JsonResponse.Success.ToString()});
         }
 
@@ -303,6 +333,11 @@ namespace StreamWork.Controllers
 
         [HttpGet]
         public IActionResult Subscribe() {
+            return View();
+        }
+
+        public IActionResult PickStudentOrTutor()
+        {
             return View();
         }
     }

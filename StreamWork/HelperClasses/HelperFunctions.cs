@@ -89,8 +89,8 @@ namespace StreamWork.HelperClasses
             return true;
         }
 
-        //sends to any email from streamworktutor@gmail.com provided the 'to' 'subject' & 'body'
-        public void SendEmailToAnyEmail(string to, string subject, string body)
+        //sends to any email from streamworktutor@gmail.com provided the 'from' 'to' 'subject' 'body' & 'attachments' (if needed)
+        public void SendEmailToAnyEmail(string from, string to, string subject, string body, List<Attachment> attachments)
         {
             SmtpClient client = new SmtpClient("smtp.gmail.com", 587)
             {
@@ -98,7 +98,18 @@ namespace StreamWork.HelperClasses
                 EnableSsl = true
             };
 
-            client.Send("streamworktutor@gmail.com", to, subject, body);
+            MailMessage message = new MailMessage();
+            message.Subject = subject;
+            message.To.Add(to);
+            message.Body = body;
+            message.From = new MailAddress(from);
+            if(attachments != null)
+            {
+                foreach(var attachement in attachments)
+                    message.Attachments.Add(attachement);
+            }
+
+            client.Send(message);
         }
 
         public string CreateUri(string username)
