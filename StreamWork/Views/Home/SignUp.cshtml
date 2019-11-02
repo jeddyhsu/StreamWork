@@ -6,25 +6,25 @@
 <div class="text-center">
     <section id="Student">
         <form class="form-sign">
-        <img src="~/images/streamworklogo.png" width="250" height="70" onclick="window.location.href='/'" />
-        <h4>Sign Up</h4>
-        <br>
-        <input type="text" class="form-control" id="nameFirstS" placeholder="First Name">
-        <input type="text" class="form-control mt-2" id="nameLastS" placeholder="Last Name">
-        <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
-        <input type="text" class="form-control" id="emailS" placeholder="Email Address" size="45">
-        <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
-        <input type="text" class="form-control" id="usernameS" placeholder="Username" size="45">
-        <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
-        <input type="password" class="form-control" id="passwordS" placeholder="Password" size="45">
-        <input type="password" class="form-control mt-2" id="passwordConfirmS" placeholder="Re-enter Password" size="45"> <br>
-        <strong>Login Type: Student</strong> &nbsp; &nbsp; &nbsp;
-        <br />
-        <br />
-        <input type="button" class="btn btn-block" value="Watch Livestreams!" onclick="SignUpStudent()" style="background-color:#008080; color: white"> <br> <br>
-    </form>
-   </section>
-    
+            <img src="~/images/streamworklogo.png" width="250" height="70" onclick="window.location.href='/'" />
+            <h4>Sign Up</h4>
+            <br>
+            <input type="text" class="form-control" id="nameFirstS" placeholder="First Name">
+            <input type="text" class="form-control mt-2" id="nameLastS" placeholder="Last Name">
+            <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
+            <input type="text" class="form-control" id="emailS" placeholder="Email Address" size="45">
+            <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
+            <input type="text" class="form-control" id="usernameS" placeholder="Username" size="45">
+            <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
+            <input type="password" class="form-control" id="passwordS" placeholder="Password" size="45">
+            <input type="password" class="form-control mt-2" id="passwordConfirmS" placeholder="Re-enter Password" size="45"> <br>
+            <strong>Login Type: Student</strong> &nbsp; &nbsp; &nbsp;
+            <br />
+            <br />
+            <input type="button" class="btn btn-block" value="Watch Livestreams!" onclick="SignUpStudent()" style="background-color:#008080; color: white"> <br> <br>
+        </form>
+    </section>
+
     <section id="Tutor">
         <form class="form-sign">
             <img src="~/images/streamworklogo.png" width="250" height="70" onclick="window.location.href='/'" />
@@ -42,21 +42,37 @@
             <strong>Login Type: Tutor</strong> &nbsp; &nbsp; &nbsp;
             <br />
             <br />
-             <div class="upload-uploadbtn-wrapper">
-                <button class="uploadbtn">Upload Transcript</button>
-                <input id="uploadTranscript" type='file' onchange="ReadFile(this, 'transcript')" />
-                <h6 id="Transcript" class="mt-2"></h6>
-             </div>
-            <br />
-             <div class="upload-uploadbtn-wrapper">
-                <button class="uploadbtn">Upload Letter Of Recommendation</button>
-                <input id="uploadLetterofrec" type='file' onchange="ReadFile(this, 'letterofrec')" />
-                <h6 id="LetterOfRec" class="mt-2"></h6>
-             </div>
-             <br />
-             <br />
-            <input type="button" class="btn btn-block" value="Become A StreamTutor!" onclick="SignUpTutor()" style="background-color:#008080; color: white"> <br> <br>
         </form>
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-lg-2 col-md-12">
+                <div class="upload-uploadbtn-wrapper">
+                    <button class="uploadbtn";>Upload Transcript</button>
+                    <input id="uploadTranscript" type='file' accept="application/pdf" onchange="ReadFile(this, 'transcript')" />
+                    <h6 id="Transcript" class="mt-2"></h6>
+                </div>
+                <br />
+            </div>
+            <div class="col-lg-2 col-md-12">
+                <div class="upload-uploadbtn-wrapper">
+                    <button class="uploadbtn">Upload LOR</button>
+                    <input id="uploadLetterofrec" type='file' accept="application/pdf" onchange="ReadFile(this, 'letterofrec')" />
+                    <h6 id="LetterOfRec" class="mt-2"></h6>
+                </div>
+                <br />
+            </div>
+            <div class="col-lg-2 col-md-12">
+                <div class="upload-uploadbtn-wrapper">
+                    <button class="uploadbtn">Upload Resume</button>
+                    <input id="uploadResume" type='file' accept="application/pdf" onchange="ReadFile(this, 'resume')" />
+                    <h6 id="Resume" class="mt-2"></h6>
+                </div>
+                <br />
+            </div>
+        </div>
+        <br />
+        <input type="button" class="btn btn-block" value="Become A StreamTutor!" onclick="SignUpTutor()" style="background-color:#008080; color: white; width:200px; display:block; margin-left:auto;margin-right:auto"> <br> <br>
+
     </section>
 
 </div>

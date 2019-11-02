@@ -10,12 +10,8 @@ using Microsoft.Extensions.Options;
 using StreamWork.ViewModels;
 using StreamWork.DataModels;
 using StreamWork.HelperClasses;
-using System.Web;
-using System.Security.Cryptography;
-using System.Text;
 using Microsoft.Extensions.Primitives;
 using System.Net.Mail;
-using System.IO;
 
 namespace StreamWork.Controllers
 {

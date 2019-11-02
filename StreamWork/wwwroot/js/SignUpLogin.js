@@ -31,6 +31,7 @@ function SignUpTutor() {
     var formData = new FormData();
     var transcript = document.getElementById("uploadTranscript").files;
     var letterOfrec = document.getElementById("uploadLetterofrec").files;
+    var resume = document.getElementById("uploadResume").files;
     var nameFirst = $("#nameFirstT").val();
     var nameLast = $("#nameLastT").val();
     var email = $("#emailT").val();
@@ -39,13 +40,14 @@ function SignUpTutor() {
     var confirmPassword = $('#passwordConfirmT').val();
     var role = 'Tutor';
 
-    if (transcript.length != 1 && letterOfrec.length != 1) {
-        alert("A Transcript and Letter Of Recommandation is required");
+    if (transcript.length != 1 && letterOfrec.length != 1 && resume.length != 1) {
+        alert("A Transcript, Resume and Letter Of Recommandation are required");
         return;
     }
 
     formData.append("Transcript", transcript[0]);
     formData.append("LetterOfRec", letterOfrec[0]);
+    formData.append("Resume", resume[0]);
     formData.append("nameFirst", nameFirst);
     formData.append("nameLast", nameLast);
     formData.append("email", email);
@@ -218,12 +220,16 @@ function ReadFile(input, type) {
     var file = input.files[0];
     var transcript = document.getElementById("Transcript");
     var letterOfRec = document.getElementById("LetterOfRec");
+    var resume = document.getElementById("Resume");
 
     if (type == 'transcript') {
         transcript.innerHTML = file.name;
     }
     else if (type == 'letterofrec') {
         letterOfRec.innerHTML = file.name;
+    }
+    else if (type == 'resume') {
+        resume.innerHTML = file.name;
     }
 }
 
