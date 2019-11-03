@@ -154,7 +154,7 @@ namespace StreamWork.HelperClasses
                 randomNumber.GetBytes(salt);
             }
             string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(password, salt, KeyDerivationPrf.HMACSHA1, 10000, (256 / 8)));
-            return hashed + "|" + salt;
+            return hashed + "|" + Convert.ToBase64String(salt);
         }
 
         public string DecryptPassword(string salt, string password) //Compare Hash
