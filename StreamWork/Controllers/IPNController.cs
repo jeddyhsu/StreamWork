@@ -23,7 +23,7 @@ namespace StreamWork.Controllers {
         }
 
         private IOptionsSnapshot<StorageConfig> storageConfig;
-        private HelperFunctions helperFunctions = new HelperFunctions();
+        private readonly HelperFunctions helperFunctions = new HelperFunctions();
 
         [HttpPost]
         public IActionResult Receive ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
@@ -35,20 +35,27 @@ namespace StreamWork.Controllers {
 
             using (StreamReader reader = new StreamReader(ipnContext.IPNRequest.Body, Encoding.ASCII)) {
                 ipnContext.RequestBody = reader.ReadToEnd();
+                reader.Close();
             }
 
             //Store the IPN received from PayPal
-            Task.Run(() => LogRequest(ipnContext));
+            Task.Run(() => LogRequest(new IPNContext {
+                IPNRequest = ipnContext.IPNRequest,
+                RequestBody = string.Copy(ipnContext.RequestBody)
+            }));
 
             //Fire and forget verification task
-            Task.Run(() => VerifyTask(ipnContext));
+            Task.Run(() => VerifyTask(new IPNContext {
+                IPNRequest = ipnContext.IPNRequest,
+                RequestBody = string.Copy(ipnContext.RequestBody)
+            }));
 
             //Reply back a 200 code
             return Ok();
         }
 
         private async Task VerifyTask (IPNContext ipnContext) {
-            string error = ipnContext.RequestBody;
+            string error = string.Empty;
             try {
                 var verificationRequest = WebRequest.Create("https://ipnpb.paypal.com/cgi-bin/webscr");
 
@@ -63,11 +70,13 @@ namespace StreamWork.Controllers {
                 //Attach payload to the verification request
                 using (StreamWriter writer = new StreamWriter(verificationRequest.GetRequestStream(), Encoding.ASCII)) {
                     writer.Write(strRequest);
+                    writer.Close();
                 }
 
                 //Send the request to PayPal and get the response
                 using (StreamReader reader = new StreamReader(verificationRequest.GetResponse().GetResponseStream())) {
                     ipnContext.Verification = reader.ReadToEnd();
+                    reader.Close();
                 }
             }
             catch (Exception exception) {
@@ -175,7 +184,7 @@ namespace StreamWork.Controllers {
 
                             if (error.Equals("")) {
                                 var tutor = tutors[0];
-                                tutor.Balance = tutor.Balance + (decimal)donationAmt;
+                                tutor.Balance += (decimal)donationAmt;
                                 await helperFunctions.UpdateUser(storageConfig, tutor);
                             }
                         }
