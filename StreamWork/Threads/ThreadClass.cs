@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -34,12 +33,25 @@ namespace StreamWork.Threads
             this.streamThumbnail = streamThumbnail;
         }
 
-        public async Task StartRecordingStream()
+        public async Task TurnRecordingOn() //Enables Stream Recording
         {
             try
             {
                 HttpClient httpClient = new HttpClient();
-                var response = await httpClient.PostAsync("https://api.dacast.com/v2/channel/505911/recording/start?apikey=135034_9d5e445816dfcd2a96ad",null);
+                var response = await httpClient.PostAsync("https://api.dacast.com/v2/channel/" + userChannel.ChannelKey + "/recording/watch?apikey=135034_9d5e445816dfcd2a96ad", null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error in TurnRecordingOn: " + ex.Message);
+            }
+        }
+
+        public async Task StartRecordingStream() //Starts Stream Recording
+        {
+            try
+            {
+                HttpClient httpClient = new HttpClient();
+                var response = await httpClient.PostAsync("https://api.dacast.com/v2/channel/" + userChannel.ChannelKey + "/recording/start?apikey=135034_9d5e445816dfcd2a96ad",null);
             }
             catch(Exception ex)
             {
@@ -47,12 +59,12 @@ namespace StreamWork.Threads
             }
         }
 
-        public async Task StopRecordingStream()
+        public async Task StopRecordingStream() //Stops Stream Recording
         {
             try
             {
                 HttpClient httpClient = new HttpClient();
-                var response = await httpClient.PostAsync("https://api.dacast.com/v2/channel/505911/recording/stop?apikey=135034_9d5e445816dfcd2a96ad", null);
+                var response = await httpClient.PostAsync("https://api.dacast.com/v2/channel/" + userChannel.ChannelKey + "/recording/stop?apikey=135034_9d5e445816dfcd2a96ad", null);
             }
             catch (Exception ex)
             {
@@ -133,7 +145,7 @@ namespace StreamWork.Threads
             {
                 Console.WriteLine(e.InnerException);
             }
-          
+
             return true;
         }
 

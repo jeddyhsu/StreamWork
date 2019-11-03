@@ -93,7 +93,7 @@ namespace StreamWork.HelperClasses
         //sends to any email from streamworktutor@gmail.com provided the 'from' 'to' 'subject' 'body' & 'attachments' (if needed)
         public void SendEmailToAnyEmail(string from, string to, string subject, string body, List<Attachment> attachments)
         {
-            SmtpClient client = new SmtpClient("smtp.gmail.com", 587)
+                SmtpClient client = new SmtpClient("smtp.gmail.com", 587)
             {
                 Credentials = new NetworkCredential("streamworktutor@gmail.com", "STREAMW0RK0!"),
                 EnableSsl = true
@@ -110,7 +110,7 @@ namespace StreamWork.HelperClasses
                     message.Attachments.Add(attachement);
             }
 
-            client.Send(message);
+            client.SendMailAsync(message);
         }
 
         public string CreateUri(string username)
