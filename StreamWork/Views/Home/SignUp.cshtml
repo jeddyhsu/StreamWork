@@ -1,29 +1,80 @@
 ﻿<script src="~/js/SignUpLogin.js"></script>
-
 @{ViewData["title"] = "Sign Up";}
 <br />
 <br />
 <br />
-<div class=" text-center">
-    <form class="form-sign">
-        <img src="~/images/streamworklogo.png" width="250" height="70" onclick="window.location.href='/'" />
-        <h1>Sign Up</h1>
-        <br>
-        <input type="text" class="form-control" id="nameFirst" placeholder="First Name">
-        <input type="text" class="form-control mt-2" id="nameLast" placeholder="Last Name">
-        <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
-        <input type="text" class="form-control" id="email" placeholder="Email Address" size="45">
-        <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
-        <input type="text" class="form-control" id="username" placeholder="Username" size="45">
-        <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
-        <input type="password" class="form-control" id="password" placeholder="Password" size="45">
-        <input type="password" class="form-control mt-2" id="passwordConfirm" placeholder="Re-enter Password" size="45"> <br>
-        <strong>Login Type:</strong> &nbsp; &nbsp; &nbsp;
-        <select id="role">
-            <option value="student" selected>Student</option>
-            <option value="tutor">StreamTutor</option>
-        </select>
-        <br> <br>
-        <input type="button" class="btn btn-block" value="Sign Up" onclick="SignUp()" style="background-color:#008080; color: white"> <br> <br>
-    </form>
+<div class="text-center">
+    <section id="Student">
+        <form class="form-sign">
+            <img src="~/images/streamworklogo.png" width="250" height="70" onclick="window.location.href='/'" />
+            <h4>Sign Up</h4>
+            <br>
+            <input type="text" class="form-control" id="nameFirstS" placeholder="First Name">
+            <input type="text" class="form-control mt-2" id="nameLastS" placeholder="Last Name">
+            <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
+            <input type="text" class="form-control" id="emailS" placeholder="Email Address" size="45">
+            <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
+            <input type="text" class="form-control" id="usernameS" placeholder="Username" size="45">
+            <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
+            <input type="password" class="form-control" id="passwordS" placeholder="Password" size="45">
+            <input type="password" class="form-control mt-2" id="passwordConfirmS" placeholder="Re-enter Password" size="45"> <br>
+            <strong>Login Type: Student</strong> &nbsp; &nbsp; &nbsp;
+            <br />
+            <br />
+            <input type="button" class="btn btn-block" value="Watch Livestreams!" onclick="SignUpStudent()" style="background-color:#008080; color: white"> <br> <br>
+        </form>
+    </section>
+
+    <section id="Tutor">
+        <form class="form-sign">
+            <img src="~/images/streamworklogo.png" width="250" height="70" onclick="window.location.href='/'" />
+            <h4>Sign Up</h4>
+            <br>
+            <input type="text" class="form-control" id="nameFirstT" placeholder="First Name">
+            <input type="text" class="form-control mt-2" id="nameLastT" placeholder="Last Name">
+            <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
+            <input type="text" class="form-control" id="emailT" placeholder="Email Address" size="45">
+            <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
+            <input type="text" class="form-control" id="usernameT" placeholder="Username" size="45">
+            <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
+            <input type="password" class="form-control" id="passwordT" placeholder="Password" size="45">
+            <input type="password" class="form-control mt-2" id="passwordConfirmT" placeholder="Re-enter Password" size="45"><br>
+            <strong>Login Type: Tutor</strong> &nbsp; &nbsp; &nbsp;
+            <br />
+            <br />
+        </form>
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-lg-2 col-md-12">
+                <div class="upload-uploadbtn-wrapper">
+                    <button class="uploadbtn";>Upload Transcript</button>
+                    <input id="uploadTranscript" type='file' accept="application/pdf" onchange="ReadFile(this, 'transcript')" />
+                    <h6 id="Transcript" class="mt-2"></h6>
+                </div>
+                <br />
+            </div>
+            <div class="col-lg-2 col-md-12">
+                <div class="upload-uploadbtn-wrapper">
+                    <button class="uploadbtn">Upload LOR</button>
+                    <input id="uploadLetterofrec" type='file' accept="application/pdf" onchange="ReadFile(this, 'letterofrec')" />
+                    <h6 id="LetterOfRec" class="mt-2"></h6>
+                </div>
+                <br />
+            </div>
+            <div class="col-lg-2 col-md-12">
+                <div class="upload-uploadbtn-wrapper">
+                    <button class="uploadbtn">Upload Resume</button>
+                    <input id="uploadResume" type='file' accept="application/pdf" onchange="ReadFile(this, 'resume')" />
+                    <h6 id="Resume" class="mt-2"></h6>
+                </div>
+                <br />
+            </div>
+        </div>
+        <br />
+        <input type="button" class="btn btn-block" value="Become A StreamTutor!" onclick="SignUpTutor()" style="background-color:#008080; color: white; width:200px; display:block; margin-left:auto;margin-right:auto"> <br> <br>
+
+    </section>
+
 </div>
+
+<script>CheckIfStudentOrTutorIsSigningUp()</script>

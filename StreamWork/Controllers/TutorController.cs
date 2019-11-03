@@ -195,15 +195,13 @@ namespace StreamWork.Controllers
             if(currentPassword != null && newPassword != null && confirmPassword != null)
             {
                 var userLogin = await helperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user);
-                if(currentPassword == userLogin[0].Password)
+                if(helperFunctions.DecryptPassword(userLogin[0].Password,currentPassword) == helperFunctions.DecryptPassword(userLogin[0].Password, userLogin[0].Password))
                 {
-                    userLogin[0].Password = newPassword;
+                    userLogin[0].Password = helperFunctions.EncryptPassword(newPassword);
                     await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userLogin[0].Id } }, userLogin[0]);
                 }
                 else
-                {
                     return Json(new { Message = JsonResponse.Failed.ToString()});
-                }
             }
 
             return Json(new { Message = JsonResponse.Success.ToString()});

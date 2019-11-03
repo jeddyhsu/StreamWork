@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Storage;
@@ -89,8 +90,8 @@ namespace StreamWork.HelperClasses
             return true;
         }
 
-        //sends to any email from streamworktutor@gmail.com provided the 'to' 'subject' & 'body'
-        public void SendEmailToAnyEmail(string to, string subject, string body)
+        //sends to any email from streamworktutor@gmail.com provided the 'from' 'to' 'subject' 'body' & 'attachments' (if needed)
+        public void SendEmailToAnyEmail(string from, string to, string subject, string body, List<Attachment> attachments)
         {
             SmtpClient client = new SmtpClient("smtp.gmail.com", 587)
             {
@@ -98,7 +99,18 @@ namespace StreamWork.HelperClasses
                 EnableSsl = true
             };
 
-            client.Send("streamworktutor@gmail.com", to, subject, body);
+            MailMessage message = new MailMessage();
+            message.Subject = subject;
+            message.To.Add(to);
+            message.Body = body;
+            message.From = new MailAddress(from);
+            if(attachments != null)
+            {
+                foreach(var attachement in attachments)
+                    message.Attachments.Add(attachement);
+            }
+
+            client.Send(message);
         }
 
         public string CreateUri(string username)
@@ -126,12 +138,31 @@ namespace StreamWork.HelperClasses
             return finalString;
         }
 
-        public byte[] hmacSHA256(String data, String key) //Encryption to get ChatSecretKey
+        public byte[] hmacSHA256(string data, string key) //Encryption to get ChatSecretKey
         {
             using (HMACSHA256 hmac = new HMACSHA256(Encoding.ASCII.GetBytes(key)))
             {
                 return hmac.ComputeHash(Encoding.ASCII.GetBytes(data));
             }
+        }
+
+        public string EncryptPassword(string password) //Hash for passwords
+        {
+            byte[] salt = new byte[128 / 8];
+            using(var randomNumber = RandomNumberGenerator.Create())
+            {
+                randomNumber.GetBytes(salt);
+            }
+            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(password, salt, KeyDerivationPrf.HMACSHA1, 10000, (256 / 8)));
+            return hashed + "|" + Convert.ToBase64String(salt);
+        }
+
+        public string DecryptPassword(string salt, string password) //Compare Hash
+        {
+            var decrypt = salt.Split('|');
+            var bytesSalt = Convert.FromBase64String(decrypt[1]);
+            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(password, bytesSalt, KeyDerivationPrf.HMACSHA1, 10000, (256 / 8)));
+            return hashed + "|" + decrypt[1];
         }
     }
 }

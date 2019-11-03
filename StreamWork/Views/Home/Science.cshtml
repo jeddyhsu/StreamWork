@@ -5,7 +5,8 @@
 {
 <script>NavigateToPage('/Home/Science')</script>
 }
-else{
+else
+{
 <script>checkLoggedIn('@Model.userProfile.LoggedIn',"/Home/Science");</script>
 }
 @{
@@ -45,13 +46,20 @@ else{
                 {
                 <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Edit Profile</a>
                 <div class="dropdown-divider"></div>
+               }
+                @if (Model.userProfile.ProfileType == "tutor")
+                {
+                     <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Tutor/TutorSettings'">Settings</a>
                 }
-                <a class="dropdown-item" href="#" id="EditProfile">Settings</a>
+                else
+                {
+                     <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Tutor/StudentSettings'">Settings</a>
+                }
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
             </div>
         </div>
-            }       
+         }       
     </nav>
     <div class="container-fluid">
         <div class="row">
@@ -123,7 +131,8 @@ else{
                 </button>
             </div>
              <div class="modal-body">
-                @if(Model.userProfile != null){
+                @if (Model.userProfile != null)
+                {
                 <form>
                     <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.userProfile.ProfileCaption" />
                     <br />

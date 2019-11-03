@@ -1,20 +1,88 @@
 ﻿//Handles signing up
-function SignUp() {
+function SignUpStudent() {
+
+    var nameFirst = $("#nameFirstS").val();
+    var nameLast = $("#nameLastS").val();
+    var email = $("#emailS").val();
+    var username = $("#usernameS").val();
+    var password = $('#passwordS').val();
+    var confirmPassword = $('#passwordConfirmS').val();
+    var role = 'student';
+
+    if (nameFirst == "" || nameLast == "" || email == "" || username == "" || password == "" || confirmPassword == "") {
+        alert("Please fill out all fields");
+        return;
+    }
+
     $.ajax({
         url: '/Home/SignUp',
         type: 'post',
         dataType: 'json',
         data: {
-            'nameFirst': $("#nameFirst").val(),
-            'nameLast': $("#nameLast").val(),
-            'email': $("#email").val(),
-            'username': $("#username").val(),
-            'password': $('#password').val(),
-            'passwordConfirm': $('#passwordConfirm').val(),
-            'channelId': $('#channelId').val(),
-            'role': $('#role').val(),
+            'nameFirst': nameFirst,
+            'nameLast': nameLast,
+            'email': email,
+            'username': username,
+            'password': password,
+            'passwordConfirm': confirmPassword,
+            'role': role,
         },
         success: function(data) {
+            if (data.message === "Success") {
+
+                window.location.href = '/Home/Login';
+            } else if (data.message === "Wrong Password") {
+                alert("Passwords do not match");
+            } else {
+                alert("Username already exists");
+            }
+        }
+    });
+}
+
+function SignUpTutor() {
+
+    var formData = new FormData();
+    var transcript = document.getElementById("uploadTranscript").files;
+    var letterOfrec = document.getElementById("uploadLetterofrec").files;
+    var resume = document.getElementById("uploadResume").files;
+    var nameFirst = $("#nameFirstT").val();
+    var nameLast = $("#nameLastT").val();
+    var email = $("#emailT").val();
+    var username = $("#usernameT").val();
+    var password = $('#passwordT').val();
+    var confirmPassword = $('#passwordConfirmT').val();
+    var role = 'tutor';
+
+    if (nameFirst == "" || nameLast == "" || email == "" || username == "" || password == "" || confirmPassword == "") {
+        alert("Please fill out all fields");
+        return;
+    }
+
+    if (transcript.length != 1 && letterOfrec.length != 1 && resume.length != 1) {
+        alert("A Transcript, Resume and Letter Of Recommandation are required");
+        return;
+    }
+
+    formData.append("Transcript", transcript[0]);
+    formData.append("LetterOfRec", letterOfrec[0]);
+    formData.append("Resume", resume[0]);
+    formData.append("nameFirst", nameFirst);
+    formData.append("nameLast", nameLast);
+    formData.append("email", email);
+    formData.append("username", username);
+    formData.append("password", password);
+    formData.append("confirmPassword", confirmPassword);
+    formData.append("role", role);
+
+    $.ajax({
+        url: '/Home/SignUp',
+        type: 'post',
+        dataType: 'json',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (data) {
             if (data.message === "Success") {
 
                 window.location.href = '/Home/Login';
@@ -153,6 +221,35 @@ function RecoverPassword() {
             }
         }
     })
+}
+
+function CheckIfStudentOrTutorIsSigningUp() {
+    var path = (location.pathname + location.search).substr(1);
+    var studentForm = document.getElementById("Student");
+    var tutorForm = document.getElementById("Tutor");
+    if (path.includes("Student")) {
+        tutorForm.style.display = "none";
+    }
+    else {
+        studentForm.style.display = "none";
+    }
+}
+
+function ReadFile(input, type) {
+    var file = input.files[0];
+    var transcript = document.getElementById("Transcript");
+    var letterOfRec = document.getElementById("LetterOfRec");
+    var resume = document.getElementById("Resume");
+
+    if (type == 'transcript') {
+        transcript.innerHTML = file.name;
+    }
+    else if (type == 'letterofrec') {
+        letterOfRec.innerHTML = file.name;
+    }
+    else if (type == 'resume') {
+        resume.innerHTML = file.name;
+    }
 }
 
 function ChangePassword() {

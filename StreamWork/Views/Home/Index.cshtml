@@ -24,7 +24,7 @@
             @if(@Model == null || Model.LoggedIn == null){
                  <ul class="navbar-nav ml-auto">
                 <li class="nav-item mt-1 ml-auto" style="font-size:17px;">
-                    <a class="btn buttonStyleSignIn pt-2" onclick="window.location.href='Home/SignUp'" id="sign" style="color:white"><b>Sign Up</b></a>
+                    <a class="btn buttonStyleSignIn pt-2" onclick="window.location.href='Home/PickStudentOrTutor'" id="sign" style="color:white"><b>Sign Up</b></a>
                 </li>
                 <li class="nav-item mt-1 ml-auto" style="font-size:17px;">
                     <a class="btn buttonStyleLogin pt-2" onclick="window.location.href='Home/Login?dest=-Home-Profile'" style="background-color:white; color:#008080"><b>Login</b></a>
@@ -43,7 +43,15 @@
                           <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Edit Profile</a>
                          <div class="dropdown-divider"></div>
                             }
-                         <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Settings</a>
+                        @if(Model.ProfileType == "tutor")
+                        {
+                             <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Tutor/TutorSettings'">Settings</a>
+                        }
+                        else
+                        {
+                             <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Tutor/StudentSettings'">Settings</a>
+                        }
+
                          <div class="dropdown-divider"></div>
                          <a class="dropdown-item" href="#" onclick="Logout()"   >Logout</a>
                      </div>
@@ -67,7 +75,7 @@
                                      <img id="previewProfilePic" src=@Model.ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
                                      <br />
                                      <div class="upload-uploadbtn-wrapper">
-                                         <button class="uploadbtn" style="margin-left:110px">Upload a Profile Picture</button>
+                                         <button class="uploadbtn">Upload a Profile Picture</button>
                                          <input id="uploadProfilePic" type='file' onchange="readURL(this,'ProfilePic');" />
                                      </div>
                     
@@ -183,13 +191,7 @@
     </div>
 </section>
 
-<div class="section" id="index">
-    <div class="container-fluid">
-        <div class="row">
-            <img src="~/images/Splash.png" style="width:100%" />
-        </div>
-    </div>
-</div>
+
 
 
 

@@ -47,7 +47,14 @@ else
                         <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Edit Profile</a>
                         <div class="dropdown-divider"></div>
                     }
-                    <a class="dropdown-item" href="#" id="EditProfile">Settings</a>
+                     @if(Model.userProfile.ProfileType == "tutor")
+                        {
+                             <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Tutor/TutorSettings'">Settings</a>
+                        }
+                        else
+                        {
+                             <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Tutor/StudentSettings'">Settings</a>
+                        }
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
                 </div>
