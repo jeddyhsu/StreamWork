@@ -5,7 +5,8 @@
 {
 <script>NavigateToPage('/Home/Humanities')</script>
 }
-else{
+else
+{
 <script>checkLoggedIn('@Model.userProfile.LoggedIn',"/Home/Humanities");</script>
 }
 @{
@@ -46,12 +47,19 @@ else{
                 <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Edit Profile</a>
                 <div class="dropdown-divider"></div>
                 }
-                <a class="dropdown-item" href="#" id="EditProfile">Settings</a>
+                 @if (Model.userProfile.ProfileType == "tutor")
+                 {
+                     <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Tutor/TutorSettings'">Settings</a>
+                 }
+                 else
+                 {
+                     <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Tutor/StudentSettings'">Settings</a>
+                 }
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
             </div>
         </div>
-            }       
+         }       
     </nav>
     <div class="container-fluid">
         <div class="row">
@@ -65,7 +73,7 @@ else{
                     {
                         foreach (var videoInfo in Model.userChannels)
                         {
-                             if (videoInfo.StreamTitle != null)
+                            if (videoInfo.StreamTitle != null)
                             {
                                  <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
                                     <div class="card mt-3" style="border-radius:5%; border:none; min-width:200px;">
@@ -96,14 +104,14 @@ else{
                         <li class="nav-item">
                             <a class="nav-link active" href="#">
                                 @foreach (var tutor in Model.userLogins)
-                             {
+                                {
                         <div class="card pt-3 pd-3" style="display:block;background-color:black;border:none" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@tutor.Username');">
                             <div class=" card-title tutors">
                                 <input type="image" style="width:75px; height:95px; border-radius: 50%" src=@tutor.ProfilePicture />
                                 <h3 style="font-size:1vw; color:white">@tutor.Name.Replace('|', ' ')</h3>
                             </div>
                         </div>
-                            }
+                                }
                             </a>
                         </li>
                     </ul>
@@ -123,7 +131,8 @@ else{
                 </button>
             </div>
              <div class="modal-body">
-                @if(Model.userProfile != null){
+                @if (Model.userProfile != null)
+                {
                 <form>
                     <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.userProfile.ProfileCaption" />
                     <br />

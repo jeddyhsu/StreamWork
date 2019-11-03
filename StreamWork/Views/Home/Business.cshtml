@@ -4,10 +4,11 @@
 <link rel="stylesheet" href="~/css/site.css" />
 @if (Model.userProfile == null)
 {
-<script>NavigateToPage('/Home/Business')</script>
+    <script>NavigateToPage('/Home/Business')</script>
 }
-else{
-<script>checkLoggedIn('@Model.userProfile.LoggedIn',"/Home/Business");</script>
+else
+{
+    <script>checkLoggedIn('@Model.userProfile.LoggedIn',"/Home/Business");</script>
 }
 @{
     ViewData["Title"] = "Business";
@@ -35,24 +36,31 @@ else{
             </ul>
         </div>
         @if (Model.userProfile != null)
-            {
-        <div class="btn-group">
-            <img src=@Model.userProfile.ProfilePicture style="width:75px; height:95px; border-radius:50%" />
-            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #008080; border:none; margin-right:35px"></button>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="#" id="Dashboard" onclick="Dashboard('@Model.userProfile.ProfileType')">Dashboard</a>
-                <div class="dropdown-divider"></div>
-                @if (Model.userProfile.ProfileType == "tutor")
-                {
-                <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Edit Profile</a>
-                <div class="dropdown-divider"></div>
-                }
-                <a class="dropdown-item" href="#" id="EditProfile">Settings</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
+        {
+            <div class="btn-group">
+                <img src=@Model.userProfile.ProfilePicture style="width:75px; height:95px; border-radius:50%" />
+                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #008080; border:none; margin-right:35px"></button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#" id="Dashboard" onclick="Dashboard('@Model.userProfile.ProfileType')">Dashboard</a>
+                    <div class="dropdown-divider"></div>
+                    @if (Model.userProfile.ProfileType == "tutor")
+                    {
+                        <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Edit Profile</a>
+                        <div class="dropdown-divider"></div>
+                    }
+                     @if (Model.userProfile.ProfileType == "tutor")
+                     {
+                         <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Tutor/TutorSettings'">Settings</a>
+                     }
+                     else
+                     {
+                         <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Tutor/StudentSettings'">Settings</a>
+                     }
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
+                </div>
             </div>
-        </div>
-            }       
+        }
     </nav>
     <div class="container-fluid">
         <div class="row">
@@ -66,9 +74,9 @@ else{
                     {
                         foreach (var videoInfo in Model.userChannels)
                         {
-                             if (videoInfo.StreamTitle != null)
+                            if (videoInfo.StreamTitle != null)
                             {
-                                 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
                                     <div class="card mt-3" style="border-radius:5%; border:none; min-width:200px;">
                                         <input type="image" width="100%" height="225px" style="border-top-left-radius:5%; border-top-right-radius:5%" src=@videoInfo.StreamThumbnail onclick="window.location.href='../StreamViews/StreamPage?streamKeyandchatId=' + ('@videoInfo.ChannelKey') + ('|') + ('@Model.userChannels[0].ChatId');">
                                         <div class="card-body" style="background-color:#008080 ;border-bottom-left-radius:5%; border-bottom-right-radius:5%; border:none" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@videoInfo.Username');">
@@ -97,14 +105,14 @@ else{
                         <li class="nav-item">
                             <a class="nav-link active" href="#">
                                 @foreach (var tutor in Model.userLogins)
-                            {
-                        <div class="card pt-3 pd-3" style="display:block;background-color:black;border:none" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@tutor.Username');">
-                            <div class=" card-title tutors">
-                                <input type="image" style="width:75px; height:95px; border-radius: 50%" src=@tutor.ProfilePicture />
-                                <h3 style="font-size:1vw; color:white">@tutor.Name.Replace('|', ' ')</h3>
-                            </div>
-                        </div>
-                            }
+                                {
+                                    <div class="card pt-3 pd-3" style="display:block;background-color:black;border:none" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@tutor.Username');">
+                                        <div class=" card-title tutors">
+                                            <input type="image" style="width:75px; height:95px; border-radius: 50%" src=@tutor.ProfilePicture />
+                                            <h3 style="font-size:1vw; color:white">@tutor.Name.Replace('|', ' ')</h3>
+                                        </div>
+                                    </div>
+                                }
                             </a>
                         </li>
                     </ul>
@@ -123,21 +131,22 @@ else{
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-             <div class="modal-body">
-                @if(Model.userProfile != null){
-                <form>
-                    <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.userProfile.ProfileCaption" />
-                    <br />
-                    <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.userProfile.ProfileParagraph</textarea>
-                    <br />
-                    <img id="previewProfilePic" src=@Model.userProfile.ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
-                    <br />
-                    <div class="upload-uploadbtn-wrapper">
-                        <button class="uploadbtn" style="margin-left:110px">Upload a Profile Picture</button>
-                        <input id="uploadProfilePic" type='file' onchange="readURL(this,'ProfilePic');" />
-                    </div>
+            <div class="modal-body">
+                @if (Model.userProfile != null)
+                {
+                    <form>
+                        <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.userProfile.ProfileCaption" />
+                        <br />
+                        <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.userProfile.ProfileParagraph</textarea>
+                        <br />
+                        <img id="previewProfilePic" src=@Model.userProfile.ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
+                        <br />
+                        <div class="upload-uploadbtn-wrapper">
+                            <button class="uploadbtn" style="margin-left:110px">Upload a Profile Picture</button>
+                            <input id="uploadProfilePic" type='file' onchange="readURL(this,'ProfilePic');" />
+                        </div>
 
-                </form>
+                    </form>
                 }
 
             </div>
@@ -149,16 +158,15 @@ else{
     </div>
 </div>
 
-<script>
-$(document).ready(function () {
+<script>$(document).ready(function () {
         $("#nav").click(function () {
-           $("#navbarText").slideToggle();
+            $("#navbarText").slideToggle();
         });
     });
 
- function StreamView(key){
+    function StreamView(key) {
 
- }</script>
+    }</script>
 
 <style>
     .sidebar {
@@ -187,9 +195,9 @@ $(document).ready(function () {
         width: 100%;
     }
 
-    .tutors:hover {
-        border: double;
-        border-color: #008080;
-        width: 100%;
-    }
+        .tutors:hover {
+            border: double;
+            border-color: #008080;
+            width: 100%;
+        }
 </style>

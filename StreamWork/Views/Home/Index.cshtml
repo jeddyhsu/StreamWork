@@ -43,7 +43,15 @@
                           <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Edit Profile</a>
                          <div class="dropdown-divider"></div>
                             }
-                         <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Settings</a>
+                        @if(Model.ProfileType == "tutor")
+                        {
+                             <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Tutor/TutorSettings'">Settings</a>
+                        }
+                        else
+                        {
+                             <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Tutor/StudentSettings'">Settings</a>
+                        }
+
                          <div class="dropdown-divider"></div>
                          <a class="dropdown-item" href="#" onclick="Logout()"   >Logout</a>
                      </div>
@@ -67,7 +75,7 @@
                                      <img id="previewProfilePic" src=@Model.ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
                                      <br />
                                      <div class="upload-uploadbtn-wrapper">
-                                         <button class="uploadbtn" style="margin-left:110px">Upload a Profile Picture</button>
+                                         <button class="uploadbtn">Upload a Profile Picture</button>
                                          <input id="uploadProfilePic" type='file' onchange="readURL(this,'ProfilePic');" />
                                      </div>
                     

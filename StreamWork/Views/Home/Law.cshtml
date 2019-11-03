@@ -34,25 +34,32 @@ else
                 </li>
             </ul>
         </div>
-         @if (Model.userProfile != null)
-            {
-        <div class="btn-group">
-            <img src=@Model.userProfile.ProfilePicture style="width:75px; height:95px; border-radius:50%" />
-            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #008080; border:none; margin-right:35px"></button>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="#" id="Dashboard" onclick="Dashboard('@Model.userProfile.ProfileType')">Dashboard</a>
-                <div class="dropdown-divider"></div>
-               @if (Model.userProfile.ProfileType == "tutor")
-                {
-                <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Edit Profile</a>
-                <div class="dropdown-divider"></div>
-                }
-                <a class="dropdown-item" href="#" id="EditProfile">Settings</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
+        @if (Model.userProfile != null)
+        {
+            <div class="btn-group">
+                <img src=@Model.userProfile.ProfilePicture style="width:75px; height:95px; border-radius:50%" />
+                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #008080; border:none; margin-right:35px"></button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#" id="Dashboard" onclick="Dashboard('@Model.userProfile.ProfileType')">Dashboard</a>
+                    <div class="dropdown-divider"></div>
+                    @if (Model.userProfile.ProfileType == "tutor")
+                    {
+                        <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Edit Profile</a>
+                        <div class="dropdown-divider"></div>
+                    }
+                    @if (Model.userProfile.ProfileType == "tutor")
+                    {
+                        <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Tutor/TutorSettings'">Settings</a>
+                    }
+                    else
+                    {
+                        <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Tutor/StudentSettings'">Settings</a>
+                    }
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
+                </div>
             </div>
-        </div>
-            }       
+        }
     </nav>
     <div class="container-fluid">
         <div class="row">
@@ -68,7 +75,7 @@ else
                         {
                             if (videoInfo.StreamTitle != null)
                             {
-                                  <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
                                     <div class="card mt-3" style="border-radius:5%; border:none; min-width:200px;">
                                         <input type="image" width="100%" height="225px" style="border-top-left-radius:5%; border-top-right-radius:5%" src=@videoInfo.StreamThumbnail onclick="window.location.href='../StreamViews/StreamPage?streamKeyandchatId=' + ('@videoInfo.ChannelKey') + ('|') + ('@Model.userChannels[0].ChatId');">
                                         <div class="card-body" style="background-color:#008080 ;border-bottom-left-radius:5%; border-bottom-right-radius:5%; border:none" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@videoInfo.Username');">
@@ -163,6 +170,7 @@ else
     }</script>
 
 <style>
+
     .sidebar {
         height: calc(100% - 85px);
         width: 20%;
