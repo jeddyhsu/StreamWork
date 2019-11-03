@@ -14,12 +14,13 @@ namespace StreamWork.DataModels
         public string Username { get; set; }
         public string Password { get; set; }
         public string ProfileType { get; set; }
+        public bool AcceptedTutor { get; set; }
         public string ProfileCaption { get; set; }
         public string ProfilePicture { get; set; }
         public string ProfileParagraph { get; set; }
         public decimal Balance { get; set; }
         public DateTime Expiration { get; set; }
-        public bool Trial { get; set; }
+        public bool TrialAccepted { get; set; }
         public string LoggedIn { get; set; }
 
         [Timestamp]

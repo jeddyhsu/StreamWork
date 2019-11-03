@@ -187,10 +187,11 @@ namespace StreamWork.Controllers
                     Username = username,
                     Password = helperFunctions.EncryptPassword(password),
                     ProfileType = role,
+                    AcceptedTutor = false,
                     ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/default-profile.png",
                     Balance = (decimal) 0f,
                     Expiration = DateTime.UtcNow,
-                    Trial = false
+                    TrialAccepted = false
                 };
                 await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", signUpProfile.Id } }, signUpProfile);
 

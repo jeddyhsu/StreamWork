@@ -149,7 +149,7 @@ namespace StreamWork.Controllers {
                             error = "INCORRECT_CURRENCY " + error;
 
                         }
-                        else if (!user.Trial && !request["mc_gross"].Equals("15.00")) {
+                        else if (!user.TrialAccepted && !request["mc_gross"].Equals("15.00")) {
                             error = "INCORRECT_VALUE" + error;
 
                         }
@@ -163,7 +163,7 @@ namespace StreamWork.Controllers {
                                     user.Expiration = user.Expiration.AddMonths(1);
                                 }
 
-                                user.Trial = true;
+                                user.TrialAccepted = true;
                                 await helperFunctions.UpdateUser(storageConfig, user);
                             }
                         }
