@@ -193,8 +193,8 @@ function redirect () {
 }
 
 
-function StartBroadcast(profileType, loggedIn){
-    if(profileType == "tutor" && loggedIn != ""){
+function StartBroadcast(profileType, approvedTutor, loggedIn){
+    if(profileType == "tutor" && loggedIn != "" && approvedTutor){
         window.location.href = "/Tutor/ProfileTutor"
     }
     else{

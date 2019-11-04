@@ -11,7 +11,7 @@ namespace StreamWork.ViewModels {
         public string[] urlParams { get; set; }
 
         public bool IsSubscribed () {
-            if (DateTime.UtcNow.CompareTo(profile.userProfile.Expiration) < 0 || profile.userProfile.ProfileType.Equals("tutor")) {
+            if (DateTime.UtcNow.CompareTo(profile.userProfile.Expiration) < 0 || (profile.userProfile.ProfileType.Equals("tutor") && profile.userProfile.AcceptedTutor)) {
                 return true;
             }
             return false;

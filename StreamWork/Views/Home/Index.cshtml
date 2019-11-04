@@ -175,7 +175,7 @@
         </div>
         <h1><font size="3"><b>Already a StreamTutor?</b> </font></h1>
         @if(Model != null){
-             <img src="~/images/StartBroadcast.png" style="width:250px" onclick="StartBroadcast('@Model.ProfileType', '@Model.LoggedIn')" />
+             <img src="~/images/StartBroadcast.png" style="width:250px" onclick="StartBroadcast('@Model.ProfileType', @Model.AcceptedTutor, '@Model.LoggedIn')" />
         }
         else{
              <img src="~/images/StartBroadcast.png" style="width:250px" onclick="window.location.href='Home/Login?-Home-Profile'" />

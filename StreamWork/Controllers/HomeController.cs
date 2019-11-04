@@ -132,7 +132,7 @@ namespace StreamWork.Controllers
             var getCurrentUsers = await DataStore.GetListAsync<UserLogin>(helperFunctions._connectionString, storageConfig.Value, "AllSignedUpUsers", null);
             foreach (UserLogin user in getCurrentUsers)
             {
-                if (user.ProfileType.Equals("tutor"))
+                if (user.ProfileType.Equals("tutor") && user.AcceptedTutor)
                 {
                     list.Add(user);
                 }
