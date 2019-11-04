@@ -11,6 +11,26 @@
 </style>
 
 <script>
+    function accept(user) {
+        $.ajax({
+            url: '/Home/AcceptTutor',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                'username': user,
+            },
+            success: function (data) {
+                if (data.message === 'Success') {
+                    $('#' + user + '-accepted').text('DONE');
+                    $('#' + user + '-accept').remove();
+                }
+                else {
+                    alert('Error');
+                }
+            }
+        });
+    }
+
     function setZero(user) {
         $.ajax({
             url: '/Home/ZeroTutorBalance',
@@ -22,6 +42,7 @@
             success: function (data) {
                 if (data.message === 'Success') {
                     $('#' + user + '-balance').text('DONE');
+                    $('#' + user + '-setZero').remove();
                 }
                 else {
                     alert('Error');
@@ -31,13 +52,14 @@
     }
 </script>
 
-<p>Welcome, admin. With great power comes a table with lots of buttons.</p>
+<p>Welcome, admin. Please note that the actions available on this page are live and cannot be easily undone.</p>
 
 <table>
     <tr>
         <th>Username</th>
         <th>Name</th>
         <th>Email Address</th>
+        <th>Approved</th>
         <th>Amount Due</th>
         <th>Actions</th>
     </tr>
@@ -47,10 +69,22 @@
             <th>@user.Name</th>
             <th>@user.EmailAddress</th>
             <th>
+                @if (user.AcceptedTutor) {
+                    <div id="@user.Username-accepted">True</div>
+                } else {
+                    <div id="@user.Username-accepted">False</div>
+                }
+            </th>
+            <th>
                 <div id="@user.Username-balance">@user.Balance</div>
             </th>
             <th>
-                <button onclick="setZero('@user.Username');">Set Amount Due to Zero</button>
+                @if (!user.AcceptedTutor) {
+                    <button id="@user.Username-accept" onclick="accept('@user.Username');">Approve</button>
+                }
+                @if (user.Balance != 0) {
+                    <button id="@user.Username-setZero" onclick="setZero('@user.Username');">Set Amount Due to Zero</button>
+                }
             </th>
         </tr>
     }

@@ -114,46 +114,6 @@ namespace StreamWork.Controllers
             return list;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> SignUp ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig,
-                                                string nameFirst, string nameLast, string email, string username, string password, string passwordConfirm, string role) {
-            var checkCurrentUsers = await DataStore.GetListAsync<UserLogin>(helperFunctions._connectionString, storageConfig.Value, "CurrentUser", new List<string> { username });
-            if (checkCurrentUsers.Count == 0) {
-                if (password != passwordConfirm) {
-                    return Json(new { Message = "Passwords do not match" });
-                }
-
-                UserLogin signUpProfile = new UserLogin {
-                    Id = Guid.NewGuid().ToString(),
-                    Name = nameFirst + "|" + nameLast,
-                    EmailAddress = email,
-                    Username = username,
-                    Password = password,
-                    ProfileType = role,
-                    ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/default-profile.png",
-                    Balance = (decimal)0f,
-                    Expiration = DateTime.UtcNow,
-                    Trial = false
-                };
-                await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", signUpProfile.Id } }, signUpProfile);
-
-                if (role == "tutor") {
-                    UserChannel userChannel = new UserChannel {
-                        Id = Guid.NewGuid().ToString(),
-                        Username = username,
-                        ChannelKey = null,
-                        StreamSubject = null,
-                        StreamThumbnail = null,
-                        StreamTitle = null,
-                        ChatId = FormatChatId(DataStore.GetChatID("https://www.cbox.ws/apis/threads.php?id=6-829647-oq4rEn&key=ae1682707f17dbc2c473d946d2d1d7c3&act=mkthread"))
-                    };
-                    await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
-                }
-                return Json(new { Message = JsonResponse.Success.ToString() });
-            }
-            return Json(new { Message = "Username already exists" });
-        }
-
         [HttpGet]
         public IActionResult SignUp () {
             return View();
@@ -265,6 +225,14 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> ZeroTutorBalance ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string username) {
             var user = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
             user.Balance = 0;
+            await helperFunctions.UpdateUser(storageConfig, user);
+            return Json(new { Message = "Success" });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AcceptTutor ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string username) {
+            var user = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
+            user.AcceptedTutor = true;
             await helperFunctions.UpdateUser(storageConfig, user);
             return Json(new { Message = "Success" });
         }
