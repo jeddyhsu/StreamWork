@@ -59,8 +59,8 @@ function SignUpTutor() {
         return;
     }
 
-    if (transcript.length != 1 && letterOfrec.length != 1 && resume.length != 1) {
-        alert("A Transcript, Resume and Letter Of Recommandation are required");
+    if (transcript.length != 1 && resume.length != 1) {
+        alert("A transcript and resume are required");
         return;
     }
 
