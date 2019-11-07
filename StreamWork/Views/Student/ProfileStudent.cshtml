@@ -43,9 +43,9 @@
                     {
                         foreach (var videoInfo in Model.userChannels)
                         {
-                            if (videoInfo.StreamTitle != null)
+                            if (videoInfo.StreamSubject != null)
                             {
-                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 streamsubject @videoInfo.StreamSubject">
                                     <div class="card mt-3" style="border-radius:5%; border:none; min-width:200px;">
                                         <input type="image" width="100%" height="225px" style="border-top-left-radius:5%; border-top-right-radius:5%; min-width:250px" src=@videoInfo.StreamThumbnail onclick="window.location.href='../StreamViews/StreamPage?streamKeyandchatId=' + ('@videoInfo.ChannelKey') + ('|') + ('@Model.userChannels[0].ChatId');">
                                         <div class="card-body" style="background-color:#008080 ;border-bottom-left-radius:5%; border-bottom-right-radius:5%; border:none; min-width:250px" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@videoInfo.Username');">
@@ -65,10 +65,7 @@
                             }
                         }
                     }
-                    else
-                    {
-
-                    }
+                 
                 </div>
             </div>
             <nav class="col-md-2 d-none d-md-block sidebar ">
@@ -78,14 +75,14 @@
                 <br />
                 <br />
                 <br />
-                 <input type="image" src="~/images/MathCard.png" style="width:50%; min-width:100px" />
-                 <input type="image" src="~/images/ScienceCard.png" style="width:50%; min-width:100px" />
-                <input type="image" src="~/images/EngineeringCard.png" style="width:50%; min-width:100px" />
-                <input type="image" src="~/images/BuisnessCard.png" style="width:50%; min-width:100px" />
-                <input type="image" src="~/images/LawCard.png" style="width:50%; min-width:100px" />
-                <input type="image" src="~/images/ArtCard.png" style="width:50%; min-width:100px" />
-                <input type="image" src="~/images/HumanitiesCard.png" style="width:50%; min-width:100px" />
-                <input type="image" src="~/images/OtherCard.png" style="width:50%; min-width:100px" />
+                <input type="image" runat="server" src="~/images/MathCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Mathematics')" />
+                <input type="image" src="~/images/ScienceCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Science')" />
+                <input type="image" src="~/images/EngineeringCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Engineering')" />
+                <input type="image" src="~/images/BuisnessCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Business')" />
+                <input type="image" src="~/images/LawCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Law')" />
+                <input type="image" src="~/images/ArtCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Art')" />
+                <input type="image" src="~/images/HumanitiesCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Humanities')" />
+                <input type="image" src="~/images/OtherCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Other')" />
             </nav>
         </div>
     </div>
