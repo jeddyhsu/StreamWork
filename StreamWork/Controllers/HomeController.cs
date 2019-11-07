@@ -203,7 +203,7 @@ namespace StreamWork.Controllers
                         Username = username,
                         ChannelKey = null,
                         StreamSubject = null,
-                        StreamThumbnail = null,
+                        StreamThumbnail = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/default-profile.png",
                         StreamTitle = null,
                         ChatId = FormatChatId(DataStore.GetChatID("https://www.cbox.ws/apis/threads.php?id=6-829647-oq4rEn&key=ae1682707f17dbc2c473d946d2d1d7c3&act=mkthread"))
                     };
