@@ -45,28 +45,33 @@
         </form>
         <div class="row">
             <div class="col-3"></div>
-            <div class="col-lg-2 col-md-12">
+            <div class="col-lg-2 col-md-12 mt-3">
                 <div class="upload-uploadbtn-wrapper">
                     <button class="uploadbtn";>Upload Transcript</button>
                     <input id="uploadTranscript" type='file' accept="application/pdf" onchange="ReadFile(this, 'transcript')" />
                     <h6 id="Transcript" class="mt-2"></h6>
                 </div>
                 <br />
+                <a href="/Home/BecomeTutor">Why is StreamWork asking me for my transcript?</a>
+                <br />
             </div>
-            <div class="col-lg-2 col-md-12">
+            <div class="col-lg-2 col-md-12 mt-3">
                 <div class="upload-uploadbtn-wrapper">
-                    <button class="uploadbtn">Upload LOR</button>
+                    <button class="uploadbtn">Upload LOR (optional)</button>
                     <input id="uploadLetterofrec" type='file' accept="application/pdf" onchange="ReadFile(this, 'letterofrec')" />
                     <h6 id="LetterOfRec" class="mt-2"></h6>
                 </div>
                 <br />
             </div>
-            <div class="col-lg-2 col-md-12">
+            <div class="col-lg-2 col-md-12 mt-3">
                 <div class="upload-uploadbtn-wrapper">
                     <button class="uploadbtn">Upload Resume</button>
                     <input id="uploadResume" type='file' accept="application/pdf" onchange="ReadFile(this, 'resume')" />
                     <h6 id="Resume" class="mt-2"></h6>
+                    
                 </div>
+                <br />
+                <a href="/Home/BecomeTutor">Why is StreamWork asking me for my resume?</a>
                 <br />
             </div>
         </div>
