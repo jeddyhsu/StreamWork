@@ -13,6 +13,7 @@ using StreamWork.Models;
 using StreamWork.HelperClasses;
 
 namespace StreamWork.Controllers {
+    [Produces("application/json")]
     public class IPNController : Controller {
         private class IPNContext {
             public HttpRequest IPNRequest { get; set; }
@@ -35,20 +36,16 @@ namespace StreamWork.Controllers {
 
             using (StreamReader reader = new StreamReader(ipnContext.IPNRequest.Body, Encoding.ASCII)) {
                 ipnContext.RequestBody = reader.ReadToEnd();
-                reader.Close();
             }
 
             //Store the IPN received from PayPal
-            Task.Run(() => LogRequest(new IPNContext {
+            /*await LogRequest(new IPNContext {
                 IPNRequest = ipnContext.IPNRequest,
                 RequestBody = string.Copy(ipnContext.RequestBody)
-            }));
+            });*/
 
             //Fire and forget verification task
-            Task.Run(() => VerifyTask(new IPNContext {
-                IPNRequest = ipnContext.IPNRequest,
-                RequestBody = string.Copy(ipnContext.RequestBody)
-            }));
+            _ = VerifyTask(ipnContext);
 
             //Reply back a 200 code
             return Ok();
@@ -56,8 +53,8 @@ namespace StreamWork.Controllers {
 
         private async Task VerifyTask (IPNContext ipnContext) {
             string error = string.Empty;
-            try {
-                var verificationRequest = WebRequest.Create("https://ipnpb.paypal.com/cgi-bin/webscr");
+            /*try {
+                var verificationRequest = WebRequest.Create("https://www.sandbox.paypal.com/cgi-bin/webscr");
 
                 //Set values for the verification request
                 verificationRequest.Method = "POST";
@@ -81,7 +78,7 @@ namespace StreamWork.Controllers {
             }
             catch (Exception exception) {
                 error = exception.Message;
-            }
+            }*/
 
             await ProcessVerificationResponse(ipnContext, error);
         }
@@ -149,7 +146,7 @@ namespace StreamWork.Controllers {
                             error = "INCORRECT_CURRENCY " + error;
 
                         }
-                        else if (!user.TrialAccepted && !request["mc_gross"].Equals("15.00")) {
+                        else if (!user.TrialAccepted && !request["mc_gross"].Equals("0.01")) {
                             error = "INCORRECT_VALUE" + error;
 
                         }
