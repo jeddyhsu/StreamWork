@@ -85,6 +85,10 @@ namespace StreamWork.HelperClasses
             return null;
         }
 
+        public async Task SaveDonationAttempt ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, DonationAttempt donationAttempt) {
+            await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", donationAttempt.Id } }, donationAttempt);
+        }
+
         public async Task<bool> LogIPNRequest ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, IPNRequestBody request) {
             await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", request.Id } }, request);
             return true;

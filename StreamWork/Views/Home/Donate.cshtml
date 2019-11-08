@@ -2,6 +2,22 @@
 
 @{ViewData["title"] = "Donate";}
 
+<script>
+    $.ajax({
+        url: '/Home/CreateDonationAttempt',
+        type: 'POST',
+        dataType: 'json',
+
+        data: {
+            'studentName': "@Model.userProfile.Username",
+            'tutorName': "@Model.userLogins[0].Username",
+        },
+        success: function (data) {
+            test = 0
+        }
+    });
+</script>
+
 <br />
 <br />
 <br />
@@ -9,10 +25,10 @@
 <br />
 <br />
 <div class="form-sign text-center">
-    <img src="~/images/streamworklogo.png" width="250" height="70" onclick="window.location.href='/'" />
+    <img src="~/images/streamworklogo.png" width="250" height="70" onclick="" />
     <h1 class="h3 mb-3 font-weight-normal">You are donating to<br /> <b>@Model.userLogins[0].Name.Replace('|', ' ')</b></h1>
     <img class="bordered-image" src="@Model.userLogins[0].ProfilePicture" style="width: 115px; height: 150px"/>
     <br />
     <br />
-    <input class="btn btn-lg  btn-block" type="button" value="Donate" style="background-color:#008080; color: white" onclick="Login()">
+    <input class="btn btn-lg  btn-block" type="button" value="Donate" style="background-color:#008080; color: white" onclick="">
 </div>

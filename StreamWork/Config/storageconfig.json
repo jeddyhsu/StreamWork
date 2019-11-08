@@ -73,6 +73,16 @@
     },
 
     {
+        "Name": "DonationAttempt",
+        "StorageType": "SqlServer",
+        "Queries": [
+            {
+                "Query": "SELECT * FROM [dbo].[DonationAttempt]"
+            }
+        ]
+    },
+
+    {
         "Name": "IPNRequestBody",
         "StorageType": "SqlServer",
         "Queries": [

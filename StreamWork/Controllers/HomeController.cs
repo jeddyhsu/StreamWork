@@ -15,91 +15,73 @@ using System.Net.Mail;
 
 namespace StreamWork.Controllers
 {
-    public class HomeController : Controller
-    {
+    public class HomeController : Controller {
         HelperFunctions helperFunctions = new HelperFunctions();
 
-        public async Task<IActionResult> Index([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
-        {
-            if (Request.Host.ToString() == "streamwork.live")
-            {
+        public async Task<IActionResult> Index ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
+            if (Request.Host.ToString() == "streamwork.live") {
                 return Redirect("https://www.streamwork.live");
             }
             var user = HttpContext.Session.GetString("UserProfile");
-            if(user == null)
-            {
+            if (user == null) {
                 return View();
             }
             var userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
             return View(userProfile);
         }
 
-        public async Task<IActionResult> Math([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
-        {
+        public async Task<IActionResult> Math ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
             return View(await PopulateSubjectPage(storageConfig, "Mathematics"));
         }
 
-        public async Task<IActionResult> Science([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
-        {
+        public async Task<IActionResult> Science ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
             return View(await PopulateSubjectPage(storageConfig, "Science"));
         }
 
-        public async Task<IActionResult> Engineering([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
-        {
+        public async Task<IActionResult> Engineering ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
             return View(await PopulateSubjectPage(storageConfig, "Engineering"));
         }
 
-        public async Task<IActionResult> Business([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
-        {
+        public async Task<IActionResult> Business ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
             return View(await PopulateSubjectPage(storageConfig, "Business"));
         }
 
-        public async Task<IActionResult> Law([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
-        {
+        public async Task<IActionResult> Law ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
             return View(await PopulateSubjectPage(storageConfig, "Law"));
         }
 
-        public async Task<IActionResult> DesignArt([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
-        {
+        public async Task<IActionResult> DesignArt ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
             return View(await PopulateSubjectPage(storageConfig, "Art"));
         }
 
-        public async Task<IActionResult> Humanities([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
-        {
+        public async Task<IActionResult> Humanities ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
             return View(await PopulateSubjectPage(storageConfig, "Humanities"));
         }
 
-        public async Task<IActionResult> Other([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
-        {
+        public async Task<IActionResult> Other ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
             return View(await PopulateSubjectPage(storageConfig, "Other"));
         }
 
-        public IActionResult BecomeTutor()
-        {
+        public IActionResult BecomeTutor () {
             return View();
         }
 
-        public IActionResult About()
-        {
+        public IActionResult About () {
             return View();
         }
 
-        public IActionResult HowToStream()
-        {
+        public IActionResult HowToStream () {
             return View();
         }
 
-        public IActionResult SplashPage()
-        {
+        public IActionResult SplashPage () {
             return View();
         }
 
         [HttpGet]
-        public async Task<IActionResult> ProfileView(string tutor, [FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
-        {
+        public async Task<IActionResult> ProfileView (string tutor, [FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
             var user = HttpContext.Session.GetString("UserProfile");
-            ProfileTutorViewModel profile = new ProfileTutorViewModel
-            {
+            ProfileTutorViewModel profile = new ProfileTutorViewModel {
                 userChannels = await helperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user),
                 userArchivedVideos = await helperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, tutor),
                 userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, tutor),
@@ -108,17 +90,14 @@ namespace StreamWork.Controllers
             return View(profile);
         }
 
-        public IActionResult Error()
-        {
+        public IActionResult Error () {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        private async Task<ProfileTutorViewModel> PopulateSubjectPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject)
-        {
+        private async Task<ProfileTutorViewModel> PopulateSubjectPage ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject) {
             var user = HttpContext.Session.GetString("UserProfile");
 
-            ProfileTutorViewModel model = new ProfileTutorViewModel
-            {
+            ProfileTutorViewModel model = new ProfileTutorViewModel {
                 userChannels = await helperFunctions.GetUserChannels(storageConfig, QueryHeaders.AllUserChannelsThatAreStreamingWithSpecifiedSubject, subject),
                 userLogins = await GetPopularStreamTutors(storageConfig),
                 userProfile = user != null ? await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user) : null
@@ -126,14 +105,11 @@ namespace StreamWork.Controllers
             return model;
         }
 
-        private async Task<List<UserLogin>> GetPopularStreamTutors([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
-        {
+        private async Task<List<UserLogin>> GetPopularStreamTutors ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
             List<UserLogin> list = new List<UserLogin>();
             var getCurrentUsers = await DataStore.GetListAsync<UserLogin>(helperFunctions._connectionString, storageConfig.Value, "AllSignedUpUsers", null);
-            foreach (UserLogin user in getCurrentUsers)
-            {
-                if (user.ProfileType.Equals("tutor") && user.AcceptedTutor)
-                {
+            foreach (UserLogin user in getCurrentUsers) {
+                if (user.ProfileType.Equals("tutor") && user.AcceptedTutor) {
                     list.Add(user);
                 }
             }
@@ -141,15 +117,12 @@ namespace StreamWork.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SignUp([FromServices] IOptionsSnapshot<StorageConfig> storageConfig,
-                                                string nameFirst, string nameLast, string email, string username, string password, string passwordConfirm, string role)
-        {
+        public async Task<IActionResult> SignUp ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig,
+                                                string nameFirst, string nameLast, string email, string username, string password, string passwordConfirm, string role) {
             //Checks for the attachments that tutors provide and sends them to streamwork for verification
-            if(Request.Form.Files.Count != 0)
-            {
+            if (Request.Form.Files.Count != 0) {
                 List<string> values = new List<string>();
-                foreach(var key in Request.Form.Keys)
-                {
+                foreach (var key in Request.Form.Keys) {
                     Request.Form.TryGetValue(key, out StringValues value);
                     values.Add(value);
                 }
@@ -164,23 +137,19 @@ namespace StreamWork.Controllers
 
                 var files = Request.Form.Files;
                 List<Attachment> attachments = new List<Attachment>();
-                foreach (var file in files)
-                {
-                    attachments.Add(new Attachment(file.OpenReadStream(),file.FileName));
+                foreach (var file in files) {
+                    attachments.Add(new Attachment(file.OpenReadStream(), file.FileName));
                 }
-                helperFunctions.SendEmailToAnyEmail("streamworktutor@gmail.com", "streamworktutor@gmail.com","Tutor Eval",email,attachments);
+                helperFunctions.SendEmailToAnyEmail("streamworktutor@gmail.com", "streamworktutor@gmail.com", "Tutor Eval", email, attachments);
             }
 
             var checkCurrentUsers = await DataStore.GetListAsync<UserLogin>(helperFunctions._connectionString, storageConfig.Value, "CurrentUser", new List<string> { username });
-            if (checkCurrentUsers.Count == 0)
-            {
-                if (password != passwordConfirm)
-                {
+            if (checkCurrentUsers.Count == 0) {
+                if (password != passwordConfirm) {
                     return Json(new { Message = "Passwords do not match" });
                 }
 
-                UserLogin signUpProfile = new UserLogin
-                {
+                UserLogin signUpProfile = new UserLogin {
                     Id = Guid.NewGuid().ToString(),
                     Name = nameFirst + "|" + nameLast,
                     EmailAddress = email,
@@ -189,16 +158,14 @@ namespace StreamWork.Controllers
                     ProfileType = role,
                     AcceptedTutor = false,
                     ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/default-profile.png",
-                    Balance = (decimal) 0f,
+                    Balance = (decimal)0f,
                     Expiration = DateTime.UtcNow,
                     TrialAccepted = false
                 };
                 await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", signUpProfile.Id } }, signUpProfile);
 
-                if (role == "tutor")
-                {
-                    UserChannel userChannel = new UserChannel
-                    {
+                if (role == "tutor") {
+                    UserChannel userChannel = new UserChannel {
                         Id = Guid.NewGuid().ToString(),
                         Username = username,
                         ChannelKey = null,
@@ -209,54 +176,45 @@ namespace StreamWork.Controllers
                     };
                     await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
                 }
-                return Json(new { Message = JsonResponse.Success.ToString()});
+                return Json(new { Message = JsonResponse.Success.ToString() });
             }
             return Json(new { Message = "Username already exists" });
         }
 
         [HttpGet]
-        public IActionResult SignUp()
-        {
+        public IActionResult SignUp () {
             return View();
         }
 
         [HttpPost]
-        public IActionResult TryLogin([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string placeholder)
-        {
-            try
-            {
+        public IActionResult TryLogin ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string placeholder) {
+            try {
                 HttpContext.Session.GetString("UserProfile");
-                if (HttpContext.Session.GetString("Tutor").Equals("true"))
-                {
+                if (HttpContext.Session.GetString("Tutor").Equals("true")) {
                     return Json(new { Message = "Welcome, StreamTutor" });
                 }
                 return Json(new { Message = "Welcome" });
             }
-            catch
-            {
+            catch {
                 return Json(new { Message = "Wrong Password or Username " });
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string username, string password)
-        {
+        public async Task<IActionResult> Login ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string username, string password) {
             var userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
             if (userProfile == null)
                 return Json(new { Message = "Error" });
-            var checkforUser = await DataStore.GetListAsync<UserLogin>(helperFunctions._connectionString, storageConfig.Value, "AllSignedUpUsersWithPassword", new List<string> { username, helperFunctions.DecryptPassword(userProfile.Password,password)}) ;
-            if (checkforUser.Count == 1)
-            {
+            var checkforUser = await DataStore.GetListAsync<UserLogin>(helperFunctions._connectionString, storageConfig.Value, "AllSignedUpUsersWithPassword", new List<string> { username, helperFunctions.DecryptPassword(userProfile.Password, password) });
+            if (checkforUser.Count == 1) {
                 checkforUser[0].LoggedIn = "Logged In";
                 await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", checkforUser[0].Id } }, checkforUser[0]);
-                if (checkforUser[0].ProfileType == "tutor")
-                {
+                if (checkforUser[0].ProfileType == "tutor") {
                     HttpContext.Session.SetString("UserProfile", username);
                     HttpContext.Session.SetString("Tutor", "false");
                     return Json(new { Message = "Welcome, StreamTutor" });
                 }
-                else
-                {
+                else {
                     HttpContext.Session.SetString("UserProfile", username);
                     HttpContext.Session.SetString("Tutor", "false");
                     return Json(new { Message = "Welcome Student" });
@@ -266,9 +224,18 @@ namespace StreamWork.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login()
-        {
+        public IActionResult Login () {
             return View();
+        }
+
+        public async Task<IActionResult> CreateDonationAttempt([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string studentName, string tutorName) {
+            await helperFunctions.SaveDonationAttempt(storageConfig, new Models.DonationAttempt {
+                Id = Guid.NewGuid().ToString(),
+                Student = studentName,
+                Tutor = tutorName,
+                TimeSent = DateTime.UtcNow
+            });
+            return Json(new { Message = "Success" });
         }
 
         private string FormatChatId(string chatID)
