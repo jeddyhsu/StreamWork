@@ -1,4 +1,4 @@
-﻿@model List<StreamWork.DataModels.UserLogin>;
+﻿@model StreamWork.ViewModels.ControlPanelViewModel;
 
 @{
     ViewData["Title"] = "Control Panel";
@@ -17,11 +17,11 @@
             type: 'post',
             dataType: 'json',
             data: {
-                'username': user,
+                'username': user
             },
             success: function (data) {
                 if (data.message === 'Success') {
-                    $('#' + user + '-accepted').text('DONE');
+                    $('#' + user + '-accepted').text('REFRESH');
                     $('#' + user + '-accept').remove();
                 }
                 else {
@@ -37,12 +37,98 @@
             type: 'post',
             dataType: 'json',
             data: {
-                'username': user,
+                'username': user
             },
             success: function (data) {
                 if (data.message === 'Success') {
-                    $('#' + user + '-balance').text('DONE');
+                    $('#' + user + '-balance').text('REFRESH');
                     $('#' + user + '-setZero').remove();
+                }
+                else {
+                    alert('Error');
+                }
+            }
+        });
+    }
+
+    function renew(user) {
+        $.ajax({
+            url: '/Home/RenewStudentSubscription',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                'username': user
+            },
+            success: function (data) {
+                if (data.message === 'Success') {
+                    $('#' + user + '-trial').text('REFRESH');
+                    $('#' + user + '-renew').remove();
+                }
+                else {
+                    alert('Error');
+                }
+            }
+        });
+    }
+
+    function apply(donationAttempt, tutor) {
+        $.ajax({
+            url: '/Home/ApplyDonationAttempt',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                'id': donationAttempt,
+                'value': $('#' + donationAttempt + '-value').val()
+            },
+            success: function (data) {
+                if (data.message === 'Success') {
+                    $('#' + donationAttempt + '-student').text('REFERESH');
+                    $('#' + donationAttempt + '-tutor').text('REFRESH');
+                    $('#' + donationAttempt + '-dateLogged').text('REFRESH');
+                    $('#' + donationAttempt + '-value').val('');
+                    $('#' + donationAttempt + '-apply').remove();
+                    $('#' + donationAttempt + '-clear').remove();
+                    $('#' + tutor + '-balance').text('REFRESH');
+                }
+                else {
+                    alert('Error');
+                }
+            }
+        });
+    }
+
+    function clearAttempt(donationAttempt) {
+        $.ajax({
+            url: '/Home/RemoveDonationAttempt',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                'id': donationAttempt
+            },
+            success: function (data) {
+                if (data.message === 'Success') {
+                    $('#' + donationAttempt + '-student').text('REFERESH');
+                    $('#' + donationAttempt + '-tutor').text('REFRESH');
+                    $('#' + donationAttempt + '-dateLogged').text('REFRESH');
+                    $('#' + donationAttempt + '-value').val('');
+                    $('#' + donationAttempt + '-apply').remove();
+                    $('#' + donationAttempt + '-clear').remove();
+                }
+                else {
+                    alert('Error');
+                }
+            }
+        });
+    }
+
+    function test() {
+        $.ajax({
+            url: '/Home/Test',
+            type: 'post',
+            dataType: 'json',
+            success: function () {
+                if (data.message === 'Success') {
+                    alert('Success');
                 }
                 else {
                     alert('Error');
@@ -52,6 +138,7 @@
     }
 </script>
 
+<p>@DateTime.UtcNow.ToShortDateString() @DateTime.UtcNow.ToLongTimeString().</p>
 <p>Welcome, admin. Please note that the actions available on this page are live and cannot be easily undone.</p>
 
 <table>
@@ -63,7 +150,7 @@
         <th>Amount Due</th>
         <th>Actions</th>
     </tr>
-    @foreach (StreamWork.DataModels.UserLogin user in Model) {
+    @foreach (StreamWork.DataModels.UserLogin user in Model.Tutors) {
         <tr>
             <th>@user.Username</th>
             <th>@user.Name</th>
@@ -89,3 +176,71 @@
         </tr>
     }
 </table>
+
+<br />
+<p>Students</p>
+<table>
+    <tr>
+        <th>Username</th>
+        <th>Name</th>
+        <th>Email Address</th>
+        <th>Has Had Trial</th>
+        <th>Subscription Expiration</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (StreamWork.DataModels.UserLogin user in Model.Students) {
+        <tr>
+            <th>@user.Username</th>
+            <th>@user.Name</th>
+            <th>@user.EmailAddress</th>
+            <th>
+                @if (user.TrialAccepted) {
+                    <div id="@user.Username-trial">True</div>
+                } else {
+                    <div id="@user.Username-trial">False</div>
+                }
+            </th>
+            <th>@user.Expiration.ToShortDateString() @user.Expiration.ToLongTimeString()</th>
+            <th>
+                @if (user.Expiration.CompareTo(DateTime.UtcNow) < 0) {
+                    <button id="@user.Username-renew" onclick="renew('@user.Username');">Renew Subscription</button>
+                }
+            </th>
+        </tr>
+    }
+</table>
+
+<br />
+<p>Potential Donations</p>
+<table>
+    <tr>
+        <th>Student</th>
+        <th>Tutor</th>
+        <th>Date Logged</th>
+        <th>Value</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (StreamWork.Models.DonationAttempt donationAttempt in Model.DonationAttempts) {
+        <tr>
+            <th>
+                <div id="@donationAttempt.Id-student">@donationAttempt.Student</div>
+            </th>
+            <th>
+                <div id="@donationAttempt.Id-tutor">@donationAttempt.Tutor</div>
+            </th>
+            <th>
+                <div id="@donationAttempt.Id-dateLogged">@donationAttempt.TimeSent.ToShortDateString() @donationAttempt.TimeSent.ToLongTimeString()</div>
+            </th>
+            <th>
+                <input id="@donationAttempt.Id-value" type="text" />
+            </th>
+            <th>
+                <button id="@donationAttempt.Id-apply" onclick="apply('@donationAttempt.Id', '@donationAttempt.Tutor')">Apply</button>
+                <button id="@donationAttempt.Id-clear" onclick="clearAttempt('@donationAttempt.Id')">Clear</button>
+            </th>
+        </tr>
+    }
+</table>
+
+<br />
+<button onclick="test()">Do Not Press</button>

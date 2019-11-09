@@ -71,15 +71,29 @@ namespace StreamWork.HelperClasses
             return blockBlob.Uri.AbsoluteUri;
         }
 
+        public async Task<Payment> GetPayment ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string query, string txnID) {
+            var payments = await DataStore.GetListAsync<Payment>(_connectionString, storageConfig.Value, query, new List<string> { txnID });
+            if (payments.Count > 0) return payments[0];
+            return null;
+        }
+
         public async Task<bool> SavePayment ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, Payment payment) {
             await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", payment.Id } }, payment);
             return true;
         }
 
-        public async Task<Payment> GetPayment ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string query, string txnID) {
-            var payments = await DataStore.GetListAsync<Payment>(_connectionString, storageConfig.Value, query, new List<string> { txnID });
-            if (payments.Count > 0) return payments[0];
+        public async Task<DonationAttempt> GetDonationAttempt ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string query, string id) {
+            var donationAttempts = await DataStore.GetListAsync<DonationAttempt>(_connectionString, storageConfig.Value, query, new List<string> { id });
+            if (donationAttempts.Count > 0) return donationAttempts[0];
             return null;
+        }
+
+        public async Task SaveDonationAttempt ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, DonationAttempt donationAttempt) {
+            await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", donationAttempt.Id } }, donationAttempt);
+        }
+
+        public async Task DeleteDonationAttempt ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, DonationAttempt donationAttempt) {
+            await DataStore.DeleteAsync<DonationAttempt>(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", donationAttempt.Id } });
         }
 
         public async Task<bool> LogIPNRequest ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, IPNRequestBody request) {

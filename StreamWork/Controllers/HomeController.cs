@@ -10,6 +10,7 @@ using Microsoft.Extensions.Options;
 using StreamWork.ViewModels;
 using StreamWork.DataModels;
 using StreamWork.HelperClasses;
+using StreamWork.Models;
 
 namespace StreamWork.Controllers
 {
@@ -111,6 +112,22 @@ namespace StreamWork.Controllers
                     list.Add(user);
                 }
             }
+            return list;
+        }
+
+        private async Task<List<UserLogin>> GetStudents ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
+            List<UserLogin> list = new List<UserLogin>();
+            var getCurrentUsers = await DataStore.GetListAsync<UserLogin>(helperFunctions._connectionString, storageConfig.Value, "AllSignedUpUsers", null);
+            foreach (UserLogin user in getCurrentUsers) {
+                if (user.ProfileType.Equals("student")) {
+                    list.Add(user);
+                }
+            }
+            return list;
+        }
+
+        private async Task<List<DonationAttempt>> GetDonationAttempts ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
+            List<DonationAttempt> list = await DataStore.GetListAsync<DonationAttempt>(helperFunctions._connectionString, storageConfig.Value, "AllDonationAttempts");
             return list;
         }
 
@@ -217,8 +234,22 @@ namespace StreamWork.Controllers
 
         [HttpGet]
         public async Task<IActionResult> ControlPanel ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
+            var students = await GetStudents(storageConfig);
             var tutors = await GetPopularStreamTutors(storageConfig);
-            return View(tutors);
+            var donationAttempts = await GetDonationAttempts(storageConfig);
+            return View(new ControlPanelViewModel {
+                Students = students,
+                Tutors = tutors,
+                DonationAttempts = donationAttempts
+            });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AcceptTutor ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string username) {
+            var user = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
+            user.AcceptedTutor = true;
+            await helperFunctions.UpdateUser(storageConfig, user);
+            return Json(new { Message = "Success" });
         }
 
         [HttpPost]
@@ -230,10 +261,42 @@ namespace StreamWork.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AcceptTutor ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string username) {
+        public async Task<IActionResult> RenewStudentSubscription ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string username) {
             var user = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
-            user.AcceptedTutor = true;
+            user.Expiration = DateTime.UtcNow.AddMonths(1);
+            user.TrialAccepted = true;
             await helperFunctions.UpdateUser(storageConfig, user);
+            return Json(new { Message = "Success" });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ApplyDonationAttempt ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string id, string value) {
+            if (decimal.TryParse(value, out decimal decimalValue)) {
+                var donationAttempt = await helperFunctions.GetDonationAttempt(storageConfig, "DonationAttemptsById", id);
+                var tutor = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, donationAttempt.Tutor);
+                tutor.Balance += decimalValue;
+                await helperFunctions.UpdateUser(storageConfig, tutor);
+                await helperFunctions.DeleteDonationAttempt(storageConfig, donationAttempt);
+                return Json(new { Message = "Success" });
+            }
+            return Json(new { Message = "Failure" });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveDonationAttempt ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string id) {
+            var donationAttempt = await helperFunctions.GetDonationAttempt(storageConfig, "DonationAttemptsById", id);
+            await helperFunctions.DeleteDonationAttempt(storageConfig, donationAttempt);
+            return Json(new { Message = "Success" });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Test ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
+            await helperFunctions.SaveDonationAttempt(storageConfig, new DonationAttempt {
+                Id = Guid.NewGuid().ToString(),
+                Student = "tom",
+                Tutor = "rarunT",
+                TimeSent = DateTime.UtcNow
+            });
             return Json(new { Message = "Success" });
         }
     }
