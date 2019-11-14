@@ -20,6 +20,7 @@ namespace StreamWork.DataModels {
         public DateTime Expiration { get; set; }
         public bool TrialAccepted { get; set; }
         public string LoggedIn { get; set; }
+        public string PayPalAddress { get; set; }
 
         [Timestamp]
         public byte[] RowVersion { get; set; }
