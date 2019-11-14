@@ -146,6 +146,7 @@
         <th>Username</th>
         <th>Name</th>
         <th>Email Address</th>
+        <th>PayPal</th>
         <th>Approved</th>
         <th>Amount Due</th>
         <th>Actions</th>
@@ -155,6 +156,7 @@
             <th>@user.Username</th>
             <th>@user.Name</th>
             <th>@user.EmailAddress</th>
+            <th>@user.PayPalAddress</th>
             <th>
                 @if (user.AcceptedTutor) {
                     <div id="@user.Username-accepted">True</div>
@@ -184,7 +186,8 @@
         <th>Username</th>
         <th>Name</th>
         <th>Email Address</th>
-        <th>Has Had Trial</th>
+        <th>PayPal</th>
+        <th>Trial Claimed</th>
         <th>Subscription Expiration</th>
         <th>Actions</th>
     </tr>
@@ -193,6 +196,7 @@
             <th>@user.Username</th>
             <th>@user.Name</th>
             <th>@user.EmailAddress</th>
+            <th>@user.PayPalAddress</th>
             <th>
                 @if (user.TrialAccepted) {
                     <div id="@user.Username-trial">True</div>
