@@ -118,7 +118,7 @@ namespace StreamWork.Controllers
 
         [HttpPost]
         public async Task<IActionResult> SignUp ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig,
-                                                string nameFirst, string nameLast, string email, string username, string password, string passwordConfirm, string role) {
+                                                string nameFirst, string nameLast, string email, string payPalAddress, string username, string password, string passwordConfirm, string role) {
             //Checks for the attachments that tutors provide and sends them to streamwork for verification
             if (Request.Form.Files.Count != 0) {
                 List<string> values = new List<string>();
@@ -130,10 +130,11 @@ namespace StreamWork.Controllers
                 nameFirst = values[0];
                 nameLast = values[1];
                 email = values[2];
-                username = values[3];
-                password = values[4];
-                passwordConfirm = values[5];
-                role = values[6];
+                payPalAddress = values[3];
+                username = values[4];
+                password = values[5];
+                passwordConfirm = values[6];
+                role = values[7];
 
                 var files = Request.Form.Files;
                 List<Attachment> attachments = new List<Attachment>();
@@ -160,7 +161,8 @@ namespace StreamWork.Controllers
                     ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/default-profile.png",
                     Balance = (decimal)0f,
                     Expiration = DateTime.UtcNow,
-                    TrialAccepted = false
+                    TrialAccepted = false,
+                    PayPalAddress = payPalAddress
                 };
                 await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", signUpProfile.Id } }, signUpProfile);
 
