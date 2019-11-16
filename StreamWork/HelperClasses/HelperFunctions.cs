@@ -66,7 +66,7 @@ namespace StreamWork.HelperClasses
                     await file.CopyToAsync(ms);
                     blockBlob.UploadFromByteArray(ms.ToArray(), 0, (int)file.Length);
                 }
-                catch (System.ObjectDisposedException e) {
+                catch (ObjectDisposedException e) {
                     Console.WriteLine(e.Message);
                 }
             }

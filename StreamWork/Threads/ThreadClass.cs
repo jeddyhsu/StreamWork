@@ -14,13 +14,13 @@ namespace StreamWork.Threads
 {
     public class ThreadClass
     {
-        HelperFunctions helperFunctions;
-        IOptionsSnapshot<StorageConfig> storageConfig;
-        UserChannel userChannel;
-        UserLogin userLogin;
-        string streamTitle;
-        string streamSubject;
-        string streamThumbnail;
+        readonly HelperFunctions helperFunctions;
+        readonly IOptionsSnapshot<StorageConfig> storageConfig;
+        readonly UserChannel userChannel;
+        readonly UserLogin userLogin;
+        readonly string streamTitle;
+        readonly string streamSubject;
+        readonly string streamThumbnail;
 
         public ThreadClass(IOptionsSnapshot<StorageConfig> storageConfig, UserChannel userChannel, UserLogin userLogin, string streamTitle, string streamSubject, string streamThumbnail)
         {
@@ -59,16 +59,16 @@ namespace StreamWork.Threads
             }
         }
 
-        public async Task StopRecordingStream() //Stops Stream Recording
+        public async Task TurnRecordingOff() //Turns Recording Capability Off
         {
             try
             {
                 HttpClient httpClient = new HttpClient();
-                var response = await httpClient.PostAsync("https://api.dacast.com/v2/channel/" + userChannel.ChannelKey + "/recording/stop?apikey=135034_9d5e445816dfcd2a96ad", null);
+                var response = await httpClient.DeleteAsync("https://api.dacast.com/v2/channel/" + userChannel.ChannelKey + "/recording/watch?apikey=135034_9d5e445816dfcd2a96ad", null);
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error in StopRecordingStream: " + ex.Message);
+                Console.WriteLine("Error in TurnRecordingOff: " + ex.Message);
             }
         }
 
@@ -105,6 +105,7 @@ namespace StreamWork.Threads
                         {
                             await StopStreamAndArchive();
                             await ClearChannelStreamInfo();
+                            await TurnRecordingOff();
                             tryAPI = false;
                         }
                     }
@@ -121,11 +122,12 @@ namespace StreamWork.Threads
 
         private async Task<bool> StopStreamAndArchive()
         {
+            await Task.Delay(8000);
             //stop stream and archvie video into database
-            var currentDate = DateTime.Now.ToString("ddd/MMM/d/yyyy").Replace('/', ' ');
-
+            var currentDate = DateTime.Now;
+            var finalDate = currentDate.AddDays(1).ToString("ddd/MMM/d/yyyy").Replace('/', ' ');
             //strict format!!!
-            var archivedVideo = DataStore.CallAPI<VideoArchiveAPI>("https://api.dacast.com/v2/vod?apikey=135034_9d5e445816dfcd2a96ad&title=" + "(" + userChannel.ChannelKey + ")" + " - " + currentDate);
+            var archivedVideo = DataStore.CallAPI<VideoArchiveAPI>("https://api.dacast.com/v2/vod?apikey=135034_9d5e445816dfcd2a96ad&title=" + "(" + userChannel.ChannelKey + ")" + " - " + finalDate);
 
             UserArchivedStreams archivedStream = new UserArchivedStreams
             {
