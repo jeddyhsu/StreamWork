@@ -64,7 +64,7 @@ namespace StreamWork.Threads
             try
             {
                 HttpClient httpClient = new HttpClient();
-                var response = await httpClient.DeleteAsync("https://api.dacast.com/v2/channel/" + userChannel.ChannelKey + "/recording/watch?apikey=135034_9d5e445816dfcd2a96ad", null);
+                var response = await httpClient.DeleteAsync("https://api.dacast.com/v2/channel/" + userChannel.ChannelKey + "/recording/watch?apikey=135034_9d5e445816dfcd2a96ad");
             }
             catch (Exception ex)
             {
