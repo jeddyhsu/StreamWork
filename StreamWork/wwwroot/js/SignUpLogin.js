@@ -4,12 +4,13 @@ function SignUpStudent() {
     var nameFirst = $("#nameFirstS").val();
     var nameLast = $("#nameLastS").val();
     var email = $("#emailS").val();
+    var payPalAddress = $("#payPalAddressS").val();
     var username = $("#usernameS").val();
     var password = $('#passwordS').val();
     var confirmPassword = $('#passwordConfirmS').val();
     var role = 'student';
 
-    if (nameFirst == "" || nameLast == "" || email == "" || username == "" || password == "" || confirmPassword == "") {
+    if (nameFirst == "" || nameLast == "" || email == "" || payPalAddress == "" || username == "" || password == "" || confirmPassword == "") {
         alert("Please fill out all fields");
         return;
     }
@@ -22,6 +23,7 @@ function SignUpStudent() {
             'nameFirst': nameFirst,
             'nameLast': nameLast,
             'email': email,
+            'payPalAddress': payPalAddress,
             'username': username,
             'password': password,
             'passwordConfirm': confirmPassword,
@@ -49,12 +51,13 @@ function SignUpTutor() {
     var nameFirst = $("#nameFirstT").val();
     var nameLast = $("#nameLastT").val();
     var email = $("#emailT").val();
+    var payPalAddress = $("#payPalAddressT")
     var username = $("#usernameT").val();
     var password = $('#passwordT').val();
     var confirmPassword = $('#passwordConfirmT').val();
     var role = 'tutor';
 
-    if (nameFirst == "" || nameLast == "" || email == "" || username == "" || password == "" || confirmPassword == "") {
+    if (nameFirst == "" || nameLast == "" || email == "" || payPalAddress == "" || username == "" || password == "" || confirmPassword == "") {
         alert("Please fill out all fields");
         return;
     }
@@ -70,6 +73,7 @@ function SignUpTutor() {
     formData.append("nameFirst", nameFirst);
     formData.append("nameLast", nameLast);
     formData.append("email", email);
+    formData.append("payPalAddress", payPalAddress);
     formData.append("username", username);
     formData.append("password", password);
     formData.append("confirmPassword", confirmPassword);
