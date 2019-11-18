@@ -38,7 +38,7 @@ namespace StreamWork.Threads
             try
             {
                 HttpClient httpClient = new HttpClient();
-                var response = await httpClient.PostAsync("https://api.dacast.com/v2/channel/" + userChannel.ChannelKey + "/recording/watch?apikey=135034_9d5e445816dfcd2a96ad", null);
+                var response = await httpClient.PostAsync("https://api.dacast.com/v2/channel/" + userChannel.ChannelKey + "/recording/watch?apikey=135034_2b54d7950c64485cb8c3", null);
             }
             catch (Exception ex)
             {
@@ -51,7 +51,7 @@ namespace StreamWork.Threads
             try
             {
                 HttpClient httpClient = new HttpClient();
-                var response = await httpClient.PostAsync("https://api.dacast.com/v2/channel/" + userChannel.ChannelKey + "/recording/start?apikey=135034_9d5e445816dfcd2a96ad",null);
+                var response = await httpClient.PostAsync("https://api.dacast.com/v2/channel/" + userChannel.ChannelKey + "/recording/start?apikey=135034_2b54d7950c64485cb8c3", null);
             }
             catch(Exception ex)
             {
@@ -64,7 +64,7 @@ namespace StreamWork.Threads
             try
             {
                 HttpClient httpClient = new HttpClient();
-                var response = await httpClient.DeleteAsync("https://api.dacast.com/v2/channel/" + userChannel.ChannelKey + "/recording/watch?apikey=135034_9d5e445816dfcd2a96ad");
+                var response = await httpClient.DeleteAsync("https://api.dacast.com/v2/channel/" + userChannel.ChannelKey + "/recording/watch?apikey=135034_2b54d7950c64485cb8c3");
             }
             catch (Exception ex)
             {
@@ -96,7 +96,7 @@ namespace StreamWork.Threads
                     await Task.Delay(60000, cancellationToken);
                     try
                     {
-                        var liveRecording = DataStore.CallAPI<LiveRecordingAPI>("https://api.dacast.com/v2/channel/" + userChannel.ChannelKey + "/recording/watch?apikey=135034_9d5e445816dfcd2a96ad&_format=JSON");
+                        var liveRecording = DataStore.CallAPI<LiveRecordingAPI>("https://api.dacast.com/v2/channel/" + userChannel.ChannelKey + "/recording/watch?apikey=135034_2b54d7950c64485cb8c3&_format=JSON");
                         if (liveRecording.RecordingStatus == "recording")
                         {
                             Console.WriteLine("Recording");
