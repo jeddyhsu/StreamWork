@@ -81,13 +81,13 @@ else if (Model.userChannels[0].StreamTitle == null && Model.userChannels[0].Stre
                                   height: 800
                               });
                         
-                            alert(myPlayer.currentTime());
                     });
 
                      function CheckForStream() {
                          var player = dacast.players["135034_c_@Model.userChannels[0].ChannelKey"]
                          
-                              if (player.currentTime() == 0) {
+                            if (player.currentTime() == 0) {
+                                  OpenPopOut();
                                   alert("It looks like your stream hasn't been started on OBS. Start the stream on OBS and once you see your stream on this page then enter the title and subject.")
                               }
                               else {

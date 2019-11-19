@@ -93,19 +93,17 @@ namespace StreamWork.Threads
                 
                 while (tryAPI)
                 {
-                    await Task.Delay(60000, cancellationToken);
+                    await Task.Delay(15000, cancellationToken);
                     try
                     {
-                        var liveRecording = DataStore.CallAPI<LiveRecordingAPI>("https://api.dacast.com/v2/channel/" + userChannel.ChannelKey + "/recording/watch?apikey=135034_2b54d7950c64485cb8c3&_format=JSON");
-                        if (liveRecording.RecordingStatus == "recording")
-                        {
-                            Console.WriteLine("Recording");
-                        }
+                        var live = DataStore.CallAPI<LiveRecordingAPI>("https://liverecording.dacast.com/l/status/live?contentId=135034_c_" + userChannel.ChannelKey + "&apikey=135034_2b54d7950c64485cb8c3");
+                        if (live.IsLive)
+                            Console.WriteLine("Live");
                         else
                         {
+                            await TurnRecordingOff();
                             await StopStreamAndArchive();
                             await ClearChannelStreamInfo();
-                            await TurnRecordingOff();
                             tryAPI = false;
                         }
                     }
@@ -122,7 +120,6 @@ namespace StreamWork.Threads
 
         private async Task<bool> StopStreamAndArchive()
         {
-            await Task.Delay(8000);
             //stop stream and archvie video into database
             var currentDate = DateTime.Now;
             var finalDate = currentDate.AddDays(1).ToString("ddd/MMM/d/yyyy").Replace('/', ' ');
