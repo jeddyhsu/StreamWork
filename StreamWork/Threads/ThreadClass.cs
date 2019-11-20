@@ -22,6 +22,8 @@ namespace StreamWork.Threads
         readonly string streamSubject;
         readonly string streamThumbnail;
 
+        private int archivedVideoCount;
+
         public ThreadClass(IOptionsSnapshot<StorageConfig> storageConfig, UserChannel userChannel, UserLogin userLogin, string streamTitle, string streamSubject, string streamThumbnail)
         {
             helperFunctions = new HelperFunctions();
@@ -74,6 +76,7 @@ namespace StreamWork.Threads
 
         public bool RunThread()
         {
+            archivedVideoCount = (int)GetArchivedVideo().TotalCount;
             bool tryAPI = true;
             //This thread handles getting streamed videos to our archive DB
             var cancellationToken = new CancellationToken();
@@ -96,14 +99,15 @@ namespace StreamWork.Threads
                     await Task.Delay(15000, cancellationToken);
                     try
                     {
+                        
                         var live = DataStore.CallAPI<LiveRecordingAPI>("https://liverecording.dacast.com/l/status/live?contentId=135034_c_" + userChannel.ChannelKey + "&apikey=135034_2b54d7950c64485cb8c3");
                         if (live.IsLive)
                             Console.WriteLine("Live");
                         else
                         {
-                            await TurnRecordingOff();
-                            await StopStreamAndArchive();
                             await ClearChannelStreamInfo();
+                            await TurnRecordingOff();
+                            RunVideoArchiveThread();
                             tryAPI = false;
                         }
                     }
@@ -118,14 +122,35 @@ namespace StreamWork.Threads
             return false;
         }
 
-        private async Task<bool> StopStreamAndArchive()
+        private void RunVideoArchiveThread()
         {
-            //stop stream and archvie video into database
-            var currentDate = DateTime.Now;
-            var finalDate = currentDate.AddDays(1).ToString("ddd/MMM/d/yyyy").Replace('/', ' ');
-            //strict format!!!
-            var archivedVideo = DataStore.CallAPI<VideoArchiveAPI>("https://api.dacast.com/v2/vod?apikey=135034_9d5e445816dfcd2a96ad&title=" + "(" + userChannel.ChannelKey + ")" + " - " + finalDate);
+            var cancellationToken = new CancellationToken();
+            bool archiveApi = true;
+            Task.Factory.StartNew(async () =>
+            {
+                while (archiveApi)
+                {
+                    await Task.Delay(30000, cancellationToken);
+                    var videoInfo = GetArchivedVideo();
+                    if (videoInfo.TotalCount != archivedVideoCount)
+                    {
+                        Console.WriteLine("Video Ready");
+                        await StopStreamAndArchive(videoInfo);
+                        archiveApi = false;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Video Not Ready");
+                        archiveApi = true;
+                    }
+                       
+                }
+               
+            }, TaskCreationOptions.LongRunning);
+        }
 
+        private async Task<bool> StopStreamAndArchive(VideoArchiveAPI archivedVideo)
+        {
             UserArchivedStreams archivedStream = new UserArchivedStreams
             {
                 Id = Guid.NewGuid().ToString(),
@@ -146,6 +171,15 @@ namespace StreamWork.Threads
             }
 
             return true;
+        }
+
+        private VideoArchiveAPI GetArchivedVideo()
+        {
+            var currentDate = DateTime.Now;
+            var finalDate = currentDate.ToString("ddd/MMM/d/yyyy").Replace('/', ' ');
+            //strict format!!!
+            var archivedVideos = DataStore.CallAPI<VideoArchiveAPI>("https://api.dacast.com/v2/vod?apikey=135034_2b54d7950c64485cb8c3&title=" + "(" + userChannel.ChannelKey + ")" + " - " + finalDate);
+            return archivedVideos;
         }
 
         private async Task ClearChannelStreamInfo()
