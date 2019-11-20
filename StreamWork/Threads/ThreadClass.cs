@@ -99,12 +99,12 @@ namespace StreamWork.Threads
                     await Task.Delay(15000, cancellationToken);
                     try
                     {
-                        
                         var live = DataStore.CallAPI<LiveRecordingAPI>("https://liverecording.dacast.com/l/status/live?contentId=135034_c_" + userChannel.ChannelKey + "&apikey=135034_2b54d7950c64485cb8c3");
                         if (live.IsLive)
                             Console.WriteLine("Live");
                         else
                         {
+                            Console.WriteLine("Not Live");
                             await ClearChannelStreamInfo();
                             await TurnRecordingOff();
                             RunVideoArchiveThread();
