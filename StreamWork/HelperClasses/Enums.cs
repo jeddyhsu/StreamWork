@@ -17,6 +17,7 @@ namespace StreamWork.HelperClasses
         UserArchivedVideosBasedOnSubject,
         CurrentUserChannel,
         UserArchivedVideos,
+        AllArchivedVideos,
         UserProfile       //Use For Session
     }
 }

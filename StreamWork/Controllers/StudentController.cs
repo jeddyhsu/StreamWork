@@ -41,7 +41,7 @@ namespace StreamWork.Controllers
             ProfileStudentViewModel viewModel = new ProfileStudentViewModel
             {
                 userLogins = await helperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user),
-                userArchivedStreams = await helperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, user)
+                userArchivedStreams = await helperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos)
             };
             return View(viewModel);
         }

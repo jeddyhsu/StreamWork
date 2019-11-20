@@ -36,6 +36,13 @@ namespace StreamWork.HelperClasses
             return archivedStreams;
         }
 
+        //All Archived Streams
+        public async Task<List<UserArchivedStreams>> GetArchivedStreams([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, QueryHeaders query)
+        {
+            var archivedStreams = await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, query.ToString());
+            return archivedStreams;
+        }
+
         //Gets a set of user logins with the query that you specify
         public async Task<List<UserLogin>> GetUserLogins ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, QueryHeaders query, string user) {
             var logins = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, query.ToString(), new List<string> { user });
