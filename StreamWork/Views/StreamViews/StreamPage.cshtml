@@ -52,13 +52,12 @@ else
 
             <div class="col-sm-12 col-md-12 col-lg-3 p-2">
                 <div style="padding-top:115px">
-                    <iframe src=@Model.urlParams[1] width="100%" height="525" allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>
+                    <iframe src=@Model.urlParams[1] width="100%" height="550" allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>
                 </div>
-                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                    <input type="hidden" name="cmd" value="_s-xclick" />
-                    <input type="hidden" name="hosted_button_id" value="HBRMKP2RPW5LQ" />
-                    <input type="image" src="~/images/cash.png" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" style="width:100%; height:20%" />
-                </form>
+                <br />
+                <a target="_blank" rel="noopener noreferrer" href="/Home/Donate?tutor=@Model.profile.userProfile2.Username">
+                    <img src="~/images/donate201911.png" target="_blank" rel="noopener noreferrer" style="display:block; margin-left:auto; margin-right:auto; width:75%; height:auto" />
+                </a>
             </div>
         </div>
     </div>

@@ -16,7 +16,7 @@ namespace StreamWork.Controllers
         {
             return View();
         }
-        public async Task<IActionResult> StreamPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamKeyandchatId)
+        public async Task<IActionResult> StreamPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamKeyandchatId, string tutor)
         {
             var user = HttpContext.Session.GetString("UserProfile");
 
@@ -26,7 +26,8 @@ namespace StreamWork.Controllers
 
             StreamPageViewModel model = new StreamPageViewModel {
                 profile = new ProfileTutorViewModel {
-                    userProfile = user != null ? await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user) : null
+                    userProfile = user != null ? await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user) : null,
+                    userProfile2 = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, tutor)
                 },
                 urlParams = arr
             };

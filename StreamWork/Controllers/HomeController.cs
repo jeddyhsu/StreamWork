@@ -305,6 +305,17 @@ namespace StreamWork.Controllers
             return View();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Donate (string tutor, [FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
+            var user = HttpContext.Session.GetString("UserProfile");
+
+            ProfileTutorViewModel model = new ProfileTutorViewModel {
+                userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, tutor),
+                userProfile2 = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user)
+            };
+            return View(model);
+        }
+
         public IActionResult PickStudentOrTutor()
         {
             return View();
