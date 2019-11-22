@@ -107,12 +107,8 @@ namespace StreamWork.Controllers
 
         private async Task<List<UserLogin>> GetPopularStreamTutors ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
             List<UserLogin> list = new List<UserLogin>();
-            var getCurrentUsers = await DataStore.GetListAsync<UserLogin>(helperFunctions._connectionString, storageConfig.Value, "AllSignedUpUsers", null);
-            foreach (UserLogin user in getCurrentUsers) {
-                if (user.ProfileType.Equals("tutor") && user.AcceptedTutor) {
-                    list.Add(user);
-                }
-            }
+            var getApprovedTutors = await DataStore.GetListAsync<UserLogin>(helperFunctions._connectionString, storageConfig.Value, QueryHeaders.AllApprovedTutors.ToString(), null);
+            list = getApprovedTutors;
             return list;
         }
 
@@ -141,7 +137,7 @@ namespace StreamWork.Controllers
                 foreach (var file in files) {
                     attachments.Add(new Attachment(file.OpenReadStream(), file.FileName));
                 }
-                helperFunctions.SendEmailToAnyEmail("streamworktutor@gmail.com", "streamworktutor@gmail.com", "Tutor Eval", email, attachments);
+                helperFunctions.SendEmailToAnyEmail("streamworktutor@gmail.com", "streamworktutor@gmail.com", "Tutor Evalauation", email, attachments);
             }
 
             var checkCurrentUsers = await DataStore.GetListAsync<UserLogin>(helperFunctions._connectionString, storageConfig.Value, "CurrentUser", new List<string> { username });

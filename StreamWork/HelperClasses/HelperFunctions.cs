@@ -106,7 +106,7 @@ namespace StreamWork.HelperClasses
         {
                 SmtpClient client = new SmtpClient("smtp.gmail.com", 587)
             {
-                Credentials = new NetworkCredential("streamworktutor@gmail.com", "STREAMW0RK0!"),
+                Credentials = new NetworkCredential("streamworktutor@gmail.com", "STREAMW0RK3R!"),
                 EnableSsl = true
             };
 

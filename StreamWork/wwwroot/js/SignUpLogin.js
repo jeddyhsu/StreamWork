@@ -68,7 +68,9 @@ function SignUpTutor() {
     }
 
     formData.append("Transcript", transcript[0]);
-    formData.append("LetterOfRec", letterOfrec[0]);
+    if (letterOfrec.length != 0) {
+        formData.append("LetterOfRec", letterOfrec[0]);
+    }
     formData.append("Resume", resume[0]);
     formData.append("nameFirst", nameFirst);
     formData.append("nameLast", nameLast);

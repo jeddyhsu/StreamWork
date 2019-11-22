@@ -15,6 +15,10 @@
         {
           "Query": "SELECT * FROM [dbo].[UserLogin] WHERE Username = '@x0' AND Password = '@x1'",
           "QueryId": "AllSignedUpUsersWithPassword"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE ProfileType = 'tutor' AND AcceptedTutor = '1'",
+          "QueryId": "AllApprovedTutors"
         }
       ]
     },
