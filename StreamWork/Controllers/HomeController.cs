@@ -293,6 +293,7 @@ namespace StreamWork.Controllers
             var userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
             userProfile.LoggedIn = null;
             await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
+            HttpContext.Session.Clear();
             return Json(new { Message = JsonResponse.Success.ToString()});
         }
 

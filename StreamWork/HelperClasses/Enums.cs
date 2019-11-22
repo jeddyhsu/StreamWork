@@ -1,7 +1,7 @@
-﻿
+﻿using System;
 namespace StreamWork.HelperClasses
 {
-    public class Enums{}
+    public class Enums { }
 
     public enum JsonResponse
     {
