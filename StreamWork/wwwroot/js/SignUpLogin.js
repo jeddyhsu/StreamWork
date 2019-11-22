@@ -187,6 +187,11 @@ function checkLoggedIn (loggedIn, url) {
     }
 }
 
+function checkLoggedIn(loggedIn, url) {
+    if (loggedIn != "Logged In") {
+        window.location.href = '/Home/Login?dest=' + url.split('/').join('-');
+    }
+}
 
 function NavigateToPage (url) {
     window.location.href = '/Home/Login?dest=' + url.split('/').join('-');
@@ -285,3 +290,5 @@ function ChangePassword() {
         }
     })
 }
+
+

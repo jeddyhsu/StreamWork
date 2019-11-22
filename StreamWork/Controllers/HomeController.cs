@@ -17,7 +17,7 @@ namespace StreamWork.Controllers
 {
     public class HomeController : Controller {
         HelperFunctions helperFunctions = new HelperFunctions();
-
+        [HttpGet]
         public async Task<IActionResult> Index ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
             if (Request.Host.ToString() == "streamwork.live") {
                 return Redirect("https://www.streamwork.live");
@@ -28,6 +28,19 @@ namespace StreamWork.Controllers
             }
             var userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
             return View(userProfile);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Index([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string session)
+        {
+            var isValid = HttpContext.Session.GetString("UserProfile");
+            if(isValid == null)
+            {
+                return Json(new { Message = "No Session" });
+            }
+
+            return Json(new { Message = "Session" });
+
         }
 
         public async Task<IActionResult> Math ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {

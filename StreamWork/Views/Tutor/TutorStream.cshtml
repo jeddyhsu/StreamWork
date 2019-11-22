@@ -5,7 +5,9 @@
 @{
     ViewData["Title"] = "TutorStream";
 }
-
+<script>
+    window.onload(CheckSession())
+</script>
 @if (!Model.userProfile.ProfileType.Equals("tutor") || !Model.userProfile.AcceptedTutor) {
     <script>
         $(document).ready(function () {
