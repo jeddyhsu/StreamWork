@@ -18,7 +18,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
-<body style="font-family:'Roboto'; background-color:white">
+
+<body style="font-family:'Roboto'; background-color:white" onbeforeunload="ConfirmClose()">
     <div>
         <div class="full-page">
             <div class="in-page">
@@ -34,3 +35,17 @@
     </div>
 </body>
 </html>
+
+
+
+<script>
+    function ConfirmClose()
+{
+    if (event.clientY < 0)
+    {
+        event.returnValue = 'You have closed the browser. Do you want to logout from your application?';
+        setTimeout('myclose=false',10);
+        myclose=true;
+    }
+}
+</script>
