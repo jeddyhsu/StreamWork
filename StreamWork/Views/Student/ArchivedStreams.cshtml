@@ -30,7 +30,7 @@
             <img src=@Model.userLogins[0].ProfilePicture style="width:75px; height:95px; border-radius:50%" />
             <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #008080; border:none; margin-right:35px"></button>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="#" id="EditProfile">Settings</a>
+                <a class="dropdown-item" href="/Student/StudentSettings">Settings</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
             </div>
@@ -49,7 +49,7 @@
                                         <div class="card-body" style="background-color:#008080 ;border-bottom-left-radius:5%; height:100px; border-bottom-right-radius:5%; border:none; min-width:250px" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@videoInfo.Username');">
                                             <div class="row">
                                                 <div class="col-3 pr-2">
-                                                    <input type="image" style="border-radius:50%; min-width:55px; height:70px;" src=@videoInfo.ProfilePicture />
+                                                    <input type="image" style="border-radius:50%; min-width:55px; width:55px; height:70px;" src=@videoInfo.ProfilePicture />
                                                 </div>
                                                 <div class="col-9" style="color:white;">
                                                     <h5 class="text-truncate" style="font-family: 'Roboto'; font-size:20px;">@videoInfo.StreamTitle</h5>

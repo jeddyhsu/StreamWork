@@ -264,7 +264,6 @@ function ReadFile(input, type) {
 }
 
 function ChangePassword() {
-
     //gets url path with parameters
     var path = (location.pathname + location.search).substr(1);
     $.ajax({

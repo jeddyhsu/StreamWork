@@ -189,25 +189,25 @@ namespace StreamWork.Controllers
         {
             var user = HttpContext.Session.GetString("UserProfile");
             var userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
-            userProfile.Name = name;
-            userProfile.ProfileCaption = profileCaption;
-            userProfile.ProfileParagraph = profileParagraph;
-            await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
-
+            if(name != null || profileCaption != null || profileParagraph != null)
+            {
+                userProfile.Name = name;
+                userProfile.ProfileCaption = profileCaption;
+                userProfile.ProfileParagraph = profileParagraph;
+                await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
+            }
 
             if(currentPassword != null && newPassword != null && confirmPassword != null)
             {
                 var userLogin = await helperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user);
-                if(helperFunctions.DecryptPassword(userLogin[0].Password,currentPassword) == helperFunctions.DecryptPassword(userLogin[0].Password, userLogin[0].Password))
+                 if(helperFunctions.DecryptPassword(userLogin[0].Password,currentPassword) == userLogin[0].Password)
                 {
                     userLogin[0].Password = helperFunctions.EncryptPassword(newPassword);
                     await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userLogin[0].Id } }, userLogin[0]);
+                    return Json(new { Message = JsonResponse.Success.ToString()});
                 }
-                else
-                    return Json(new { Message = JsonResponse.Failed.ToString()});
             }
-
-            return Json(new { Message = JsonResponse.Success.ToString()});
+            return Json(new { Message = JsonResponse.Failed.ToString()});
         }
 
         private async Task<string> GetChatSecretKey([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string user)

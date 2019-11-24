@@ -25,11 +25,11 @@ function EditOverview() {
 
 function EditSecurity() {
 
-    var currentPassword = $("CurrentPassword").val();
-    var newPassword = $("NewPassword").val();
-    var confirmPassword = $("ConfirmPassword").val();
+    var currentPassword = $('#CurrentPassword').val();
+    var newPassword = $('#NewPassword').val();
+    var confirmPassword = $('#ConfirmPassword').val();
 
-    if (newPassword != currentPassword) {
+    if (newPassword != confirmPassword) {
         alert("Passwords do not match.");
         return;
     }
