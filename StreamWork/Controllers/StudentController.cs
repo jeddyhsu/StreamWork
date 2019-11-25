@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using StreamWork.Config;
+using StreamWork.Core;
 using StreamWork.DataModels;
 using StreamWork.HelperClasses;
 using StreamWork.ViewModels;
@@ -58,6 +59,7 @@ namespace StreamWork.Controllers
             return View(viewModel);
         }
 
+        [HttpGet]
         public async Task<IActionResult> StudentSettings([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
             var user = HttpContext.Session.GetString("UserProfile");
@@ -67,6 +69,25 @@ namespace StreamWork.Controllers
                 userLogins = await helperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user),
             };
             return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> StudentSettings([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string currentPassword,
+                                                                                                                       string newPassword,
+                                                                                                                       string confirmPassword)
+        {
+            if (currentPassword != null && newPassword != null && confirmPassword != null)
+            {
+                var user = HttpContext.Session.GetString("UserProfile");
+                var userLogin = await helperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user);
+                if (helperFunctions.DecryptPassword(userLogin[0].Password, currentPassword) == userLogin[0].Password)
+                {
+                    userLogin[0].Password = helperFunctions.EncryptPassword(newPassword);
+                    await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userLogin[0].Id } }, userLogin[0]);
+                    return Json(new { Message = JsonResponse.Success.ToString() });
+                }
+            }
+            return Json(new { Message = JsonResponse.Failed.ToString() });
         }
     }
 }

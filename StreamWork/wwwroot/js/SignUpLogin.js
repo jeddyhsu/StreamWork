@@ -15,6 +15,25 @@ function SignUpStudent() {
         return;
     }
 
+    if (password != confirmPassword) {
+        alert("Passwords do not match");
+        return;
+    }
+
+    if (ValidateEmail(email) == false) {
+        alert("Invalid Email!");
+        return
+    }
+
+    if (ValidateEmail(payPalAddress) == false) {
+        alert("Invalid Email!");
+        return
+    }
+
+    if (ValidatePassword(password) == false) {
+        return;
+    }
+
     $.ajax({
         url: '/Home/SignUp',
         type: 'post',
@@ -51,7 +70,7 @@ function SignUpTutor() {
     var nameFirst = $("#nameFirstT").val();
     var nameLast = $("#nameLastT").val();
     var email = $("#emailT").val();
-    var payPalAddress = $("#payPalAddressT")
+    var payPalAddress = $("#payPalAddressT").val();
     var username = $("#usernameT").val();
     var password = $('#passwordT').val();
     var confirmPassword = $('#passwordConfirmT').val();
@@ -62,6 +81,25 @@ function SignUpTutor() {
         return;
     }
 
+    if (password != confirmPassword) {
+        alert("Passwords do not match");
+        return;
+    }
+
+    if (ValidateEmail(email) == false) {
+        alert("Invalid Email!");
+        return
+    }
+
+    if (ValidateEmail(payPalAddress) == false) {
+        alert("Invalid Email!");
+        return
+    }
+
+    if (ValidatePassword(password) == false) {
+        return;
+    }
+    
     if (transcript.length != 1 && resume.length != 1) {
         alert("A transcript and resume are required");
         return;
@@ -99,6 +137,46 @@ function SignUpTutor() {
             }
         }
     });
+}
+
+
+function ValidatePassword(password){
+    var UpperCase = false;
+    var LowerCase = false;
+    var Number = false;
+    var passArray = Array.from(password);
+
+    if (passArray.length >= 8) {
+        for (i = 0; i < passArray.length; i++) {
+            if (passArray[i] >= '0' && passArray[i] <= '9') {
+                Number = true;
+            }
+            else if (passArray[i] == passArray[i].toLowerCase()) {
+                LowerCase = true;
+            }
+            else if (passArray[i] == passArray[i].toUpperCase()) {
+                UpperCase = true;
+            }
+        }
+
+        if (UpperCase == false || LowerCase == false || Number == false) {
+            alert("Password must contain one lowercase letter, one uppercase letter, and one number");
+            return false;
+        }
+    }
+    else {
+        alert("Password must be at least 8 characters long");
+        return false;
+    }
+
+    return true;
+}
+
+function ValidateEmail(email) {
+    if (email.includes("@")) {
+        return true;
+    }
+    return false
 }
 
 // Try to log in with session info
@@ -266,6 +344,19 @@ function ReadFile(input, type) {
 function ChangePassword() {
     //gets url path with parameters
     var path = (location.pathname + location.search).substr(1);
+    var newPassword = $('#newPassword').val()
+    var currentPassword = $('#confirmNewPassword').val()
+
+
+    if (newPassword != currentPassword) {
+        alert("Passwords do not match");
+        return;
+    }
+
+    if (ValidatePassword(newPassword) == false) {
+        return;
+    }
+
     $.ajax({
         url: '/Home/ChangePassword',
         type: 'post',

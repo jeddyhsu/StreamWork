@@ -155,10 +155,6 @@ namespace StreamWork.Controllers
 
             var checkCurrentUsers = await DataStore.GetListAsync<UserLogin>(helperFunctions._connectionString, storageConfig.Value, "CurrentUser", new List<string> { username });
             if (checkCurrentUsers.Count == 0) {
-                if (password != passwordConfirm) {
-                    return Json(new { Message = "Passwords do not match" });
-                }
-
                 UserLogin signUpProfile = new UserLogin {
                     Id = Guid.NewGuid().ToString(),
                     Name = nameFirst + "|" + nameLast,
