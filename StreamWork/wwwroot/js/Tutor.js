@@ -28,8 +28,7 @@ function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail() {
         processData: false,
         success: function (data) {
             if (data.message === "Success") {
-                ;
-                alert("Your broadcast is visible to students!");
+                OpenNotificationModal("Your broadcast is visible to students!");
                 location.reload();
             }
         }
@@ -47,11 +46,11 @@ function ValidateKey() {
         success: function (data) {
             if (data.message === "Success") {
                 $('#channelKeyModal').modal('hide')
-                alert("Key validated, welcome StreamTutor")
+                OpenNotificationModal("Key validated, welcome StreamTutor")
                 location.reload()
             }
             else {
-                alert("Invalid channel key, make sure you have entered the channel key correctley")
+                OpenNotificationModal("Invalid channel key, make sure you have entered the channel key correctley")
             }
         }
     });
@@ -65,3 +64,10 @@ function RetreivePlayer() {
     var myPlayer = dacast.players["135034_c_505911"];
     //var isPlaying = myPlayer.playing();
 }
+
+function OpenNotificationModal(body) {
+    var notification = document.getElementById('notificationBody');
+    notification.textContent = body;
+    $('#notificationModal').modal('show')
+}
+

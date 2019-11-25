@@ -11,22 +11,22 @@ function SignUpStudent() {
     var role = 'student';
 
     if (nameFirst == "" || nameLast == "" || email == "" || payPalAddress == "" || username == "" || password == "" || confirmPassword == "") {
-        alert("Please fill out all fields");
+        OpenNotificationModal("Please fill out all fields")
         return;
     }
 
     if (password != confirmPassword) {
-        alert("Passwords do not match");
+        OpenNotificationModal("Passwords do not match")
         return;
     }
 
     if (ValidateEmail(email) == false) {
-        alert("Invalid Email!");
+        OpenNotificationModal("Invalid Email")
         return
     }
 
     if (ValidateEmail(payPalAddress) == false) {
-        alert("Invalid Email!");
+        OpenNotificationModal("Invalid Email")
         return
     }
 
@@ -53,9 +53,9 @@ function SignUpStudent() {
 
                 window.location.href = '/Home/Login';
             } else if (data.message === "Wrong Password") {
-                alert("Passwords do not match");
+                OpenNotificationModal("Passwords do not match")
             } else {
-                alert("Username already exists");
+                OpenNotificationModal("Username already exists")
             }
         }
     });
@@ -77,22 +77,22 @@ function SignUpTutor() {
     var role = 'tutor';
 
     if (nameFirst == "" || nameLast == "" || email == "" || payPalAddress == "" || username == "" || password == "" || confirmPassword == "") {
-        alert("Please fill out all fields");
+        OpenNotificationModal("Please fill out all fields")
         return;
     }
 
     if (password != confirmPassword) {
-        alert("Passwords do not match");
+        OpenNotificationModal("Passwords do not match")
         return;
     }
 
     if (ValidateEmail(email) == false) {
-        alert("Invalid Email!");
+        OpenNotificationModal("Invalid Email")
         return
     }
 
     if (ValidateEmail(payPalAddress) == false) {
-        alert("Invalid Email!");
+        OpenNotificationModal("Invalid Email")
         return
     }
 
@@ -101,7 +101,7 @@ function SignUpTutor() {
     }
     
     if (transcript.length != 1 && resume.length != 1) {
-        alert("A transcript and resume are required");
+        OpenNotificationModal("A transcript and resume are required");
         return;
     }
 
@@ -131,9 +131,9 @@ function SignUpTutor() {
 
                 window.location.href = '/Home/Login';
             } else if (data.message === "Wrong Password") {
-                alert("Passwords do not match");
+                OpenNotificationModal("Passwords do not match")
             } else {
-                alert("Username already exists");
+                OpenNotificationModal("Username already exists")
             }
         }
     });
@@ -160,12 +160,12 @@ function ValidatePassword(password){
         }
 
         if (UpperCase == false || LowerCase == false || Number == false) {
-            alert("Password must contain one lowercase letter, one uppercase letter, and one number");
+            OpenNotificationModal("Password must contain one lowercase letter, one uppercase letter, and one number");
             return false;
         }
     }
     else {
-        alert("Password must be at least 8 characters long");
+        OpenNotificationModal("Password must be at least 8 characters long");
         return false;
     }
 
@@ -238,7 +238,7 @@ function Login() {
                 verified = true;
                 tutor = true;
             } else {
-                alert("Wrong Username or Password");
+                OpenNotificationModal("Wrong Username or Password")
             }
 
             if (verified) {
@@ -302,11 +302,11 @@ function RecoverPassword() {
         },
         success: function (data) {
             if (data.message === 'Success') {
-                alert('Email sent! Check your email to reset your password')
+                OpenNotificationModal('Email sent! Check your email to reset your password')
                 window.location.href = '/Home/Login'
             }
             else {
-                alert('Invalid username')
+                OpenNotificationModal('Invalid username')
             }
         }
     })
@@ -349,7 +349,7 @@ function ChangePassword() {
 
 
     if (newPassword != currentPassword) {
-        alert("Passwords do not match");
+        OpenNotificationModal("Passwords do not match");
         return;
     }
 
@@ -368,17 +368,24 @@ function ChangePassword() {
         },
         success: function (data) {
             if (data.message === 'Success') {
-                alert('Password has been changed!')
+                OpenNotificationModal('Password has been changed!')
                 window.location.href = '/Home/Login'
             }
             else if (data.message === 'Invalid Password Match') {
-                alert('Passwords do not match. Please try again.')
+                OpenNotificationModal('Passwords do not match. Please try again.')
             }
             else {
-                alert('Error')
+                OpenNotificationModal('Error')
             }
         }
     })
+}
+
+
+function OpenNotificationModal(body) {
+    var notification = document.getElementById('notificationBody');
+    notification.textContent = body;
+    $('#notificationModal').modal('show')
 }
 
 
