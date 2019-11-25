@@ -9,7 +9,7 @@ ViewData["Title"] = "TutorSettings";
 </script>
 <div style="font-family:'Roboto', sans-serif;">
 <nav class="navbar sticky-top navbar-expand-lg  text-center" style="background-color:#008080">
-   <img src="~/images/streamworkPencilWhite.png" height="70" onclick="" />
+   <img src="~/images/streamworkPencilWhite.png" height="70" onclick="window.location.href='/'" />
    <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
    <span class="navbar-toggler-icon"></span>
    </button>
@@ -39,121 +39,46 @@ ViewData["Title"] = "TutorSettings";
    </div>
 </nav>
 <div class="container">
-   <div class="row">
-      <div class="col-lg-6 col-md-6 col-sm-12">
-         <br />
-         <div class="card" style="background-color: white; height:850px"">
-            <div class="card-header" style="background-color:#008080">
-               <h1 class="text-center" style="color:white">Overview</h1>
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-lg-8 col-md-8 col-sm-12">
+                <br />
+                <div class="card" style="background-color: white; height:550px">
+                    <div class="card-header" style="background-color:#008080">
+                        <h1 class="text-center" style="color:white">Security</h1>
+                    </div>
+                    <br />
+                    <div class="card-body">
+                        <form>
+                            <h3 class="text-center">Change Password</h3>
+                            <div class="row">
+                                <div class="col-12 mt-3">
+                                    <div>
+                                        <label>Current Password:</label>
+                                    </div>
+                                    <input id="CurrentPassword" type="password" style="width:100%; border-radius:5px" ; />
+                                </div>
+                                <div class="col-12 mt-3">
+                                    <div>
+                                        <label>New Password:</label>
+                                    </div>
+                                    <input id="NewPassword" type="password" style="width:100%; border-radius:5px" ; />
+                                </div>
+                                <div class="col-12 mt-3">
+                                    <div>
+                                        <label>Confirm Password:</label>
+                                    </div>
+                                    <input id="ConfirmPassword" type="password" style="width:100%; border-radius:5px" ; />
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+                            <button class="editbtn mt-2" onclick="EditTutorSecurity()" style="display:block; margin-left:auto; margin-right:auto;">Change Password</button>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="card-body">
-               <form>
-                  <img id="previewProfilePic" src=@Model.userProfile.ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
-                  <div class="row">
-                     <div class="col-6 mt-5">
-                        <div>
-                           <div style="font-size: 20px; color:black">
-                              <label>Name</label>
-                           </div>
-                           <input id="Name" type="text" style="border-radius:5px" value="@Model.userProfile.Name.Replace('|',' ')" />
-                        </div>
-                     </div>
-                      <div class="col-6 mt-5">
-                        <div>
-                           <div style="font-size: 20px; color:black">
-                              <label>Email</label>
-                           </div>
-                          <label style="color:black">@Model.userProfile.EmailAddress</label>
-                        </div>
-                     </div>
-                     <div class="col-6 mt-5">
-                        <div>
-                           <div style="font-size: 20px; color:black">
-                              <label>Username</label>
-                           </div>
-                          <label style="color:black">@Model.userProfile.Username</label>
-                        </div>
-                      </div>
-                      <div class="col-6 mt-5">
-                        <div>
-                           <div style="font-size: 20px; color:black">
-                              <label>Profile Type</label>
-                           </div>
-                           <label style="color:black">@Model.userProfile.ProfileType</label>
-                        </div>
-                     </div>
-                     <div class="col-12 mt-5">
-                        <div>
-                           <div style="font-size: 20px; color:black">
-                              <label>Profile Caption</label>
-                           </div>
-                           <input id="ProfileCaption" type="text" style="border-radius:5px; width:100%" value="@Model.userProfile.ProfileCaption" />
-                        </div>
-                     </div>
-                      <div class="col-12 mt-5">
-                        <div>
-                           <div style="font-size: 20px; color:black">
-                              <label>Profile Caption</label>
-                           </div>
-                           <textarea id="ProfileParagraph" style="border-radius:5px; width:100%">@Model.userProfile.ProfileParagraph</textarea>
-                        </div>
-                     </div>
-                  </div>
-                  <button class="editbtn mt-4" onclick="EditProfile()" style="display:block; margin-left:auto; margin-right:auto;">Save Changes</button>
-               </form>
-            </div>
-         </div>
-      </div>
-       <div class="col-lg-6 col-md-6 col-sm-12">
-         <br />
-         <div class="card" style="background-color: white; height:850px">
-            <div class="card-header" style="background-color:#008080">
-               <h1 class="text-center" style="color:white">Security</h1>
-            </div>
-             <br />
-             <br />
-             <br />
-             <br />
-             <br />
-             <br />
-            <div class="card-body">
-               <form>
-                 <h3 class="text-center">Change Password</h3>
-                   <div class="row">
-                     <div class="col-12 mt-3">
-                        <div>
-                          <label>Current Password:</label>
-                        </div>
-                         <input id="CurrentPassword" type="password" style="width:100%; border-radius:5px";/>
-                     </div>
-                     <div class="col-12 mt-3">
-                        <div>
-                          <label>New Password:</label>
-                        </div>
-                         <input id="NewPassword" type="password" style="width:100%; border-radius:5px";/>
-                     </div>
-                    <div class="col-12 mt-3">
-                        <div>
-                          <label>Confirm Password:</label>
-                        </div>
-                         <input id="ConfirmPassword" type="password" style="width:100%; border-radius:5px";/>
-                     </div>
-                   </div>
-                   <br />
-                   <br />
-                   <br />
-                   <br />
-                   <br />
-                   <br />
-                   <br />
-                   <br />
-                   <br />
-                   <br />
-                   <button class="editbtn mt-2" onclick="EditTutorSecurity()" style="display:block; margin-left:auto; margin-right:auto;">Change Password</button>
-               </form>
-            </div>
-         </div>
-      </div>
-   </div>
+        </div>
+    </div>
 </div>
 </div>

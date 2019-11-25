@@ -29,19 +29,32 @@
                     </li>
                 </ul>
             </div>
-             <div class="btn-group">
-                     <img src=@Model.userProfile2.ProfilePicture style="width:75px; height:95px; border-radius:50%" />
-                     <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #008080; border:none; margin-right:35px"></button>
-                     <div class="dropdown-menu">
-                         <a class="dropdown-item" href="#" id="EditProfile" onclick="Dashboard('@Model.userProfile2.ProfileType')">Dashboard</a>
-                         <div class="dropdown-divider"></div>
-                         <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Edit Profile</a>
-                         <div class="dropdown-divider"></div>
-                         <a class="dropdown-item" href="#" id="EditProfile">Settings</a>
-                         <div class="dropdown-divider"></div>
-                         <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
-                     </div>
-             </div>
+            @if (Model.userProfile2 != null)
+        {
+            <div class="btn-group">
+                <img src=@Model.userProfile2.ProfilePicture style="width:75px; height:95px; border-radius:50%" />
+                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #008080; border:none; margin-right:35px"></button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#" id="Dashboard" onclick="Dashboard('@Model.userProfile2.ProfileType')">Dashboard</a>
+                    <div class="dropdown-divider"></div>
+                    @if (Model.userProfile2.ProfileType == "tutor")
+                    {
+                        <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Edit Profile</a>
+                        <div class="dropdown-divider"></div>
+                    }
+                     @if(Model.userProfile2.ProfileType == "tutor")
+                        {
+                             <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Tutor/TutorSettings'">Settings</a>
+                        }
+                        else
+                        {
+                             <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Student/StudentSettings'">Settings</a>
+                        }
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
+                </div>
+            </div>
+        }
         </nav>
          <div class="container-fluid mt-3">
             <div class="row">
