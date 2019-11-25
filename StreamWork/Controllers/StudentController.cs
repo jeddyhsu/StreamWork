@@ -87,7 +87,7 @@ namespace StreamWork.Controllers
                     return Json(new { Message = JsonResponse.Success.ToString() });
                 }
             }
-            return Json(new { Message = JsonResponse.Failed.ToString() });
+            return Json(new { Message = JsonResponse.Failed.ToString()});
         }
     }
 }
