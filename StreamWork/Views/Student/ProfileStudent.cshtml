@@ -48,7 +48,7 @@
                         {
                             if (videoInfo.StreamSubject != null)
                             {
-                                 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                                 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 streamsubject @videoInfo.StreamSubject">
                                     <div class="card mt-3" style="border-radius:5%; border:none;min-width:200px; max-width:400px">
                                         <iframe src="//iframe.dacast.com/b/135034/c/@videoInfo.ChannelKey" style="border-top-left-radius:5%; border-top-right-radius:5%; min-width:250px" height="250" frameborder="0" scrolling="no" allow="autoplay"></iframe>
                                         <div class="card-body" style="background-color:#008080 ;border-bottom-left-radius:5%; height:100px; border-bottom-right-radius:5%; border:none; min-width:250px" onclick="window.location.href='../StreamViews/StreamPage?streamKeyandchatId=' + ('@videoInfo.ChannelKey') + ('|') + ('@Model.userChannels[0].ChatId') + '&tutor=@videoInfo.Username'">
@@ -77,7 +77,7 @@
                 <br />
                 <br />
                 <br />
-                <input type="image" runat="server" src="~/images/MathCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Mathematics')" />
+                <input type="image" src="~/images/MathCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Mathematics')" />
                 <input type="image" src="~/images/ScienceCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Science')" />
                 <input type="image" src="~/images/EngineeringCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Engineering')" />
                 <input type="image" src="~/images/BuisnessCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Business')" />

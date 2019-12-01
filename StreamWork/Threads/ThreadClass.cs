@@ -40,7 +40,7 @@ namespace StreamWork.Threads
             try
             {
                 HttpClient httpClient = new HttpClient();
-                var response = await httpClient.PostAsync("https://api.dacast.com/v2/channel/" + userChannel.ChannelKey + "/recording/watch?apikey=135034_2b54d7950c64485cb8c3", null);
+                var response = await httpClient.PostAsync("https://api.dacast.com/v2/channel/" + userChannel.ChannelKey + "/recording/watch?apikey=" + helperFunctions._dacastAPIKey, null);
             }
             catch (Exception ex)
             {
@@ -53,7 +53,7 @@ namespace StreamWork.Threads
             try
             {
                 HttpClient httpClient = new HttpClient();
-                var response = await httpClient.PostAsync("https://api.dacast.com/v2/channel/" + userChannel.ChannelKey + "/recording/start?apikey=135034_2b54d7950c64485cb8c3", null);
+                var response = await httpClient.PostAsync("https://api.dacast.com/v2/channel/" + userChannel.ChannelKey + "/recording/start?apikey=" + helperFunctions._dacastAPIKey, null);
             }
             catch(Exception ex)
             {
@@ -66,7 +66,7 @@ namespace StreamWork.Threads
             try
             {
                 HttpClient httpClient = new HttpClient();
-                var response = await httpClient.DeleteAsync("https://api.dacast.com/v2/channel/" + userChannel.ChannelKey + "/recording/watch?apikey=135034_2b54d7950c64485cb8c3");
+                var response = await httpClient.DeleteAsync("https://api.dacast.com/v2/channel/" + userChannel.ChannelKey + "/recording/watch?apikey=" + helperFunctions._dacastAPIKey);
             }
             catch (Exception ex)
             {
@@ -99,7 +99,7 @@ namespace StreamWork.Threads
                     await Task.Delay(15000, cancellationToken);
                     try
                     {
-                        var live = DataStore.CallAPI<LiveRecordingAPI>("https://liverecording.dacast.com/l/status/live?contentId=135034_c_" + userChannel.ChannelKey + "&apikey=135034_2b54d7950c64485cb8c3");
+                        var live = DataStore.CallAPI<LiveRecordingAPI>("https://liverecording.dacast.com/l/status/live?contentId=135034_c_" + userChannel.ChannelKey + "&apikey=" + helperFunctions._dacastAPIKey);
                         if (live.IsLive)
                             Console.WriteLine("Live");
                         else
@@ -178,7 +178,7 @@ namespace StreamWork.Threads
             var currentDate = DateTime.Now;
             var finalDate = currentDate.ToString("ddd/MMM/d/yyyy").Replace('/', ' ');
             //strict format!!!
-            var archivedVideos = DataStore.CallAPI<VideoArchiveAPI>("https://api.dacast.com/v2/vod?apikey=135034_2b54d7950c64485cb8c3&title=" + "(" + userChannel.ChannelKey + ")" + " - " + finalDate);
+            var archivedVideos = DataStore.CallAPI<VideoArchiveAPI>("https://api.dacast.com/v2/vod?apikey=" + helperFunctions._dacastAPIKey + "&title=" + "(" + userChannel.ChannelKey + ")" + " - " + finalDate);
             return archivedVideos;
         }
 

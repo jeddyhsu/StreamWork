@@ -50,7 +50,7 @@ namespace StreamWork.Controllers
                 {
                     try
                     {
-                        var channelInfo = DataStore.CallAPI<ChannelAPI>("http://api.dacast.com/v2/channel/+" + channelKey + "?apikey=135034_2b54d7950c64485cb8c3&_format=JSON");
+                        var channelInfo = DataStore.CallAPI<ChannelAPI>("http://api.dacast.com/v2/channel/+" + channelKey + "?apikey=" + helperFunctions._dacastAPIKey + "&_format=JSON");
                         userChannel[0].ChannelKey = channelInfo.Id.ToString();
                         await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel[0].Id } }, userChannel[0]);
                         return Json(new { Message = JsonResponse.Success.ToString()});
