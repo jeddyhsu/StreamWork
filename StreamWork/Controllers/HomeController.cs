@@ -17,6 +17,7 @@ namespace StreamWork.Controllers
 {
     public class HomeController : Controller {
         HelperFunctions helperFunctions = new HelperFunctions();
+
         [HttpGet]
         public async Task<IActionResult> Index ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
             if (Request.Host.ToString() == "streamwork.live") {

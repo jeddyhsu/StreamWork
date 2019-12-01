@@ -23,12 +23,12 @@ namespace StreamWork.Controllers {
             public string Verification { get; set; } = string.Empty;
         }
 
-        private IOptionsSnapshot<StorageConfig> storageConfig;
-        private readonly HelperFunctions helperFunctions = new HelperFunctions();
+        private IOptionsSnapshot<StorageConfig> _storageConfig;
+        private readonly HelperFunctions _helperFunctions = new HelperFunctions();
 
         [HttpPost]
         public IActionResult Receive ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
-            this.storageConfig = storageConfig;
+            this._storageConfig = storageConfig;
 
             IPNContext ipnContext = new IPNContext {
                 IPNRequest = Request
@@ -87,7 +87,7 @@ namespace StreamWork.Controllers {
         private async Task LogRequest (IPNContext ipnContext) {
             // Persist the request values into a database or temporary data store
 
-            await helperFunctions.LogIPNRequest(storageConfig, new IPNRequestBody {
+            await _helperFunctions.LogIPNRequest(_storageConfig, new IPNRequestBody {
                 Id = Guid.NewGuid().ToString(),
                 RequestBody = ipnContext.RequestBody
             });
@@ -101,7 +101,7 @@ namespace StreamWork.Controllers {
                 NameValueCollection request = HttpUtility.ParseQueryString(ipnContext.RequestBody);
 
                 if (ipnContext.RequestBody.Equals("")) {
-                    await helperFunctions.SavePayment(storageConfig, new Payment {
+                    await _helperFunctions.SavePayment(_storageConfig, new Payment {
                         Id = Guid.NewGuid().ToString(),
                         TransactionId = "UNKNOWN",
                         PayerEmail = "UNKNOWN",
@@ -129,14 +129,14 @@ namespace StreamWork.Controllers {
                         error = "TEST " + error;
                     }
 
-                    if (await helperFunctions.GetPayment(storageConfig, "PaymentsById", request["txn_id"]) != null) {
+                    if (await _helperFunctions.GetPayment(_storageConfig, "PaymentsById", request["txn_id"]) != null) {
                         error = "DUPLICATE " + error;
                     }
 
                     var customParams = request["custom"].Split("~");
                     var username = customParams[0];
                     var tutorName = customParams.Length >= 2 ? customParams[1] : null;
-                    var user = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
+                    var user = await _helperFunctions.GetUserProfile(_storageConfig, QueryHeaders.CurrentUser, username);
                     if (user == null) {
                         error = "UNMATCHED_USER " + error;
                     }
@@ -161,7 +161,7 @@ namespace StreamWork.Controllers {
                                 }
 
                                 user.TrialAccepted = true;
-                                await helperFunctions.UpdateUser(storageConfig, user);
+                                await _helperFunctions.UpdateUser(_storageConfig, user);
                             }
                         }
 
@@ -172,7 +172,7 @@ namespace StreamWork.Controllers {
 
                         }
                         else {
-                            var tutors = await helperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, tutorName);
+                            var tutors = await _helperFunctions.GetUserLogins(_storageConfig, QueryHeaders.CurrentUser, tutorName);
                             if (tutors.Count == 0) {
                                 error = "UNMATCHED_TUTOR " + error;
                             }
@@ -182,7 +182,7 @@ namespace StreamWork.Controllers {
                             if (error.Equals("")) {
                                 var tutor = tutors[0];
                                 tutor.Balance += (decimal)donationAmt;
-                                await helperFunctions.UpdateUser(storageConfig, tutor);
+                                await _helperFunctions.UpdateUser(_storageConfig, tutor);
                             }
                         }
                     }
@@ -190,7 +190,7 @@ namespace StreamWork.Controllers {
                         error = "UNKNOWN_ITEM " + error;
                     }
 
-                    await helperFunctions.SavePayment(storageConfig, new Payment {
+                    await _helperFunctions.SavePayment(_storageConfig, new Payment {
                         Id = Guid.NewGuid().ToString(),
                         TransactionId = request["txn_id"],
                         PayerEmail = request["payer_email"],
@@ -210,7 +210,7 @@ namespace StreamWork.Controllers {
                     var username = customParams[0];
                     var tutorName = customParams.Length >= 2 ? customParams[1] : null;
 
-                    await helperFunctions.SavePayment(storageConfig, new Payment {
+                    await _helperFunctions.SavePayment(_storageConfig, new Payment {
                         Id = Guid.NewGuid().ToString(),
                         TransactionId = request["txn_id"],
                         PayerEmail = request["payer_email"],
@@ -230,7 +230,7 @@ namespace StreamWork.Controllers {
                     var username = customParams[0];
                     var tutorName = customParams.Length >= 2 ? customParams[1] : null;
 
-                    await helperFunctions.SavePayment(storageConfig, new Payment {
+                    await _helperFunctions.SavePayment(_storageConfig, new Payment {
                         Id = Guid.NewGuid().ToString(),
                         TransactionId = request["txn_id"],
                         PayerEmail = request["payer_email"],
@@ -245,7 +245,7 @@ namespace StreamWork.Controllers {
                 }
             }
             catch (Exception e) {
-                await helperFunctions.SavePayment(storageConfig, new Payment {
+                await _helperFunctions.SavePayment(_storageConfig, new Payment {
                     Id = Guid.NewGuid().ToString(),
                     TransactionId = "",
                     PayerEmail = "",

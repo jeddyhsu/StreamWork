@@ -17,10 +17,8 @@ namespace StreamWork.Controllers
 {
     public class TutorController : Controller
     {
-        HelperFunctions helperFunctions = new HelperFunctions();
-        TutorHelperFunctions tutorHelperFunctions = new TutorHelperFunctions();
-
-        private readonly string _connectionString = "Server=tcp:streamwork.database.windows.net,1433;Initial Catalog=StreamWork;Persist Security Info=False;User ID=streamwork;Password=arizonastate1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        readonly HelperFunctions _helperFunctions = new HelperFunctions();
+        readonly TutorHelperFunctions _tutorHelperFunctions = new TutorHelperFunctions();
 
         [HttpGet]
         public async Task<IActionResult> TutorStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
@@ -28,10 +26,10 @@ namespace StreamWork.Controllers
             var user = HttpContext.Session.GetString("UserProfile");
             ProfileTutorViewModel viewModel = new ProfileTutorViewModel
             {
-                userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user),
-                userLogins = await helperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user),
-                userChannels = await helperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user),
-                userArchivedVideos = await helperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, user),
+                userProfile = await _helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user),
+                userLogins = await _helperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user),
+                userChannels = await _helperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user),
+                userArchivedVideos = await _helperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, user),
                 ChatSecretKey = await GetChatSecretKey(storageConfig, user)
             };
             return View(viewModel);
@@ -41,8 +39,8 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> TutorStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string change, string channelKey)
         {
             var user = HttpContext.Session.GetString("UserProfile");
-            var userChannel = await helperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user);
-            var userLogin = await helperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user);
+            var userChannel = await _helperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user);
+            var userLogin = await _helperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user);
 
             if (channelKey != null)
             {
@@ -50,9 +48,9 @@ namespace StreamWork.Controllers
                 {
                     try
                     {
-                        var channelInfo = DataStore.CallAPI<ChannelAPI>("http://api.dacast.com/v2/channel/+" + channelKey + "?apikey=" + helperFunctions._dacastAPIKey + "&_format=JSON");
+                        var channelInfo = DataStore.CallAPI<ChannelAPI>("http://api.dacast.com/v2/channel/+" + channelKey + "?apikey=" + _helperFunctions._dacastAPIKey + "&_format=JSON");
                         userChannel[0].ChannelKey = channelInfo.Id.ToString();
-                        await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel[0].Id } }, userChannel[0]);
+                        await DataStore.SaveAsync(_helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel[0].Id } }, userChannel[0]);
                         return Json(new { Message = JsonResponse.Success.ToString()});
                     }
                     catch (System.Net.WebException e)
@@ -69,7 +67,7 @@ namespace StreamWork.Controllers
                 var streamInfo = Request.Form.Files[0].Name.Split(new char[] { '|' });
                 var streamTitle = streamInfo[0];
                 var streamSubject = streamInfo[1];
-                var streamThumbnail = await helperFunctions.SaveIntoBlobContainer(Request.Form.Files[0], storageConfig, user, userChannel[0].Id);
+                var streamThumbnail = await _helperFunctions.SaveIntoBlobContainer(Request.Form.Files[0], storageConfig, user, userChannel[0].Id);
                 ThreadClass handleStreams = new ThreadClass(storageConfig, userChannel[0], userLogin[0], streamTitle, streamSubject, streamThumbnail);
                 await handleStreams.TurnRecordingOn();
                 await handleStreams.StartRecordingStream();
@@ -87,7 +85,7 @@ namespace StreamWork.Controllers
                 }
                 var streamTitle = streamInfo[0];
                 var streamSubject = streamInfo[1];
-                ThreadClass handleStreams = new ThreadClass(storageConfig, userChannel[0], userLogin[0], streamTitle, streamSubject, tutorHelperFunctions.GetCorrespondingDefaultThumbnail(streamSubject));
+                ThreadClass handleStreams = new ThreadClass(storageConfig, userChannel[0], userLogin[0], streamTitle, streamSubject, _tutorHelperFunctions.GetCorrespondingDefaultThumbnail(streamSubject));
                 await handleStreams.TurnRecordingOn();
                 await handleStreams.StartRecordingStream();
                 handleStreams.RunThread();
@@ -98,7 +96,7 @@ namespace StreamWork.Controllers
             if (change != null) 
             {
                 userChannel[0].StreamSubject = change;
-                await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel[0].Id } }, userChannel[0]);
+                await DataStore.SaveAsync(_helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel[0].Id } }, userChannel[0]);
                 return Json(new { Message = JsonResponse.Success.ToString()});
             }
 
@@ -112,10 +110,10 @@ namespace StreamWork.Controllers
 
             ProfileTutorViewModel viewModel = new ProfileTutorViewModel
             {
-                userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user),
-                userLogins = await helperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user),
-                userChannels = await helperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user),
-                userArchivedVideos = await helperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, user)
+                userProfile = await _helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user),
+                userLogins = await _helperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user),
+                userChannels = await _helperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user),
+                userArchivedVideos = await _helperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, user)
             };
             return View(viewModel);
         }
@@ -124,7 +122,7 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> ProfileTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string stop)
         {
             var user = HttpContext.Session.GetString("UserProfile");
-            var userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
+            var userProfile = await _helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
 
             //Handles if there is a profile picture with the caption or about paragraph
             if (Request.Form.Files.Count > 0)
@@ -133,20 +131,20 @@ namespace StreamWork.Controllers
                 var fileSplit = file.Name.Split(new char[] { '|' });
                 var profileCaption = fileSplit[0];
                 var profileParagraph = fileSplit[1];
-                var profilePicture = await helperFunctions.SaveIntoBlobContainer(file, storageConfig, user, userProfile.Id);
+                var profilePicture = await _helperFunctions.SaveIntoBlobContainer(file, storageConfig, user, userProfile.Id);
                 userProfile.ProfileCaption = profileCaption != "NA" ? profileCaption : null;
                 userProfile.ProfilePicture = profilePicture;
                 userProfile.ProfileParagraph = profileParagraph != "NA" ? profileParagraph : null;
-                await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
+                await DataStore.SaveAsync(_helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
                 if(userProfile.ProfileType == "tutor")
-                    await tutorHelperFunctions.ChangeAllArchivedStreamAndUserChannelProfilePhotos(storageConfig, user, profilePicture); //only if tutor
+                    await _tutorHelperFunctions.ChangeAllArchivedStreamAndUserChannelProfilePhotos(storageConfig, user, profilePicture); //only if tutor
                 return Json(new { Message = JsonResponse.Success.ToString() });
             }
 
             //Handles if there is not a profile picture with the caption or about paragraph
             if (Request.Form.Keys.Count > 0)
             {
-                var getUserInfo = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, "CurrentUser", new List<string> { user });
+                var getUserInfo = await DataStore.GetListAsync<UserLogin>(_helperFunctions._connectionString, storageConfig.Value, "CurrentUser", new List<string> { user });
                 var profileCaption = "";
                 var profileParagraph = "";
                 foreach (string s in Request.Form.Keys)
@@ -159,7 +157,7 @@ namespace StreamWork.Controllers
                 getUserInfo[0].ProfileCaption = profileCaption != "NA" ? profileCaption : null;
                 getUserInfo[0].ProfileParagraph = profileParagraph != "NA" ? profileParagraph : null;
 
-                await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", getUserInfo[0].Id } }, getUserInfo[0]);
+                await DataStore.SaveAsync(_helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", getUserInfo[0].Id } }, getUserInfo[0]);
                 return Json(new { Message = JsonResponse.Success.ToString()});
             }
             return Json(new { Message = "" });
@@ -171,10 +169,10 @@ namespace StreamWork.Controllers
             var user = HttpContext.Session.GetString("UserProfile");
             ProfileTutorViewModel viewModel = new ProfileTutorViewModel
             {
-                userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user),
-                userLogins = await helperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user),
-                userChannels = await helperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user),
-                userArchivedVideos = await helperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, user)
+                userProfile = await _helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user),
+                userLogins = await _helperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user),
+                userChannels = await _helperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user),
+                userArchivedVideos = await _helperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, user)
             };
             return View(viewModel);
         }
@@ -188,22 +186,22 @@ namespace StreamWork.Controllers
                                                                                                                      string confirmPassword)
         {
             var user = HttpContext.Session.GetString("UserProfile");
-            var userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
+            var userProfile = await _helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
             if(name != null || profileCaption != null || profileParagraph != null)
             {
                 userProfile.Name = name;
                 userProfile.ProfileCaption = profileCaption;
                 userProfile.ProfileParagraph = profileParagraph;
-                await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
+                await DataStore.SaveAsync(_helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
             }
 
             if(currentPassword != null && newPassword != null && confirmPassword != null)
             {
-                var userLogin = await helperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user);
-                 if(helperFunctions.DecryptPassword(userLogin[0].Password,currentPassword) == userLogin[0].Password)
+                var userLogin = await _helperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user);
+                 if(_helperFunctions.DecryptPassword(userLogin[0].Password,currentPassword) == userLogin[0].Password)
                 {
-                    userLogin[0].Password = helperFunctions.EncryptPassword(newPassword);
-                    await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userLogin[0].Id } }, userLogin[0]);
+                    userLogin[0].Password = _helperFunctions.EncryptPassword(newPassword);
+                    await DataStore.SaveAsync(_helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userLogin[0].Id } }, userLogin[0]);
                     return Json(new { Message = JsonResponse.Success.ToString()});
                 }
             }
@@ -212,9 +210,9 @@ namespace StreamWork.Controllers
 
         private async Task<string> GetChatSecretKey([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string user)
         {
-            var userChannel = await helperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user);
+            var userChannel = await _helperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user);
             var ids = userChannel[0].ChatId.Split("|");
-            var encodedUrl = HttpUtility.UrlEncode(Convert.ToBase64String(helperFunctions.hmacSHA256("/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + ids[0] + "&tkey=" + ids[1] + "&nme=" + userChannel[0].Username, "3O08UU-OtQ_rycx3")));
+            var encodedUrl = HttpUtility.UrlEncode(Convert.ToBase64String(_helperFunctions.hmacSHA256("/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + ids[0] + "&tkey=" + ids[1] + "&nme=" + userChannel[0].Username, "3O08UU-OtQ_rycx3")));
             var finalString = "https://www6.cbox.ws" + "/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + ids[0] + "&tkey=" + ids[1] + "&nme=" + userChannel[0].Username + "&sig=" + encodedUrl ;
             return finalString;
         }

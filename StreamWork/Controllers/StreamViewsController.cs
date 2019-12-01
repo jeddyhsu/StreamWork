@@ -10,7 +10,7 @@ namespace StreamWork.Controllers
 {
     public class StreamViewsController : Controller
     {
-        HelperFunctions helperFunctions = new HelperFunctions();
+        HelperFunctions _helperFunctions = new HelperFunctions();
 
         public IActionResult Index()
         {
@@ -21,13 +21,13 @@ namespace StreamWork.Controllers
             var user = HttpContext.Session.GetString("UserProfile");
 
             var split = streamKeyandchatId.Split(new char[] { '|' });
-            var secretChatKey = helperFunctions.GetChatSecretKey(split[1], split[2], user);
+            var secretChatKey = _helperFunctions.GetChatSecretKey(split[1], split[2], user);
             string[] arr = { split[0], secretChatKey };
 
             StreamPageViewModel model = new StreamPageViewModel {
                 profile = new ProfileTutorViewModel {
-                    userProfile = user != null ? await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user) : null,
-                    userProfile2 = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, tutor)
+                    userProfile = user != null ? await _helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user) : null,
+                    userProfile2 = await _helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, tutor)
                 },
                 urlParams = arr
             };
@@ -41,7 +41,7 @@ namespace StreamWork.Controllers
 
             StreamPageViewModel model = new StreamPageViewModel {
                 profile = new ProfileTutorViewModel {
-                    userProfile = user != null ? await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user) : null
+                    userProfile = user != null ? await _helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user) : null
                 },
                 urlParams = arr
             };
