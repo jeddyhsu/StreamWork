@@ -17,22 +17,22 @@ else
 </script>
 <div style="font-family:'Roboto', sans-serif;">
     <nav class="navbar sticky-top navbar-expand-lg navbar-light text-center" style="background-color:#008080">
-        <img src="~/images/WhiteStreamWork.png" width="250" height="70" onclick="window.location.href='/'" />
+        <img src="~/images/streamworkPencilWhite.png" height="70" onclick="window.location.href='/'" />
         <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item ml-sm-5" style="font-size:14px;">
+                <li class="nav-item ml-sm-4 mt-1" style="font-size:15px;">
                     <a class="nav-link" href="/" style="color:white;">Browse by Subjects</a>
                 </li>
-                <li class="nav-item ml-sm-5" style="font-size:14px; ">
+                <li class="nav-item ml-sm-5 mt-1" style="font-size:15px; ">
                     <a class="nav-link" href="/Home/BecomeTutor" style="color:white;">Become a StreamTutor</a>
                 </li>
-                <li class="nav-item ml-sm-5" style="font-size:14px;">
+                <li class="nav-item ml-sm-5 mt-1" style="font-size:15px;">
                     <a id="button" class="nav-link" href="/Home/About" style="color:white;">About</a>
                 </li>
-                <li class="nav-item ml-sm-5" style="font-size:14px;">
+                <li class="nav-item ml-sm-5 mt-1" style="font-size:15px;">
                     <a class="nav-link" href="/Home/HowToStream" style="color:white;">How to Stream</a>
                 </li>
             </ul>
@@ -79,8 +79,8 @@ else
                             if (videoInfo.StreamTitle != null)
                             {
                                 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                                    <div class="card mt-3" style="border-radius:5%; border:none;min-width:200px; max-width:400px">
-                                        <iframe src="//iframe.dacast.com/b/135034/c/@videoInfo.ChannelKey" style="border-top-left-radius:5%; border-top-right-radius:5%; min-width:250px" height="250" frameborder="0" scrolling="no" allow="autoplay"></iframe>
+                                    <div class="card mt-3" style="border-radius:10%; border:none;min-width:200px; max-width:400px">
+                                        <iframe src="//iframe.dacast.com/b/135034/c/@videoInfo.ChannelKey" style="border-top-left-radius:5px; border-top-right-radius:5px; min-width:250px" height="250" frameborder="0" scrolling="no" allow="autoplay"></iframe>
                                         <div class="card-body" style="background-color:#008080 ;border-bottom-left-radius:5%; height:100px; border-bottom-right-radius:5%; border:none; min-width:250px" onclick="window.location.href='../StreamViews/StreamPage?streamKeyandchatId=' + ('@videoInfo.ChannelKey') + ('|') + ('@Model.userChannels[0].ChatId') + '&tutor=@videoInfo.Username'">
                                             <div class="row">
                                                 <div class="col-3 pr-2">

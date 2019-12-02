@@ -10,7 +10,7 @@ namespace StreamWork.HelperClasses
 {
     public class TutorHelperFunctions //For functions involved with tutor code only
     {
-        HelperFunctions helperFunctions = new HelperFunctions();
+        readonly HelperFunctions _helperFunctions = new HelperFunctions();
         //Uses a hashtable to add default thumbnails based on subject
         public string GetCorrespondingDefaultThumbnail(string subject)
         {
@@ -42,15 +42,15 @@ namespace StreamWork.HelperClasses
 
         public async Task ChangeAllArchivedStreamAndUserChannelProfilePhotos([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string user, string profilePicture)
         {
-            var allArchivedStreams = await helperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, user);
-            var userChannel = await helperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user);
+            var allArchivedStreams = await _helperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, user);
+            var userChannel = await _helperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user);
             foreach (var stream in allArchivedStreams)
             {
                 stream.ProfilePicture = profilePicture;
-                await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", stream.Id } }, stream);
+                await DataStore.SaveAsync(_helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", stream.Id } }, stream);
             }
             userChannel[0].ProfilePicture = profilePicture;
-            await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel[0].Id } }, userChannel[0]);
+            await DataStore.SaveAsync(_helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel[0].Id } }, userChannel[0]);
         }
     }
 }

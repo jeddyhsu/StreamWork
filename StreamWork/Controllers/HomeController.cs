@@ -76,16 +76,29 @@ namespace StreamWork.Controllers
             return View(await PopulateSubjectPage(storageConfig, "Other"));
         }
 
-        public IActionResult BecomeTutor () {
-            return View();
+        public async Task<IActionResult> BecomeTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
+            var user = HttpContext.Session.GetString("UserProfile");
+            var userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
+            return View(userProfile);
         }
 
-        public IActionResult About () {
-            return View();
+        public async Task<IActionResult> About([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
+            var user = HttpContext.Session.GetString("UserProfile");
+            var userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
+            return View(userProfile);
         }
 
-        public IActionResult HowToStream () {
-            return View();
+        public async Task<IActionResult> HowToStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
+            var user = HttpContext.Session.GetString("UserProfile");
+            var userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
+            return View(userProfile);
+        }
+
+        public async Task<IActionResult> PickStudentOrTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
+            var user = HttpContext.Session.GetString("UserProfile");
+            var userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
+            return View(userProfile);
         }
 
         public IActionResult SplashPage () {
@@ -321,11 +334,6 @@ namespace StreamWork.Controllers
                 userProfile2 = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user)
             };
             return View(model);
-        }
-
-        public IActionResult PickStudentOrTutor()
-        {
-            return View();
         }
     }
 }

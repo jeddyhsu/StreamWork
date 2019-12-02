@@ -1,4 +1,5 @@
-﻿@{
+﻿@model StreamWork.DataModels.UserLogin
+@{
     ViewData["Title"] = "Become a Tutor";
 }
 <script>
@@ -6,25 +7,35 @@
 </script>
 <div style="font-family:'Roboto', sans-serif;">
     <nav class="navbar navbar-expand-lg text-center" style="position:fixed;z-index:2 ;width:100%;background-color:#008080">
-        <img src="~/images/WhiteStreamWork.png" width="250" height="70" onclick="window.location.href='/'" />
+        <img src="~/images/streamworkPencilWhite.png" height="70" onclick="window.location.href='/'" />
         <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item ml-sm-5" style="font-size:14px;">
+                <li class="nav-item ml-sm-4 mt-1" style="font-size:15px;">
                     <a class="nav-link" href="/" style="color:white;">Browse by Subjects</a>
                 </li>
-                <li class="nav-item ml-sm-5" style="font-size:14px; ">
+                <li class="nav-item ml-sm-5 mt-1" style="font-size:15px; ">
                     <a class="nav-link" href="/Home/BecomeTutor" style="color:white;">Become a StreamTutor</a>
                 </li>
-                <li class="nav-item ml-sm-5" style="font-size:14px;">
+                <li class="nav-item ml-sm-5 mt-1" style="font-size:15px;">
                     <a id="button" class="nav-link" href="/Home/About" style="color:white;">About</a>
                 </li>
-                <li class="nav-item ml-sm-5" style="font-size:14px;">
+                <li class="nav-item ml-sm-5 mt-1" style="font-size:15px;">
                     <a class="nav-link" href="/Home/HowToStream" style="color:white;">How to Stream</a>
                 </li>
             </ul>
+             @if(@Model == null || Model.LoggedIn == null){
+               <ul class="navbar-nav ml-auto">
+                <li class="nav-item mt-1 ml-auto" style="font-size:17px;">
+                    <a class="btn buttonStyleSignIn pt-2" onclick="window.location.href='/Home/PickStudentOrTutor'" id="sign" style="color:white"><b>Sign Up</b></a>
+                </li>
+                <li class="nav-item mt-1 ml-auto" style="font-size:17px;">
+                    <a class="btn buttonStyleLogin pt-2" onclick="window.location.href='/Home/Login?dest=-Home-Profile'" style="background-color:white; color:#008080"><b>Login</b></a>
+                </li>
+            </ul>
+            }
         </div>
     </nav>
     <div class="container-fluid" style="padding-top:140px;">

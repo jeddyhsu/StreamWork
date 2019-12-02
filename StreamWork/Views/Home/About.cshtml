@@ -1,4 +1,5 @@
-﻿@{
+﻿@model StreamWork.DataModels.UserLogin
+@{
     ViewData["Title"] = "About";
 }
 <script>
@@ -6,25 +7,35 @@
 </script>
 <div style="font-family:'Roboto', sans-serif;">
     <nav class="navbar navbar-expand-lg text-center" style="position:fixed;z-index:2 ;width:100%;background-color:#008080">
-        <img src="~/images/WhiteStreamWork.png" width="250" height="70" onclick="window.location.href='/'" />
+        <img src="~/images/streamworkPencilWhite.png" height="70" onclick="window.location.href='/'" />
         <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item ml-sm-5" style="font-size:14px;">
+             <ul class="navbar-nav mr-auto">
+                <li class="nav-item ml-sm-4 mt-1" style="font-size:15px;">
                     <a class="nav-link" href="/" style="color:white;">Browse by Subjects</a>
                 </li>
-                <li class="nav-item ml-sm-5" style="font-size:14px; ">
+                <li class="nav-item ml-sm-5 mt-1" style="font-size:15px; ">
                     <a class="nav-link" href="/Home/BecomeTutor" style="color:white;">Become a StreamTutor</a>
                 </li>
-                <li class="nav-item ml-sm-5" style="font-size:14px;">
+                <li class="nav-item ml-sm-5 mt-1" style="font-size:15px;">
                     <a id="button" class="nav-link" href="/Home/About" style="color:white;">About</a>
                 </li>
-                <li class="nav-item ml-sm-5" style="font-size:14px;">
+                <li class="nav-item ml-sm-5 mt-1" style="font-size:15px;">
                     <a class="nav-link" href="/Home/HowToStream" style="color:white;">How to Stream</a>
                 </li>
             </ul>
+             @if(@Model == null || Model.LoggedIn == null){
+               <ul class="navbar-nav ml-auto">
+                <li class="nav-item mt-1 ml-auto" style="font-size:17px;">
+                    <a class="btn buttonStyleSignIn pt-2" onclick="window.location.href='/Home/PickStudentOrTutor'" id="sign" style="color:white"><b>Sign Up</b></a>
+                </li>
+                <li class="nav-item mt-1 ml-auto" style="font-size:17px;">
+                    <a class="btn buttonStyleLogin pt-2" onclick="window.location.href='/Home/Login?dest=-Home-Profile'" style="background-color:white; color:#008080"><b>Login</b></a>
+                </li>
+            </ul>
+            }
         </div>
     </nav>
     <div class="container-fluid" style="padding-top:140px">
@@ -50,12 +61,12 @@
                                             <img src="~/images/JaredHsu2.jpg" style="width:65%; height:100%; margin-left:auto; margin-right:auto;display:block" />
                                             <br />
                                             <h4 class="text-center">Jared Hsu</h4>
-                                            <h6 class="text-center">Founder</h6>
+                                            <h6 class="text-center">Founder/CEO</h6>
                                             <br />
-                                            <div style="text-align:center">Jared Hsu is a technological entrepreneur and supporter of all things ed-tech. As a Silicon Valley native, he’s worked at YC-backed startups and is a 2x hackathon winner.</div>
+                                            <div style="text-align:center">Jared Hsu is a technology entrepreneur and supporter of all things ed-tech. After graduating from ASU in 2019 he worked at Google and is now currently at Facebook. As an avid techie, Jared has interned at several Y-Combinator backed startups and is a 2x hackathon winner.</div>
                                             <br />
                                             <br />
-                                            <a class="fa fa-linkedin-square text-center" style="font-size: 60px; margin-left:auto; margin-right:auto;display:block; color:#0077B5" href="https://www.linkedin.com/in/jared-hsu-170704186/"></a>
+                                            <a class="fa fa-linkedin-square text-center" style="font-size: 60px; margin-left:auto; margin-right:auto;display:block;color:#0077B5" href="https://www.linkedin.com/in/jared-hsu-170704186/"></a>
                                         </div>
                                     </div>
                                 </div>
@@ -65,9 +76,10 @@
                                             <img src="~/images/RithvikArun.jpeg" style="width:65%; height:100%; margin-left:auto; margin-right:auto;display:block" />
                                             <br />
                                             <h4 class="text-center">Rithvik Arun</h4>
-                                            <h6 class="text-center">Co-Founder/Software Engineer</h6>
+                                            <h6 class="text-center">Co-Founder/CTO</h6>
                                             <br />
-                                            <div style="text-align:center">Rithvik Arun is a software engineering student and a Co-Founder at StreamWork. He has multiple years of programming experience and has worked on numerous projects in the .NET and Xamarin environments.</div>
+                                            <div style="text-align:center">Rithvik Arun is a software engineering student pursuing a bachelors degree at ASU and a Co-Founder at StreamWork. He has multiple years of programming experience and has worked on numerous projects in the .NET and Xamarin environments through internship opportunities.</div>
+                                            <br />
                                             <br />
                                             <a class="fa fa-linkedin-square text-center" style="font-size: 60px; margin-left:auto; margin-right:auto;display:block; color:#0077B5" href="https://www.linkedin.com/in/rithvik-arun-b57850162/"></a>
                                         </div>
@@ -79,17 +91,16 @@
                                             <img src="~/images/Tom.jpg" style="width:65%; height:100%; margin-left:auto; margin-right:auto;display:block" />
                                             <br />
                                             <h4 class="text-center">Tom Hansen</h4>
-                                            <h6 class="text-center">Co-Founder/Chief Information Officer</h6>
+                                            <h6 class="text-center">Co-Founder/CIO</h6>
                                             <br />
-                                            <div style="text-align:center">Tom Hansen is a software engineering student, former programming tutor, and game programmer. Now he’s a web developer, notably for StreamWork, of which he is a Co-Founder. </div>
+                                            <div style="text-align:center">Tom Hansen is a software engineering student pursuing a bachelors degree at ASU Barret Honors College and a Co-Founder at StreamWork. Notably a game developer he has worked on and created multiple games in the past years while being a successful programming tutor.</div>
                                             <br />
                                             <br />
                                             <a class="fa fa-linkedin-square text-center" style="font-size: 60px; margin-left:auto; margin-right:auto;display:block; color:#0077B5" href="https://www.linkedin.com/in/tom-hansen-08013118a/"></a>
                                         </div>
                                     </div>
                                 </div>
-
-                            </div> 
+                            </div>
                         </div>
                     </div>
                 </div>
