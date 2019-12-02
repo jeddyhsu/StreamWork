@@ -24,6 +24,8 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> TutorStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
             var user = HttpContext.Session.GetString("UserProfile");
+            if (user == null)
+                return Redirect("https://www.streamwork.live/Home/Login");
             ProfileTutorViewModel viewModel = new ProfileTutorViewModel
             {
                 userProfile = await _helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user),
@@ -107,6 +109,8 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> ProfileTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
             var user = HttpContext.Session.GetString("UserProfile");
+            if(user == null)
+                return Redirect("https://www.streamwork.live/Home/Login");
 
             ProfileTutorViewModel viewModel = new ProfileTutorViewModel
             {
@@ -167,6 +171,8 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> TutorSettings([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
             var user = HttpContext.Session.GetString("UserProfile");
+            if (user == null)
+                return Redirect("https://www.streamwork.live/Home/Login");
             ProfileTutorViewModel viewModel = new ProfileTutorViewModel
             {
                 userProfile = await _helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user),

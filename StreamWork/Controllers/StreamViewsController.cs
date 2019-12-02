@@ -19,7 +19,8 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> StreamPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamKeyandchatId, string tutor)
         {
             var user = HttpContext.Session.GetString("UserProfile");
-
+            if (user == null)
+                return Redirect("https://www.streamwork.live/Home/Login");
             var split = streamKeyandchatId.Split(new char[] { '|' });
             var secretChatKey = _helperFunctions.GetChatSecretKey(split[1], split[2], user);
             string[] arr = { split[0], secretChatKey };
@@ -37,8 +38,9 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> StreamPlaybackPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamId)
         {
             var user = HttpContext.Session.GetString("UserProfile");
+            if (user == null)
+                return Redirect("https://www.streamwork.live/Home/Login");
             string[] arr = { streamId };
-
             StreamPageViewModel model = new StreamPageViewModel {
                 profile = new ProfileTutorViewModel {
                     userProfile = user != null ? await _helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user) : null

@@ -113,3 +113,8 @@ function CheckSession() {
         }
     })
 }
+
+function encodeURL(url) {
+    var encodedURI = encodeURIComponent(url);
+    window.location.href = encodedURI;
+}

@@ -130,7 +130,6 @@ namespace StreamWork.Controllers
 
         private async Task<ProfileTutorViewModel> PopulateSubjectPage ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject) {
             var user = HttpContext.Session.GetString("UserProfile");
-
             ProfileTutorViewModel model = new ProfileTutorViewModel {
                 userChannels = await helperFunctions.GetUserChannels(storageConfig, QueryHeaders.AllUserChannelsThatAreStreamingWithSpecifiedSubject, subject),
                 userLogins = await GetPopularStreamTutors(storageConfig),

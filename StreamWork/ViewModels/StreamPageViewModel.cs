@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using StreamWork.DataModels;
-using StreamWork.Models;
 
 namespace StreamWork.ViewModels {
 

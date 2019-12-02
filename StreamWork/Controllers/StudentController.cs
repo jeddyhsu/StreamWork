@@ -20,6 +20,8 @@ namespace StreamWork.Controllers
         {
             var model = new UserProfile();
             var user = HttpContext.Session.GetString("UserProfile");
+            if(user == null)
+                return Redirect("https://www.streamwork.live/Home/Login");
             var userProfile = await _helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
             var splitName = userProfile.Name.Split(new char[] { '|' });
             model.FirstName = splitName[0];
@@ -37,6 +39,8 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> ArchivedStreams([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
             var user = HttpContext.Session.GetString("UserProfile");
+            if (user == null)
+                return Redirect("https://www.streamwork.live/Home/Login");
             ProfileStudentViewModel viewModel = new ProfileStudentViewModel
             {
                 userLogins = await _helperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user),
@@ -61,6 +65,8 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> StudentSettings([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
             var user = HttpContext.Session.GetString("UserProfile");
+            if (user == null)
+                return Redirect("https://www.streamwork.live/Home/Login");
             ProfileStudentViewModel viewModel = new ProfileStudentViewModel
             {
                 userProfile = await _helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user),
