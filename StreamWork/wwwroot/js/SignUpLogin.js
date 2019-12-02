@@ -179,43 +179,6 @@ function ValidateEmail(email) {
     return false
 }
 
-// Try to log in with session info
-function TryLogin() {
-    $.ajax({
-        url: '/Home/TryLogin',
-        type: 'post',
-        dataType: 'json',
-        data: {
-            'tryLogin': "do"
-        },
-        success: function(data) {
-            var verified = false;
-            var profile = false;
-            var tutor = false;
-
-            if (data.message === "Welcome") {
-                verified = true;
-            } else if (data.message == "Welcome, StreamTutor") {
-                verified = true;
-                tutor = true;
-            }
-
-            if (verified) {
-                const urlParams = new URLSearchParams(window.location.search);
-                var dest = urlParams.get('dest');
-                if (dest == '-Home-Profile') {
-                    if (tutor) {
-                        window.location.href = '/Tutor/ProfileTutor';
-                    } else {
-                        window.location.href = '/Student/ProfileStudent';
-                    }
-                } else {
-                    window.location.href = dest.split('-').join('/');
-                }
-            }
-        },
-    });
-}
 
 //Handles logging in
 function Login() {
@@ -256,13 +219,6 @@ function Login() {
             }
         }
     });
-}
-
-// 
-function checkLoggedIn (loggedIn, url) {
-    if (loggedIn != "Logged In") {
-        window.location.href = '/Home/Login?dest=' + url.split('/').join('-');
-    }
 }
 
 function checkLoggedIn(loggedIn, url) {
