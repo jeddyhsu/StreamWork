@@ -1,9 +1,10 @@
-﻿@{
+﻿@model StreamWork.DataModels.UserLogin
+<script src="~/js/EditProfile.js"></script>
+<script src="~/js/SignUpLogin.js"></script>
+@{
     ViewData["Title"] = "How to Stream";
 }
-<script>
-    window.onload(CheckSession())
-</script>
+
 <div style="font-family:'Roboto', sans-serif;">
     <nav class="navbar navbar-expand-lg text-center" style="position:fixed;z-index:2 ;width:100%;background-color:#008080">
         <img src="~/images/streamworkPencilWhite.png" height="70" onclick="window.location.href='/'" />
@@ -25,7 +26,7 @@
                     <a class="nav-link" href="/Home/HowToStream" style="color:white;">How to Stream</a>
                 </li>
             </ul>
-            @if(@Model == null || Model.LoggedIn == null){
+             @if(@Model == null || Model.LoggedIn == null){
                <ul class="navbar-nav ml-auto">
                 <li class="nav-item mt-1 ml-auto" style="font-size:17px;">
                     <a class="btn buttonStyleSignIn pt-2" onclick="window.location.href='/Home/PickStudentOrTutor'" id="sign" style="color:white"><b>Sign Up</b></a>
@@ -34,6 +35,67 @@
                     <a class="btn buttonStyleLogin pt-2" onclick="window.location.href='/Home/Login?dest=-Home-Profile'" style="background-color:white; color:#008080"><b>Login</b></a>
                 </li>
             </ul>
+            }
+            else if(Model.LoggedIn == "Logged In"){
+                 <div class="btn-group">
+                     <img src=@Model.ProfilePicture style="width:75px; height:95px; border-radius:50%" />
+                     <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #008080; border:none; margin-right:35px"></button>
+                     <div class="dropdown-menu">
+                         <a class="dropdown-item" href="#" id="EditProfile" onclick="Dashboard('@Model.ProfileType')">Dashboard</a>
+                         <div class="dropdown-divider"></div>
+                        <!--
+                           
+                           @if (Model.ProfileType == "tutor")
+                            {
+                            <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Edit Profile</a>
+                            <div class="dropdown-divider"></div>
+                            }
+
+                        -->
+                        @if(Model.ProfileType == "tutor")
+                        {
+                             <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Tutor/TutorSettings'">Settings</a>
+                        }
+                        else
+                        {
+                             <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Student/StudentSettings'">Settings</a>
+                        }
+
+                         <div class="dropdown-divider"></div>
+                         <a class="dropdown-item" href="#" onclick="Logout()"   >Logout</a>
+                     </div>
+                 </div>
+                 <div id="editModal" class="modal" tabindex="-1" role="dialog">
+                     <div class="modal-dialog" role="document">
+                         <div class="modal-content" style="background-color: #008080">
+                             <div class="modal-header">
+                                 <h5 class="modal-title" style="color:white">Edit Profile</h5>
+                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                     <span aria-hidden="true">&times;</span>
+                                 </button>
+                             </div>
+                             <div class="modal-body">
+                                 <form>
+                                     <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.ProfileCaption" />
+                                     <br />
+                                     <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.ProfileParagraph</textarea>
+                                     <br />
+                                     <img id="previewProfilePic" src=@Model.ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
+                                     <br />
+                                     <div class="upload-uploadbtn-wrapper">
+                                         <button class="uploadbtn">Upload a Profile Picture</button>
+                                         <input id="uploadProfilePic" type='file' onchange="readURL(this,'ProfilePic');" />
+                                     </div>
+                    
+                                 </form>
+                             </div>
+                             <div class="modal-footer">
+                                 <button type="button" style="background-color:black; color:white" class="btn" onclick="RegisterProfilePhotoAndCaption()">Save changes</button>
+                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
             }
         </div>
     </nav>

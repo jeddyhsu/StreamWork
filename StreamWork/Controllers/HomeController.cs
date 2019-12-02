@@ -24,9 +24,8 @@ namespace StreamWork.Controllers
                 return Redirect("https://www.streamwork.live");
             }
             var user = HttpContext.Session.GetString("UserProfile");
-            if (user == null) {
+            if (user == null)
                 return View();
-            }
             var userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
             return View(userProfile);
         }
@@ -78,18 +77,24 @@ namespace StreamWork.Controllers
 
         public async Task<IActionResult> BecomeTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
             var user = HttpContext.Session.GetString("UserProfile");
+            if (user == null)
+                return View();
             var userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
             return View(userProfile);
         }
 
         public async Task<IActionResult> About([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
             var user = HttpContext.Session.GetString("UserProfile");
+            if (user == null)
+                return View();
             var userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
             return View(userProfile);
         }
 
         public async Task<IActionResult> HowToStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
             var user = HttpContext.Session.GetString("UserProfile");
+            if (user == null)
+                return View();
             var userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
             return View(userProfile);
         }
@@ -97,6 +102,8 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> PickStudentOrTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
             var user = HttpContext.Session.GetString("UserProfile");
+            if (user == null)
+                return View();
             var userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
             return View(userProfile);
         }
