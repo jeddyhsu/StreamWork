@@ -171,7 +171,7 @@ namespace StreamWork.Controllers
                 foreach (var file in files) {
                     attachments.Add(new Attachment(file.OpenReadStream(), file.FileName));
                 }
-                _helperFunctions.SendEmailToAnyEmail("streamworktutor@gmail.com", "streamworktutor@gmail.com", "Tutor Evalauation", email, attachments);
+                await _helperFunctions.SendEmailToAnyEmailAsync("streamworktutor@gmail.com", "streamworktutor@gmail.com", "Tutor Eval", email, attachments);
             }
 
             var checkCurrentUsers = await DataStore.GetListAsync<UserLogin>(_helperFunctions._connectionString, storageConfig.Value, "CurrentUser", new List<string> { username });
@@ -220,7 +220,7 @@ namespace StreamWork.Controllers
             var userProfile = await _helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
             if (userProfile == null)
                 return Json(new { Message = "Error" });
-            var checkforUser = await DataStore.GetListAsync<UserLogin>(_helperFunctions._connectionString, storageConfig.Value, "AllSignedUpUsersWithPassword", new List<string> { username, _helperFunctions.DecryptPassword(userProfile.Password, password) });
+            var checkforUser = await DataStore.GetListAsync<UserLogin>(_helperFunctions._connectionString, storageConfig.Value, QueryHeaders.AllSignedUpUsersWithPassword.ToString(), new List<string> { username, _helperFunctions.DecryptPassword(userProfile.Password, password) });
             if (checkforUser.Count == 1) {
                 checkforUser[0].LoggedIn = "Logged In";
                 await DataStore.SaveAsync(_helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", checkforUser[0].Id } }, checkforUser[0]);
@@ -271,7 +271,7 @@ namespace StreamWork.Controllers
             var userProfile = await _helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
             if(userProfile == null)
                 return Json(new { Message = JsonResponse.Failed.ToString() });
-            _helperFunctions.SendEmailToAnyEmail("streamworktutor@gmail.com",userProfile.EmailAddress, "Password Recovery", _helperFunctions.CreateUri(userProfile.Username),null);
+            _helperFunctions.SendEmailToAnyEmailAsync("streamworktutor@gmail.com",userProfile.EmailAddress, "Password Recovery", _helperFunctions.CreateUri(userProfile.Username),null);
             return Json(new { Message = JsonResponse.Success.ToString()});
         }
 
