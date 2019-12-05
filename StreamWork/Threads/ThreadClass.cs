@@ -40,7 +40,10 @@ namespace StreamWork.Threads
             try
             {
                 HttpClient httpClient = new HttpClient();
-                var response = await httpClient.PostAsync("https://api.dacast.com/v2/channel/" + _userChannel.ChannelKey + "/recording/watch?apikey=" + _helperFunctions._dacastAPIKey, null);
+                var response = await httpClient.PostAsync("https://api.dacast.com/v2/channel/"
+                                                           + _userChannel.ChannelKey
+                                                           + "/recording/watch?apikey="
+                                                           + _helperFunctions._dacastAPIKey, null);
             }
             catch (Exception ex)
             {
@@ -53,7 +56,10 @@ namespace StreamWork.Threads
             try
             {
                 HttpClient httpClient = new HttpClient();
-                var response = await httpClient.PostAsync("https://api.dacast.com/v2/channel/" + _userChannel.ChannelKey + "/recording/start?apikey=" + _helperFunctions._dacastAPIKey, null);
+                var response = await httpClient.PostAsync("https://api.dacast.com/v2/channel/"
+                                                           + _userChannel.ChannelKey
+                                                           + "/recording/start?apikey="
+                                                           + _helperFunctions._dacastAPIKey, null);
             }
             catch(Exception ex)
             {
@@ -66,7 +72,10 @@ namespace StreamWork.Threads
             try
             {
                 HttpClient httpClient = new HttpClient();
-                var response = await httpClient.DeleteAsync("https://api.dacast.com/v2/channel/" + _userChannel.ChannelKey + "/recording/watch?apikey=" + _helperFunctions._dacastAPIKey);
+                var response = await httpClient.DeleteAsync("https://api.dacast.com/v2/channel/"
+                                                             + _userChannel.ChannelKey
+                                                             + "/recording/watch?apikey="
+                                                             + _helperFunctions._dacastAPIKey);
             }
             catch (Exception ex)
             {
@@ -99,7 +108,10 @@ namespace StreamWork.Threads
                     await Task.Delay(15000, cancellationToken);
                     try
                     {
-                        var live = DataStore.CallAPI<LiveRecordingAPI>("https://liverecording.dacast.com/l/status/live?contentId=135034_c_" + _userChannel.ChannelKey + "&apikey=" + _helperFunctions._dacastAPIKey);
+                        var live = DataStore.CallAPI<LiveRecordingAPI>("https://liverecording.dacast.com/l/status/live?contentId=135034_c_"
+                                                                        + _userChannel.ChannelKey
+                                                                        + "&apikey="
+                                                                        + _helperFunctions._dacastAPIKey);
                         if (live.IsLive)
                             Console.WriteLine("Live");
                         else
@@ -177,8 +189,12 @@ namespace StreamWork.Threads
         {
             var currentDate = DateTime.Now;
             var finalDate = currentDate.AddHours(GetHoursAheadBasedOnTimeZone()).ToString("ddd/MMM/dd/yyyy").Replace('/', ' ');
-            //strict format!!!
-            var archivedVideos = DataStore.CallAPI<VideoArchiveAPI>("https://api.dacast.com/v2/vod?apikey=" + _helperFunctions._dacastAPIKey + "&title=" + "Live recording (" + _userChannel.ChannelKey + ")" + " - " + finalDate);
+            var archivedVideos = DataStore.CallAPI<VideoArchiveAPI>("https://api.dacast.com/v2/vod?apikey="
+                                                                     + _helperFunctions._dacastAPIKey
+                                                                     + "&title=" + "Live recording ("
+                                                                     + _userChannel.ChannelKey
+                                                                     + ")"
+                                                                     + " - " + finalDate);   //strict format!!!
             return archivedVideos;
         }
 
