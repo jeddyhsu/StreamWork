@@ -130,7 +130,7 @@ namespace StreamWork.Threads
             {
                 while (archiveApi)
                 {
-                    await Task.Delay(30000, cancellationToken);
+                    await Task.Delay(15000, cancellationToken);
                     var videoInfo = GetArchivedVideo();
                     if (videoInfo.TotalCount != _archivedVideoCount)
                     {
@@ -176,10 +176,24 @@ namespace StreamWork.Threads
         private VideoArchiveAPI GetArchivedVideo()
         {
             var currentDate = DateTime.Now;
-            var finalDate = currentDate.ToString("ddd/MMM/d/yyyy").Replace('/', ' ');
+            var finalDate = currentDate.AddHours(GetHoursAheadBasedOnTimeZone()).ToString("ddd/MMM/dd/yyyy").Replace('/', ' ');
             //strict format!!!
-            var archivedVideos = DataStore.CallAPI<VideoArchiveAPI>("https://api.dacast.com/v2/vod?apikey=" + _helperFunctions._dacastAPIKey + "&title=" + "(" + _userChannel.ChannelKey + ")" + " - " + finalDate);
+            var archivedVideos = DataStore.CallAPI<VideoArchiveAPI>("https://api.dacast.com/v2/vod?apikey=" + _helperFunctions._dacastAPIKey + "&title=" + "Live recording (" + _userChannel.ChannelKey + ")" + " - " + finalDate);
             return archivedVideos;
+        }
+
+        private int GetHoursAheadBasedOnTimeZone()
+        {
+            TimeZoneInfo localZone = TimeZoneInfo.Local;
+            switch (localZone.DisplayName)
+            {
+                case "GMT-08:00": //PST
+                    return 8;
+                case "GMT-07:00": //MST
+                    return 7;
+            }
+
+            return 0;
         }
 
         private async Task ClearChannelStreamInfo()
