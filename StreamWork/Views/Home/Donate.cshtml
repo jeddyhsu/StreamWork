@@ -9,8 +9,8 @@
         dataType: 'json',
 
         data: {
-            'studentName': "@Model.userProfile.Username",
-            'tutorName': "@Model.userProfile2.Username",
+            'studentName': "@Model.userProfile2.Username",
+            'tutorName': "@Model.userProfile.Username",
         },
         success: function (data) {
             test = 0
@@ -27,8 +27,8 @@
 <div class="form-sign text-center">
     <img src="~/images/streamworklogo.png" width="250" height="70" onclick="" />
     <h4>You are donating to</h4>
-    <h1 class="mb-3"><b>@Model.userProfile2.Name.Replace('|', ' ')</b></h1>
-    <img class="bordered-image" src="@Model.userProfile2.ProfilePicture" style="width: 115px; height: 150px"/>
+    <h1 class="mb-3"><b>@Model.userProfile.Name.Replace('|', ' ')</b></h1>
+    <img class="bordered-image" src="@Model.userProfile.ProfilePicture" style="width: 115px; height: 150px"/>
     <br />
     <br />
     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
