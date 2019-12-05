@@ -77,7 +77,7 @@ namespace StreamWork.Controllers
                 ThreadClass handleStreams = new ThreadClass(storageConfig, userChannel[0], userLogin[0], streamTitle, streamSubject, streamThumbnail);
                 await handleStreams.TurnRecordingOn();
                 await handleStreams.StartRecordingStream();
-                handleStreams.RunThread();
+                handleStreams.RunVideoThread();
                 return Json(new { Message = JsonResponse.Success.ToString()});
             }
 
@@ -94,7 +94,7 @@ namespace StreamWork.Controllers
                 ThreadClass handleStreams = new ThreadClass(storageConfig, userChannel[0], userLogin[0], streamTitle, streamSubject, _tutorHelperFunctions.GetCorrespondingDefaultThumbnail(streamSubject));
                 await handleStreams.TurnRecordingOn();
                 await handleStreams.StartRecordingStream();
-                handleStreams.RunThread();
+                handleStreams.RunVideoThread();
                 return Json(new { Message = JsonResponse.Success.ToString()});
             }
 

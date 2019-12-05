@@ -35,7 +35,7 @@ namespace StreamWork.Threads
             _streamThumbnail = streamThumbnail;
         }
 
-        public async Task TurnRecordingOn() //Enables Stream Recording
+        public async Task TurnRecordingOn() //Turns Recording Capability On
         {
             try
             {
@@ -83,11 +83,10 @@ namespace StreamWork.Threads
             }
         }
 
-        public bool RunThread()
+        public bool RunVideoThread() //This thread handles checking if the stream is still live
         {
             _archivedVideoCount = (int)GetArchivedVideo().TotalCount;
             bool tryAPI = true;
-            //This thread handles getting streamed videos to our archive DB
             var cancellationToken = new CancellationToken();
             Task.Factory.StartNew(async () =>
             {
@@ -123,9 +122,9 @@ namespace StreamWork.Threads
                             tryAPI = false;
                         }
                     }
-                    catch(IndexOutOfRangeException e)
+                    catch(IndexOutOfRangeException ex)
                     {
-                        Console.WriteLine("Error in RunThread: " + e.Message);
+                        Console.WriteLine("Error in RunThread: " + ex.Message);
                         tryAPI = true;
                     }
                 }
@@ -134,7 +133,7 @@ namespace StreamWork.Threads
             return false;
         }
 
-        private void RunVideoArchiveThread()
+        private void RunVideoArchiveThread() //This thread handles getting streamed videos to our archive DB
         {
             var cancellationToken = new CancellationToken();
             bool archiveApi = true;
@@ -177,9 +176,9 @@ namespace StreamWork.Threads
             {
                 await DataStore.SaveAsync(_helperFunctions._connectionString, _storageConfig.Value, new Dictionary<string, object> { { "Id", archivedStream.Id } }, archivedStream);
             }
-            catch (Microsoft.EntityFrameworkCore.DbUpdateException e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e.InnerException);
+                Console.WriteLine("Error in StopStreamAndArchive " + ex.Message);
             }
 
             return true;
@@ -221,9 +220,9 @@ namespace StreamWork.Threads
                 _userChannel.StreamThumbnail = null;
                 await DataStore.SaveAsync(_helperFunctions._connectionString, _storageConfig.Value, new Dictionary<string, object> { { "Id", _userChannel.Id } }, _userChannel);
             }
-            catch (Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine("Error in ClearChannelStreamInfo " + ex.Message);
             }
         }
     }
