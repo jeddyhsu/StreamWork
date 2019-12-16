@@ -6,7 +6,9 @@ namespace StreamWork.HelperClasses
     public enum JsonResponse
     {
         Success,
-        Failed
+        Failed,
+        Tutor,
+        Student,
     }
 
     public enum QueryHeaders

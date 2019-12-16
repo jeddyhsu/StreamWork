@@ -18,7 +18,6 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace StreamWork.Controllers
 {
-    
     public class HomeController : Controller {
 
         readonly HomeHelperFunctions _homehelperFunctions = new HomeHelperFunctions();
@@ -250,7 +249,11 @@ namespace StreamWork.Controllers
                 ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-                return Json(new { Message = JsonResponse.Success.ToString() });
+
+                if(userProfile.ProfileType == "tutor")
+                    return Json(new { Message = JsonResponse.Tutor.ToString()});
+                else
+                    return Json(new { Message = JsonResponse.Student.ToString()});
             }
 
             return Json(new { Message = JsonResponse.Failed.ToString() });

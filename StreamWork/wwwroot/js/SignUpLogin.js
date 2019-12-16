@@ -188,9 +188,6 @@ function Login() {
             'password': $('#password').val()
         },
         success: function (data) {
-            //var verified = false;
-            //var profile = false;
-            //var tutor = false;
 
             if (data.message === "Failed") {
                 OpenNotificationModal("Wrong Username or Password")
@@ -199,6 +196,18 @@ function Login() {
 
             const urlParams = new URLSearchParams(window.location.search);
             var dest = urlParams.get('dest');
+
+            if (dest.includes("-Home-Profile")) {
+                if (data.message === "Tutor") {
+                    window.location.href = '/Tutor/ProfileTutor'
+                    return;
+                }
+                else {
+                    window.location.href = '/Student/ProfileStudent'
+                    return;
+                }
+            }
+
             window.location.href = dest.split('-').join('/');
         }
 
