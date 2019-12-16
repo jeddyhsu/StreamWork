@@ -59,7 +59,7 @@ namespace StreamWork
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             app.UseSession();
             app.UseStaticFiles();
 

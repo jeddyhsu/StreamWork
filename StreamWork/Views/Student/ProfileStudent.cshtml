@@ -37,9 +37,10 @@
     </nav>
 
     <div class="container-fluid">
-        <h3 class="m-3">Live Broadcasts</h3>
+        
         <div class="row">
             <div class=" col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                <h3 class="m-3">Live Broadcasts</h3>
                 <div class="row">
                     @if (Model.userChannels.ToArray().Length > 0)
                     {
@@ -69,22 +70,7 @@
 
                 </div>
             </div>
-            <nav class="col-md-2 d-none d-md-block sidebar ">
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <input type="image" src="~/images/MathCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Mathematics')" />
-                <input type="image" src="~/images/ScienceCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Science')" />
-                <input type="image" src="~/images/EngineeringCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Engineering')" />
-                <input type="image" src="~/images/BuisnessCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Business')" />
-                <input type="image" src="~/images/LawCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Law')" />
-                <input type="image" src="~/images/ArtCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Art')" />
-                <input type="image" src="~/images/HumanitiesCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Humanities')" />
-                <input type="image" src="~/images/OtherCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Other')" />
-            </nav>
+           
         </div>
     </div>
 </div>
@@ -140,7 +126,7 @@
         z-index: 1;
         top: 0px;
         bottom: 0px;
-        right: 0px;
+        left: 0px;
         overflow-y: scroll;
         background-color: #006565;
         overflow-x: hidden;
