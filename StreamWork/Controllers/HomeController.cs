@@ -327,7 +327,7 @@ namespace StreamWork.Controllers
         {
             HttpContext.Session.Clear();
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            Redirect(_homehelperFunctions._host + "/Home/Login");
+            Redirect(_homehelperFunctions._host + "/Home/Login?dest=-Home-Profile");
             return Json(new { Message = JsonResponse.Success.ToString() });
         }
 

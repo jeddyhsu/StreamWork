@@ -170,9 +170,10 @@ function ValidatePassword(password){
 }
 
 function ValidateEmail(email) {
-    if (email.includes("@")) {
+    if (email.includes("@") && email.includes(".")){
         return true;
     }
+
     return false
 }
 
@@ -197,27 +198,38 @@ function Login() {
             const urlParams = new URLSearchParams(window.location.search);
             var dest = urlParams.get('dest');
 
-            if (dest.includes("-Home-Profile")) {
-                if (data.message === "Tutor") {
-                    window.location.href = '/Tutor/ProfileTutor'
+            if (dest != null) {
+                if (dest.includes("-Home-Profile")) {
+                    if (data.message === "Tutor") {
+                        window.location.href = '/Tutor/ProfileTutor'
+                        return;
+                    }
+                    else {
+                        window.location.href = '/Student/ProfileStudent'
+                        return;
+                    }
+                }
+
+                if (data.message === "Tutor" && dest.includes("Tutor")) {
+                    window.location.href = dest.split('-').join('/');
                     return;
                 }
                 else {
                     window.location.href = '/Student/ProfileStudent'
                     return;
                 }
+
+                if (data.message === "Student" && dest.includes("Student")) {
+                    window.location.href = dest.split('-').join('/');
+                    return;
+                }
+                else {
+                    window.location.href = '/Student/ProfileTutor'
+                    return;
+                }
             }
-
-            window.location.href = dest.split('-').join('/');
         }
-
     });
-}
-
-function checkLoggedIn(loggedIn, url) {
-    if (loggedIn != "Logged In") {
-        window.location.href = '/Home/Login?dest=' + url.split('/').join('-');
-    }
 }
 
 function NavigateToPage (url) {
@@ -229,7 +241,6 @@ function redirect () {
     window.location.href = '/Home/Subscribe';
     return;
 }
-
 
 function StartBroadcast(profileType, approvedTutor, loggedIn){
     if(profileType == "tutor" && loggedIn != "" && approvedTutor){
@@ -329,7 +340,6 @@ function ChangePassword() {
         }
     })
 }
-
 
 function OpenNotificationModal(body) {
     var notification = document.getElementById('notificationBody');
