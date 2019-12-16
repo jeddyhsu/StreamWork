@@ -17,13 +17,16 @@ using StreamWork.Config;
 using StreamWork.Core;
 using StreamWork.DataModels;
 using StreamWork.Models;
+using StreamWork.ViewModels;
 
 namespace StreamWork.HelperClasses
 {
-    public class HelperFunctions {
+    public class HomeHelperFunctions {
+        public readonly string _host = "http://localhost:58539"; //https://streamwork.live
         public readonly string _connectionString = "Server=tcp:streamwork.database.windows.net,1433;Initial Catalog=StreamWork;Persist Security Info=False;User ID=streamwork;Password=arizonastate1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
         public readonly string _blobconnectionString = "DefaultEndpointsProtocol=https;AccountName=streamworkblob;AccountKey=//JfVlcPLOyzT3vRHxlY1lJ4NUpduVfiTmuHJHK1u/0vWzP8V5YHPLkPPGD2PVxEwTdNirqHzWYSk7c2vZ80Vg==;EndpointSuffix=core.windows.net";
         public readonly string _dacastAPIKey = "135034_c2914fb8c32374a13c89";
+        public readonly string _streamworkEmailID = "streamworktutor@gmail.com";
 
         //Gets set of userchannels with the query that you specify
         public async Task<List<UserChannel>> GetUserChannels ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, QueryHeaders query, string user) {
@@ -51,7 +54,7 @@ namespace StreamWork.HelperClasses
         }
 
         public async Task<UserLogin> GetUserProfile ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, QueryHeaders query, string user) {
-            var logins = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, query.ToString(), new List<string> { user });
+            var logins = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, query.ToString(), new List<string> {user});
             if (logins.Count > 0) return logins[0];
             return null;
         }
@@ -59,6 +62,31 @@ namespace StreamWork.HelperClasses
         public async Task UpdateUser ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, UserLogin user) {
             await DataStore.DeleteAsync<UserLogin>(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", user.Id } });
             await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", user.Id } }, user);
+        }
+
+        public async Task<ProfileTutorViewModel> PopulateSubjectPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject, string user)
+        {
+            ProfileTutorViewModel model = new ProfileTutorViewModel
+            {
+                userChannels = await GetUserChannels(storageConfig, QueryHeaders.AllUserChannelsThatAreStreamingWithSpecifiedSubject, subject),
+                userLogins = await GetPopularStreamTutors(storageConfig),
+                userProfile = user != null ? await GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user) : null
+            };
+            return model;
+        }
+
+        public string FormatChatId(string chatID)
+        {
+            var formattedphrase = chatID.Split(new char[] { '\t' });
+            var formattedChatID = formattedphrase[2].Split(new char[] { '\n' });
+            return formattedphrase[1] + "|" + formattedChatID[0];
+        }
+
+        private async Task<List<UserLogin>> GetPopularStreamTutors([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
+            List<UserLogin> list = new List<UserLogin>();
+            list = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, QueryHeaders.AllApprovedTutors.ToString(), null);
+            return list;
         }
 
         //Saves profilePicture into container on Azure
@@ -116,6 +144,7 @@ namespace StreamWork.HelperClasses
             message.To.Add(to);
             message.Body = body;
             message.From = new MailAddress(from);
+
             if(attachments != null)
             {
                 foreach(var attachement in attachments)

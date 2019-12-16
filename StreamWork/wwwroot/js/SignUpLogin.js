@@ -77,31 +77,31 @@ function SignUpTutor() {
     var role = 'tutor';
 
     if (nameFirst == "" || nameLast == "" || email == "" || payPalAddress == "" || username == "" || password == "" || confirmPassword == "") {
-        OpenNotificationModal("Please fill out all fields")
+        OpenNotificationModal("Please fill out all fields");
         return;
     }
 
     if (password != confirmPassword) {
-        OpenNotificationModal("Passwords do not match")
+        OpenNotificationModal("Passwords do not match");
         return;
     }
 
     if (ValidateEmail(email) == false) {
-        OpenNotificationModal("Invalid Email")
-        return
+        OpenNotificationModal("Invalid Email");
+        return;
     }
 
     if (ValidateEmail(payPalAddress) == false) {
-        OpenNotificationModal("Invalid Email")
-        return
+        OpenNotificationModal("Invalid Email");
+        return;
     }
 
     if (ValidatePassword(password) == false) {
         return;
     }
-    
-    if (transcript.length != 1 && resume.length != 1) {
-        OpenNotificationModal("A transcript and resume are required");
+
+    if (transcript.length != 1 && resume.length != 1 && letterOfrec != 1) {
+        OpenNotificationModal("A transcript, resume and letter of recommendation are required");
         return;
     }
 
@@ -128,10 +128,7 @@ function SignUpTutor() {
         processData: false,
         success: function (data) {
             if (data.message === "Success") {
-
                 window.location.href = '/Home/Login';
-            } else if (data.message === "Wrong Password") {
-                OpenNotificationModal("Passwords do not match")
             } else {
                 OpenNotificationModal("Username already exists")
             }
@@ -190,34 +187,21 @@ function Login() {
             'username': $("#username").val(),
             'password': $('#password').val()
         },
-        success: function(data) {
-            var verified = false;
-            var profile = false;
-            var tutor = false;
+        success: function (data) {
+            //var verified = false;
+            //var profile = false;
+            //var tutor = false;
 
-            if (data.message === "Welcome Student") {
-                verified = true;
-            } else if (data.message == "Welcome, StreamTutor") {
-                verified = true;
-                tutor = true;
-            } else {
+            if (data.message === "Failed") {
                 OpenNotificationModal("Wrong Username or Password")
+                return;
             }
 
-            if (verified) {
-                const urlParams = new URLSearchParams(window.location.search);
-                var dest = urlParams.get('dest');
-                if (dest == '-Home-Profile' || !dest) {
-                    if (tutor) {
-                        window.location.href = '/Tutor/ProfileTutor';
-                    } else {
-                        window.location.href = '/Student/ProfileStudent';
-                    }
-                } else {
-                    window.location.href = dest.split('-').join('/');
-                }
-            }
+            const urlParams = new URLSearchParams(window.location.search);
+            var dest = urlParams.get('dest');
+            window.location.href = dest.split('-').join('/');
         }
+
     });
 }
 
@@ -327,7 +311,7 @@ function ChangePassword() {
                 OpenNotificationModal('Password has been changed!')
                 window.location.href = '/Home/Login'
             }
-            else if (data.message === 'Invalid Password Match') {
+            else if (data.message === 'Failed') {
                 OpenNotificationModal('Passwords do not match. Please try again.')
             }
             else {

@@ -12,10 +12,13 @@ using StreamWork.Config;
 using StreamWork.Models;
 using StreamWork.HelperClasses;
 
-namespace StreamWork.Controllers {
+namespace StreamWork.Controllers
+{
     [Produces("application/json")]
-    public class IPNController : Controller {
-        private class IPNContext {
+    public class IPNController : Controller
+    {
+        private class IPNContext
+        {
             public HttpRequest IPNRequest { get; set; }
 
             public string RequestBody { get; set; }
@@ -24,17 +27,20 @@ namespace StreamWork.Controllers {
         }
 
         private IOptionsSnapshot<StorageConfig> _storageConfig;
-        private readonly HelperFunctions _helperFunctions = new HelperFunctions();
+        private readonly HomeHelperFunctions _helperFunctions = new HomeHelperFunctions();
 
         [HttpPost]
-        public IActionResult Receive ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
+        public IActionResult Receive([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
             this._storageConfig = storageConfig;
 
-            IPNContext ipnContext = new IPNContext {
+            IPNContext ipnContext = new IPNContext
+            {
                 IPNRequest = Request
             };
 
-            using (StreamReader reader = new StreamReader(ipnContext.IPNRequest.Body, Encoding.ASCII)) {
+            using (StreamReader reader = new StreamReader(ipnContext.IPNRequest.Body, Encoding.ASCII))
+            {
                 ipnContext.RequestBody = reader.ReadToEnd();
             }
 
@@ -51,7 +57,8 @@ namespace StreamWork.Controllers {
             return Ok();
         }
 
-        private async Task VerifyTask (IPNContext ipnContext) {
+        private async Task VerifyTask(IPNContext ipnContext)
+        {
             string error = string.Empty;
             /*try {
                 var verificationRequest = WebRequest.Create("https://www.sandbox.paypal.com/cgi-bin/webscr");
@@ -84,24 +91,30 @@ namespace StreamWork.Controllers {
         }
 
 
-        private async Task LogRequest (IPNContext ipnContext) {
+        private async Task LogRequest(IPNContext ipnContext)
+        {
             // Persist the request values into a database or temporary data store
 
-            await _helperFunctions.LogIPNRequest(_storageConfig, new IPNRequestBody {
+            await _helperFunctions.LogIPNRequest(_storageConfig, new IPNRequestBody
+            {
                 Id = Guid.NewGuid().ToString(),
                 RequestBody = ipnContext.RequestBody
             });
         }
 
-        private async Task ProcessVerificationResponse (IPNContext ipnContext, string error) {
-            try {
+        private async Task ProcessVerificationResponse(IPNContext ipnContext, string error)
+        {
+            try
+            {
                 // For test parsing
                 //ipnContext.RequestBody = "mc_gross=19.95&protection_eligibility=Eligible&address_status=confirmed&payer_id=LPLWNMTBWMFAY&tax=0.00&address_street=1+Main+St&payment_date=20%3A12%3A59+Jan+13%2C+2009+PST&payment_status=Completed&charset=windows-1252&address_zip=95131&first_name=Test&mc_fee=0.88&address_country_code=US&address_name=Test+User&notify_version=2.6&custom=&payer_status=verified&address_country=United+States&address_city=San+Jose&quantity=1&verify_sign=AtkOfCXbDm2hu0ZELryHFjY-Vb7PAUvS6nMXgysbElEn9v-1XcmSoGtf&payer_email=gpmac_1231902590_per%40paypal.com&txn_id=61E67681CH3238416&payment_type=instant&last_name=User&address_state=CA&receiver_email=gpmac_1231902686_biz%40paypal.com&payment_fee=0.88&receiver_id=S8XGHLYDW9T3S&txn_type=express_checkout&item_name=&mc_currency=USD&item_number=&residence_country=US&test_ipn=1&handling_amount=0.00&transaction_subject=&payment_gross=19.95&shipping=0.00";
                 //ipnContext.RequestBody = "mc_gross=15.00&protection_eligibility=Eligible&address_status=confirmed&payer_id=LPLWNMTBWMFAY&tax=0.00&address_street=1+Main+St&payment_date=20%3A12%3A59+Jan+13%2C+2009+PST&payment_status=Completed&charset=windows-1252&address_zip=95131&first_name=Tom&mc_fee=0.88&address_country_code=US&address_name=Tom+Hansen&notify_version=2.6&custom=tom~rarun321&payer_status=verified&address_country=United+States&address_city=San+Jose&quantity=1&verify_sign=AtkOfCXbDm2hu0ZELryHFjY-Vb7PAUvS6nMXgysbElEn9v-1XcmSoGtf&payer_email=THansenAZ%40icloud.com&txn_id=61E67681CH3238423&payment_type=instant&last_name=Hansen&address_state=CA&receiver_email=streamworktutor%40gmail.com&payment_fee=0.88&receiver_id=S8XGHLYDW9T3S&txn_type=express_checkout&item_name=DONATION&mc_currency=USD&item_number=&residence_country=US&test_ipn=1&handling_amount=0.00&transaction_subject=&payment_gross=15.00&shipping=0.00";
                 NameValueCollection request = HttpUtility.ParseQueryString(ipnContext.RequestBody);
 
-                if (ipnContext.RequestBody.Equals("")) {
-                    await _helperFunctions.SavePayment(_storageConfig, new Payment {
+                if (ipnContext.RequestBody.Equals(""))
+                {
+                    await _helperFunctions.SavePayment(_storageConfig, new Payment
+                    {
                         Id = Guid.NewGuid().ToString(),
                         TransactionId = "UNKNOWN",
                         PayerEmail = "UNKNOWN",
@@ -114,22 +127,26 @@ namespace StreamWork.Controllers {
                         Error = "NO_DATA " + error
                     });
                 }
-                else if (ipnContext.Verification.Equals("VERIFIED") || "1".Equals(request["test_ipn"])) {
+                else if (ipnContext.Verification.Equals("VERIFIED") || "1".Equals(request["test_ipn"]))
+                {
                     // check that Payment_status=Completed
                     // check that Txn_id has not been previously processed
                     // check that Receiver_email is your Primary PayPal email
                     // check that Payment_amount/Payment_currency are correct
                     // process payment
 
-                    if (!request["receiver_email"].ToLower().Equals("streamworktutor@gmail.com")) {
+                    if (!request["receiver_email"].ToLower().Equals("streamworktutor@gmail.com"))
+                    {
                         error = "INCORRECT_RECEIVER " + error;
                     }
 
-                    if (!"1".Equals(request["test_ipn"])) {
+                    if (!"1".Equals(request["test_ipn"]))
+                    {
                         error = "TEST " + error;
                     }
 
-                    if (await _helperFunctions.GetPayment(_storageConfig, "PaymentsById", request["txn_id"]) != null) {
+                    if (await _helperFunctions.GetPayment(_storageConfig, "PaymentsById", request["txn_id"]) != null)
+                    {
                         error = "DUPLICATE " + error;
                     }
 
@@ -137,26 +154,34 @@ namespace StreamWork.Controllers {
                     var username = customParams[0];
                     var tutorName = customParams.Length >= 2 ? customParams[1] : null;
                     var user = await _helperFunctions.GetUserProfile(_storageConfig, QueryHeaders.CurrentUser, username);
-                    if (user == null) {
+                    if (user == null)
+                    {
                         error = "UNMATCHED_USER " + error;
                     }
 
-                    if (request["item_name"].Equals("SUBSCRIPTION")) { // User is making subscription payment
-                        if (!request["mc_currency"].Equals("USD")) {
+                    if (request["item_name"].Equals("SUBSCRIPTION"))
+                    { // User is making subscription payment
+                        if (!request["mc_currency"].Equals("USD"))
+                        {
                             error = "INCORRECT_CURRENCY " + error;
 
                         }
-                        else if (!user.TrialAccepted && !request["mc_gross"].Equals("0.01")) {
+                        else if (!user.TrialAccepted && !request["mc_gross"].Equals("0.01"))
+                        {
                             error = "INCORRECT_VALUE" + error;
 
                         }
-                        else {
-                            if (error.Equals("")) {
-                                if (DateTime.Compare(user.Expiration, DateTime.UtcNow) < 0) { // Subscription has expired
+                        else
+                        {
+                            if (error.Equals(""))
+                            {
+                                if (DateTime.Compare(user.Expiration, DateTime.UtcNow) < 0)
+                                { // Subscription has expired
                                     user.Expiration = DateTime.UtcNow.AddMonths(1);
 
                                 }
-                                else { // Subscription is still in effect; add to current subscription
+                                else
+                                { // Subscription is still in effect; add to current subscription
                                     user.Expiration = user.Expiration.AddMonths(1);
                                 }
 
@@ -166,31 +191,38 @@ namespace StreamWork.Controllers {
                         }
 
                     }
-                    else if (request["item_name"].Equals("DONATION")) { // User is donating to a tutor
-                        if (tutorName == null) {
+                    else if (request["item_name"].Equals("DONATION"))
+                    { // User is donating to a tutor
+                        if (tutorName == null)
+                        {
                             error = "NO_TUTOR " + error;
 
                         }
-                        else {
+                        else
+                        {
                             var tutors = await _helperFunctions.GetUserLogins(_storageConfig, QueryHeaders.CurrentUser, tutorName);
-                            if (tutors.Count == 0) {
+                            if (tutors.Count == 0)
+                            {
                                 error = "UNMATCHED_TUTOR " + error;
                             }
 
                             float donationAmt = float.Parse(request["payment_gross"]) * 0.9f - float.Parse(request["payment_fee"]) - float.Parse(request["tax"]);
 
-                            if (error.Equals("")) {
+                            if (error.Equals(""))
+                            {
                                 var tutor = tutors[0];
                                 tutor.Balance += (decimal)donationAmt;
                                 await _helperFunctions.UpdateUser(_storageConfig, tutor);
                             }
                         }
                     }
-                    else {
+                    else
+                    {
                         error = "UNKNOWN_ITEM " + error;
                     }
 
-                    await _helperFunctions.SavePayment(_storageConfig, new Payment {
+                    await _helperFunctions.SavePayment(_storageConfig, new Payment
+                    {
                         Id = Guid.NewGuid().ToString(),
                         TransactionId = request["txn_id"],
                         PayerEmail = request["payer_email"],
@@ -203,14 +235,16 @@ namespace StreamWork.Controllers {
                         Error = error
                     });
                 }
-                else if (ipnContext.Verification.Equals("INVALID")) {
+                else if (ipnContext.Verification.Equals("INVALID"))
+                {
                     //Log for manual investigation
 
                     var customParams = request["custom"].Split("~");
                     var username = customParams[0];
                     var tutorName = customParams.Length >= 2 ? customParams[1] : null;
 
-                    await _helperFunctions.SavePayment(_storageConfig, new Payment {
+                    await _helperFunctions.SavePayment(_storageConfig, new Payment
+                    {
                         Id = Guid.NewGuid().ToString(),
                         TransactionId = request["txn_id"],
                         PayerEmail = request["payer_email"],
@@ -223,14 +257,16 @@ namespace StreamWork.Controllers {
                         Error = "VERIFICATION_INVALID " + error
                     });
                 }
-                else {
+                else
+                {
                     //Log error
 
                     var customParams = request["custom"].Split("~");
                     var username = customParams[0];
                     var tutorName = customParams.Length >= 2 ? customParams[1] : null;
 
-                    await _helperFunctions.SavePayment(_storageConfig, new Payment {
+                    await _helperFunctions.SavePayment(_storageConfig, new Payment
+                    {
                         Id = Guid.NewGuid().ToString(),
                         TransactionId = request["txn_id"],
                         PayerEmail = request["payer_email"],
@@ -244,8 +280,10 @@ namespace StreamWork.Controllers {
                     });
                 }
             }
-            catch (Exception e) {
-                await _helperFunctions.SavePayment(_storageConfig, new Payment {
+            catch (Exception e)
+            {
+                await _helperFunctions.SavePayment(_storageConfig, new Payment
+                {
                     Id = Guid.NewGuid().ToString(),
                     TransactionId = "",
                     PayerEmail = "",

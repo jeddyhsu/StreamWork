@@ -1,17 +1,11 @@
 ﻿@model StreamWork.ViewModels.ProfileTutorViewModel
-<script src="~/js/SignUpLogin.js"></script>
-<script src="~/js/EditProfile.js"></script>
-@if (Model.userProfile == null)
-{
-<script>NavigateToPage('/Home/Engineering')</script>
-}
-else
-{
-<script>checkLoggedIn('@Model.userProfile.LoggedIn',"/Home/Engineering");</script>
-}
 @{
     ViewData["Title"] = "Engineering";
 }
+
+<script src="~/js/SignUpLogin.js"></script>
+<script src="~/js/EditProfile.js"></script>
+
 <div style="font-family:'Roboto', sans-serif;">
     <nav class="navbar sticky-top navbar-expand-lg navbar-light text-center" style="background-color:#008080">
         <img src="~/images/streamworkPencilWhite.png" height="70" onclick="window.location.href='/'" />

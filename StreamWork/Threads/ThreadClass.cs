@@ -14,7 +14,7 @@ namespace StreamWork.Threads
 {
     public class ThreadClass
     {
-        readonly HelperFunctions _helperFunctions;
+        readonly HomeHelperFunctions _helperFunctions;
         readonly IOptionsSnapshot<StorageConfig> _storageConfig;
         readonly UserChannel _userChannel;
         readonly UserLogin _userLogin;
@@ -26,7 +26,7 @@ namespace StreamWork.Threads
 
         public ThreadClass(IOptionsSnapshot<StorageConfig> storageConfig, UserChannel userChannel, UserLogin userLogin, string streamTitle, string streamSubject, string streamThumbnail)
         {
-            _helperFunctions = new HelperFunctions();
+            _helperFunctions = new HomeHelperFunctions();
             _userChannel = userChannel;
             _userLogin = userLogin;
             _storageConfig = storageConfig;
@@ -61,7 +61,7 @@ namespace StreamWork.Threads
                                                            + "/recording/start?apikey="
                                                            + _helperFunctions._dacastAPIKey, null);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine("Error in StartRecordingStream: " + ex.Message);
             }
@@ -97,11 +97,11 @@ namespace StreamWork.Threads
                     _userChannel.StreamThumbnail = _streamThumbnail;
                     await DataStore.SaveAsync(_helperFunctions._connectionString, _storageConfig.Value, new Dictionary<string, object> { { "Id", _userChannel.Id } }, _userChannel);
                 }
-                catch(Microsoft.EntityFrameworkCore.DbUpdateException e)
+                catch (Microsoft.EntityFrameworkCore.DbUpdateException e)
                 {
                     Console.WriteLine(e.Message);
                 }
-                
+
                 while (tryAPI)
                 {
                     await Task.Delay(15000, cancellationToken);
@@ -122,7 +122,7 @@ namespace StreamWork.Threads
                             tryAPI = false;
                         }
                     }
-                    catch(IndexOutOfRangeException ex)
+                    catch (IndexOutOfRangeException ex)
                     {
                         Console.WriteLine("Error in RunThread: " + ex.Message);
                         tryAPI = true;
@@ -154,9 +154,9 @@ namespace StreamWork.Threads
                         Console.WriteLine("Video Not Ready");
                         archiveApi = true;
                     }
-                       
+
                 }
-               
+
             }, TaskCreationOptions.LongRunning);
         }
 

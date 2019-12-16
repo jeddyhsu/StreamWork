@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -22,7 +23,6 @@ namespace StreamWork
             Configuration = builder.Build();
         }
 
-
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -34,6 +34,12 @@ namespace StreamWork
 
             services.AddSession(options =>
             {
+            });
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(options =>
+            {
+                options.LoginPath = "/Home/Login";
             });
 
             services.Configure<StorageConfig>(Configuration);
@@ -53,8 +59,11 @@ namespace StreamWork
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            //app.UseHttpsRedirection();
             app.UseSession();
             app.UseStaticFiles();
+
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

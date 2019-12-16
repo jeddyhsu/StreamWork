@@ -1,8 +1,10 @@
 ﻿@model StreamWork.ViewModels.ProfileTutorViewModel
-<script src="~/js/EditProfile.js"></script>
 @{
     ViewData["Title"] = "ProfileView";
 }
+
+<script src="~/js/EditProfile.js"></script>
+
 <div>
     <div style="font-family:'Roboto', sans-serif;">
         <nav class="navbar sticky-top navbar-expand-lg navbar-light text-center" style="background-color:#008080">
@@ -26,20 +28,20 @@
                     </li>
                 </ul>
             </div>
-            @if (Model.userProfile2 != null)
+            @if (Model.studentOrtutorProfile != null)
             {
                 <div class="btn-group">
-                    <img src=@Model.userProfile2.ProfilePicture style="width:75px; height:95px; border-radius:50%" />
+                    <img src=@Model.studentOrtutorProfile.ProfilePicture style="width:75px; height:95px; border-radius:50%" />
                     <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #008080; border:none; margin-right:35px"></button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#" id="Dashboard" onclick="Dashboard('@Model.userProfile2.ProfileType')">Dashboard</a>
+                        <a class="dropdown-item" href="#" id="Dashboard" onclick="Dashboard('@Model.studentOrtutorProfile.ProfileType')">Dashboard</a>
                         <div class="dropdown-divider"></div>
-                        @if (Model.userProfile2.ProfileType == "tutor")
+                        @if (Model.studentOrtutorProfile.ProfileType == "tutor")
                         {
                             <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Edit Profile</a>
                             <div class="dropdown-divider"></div>
                         }
-                        @if (Model.userProfile2.ProfileType == "tutor")
+                        @if (Model.studentOrtutorProfile.ProfileType == "tutor")
                         {
                             <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Tutor/TutorSettings'">Settings</a>
                         }
@@ -113,11 +115,11 @@
             </div>
             <div class="modal-body">
                 <form>
-                    <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.userProfile2.ProfileCaption" />
+                    <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.studentOrtutorProfile.ProfileCaption" />
                     <br />
-                    <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.userProfile2.ProfileParagraph</textarea>
+                    <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.studentOrtutorProfile.ProfileParagraph</textarea>
                     <br />
-                    <img id="previewProfilePic" src=@Model.userProfile2.ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
+                    <img id="previewProfilePic" src=@Model.studentOrtutorProfile.ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
                     <br />
                     <div class="upload-uploadbtn-wrapper">
                         <button class="uploadbtn" style="margin-left:110px">Upload a Profile Picture</button>

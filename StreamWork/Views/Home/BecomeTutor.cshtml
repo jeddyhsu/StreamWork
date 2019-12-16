@@ -25,7 +25,7 @@
                     <a class="nav-link" href="/Home/HowToStream" style="color:white;">How to Stream</a>
                 </li>
             </ul>
-              @if(@Model == null || Model.LoggedIn == null){
+              @if(@Model == null){
                <ul class="navbar-nav ml-auto">
                 <li class="nav-item mt-1 ml-auto" style="font-size:17px;">
                     <a class="btn buttonStyleSignIn pt-2" onclick="window.location.href='/Home/PickStudentOrTutor'" id="sign" style="color:white"><b>Sign Up</b></a>
@@ -35,7 +35,7 @@
                 </li>
             </ul>
             }
-            else if(Model.LoggedIn == "Logged In"){
+            else if(Model != null){
                  <div class="btn-group">
                      <img src=@Model.ProfilePicture style="width:75px; height:95px; border-radius:50%" />
                      <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #008080; border:none; margin-right:35px"></button>
