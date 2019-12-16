@@ -90,25 +90,7 @@ function Logout() {
         },
         success: function (data) {
             if (data.message === "Success") {
-                window.location.href = "/Home/Login"
-            }
-        }
-    })
-}
-
-function CheckSession() {
-    $.ajax({
-        url: '/Home/Index',
-        type: 'post',
-        dataType: 'json',
-        data: {
-            'session': 'session'
-        },
-        success: function (data) {
-            if (data.message === 'Session') {
-            }
-            else {
-                window.location.href = '/Home/Login'
+                window.location.href = "/Home/Login?dest=-Home-Profile"
             }
         }
     })

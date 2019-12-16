@@ -37,13 +37,31 @@
     </nav>
 
      <div class="container-fluid">
-        <h3 class="m-3">Archived Broadcasts</h3>
+       
         <div class="row">
+             <nav class="col-md-2 d-none d-md-block sidebar">
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <input type="image" runat="server" src="~/images/MathCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Mathematics')" />
+                <input type="image" src="~/images/ScienceCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Science')" />
+                <input type="image" src="~/images/EngineeringCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Engineering')" />
+                <input type="image" src="~/images/BuisnessCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Business')" />
+                <input type="image" src="~/images/LawCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Law')" />
+                <input type="image" src="~/images/ArtCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Art')" />
+                <input type="image" src="~/images/HumanitiesCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Humanities')" />
+                <input type="image" src="~/images/OtherCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Other')" />
+            </nav>
+            <div class="col-2"></div>
             <div class=" col-lg-10 col-md-10 col-sm-12 col-xs-12">
+                <h3 class="m-3">Archived Broadcasts</h3>
                <div class="row">
                  @foreach(var videoInfo in Model.userArchivedStreams){
                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-6 streamsubject @videoInfo.StreamSubject">
-                                    <div class="card mt-3" style="border-radius:5%; border:none; min-width:200px; max-width:400px">
+                                    <div class="card mt-3" style="border-radius:5%; border:none; min-width:15rem; max-width:20rem">
                                         <input type="image" width="100%" height="225px" style="border-top-left-radius:5%; border-top-right-radius:5%; min-width:250px" src=@videoInfo.StreamThumbnail onclick="window.location.href='../StreamViews/StreamPlaybackPage?streamId=' + ('@videoInfo.StreamID')">
                                         <div class="card-body" style="background-color:#008080 ;border-bottom-left-radius:5%; height:100px; border-bottom-right-radius:5%; border:none; min-width:250px" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@videoInfo.Username');">
                                             <div class="row">
@@ -61,22 +79,7 @@
                   }
             </div>
             </div>
-            <nav class="col-md-2 d-none d-md-block sidebar">
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <input type="image" runat="server" src="~/images/MathCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Mathematics')" />
-                <input type="image" src="~/images/ScienceCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Science')" />
-                <input type="image" src="~/images/EngineeringCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Engineering')" />
-                <input type="image" src="~/images/BuisnessCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Business')" />
-                <input type="image" src="~/images/LawCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Law')" />
-                <input type="image" src="~/images/ArtCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Art')" />
-                <input type="image" src="~/images/HumanitiesCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Humanities')" />
-                <input type="image" src="~/images/OtherCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Other')" />
-            </nav>
+           
         </div>
     </div>
 
@@ -132,7 +135,7 @@
         z-index: 1;
         top: 0px;
         bottom: 0px;
-        right: 0;
+        left: 0;
         overflow-y: scroll;
         background-color: #006565;
         overflow-x: hidden;
