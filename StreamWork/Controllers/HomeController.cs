@@ -33,11 +33,11 @@ namespace StreamWork.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Subject ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, [FromQuery(Name = "s")] string s) {
+        public async Task<IActionResult> Subject ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, [FromQuery(Name = "subject")] string subject) {
             if (HttpContext.User.Identity.IsAuthenticated == false)
                 return Redirect(_homehelperFunctions._host + "/Home/Login");
 
-            return View(await _homehelperFunctions.PopulateSubjectPage(storageConfig, s, HttpContext.Session.GetString(QueryHeaders.UserProfile.ToString())));
+            return View(await _homehelperFunctions.PopulateSubjectPage(storageConfig, subject, HttpContext.Session.GetString(QueryHeaders.UserProfile.ToString())));
         }
 
         public async Task<IActionResult> BecomeTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
