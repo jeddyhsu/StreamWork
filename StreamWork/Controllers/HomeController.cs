@@ -35,7 +35,7 @@ namespace StreamWork.Controllers
 
         public async Task<IActionResult> Subject ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, [FromQuery(Name = "s")] string s) {
             if (HttpContext.User.Identity.IsAuthenticated == false)
-                return Redirect(_homehelperFunctions._host + "/Home/Login");
+                return Redirect(_homehelperFunctions._host + "/Home/Login?dest=-Home-Subject?s=" + s);
 
             return View(await _homehelperFunctions.PopulateSubjectPage(storageConfig, s, HttpContext.Session.GetString(QueryHeaders.UserProfile.ToString())));
         }

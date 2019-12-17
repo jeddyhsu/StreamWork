@@ -197,6 +197,7 @@ function Login() {
 
             const urlParams = new URLSearchParams(window.location.search);
             var dest = urlParams.get('dest');
+            var subject = urlParams.get('s');
 
             if (dest != null) {
                 if (dest.includes("-Home-Profile")) {
@@ -208,6 +209,11 @@ function Login() {
                         window.location.href = '/Student/ProfileStudent'
                         return;
                     }
+                }
+
+                if (dest.includes("-Home-Subject")) {
+                    window.location.href = dest.split('-').join('/');
+                    return;
                 }
 
                 if (data.message === "Tutor" && dest.includes("Tutor")) {
