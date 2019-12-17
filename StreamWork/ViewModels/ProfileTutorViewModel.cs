@@ -10,6 +10,7 @@ namespace StreamWork.ViewModels {
         public List<UserChannel> userChannels { get; set; }
         public List<UserArchivedStreams> userArchivedVideos { get; set; }
         public List<UserLogin> userLogins { get; set; }
+        public string subject { get; set; }
 
         public string ChatSecretKey { get; set; }
 

@@ -94,6 +94,14 @@
     <Content Remove="wwwroot\images\OBSStreamKey.png" />
     <Content Remove="wwwroot\images\Donate.png" />
     <Content Remove="Views\IPN\Recieve.cshtml" />
+    <Content Remove="Views\Home\Business.cshtml" />
+    <Content Remove="Views\Home\DesignArt.cshtml" />
+    <Content Remove="Views\Home\Engineering.cshtml" />
+    <Content Remove="Views\Home\Humanities.cshtml" />
+    <Content Remove="Views\Home\Law.cshtml" />
+    <Content Remove="Views\Home\Math.cshtml" />
+    <Content Remove="Views\Home\Other.cshtml" />
+    <Content Remove="Views\Home\Science.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="Views\Home\ProfileView.cshtml">
@@ -109,9 +117,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="wwwroot\images\favicon.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Views\Home\Law.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="wwwroot\images\Business.png">

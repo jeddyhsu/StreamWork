@@ -32,61 +32,12 @@ namespace StreamWork.Controllers
 
             return View();
         }
-        
-        public async Task<IActionResult> Math ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
+
+        public async Task<IActionResult> Subject ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, [FromQuery(Name = "s")] string s) {
             if (HttpContext.User.Identity.IsAuthenticated == false)
-                return Redirect(_homehelperFunctions._host + "/Home/Login?dest=-Home-Math");
+                return Redirect(_homehelperFunctions._host + "/Home/Login");
 
-            return View(await _homehelperFunctions.PopulateSubjectPage(storageConfig, "Mathematics", HttpContext.Session.GetString(QueryHeaders.UserProfile.ToString())));
-        }
-
-        public async Task<IActionResult> Science ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
-            if (HttpContext.User.Identity.IsAuthenticated == false)
-                return Redirect(_homehelperFunctions._host + "/Home/Login?dest=-Home-Science");
-
-            return View(await _homehelperFunctions.PopulateSubjectPage(storageConfig, "Science", HttpContext.Session.GetString(QueryHeaders.UserProfile.ToString())));
-        }
-
-        public async Task<IActionResult> Engineering ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
-            if (HttpContext.User.Identity.IsAuthenticated == false)
-                return Redirect(_homehelperFunctions._host + "/Home/Login?dest=-Home-Engineering");
-
-            return View(await _homehelperFunctions.PopulateSubjectPage(storageConfig, "Engineering", HttpContext.Session.GetString(QueryHeaders.UserProfile.ToString())));
-        }
-
-        public async Task<IActionResult> Business ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
-            if (HttpContext.User.Identity.IsAuthenticated == false)
-                return Redirect(_homehelperFunctions._host + "/Home/Login?dest=-Home-Business");
-
-            return View(await _homehelperFunctions.PopulateSubjectPage(storageConfig, "Business", HttpContext.Session.GetString(QueryHeaders.UserProfile.ToString())));
-        }
-
-        public async Task<IActionResult> Law ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
-            if (HttpContext.User.Identity.IsAuthenticated == false)
-                return Redirect(_homehelperFunctions._host + "/Home/Login?dest=-Home-Law");
-
-            return View(await _homehelperFunctions.PopulateSubjectPage(storageConfig, "Law", HttpContext.Session.GetString(QueryHeaders.UserProfile.ToString())));
-        }
-
-        public async Task<IActionResult> DesignArt ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
-            if (HttpContext.User.Identity.IsAuthenticated == false)
-                return Redirect(_homehelperFunctions._host + "/Home/Login?dest=-Home-Art");
-
-            return View(await _homehelperFunctions.PopulateSubjectPage(storageConfig, "Art", HttpContext.Session.GetString(QueryHeaders.UserProfile.ToString())));
-        }
-
-        public async Task<IActionResult> Humanities ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
-            if (HttpContext.User.Identity.IsAuthenticated == false)
-                return Redirect(_homehelperFunctions._host + "/Home/Login?dest=-Home-Humanities");
-
-            return View(await _homehelperFunctions.PopulateSubjectPage(storageConfig, "Humanities", HttpContext.Session.GetString(QueryHeaders.UserProfile.ToString())));
-        }
-
-        public async Task<IActionResult> Other ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
-            if (HttpContext.User.Identity.IsAuthenticated == false)
-                return Redirect(_homehelperFunctions._host + "/Home/Login?dest=-Home-Other");
-
-            return View(await _homehelperFunctions.PopulateSubjectPage(storageConfig, "Other", HttpContext.Session.GetString(QueryHeaders.UserProfile.ToString())));
+            return View(await _homehelperFunctions.PopulateSubjectPage(storageConfig, s, HttpContext.Session.GetString(QueryHeaders.UserProfile.ToString())));
         }
 
         public async Task<IActionResult> BecomeTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
