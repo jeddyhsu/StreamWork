@@ -253,7 +253,7 @@ function StartBroadcast(profileType, approvedTutor, loggedIn){
         window.location.href = "/Tutor/ProfileTutor"
     }
     else{
-        window.location.href="Home/Login?-Home-Profile"
+        window.location.href="Home/Login?dest=-Home-Profile"
     }
 }
 
