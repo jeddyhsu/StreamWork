@@ -248,13 +248,13 @@ function redirect () {
     return;
 }
 
-function StartBroadcast(profileType, approvedTutor, loggedIn){
-    if(profileType == "tutor" && loggedIn != "" && approvedTutor){
-        window.location.href = "/Tutor/ProfileTutor"
-    }
-    else{
-        window.location.href="Home/Login?dest=-Home-Profile"
-    }
+function StartBroadcast(type) {
+    if(type == "tutor")
+        window.location.href = '/Tutor/ProfileTutor';
+    else if(type == "student")
+        window.location.href = '/Student/ProfileStudent';
+    else
+        window.location.href = '/Home/Login?dest=-Home-Profile'
 }
 
 
