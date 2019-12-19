@@ -4,132 +4,136 @@
 @{
     ViewData["Title"] = "Become a Tutor";
 }
-<div style="font-family:'Roboto', sans-serif;">
-    <nav class="navbar navbar-expand-lg text-center" style="position:fixed;z-index:2 ;width:100%;background-color:#008080">
-        <img src="~/images/streamworkPencilWhite.png" height="70" onclick="window.location.href='/'" />
-        <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item ml-sm-4 mt-1" style="font-size:15px;">
-                    <a class="nav-link" href="/" style="color:white;">Browse by Subjects</a>
-                </li>
-                <li class="nav-item ml-sm-5 mt-1" style="font-size:15px; ">
-                    <a class="nav-link" href="/Home/BecomeTutor" style="color:white;">Become a StreamTutor</a>
-                </li>
-                <li class="nav-item ml-sm-5 mt-1" style="font-size:15px;">
-                    <a id="button" class="nav-link" href="/Home/About" style="color:white;">About</a>
-                </li>
-                <li class="nav-item ml-sm-5 mt-1" style="font-size:15px;">
-                    <a class="nav-link" href="/Home/HowToStream" style="color:white;">How to Stream</a>
-                </li>
-            </ul>
-              @if(@Model == null){
-               <ul class="navbar-nav ml-auto">
-                <li class="nav-item mt-1 ml-auto" style="font-size:17px;">
+<nav class="navbar navbar-expand-lg navbar-light text-center" style="background-color:#008080;">
+    <img src="~/images/streamworkPencilWhite.png" height="70" onclick="window.location.href='/'" />
+    <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
+                <a class="nav-link" href="/" style="color:white;">Browse by Subjects</a>
+            </li>
+            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px; ">
+                <a class="nav-link" href="/Home/BecomeTutor" style="color:white;">Become a StreamTutor</a>
+            </li>
+            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
+                <a id="button" class="nav-link" href="/Home/About" style="color:white;">About</a>
+            </li>
+            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
+                <a class="nav-link" href="/Home/HowToStream" style="color:white;">How to Stream</a>
+            </li>
+        </ul>
+        @if (@Model == null)
+        {
+            <ul class="navbar-nav">
+                <li class="nav-item mt-1" style="font-size:17px;">
                     <a class="btn buttonStyleSignIn pt-2" onclick="window.location.href='/Home/PickStudentOrTutor'" id="sign" style="color:white"><b>Sign Up</b></a>
                 </li>
-                <li class="nav-item mt-1 ml-auto" style="font-size:17px;">
+                <li class="nav-item mt-1" style="font-size:17px;">
                     <a class="btn buttonStyleLogin pt-2" onclick="window.location.href='/Home/Login?dest=-Home-Profile'" style="background-color:white; color:#008080"><b>Login</b></a>
                 </li>
             </ul>
-            }
-            else if(Model != null){
-                 <div class="btn-group">
-                     <img src=@Model.ProfilePicture style="width:75px; height:95px; border-radius:50%" />
-                     <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #008080; border:none; margin-right:35px"></button>
-                     <div class="dropdown-menu">
-                         <a class="dropdown-item" href="#" id="EditProfile" onclick="Dashboard('@Model.ProfileType')">Dashboard</a>
-                         <div class="dropdown-divider"></div>
-                       <!--
-                           
-                           @if (Model.ProfileType == "tutor")
-                            {
-                            <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Edit Profile</a>
-                            <div class="dropdown-divider"></div>
-                            }
+        }
+        else if (Model != null)
+        {
+            <div class="btn-group mt-2" style="margin-left:65px">
+                <img src=@Model.ProfilePicture style="width:75px; height:95px; border-radius:50%" />
+                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #008080; border:none; margin-right:35px"></button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#" id="EditProfile" onclick="Dashboard('@Model.ProfileType')">Dashboard</a>
+                    <div class="dropdown-divider"></div>
+                    @if (Model.ProfileType == "tutor")
+                    {
+                        <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Edit Profile</a>
+                        <div class="dropdown-divider"></div>
+                    }
+                    @if (Model.ProfileType == "tutor")
+                    {
+                        <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Tutor/TutorSettings'">Settings</a>
+                    }
+                    else
+                    {
+                        <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Student/StudentSettings'">Settings</a>
+                    }
 
-                        -->
-                        @if(Model.ProfileType == "tutor")
-                        {
-                             <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Tutor/TutorSettings'">Settings</a>
-                        }
-                        else
-                        {
-                             <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Student/StudentSettings'">Settings</a>
-                        }
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
+                </div>
+            </div>
+            <div id="editModal" class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content" style="background-color: #008080">
+                        <div class="modal-header">
+                            <h5 class="modal-title" style="color:white">Edit Profile</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.ProfileCaption" />
+                                <br />
+                                <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.ProfileParagraph</textarea>
+                                <br />
+                                <img id="previewProfilePic" src=@Model.ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
+                                <br />
+                                <div class="upload-uploadbtn-wrapper">
+                                    <button class="uploadbtn">Upload a Profile Picture</button>
+                                    <input id="uploadProfilePic" type='file' onchange="readURL(this,'ProfilePic');" />
+                                </div>
 
-                         <div class="dropdown-divider"></div>
-                         <a class="dropdown-item" href="#" onclick="Logout()"   >Logout</a>
-                     </div>
-                 </div>
-                 <div id="editModal" class="modal" tabindex="-1" role="dialog">
-                     <div class="modal-dialog" role="document">
-                         <div class="modal-content" style="background-color: #008080">
-                             <div class="modal-header">
-                                 <h5 class="modal-title" style="color:white">Edit Profile</h5>
-                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                     <span aria-hidden="true">&times;</span>
-                                 </button>
-                             </div>
-                             <div class="modal-body">
-                                 <form>
-                                     <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.ProfileCaption" />
-                                     <br />
-                                     <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.ProfileParagraph</textarea>
-                                     <br />
-                                     <img id="previewProfilePic" src=@Model.ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
-                                     <br />
-                                     <div class="upload-uploadbtn-wrapper">
-                                         <button class="uploadbtn">Upload a Profile Picture</button>
-                                         <input id="uploadProfilePic" type='file' onchange="readURL(this,'ProfilePic');" />
-                                     </div>
-                    
-                                 </form>
-                             </div>
+                            </form>
+                        </div>
 
-                             <div class="modal-footer">
-                                 <button type="button" style="background-color:black; color:white" class="btn" onclick="RegisterProfilePhotoAndCaption()">Save changes</button>
-                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-            }
-        </div>
-    </nav>
-    <div class="container-fluid" style="padding-top:140px;">
-        <div class="row">
-            <div class="col-lg-1 col-md-0 col-sm-0"></div>
-            <div class="col-lg-10 col-md-12 col-sm-12">
-                <div class="card" style="background-color: #006565;">
-                    <div class="card-body">
-                        <div class=" p-5" style=" color: white; text-align: justify;">
-                            <img src="/images/streamworkPencilWhite.png" style="height: 104px; width: 72px; margin-left:auto; margin-right:auto;display:block">
-                            <br />
-                            <h2 style="text-align: center">Become a Tutor</h2> <br>
-                            <p>Do you help your friends understand their homework 📓? Have you ever taught a classmate an easier way to solve a problem? You may have the qualities of a <strong>StreamTutor!</strong></p>
-                            <p>Tutors on <strong>StreamWork</strong> make up the backbone of the platform and are the stars of the community. When <strong>StreamTutors</strong> help out student viewers, they have the opportunity to receive donations as a thank you. If you are comfortable tutoring a subject and have received or maintain an A grade in the course, feel free to sign up as a StreamTutor and to start making money 🤑 from doing your homework!</p>
-                            To become a <strong>StreamTutor</strong>, students must:
-                            <ol>
-                                <li>Feel comfortable tutoring their chosen subject</li>
-                                <li>Maintain an A grade in the topic being taught</li>
-                                <li>Receive a letter of recommendation from the course professor (optional)</li>
-                                <li>Provide StreamWork with a resume and transcript</li>
-                                <ol type="a">
-                                    <li>Transcripts and resume's let StreamWork verify that tutors are adequate and experienced enough to teach in certain subjects, in order to give students an optimal learning experience</li>
-                                    <li>These documents will suffice (if approved) as a StreamTutors entry ticket to their own streaming channel, chat box and donation system</li>
-                                    <li>These documents will be private to StreamWork and not be shared with any other tutors or students</li>
-                                </ol>
-                                <li>Wait 1-2 business days to get approved by StreamWork</li>
-                            </ol>
+                        <div class="modal-footer">
+                            <button type="button" style="background-color:black; color:white" class="btn" onclick="RegisterProfilePhotoAndCaption()">Save changes</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
+            </div>
+        }
+    </div>
+</nav>
 
+<div class="container-fluid" style="padding-top:75px;">
+    <div class="row">
+        <div class="col-lg-1 col-md-0 col-sm-0"></div>
+        <div class="col-lg-10 col-md-12 col-sm-12">
+            <div class="card" style="background-color: #006565;">
+                <div class="card-body">
+                    <div class=" p-5" style=" color: white; text-align: left;">
+                        <img src="/images/streamworkPencilWhite.png" style="height: 104px; width: 72px; margin-left:auto; margin-right:auto;display:block">
+                        <br />
+                        <h2 style="text-align: center">Become a Tutor</h2> <br>
+                        <p>Do you help your friends understand their homework 📓? Have you ever taught a classmate an easier way to solve a problem? You may have the qualities of a <strong>StreamTutor!</strong></p>
+                        <p>Tutors on <strong>StreamWork</strong> make up the backbone of the platform and are the stars of the community. When <strong>StreamTutors</strong> help out student viewers, they have the opportunity to receive donations as a thank you. If you are comfortable tutoring a subject and have received or maintain an A grade in the course, feel free to sign up as a StreamTutor and to start making money 🤑 from doing your homework!</p>
+                        To become a <strong>StreamTutor</strong>, students must:
+                        <ol>
+                            <li>Feel comfortable tutoring their chosen subject</li>
+                            <li>Maintain an A grade in the topic being taught</li>
+                            <li>Receive a letter of recommendation from the course professor (optional)</li>
+                            <li>Provide StreamWork with a resume and transcript</li>
+                            <ol type="a">
+                                <li>Transcripts and resume's let StreamWork verify that tutors are adequate and experienced enough to teach in certain subjects, in order to give students an optimal learning experience</li>
+                                <li>These documents will suffice (if approved) as a StreamTutors entry ticket to their own streaming channel, chat box and donation system</li>
+                                <li>These documents will be private to StreamWork and not be shared with any other tutors or students</li>
+                            </ol>
+                            <li>Wait 1-2 business days to get approved by StreamWork</li>
+                        </ol>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    </div>
+</div>
 
+<script>$(document).ready(function () {
+
+        $("#nav").click(function () {
+
+            $("#navbarText").slideToggle();
+
+        });
+    });</script>

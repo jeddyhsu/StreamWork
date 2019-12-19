@@ -6,26 +6,24 @@
 <script src="~/js/EditProfile.js"></script>
 <script src="~/js/Student.js"></script>
 
-<div style="font-family:'Roboto', sans-serif;">
-    <nav class="navbar sticky-top navbar-expand-lg  text-center" style="background-color:#008080">
-        <img src="~/images/streamworkPencilWhite.png" height="70" onclick="window.location.href='/'" />
-        <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item ml-sm-4 mt-1" style="font-size:15px;">
-                    <a class="nav-link" href="/Student/ProfileStudent" style="color:white;">Dashboard</a>
-                </li>
-                <li class="nav-item ml-sm-5 mt-1" style="font-size:14px; ">
-                    <a class="nav-link" href="/Student/ArchivedStreams" style="color:white;">Archived Broadcasts</a>
-                </li>
-                <li class="nav-item ml-sm-5 mt-1" style="font-size:15px;">
-                    <a id="button" class="nav-link" href="/" style="color:white;">Home</a>
-                </li>
-            </ul>
-        </div>
-        <div class="btn-group">
+<nav class="navbar navbar-expand-lg navbar-light text-center" style="background-color:#008080; z-index:1000">
+    <img src="~/images/streamworkPencilWhite.png" height="70" onclick="window.location.href='/'" />
+    <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
+                <a class="nav-link" href="/Student/ProfileStudent" style="color:white;">Dashboard</a>
+            </li>
+            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:14px; ">
+                <a class="nav-link" href="/Student/ArchivedStreams" style="color:white;">Archived Broadcasts</a>
+            </li>
+            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
+                <a id="button" class="nav-link" href="/" style="color:white;">Home</a>
+            </li>
+        </ul>
+        <div class="btn-group mt-2" style="margin-left:65px">
             <img src=@Model.userLogins[0].ProfilePicture style="width:75px; height:95px; border-radius:50%" />
             <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #008080; border:none; margin-right:35px"></button>
             <div class="dropdown-menu">
@@ -34,62 +32,62 @@
                 <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
             </div>
         </div>
-    </nav>
+    </div>
+</nav>
 
-    <div class="container-fluid">
-        
-        <div class="row">
-             <nav class="col-md-2 d-none d-md-block sidebar ">
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <input type="image" src="~/images/MathCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Mathematics')" />
-                <input type="image" src="~/images/ScienceCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Science')" />
-                <input type="image" src="~/images/EngineeringCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Engineering')" />
-                <input type="image" src="~/images/BuisnessCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Business')" />
-                <input type="image" src="~/images/LawCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Law')" />
-                <input type="image" src="~/images/ArtCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Art')" />
-                <input type="image" src="~/images/HumanitiesCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Humanities')" />
-                <input type="image" src="~/images/OtherCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Other')" />
-            </nav>
-            <div class="col-2"></div>
-            <div class=" col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                <h3 class="m-3">Live Broadcasts</h3>
-                <div class="row">
-                    @if (Model.userChannels.ToArray().Length > 0)
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block sidebar ">
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <input type="image" src="~/images/MathCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Mathematics')" />
+            <input type="image" src="~/images/ScienceCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Science')" />
+            <input type="image" src="~/images/EngineeringCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Engineering')" />
+            <input type="image" src="~/images/BuisnessCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Business')" />
+            <input type="image" src="~/images/LawCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Law')" />
+            <input type="image" src="~/images/ArtCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Art')" />
+            <input type="image" src="~/images/HumanitiesCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Humanities')" />
+            <input type="image" src="~/images/OtherCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Other')" />
+        </nav>
+        <div class="col-2"></div>
+        <div class=" col-lg-10 col-md-10 col-sm-10 col-xs-10">
+            <h3 class="m-3">Live Broadcasts</h3>
+            <div class="row">
+                @if (Model.userChannels.ToArray().Length > 0)
+                {
+                    foreach (var videoInfo in Model.userChannels)
                     {
-                        foreach (var videoInfo in Model.userChannels)
+                        if (videoInfo.StreamSubject != null)
                         {
-                            if (videoInfo.StreamSubject != null)
-                            {
-                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 streamsubject @videoInfo.StreamSubject">
-                                    <div class="card mt-3" style="border-radius:5%; border:none;min-width:200px; max-width:400px">
-                                        <iframe src="//iframe.dacast.com/b/135034/c/@videoInfo.ChannelKey" style="border-top-left-radius:5%; border-top-right-radius:5%; min-width:250px" height="250" frameborder="0" scrolling="no" allow="autoplay"></iframe>
-                                        <div class="card-body" style="background-color:#008080 ;border-bottom-left-radius:5%; height:100px; border-bottom-right-radius:5%; border:none; min-width:250px" onclick="window.location.href='../StreamViews/StreamPage?streamKeyandchatId=' + ('@videoInfo.ChannelKey') + ('|') + ('@Model.userChannels[0].ChatId') + '&tutor=@videoInfo.Username'">
-                                            <div class="row">
-                                                <div class="col-3 pr-2">
-                                                    <input type="image" width="80%" height="100%" style="border-radius:50%; min-width:55px; width:55px; height:70px;" src=@videoInfo.ProfilePicture onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@videoInfo.Username')" />
-                                                </div>
-                                                <div class="col-9" style="color:white;">
-                                                    <h5 class="text-truncate" style="font-family: 'Roboto'; font-size:20px;">@videoInfo.StreamTitle</h5>
-                                                    <h6 class="text-truncate" style="font-family: 'Roboto'; font-size:14px">@videoInfo.Username</h6>
-                                                </div>
+                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 streamsubject @videoInfo.StreamSubject">
+                                <div class="card mt-3" style="border-radius:5%; border:none;min-width:200px; max-width:400px">
+                                    <iframe src="//iframe.dacast.com/b/135034/c/@videoInfo.ChannelKey" style="border-top-left-radius:5%; border-top-right-radius:5%; min-width:250px" height="250" frameborder="0" scrolling="no" allow="autoplay"></iframe>
+                                    <div class="card-body" style="background-color:#008080 ;border-bottom-left-radius:5%; height:100px; border-bottom-right-radius:5%; border:none; min-width:250px" onclick="window.location.href='../StreamViews/StreamPage?streamKeyandchatId=' + ('@videoInfo.ChannelKey') + ('|') + ('@Model.userChannels[0].ChatId') + '&tutor=@videoInfo.Username'">
+                                        <div class="row">
+                                            <div class="col-3 pr-2">
+                                                <input type="image" width="80%" height="100%" style="border-radius:50%; min-width:55px; width:55px; height:70px;" src=@videoInfo.ProfilePicture onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@videoInfo.Username')" />
+                                            </div>
+                                            <div class="col-9" style="color:white;">
+                                                <h5 class="text-truncate" style="font-family: 'Roboto'; font-size:20px;">@videoInfo.StreamTitle</h5>
+                                                <h6 class="text-truncate" style="font-family: 'Roboto'; font-size:14px">@videoInfo.Username</h6>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            }
+                            </div>
                         }
                     }
+                }
 
-                </div>
             </div>
-           
         </div>
+
     </div>
+</div>
 </div>
 
 <div id="editModal" class="modal" tabindex="-1" role="dialog">
@@ -126,6 +124,7 @@
 </div>
 
 <style>
+
 
     .dot {
         height: 10vw;
@@ -167,3 +166,14 @@
         color: #5a5a5a;
     }
 </style>
+
+<script>
+    $(document).ready(function () {
+
+        $("#nav").click(function () {
+
+            $("#navbarText").slideToggle();
+
+        });
+    });
+</script>

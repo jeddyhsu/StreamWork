@@ -8,31 +8,28 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item ml-sm-4 mt-1" style="font-size:15px;">
-                    <a class="nav-link" href="/" style="color:white;">Browse by Subjects</a>
-                </li>
-                <li class="nav-item ml-sm-5 mt-1" style="font-size:15px; ">
+                <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px; ">
                     <a class="nav-link" href="/Home/BecomeTutor" style="color:white;">Become a StreamTutor</a>
                 </li>
-                <li class="nav-item ml-sm-5 mt-1" style="font-size:15px;">
+                <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
                     <a id="button" class="nav-link" href="/Home/About" style="color:white;">About</a>
                 </li>
-                <li class="nav-item ml-sm-5 mt-1" style="font-size:15px;">
+                <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
                     <a class="nav-link" href="/Home/HowToStream" style="color:white;">How to Stream</a>
                 </li>
             </ul>
             @if(@Model == null){
-               <ul class="navbar-nav ml-auto">
-                <li class="nav-item mt-1 ml-auto" style="font-size:17px;">
+            <ul class="navbar-nav">
+                <li class="nav-item mt-1" style="font-size:17px;">
                     <a class="btn buttonStyleSignIn pt-2" onclick="window.location.href='Home/PickStudentOrTutor'" id="sign" style="color:white"><b>Sign Up</b></a>
                 </li>
-                <li class="nav-item mt-1 ml-auto" style="font-size:17px;">
+                <li class="nav-item mt-1" style="font-size:17px;">
                     <a class="btn buttonStyleLogin pt-2" onclick="window.location.href='Home/Login?dest=-Home-Profile'" style="background-color:white; color:#008080"><b>Login</b></a>
                 </li>
             </ul>
             }
             else if(Model != null){
-                 <div class="btn-group">
+                 <div class="btn-group mt-2" style="margin-left:65px">
                      <img src=@Model.ProfilePicture style="width:75px; height:95px; border-radius:50%" />
                      <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #008080; border:none; margin-right:35px"></button>
                      <div class="dropdown-menu">
@@ -53,7 +50,7 @@
                         }
 
                          <div class="dropdown-divider"></div>
-                         <a class="dropdown-item" href="#" onclick="Logout()"   >Logout</a>
+                         <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
                      </div>
                  </div>
                  <div id="editModal" class="modal" tabindex="-1" role="dialog">
@@ -97,7 +94,7 @@
         <p><font size="3"><i>Your academic live-streaming tutoring center</i></font></p>
         <p><font size="3"><b>I'm a student and I need help with...</b></font></p>
         <div class="row">
-            <div class="col-lg-3 mt-2" align="center">
+            <div class="col-lg-3 col-md-4 col-sm-6 mt-2" align="center">
                 <div class="card" style="height:18rem; width:13.5rem; border:none" onclick="window.location.href='Home/Subject?s=Mathematics'">
                     <img class="card-img-top" src="~/images/MathCard.png" alt="Card image" style="width:100%; height:100%">
                     <div class="card-img-overlay">
@@ -106,7 +103,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 mt-2" align="center">
+            <div class="col-lg-3 col-md-4 col-sm-6 mt-2" align="center">
                 <div class="card" style="height:18rem; width:13.5rem; border:none" onclick="window.location.href='Home/Subject?s=Science'">
                     <img class="card-img-top" src="~/images/ScienceCard.png" alt="Card image" style="width:100%; height:100%">
                     <div class="card-img-overlay">
@@ -115,7 +112,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 mt-2" align="center">
+            <div class="col-lg-3 col-md-4 col-sm-6 mt-2" align="center">
                 <div class="card" style="height:18rem; width:13.5rem; border:none" onclick="window.location.href='Home/Subject?s=Engineering'">
                     <img class="card-img-top" src="~/images/EngineeringCard.png" alt="Card image" style="width:100%; height:100%">
                     <div class="card-img-overlay">
@@ -124,7 +121,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 mt-2" align="center">
+            <div class="col-lg-3 col-md-12 col-sm-6 mt-2" align="center">
                 <div class="card" style="height:18rem; width:13.5rem; border:none" onclick="window.location.href='Home/Subject?s=Business'">
                     <img class="card-img-top" src="~/images/BuisnessCard.png" alt="Card image" style="width:100%; height:100%">
                     <div class="card-img-overlay">
@@ -135,7 +132,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-3 mt-5" align="center">
+            <div class="col-lg-3 col-md-4 col-sm-6 mt-5" align="center">
                 <div class="card" style="height:18rem; width:13.5rem; border:none" onclick="window.location.href='Home/Subject?s=Law'">
                     <img class="card-img-top" src="~/images/LawCard.png" alt="Card image" style="width:100%; height:100%;">
                     <div class="card-img-overlay">
@@ -144,7 +141,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 mt-5" align="center">
+            <div class="col-lg-3 col-md-4 col-sm-6 mt-5" align="center">
                 <div class="card" style="height:18rem; width:13.5rem; border:none" onclick="window.location.href='Home/Subject?s=Art'">
                     <img class="card-img-top" src="~/images/ArtCard.png" alt="Card image" style="width:100%; height:100%">
                     <div class="card-img-overlay">
@@ -153,7 +150,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 mt-5" align="center">
+            <div class="col-lg-3 col-md-4 col-sm-6 mt-5" align="center">
                 <div class="card" style="height:18rem; width:13.5rem; border:none" onclick="window.location.href='Home/Subject?s=Humanities'">
                     <img class="card-img-top" src="~/images/HumanitiesCard.png" alt="Card image" style="width:100%; height:100%">
                     <div class="card-img-overlay">
@@ -162,7 +159,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 mt-5" align="center">
+            <div class="col-lg-3 col-md-12 col-sm-6 mt-5" align="center">
                 <div class="card" style="height:18rem; width:13.5rem; border:none" onclick="window.location.href='Home/Subject?s=Other'">
                     <img class="card-img-top" src="~/images/OtherCard.png" alt="Card image" style="width:100%; height:100%">
                     <div class="card-img-overlay">
@@ -192,7 +189,6 @@
 
 
 <script>
-var x = 1;
     $(document).ready(function () {
 
         $("#nav").click(function () {

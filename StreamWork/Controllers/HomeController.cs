@@ -33,7 +33,7 @@ namespace StreamWork.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Subject ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, [FromQuery(Name = "s")] string s) {
+        public async Task<IActionResult> Subject ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, [FromQuery(Name = "s")] string s) { //s is subject
             if (HttpContext.User.Identity.IsAuthenticated == false)
                 return Redirect(_homehelperFunctions._host + "/Home/Login?dest=-Home-Subject?s=" + s);
 
