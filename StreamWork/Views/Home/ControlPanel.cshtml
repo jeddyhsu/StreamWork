@@ -62,6 +62,7 @@
             success: function (data) {
                 if (data.message === 'Success') {
                     $('#' + user + '-trial').text('REFRESH');
+                    $('#' + user + '-expiration').text('REFRESH');
                     $('#' + user + '-renew').remove();
                 }
                 else {
@@ -140,7 +141,7 @@
 
 <p>@DateTime.UtcNow.ToShortDateString() @DateTime.UtcNow.ToLongTimeString().</p>
 <p>Welcome, admin. Please note that the actions available on this page are live and cannot be easily undone.</p>
-
+<p>Tutors</p>
 <table>
     <tr>
         <th>Username</th>
@@ -204,7 +205,9 @@
                     <div id="@user.Username-trial">False</div>
                 }
             </th>
-            <th>@user.Expiration.ToShortDateString() @user.Expiration.ToLongTimeString()</th>
+            <th>
+                <div id="@user.Username-expiration">@user.Expiration.ToShortDateString() @user.Expiration.ToLongTimeString()</div>
+            </th>
             <th>
                 @if (user.Expiration.CompareTo(DateTime.UtcNow) < 0) {
                     <button id="@user.Username-renew" onclick="renew('@user.Username');">Renew Subscription</button>
