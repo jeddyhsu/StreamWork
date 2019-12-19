@@ -2,7 +2,7 @@
 <script src="~/js/EditProfile.js"></script>
 <script src="~/js/SignUpLogin.js"></script>
 <nav class="navbar navbar-expand-lg navbar-light text-center" style="background-color:#008080;">
-        <img src="~/images/streamworkPencilWhite.png" height="70" onclick="window.location.href='/'" />
+        <img src="~/images/streamworkPencilWhite.png" height="70" onclick="window.location.href='/'" onmouseover="" style="cursor: pointer;" />
         <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -95,7 +95,7 @@
         <p><font size="3"><b>I'm a student and I need help with...</b></font></p>
         <div class="row">
             <div class="col-lg-3 col-md-4 col-sm-6 mt-2" align="center">
-                <div class="card" style="height:18rem; width:13.5rem; border:none" onclick="window.location.href='Home/Subject?s=Mathematics'">
+                <div class="card" style="height:18rem; width:13.5rem; border:none; cursor: pointer;" onclick="window.location.href='Home/Subject?s=Mathematics'" onmouseover="">
                     <img class="card-img-top" src="~/images/MathCard.png" alt="Card image" style="width:100%; height:100%">
                     <div class="card-img-overlay">
 
@@ -104,7 +104,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6 mt-2" align="center">
-                <div class="card" style="height:18rem; width:13.5rem; border:none" onclick="window.location.href='Home/Subject?s=Science'">
+                <div class="card" style="height:18rem; width:13.5rem; border:none; cursor: pointer;" onclick="window.location.href='Home/Subject?s=Science'" onmouseover="">
                     <img class="card-img-top" src="~/images/ScienceCard.png" alt="Card image" style="width:100%; height:100%">
                     <div class="card-img-overlay">
 
@@ -113,7 +113,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6 mt-2" align="center">
-                <div class="card" style="height:18rem; width:13.5rem; border:none" onclick="window.location.href='Home/Subject?s=Engineering'">
+                <div class="card" style="height:18rem; width:13.5rem; border:none; cursor: pointer;" onclick="window.location.href='Home/Subject?s=Engineering'" onmouseover="">
                     <img class="card-img-top" src="~/images/EngineeringCard.png" alt="Card image" style="width:100%; height:100%">
                     <div class="card-img-overlay">
 
@@ -122,7 +122,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-md-12 col-sm-6 mt-2" align="center">
-                <div class="card" style="height:18rem; width:13.5rem; border:none" onclick="window.location.href='Home/Subject?s=Business'">
+                <div class="card" style="height:18rem; width:13.5rem; border:none; cursor: pointer;" onclick="window.location.href='Home/Subject?s=Business'" onmouseover="">
                     <img class="card-img-top" src="~/images/BuisnessCard.png" alt="Card image" style="width:100%; height:100%">
                     <div class="card-img-overlay">
 
@@ -133,7 +133,7 @@
         </div>
         <div class="row">
             <div class="col-lg-3 col-md-4 col-sm-6 mt-5" align="center">
-                <div class="card" style="height:18rem; width:13.5rem; border:none" onclick="window.location.href='Home/Subject?s=Law'">
+                <div class="card" style="height:18rem; width:13.5rem; border:none; cursor: pointer;" onclick="window.location.href='Home/Subject?s=Law'" onmouseover="">
                     <img class="card-img-top" src="~/images/LawCard.png" alt="Card image" style="width:100%; height:100%;">
                     <div class="card-img-overlay">
 
@@ -142,7 +142,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6 mt-5" align="center">
-                <div class="card" style="height:18rem; width:13.5rem; border:none" onclick="window.location.href='Home/Subject?s=Art'">
+                <div class="card" style="height:18rem; width:13.5rem; border:none; cursor: pointer;" onclick="window.location.href='Home/Subject?s=Art'" onmouseover="">
                     <img class="card-img-top" src="~/images/ArtCard.png" alt="Card image" style="width:100%; height:100%">
                     <div class="card-img-overlay">
 
@@ -151,7 +151,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6 mt-5" align="center">
-                <div class="card" style="height:18rem; width:13.5rem; border:none" onclick="window.location.href='Home/Subject?s=Humanities'">
+                <div class="card" style="height:18rem; width:13.5rem; border:none; cursor: pointer;" onclick="window.location.href='Home/Subject?s=Humanities'" onmouseover="">
                     <img class="card-img-top" src="~/images/HumanitiesCard.png" alt="Card image" style="width:100%; height:100%">
                     <div class="card-img-overlay">
 
@@ -160,7 +160,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-md-12 col-sm-6 mt-5" align="center">
-                <div class="card" style="height:18rem; width:13.5rem; border:none" onclick="window.location.href='Home/Subject?s=Other'">
+                <div class="card" style="height:18rem; width:13.5rem; border:none; cursor: pointer;" onclick="window.location.href='Home/Subject?s=Other'" onmouseover="">
                     <img class="card-img-top" src="~/images/OtherCard.png" alt="Card image" style="width:100%; height:100%">
                     <div class="card-img-overlay">
 
@@ -171,10 +171,10 @@
         </div>
         <h1><font size="3"><b>Already a StreamTutor?</b> </font></h1>
         @if(Model != null){
-             <img src="~/images/StartBroadcast.png" style="width:250px" onclick="StartBroadcast('@Model.ProfileType')" />
+             <img src="~/images/StartBroadcast.png" style="width:250px; cursor: pointer;" onclick="StartBroadcast('@Model.ProfileType')" onmouseover="" />
         }
         else{
-             <img src="~/images/StartBroadcast.png" style="width:250px" onclick="window.location.href='Home/Login?dest=-Home-Profile'" />
+             <img src="~/images/StartBroadcast.png" style="width:250px; cursor: pointer;" onclick="window.location.href='Home/Login?dest=-Home-Profile'" onmouseover="" />
         }
         <div class="row">
             <div class="col-lg-4"></div>

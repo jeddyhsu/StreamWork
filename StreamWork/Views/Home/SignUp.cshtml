@@ -6,7 +6,7 @@
 <div class="text-center">
     <section id="Student">
         <form class="form-sign">
-            <img src="~/images/streamworklogo.png" width="250" height="70" onclick="window.location.href='/'" />
+            <img src="~/images/streamworklogo.png" width="250" height="70" onclick="window.location.href='/'" onmouseover="" style="cursor: pointer;" />
             <h4>Sign Up</h4>
             <br>
             <input type="text" class="form-control" id="nameFirstS" placeholder="First Name">
@@ -28,7 +28,7 @@
 
     <section id="Tutor">
         <form class="form-sign">
-            <img src="~/images/streamworklogo.png" width="250" height="70" onclick="window.location.href='/'" />
+            <img src="~/images/streamworklogo.png" width="250" height="70" onclick="window.location.href='/'" onmouseover="" style="cursor: pointer;" />
             <h4>Sign Up</h4>
             <br>
             <input type="text" class="form-control" id="nameFirstT" placeholder="First Name">
@@ -49,7 +49,7 @@
             <div class="col-3"></div>
             <div class="col-lg-2 col-md-12 mt-3">
                 <div class="upload-uploadbtn-wrapper">
-                    <button class="uploadbtn";>Upload Transcript</button>
+                    <button class="uploadbtn">Upload Transcript</button>
                     <input id="uploadTranscript" type='file' accept="application/pdf" onchange="ReadFile(this, 'transcript')" />
                     <h6 id="Transcript" class="mt-2"></h6>
                 </div>
@@ -59,7 +59,7 @@
             </div>
             <div class="col-lg-2 col-md-12 mt-3">
                 <div class="upload-uploadbtn-wrapper">
-                    <button class="uploadbtn">Upload LOR</button>
+                    <button class="uploadbtn">Upload Letter of Recommendation</button>
                     <input id="uploadLetterofrec" type='file' accept="application/pdf" onchange="ReadFile(this, 'letterofrec')" />
                     <h6 id="LetterOfRec" class="mt-2"></h6>
                 </div>
@@ -95,7 +95,7 @@
                 </div>
                 <div class="modal-body">
                     <p id="notificationBody" class=" text-center" style="color: white;">It appears you are not a verified StreamTutor! If you are a student, create a separate student account. If you are a StreamTutor, please wait to be approved.</p>
-                    <img src="~/images/streamworkPencilWhite.png" style="display:block; margin-left:auto; margin-right:auto;" height="70" onclick="window.location.href='/'" />
+                    <img src="~/images/streamworkPencilWhite.png" style="display:block; margin-left:auto; margin-right:auto; cursor: pointer;" height="70" onclick="window.location.href='/'" onmouseover="" />
                 </div>
             </div>
         </div>
