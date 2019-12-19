@@ -5,70 +5,63 @@
 @{
     ViewData["Title"] = "TutorStream";
 }
-<script>
-    window.onload(CheckSession())
-</script>
-@if (!Model.userProfile.ProfileType.Equals("tutor") || !Model.userProfile.AcceptedTutor) {
-    <script>
-        $(document).ready(function () {
+<script>window.onload(CheckSession())</script>
+@if (!Model.userProfile.ProfileType.Equals("tutor") || !Model.userProfile.AcceptedTutor)
+{
+    <script>$(document).ready(function () {
             $('#unapprovedTutorModal').modal({
-        backdrop: 'static',
+                backdrop: 'static',
                 keyboard: false
             })
-        })
-    </script>
+        })</script>
 }
 else if (Model.userChannels[0].ChannelKey == null)
 {
-    <script>
-        $(document).ready(function () {
+    <script>$(document).ready(function () {
             $('#channelKeyModal').modal({
-        backdrop: 'static',
+                backdrop: 'static',
                 keyboard: false
             })
-        })
-   </script>
+        })</script>
 }
 else if (Model.userChannels[0].StreamTitle == null && Model.userChannels[0].StreamSubject == null)
 {
-    <script>
-        $(document).ready(function () {
+    <script>$(document).ready(function () {
             $('#registerStreamModal').modal({
-        backdrop: 'static',
+                backdrop: 'static',
                 keyboard: false
             })
-        })
-    </script>
+        })</script>
 }
 
-<div style="font-family:'Roboto', sans-serif; background-color:black">
-    <nav class="navbar sticky-top navbar-expand-lg  text-center" style="background-color:#008080">
+<div style="background-color:black">
+    <nav class="navbar navbar-expand-lg navbar-light text-center" style="background-color:#008080; z-index:1000">
         <img src="~/images/streamworkPencilWhite.png" height="70" onclick="window.location.href='/'" />
         <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item ml-sm-4 mt-1" style="font-size:15px;">
+                <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
                     <a class="nav-link" href="/Tutor/ProfileTutor" style="color:white;">Dashboard</a>
                 </li>
-                <li class="nav-item ml-sm-5 mt-1" style="font-size:14px; ">
+                <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:14px; ">
                     <a class="nav-link" href="/Tutor/TutorStream" style="color:white;">Start Streaming</a>
                 </li>
-                <li class="nav-item ml-sm-5 mt-1" style="font-size:15px;">
+                <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
                     <a id="button" class="nav-link" href="/" style="color:white;">Home</a>
                 </li>
             </ul>
-        </div>
-        <div class="btn-group">
-            <img src=@Model.userProfile.ProfilePicture style="width:75px; height:95px; border-radius:50%" />
-            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #008080; border:none; margin-right:35px"></button>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" id="EditProfile" onclick="EditProfile()">Edit Profile</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="/Tutor/TutorSettings" id="Settings">Settings</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" id="Logout" onclick="Logout()">Logout</a>
+            <div class="btn-group mt-2" style="margin-left:65px">
+                <img src=@Model.userLogins[0].ProfilePicture style="width:75px; height:95px; border-radius:50%" />
+                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #008080; border:none; margin-right:35px"></button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" onclick="EditProfile()">Edit Profile</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/Tutor/TutorSettings">Settings</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
+                </div>
             </div>
         </div>
     </nav>
@@ -82,12 +75,12 @@ else if (Model.userChannels[0].StreamTitle == null && Model.userChannels[0].Stre
                                   width: 1500,
                                   height: 800
                               });
-                        
+
                     });
 
                      function CheckForStream() {
                          var player = dacast.players["135034_c_@Model.userChannels[0].ChannelKey"]
-                         
+
                             if (player.currentTime() == 0) {
                                   alert("It looks like your stream hasn't been started on OBS. Start the stream on OBS and once you see your stream on this page then enter the title and subject.")
                               }
@@ -95,12 +88,12 @@ else if (Model.userChannels[0].StreamTitle == null && Model.userChannels[0].Stre
                                   RegisterStreamTitleAndStreamSubjectAndCustomThumbanail()
                               }
                           }
-                   </script>
+                </script>
             </div>
             <div class="col-sm-12 col-md-12 col-lg-3  ">
                 @if (true)
                 {
-                  <iframe src= @Model.ChatSecretKey width="100%" height="800" allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>
+                    <iframe src=@Model.ChatSecretKey width="100%" height="800" allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>
                 }
             </div>
         </div>
@@ -213,21 +206,19 @@ else if (Model.userChannels[0].StreamTitle == null && Model.userChannels[0].Stre
 </div>
 
 <div id="notificationModal" class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="background-color: #008080">
-                <div class="modal-header">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color: #008080">
+            <div class="modal-header">
 
-                    <h5 class="modal-title text-center" style="color:white">Alert!</h5>
-                </div>
-                <div class="modal-body">
-                    <p id="notificationBody" class=" text-center" style="color: white;">It appears you are not a verified StreamTutor! If you are a student, create a separate student account. If you are a StreamTutor, please wait to be approved.</p>
-                    <img src="~/images/streamworkPencilWhite.png" style="display:block; margin-left:auto; margin-right:auto;" height="70" onclick="window.location.href='/'" />
-                </div>
+                <h5 class="modal-title text-center" style="color:white">Alert!</h5>
+            </div>
+            <div class="modal-body">
+                <p id="notificationBody" class=" text-center" style="color: white;">It appears you are not a verified StreamTutor! If you are a student, create a separate student account. If you are a StreamTutor, please wait to be approved.</p>
+                <img src="~/images/streamworkPencilWhite.png" style="display:block; margin-left:auto; margin-right:auto;" height="70" onclick="window.location.href='/'" />
             </div>
         </div>
     </div>
-
-
+</div>
 
 
 <style>
@@ -255,3 +246,14 @@ else if (Model.userChannels[0].StreamTitle == null && Model.userChannels[0].Stre
         text-align: center;
     }
 </style>
+
+<script>
+    $(document).ready(function () {
+
+        $("#nav").click(function () {
+
+            $("#navbarText").slideToggle();
+
+        });
+    });
+</script>
