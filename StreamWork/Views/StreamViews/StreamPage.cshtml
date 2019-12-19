@@ -4,51 +4,99 @@
     ViewData["Title"] = "StreamPage";
 }
 
-@if (Model.profile.userProfile == null)
-{
-    <script>NavigateToPage('/Home/Math')</script>
-}
-else
-{
-    <script>checkLoggedIn('@Model.profile.userProfile.LoggedIn',"/Home/Math");</script>
-}
-
 @if (!Model.IsSubscribed()) {
     <script>window.location.href = '/Home/Subscribe';</script>
 }
-<div style="font-family:'Roboto', sans-serif;">
-    <nav class="navbar navbar-expand-lg  text-center" style="position:fixed;z-index:2 ;width:100%;background-color:#008080">
-        <img src="~/images/WhiteStreamWork.png" width="250" height="70" onclick="window.location.href='/'" />
-        <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item ml-sm-5" style="font-size:14px;">
-                    <a class="nav-link" href="/" style="color:white;">Browse by Subjects</a>
-                </li>
-                <li class="nav-item ml-sm-5" style="font-size:14px;">
-                    <a class="nav-link" href="/Home/BecomeTutor" style="color:white;">Become a StreamTutor</a>
-                </li>
-                <li class="nav-item ml-sm-5" style="font-size:14px;">
-                    <a class="nav-link" href="/Home/About" style="color:white;">About</a>
-                </li>
-                <li class="nav-item ml-sm-5" style="font-size:14px;">
-                    <a class="nav-link" href="/Home/HowToStream" style="color:white;">How to Stream</a>
-                </li>
-            </ul>
+    <nav class="navbar navbar-expand-lg navbar-light text-center" style="background-color:#008080;">
+    <img src="~/images/streamworkPencilWhite.png" height="70" onclick="window.location.href='/'" />
+    <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
+                <a class="nav-link" href="/" style="color:white;">Browse by Subjects</a>
+            </li>
+            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px; ">
+                <a class="nav-link" href="/Home/BecomeTutor" style="color:white;">Become a StreamTutor</a>
+            </li>
+            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
+                <a id="button" class="nav-link" href="/Home/About" style="color:white;">About</a>
+            </li>
+            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
+                <a class="nav-link" href="/Home/HowToStream" style="color:white;">How to Stream</a>
+            </li>
+        </ul>
+
+        <div class="btn-group mt-2" style="margin-left:65px">
+            <img src=@Model.profile.userProfile.ProfilePicture style="width:75px; height:95px; border-radius:50%" />
+            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #008080; border:none; margin-right:35px"></button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#" id="EditProfile" onclick="Dashboard('@Model.profile.userProfile.ProfileType')">Dashboard</a>
+                <div class="dropdown-divider"></div>
+                @if (Model.profile.userProfile.ProfileType == "tutor")
+                {
+                    <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Edit Profile</a>
+                    <div class="dropdown-divider"></div>
+                }
+                @if (Model.profile.userProfile.ProfileType == "tutor")
+                {
+                    <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Tutor/TutorSettings'">Settings</a>
+                }
+                else
+                {
+                    <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Student/StudentSettings'">Settings</a>
+                }
+
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
+            </div>
         </div>
-    </nav>
+        <div id="editModal" class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="background-color: #008080">
+                    <div class="modal-header">
+                        <h5 class="modal-title" style="color:white">Edit Profile</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.profile.userProfile.ProfileCaption" />
+                            <br />
+                            <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.profile.userProfile.ProfileParagraph</textarea>
+                            <br />
+                            <img id="previewProfilePic" src=@Model.profile.userProfile.ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
+                            <br />
+                            <div class="upload-uploadbtn-wrapper">
+                                <button class="uploadbtn">Upload a Profile Picture</button>
+                                <input id="uploadProfilePic" type='file' onchange="readURL(this,'ProfilePic');" />
+                            </div>
+
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" style="background-color:black; color:white" class="btn" onclick="RegisterProfilePhotoAndCaption()">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-9 p-2">
-                <div style="padding-top:115px">
+                <div style="padding-top:75px">
                     <iframe src="//iframe.dacast.com/b/135034/c/@Model.urlParams[0]" width="100%" height="700px" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
                 </div>
             </div>
 
             <div class="col-sm-12 col-md-12 col-lg-3 p-2">
-                <div style="padding-top:115px">
+                <div style="padding-top:75px">
                     <iframe src=@Model.urlParams[1] width="100%" height="550" allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>
                 </div>
                 <br />
@@ -58,4 +106,13 @@ else
             </div>
         </div>
     </div>
-</div>
+
+
+<script>$(document).ready(function () {
+
+        $("#nav").click(function () {
+
+            $("#navbarText").slideToggle();
+
+        });
+    });</script>
