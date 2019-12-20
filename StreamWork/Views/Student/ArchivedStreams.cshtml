@@ -17,7 +17,7 @@
                 <a class="nav-link" href="/Student/ProfileStudent" style="color:white;">Dashboard</a>
             </li>
             <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:14px; ">
-                <a class="nav-link" href="/Student/ArchivedStreams" style="color:white;">Archived Broadcasts</a>
+                <a class="nav-link" href="/Student/ArchivedStreams" style="color:white;">Archived Streams</a>
             </li>
             <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
                 <a id="button" class="nav-link" href="/" style="color:white;">Home</a>
@@ -35,41 +35,41 @@
     </div>
 </nav>
 
-<div class="container-fluid">
+
+<div class="container">
+    <br />
+    <br />
+    <div class="row ml-4">
+        <div class="col-1"></div>
+        <input type="image" runat="server" src="~/images/MathCard.png" style="width:10%; height:10%;" onclick="FilterStreams('Mathematics')" />
+        <input type="image" src="~/images/ScienceCard.png" style="width:10%; height:10%;" onclick="FilterStreams('Science')" />
+        <input type="image" src="~/images/EngineeringCard.png" style="width:10%; height:10%;" onclick="FilterStreams('Engineering')" />
+        <input type="image" src="~/images/BuisnessCard.png" style="width:10%; height:10%;" onclick="FilterStreams('Business')" />
+        <input type="image" src="~/images/LawCard.png" style="width:10%; height:10%;" onclick="FilterStreams('Law')" />
+        <input type="image" src="~/images/ArtCard.png" style="width:10%; height:10%;" onclick="FilterStreams('Art')" />
+        <input type="image" src="~/images/HumanitiesCard.png" style="width:10%; height:10%;" onclick="FilterStreams('Humanities')" />
+        <input type="image" src="~/images/OtherCard.png" style="width:10%; height:10%;" onclick="FilterStreams('Other')" />
+    </div>
+</div>
+<br />
+<div class="container-fluid" style="width:100%; padding-left:100px; padding-right:100px">
+    <h2 class="text-center"><b>Archived Streams</b></h2>
     <div class="row">
-        <nav class="col-md-2 d-none d-md-block sidebar">
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <input type="image" runat="server" src="~/images/MathCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Mathematics')" />
-            <input type="image" src="~/images/ScienceCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Science')" />
-            <input type="image" src="~/images/EngineeringCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Engineering')" />
-            <input type="image" src="~/images/BuisnessCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Business')" />
-            <input type="image" src="~/images/LawCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Law')" />
-            <input type="image" src="~/images/ArtCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Art')" />
-            <input type="image" src="~/images/HumanitiesCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Humanities')" />
-            <input type="image" src="~/images/OtherCard.png" style="width:50%; min-width:100px" onclick="FilterStreams('Other')" />
-        </nav>
-        <div class="col-2"></div>
-        <div class=" col-lg-10 col-md-10 col-sm-12 col-xs-12">
-            <h3 class="m-3">Archived Broadcasts</h3>
+        <div class="col-lg-12">
             <div class="row">
                 @foreach (var videoInfo in Model.userArchivedStreams)
                 {
-                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-6 streamsubject @videoInfo.StreamSubject">
-                        <div class="card mt-3" style="border-radius:5%; border:none; min-width:15rem; max-width:20rem">
-                            <input type="image" width="100%" height="225px" style="border-top-left-radius:5%; border-top-right-radius:5%; min-width:250px" src=@videoInfo.StreamThumbnail onclick="window.location.href='../StreamViews/StreamPlaybackPage?streamId=' + ('@videoInfo.StreamID')">
-                            <div class="card-body" style="background-color:#008080 ;border-bottom-left-radius:5%; height:100px; border-bottom-right-radius:5%; border:none; min-width:250px" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@videoInfo.Username');">
+                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-6 streamsubject @videoInfo.StreamSubject">
+                        <div class="card mt-3" style="border-radius:5%; border:none; max-width:375px">
+                            <input type="image" width="100%" height="210px" style="border-top-left-radius:5%; border-top-right-radius:5%; min-width:250px" src=@videoInfo.StreamThumbnail onclick="window.location.href='../StreamViews/StreamPlaybackPage?streamId=' + ('@videoInfo.StreamID')">
+                            <div class="card-body p-0" style="background-color:#008080 ;border-bottom-left-radius:5%; height:75px; border-bottom-right-radius:5%; border:none; min-width:250px" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@videoInfo.Username');">
                                 <div class="row">
-                                    <div class="col-3 pr-2">
-                                        <input type="image" style="border-radius:50%; min-width:55px; width:55px; height:70px;" src=@videoInfo.ProfilePicture />
+                                    <div class="col-2 pr-2">
+                                        <input type="image" style="border-radius:50%; width:50px; margin-left:10px; margin-top:10px; height:60px;" src=@videoInfo.ProfilePicture />
                                     </div>
-                                    <div class="col-9" style="color:white;">
-                                        <h5 class="text-truncate" style="font-family: 'Roboto'; font-size:20px;">@videoInfo.StreamTitle</h5>
-                                        <h6 class="text-truncate" style="font-family: 'Roboto'; font-size:14px">@videoInfo.Username</h6>
+                                    <div class="col-10" style="color:white;">
+                                        <h5 class="text-truncate" style="font-family: 'Roboto'; font-size:20px; margin-left:20px; margin-top:10px;">@videoInfo.StreamTitle</h5>
+                                        <h6 class="text-truncate" style="font-family: 'Roboto'; font-size:14px;margin-left:20px;">@videoInfo.Username</h6>
                                     </div>
                                 </div>
                             </div>
@@ -78,7 +78,6 @@
                 }
             </div>
         </div>
-
     </div>
 </div>
 
@@ -117,6 +116,7 @@
 
 
 <style>
+
 
     .dot {
         height: 10vw;
@@ -164,13 +164,11 @@
 </style>
 
 
-<script>
-    $(document).ready(function () {
+<script>$(document).ready(function () {
 
         $("#nav").click(function () {
 
             $("#navbarText").slideToggle();
 
         });
-    });
-</script>
+    });</script>
