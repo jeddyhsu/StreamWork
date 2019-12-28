@@ -24,13 +24,17 @@ namespace StreamWork.Controllers
 
         [HttpGet]
         public async Task<IActionResult> Index ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
+
+            var populatePage = await _homehelperFunctions.PopulateHomePage(storageConfig);
+
             if (HttpContext.User.Identity.IsAuthenticated == true)
             {
                 var userProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name);
-                return View(userProfile);
+                populatePage.userProfile = userProfile;
+                return View(populatePage);
             }
 
-            return View();
+            return View(populatePage);
         }
 
         public async Task<IActionResult> Subject ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, [FromQuery(Name = "s")] string s) { //s is subject

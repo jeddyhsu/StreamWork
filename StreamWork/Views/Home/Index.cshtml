@@ -1,4 +1,4 @@
-﻿@model StreamWork.DataModels.UserLogin
+﻿@model StreamWork.ViewModels.ProfileTutorViewModel
 <script src="~/js/EditProfile.js"></script>
 <script src="~/js/SignUpLogin.js"></script>
 <nav class="navbar navbar-expand-lg navbar-light text-center" style="background-color:#008080;">
@@ -18,7 +18,7 @@
                     <a class="nav-link" href="/Home/HowToStream" style="color:white;">How to Stream</a>
                 </li>
             </ul>
-            @if(@Model == null){
+            @if(@Model.userProfile == null){
             <ul class="navbar-nav">
                 <li class="nav-item mt-1" style="font-size:17px;">
                     <a class="btn buttonStyleSignIn pt-2" onclick="window.location.href='Home/PickStudentOrTutor'" id="sign" style="color:white"><b>Sign Up</b></a>
@@ -28,19 +28,19 @@
                 </li>
             </ul>
             }
-            else if(Model != null){
+            else if(Model.userProfile != null){
                  <div class="btn-group mt-2" style="margin-left:65px">
-                     <img src=@Model.ProfilePicture style="width:75px; height:95px; border-radius:50%" />
+                     <img src=@Model.userProfile.ProfilePicture style="width:75px; height:95px; border-radius:50%" />
                      <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #008080; border:none; margin-right:35px"></button>
                      <div class="dropdown-menu">
-                         <a class="dropdown-item" href="#" id="EditProfile" onclick="Dashboard('@Model.ProfileType')">Dashboard</a>
+                         <a class="dropdown-item" href="#" id="EditProfile" onclick="Dashboard('@Model.userProfile.ProfileType')">Dashboard</a>
                          <div class="dropdown-divider"></div>
-                        @if (Model.ProfileType == "tutor")
+                        @if (Model.userProfile.ProfileType == "tutor")
                             {
                           <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Edit Profile</a>
                          <div class="dropdown-divider"></div>
                             }
-                        @if(Model.ProfileType == "tutor")
+                        @if(Model.userProfile.ProfileType == "tutor")
                         {
                              <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Tutor/TutorSettings'">Settings</a>
                         }
@@ -64,11 +64,11 @@
                              </div>
                              <div class="modal-body">
                                  <form>
-                                     <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.ProfileCaption" />
+                                     <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.userProfile.ProfileCaption" />
                                      <br />
-                                     <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.ProfileParagraph</textarea>
+                                     <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.userProfile.ProfileParagraph</textarea>
                                      <br />
-                                     <img id="previewProfilePic" src=@Model.ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
+                                     <img id="previewProfilePic" src=@Model.userProfile.ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
                                      <br />
                                      <div class="upload-uploadbtn-wrapper">
                                          <button class="uploadbtn">Upload a Profile Picture</button>
@@ -88,10 +88,11 @@
             }
         </div>
      </nav>
+
 <section class="jumbotron text-center" style="background-color:white">
     <div class="container">
         <img src="~/images/streamworklogo.png" width="317" height="87" />
-        <p><font size="3"><i>Your academic live-streaming tutoring center</i></font></p>
+        <p><font size="3"><i>Your academic live-streaming tutoring center</i></font></p>    
         <p><font size="3"><b>I'm a student and I need help with...</b></font></p>
         <div class="row">
             <div class="col-lg-3 col-md-4 col-sm-6 mt-2" align="center">
@@ -170,8 +171,8 @@
             </div>
         </div>
         <h1><font size="3"><b>Already a StreamTutor?</b> </font></h1>
-        @if(Model != null){
-             <img src="~/images/StartBroadcast.png" style="width:250px" onclick="StartBroadcast('@Model.ProfileType')" />
+        @if(Model.userProfile != null){
+             <img src="~/images/StartBroadcast.png" style="width:250px" onclick="StartBroadcast('@Model.userProfile.ProfileType')" />
         }
         else{
              <img src="~/images/StartBroadcast.png" style="width:250px" onclick="window.location.href='Home/Login?dest=-Home-Profile'" />

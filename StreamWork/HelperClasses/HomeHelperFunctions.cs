@@ -76,6 +76,16 @@ namespace StreamWork.HelperClasses
             return model;
         }
 
+        public async Task<ProfileTutorViewModel> PopulateHomePage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
+            ProfileTutorViewModel model = new ProfileTutorViewModel
+            {
+                userChannels = await GetUserChannels(storageConfig, QueryHeaders.AllUserChannelsThatAreStreaming, "N|A"),
+                userLogins = await GetPopularStreamTutors(storageConfig),
+            };
+            return model;
+        }
+
         public string FormatChatId(string chatID)
         {
             var formattedphrase = chatID.Split(new char[] { '\t' });
