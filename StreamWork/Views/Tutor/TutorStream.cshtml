@@ -1,11 +1,11 @@
 ﻿@model StreamWork.ViewModels.ProfileTutorViewModel
+@{ ViewData["Title"] = "TutorStream";}
+
 <script src="~/js/Tutor.js"></script>
 <script src="//player.dacast.com/js/player.js"></script>
 <script src="~/js/EditProfile.js"></script>
-@{
-    ViewData["Title"] = "TutorStream";
-}
-<script>window.onload(CheckSession())</script>
+<link rel="stylesheet" href="~/css/Tutor.css" />
+
 @if (!Model.userProfile.ProfileType.Equals("tutor") || !Model.userProfile.AcceptedTutor)
 {
     <script>$(document).ready(function () {
@@ -43,13 +43,13 @@ else if (Model.userChannels[0].StreamTitle == null && Model.userChannels[0].Stre
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
-                    <a class="nav-link" href="/Tutor/ProfileTutor" style="color:white;">My Streams</a>
+                    <a class="nav-link underline" href="/Tutor/ProfileTutor" style="color:white;"><b>My Streams</b></a>
                 </li>
-                <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:14px; ">
-                    <a class="nav-link" href="/Tutor/TutorStream" style="color:white;">Start Streaming</a>
+                <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px; ">
+                    <a class="nav-link underline" href="/Tutor/TutorStream" style="color:white;"><b>Start Streaming</b></a>
                 </li>
                 <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
-                    <a id="button" class="nav-link" href="/" style="color:white;">Home</a>
+                    <a class="nav-link underline" href="/" style="color:white;"><b>Home</b></a>
                 </li>
             </ul>
             <div class="btn-group mt-2" style="margin-left:65px">
@@ -222,6 +222,7 @@ else if (Model.userChannels[0].StreamTitle == null && Model.userChannels[0].Stre
 
 
 <style>
+
     .dot {
         height: 10vw;
         width: 10vw;
@@ -247,13 +248,11 @@ else if (Model.userChannels[0].StreamTitle == null && Model.userChannels[0].Stre
     }
 </style>
 
-<script>
-    $(document).ready(function () {
+<script>$(document).ready(function () {
 
         $("#nav").click(function () {
 
             $("#navbarText").slideToggle();
 
         });
-    });
-</script>
+    });</script>

@@ -1,6 +1,8 @@
 ﻿@model StreamWork.ViewModels.ProfileTutorViewModel
 <script src="~/js/EditProfile.js"></script>
 <script src="~/js/SignUpLogin.js"></script>
+<link rel="stylesheet" href="~/css/Index.css" />
+
 <nav class="navbar navbar-expand-lg navbar-light text-center" style="background-color:#008080;">
         <img src="~/images/streamworkPencilWhite.png" height="70" onclick="window.location.href='/'" />
         <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -9,22 +11,22 @@
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px; ">
-                    <a class="nav-link" href="/Home/BecomeTutor" style="color:white;">Become a StreamTutor</a>
+                    <a class="nav-link underline" href="/Home/BecomeTutor" style="color:white;"><b>Become a StreamTutor</b></a>
                 </li>
                 <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
-                    <a id="button" class="nav-link" href="/Home/About" style="color:white;">About</a>
+                    <a class="nav-link underline" href="/Home/About" style="color:white;"><b>About</b></a>
                 </li>
                 <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
-                    <a class="nav-link" href="/Home/HowToStream" style="color:white;">How to Stream</a>
+                    <a class="nav-link underline" href="/Home/HowToStream" style="color:white;"><b>How to Stream</b></a>
                 </li>
             </ul>
             @if(@Model.userProfile == null){
             <ul class="navbar-nav">
                 <li class="nav-item mt-1" style="font-size:17px;">
-                    <a class="btn buttonStyleSignIn pt-2" onclick="window.location.href='Home/PickStudentOrTutor'" id="sign" style="color:white"><b>Sign Up</b></a>
+                    <a class="btn buttonSignIn pt-2" style="color:white" onclick="window.location.href='Home/PickStudentOrTutor'"><b>Sign Up</b></a>
                 </li>
                 <li class="nav-item mt-1" style="font-size:17px;">
-                    <a class="btn buttonStyleLogin pt-2" onclick="window.location.href='Home/Login?dest=-Home-Profile'" style="background-color:white; color:#008080"><b>Login</b></a>
+                    <a class="btn buttonStyleLogin pt-2" style="background-color:white; color:#008080" onclick="window.location.href='Home/Login?dest=-Home-Profile'"><b>Login</b></a>
                 </li>
             </ul>
             }
@@ -95,87 +97,39 @@
         <p><font size="3"><i>Your academic live-streaming tutoring center</i></font></p>    
         <p><font size="3"><b>I'm a student and I need help with...</b></font></p>
         <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-6 mt-2" align="center">
-                <div class="card" style="height:18rem; width:13.5rem; border:none" onclick="window.location.href='Home/Subject?s=Mathematics'">
-                    <img class="card-img-top" src="~/images/MathCard.png" alt="Card image" style="width:100%; height:100%">
-                    <div class="card-img-overlay">
-
-
-                    </div>
-                </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 mt-2" align="center">
+                <input class="zoom" type="image" src="~/images/MathCard.png" style="width:90%; height:95%"; onclick="window.location.href='Home/Subject?s=Mathematics'" />
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mt-2" align="center">
-                <div class="card" style="height:18rem; width:13.5rem; border:none" onclick="window.location.href='Home/Subject?s=Science'">
-                    <img class="card-img-top" src="~/images/ScienceCard.png" alt="Card image" style="width:100%; height:100%">
-                    <div class="card-img-overlay">
-
-
-                    </div>
-                </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 mt-2" align="center">
+               <input class="zoom" type="image" src="~/images/ScienceCard.png" style="width:90%; height:95%" onclick="window.location.href='Home/Subject?s=Science'" />
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mt-2" align="center">
-                <div class="card" style="height:18rem; width:13.5rem; border:none" onclick="window.location.href='Home/Subject?s=Engineering'">
-                    <img class="card-img-top" src="~/images/EngineeringCard.png" alt="Card image" style="width:100%; height:100%">
-                    <div class="card-img-overlay">
-
-
-                    </div>
-                </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 mt-2" align="center">
+                <input class="zoom" type="image" src="~/images/EngineeringCard.png" style="width:90%; height:95%" onclick="window.location.href='Home/Subject?s=Engineering'" />
             </div>
-            <div class="col-lg-3 col-md-12 col-sm-6 mt-2" align="center">
-                <div class="card" style="height:18rem; width:13.5rem; border:none" onclick="window.location.href='Home/Subject?s=Business'">
-                    <img class="card-img-top" src="~/images/BuisnessCard.png" alt="Card image" style="width:100%; height:100%">
-                    <div class="card-img-overlay">
-
-
-                    </div>
-                </div>
+             <div class="col-lg-3 col-md-6 col-sm-6 mt-2" align="center">
+                <input class="zoom" type="image" src="~/images/BuisnessCard.png" style="width:90%; height:95%" onclick="window.location.href='Home/Subject?s=Business'" />
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-6 mt-5" align="center">
-                <div class="card" style="height:18rem; width:13.5rem; border:none" onclick="window.location.href='Home/Subject?s=Law'">
-                    <img class="card-img-top" src="~/images/LawCard.png" alt="Card image" style="width:100%; height:100%;">
-                    <div class="card-img-overlay">
-
-
-                    </div>
-                </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 mt-5" align="center">
+                <input class="zoom" type="image" src="~/images/LawCard.png" style="width:90%; height:95%" onclick="window.location.href='Home/Subject?s=Law'" />
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mt-5" align="center">
-                <div class="card" style="height:18rem; width:13.5rem; border:none" onclick="window.location.href='Home/Subject?s=Art'">
-                    <img class="card-img-top" src="~/images/ArtCard.png" alt="Card image" style="width:100%; height:100%">
-                    <div class="card-img-overlay">
-
-
-                    </div>
-                </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 mt-5" align="center">
+                <input class="zoom" type="image" src="~/images/ArtCard.png" style="width:90%; height:95%" onclick="window.location.href='Home/Subject?s=Art'" />
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mt-5" align="center">
-                <div class="card" style="height:18rem; width:13.5rem; border:none" onclick="window.location.href='Home/Subject?s=Humanities'">
-                    <img class="card-img-top" src="~/images/HumanitiesCard.png" alt="Card image" style="width:100%; height:100%">
-                    <div class="card-img-overlay">
-
-
-                    </div>
-                </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 mt-5" align="center">
+                <input class="zoom" type="image" src="~/images/HumanitiesCard.png" style="width:90%; height:95%" onclick="window.location.href='Home/Subject?s=Humanities'" />
             </div>
-            <div class="col-lg-3 col-md-12 col-sm-6 mt-5" align="center">
-                <div class="card" style="height:18rem; width:13.5rem; border:none" onclick="window.location.href='Home/Subject?s=Other'">
-                    <img class="card-img-top" src="~/images/OtherCard.png" alt="Card image" style="width:100%; height:100%">
-                    <div class="card-img-overlay">
-
-
-                    </div>
-                </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 mt-5" align="center">
+               <input class="zoom" type="image" src="~/images/OtherCard.png" style="width:90%; height:95%" onclick="window.location.href='Home/Subject?s=Other'" />
             </div>
         </div>
         <h1><font size="3"><b>Already a StreamTutor?</b> </font></h1>
         @if(Model.userProfile != null){
-             <img src="~/images/StartBroadcast.png" style="width:250px" onclick="StartBroadcast('@Model.userProfile.ProfileType')" />
+             <img class="zoom" src="~/images/StartBroadcast.png" style="width:250px" onclick="StartBroadcast('@Model.userProfile.ProfileType')" />
         }
         else{
-             <img src="~/images/StartBroadcast.png" style="width:250px" onclick="window.location.href='Home/Login?dest=-Home-Profile'" />
+             <img class="zoom" src="~/images/StartBroadcast.png" style="width:250px" onclick="window.location.href='Home/Login?dest=-Home-Profile'" />
         }
         <div class="row">
             <div class="col-lg-4"></div>
@@ -198,4 +152,12 @@
 
         });
     });
+
+    
 </script>
+
+<style>
+    .subjectCard:hover{
+        box-shadow: 10px 10px grey;
+    }
+</style>
