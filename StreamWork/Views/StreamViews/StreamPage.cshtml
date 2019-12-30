@@ -1,8 +1,8 @@
 ﻿@model StreamWork.ViewModels.StreamPageViewModel
+@{ ViewData["Title"] = "StreamPage";}
+
 <script src="~/js/SignUpLogin.js"></script>
-@{
-    ViewData["Title"] = "StreamPage";
-}
+<link rel="stylesheet" href="~/css/Streams.css"/>
 
 @if (!Model.IsSubscribed()) {
     <script>window.location.href = '/Home/Subscribe';</script>
@@ -14,17 +14,14 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
-                <a class="nav-link" href="/" style="color:white;">Browse by Subjects</a>
-            </li>
             <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px; ">
-                <a class="nav-link" href="/Home/BecomeTutor" style="color:white;">Become a StreamTutor</a>
+                <a class="nav-link underline" href="/Home/BecomeTutor" style="color:white;"><b>Become a StreamTutor</b></a>
             </li>
             <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
-                <a id="button" class="nav-link" href="/Home/About" style="color:white;">About</a>
+                <a class="nav-link underline" href="/Home/About" style="color:white;"><b>About</b></a>
             </li>
             <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
-                <a class="nav-link" href="/Home/HowToStream" style="color:white;">How to Stream</a>
+                <a class="nav-link underline" href="/Home/HowToStream" style="color:white;"><b>How to Stream</b></a>
             </li>
         </ul>
 
