@@ -1,0 +1,31 @@
+﻿.underline:hover{
+    text-decoration:underline;
+}
+
+.zoom{
+    transition: transform .2s;
+}
+
+.zoom:hover{
+    transform: scale(1.05);
+}
+
+.sidebar {
+    height: 100%;
+    width: 20%;
+    position: fixed;
+    z-index: 1;
+    top: 85px;
+    right: 0;
+    background-color: #006565;
+    overflow-x: hidden;
+    color: white;
+    text-align: center;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}

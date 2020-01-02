@@ -22,7 +22,7 @@ using StreamWork.ViewModels;
 namespace StreamWork.HelperClasses
 {
     public class HomeHelperFunctions {
-        public readonly string _host = "https://streamwork.live"; //"http://localhost:58539"; //Important!!!!
+        public readonly string _host = "https://streamwork.live"; //"http://localhost:58539";   //Important!!!!
         public readonly string _connectionString = "Server=tcp:streamwork.database.windows.net,1433;Initial Catalog=StreamWork;Persist Security Info=False;User ID=streamwork;Password=arizonastate1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
         public readonly string _blobconnectionString = "DefaultEndpointsProtocol=https;AccountName=streamworkblob;AccountKey=//JfVlcPLOyzT3vRHxlY1lJ4NUpduVfiTmuHJHK1u/0vWzP8V5YHPLkPPGD2PVxEwTdNirqHzWYSk7c2vZ80Vg==;EndpointSuffix=core.windows.net";
         public readonly string _dacastAPIKey = "135034_c2914fb8c32374a13c89";
@@ -72,6 +72,16 @@ namespace StreamWork.HelperClasses
                 userLogins = await GetPopularStreamTutors(storageConfig),
                 userProfile = user != null ? await GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user) : null,
                 subject = subject
+            };
+            return model;
+        }
+
+        public async Task<ProfileTutorViewModel> PopulateHomePage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
+            ProfileTutorViewModel model = new ProfileTutorViewModel
+            {
+                userChannels = await GetUserChannels(storageConfig, QueryHeaders.AllUserChannelsThatAreStreaming, "N|A"),
+                userLogins = await GetPopularStreamTutors(storageConfig),
             };
             return model;
         }

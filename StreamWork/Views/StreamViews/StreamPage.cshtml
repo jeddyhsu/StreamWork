@@ -1,30 +1,28 @@
 ﻿@model StreamWork.ViewModels.StreamPageViewModel
-<script src="~/js/SignUpLogin.js"></script>
-@{
-    ViewData["Title"] = "StreamPage";
-}
+@{ ViewData["Title"] = "StreamPage";}
 
-@if (!Model.IsSubscribed()) {
+<script src="~/js/SignUpLogin.js"></script>
+<link rel="stylesheet" href="~/css/Streams.css" />
+
+@if (!Model.IsSubscribed())
+{
     <script>window.location.href = '/Home/Subscribe';</script>
 }
-    <nav class="navbar navbar-expand-lg navbar-light text-center" style="background-color:#008080;">
+<nav class="navbar navbar-expand-lg navbar-light text-center" style="background-color:#008080;">
     <img src="~/images/streamworkPencilWhite.png" height="70" onclick="window.location.href='/'" />
     <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
-                <a class="nav-link" href="/" style="color:white;">Browse by Subjects</a>
-            </li>
             <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px; ">
-                <a class="nav-link" href="/Home/BecomeTutor" style="color:white;">Become a StreamTutor</a>
+                <a class="nav-link underline" href="/Home/BecomeTutor" style="color:white;"><b>Become a StreamTutor</b></a>
             </li>
             <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
-                <a id="button" class="nav-link" href="/Home/About" style="color:white;">About</a>
+                <a class="nav-link underline" href="/Home/About" style="color:white;"><b>About</b></a>
             </li>
             <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
-                <a class="nav-link" href="/Home/HowToStream" style="color:white;">How to Stream</a>
+                <a class="nav-link underline" href="/Home/HowToStream" style="color:white;"><b>How to Stream</b></a>
             </li>
         </ul>
 
@@ -87,25 +85,52 @@
     </div>
 </nav>
 
-    <div class="container-fluid">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-9 p-0">
+            <div>
+                <iframe class="p-0" src="//iframe.dacast.com/b/135034/c/@Model.urlParams[0]" width="100%" height="700" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+                <h2 class="text-center mt-1">@Model.urlParams[2]</h2>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-12 col-lg-3 p-0">
+            <div>
+                <iframe src=@Model.urlParams[1] width="100%" height="500" allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>
+            </div>
+            <br />
+            <a target="_blank" rel="noopener noreferrer" href="/Home/Donate?tutor=@Model.profile.studentOrtutorProfile.Username">
+                <img src="~/images/donate201911.png" target="_blank" rel="noopener noreferrer" style="display:block; margin-left:auto; margin-right:auto; width:80%; height:auto" />
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid p-0">
+    <div class="card text-center border-0 p-0" style="color:white;">
+        <div class="card-body" style="background-color:#006565; border-top-right-radius:5px; border-top-left-radius:5px; ">
+            <img src=@Model.profile.userProfile.ProfilePicture style="width:115px; height: 150px; border-radius:50%" />
+            <h1 class="card-title mt-4" style=" font-size:24px; color:lightgray"><b>@Model.profile.userProfile.Name.Replace('|', ' ')</b></h1>
+            <p class="card-text" style="font-size:16px; color:white">@Model.profile.userProfile.ProfileCaption</p>
+            <p class="card-text" style="font-size:14px; color:white">@Model.profile.userProfile.ProfileParagraph</p>
+        </div>
         <div class="row">
-            <div class="col-sm-12 col-md-12 col-lg-9 p-2">
-                <div style="padding-top:75px">
-                    <iframe src="//iframe.dacast.com/b/135034/c/@Model.urlParams[0]" width="100%" height="700px" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+            <div class="col-6 pr-0">
+                <div class="card-body" style="background-color:#006565; border-bottom-left-radius:5px">
+                    <h5 style="color:lightgray">Streams</h5>
+                    <h4>@Model.profile.numberOfStreams</h4>
                 </div>
             </div>
-
-            <div class="col-sm-12 col-md-12 col-lg-3 p-2">
-                <div style="padding-top:75px">
-                    <iframe src=@Model.urlParams[1] width="100%" height="550" allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>
+            
+            <div class="col-6 pl-0">
+                <div class="card-body" style="background-color:#006565; border-bottom-right-radius:5px ">
+                    <h5 style="color:lightgray">Total Views</h5>
+                    <h4>0</h4>
                 </div>
-                <br />
-                <a target="_blank" rel="noopener noreferrer" href="/Home/Donate?tutor=@Model.profile.studentOrtutorProfile.Username">
-                    <img src="~/images/donate201911.png" target="_blank" rel="noopener noreferrer" style="display:block; margin-left:auto; margin-right:auto; width:75%; height:auto" />
-                </a>
             </div>
         </div>
     </div>
+</div>
 
 
 <script>$(document).ready(function () {

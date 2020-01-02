@@ -1,10 +1,9 @@
 ﻿@model StreamWork.ViewModels.ProfileStudentViewModel
-@{
-    ViewData["Title"] = "StudentSettings";
-}
+@{ViewData["Title"] = "StudentSettings";}
 
 <script src="~/js/EditProfile.js"></script>
 <script src="~/js/Settings.js"></script>
+<link rel="stylesheet" href="~/css/Student.css"/>
 
 <nav class="navbar navbar-expand-lg navbar-light text-center" style="background-color:#008080; z-index:1000">
     <img src="~/images/streamworkPencilWhite.png" height="70" onclick="window.location.href='/'" />
@@ -14,13 +13,13 @@
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
-                <a class="nav-link" href="/Student/ProfileStudent" style="color:white;">Dashboard</a>
+                <a class="nav-link underline" href="/Student/ProfileStudent" style="color:white;"><b>Live Streams</b></a>
             </li>
             <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:14px; ">
-                <a class="nav-link" href="/Student/ArchivedStreams" style="color:white;">Archived Broadcasts</a>
+                <a class="nav-link underline" href="/Student/ArchivedStreams" style="color:white;"><b>Archived Streams</b></a>
             </li>
             <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
-                <a id="button" class="nav-link" href="/" style="color:white;">Home</a>
+                <a class="nav-link underline" href="/" style="color:white;"><b>Home</b></a>
             </li>
         </ul>
         <div class="btn-group mt-2" style="margin-left:65px">
