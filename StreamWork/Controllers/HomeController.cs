@@ -45,45 +45,56 @@ namespace StreamWork.Controllers
         }
 
         public async Task<IActionResult> BecomeTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
-
-            if (HttpContext.User.Identity.IsAuthenticated == true)
-            {
-                var userProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name);
-                return View(userProfile);
+            DefaultViewModel viewModel;
+            if (HttpContext.User.Identity.IsAuthenticated == true) {
+                viewModel = new DefaultViewModel {
+                    userProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name)
+                };
             }
-
-            return View();
+            else {
+                viewModel = new DefaultViewModel { };
+            }
+            return View(viewModel);
         }
 
-        public async Task<IActionResult> About([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
-            if (HttpContext.User.Identity.IsAuthenticated == true)
-            {
-                var userProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name);
-                return View(userProfile);
+        public async Task<IActionResult> About ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
+            DefaultViewModel viewModel;
+            if (HttpContext.User.Identity.IsAuthenticated == true) {
+                viewModel = new DefaultViewModel {
+                    userProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name)
+                };
             }
-
-            return View();
+            else {
+                viewModel = new DefaultViewModel { };
+            }
+            return View(viewModel);
         }
 
         public async Task<IActionResult> HowToStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
-            if (HttpContext.User.Identity.IsAuthenticated == true)
-            {
-                var userProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name);
-                return View(userProfile);
+            DefaultViewModel viewModel;
+            if (HttpContext.User.Identity.IsAuthenticated == true) {
+                viewModel = new DefaultViewModel {
+                    userProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name)
+                };
             }
-
-            return View();
+            else {
+                viewModel = new DefaultViewModel { };
+            }
+            return View(viewModel);
         }
 
         public async Task<IActionResult> PickStudentOrTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
-            var user = HttpContext.Session.GetString(QueryHeaders.UserProfile.ToString());
-            if (user == null)
-                return View();
-
-            var userProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
-
-            return View(userProfile);
+            DefaultViewModel viewModel;
+            if (HttpContext.User.Identity.IsAuthenticated == true) {
+                viewModel = new DefaultViewModel {
+                    userProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name)
+                };
+            }
+            else {
+                viewModel = new DefaultViewModel { };
+            }
+            return View(viewModel);
         }
 
         public IActionResult SplashPage () {
@@ -270,12 +281,6 @@ namespace StreamWork.Controllers
             }
 
             return Json(new { Message = JsonResponse.Failed.ToString() });
-         }
-
-        [HttpGet]
-        public IActionResult Logout()
-        {
-            return View();
         }
 
         [HttpPost]

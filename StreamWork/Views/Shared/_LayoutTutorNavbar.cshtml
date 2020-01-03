@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="~/images/favicon.ico" type="image/x-icon">
+    <title>@ViewData["Title"] | StreamWork</title>
+    <link rel="stylesheet" href="~/lib/bootstrap-4/css/bootstrap.css">
+    <link rel="stylesheet" href="~/lib/bootstrap-4/js/bootstrap.js">
+    <link rel="stylesheet" href="~/images/StreamworkLogo.png">
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="~/js/EditProfile.js"></script>
+    <script src="~/js/SignUpLogin.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/Index.css" />
+</head>
+
+<body style="font-family:'Roboto'; background-color:white">
+    <div>
+        <div class="full-page">
+            <div class="in-page">
+                <nav class="navbar navbar-expand-lg navbar-light text-center" style="background-color:#008080; z-index:1000">
+                    <img src="~/images/streamworkPencilWhite.png" height="70" onclick="window.location.href='/'" onmouseover="" style="cursor: pointer;" />
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarText">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
+                                <a class="nav-link underline" href="/Tutor/ProfileTutor" style="color:white;"><b>My Streams</b></a>
+                            </li>
+                            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px; ">
+                                <a class="nav-link underline" href="/Tutor/TutorStream" style="color:white;"><b>Start Streaming</b></a>
+                            </li>
+                            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
+                                <a class="nav-link underline" href="/" style="color:white;"><b>Home</b></a>
+                            </li>
+                        </ul>
+                        <div class="btn-group mt-2" style="margin-left:65px">
+                            <img src=@Model.userLogins[0].ProfilePicture style="width:75px; height:95px; border-radius:50%" />
+                            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #008080; border:none; margin-right:35px"></button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" onclick="EditProfile()">Edit Profile</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/Tutor/TutorSettings">Settings</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+                <div class="page-body">
+                    @RenderBody()
+                </div>
+                <div class="page-footer my-3">
+                    Copyright © 2019 StreamWork LLC. All rights reserved.
+                </div>
+                @RenderSection("Scripts", required: false)
+            </div>
+        </div>
+    </div>
+</body>
+</html>

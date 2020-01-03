@@ -21,6 +21,7 @@ namespace StreamWork.HelperClasses
         CurrentUserChannel,
         UserArchivedVideos,
         AllArchivedVideos,
+        ArchivedVideosByStreamId,
         AllApprovedTutors,
         UserProfile       //Use For Session
     }

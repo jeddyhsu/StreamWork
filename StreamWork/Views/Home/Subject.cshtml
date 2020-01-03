@@ -1,56 +1,8 @@
 ﻿@model StreamWork.ViewModels.ProfileTutorViewModel
+
 @{ViewData["Title"] = "Livestreams";}
 
-<script src="~/js/SignUpLogin.js"></script>
-<script src="~/js/EditProfile.js"></script>
 <link rel="stylesheet" href="~/css/Subject.css" />
-
-<nav class="navbar navbar-expand-lg navbar-light text-center" style="background-color:#008080; z-index:1000">
-    <img src="~/images/streamworkPencilWhite.png" height="70" onclick="window.location.href='/'" onmouseover="" style="cursor: pointer;" />
-    <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px; ">
-                <a class="nav-link underline" href="/Home/BecomeTutor" style="color:white;"><b>Become a StreamTutor</b></a>
-            </li>
-            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
-                <a class="nav-link underline" href="/Home/About" style="color:white;"><b>About</b></a>
-            </li>
-            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
-                <a class="nav-link underline" href="/Home/HowToStream" style="color:white;"><b>How to Stream</b></a>
-            </li>
-        </ul>
-
-        @if (Model.userProfile != null)
-        {
-            <div class="btn-group mt-2" style="margin-left:65px">
-                <img src=@Model.userProfile.ProfilePicture style="width:75px; height:95px; border-radius:50%" />
-                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #008080; border:none; margin-right:35px"></button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#" id="Dashboard" onclick="Dashboard('@Model.userProfile.ProfileType')">Dashboard</a>
-                    <div class="dropdown-divider"></div>
-                    @if (Model.userProfile.ProfileType == "tutor")
-                    {
-                        <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Edit Profile</a>
-                        <div class="dropdown-divider"></div>
-                    }
-                    @if (Model.userProfile.ProfileType == "tutor")
-                    {
-                        <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Tutor/TutorSettings'">Settings</a>
-                    }
-                    else
-                    {
-                        <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Student/StudentSettings'">Settings</a>
-                    }
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
-                </div>
-            </div>
-        }
-    </div>
-</nav>
 
 <div class="container-fluid">
     <div class="row">
@@ -152,9 +104,11 @@
     </div>
 </div>
 
-<script>$(document).ready(function () {
+<script>
+    $(document).ready(function () {
         $("#nav").click(function () {
             $("#navbarText").slideToggle();
         });
-    });</script>
+    });
+</script>
 

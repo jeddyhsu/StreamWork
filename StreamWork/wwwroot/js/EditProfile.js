@@ -90,7 +90,7 @@ function Logout() {
         },
         success: function (data) {
             if (data.message === "Success") {
-                window.location.href = "/Home/Login?dest=-Home-Profile"
+                window.location.href = "/"
             }
         }
     })
