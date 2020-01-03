@@ -1,40 +1,11 @@
 ﻿@model StreamWork.ViewModels.ProfileTutorViewModel
+
+@{Layout = "_LayoutTutorNavbar";}
 @{ViewData["Title"] = "TutorSettings";}
 
 <script src="~/js/EditProfile.js"></script>
 <script src="~/js/Settings.js"></script>
 <link rel="stylesheet" href="~/css/Tutor.css" />
-
-<nav class="navbar navbar-expand-lg navbar-light text-center" style="background-color:#008080; z-index:1000">
-    <img src="~/images/streamworkPencilWhite.png" height="70" onclick="window.location.href='/'" />
-    <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
-                <a class="nav-link underline" href="/Tutor/ProfileTutor" style="color:white;"><b>My Streams</b></a>
-            </li>
-            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px; ">
-                <a class="nav-link underline" href="/Tutor/TutorStream" style="color:white;"><b>Start Streaming</b></a>
-            </li>
-            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
-                <a class="nav-link underline" href="/" style="color:white;"><b>Home</b></a>
-            </li>
-        </ul>
-        <div class="btn-group mt-2" style="margin-left:65px">
-            <img src=@Model.userLogins[0].ProfilePicture style="width:75px; height:95px; border-radius:50%" />
-            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #008080; border:none; margin-right:35px"></button>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" onclick="EditProfile()">Edit Profile</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="/Tutor/TutorSettings">Settings</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
-            </div>
-        </div>
-    </div>
-</nav>
 
 <div id="editModal" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">

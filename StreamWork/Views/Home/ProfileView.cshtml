@@ -1,57 +1,7 @@
 ﻿@model StreamWork.ViewModels.ProfileTutorViewModel
-@{
-    ViewData["Title"] = "ProfileView";
-}
 
-<script src="~/js/EditProfile.js"></script>
-<link rel="stylesheet" href="~/css/Tutor.css"/>
+@{ViewData["Title"] = "ProfileView";}
 
-<nav class="navbar sticky-top navbar-expand-lg navbar-light text-center" style="background-color:#008080">
-    <img src="~/images/streamworkPencilWhite.png" height="70" onclick="window.location.href='/'" onmouseover="" style="cursor: pointer;" />
-    <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px; ">
-                <a class="nav-link underline" href="/Home/BecomeTutor" style="color:white;"><b>Become a StreamTutor</b></a>
-            </li>
-            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
-                <a class="nav-link underline" href="/Home/About" style="color:white;"><b>About</b></a>
-            </li>
-            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
-                <a class="nav-link underline" href="/Home/HowToStream" style="color:white;"><b>How to Stream</b></a>
-            </li>
-        </ul>
-
-        @if (Model.studentOrtutorProfile != null)
-        {
-            <div class="btn-group mt-2" style="margin-left:65px">
-                <img src=@Model.studentOrtutorProfile.ProfilePicture style="width:75px; height:95px; border-radius:50%" />
-                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #008080; border:none; margin-right:35px"></button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#" id="Dashboard" onclick="Dashboard('@Model.studentOrtutorProfile.ProfileType')">Dashboard</a>
-                    <div class="dropdown-divider"></div>
-                    @if (Model.studentOrtutorProfile.ProfileType == "tutor")
-                    {
-                        <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Edit Profile</a>
-                        <div class="dropdown-divider"></div>
-                    }
-                    @if (Model.studentOrtutorProfile.ProfileType == "tutor")
-                    {
-                        <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Tutor/TutorSettings'">Settings</a>
-                    }
-                    else
-                    {
-                        <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Student/StudentSettings'">Settings</a>
-                    }
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
-                </div>
-            </div>
-        }
-    </div>
-</nav>
 <div class="container">
     <div class="card text-center mt-5 border-0" style="color:white;">
         <div class="card-body" style="background-color:#006565; border-top-right-radius:5px; border-top-left-radius:5px; ">
@@ -96,6 +46,8 @@
                         <div class="card mt-3" style="border-radius:5%; border:none; max-width:375px">
                             <input type="image" width="100%" height="210px" style="border-top-left-radius:5%; border-top-right-radius:5%; min-width:250px" src=@videoInfo.StreamThumbnail onclick="window.location.href='../StreamViews/StreamPlaybackPage?streamInfo=' + ('@videoInfo.StreamID | @videoInfo.StreamTitle')">
                             <div class="card-body p-0" style="background-color:#008080 ;border-bottom-left-radius:5%; height:75px; border-bottom-right-radius:5%; border:none; min-width:250px; cursor: pointer;" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@videoInfo.Username');" onmouseover="">
+                            <input type="image" width="100%" height="210px" style="border-top-left-radius:5%; border-top-right-radius:5%; min-width:250px" src=@videoInfo.StreamThumbnail onclick="window.location.href = '/StreamViews/StreamPlaybackPage?streamId=@videoInfo.StreamID'">
+                            <div class="card-body p-0" style="background-color:#008080 ;border-bottom-left-radius:5%; height:75px; border-bottom-right-radius:5%; border:none; min-width:250px; cursor: pointer;" onclick="window.location.href='/Home/ProfileView?Tutor=@videoInfo.Username';" onmouseover="">
                                 <div class="row">
                                     <div class="col-2 pr-2">
                                         <input type="image" style="border-radius:50%; width:50px; margin-left:10px; margin-top:10px; height:60px;" src=@videoInfo.ProfilePicture />
@@ -108,6 +60,7 @@
                             </div>
                         </div>
                     </div>
+                   </div>
                 }
             </div>
         </div>
@@ -170,11 +123,10 @@
 </style>
 
 
-<script>$(document).ready(function () {
-
+<script>
+    $(document).ready(function () {
         $("#nav").click(function () {
-
             $("#navbarText").slideToggle();
-
         });
-    });</script>
+    });
+</script>

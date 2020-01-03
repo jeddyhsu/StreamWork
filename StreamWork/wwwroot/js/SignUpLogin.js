@@ -1,6 +1,5 @@
 ﻿//Handles signing up
 function SignUpStudent() {
-
     var nameFirst = $("#nameFirstS").val();
     var nameLast = $("#nameLastS").val();
     var email = $("#emailS").val();

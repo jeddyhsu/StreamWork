@@ -58,8 +58,12 @@
           "QueryId": "UserArchivedVideos"
         },
         {
-            "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE StreamSubject = '@x0'",
-            "QueryId": "UserArchivedVideosBasedOnSubject"
+          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE StreamSubject = '@x0'",
+          "QueryId": "UserArchivedVideosBasedOnSubject"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE StreamId = '@x0'",
+          "QueryId": "ArchivedVideosByStreamId"
         }
       ]
     },

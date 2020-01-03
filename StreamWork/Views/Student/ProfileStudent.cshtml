@@ -1,38 +1,11 @@
 ﻿@model StreamWork.ViewModels.ProfileStudentViewModel
-@{ ViewData["Title"] = "ProfileStudent";}
+
+@{Layout = "_LayoutStudentNavbar";}
+@{ViewData["Title"] = "ProfileStudent";}
 
 <script src="~/js/EditProfile.js"></script>
 <script src="~/js/Student.js"></script>
 <link rel="stylesheet" href="~/css/Student.css"/>
-
-<nav class="navbar navbar-expand-lg navbar-light text-center" style="background-color:#008080; z-index:1000">
-    <img src="~/images/streamworkPencilWhite.png" height="70" onclick="window.location.href='/'" onmouseover="" style="cursor: pointer;" />
-    <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
-                <a class="nav-link underline" href="/Student/ProfileStudent" style="color:white;"><b>Live Streams</b></a>
-            </li>
-            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px; ">
-                <a class="nav-link underline" href="/Student/ArchivedStreams" style="color:white;"><b>Archived Streams</b></a>
-            </li>
-            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
-                <a class="nav-link underline" href="/" style="color:white;"><b>Home</b></a>
-            </li>
-        </ul>
-        <div class="btn-group mt-2" style="margin-left:65px">
-            <img src=@Model.userLogins[0].ProfilePicture style="width:75px; height:95px; border-radius:50%" />
-            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #008080; border:black; margin-right:35px"></button>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="/Student/StudentSettings">Settings</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
-            </div>
-        </div>
-    </div>
-</nav>
 
 <div class="container">
     <br />
