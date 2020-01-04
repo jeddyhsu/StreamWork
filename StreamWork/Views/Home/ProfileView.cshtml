@@ -12,7 +12,7 @@
                 <button id="FollowButton" type="button" style="font-size:12px" class="btn btn-primary mt-3" onclick="FollowStreamTutor('@Model.userChannels[0].Id')">Follow StreamTutor</button>
                 <button id="UnfollowButton" type="button" style="font-size:12px; display:none" class="btn btn-primary mt-3" onclick="UnfollowStreamTutor('@Model.userChannels[0].Id')">Unfollow StreamTutor</button>
             }
-            else if(Model.isUserFollowingThisTutor == false && Model.userProfile.ProfileType == "student")
+            else if(Model.isUserFollowingThisTutor == true && Model.userProfile.ProfileType == "student")
             {
                 <button id="FollowButton" type="button" style="font-size:12px;display:none" class="btn btn-primary mt-3" onclick="FollowStreamTutor('@Model.userChannels[0].Id')">Follow StreamTutor</button>
                 <button id="UnfollowButton" type="button" style="font-size:12px" class="btn btn-primary mt-3" onclick="UnfollowStreamTutor('@Model.userChannels[0].Id')">Unfollow StreamTutor</button>

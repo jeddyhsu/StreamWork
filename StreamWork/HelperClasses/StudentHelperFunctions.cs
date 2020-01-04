@@ -33,8 +33,14 @@ namespace StreamWork.HelperClasses
                     }
                 }
 
+                listOfFollwedTutors = ""; //Empty List
+
                 foreach (var tutor in list)
+                {
+
                     listOfFollwedTutors += tutor + "|";
+                }
+                    
 
                 return listOfFollwedTutors.Remove(listOfFollwedTutors.Length - 1);
             }
