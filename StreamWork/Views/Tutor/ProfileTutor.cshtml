@@ -5,42 +5,50 @@
 
 <script src="~/js/Tutor.js"></script>
 <script src="~/js/EditProfile.js"></script>
-<link rel="stylesheet" href="~/css/Index.css" />
+<link rel="stylesheet" href="~/css/Tutor.css" />
 
 <br />
 
 <div class="container">
     <div class="card text-center mt-5 border-0" style="color:white;">
         <div class="card-body" style="background-color:#006565; border-top-right-radius:5px; border-top-left-radius:5px; ">
-            <img src=@Model.userProfile.ProfilePicture style="width:115px; height: 150px; border-radius:50%" />
-            <h1 class="card-title mt-4" style=" font-size:24px; color:lightgray"><b>@Model.userProfile.Name.Replace('|', ' ')</b></h1>
-            <p class="card-text" style="font-size:16px; color:white">@Model.userProfile.ProfileCaption</p>
-            <p class="card-text" style="font-size:14px; color:white">@Model.userProfile.ProfileParagraph</p>
+            <div class="col-12">
+                <img src=@Model.userProfile.ProfilePicture style="width:115px; height: 150px; border-radius:50%" />
+                <h1 class="card-title mt-4" style=" font-size:24px; color:lightgray"><b>@Model.userProfile.Name.Replace('|', ' ')</b></h1>
+                <p class="card-text" style="font-size:16px; color:white">@Model.userProfile.ProfileCaption</p>
+                <p class="card-text" style="font-size:14px; color:white">@Model.userProfile.ProfileParagraph</p>
+                <hr />
+                <h4 style="color:lightgray">Next Stream</h4>
+                <h6>Friday 4pm</h6>
+                <hr />
+            </div>
         </div>
-        <div class="row">
-            <div class="col-4 pr-0">
-                <div class="card-body" style="background-color:#006565; border-bottom-left-radius:5px">
-                    <h5 style="color:lightgray">Streams</h5>
-                    <h4>@Model.numberOfStreams</h4>
-                </div>
+    </div>
+    <div class="row text-center">
+        <div class="col-4 pr-0">
+            <div class="card-body" style="background-color:#006565; border-bottom-left-radius:5px">
+                <h5 style="color:lightgray">Streams</h5>
+                <h4 style="color:white">@Model.numberOfStreams</h4>
             </div>
-            <div class="col-4 p-0">
-                <div class="card-body" style="background-color:#006565;border-top-left-radius:0px ">
-                    <h5 style="color:lightgray">Donations</h5>
-                    <h4>$0</h4>
-                </div>
+        </div>
+        <div class="col-4 p-0">
+            <div class="card-body" style="background-color:#006565;border-top-left-radius:0px ">
+                <h5 style="color:lightgray">Donations</h5>
+                <h4 style="color:white">$0</h4>
             </div>
-            <div class="col-4 pl-0">
-                <div class="card-body" style="background-color:#006565; border-bottom-right-radius:5px ">
-                    <h5 style="color:lightgray">Total Views</h5>
-                    <h4>0</h4>
-                </div>
+        </div>
+        <div class="col-4 pl-0">
+            <div class="card-body" style="background-color:#006565; border-bottom-right-radius:5px ">
+                <h5 style="color:lightgray">Total Views</h5>
+                <h4 style="color:white">0</h4>
             </div>
         </div>
     </div>
 </div>
+
 <br />
 <br />
+
 <div class="container-fluid" style="width:100%; padding-left:100px; padding-right:100px">
     <h2 class="text-center"><b>My Streams</b></h2>
     <div class="row">

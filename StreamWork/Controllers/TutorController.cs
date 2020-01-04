@@ -30,7 +30,7 @@ namespace StreamWork.Controllers
                 userLogins = await _homehelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
                 userChannels = await _homehelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, User.Identity.Name),
                 userArchivedVideos = await _homehelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, User.Identity.Name),
-                ChatSecretKey = await _tutorHelperFunctions.GetChatSecretKey(storageConfig, User.Identity.Name)
+                chatSecretKey = await _tutorHelperFunctions.GetChatSecretKey(storageConfig, User.Identity.Name)
             };
 
             return View(viewModel);

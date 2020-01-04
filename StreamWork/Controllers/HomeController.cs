@@ -21,6 +21,7 @@ namespace StreamWork.Controllers
     public class HomeController : Controller {
 
         readonly HomeHelperFunctions _homehelperFunctions = new HomeHelperFunctions();
+        readonly StudentHelperFunctions _studenthelperFunctions = new StudentHelperFunctions();
 
         [HttpGet]
         public async Task<IActionResult> Index ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
@@ -102,22 +103,57 @@ namespace StreamWork.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ProfileView (string tutor, [FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
+        public async Task<IActionResult> ProfileView ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string tutor) {
 
             if (HttpContext.User.Identity.IsAuthenticated == false)
                 return Redirect(_homehelperFunctions._host + "/Home/Login?dest=-Home-ProfileView");
 
             ProfileTutorViewModel profile = new ProfileTutorViewModel {
 
-                userChannels = await _homehelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, User.Identity.Name),
+                userChannels = await _homehelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, tutor),
                 userArchivedVideos = await _homehelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, tutor),
-                userProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, tutor),
-                studentOrtutorProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
+                userProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
+                studentOrtutorProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, tutor),
                 numberOfStreams = (await _homehelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, tutor)).Count
+                
             };
+
+            if(profile.userProfile.FollowedTutors != null)
+                profile.isUserFollowingThisTutor = profile.userProfile.FollowedTutors.Contains(profile.userChannels[0].Id);
 
             return View(profile);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> ProfileView([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string tutorId, string followRequest, string unFollowRequest)
+        {
+            if(followRequest != null && tutorId != null)
+            {
+                var user = HttpContext.User.Identity.Name;
+                var userLogin = await _homehelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user);
+
+                var updatedList = _studenthelperFunctions.AddToListOfFollowedTutors(tutorId, userLogin[0].FollowedTutors);
+                userLogin[0].FollowedTutors = updatedList;
+
+                await DataStore.SaveAsync(_homehelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userLogin[0].Id } }, userLogin[0]);
+                return Json(new { Message = JsonResponse.Success.ToString() });
+            }
+
+            if (unFollowRequest != null && tutorId != null)
+            {
+                var user = HttpContext.User.Identity.Name;
+                var userLogin = await _homehelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user);
+
+                var updatedList = _studenthelperFunctions.RemoveFromListOfFollowedTutors(tutorId, userLogin[0].FollowedTutors);
+                userLogin[0].FollowedTutors = updatedList;
+
+                await DataStore.SaveAsync(_homehelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userLogin[0].Id } }, userLogin[0]);
+                return Json(new { Message = JsonResponse.Success.ToString() });
+            }
+
+            return Json(new { Message = JsonResponse.Failed.ToString()});
+        }
+
 
         public IActionResult Error () {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

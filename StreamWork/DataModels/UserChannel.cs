@@ -6,6 +6,7 @@ namespace StreamWork.DataModels
 {
     public class UserChannel : IStorageBase<UserChannel>
     {
+        //Tutors Only
         [Key]
         public string Id { get; set; }
         public string Username { get; set; }

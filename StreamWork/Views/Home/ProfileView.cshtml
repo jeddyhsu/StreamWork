@@ -5,10 +5,21 @@
 <div class="container">
     <div class="card text-center mt-5 border-0" style="color:white;">
         <div class="card-body" style="background-color:#006565; border-top-right-radius:5px; border-top-left-radius:5px; ">
-            <img src=@Model.userProfile.ProfilePicture style="width:115px; height: 150px; border-radius:50%" />
-            <h1 class="card-title mt-4" style=" font-size:24px; color:lightgray"><b>@Model.userProfile.Name.Replace('|', ' ')</b></h1>
-            <p class="card-text" style="font-size:16px; color:white">@Model.userProfile.ProfileCaption</p>
-            <p class="card-text" style="font-size:14px; color:white">@Model.userProfile.ProfileParagraph</p>
+            <img src=@Model.studentOrtutorProfile.ProfilePicture style="width:115px; height: 150px; border-radius:50%" />
+            <br />
+            @if (Model.isUserFollowingThisTutor == false && Model.userProfile.ProfileType == "student")
+            {
+                <button id="FollowButton" type="button" style="font-size:12px" class="btn btn-primary mt-3" onclick="FollowStreamTutor('@Model.userChannels[0].Id')">Follow StreamTutor</button>
+                <button id="UnfollowButton" type="button" style="font-size:12px; display:none" class="btn btn-primary mt-3" onclick="UnfollowStreamTutor('@Model.userChannels[0].Id')">Unfollow StreamTutor</button>
+            }
+            else if(Model.isUserFollowingThisTutor == false && Model.userProfile.ProfileType == "student")
+            {
+                <button id="FollowButton" type="button" style="font-size:12px;display:none" class="btn btn-primary mt-3" onclick="FollowStreamTutor('@Model.userChannels[0].Id')">Follow StreamTutor</button>
+                <button id="UnfollowButton" type="button" style="font-size:12px" class="btn btn-primary mt-3" onclick="UnfollowStreamTutor('@Model.userChannels[0].Id')">Unfollow StreamTutor</button>
+            }
+            <h1 class="card-title mt-4" style=" font-size:24px; color:lightgray"><b>@Model.studentOrtutorProfile.Name.Replace('|', ' ')</b></h1>
+            <p class="card-text" style="font-size:16px; color:white">@Model.studentOrtutorProfile.ProfileCaption</p>
+            <p class="card-text" style="font-size:14px; color:white">@Model.studentOrtutorProfile.ProfileParagraph</p>
         </div>
         <div class="row">
             <div class="col-4 pr-0">
@@ -20,7 +31,7 @@
             <div class="col-4 p-0">
                 <div class="card-body" style="background-color:#006565;border-top-left-radius:0px ">
                   <a target="_blank" rel="noopener noreferrer" href="/Home/Donate?tutor=@Model.userProfile.Username">
-                    <img src="~/images/donate201911.png" target="_blank" rel="noopener noreferrer" style="display:block; margin-left:auto; margin-right:auto; width:37%; height:auto" />
+                    <img src="~/images/donate201911.png" target="_blank" rel="noopener noreferrer" style="display:block; margin-left:auto; margin-right:auto; width:120px; height:68px" />
                 </a>
                 </div>
             </div>
@@ -44,8 +55,6 @@
                 {
                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-6 zoom streamsubject @videoInfo.StreamSubject">
                         <div class="card mt-3" style="border-radius:5%; border:none; max-width:375px">
-                            <input type="image" width="100%" height="210px" style="border-top-left-radius:5%; border-top-right-radius:5%; min-width:250px" src=@videoInfo.StreamThumbnail onclick="window.location.href='../StreamViews/StreamPlaybackPage?streamInfo=' + ('@videoInfo.StreamID | @videoInfo.StreamTitle')">
-                            <div class="card-body p-0" style="background-color:#008080 ;border-bottom-left-radius:5%; height:75px; border-bottom-right-radius:5%; border:none; min-width:250px; cursor: pointer;" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@videoInfo.Username');" onmouseover="">
                             <input type="image" width="100%" height="210px" style="border-top-left-radius:5%; border-top-right-radius:5%; min-width:250px" src=@videoInfo.StreamThumbnail onclick="window.location.href = '/StreamViews/StreamPlaybackPage?streamId=@videoInfo.StreamID'">
                             <div class="card-body p-0" style="background-color:#008080 ;border-bottom-left-radius:5%; height:75px; border-bottom-right-radius:5%; border:none; min-width:250px; cursor: pointer;" onclick="window.location.href='/Home/ProfileView?Tutor=@videoInfo.Username';" onmouseover="">
                                 <div class="row">
@@ -60,7 +69,6 @@
                             </div>
                         </div>
                     </div>
-                   </div>
                 }
             </div>
         </div>

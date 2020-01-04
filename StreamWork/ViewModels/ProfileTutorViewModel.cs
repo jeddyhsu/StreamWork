@@ -13,7 +13,7 @@ namespace StreamWork.ViewModels {
         public int numberOfStreams { get; set; }
         public string subject { get; set; }
         
-        public string ChatSecretKey { get; set; }
-
+        public string chatSecretKey { get; set; }
+        public bool isUserFollowingThisTutor { get; set; }
     }
 }

@@ -11,3 +11,33 @@ function FilterStreams(subject) {
         }
     });
 }
+
+function FollowStreamTutor(tutor) {
+    $.ajax({
+        url: '/Home/ProfileView',
+        type: 'post',
+        datatype: 'json',
+        data: {
+            'followRequest': 'follow',
+            'tutorId': tutor
+        }
+    });
+
+    $('#FollowButton').hide();
+    $('#UnfollowButton').show();
+}
+
+function UnfollowStreamTutor(tutor) {
+    $.ajax({
+        url: '/Home/ProfileView',
+        type: 'post',
+        datatype: 'json',
+        data: {
+            'unFollowRequest': 'Unfollow',
+            'tutorId': tutor
+        }
+    });
+
+    $('#FollowButton').show();
+    $('#UnfollowButton').hide();
+}

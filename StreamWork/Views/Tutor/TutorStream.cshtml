@@ -54,7 +54,7 @@ else if (Model.userChannels[0].StreamTitle == null && Model.userChannels[0].Stre
                          var player = dacast.players["135034_c_@Model.userChannels[0].ChannelKey"]
 
                             if (player.currentTime() == 0) {
-                                  alert("It looks like your stream hasn't been started on OBS. Start the stream on OBS and once you see your stream on this page then enter the title and subject.")
+                                  OpenNotificationModal("It looks like your stream hasn't been started on OBS. Start the stream on OBS and once you see your stream on this page then enter the title and subject.")
                               }
                               else {
                                   RegisterStreamTitleAndStreamSubjectAndCustomThumbanail()
@@ -65,7 +65,7 @@ else if (Model.userChannels[0].StreamTitle == null && Model.userChannels[0].Stre
             <div class="col-sm-12 col-md-12 col-lg-3  ">
                 @if (true)
                 {
-                    <iframe src=@Model.ChatSecretKey width="100%" height="800" allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>
+                    <iframe src=@Model.chatSecretKey width="100%" height="800" allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>
                 }
             </div>
         </div>
