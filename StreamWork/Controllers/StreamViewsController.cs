@@ -30,6 +30,9 @@ namespace StreamWork.Controllers
                 studentOrtutorProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, split[3])
             };
 
+            if (profile.userProfile.FollowedTutors != null)
+                profile.isUserFollowingThisTutor = profile.userProfile.FollowedTutors.Contains(profile.userChannels[0].Id);
+
             StreamPageViewModel model = new StreamPageViewModel {
                 userProfile = profile.userProfile,
                 profile = profile,
@@ -52,6 +55,9 @@ namespace StreamWork.Controllers
                 userProfile = User.Identity.Name != null ? await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name) : null,
                 studentOrtutorProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name)
             };
+
+            if (profile.userProfile.FollowedTutors != null)
+                profile.isUserFollowingThisTutor = profile.userProfile.FollowedTutors.Contains(profile.userChannels[0].Id);
 
             StreamPageViewModel model = new StreamPageViewModel {
                 userProfile = profile.userProfile,

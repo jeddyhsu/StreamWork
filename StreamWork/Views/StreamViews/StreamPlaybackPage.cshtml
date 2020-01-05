@@ -24,6 +24,17 @@
     <div class="card text-center mt-5 border-0" style="color:white;">
         <div class="card-body" style="background-color:#006565; border-top-right-radius:5px; border-top-left-radius:5px; ">
             <img src=@Model.profile.userProfile.ProfilePicture style="width:115px; height: 150px; border-radius:50%" />
+             <br />
+            @if (Model.profile.isUserFollowingThisTutor == false && Model.userProfile.ProfileType == "student")
+            {
+                <button id="FollowButton" type="button" style="font-size:12px" class="btn btn-primary mt-3" onclick="FollowStreamTutor('@Model.profile.userChannels[0].Id')">Follow StreamTutor</button>
+                <button id="UnfollowButton" type="button" style="font-size:12px; display:none" class="btn btn-primary mt-3" onclick="UnfollowStreamTutor('@Model.profile.userChannels[0].Id')">Unfollow StreamTutor</button>
+            }
+            else if(Model.profile.isUserFollowingThisTutor == true && Model.userProfile.ProfileType == "student")
+            {
+                <button id="FollowButton" type="button" style="font-size:12px;display:none" class="btn btn-primary mt-3" onclick="FollowStreamTutor('@Model.profile.userChannels[0].Id')">Follow StreamTutor</button>
+                <button id="UnfollowButton" type="button" style="font-size:12px" class="btn btn-primary mt-3" onclick="UnfollowStreamTutor('@Model.profile.userChannels[0].Id')">Unfollow StreamTutor</button>
+            }
             <h1 class="card-title mt-4" style=" font-size:24px; color:lightgray"><b>@Model.profile.userProfile.Name.Replace('|', ' ')</b></h1>
             <p class="card-text" style="font-size:16px; color:white">@Model.profile.userProfile.ProfileCaption</p>
             <p class="card-text" style="font-size:14px; color:white">@Model.profile.userProfile.ProfileParagraph</p>
