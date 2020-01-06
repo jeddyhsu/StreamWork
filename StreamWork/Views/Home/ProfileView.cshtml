@@ -7,12 +7,12 @@
         <div class="card-body" style="background-color:#006565; border-top-right-radius:5px; border-top-left-radius:5px; ">
             <img src=@Model.studentOrtutorProfile.ProfilePicture style="width:115px; height: 150px; border-radius:50%" />
             <br />
-            @if (Model.isUserFollowingThisTutor == false && Model.userProfile.ProfileType == "student")
+            @if (Model.isUserFollowingThisTutor == false && Model.userProfile != null && Model.userProfile.ProfileType == "student")
             {
                 <button id="FollowButton" type="button" style="font-size:12px" class="btn btn-primary mt-3" onclick="FollowStreamTutor('@Model.userChannels[0].Id')">Follow StreamTutor</button>
                 <button id="UnfollowButton" type="button" style="font-size:12px; display:none" class="btn btn-primary mt-3" onclick="UnfollowStreamTutor('@Model.userChannels[0].Id')">Unfollow StreamTutor</button>
             }
-            else if(Model.isUserFollowingThisTutor == true && Model.userProfile.ProfileType == "student")
+            else if(Model.isUserFollowingThisTutor == true && Model.userProfile != null && Model.userProfile.ProfileType == "student")
             {
                 <button id="FollowButton" type="button" style="font-size:12px;display:none" class="btn btn-primary mt-3" onclick="FollowStreamTutor('@Model.userChannels[0].Id')">Follow StreamTutor</button>
                 <button id="UnfollowButton" type="button" style="font-size:12px" class="btn btn-primary mt-3" onclick="UnfollowStreamTutor('@Model.userChannels[0].Id')">Unfollow StreamTutor</button>
@@ -30,7 +30,7 @@
             </div>
             <div class="col-4 p-0">
                 <div class="card-body" style="background-color:#006565;border-top-left-radius:0px ">
-                  <a target="_blank" rel="noopener noreferrer" href="/Home/Donate?tutor=@Model.userProfile.Username">
+                  <a target="_blank" rel="noopener noreferrer" href="/Home/Donate?tutor=@Model.studentOrtutorProfile.Username">
                     <img src="~/images/donate201911.png" target="_blank" rel="noopener noreferrer" style="display:block; margin-left:auto; margin-right:auto; width:120px; height:68px" />
                 </a>
                 </div>

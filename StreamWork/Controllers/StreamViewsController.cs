@@ -18,9 +18,6 @@ namespace StreamWork.Controllers
         }
         public async Task<IActionResult> StreamPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamKeyandchatId)
         {
-            if (HttpContext.User.Identity.IsAuthenticated == false)
-                return Redirect(_homehelperFunctions._host + "/Home/Login?dest=-StreamViews-StreamPage");
-
             var split = streamKeyandchatId.Split(new char[] { '|' });
             var secretChatKey = _homehelperFunctions.GetChatSecretKey(split[1], split[2], User.Identity.Name);
             string[] arr = { split[0], secretChatKey, split[4] };
@@ -30,7 +27,7 @@ namespace StreamWork.Controllers
                 studentOrtutorProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, split[3])
             };
 
-            if (profile.userProfile.FollowedTutors != null)
+            if (profile.userProfile != null && profile.userProfile.FollowedTutors != null)
                 profile.isUserFollowingThisTutor = profile.userProfile.FollowedTutors.Contains(profile.userChannels[0].Id);
 
             StreamPageViewModel model = new StreamPageViewModel {

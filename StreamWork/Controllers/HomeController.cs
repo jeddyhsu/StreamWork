@@ -39,9 +39,6 @@ namespace StreamWork.Controllers
         }
 
         public async Task<IActionResult> Subject ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, [FromQuery(Name = "s")] string s) { //s is subject
-            if (HttpContext.User.Identity.IsAuthenticated == false)
-                return Redirect(_homehelperFunctions._host + "/Home/Login?dest=-Home-Subject?s=" + s);
-
             return View(await _homehelperFunctions.PopulateSubjectPage(storageConfig, s, HttpContext.Session.GetString(QueryHeaders.UserProfile.ToString())));
         }
 
@@ -104,22 +101,23 @@ namespace StreamWork.Controllers
 
         [HttpGet]
         public async Task<IActionResult> ProfileView ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string tutor) {
-
-            if (HttpContext.User.Identity.IsAuthenticated == false)
-                return Redirect(_homehelperFunctions._host + "/Home/Login?dest=-Home-ProfileView");
-
             ProfileTutorViewModel profile = new ProfileTutorViewModel {
-
                 userChannels = await _homehelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, tutor),
                 userArchivedVideos = await _homehelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, tutor),
-                userProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
+                userProfile = null,
                 studentOrtutorProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, tutor),
                 numberOfStreams = (await _homehelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, tutor)).Count
                 
             };
 
-            if(profile.userProfile.FollowedTutors != null)
-                profile.isUserFollowingThisTutor = profile.userProfile.FollowedTutors.Contains(profile.userChannels[0].Id);
+            if (HttpContext.User.Identity.IsAuthenticated) {
+                profile.userProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name);
+
+                if (profile.userProfile.FollowedTutors != null)
+                    profile.isUserFollowingThisTutor = profile.userProfile.FollowedTutors.Contains(profile.userChannels[0].Id);
+            } else {
+                profile.isUserFollowingThisTutor = false;
+            }
 
             return View(profile);
         }
