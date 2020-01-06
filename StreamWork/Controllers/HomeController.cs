@@ -150,26 +150,6 @@ namespace StreamWork.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Login ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string username, string password) {
-            var checkforUser = await DataStore.GetListAsync<UserLogin>(helperFunctions._connectionString, storageConfig.Value, "AllSignedUpUsersWithPassword", new List<string> { username, password });
-            if (checkforUser.Count == 1) {
-                checkforUser[0].LoggedIn = "Logged In";
-                await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", checkforUser[0].Id } }, checkforUser[0]);
-                if (checkforUser[0].ProfileType == "tutor") {
-                    HttpContext.Session.SetString("UserProfile", username);
-                    HttpContext.Session.SetString("Tutor", "false");
-                    return Json(new { Message = "Welcome, StreamTutor" });
-                }
-                else {
-                    HttpContext.Session.SetString("UserProfile", username);
-                    HttpContext.Session.SetString("Tutor", "false");
-                    return Json(new { Message = "Welcome Student" });
-                }
-            }
-            return Json(new { Message = "Wrong Password or Username" });
-        }
-
         [HttpGet]
         public IActionResult Login () {
             return View();
@@ -216,15 +196,6 @@ namespace StreamWork.Controllers
         [HttpGet]
         public IActionResult Logout () {
             return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Logout ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string logout) {
-            var user = HttpContext.Session.GetString("UserProfile");
-            var userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
-            userProfile.LoggedIn = null;
-            await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
-            return Json(new { Message = JsonResponse.Success.ToString() });
         }
 
         [HttpGet]
