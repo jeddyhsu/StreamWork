@@ -28,8 +28,8 @@ function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail() {
         processData: false,
         success: function (data) {
             if (data.message === "Success") {
+                $('#registerStreamModal').modal('hide'),
                 OpenNotificationModal("Your broadcast is visible to students!");
-                location.reload();
             }
         }
     });   
@@ -47,7 +47,6 @@ function ValidateKey() {
             if (data.message === "Success") {
                 $('#channelKeyModal').modal('hide')
                 OpenNotificationModal("Key validated, welcome StreamTutor")
-                location.reload()
             }
             else {
                 OpenNotificationModal("Invalid channel key, make sure you have entered the channel key correctley")

@@ -21,9 +21,10 @@ namespace StreamWork.Controllers
             if (HttpContext.User.Identity.IsAuthenticated == false)
                 return Redirect(_homehelperFunctions._host + "/Home/Login?dest=-StreamViews-StreamPage");
 
-            var split = streamKeyandchatId.Split(new char[] { '|' });
+            var split = streamKeyandchatId.Split(new char[] { '|' }); //spilt[0] = video channel key, split[1] = channel chat id, split[2] = chat key, split[3] = channel username, split[4] = stream title
             var secretChatKey = _homehelperFunctions.GetChatSecretKey(split[1], split[2], User.Identity.Name);
-            string[] arr = { split[0], secretChatKey, split[4] };
+            var channel = await _homehelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, split[3]);
+            string[] arr = { split[0], secretChatKey, split[4], channel[0].Id };
 
             ProfileTutorViewModel profile = new ProfileTutorViewModel {
                 userProfile = User.Identity.Name != null ? await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name) : null,
@@ -48,12 +49,13 @@ namespace StreamWork.Controllers
                 return Redirect(_homehelperFunctions._host + "/Home/Login?dest=-StreamViews-StreamPlaybackPage");
 
             var archivedStreams = await _homehelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.ArchivedVideosByStreamId, streamId);
+            var channel = await _homehelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, archivedStreams[0].Username);
 
-            string[] arr = { streamId, archivedStreams[0].StreamTitle };
+            string[] arr = { streamId, archivedStreams[0].StreamTitle,channel[0].Id};
 
             ProfileTutorViewModel profile = new ProfileTutorViewModel {
                 userProfile = User.Identity.Name != null ? await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name) : null,
-                studentOrtutorProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name)
+                studentOrtutorProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, channel[0].Username)
             };
 
             if (profile.userProfile.FollowedTutors != null)
