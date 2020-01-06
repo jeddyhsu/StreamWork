@@ -27,13 +27,13 @@
              <br />
             @if (Model.profile.isUserFollowingThisTutor == false && Model.userProfile.ProfileType == "student")
             {
-                <button id="FollowButton" type="button" style="font-size:12px" class="btn btn-primary mt-3" onclick="FollowStreamTutor('@Model.profile.userChannels[0].Id')">Follow StreamTutor</button>
-                <button id="UnfollowButton" type="button" style="font-size:12px; display:none" class="btn btn-primary mt-3" onclick="UnfollowStreamTutor('@Model.profile.userChannels[0].Id')">Unfollow StreamTutor</button>
+                <button id="FollowButton" type="button" style="font-size:12px" class="btn btn-primary mt-3" onclick="FollowStreamTutor('@Model.urlParams[2]')">Follow StreamTutor</button>
+                <button id="UnfollowButton" type="button" style="font-size:12px; display:none" class="btn btn-primary mt-3" onclick="UnfollowStreamTutor('@Model.urlParams[2]')">Unfollow StreamTutor</button>
             }
             else if(Model.profile.isUserFollowingThisTutor == true && Model.userProfile.ProfileType == "student")
             {
-                <button id="FollowButton" type="button" style="font-size:12px;display:none" class="btn btn-primary mt-3" onclick="FollowStreamTutor('@Model.profile.userChannels[0].Id')">Follow StreamTutor</button>
-                <button id="UnfollowButton" type="button" style="font-size:12px" class="btn btn-primary mt-3" onclick="UnfollowStreamTutor('@Model.profile.userChannels[0].Id')">Unfollow StreamTutor</button>
+                <button id="FollowButton" type="button" style="font-size:12px;display:none" class="btn btn-primary mt-3" onclick="FollowStreamTutor('@Model.urlParams[2]')">Follow StreamTutor</button>
+                <button id="UnfollowButton" type="button" style="font-size:12px" class="btn btn-primary mt-3" onclick="UnfollowStreamTutor('@Model.urlParams[2]')">Unfollow StreamTutor</button>
             }
             <h1 class="card-title mt-4" style=" font-size:24px; color:lightgray"><b>@Model.profile.userProfile.Name.Replace('|', ' ')</b></h1>
             <p class="card-text" style="font-size:16px; color:white">@Model.profile.userProfile.ProfileCaption</p>
