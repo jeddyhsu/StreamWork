@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StreamWork.Config;
+using StreamWork.HelperClasses;
 
 namespace StreamWork
 {
@@ -21,6 +22,7 @@ namespace StreamWork
                 .AddEnvironmentVariables();
 
             Configuration = builder.Build();
+            HomeHelperFunctions.devEnvironment = env.IsDevelopment();
         }
 
         public IConfiguration Configuration { get; }
