@@ -46,7 +46,6 @@
     }
 
  //Opens editing MODAL
-
  function EditProfile() {
         $('#editModal').modal('show')
  }

@@ -16,7 +16,7 @@
                 <p class="card-text" style="font-size:16px; color:white">@Model.UserProfile.ProfileCaption</p>
                 <p class="card-text" style="font-size:14px; color:white">@Model.UserProfile.ProfileParagraph</p>
                 @* <h4 style="color:lightgray">Next Stream</h4>
-                <h6>Friday 4pm</h6>*@
+                    <h6>Friday 4pm</h6>*@
             </div>
         </div>
     </div>
@@ -46,7 +46,7 @@
 <br />
 
 <div class="container-fluid">
-    <button class="btn-dark" style="display:block; margin-left:auto; margin-right:auto; border-radius:10px;" onclick="OpenScheduleModal()">Update Streaming Schedule</button>
+    <button class="btn-dark" style="display:block; margin-left:auto; margin-right:auto; border-radius:10px;" onclick="OpenAddScheduleModal()">Schedule Stream</button>
     <br />
     <div class="row">
         <div class="col-12">
@@ -55,15 +55,18 @@
                     <div class="col-lg-2 col-md-6 text-center">
                         <h1 class="mt-2" style="font-size:20px"> @Model.Schedule.Day1.DayOfWeek.DayOfWeek</h1>
                         <h6>@Model.Schedule.Day1.DayOfWeek.ToShortDateString()</h6>
-                        <br />
-                        <p>Calculus Tutoring at 4pm</p>
+                        <div class="list-group ml-3">
+                            <a class="list-group-item list-group-item-action" ; style="border:none" onclick="">Calculus 4pm</a>
+                            <a class="list-group-item list-group-item-action" style="border:none">Discrete Math 8pm</a>
+                        </div>
                     </div>
                     <div class="col-lg-2 col-md-6 text-center">
                         <h1 class="mt-2" style="font-size:20px"> @Model.Schedule.Day2.DayOfWeek.DayOfWeek</h1>
                         <h6>@Model.Schedule.Day2.DayOfWeek.ToShortDateString()</h6>
-                        <br />
-                        <p>Calculus Tutoring at 4pm</p>
-                        <p>Discrete Math Tutoring at 8pm</p>
+                        <div class="list-group ml-3">
+                            <a class="list-group-item list-group-item-action" ; style="border:none" onclick="OpenEditScheduleModal('Calculus 1')">Calculus 4pm</a>
+                            <a class="list-group-item list-group-item-action" style="border:none">Discrete Math 8pm</a>
+                        </div>
                     </div>
                     <div class="col-lg-2 col-md-6 text-center">
                         <h1 class="mt-2" style="font-size:20px"> @Model.Schedule.Day3.DayOfWeek.DayOfWeek</h1>
@@ -81,6 +84,38 @@
                         <h1 class="mt-2" style="font-size:20px"> @Model.Schedule.Day6.DayOfWeek.DayOfWeek</h1>
                         <h6>@Model.Schedule.Day6.DayOfWeek.ToShortDateString()</h6>
                     </div>
+                    <div class="col-lg-2 col-md-6 text-center">
+                        <h1 class="mt-2" style="font-size:20px"> @Model.Schedule.Day7.DayOfWeek.DayOfWeek</h1>
+                        <h6>@Model.Schedule.Day7.DayOfWeek.ToShortDateString()</h6>
+                        <div class="list-group ml-3">
+                            <a class="list-group-item list-group-item-action" ; style="border:none" onclick="">Calculus 4pm</a>
+                            <a class="list-group-item list-group-item-action" style="border:none">Discrete Math 8pm</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 text-center">
+                        <h1 class="mt-2" style="font-size:20px"> @Model.Schedule.Day8.DayOfWeek.DayOfWeek</h1>
+                        <h6>@Model.Schedule.Day8.DayOfWeek.ToShortDateString()</h6>
+                        <div class="list-group ml-3">
+                            <a class="list-group-item list-group-item-action" ; style="border:none" onclick="OpenScheduleModal()">Calculus 4pm</a>
+                            <a class="list-group-item list-group-item-action" style="border:none">Discrete Math 8pm</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 text-center">
+                        <h1 class="mt-2" style="font-size:20px"> @Model.Schedule.Day9.DayOfWeek.DayOfWeek</h1>
+                        <h6>@Model.Schedule.Day9.DayOfWeek.ToShortDateString()</h6>
+                    </div>
+                    <div class="col-lg-2 col-md-6 text-center">
+                        <h1 class="mt-2" style="font-size:20px"> @Model.Schedule.Day10.DayOfWeek.DayOfWeek</h1>
+                        <h6>@Model.Schedule.Day10.DayOfWeek.ToShortDateString()</h6>
+                    </div>
+                    <div class="col-lg-2 col-md-6 text-center">
+                        <h1 class="mt-2" style="font-size:20px"> @Model.Schedule.Day11.DayOfWeek.DayOfWeek</h1>
+                        <h6>@Model.Schedule.Day11.DayOfWeek.ToShortDateString()</h6>
+                    </div>
+                    <div class="col-lg-2 col-md-6 text-center">
+                        <h1 class="mt-2" style="font-size:20px"> @Model.Schedule.Day12.DayOfWeek.DayOfWeek</h1>
+                        <h6>@Model.Schedule.Day12.DayOfWeek.ToShortDateString()</h6>
+                    </div>
                 </div>
             </div>
         </div>
@@ -88,34 +123,34 @@
 </div>
 
 @*
-<div class="container-fluid" style="width:100%; padding-left:100px; padding-right:100px">
-    <h2 class="text-center"><b>My Streams</b></h2>
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="row">
-                @foreach (var videoInfo in Model.userArchivedVideos)
-                {
-                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-6 zoom streamsubject @videoInfo.StreamSubject">
-                        <div class="card mt-3" style="border-radius:5%; border:none; max-width:375px">
-                            <input type="image" width="100%" height="210" style="border-top-left-radius:5%; border-top-right-radius:5%; min-width:250px" src=@videoInfo.StreamThumbnail onclick="window.location.href='../StreamViews/StreamPlaybackPage?streamInfo=' + ('@videoInfo.StreamID|@videoInfo.StreamTitle')">
-                            <div class="card-body p-0" style="background-color:#008080 ;border-bottom-left-radius:5%; height:75px; border-bottom-right-radius:5%; border:none; min-width:250px" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@videoInfo.Username');">
-                                <div class="row">
-                                    <div class="col-2 pr-2">
-                                        <input type="image" style="border-radius:50%; width:50px; margin-left:10px; margin-top:10px; height:60px;" src=@videoInfo.ProfilePicture />
-                                    </div>
-                                    <div class="col-10" style="color:white;">
-                                        <h5 class="text-truncate" style="font-family: 'Roboto'; font-size:20px; margin-left:20px; margin-top:10px;">@videoInfo.StreamTitle</h5>
-                                        <h6 class="text-truncate" style="font-family: 'Roboto'; font-size:14px;margin-left:20px;">@videoInfo.Username</h6>
+    <div class="container-fluid" style="width:100%; padding-left:100px; padding-right:100px">
+        <h2 class="text-center"><b>My Streams</b></h2>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    @foreach (var videoInfo in Model.userArchivedVideos)
+                    {
+                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-6 zoom streamsubject @videoInfo.StreamSubject">
+                            <div class="card mt-3" style="border-radius:5%; border:none; max-width:375px">
+                                <input type="image" width="100%" height="210" style="border-top-left-radius:5%; border-top-right-radius:5%; min-width:250px" src=@videoInfo.StreamThumbnail onclick="window.location.href='../StreamViews/StreamPlaybackPage?streamInfo=' + ('@videoInfo.StreamID|@videoInfo.StreamTitle')">
+                                <div class="card-body p-0" style="background-color:#008080 ;border-bottom-left-radius:5%; height:75px; border-bottom-right-radius:5%; border:none; min-width:250px" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@videoInfo.Username');">
+                                    <div class="row">
+                                        <div class="col-2 pr-2">
+                                            <input type="image" style="border-radius:50%; width:50px; margin-left:10px; margin-top:10px; height:60px;" src=@videoInfo.ProfilePicture />
+                                        </div>
+                                        <div class="col-10" style="color:white;">
+                                            <h5 class="text-truncate" style="font-family: 'Roboto'; font-size:20px; margin-left:20px; margin-top:10px;">@videoInfo.StreamTitle</h5>
+                                            <h6 class="text-truncate" style="font-family: 'Roboto'; font-size:14px;margin-left:20px;">@videoInfo.Username</h6>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                }
+                    }
+                </div>
             </div>
         </div>
     </div>
-</div>
 *@
 <script>$(document).ready(function () {
 

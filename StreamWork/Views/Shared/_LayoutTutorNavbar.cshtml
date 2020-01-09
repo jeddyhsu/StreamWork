@@ -15,11 +15,15 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
     <script src="~/js/EditProfile.js"></script>
     <script src="~/js/SignUpLogin.js"></script>
     <script src="~/js/Tutor.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
     <link rel="stylesheet" href="~/css/Index.css" />
+
 </head>
 
 <body style="font-family:'Roboto'; background-color:white">
@@ -99,5 +103,66 @@
             </div>
         </div>
     </div>
+
+    @*Add Stream for scheduling system*@
+    <div id="addScheduleModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: #008080">
+                <div class="modal-header">
+                    <h5 class="modal-title" style="color:white">Schedule Stream</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4 class="text-center" style="color:white">Title</h4>
+                    <input value="" type="text" style="display:block; margin-right:auto; margin-left:auto; border-radius:5px" />
+                    <br />
+                    <h4 class="text-center" style="color:white">Date & Time</h4>
+                    <div class="input-group date" id="datetimepickerAdd" data-target-input="nearest">
+                        <input id="dateTime" type="text" class="form-control datetimepicker-input" data-target="#datetimepickerAdd" />
+                        <div class="input-group-append" data-target="#datetimepickerAdd" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" style="background-color:black; color:white" class="btn" onclick="RegisterProfilePhotoAndCaption()">Add Stream</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*Edit Stream for scheduling system*@
+    <div id="editScheduleModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: #008080">
+                <div class="modal-header">
+                    <h5 id="Title" class="modal-title" style="color:white">Reschedule Or Remove Stream</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4 class="text-center" style="color:white">Title</h4>
+                    <input id="streamName" value="" type="text" style="display:block; margin-right:auto; margin-left:auto; border-radius:5px" />
+                    <br />
+                    <h4 class="text-center" style="color:white">Date & Time</h4>
+                    <div class="input-group date" id="datetimepickerEdit" data-target-input="nearest">
+                        <input id="dateTime" type="text" class="form-control datetimepicker-input" data-target="#datetimepickerEdit" />
+                        <div class="input-group-append" data-target="#datetimepickerEdit" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" style="background-color:black; color:white" class="btn" onclick="RegisterProfilePhotoAndCaption()">Save Updates</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Remove</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
 </body>
 </html>

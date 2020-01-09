@@ -77,7 +77,12 @@ namespace StreamWork.HelperClasses
             schedule.Day4 = new Day(todaysDate.AddDays(3.0));
             schedule.Day5 = new Day(todaysDate.AddDays(4.0));
             schedule.Day6 = new Day(todaysDate.AddDays(5.0));
-            
+            schedule.Day7 = new Day(todaysDate.AddDays(6.0));
+            schedule.Day8 = new Day(todaysDate.AddDays(7.0));
+            schedule.Day9 = new Day(todaysDate.AddDays(8.0));
+            schedule.Day10 = new Day(todaysDate.AddDays(9.0));
+            schedule.Day11 = new Day(todaysDate.AddDays(10.0));
+            schedule.Day12 = new Day(todaysDate.AddDays(11.0));
 
             return schedule;
         }

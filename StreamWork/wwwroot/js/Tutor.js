@@ -55,9 +55,30 @@ function ValidateKey() {
     });
 }
 
-function OpenScheduleModal() {
-    $('#scheduleModal').modal('show');
+function OpenEditScheduleModal(name) {
+    document.getElementById('streamName').value = name;
+    $('#editScheduleModal').modal('show');
 }
+
+function OpenAddScheduleModal() {
+    $('#addScheduleModal').modal('show');
+}
+
+$(function () {
+    var currentDate = new Date();
+    var dateIn12Days = currentDate.setDate(currentDate.getDate() + 11);
+
+    $('#datetimepickerAdd').datetimepicker({
+        minDate: new Date(),
+        maxDate: dateIn12Days,
+    });
+
+    $('#datetimepickerEdit').datetimepicker({
+        minDate: new Date(),
+        maxDate: dateIn12Days,
+    });
+
+});
 
 function PrintLoad() {
     alert("data has loaded!!!")
