@@ -43,7 +43,7 @@
                                 <a class="nav-link underline" href="/Home/HowToStream" style="color:white;"><b>How to Stream</b></a>
                             </li>
                         </ul>
-                        @if(@Model.userProfile == null){
+                        @if(@Model.UserProfile == null){
                         <ul class="navbar-nav">
                             <li class="nav-item mt-1" style="font-size:17px;">
                                 <a class="btn buttonSignIn pt-2" style="color:white" onclick="window.location.href='/Home/PickStudentOrTutor'"><b>Sign Up</b></a>
@@ -53,19 +53,19 @@
                             </li>
                         </ul>
                         }
-                        else if(Model.userProfile != null){
+                        else if(Model.UserProfile != null){
                             <div class="btn-group mt-2" style="margin-left:65px">
-                                <img src=@Model.userProfile.ProfilePicture style="width:75px; height:95px; border-radius:50%" />
+                                <img src=@Model.UserProfile.ProfilePicture style="width:75px; height:95px; border-radius:50%" />
                                 <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #008080; border:none; margin-right:35px"></button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#" id="EditProfile" onclick="Dashboard('@Model.userProfile.ProfileType')">Dashboard</a>
+                                    <a class="dropdown-item" href="#" id="EditProfile" onclick="Dashboard('@Model.UserProfile.ProfileType')">Dashboard</a>
                                     <div class="dropdown-divider"></div>
-                                @if (Model.userProfile.ProfileType == "tutor")
+                                @if (Model.UserProfile.ProfileType == "tutor")
                                     {
                                     <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Edit Profile</a>
                                     <div class="dropdown-divider"></div>
                                     }
-                                @if(Model.userProfile.ProfileType == "tutor")
+                                @if(Model.UserProfile.ProfileType == "tutor")
                                 {
                                     <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Tutor/TutorSettings'">Settings</a>
                                 }
@@ -89,11 +89,11 @@
                                         </div>
                                         <div class="modal-body">
                                             <form>
-                                                <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.userProfile.ProfileCaption" />
+                                                <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.UserProfile.ProfileCaption" />
                                                 <br />
-                                                <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.userProfile.ProfileParagraph</textarea>
+                                                <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.UserProfile.ProfileParagraph</textarea>
                                                 <br />
-                                                <img id="previewProfilePic" src=@Model.userProfile.ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
+                                                <img id="previewProfilePic" src=@Model.UserProfile.ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
                                                 <br />
                                                 <div class="upload-uploadbtn-wrapper">
                                                     <button class="uploadbtn">Upload a Profile Picture</button>

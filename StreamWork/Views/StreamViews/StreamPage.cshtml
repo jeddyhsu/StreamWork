@@ -17,7 +17,7 @@
                 <iframe src=@Model.urlParams[1] width="100%" height="500" allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>
             </div>
             <br />
-            <a target="_blank" rel="noopener noreferrer" href="/Home/Donate?tutor=@Model.profile.studentOrtutorProfile.Username">
+            <a target="_blank" rel="noopener noreferrer" href="/Home/Donate?tutor=@Model.profile.StudentOrTutorProfile.Username">
                 <img src="~/images/donate201911.png" target="_blank" rel="noopener noreferrer" style="display:block; margin-left:auto; margin-right:auto; width:80%; height:auto" />
             </a>
         </div>
@@ -27,27 +27,27 @@
 <div class="container-fluid p-0">
     <div class="card text-center border-0 p-0" style="color:white;">
         <div class="card-body" style="background-color:#006565; border-top-right-radius:5px; border-top-left-radius:5px; ">
-            <img src=@Model.profile.studentOrtutorProfile.ProfilePicture style="width:115px; height: 150px; border-radius:50%" />
+            <img src=@Model.profile.StudentOrTutorProfile.ProfilePicture style="width:115px; height: 150px; border-radius:50%" />
              <br />
-            @if (Model.profile.isUserFollowingThisTutor == false && Model.userProfile != null && Model.userProfile.ProfileType == "student")
+            @if (Model.profile.IsUserFollowingThisTutor == false && Model.userProfile != null && Model.userProfile.ProfileType == "student")
             {
                 <button id="FollowButton" type="button" style="font-size:12px" class="btn btn-primary mt-3" onclick="FollowStreamTutor('@Model.urlParams[3]')">Follow StreamTutor</button>
                 <button id="UnfollowButton" type="button" style="font-size:12px; display:none" class="btn btn-primary mt-3" onclick="UnfollowStreamTutor('@Model.urlParams[3]')">Unfollow StreamTutor</button>
             }
-            else if(Model.profile.isUserFollowingThisTutor == true && Model.userProfile != null && Model.userProfile.ProfileType == "student")
+            else if(Model.profile.IsUserFollowingThisTutor == true && Model.userProfile != null && Model.userProfile.ProfileType == "student")
             {
                 <button id="FollowButton" type="button" style="font-size:12px;display:none" class="btn btn-primary mt-3" onclick="FollowStreamTutor('@Model.urlParams[3]')">Follow StreamTutor</button>
                 <button id="UnfollowButton" type="button" style="font-size:12px" class="btn btn-primary mt-3" onclick="UnfollowStreamTutor('@Model.urlParams[3]')">Unfollow StreamTutor</button>
             }
-            <h1 class="card-title mt-4" style=" font-size:24px; color:lightgray"><b>@Model.profile.studentOrtutorProfile.Name.Replace('|', ' ')</b></h1>
-            <p class="card-text" style="font-size:16px; color:white">@Model.profile.studentOrtutorProfile.ProfileCaption</p>
-            <p class="card-text" style="font-size:14px; color:white">@Model.profile.studentOrtutorProfile.ProfileParagraph</p>
+            <h1 class="card-title mt-4" style=" font-size:24px; color:lightgray"><b>@Model.profile.StudentOrTutorProfile.Name.Replace('|', ' ')</b></h1>
+            <p class="card-text" style="font-size:16px; color:white">@Model.profile.StudentOrTutorProfile.ProfileCaption</p>
+            <p class="card-text" style="font-size:14px; color:white">@Model.profile.StudentOrTutorProfile.ProfileParagraph</p>
         </div>
         <div class="row">
             <div class="col-6 pr-0">
                 <div class="card-body" style="background-color:#006565; border-bottom-left-radius:5px">
                     <h5 style="color:lightgray">Streams</h5>
-                    <h4>@Model.profile.numberOfStreams</h4>
+                    <h4>@Model.profile.NumberOfStreams</h4>
                 </div>
             </div>
             

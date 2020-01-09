@@ -24,15 +24,15 @@ namespace StreamWork.Controllers
             string[] arr = { split[0], secretChatKey, split[4], channel[0].Id };
 
             ProfileTutorViewModel profile = new ProfileTutorViewModel {
-                userProfile = User.Identity.Name != null ? await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name) : null,
-                studentOrtutorProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, split[3])
+                UserProfile = User.Identity.Name != null ? await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name) : null,
+                StudentOrTutorProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, split[3])
             };
 
-            if (profile.userProfile != null && profile.userProfile.FollowedTutors != null)
-                profile.isUserFollowingThisTutor = profile.userProfile.FollowedTutors.Contains(profile.userChannels[0].Id);
+            if (profile.UserProfile != null && profile.UserProfile.FollowedTutors != null)
+                profile.IsUserFollowingThisTutor = profile.UserProfile.FollowedTutors.Contains(profile.UserChannels[0].Id);
 
             StreamPageViewModel model = new StreamPageViewModel {
-                userProfile = profile.userProfile,
+                userProfile = profile.UserProfile,
                 profile = profile,
                 urlParams = arr
             };
@@ -51,15 +51,15 @@ namespace StreamWork.Controllers
             string[] arr = { streamId, archivedStreams[0].StreamTitle,channel[0].Id};
 
             ProfileTutorViewModel profile = new ProfileTutorViewModel {
-                userProfile = User.Identity.Name != null ? await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name) : null,
-                studentOrtutorProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, channel[0].Username)
+                UserProfile = User.Identity.Name != null ? await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name) : null,
+                StudentOrTutorProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, channel[0].Username)
             };
 
-            if (profile.userProfile.FollowedTutors != null)
-                profile.isUserFollowingThisTutor = profile.userProfile.FollowedTutors.Contains(profile.userChannels[0].Id);
+            if (profile.UserProfile.FollowedTutors != null)
+                profile.IsUserFollowingThisTutor = profile.UserProfile.FollowedTutors.Contains(profile.UserChannels[0].Id);
 
             StreamPageViewModel model = new StreamPageViewModel {
-                userProfile = profile.userProfile,
+                userProfile = profile.UserProfile,
                 profile = profile,
                 urlParams = arr
             };

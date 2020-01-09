@@ -1,19 +1,23 @@
 ﻿using System.Collections.Generic;
 using StreamWork.DataModels;
+using StreamWork.TutorObjects;
 
 namespace StreamWork.ViewModels {
 
     public class ProfileTutorViewModel {
 
-        public UserLogin userProfile { get; set; }
-        public UserLogin studentOrtutorProfile{ get; set; } //just in case
-        public List<UserChannel> userChannels { get; set; }
-        public List<UserArchivedStreams> userArchivedVideos { get; set; }
-        public List<UserLogin> userLogins { get; set; }
-        public int numberOfStreams { get; set; }
-        public string subject { get; set; }
+        public UserLogin UserProfile { get; set; }
+        public UserLogin StudentOrTutorProfile{ get; set; } //just in case
+        public List<UserChannel> UserChannels { get; set; }
+        public List<UserArchivedStreams> UserArchivedVideos { get; set; }
+        public List<UserLogin> UserLogins { get; set; }
+
+        public int NumberOfStreams { get; set; }
+        public string Subject { get; set; }
         
-        public string chatSecretKey { get; set; }
-        public bool isUserFollowingThisTutor { get; set; }
+        public string ChatSecretKey { get; set; }
+        public bool IsUserFollowingThisTutor { get; set; }
+
+        public Schedule Schedule { get; set; }
     }
 }

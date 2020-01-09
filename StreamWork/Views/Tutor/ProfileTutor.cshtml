@@ -7,20 +7,16 @@
 <script src="~/js/EditProfile.js"></script>
 <link rel="stylesheet" href="~/css/Tutor.css" />
 
-<br />
-
 <div class="container">
     <div class="card text-center mt-5 border-0" style="color:white;">
         <div class="card-body" style="background-color:#006565; border-top-right-radius:5px; border-top-left-radius:5px; ">
             <div class="col-12">
-                <img src=@Model.userProfile.ProfilePicture style="width:115px; height: 150px; border-radius:50%" />
-                <h1 class="card-title mt-4" style=" font-size:24px; color:lightgray"><b>@Model.userProfile.Name.Replace('|', ' ')</b></h1>
-                <p class="card-text" style="font-size:16px; color:white">@Model.userProfile.ProfileCaption</p>
-                <p class="card-text" style="font-size:14px; color:white">@Model.userProfile.ProfileParagraph</p>
-                <hr />
+                <img src=@Model.UserProfile.ProfilePicture style="width:115px; height: 150px; border-radius:50%" />
+                <h1 class="card-title mt-4" style=" font-size:24px; color:lightgray"><b>@Model.UserProfile.Name.Replace('|', ' ')</b></h1>
+                <p class="card-text" style="font-size:16px; color:white">@Model.UserProfile.ProfileCaption</p>
+                <p class="card-text" style="font-size:14px; color:white">@Model.UserProfile.ProfileParagraph</p>
                 @* <h4 style="color:lightgray">Next Stream</h4>
                 <h6>Friday 4pm</h6>*@
-                <hr />
             </div>
         </div>
     </div>
@@ -28,7 +24,7 @@
         <div class="col-4 pr-0">
             <div class="card-body" style="background-color:#006565; border-bottom-left-radius:5px">
                 <h5 style="color:lightgray">Streams</h5>
-                <h4 style="color:white">@Model.numberOfStreams</h4>
+                <h4 style="color:white">@Model.NumberOfStreams</h4>
             </div>
         </div>
         <div class="col-4 p-0">
@@ -49,6 +45,49 @@
 <br />
 <br />
 
+<div class="container-fluid">
+    <button class="btn-dark" style="display:block; margin-left:auto; margin-right:auto; border-radius:10px;" onclick="OpenScheduleModal()">Update Streaming Schedule</button>
+    <br />
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="row">
+                    <div class="col-lg-2 col-md-6 text-center">
+                        <h1 class="mt-2" style="font-size:20px"> @Model.Schedule.Day1.DayOfWeek.DayOfWeek</h1>
+                        <h6>@Model.Schedule.Day1.DayOfWeek.ToShortDateString()</h6>
+                        <br />
+                        <p>Calculus Tutoring at 4pm</p>
+                    </div>
+                    <div class="col-lg-2 col-md-6 text-center">
+                        <h1 class="mt-2" style="font-size:20px"> @Model.Schedule.Day2.DayOfWeek.DayOfWeek</h1>
+                        <h6>@Model.Schedule.Day2.DayOfWeek.ToShortDateString()</h6>
+                        <br />
+                        <p>Calculus Tutoring at 4pm</p>
+                        <p>Discrete Math Tutoring at 8pm</p>
+                    </div>
+                    <div class="col-lg-2 col-md-6 text-center">
+                        <h1 class="mt-2" style="font-size:20px"> @Model.Schedule.Day3.DayOfWeek.DayOfWeek</h1>
+                        <h6>@Model.Schedule.Day3.DayOfWeek.ToShortDateString()</h6>
+                    </div>
+                    <div class="col-lg-2 col-md-6 text-center">
+                        <h1 class="mt-2" style="font-size:20px"> @Model.Schedule.Day4.DayOfWeek.DayOfWeek</h1>
+                        <h6>@Model.Schedule.Day4.DayOfWeek.ToShortDateString()</h6>
+                    </div>
+                    <div class="col-lg-2 col-md-6 text-center">
+                        <h1 class="mt-2" style="font-size:20px"> @Model.Schedule.Day5.DayOfWeek.DayOfWeek</h1>
+                        <h6>@Model.Schedule.Day5.DayOfWeek.ToShortDateString()</h6>
+                    </div>
+                    <div class="col-lg-2 col-md-6 text-center">
+                        <h1 class="mt-2" style="font-size:20px"> @Model.Schedule.Day6.DayOfWeek.DayOfWeek</h1>
+                        <h6>@Model.Schedule.Day6.DayOfWeek.ToShortDateString()</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*
 <div class="container-fluid" style="width:100%; padding-left:100px; padding-right:100px">
     <h2 class="text-center"><b>My Streams</b></h2>
     <div class="row">
@@ -58,7 +97,7 @@
                 {
                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-6 zoom streamsubject @videoInfo.StreamSubject">
                         <div class="card mt-3" style="border-radius:5%; border:none; max-width:375px">
-                            <input type="image" width="100%" height="210px" style="border-top-left-radius:5%; border-top-right-radius:5%; min-width:250px" src=@videoInfo.StreamThumbnail onclick="window.location.href='../StreamViews/StreamPlaybackPage?streamInfo=' + ('@videoInfo.StreamID|@videoInfo.StreamTitle')">
+                            <input type="image" width="100%" height="210" style="border-top-left-radius:5%; border-top-right-radius:5%; min-width:250px" src=@videoInfo.StreamThumbnail onclick="window.location.href='../StreamViews/StreamPlaybackPage?streamInfo=' + ('@videoInfo.StreamID|@videoInfo.StreamTitle')">
                             <div class="card-body p-0" style="background-color:#008080 ;border-bottom-left-radius:5%; height:75px; border-bottom-right-radius:5%; border:none; min-width:250px" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@videoInfo.Username');">
                                 <div class="row">
                                     <div class="col-2 pr-2">
@@ -77,40 +116,7 @@
         </div>
     </div>
 </div>
-
-<div id="editModal" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" style="background-color: #008080">
-            <div class="modal-header">
-                <h5 class="modal-title" style="color:white">Edit Profile</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.userProfile.ProfileCaption" />
-                    <br />
-                    <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.userProfile.ProfileParagraph</textarea>
-                    <br />
-                    <img id="previewProfilePic" src=@Model.userProfile.ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
-                    <br />
-                    <div class="upload-uploadbtn-wrapper">
-                        <button class="uploadbtn" style="margin-left:100px">Upload a Profile Picture</button>
-                        <input id="uploadProfilePic" type='file' onchange="readURL(this,'ProfilePic')" />
-                    </div>
-                </form>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" style="background-color:black; color:white" class="btn" onclick="RegisterProfilePhotoAndCaption()">Save changes</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
+*@
 <script>$(document).ready(function () {
 
         $("#nav").click(function () {

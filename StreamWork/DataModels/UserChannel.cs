@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using StreamWork.Framework;
+using StreamWork.TutorObjects;
 
 namespace StreamWork.DataModels
 {
@@ -16,7 +17,7 @@ namespace StreamWork.DataModels
         public string StreamThumbnail { get; set; }
         public string ChatId { get; set; }
 
-        public string ProfilePicture {get;set;}
+        public string ProfilePicture { get; set; }
 
         [Timestamp]
         public byte[] RowVersion { get; set; }

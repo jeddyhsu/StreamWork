@@ -36,8 +36,8 @@
             </div>
         </div>
         <h1><font size="3"><b>Already a StreamTutor?</b> </font></h1>
-        @if(Model.userProfile != null){
-             <img class="zoom" src="~/images/StartBroadcast.png" style="width:250px; cursor: pointer;" onclick="StartBroadcast('@Model.userProfile.ProfileType')" onmouseover="" />
+        @if(Model.UserProfile != null){
+             <img class="zoom" src="~/images/StartBroadcast.png" style="width:250px; cursor: pointer;" onclick="StartBroadcast('@Model.UserProfile.ProfileType')" onmouseover="" />
         }
         else{
              <img class="zoom" src="~/images/StartBroadcast.png" style="width:250px; cursor: pointer;" onclick="window.location.href='/Home/Login?dest=-Home-Profile'" onmouseover="" />

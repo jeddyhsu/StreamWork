@@ -7,20 +7,20 @@
 <div class="container-fluid">
     <div class="row">
         <div class=" col-lg-10 col-md-10 col-sm-12 col-xs-12">
-            <h1 style="font-size:75px; font-family:'Roboto'" class="pt-3">@Model.subject</h1>
+            <h1 style="font-size:75px; font-family:'Roboto'" class="pt-3">@Model.Subject</h1>
             <h5>POPULAR LIVESTREAMS</h5>
             <hr />
             <div class="row">
-                @if (Model.userChannels.ToArray().Length > 0)
+                @if (Model.UserChannels.ToArray().Length > 0)
                 {
-                    foreach (var videoInfo in Model.userChannels)
+                    foreach (var videoInfo in Model.UserChannels)
                     {
                         if (videoInfo.StreamTitle != null)
                         {
                             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 zoom">
                                 <div class="card mt-3" style="border-radius:5%; border:none;min-width:15rem; max-width:20rem">
                                     <iframe src="//iframe.dacast.com/b/135034/c/@videoInfo.ChannelKey" style="border-top-left-radius:5%; border-top-right-radius:5%; min-width:250px" height="250" frameborder="0" scrolling="no" allow="autoplay"></iframe>
-                                    <div class="card-body p-0" style="background-color:#008080 ;border-bottom-left-radius:5%; height:75px; border-bottom-right-radius:5%; border:none; min-width:250px" onclick="window.location.href='../StreamViews/StreamPage?streamKeyandchatId=' + ('@videoInfo.ChannelKey') + ('|') + ('@Model.userChannels[0].ChatId') + ('|') + ('@videoInfo.Username') + ('|') + ('@videoInfo.StreamTitle');">
+                                    <div class="card-body p-0" style="background-color:#008080 ;border-bottom-left-radius:5%; height:75px; border-bottom-right-radius:5%; border:none; min-width:250px" onclick="window.location.href='../StreamViews/StreamPage?streamKeyandchatId=' + ('@videoInfo.ChannelKey') + ('|') + ('@Model.UserChannels[0].ChatId') + ('|') + ('@videoInfo.Username') + ('|') + ('@videoInfo.StreamTitle');">
                                         <div class="row">
                                             <div class="col-2 pr-2">
                                                 <input type="image" style="border-radius:50%; width:50px; margin-left:10px; margin-top:10px; height:60px;" src=@videoInfo.ProfilePicture onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@videoInfo.Username');" />
@@ -49,7 +49,7 @@
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link active" href="#">
-                            @foreach (var tutor in Model.userLogins)
+                            @foreach (var tutor in Model.UserLogins)
                             {
                                 <div class="card pt-3 pd-3 zoom" style="display:block;background-color:#006565;border:none" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@tutor.Username');">
                                     <div class="card-title">
@@ -78,14 +78,14 @@
             </div>
 
             <div class="modal-body">
-                @if (Model.userProfile != null)
+                @if (Model.UserProfile != null)
                 {
                     <form>
-                        <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.userProfile.ProfileCaption" />
+                        <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.UserProfile.ProfileCaption" />
                         <br />
-                        <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.userProfile.ProfileParagraph</textarea>
+                        <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.UserProfile.ProfileParagraph</textarea>
                         <br />
-                        <img id="previewProfilePic" src=@Model.userProfile.ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
+                        <img id="previewProfilePic" src=@Model.UserProfile.ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
                         <br />
                         <div class="upload-uploadbtn-wrapper">
                             <button class="uploadbtn" style="margin-left:110px">Upload a Profile Picture</button>

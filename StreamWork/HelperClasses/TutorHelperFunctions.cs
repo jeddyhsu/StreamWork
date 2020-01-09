@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using StreamWork.Config;
 using StreamWork.Core;
+using StreamWork.TutorObjects;
 
 namespace StreamWork.HelperClasses
 {
@@ -62,6 +63,23 @@ namespace StreamWork.HelperClasses
             var encodedUrl = HttpUtility.UrlEncode(Convert.ToBase64String(_helperFunctions.hmacSHA256("/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + ids[0] + "&tkey=" + ids[1] + "&nme=" + userChannel[0].Username, "3O08UU-OtQ_rycx3")));
             var finalString = "https://www6.cbox.ws" + "/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + ids[0] + "&tkey=" + ids[1] + "&nme=" + userChannel[0].Username + "&sig=" + encodedUrl;
             return finalString;
+        }
+
+        public Schedule GetTutorStreamSchedule()
+        {
+            var todaysDate = DateTime.Now;
+
+            Schedule schedule = new Schedule();
+
+            schedule.Day1 = new Day(todaysDate);
+            schedule.Day2 = new Day(todaysDate.AddDays(1.0));
+            schedule.Day3 = new Day(todaysDate.AddDays(2.0));
+            schedule.Day4 = new Day(todaysDate.AddDays(3.0));
+            schedule.Day5 = new Day(todaysDate.AddDays(4.0));
+            schedule.Day6 = new Day(todaysDate.AddDays(5.0));
+            
+
+            return schedule;
         }
     }
 }

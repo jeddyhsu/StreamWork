@@ -36,9 +36,6 @@
                             <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
                                 <a class="nav-link underline" href="/Tutor/ProfileTutor" style="color:white;"><b>My Streams</b></a>
                             </li>
-                            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
-                                <a class="nav-link underline" href="/Tutor/ProfileTutor" style="color:white;"><b>My Schedule</b></a>
-                            </li>
                             <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px; ">
                                 <a class="nav-link underline" href="/Tutor/TutorStream" style="color:white;"><b>Start Streaming</b></a>
                             </li>
@@ -47,14 +44,14 @@
                             </li>
                         </ul>
                         <div class="btn-group mt-2" style="margin-left:65px">
-                            <img src=@Model.userLogins[0].ProfilePicture style="width:75px; height:95px; border-radius:50%" />
+                            <img src=@Model.UserLogins[0].ProfilePicture style="width:75px; height:95px; border-radius:50%" />
                             <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #008080; border:none; margin-right:35px"></button>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" onclick="EditProfile()">Edit Profile</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="/Tutor/TutorSettings">Settings</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
+                                <a class="dropdown-item" onclick="Logout()">Logout</a>
                             </div>
                         </div>
                     </div>
@@ -66,6 +63,39 @@
                     Copyright © 2019 StreamWork LLC. All rights reserved.
                 </div>
                 @RenderSection("Scripts", required: false)
+            </div>
+        </div>
+    </div>
+
+    @*Edit Modal for editing profile*@
+    <div id="editModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: #008080">
+                <div class="modal-header">
+                    <h5 class="modal-title" style="color:white">Edit Profile</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.UserProfile.ProfileCaption" />
+                        <br />
+                        <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.UserProfile.ProfileParagraph</textarea>
+                        <br />
+                        <img id="previewProfilePic" src=@Model.UserProfile.ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
+                        <br />
+                        <div class="upload-uploadbtn-wrapper">
+                            <button class="uploadbtn" style="margin-left:100px">Upload a Profile Picture</button>
+                            <input id="uploadProfilePic" type='file' onchange="readURL(this,'ProfilePic')" />
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" style="background-color:black; color:white" class="btn" onclick="RegisterProfilePhotoAndCaption()">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>

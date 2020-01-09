@@ -8,32 +8,38 @@
 <script src="~/js/EditProfile.js"></script>
 <link rel="stylesheet" href="~/css/Tutor.css" />
 
-@if (!Model.userProfile.ProfileType.Equals("tutor") || !Model.userProfile.AcceptedTutor)
+@if (!Model.UserProfile.ProfileType.Equals("tutor") || !Model.UserProfile.AcceptedTutor)
 {
-    <script>$(document).ready(function () {
+    <script>
+        $(document).ready(function () {
             $('#unapprovedTutorModal').modal({
                 backdrop: 'static',
                 keyboard: false
             })
-        })</script>
+        })
+    </script>
 }
-else if (Model.userChannels[0].ChannelKey == null)
+else if (Model.UserChannels[0].ChannelKey == null)
 {
-    <script>$(document).ready(function () {
+    <script>
+        $(document).ready(function () {
             $('#channelKeyModal').modal({
                 backdrop: 'static',
                 keyboard: false
             })
-        })</script>
+        })
+    </script>
 }
-else if (Model.userChannels[0].StreamTitle == null && Model.userChannels[0].StreamSubject == null)
+else if (Model.UserChannels[0].StreamTitle == null && Model.UserChannels[0].StreamSubject == null)
 {
-    <script>$(document).ready(function () {
+    <script>
+        $(document).ready(function () {
             $('#registerStreamModal').modal({
                 backdrop: 'static',
                 keyboard: false
             })
-        })</script>
+        })
+    </script>
 }
 
 <div style="background-color:black">
@@ -43,7 +49,7 @@ else if (Model.userChannels[0].StreamTitle == null && Model.userChannels[0].Stre
                 <div id="dacastPlayer"></div>
                 <script>
                     window.addEventListener("load", function () {
-                              var myPlayer = dacast("135034_c_@Model.userChannels[0].ChannelKey", 'dacastPlayer', {
+                              var myPlayer = dacast("135034_c_@Model.UserChannels[0].ChannelKey", 'dacastPlayer', {
                                   width: 1500,
                                   height: 800
                               });
@@ -51,7 +57,7 @@ else if (Model.userChannels[0].StreamTitle == null && Model.userChannels[0].Stre
                     });
 
                      function CheckForStream() {
-                         var player = dacast.players["135034_c_@Model.userChannels[0].ChannelKey"]
+                         var player = dacast.players["135034_c_@Model.UserChannels[0].ChannelKey"]
 
                             if (player.currentTime() == 0) {
                                   OpenNotificationModal("It looks like your stream hasn't been started on OBS. Start the stream on OBS and once you see your stream on this page then enter the title and subject.")
@@ -65,7 +71,7 @@ else if (Model.userChannels[0].StreamTitle == null && Model.userChannels[0].Stre
             <div class="col-sm-12 col-md-12 col-lg-3  ">
                 @if (true)
                 {
-                    <iframe src=@Model.chatSecretKey width="100%" height="800" allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>
+                    <iframe src=@Model.ChatSecretKey width="100%" height="800" allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>
                 }
             </div>
         </div>
@@ -82,11 +88,11 @@ else if (Model.userChannels[0].StreamTitle == null && Model.userChannels[0].Stre
                 </div>
                 <div class="modal-body">
                     <form>
-                        <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.userProfile.ProfileCaption" />
+                        <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.UserProfile.ProfileCaption" />
                         <br />
-                        <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.userProfile.ProfileParagraph</textarea>
+                        <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.UserProfile.ProfileParagraph</textarea>
                         <br />
-                        <img id="previewProfilePic" src=@Model.userProfile.ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
+                        <img id="previewProfilePic" src=@Model.UserProfile.ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
                         <br />
                         <div class="upload-uploadbtn-wrapper">
                             <button class="uploadbtn" style="margin-left:110px">Upload a Profile Picture</button>
@@ -130,7 +136,7 @@ else if (Model.userChannels[0].StreamTitle == null && Model.userChannels[0].Stre
                 </div>
                 <div class="modal-body">
                     <form>
-                        <input align="middle" type="text" class="form-control" value="@Model.userChannels[0].StreamTitle" id="streamTitle" placeholder="Stream Title">                      <select class="mt-1" style="width: 100%" id="streamSubject">
+                        <input align="middle" type="text" class="form-control" value="@Model.UserChannels[0].StreamTitle" id="streamTitle" placeholder="Stream Title">                      <select class="mt-1" style="width: 100%" id="streamSubject">
                             <option value="Select Subject">Select Subject</option>
                             <option value="Mathematics">Mathematics</option>
                             <option value="Science">Science</option>
@@ -181,7 +187,6 @@ else if (Model.userChannels[0].StreamTitle == null && Model.userChannels[0].Stre
     <div class="modal-dialog" role="document">
         <div class="modal-content" style="background-color: #008080">
             <div class="modal-header">
-
                 <h5 class="modal-title text-center" style="color:white">Alert!</h5>
             </div>
             <div class="modal-body">

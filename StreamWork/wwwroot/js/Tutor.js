@@ -55,6 +55,10 @@ function ValidateKey() {
     });
 }
 
+function OpenScheduleModal() {
+    $('#scheduleModal').modal('show');
+}
+
 function PrintLoad() {
     alert("data has loaded!!!")
 }

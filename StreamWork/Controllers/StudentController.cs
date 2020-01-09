@@ -30,8 +30,8 @@ namespace StreamWork.Controllers
 
             ProfileStudentViewModel viewModel = new ProfileStudentViewModel
             {
-                userLogins = await _homehelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
-                userChannels = await _homehelperFunctions.GetUserChannels(storageConfig, QueryHeaders.AllUserChannelsThatAreStreaming, "NULL"),
+                UserLogins = await _homehelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
+                UserChannels = await _homehelperFunctions.GetUserChannels(storageConfig, QueryHeaders.AllUserChannelsThatAreStreaming, "NULL"),
             };
 
             return View(viewModel);
@@ -45,8 +45,8 @@ namespace StreamWork.Controllers
 
             ProfileStudentViewModel viewModel = new ProfileStudentViewModel
             {
-                userLogins = await _homehelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
-                userArchivedStreams = await _homehelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos)
+                UserLogins = await _homehelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
+                UserArchivedStreams = await _homehelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos)
             };
 
             return View(viewModel);
@@ -59,8 +59,8 @@ namespace StreamWork.Controllers
 
             ProfileStudentViewModel viewModel = new ProfileStudentViewModel
             {
-                userLogins = await _homehelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user),
-                userArchivedStreams = await _homehelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideosBasedOnSubject, subject)
+                UserLogins = await _homehelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user),
+                UserArchivedStreams = await _homehelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideosBasedOnSubject, subject)
             };
 
             return View(viewModel);
@@ -74,8 +74,8 @@ namespace StreamWork.Controllers
 
             ProfileStudentViewModel viewModel = new ProfileStudentViewModel
             {
-                userProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
-                userLogins = await _homehelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
+                UserProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
+                UserLogins = await _homehelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
             };
 
             return View(viewModel);
