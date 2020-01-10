@@ -48,7 +48,7 @@
                             </li>
                         </ul>
                         <div class="btn-group mt-2" style="margin-left:65px">
-                            <img src=@Model.UserProfile.ProfilePicture style="width:75px; height:95px; border-radius:5%" />
+                            <img src=@Model.profile.UserProfile.ProfilePicture style="width:75px; height:95px; border-radius:5%" />
                             <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #008080; border:none; margin-right:35px"></button>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" onclick="EditProfile()">Edit Profile</a>
@@ -83,11 +83,11 @@
                 </div>
                 <div class="modal-body">
                     <form>
-                        <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.UserProfile.ProfileCaption" />
+                        <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.profile.UserProfile.ProfileCaption" />
                         <br />
-                        <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.UserProfile.ProfileParagraph</textarea>
+                        <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.profile.UserProfile.ProfileParagraph</textarea>
                         <br />
-                        <img id="previewProfilePic" src=@Model.UserProfile.ProfilePicture alt="your image" style="border-radius: 5%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
+                        <img id="previewProfilePic" src=@Model.profile.UserProfile.ProfilePicture alt="your image" style="border-radius: 5%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
                         <br />
                         <div class="upload-uploadbtn-wrapper">
                             <button class="uploadbtn" style="margin-left:100px">Upload a Profile Picture</button>
@@ -104,65 +104,6 @@
         </div>
     </div>
 
-    @*Add Stream for scheduling system*@
-    <div id="addScheduleModal" class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="background-color: #008080">
-                <div class="modal-header">
-                    <h5 class="modal-title" style="color:white">Schedule Stream</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <h4 class="text-center" style="color:white">Title</h4>
-                    <input id="streamNameAdd" type="text" style="display:block; margin-right:auto; margin-left:auto; border-radius:5px" />
-                    <br />
-                    <h4 class="text-center" style="color:white">Date & Time</h4>
-                    <div class="input-group date" id="datetimepickerAdd" data-target-input="nearest">
-                        <input id="dateTimeAdd" type="text" class="form-control datetimepicker-input" data-target="#datetimepickerAdd" />
-                        <div class="input-group-append" data-target="#datetimepickerAdd" data-toggle="datetimepicker">
-                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" style="background-color:black; color:white" class="btn" onclick="AddStreamToSchedule()">Add Stream</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    @*Edit Stream for scheduling system*@
-    <div id="editScheduleModal" class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="background-color: #008080">
-                <div class="modal-header">
-                    <h5 id="Title" class="modal-title" style="color:white">Reschedule Or Remove Stream</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <h4 class="text-center" style="color:white">Title</h4>
-                    <input id="streamNameEdit" value="" type="text" style="display:block; margin-right:auto; margin-left:auto; border-radius:5px" />
-                    <br />
-                    <h4 class="text-center" style="color:white">Date & Time</h4>
-                    <div class="input-group date" id="datetimepickerEdit" data-target-input="nearest">
-                        <input id="dateTimeEdit" type="text" class="form-control datetimepicker-input" data-target="#datetimepickerEdit" />
-                        <div class="input-group-append" data-target="#datetimepickerEdit" data-toggle="datetimepicker">
-                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" style="background-color:black; color:white" class="btn" onclick="RegisterProfilePhotoAndCaption()">Save Updates</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Remove</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    
 </body>
 </html>
+
