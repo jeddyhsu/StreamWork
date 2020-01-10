@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using StreamWork.Config;
 using StreamWork.Core;
+using StreamWork.DataModels;
 using StreamWork.TutorObjects;
 
 namespace StreamWork.HelperClasses
@@ -14,6 +16,8 @@ namespace StreamWork.HelperClasses
     public class TutorHelperFunctions //For functions involved with tutor code only
     {
         readonly HomeHelperFunctions _helperFunctions = new HomeHelperFunctions();
+        private const int NumberOfDays = 11;
+
         //Uses a hashtable to add default thumbnails based on subject
         public string GetCorrespondingDefaultThumbnail(string subject)
         {
@@ -65,26 +69,72 @@ namespace StreamWork.HelperClasses
             return finalString;
         }
 
-        public Schedule GetTutorStreamSchedule()
+        public List<Day> GetTutorStreamSchedule(UserChannel channel)
         {
             var todaysDate = DateTime.Now;
 
             Schedule schedule = new Schedule();
 
-            schedule.Day1 = new Day(todaysDate);
-            schedule.Day2 = new Day(todaysDate.AddDays(1.0));
-            schedule.Day3 = new Day(todaysDate.AddDays(2.0));
-            schedule.Day4 = new Day(todaysDate.AddDays(3.0));
-            schedule.Day5 = new Day(todaysDate.AddDays(4.0));
-            schedule.Day6 = new Day(todaysDate.AddDays(5.0));
-            schedule.Day7 = new Day(todaysDate.AddDays(6.0));
-            schedule.Day8 = new Day(todaysDate.AddDays(7.0));
-            schedule.Day9 = new Day(todaysDate.AddDays(8.0));
-            schedule.Day10 = new Day(todaysDate.AddDays(9.0));
-            schedule.Day11 = new Day(todaysDate.AddDays(10.0));
-            schedule.Day12 = new Day(todaysDate.AddDays(11.0));
+            schedule.Days.Add(todaysDate.ToShortDateString(), new Day(todaysDate));
+            schedule.Days.Add(todaysDate.AddDays(1.0).ToShortDateString(), new Day(todaysDate.AddDays(1.0)));
+            schedule.Days.Add(todaysDate.AddDays(2.0).ToShortDateString(), new Day(todaysDate.AddDays(2.0)));
+            schedule.Days.Add(todaysDate.AddDays(3.0).ToShortDateString(), new Day(todaysDate.AddDays(3.0)));
+            schedule.Days.Add(todaysDate.AddDays(4.0).ToShortDateString(), new Day(todaysDate.AddDays(4.0)));
+            schedule.Days.Add(todaysDate.AddDays(5.0).ToShortDateString(), new Day(todaysDate.AddDays(5.0)));
+            schedule.Days.Add(todaysDate.AddDays(6.0).ToShortDateString(), new Day(todaysDate.AddDays(6.0)));
+            schedule.Days.Add(todaysDate.AddDays(7.0).ToShortDateString(), new Day(todaysDate.AddDays(7.0)));
+            schedule.Days.Add(todaysDate.AddDays(8.0).ToShortDateString(), new Day(todaysDate.AddDays(8.0)));
+            schedule.Days.Add(todaysDate.AddDays(9.0).ToShortDateString(), new Day(todaysDate.AddDays(9.0)));
+            schedule.Days.Add(todaysDate.AddDays(10.0).ToShortDateString(), new Day(todaysDate.AddDays(10.0)));
+            schedule.Days.Add(todaysDate.AddDays(11.0).ToShortDateString(), new Day(todaysDate.AddDays(11.0)));
 
-            return schedule;
+            FormatTutorStreamSchedule(schedule, channel);
+
+            ICollection collection = schedule.Days.Keys;
+            List<Day> days = new List<Day>();
+
+            foreach(string key in collection)
+                days.Add(schedule.Days[key]);
+
+            return days;
+        }
+
+        private void FormatTutorStreamSchedule(Schedule schedule, UserChannel channel)
+        {
+            if (channel.StreamTasks == null)
+            {
+                return;
+            }
+
+            var streamTaskList = JsonConvert.DeserializeObject<List<StreamTask>>(channel.StreamTasks);
+
+            foreach (var streamTask in streamTaskList)
+            {
+                var day = schedule.Days[streamTask.Day];
+                day.StreamTaskList.Add(streamTask);
+            }
+        }
+
+        public async Task<bool> AddStreamTask([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamName, DateTime dateTime, UserChannel channel)
+        {
+            if(channel.StreamTasks != null)
+            {
+                var streamTaskList = JsonConvert.DeserializeObject<List<StreamTask>>(channel.StreamTasks);
+                streamTaskList.Add(new StreamTask(streamName, dateTime.ToString("MM/dd/yyyy h:mm tt"), dateTime.ToShortDateString()));
+                var serialize = JsonConvert.SerializeObject(streamTaskList);
+                channel.StreamTasks = serialize;
+                await DataStore.SaveAsync(_helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", channel.Id } }, channel);
+                return true;
+            }
+            else
+            {
+                List<StreamTask> streamTasks = new List<StreamTask>();
+                streamTasks.Add(new StreamTask(streamName, dateTime.ToString("MM/dd/yyyy h:mm tt"), dateTime.ToShortDateString()));
+                var serialize = JsonConvert.SerializeObject(streamTasks);
+                channel.StreamTasks = serialize;
+                await DataStore.SaveAsync(_helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", channel.Id } }, channel);
+                return true;
+            }
         }
     }
 }

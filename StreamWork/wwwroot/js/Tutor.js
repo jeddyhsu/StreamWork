@@ -55,8 +55,23 @@ function ValidateKey() {
     });
 }
 
+function AddStreamToSchedule() {
+    var streamName = $('#streamNameAdd').val();
+    var dateTime = $('#dateTimeAdd').val();
+
+    $.ajax({
+        url: '/Tutor/ProfileTutor',
+        type: 'post',
+        dataType: 'json',
+        data: {
+            'streamName': streamName,
+            'dateTime': dateTime,
+        }
+    });
+}
+
 function OpenEditScheduleModal(name) {
-    document.getElementById('streamName').value = name;
+    document.getElementById('streamNameEdit').value = name;
     $('#editScheduleModal').modal('show');
 }
 

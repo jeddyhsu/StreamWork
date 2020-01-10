@@ -116,18 +116,18 @@
                 </div>
                 <div class="modal-body">
                     <h4 class="text-center" style="color:white">Title</h4>
-                    <input value="" type="text" style="display:block; margin-right:auto; margin-left:auto; border-radius:5px" />
+                    <input id="streamNameAdd" type="text" style="display:block; margin-right:auto; margin-left:auto; border-radius:5px" />
                     <br />
                     <h4 class="text-center" style="color:white">Date & Time</h4>
                     <div class="input-group date" id="datetimepickerAdd" data-target-input="nearest">
-                        <input id="dateTime" type="text" class="form-control datetimepicker-input" data-target="#datetimepickerAdd" />
+                        <input id="dateTimeAdd" type="text" class="form-control datetimepicker-input" data-target="#datetimepickerAdd" />
                         <div class="input-group-append" data-target="#datetimepickerAdd" data-toggle="datetimepicker">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" style="background-color:black; color:white" class="btn" onclick="RegisterProfilePhotoAndCaption()">Add Stream</button>
+                    <button type="button" style="background-color:black; color:white" class="btn" onclick="AddStreamToSchedule()">Add Stream</button>
                 </div>
             </div>
         </div>
@@ -145,11 +145,11 @@
                 </div>
                 <div class="modal-body">
                     <h4 class="text-center" style="color:white">Title</h4>
-                    <input id="streamName" value="" type="text" style="display:block; margin-right:auto; margin-left:auto; border-radius:5px" />
+                    <input id="streamNameEdit" value="" type="text" style="display:block; margin-right:auto; margin-left:auto; border-radius:5px" />
                     <br />
                     <h4 class="text-center" style="color:white">Date & Time</h4>
                     <div class="input-group date" id="datetimepickerEdit" data-target-input="nearest">
-                        <input id="dateTime" type="text" class="form-control datetimepicker-input" data-target="#datetimepickerEdit" />
+                        <input id="dateTimeEdit" type="text" class="form-control datetimepicker-input" data-target="#datetimepickerEdit" />
                         <div class="input-group-append" data-target="#datetimepickerEdit" data-toggle="datetimepicker">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>

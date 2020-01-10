@@ -6,7 +6,7 @@ namespace StreamWork.TutorObjects
     public class Day
     {
         public DateTime DayOfWeek { get; set; }
-        public List<StreamTask> StreamTaskList { get; set; }
+        public List<StreamTask> StreamTaskList = new List<StreamTask>();
 
         public Day(DateTime dateTime)
         {

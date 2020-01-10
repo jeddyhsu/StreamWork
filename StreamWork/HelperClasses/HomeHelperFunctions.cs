@@ -107,14 +107,16 @@ namespace StreamWork.HelperClasses
             return list;
         }
 
-        //Saves profilePicture into container on Azure
+        //Saves picture into container on Azure - replaces old one if there is one
         public async Task<string> SaveIntoBlobContainer(IFormFile file, [FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string user, string reference)
         {
-            //Connects to blob storage and saves thumbnail from user
+            //Connects to blob storage and saves picture
             CloudStorageAccount cloudStorage = CloudStorageAccount.Parse(_blobconnectionString);
             CloudBlobClient blobClient = cloudStorage.CreateCloudBlobClient();
             CloudBlobContainer blobContainer = blobClient.GetContainerReference("streamworkblobcontainer");
             CloudBlockBlob blockBlob = blobContainer.GetBlockBlobReference(reference);
+
+            blockBlob.DeleteIfExists();
 
             using (MemoryStream ms = new MemoryStream())
             {

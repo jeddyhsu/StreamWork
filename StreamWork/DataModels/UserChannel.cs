@@ -19,6 +19,8 @@ namespace StreamWork.DataModels
 
         public string ProfilePicture { get; set; }
 
+        public string StreamTasks { get; set; }
+
         [Timestamp]
         public byte[] RowVersion { get; set; }
 

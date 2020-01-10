@@ -52,70 +52,19 @@
         <div class="col-12">
             <div class="card">
                 <div class="row">
-                    <div class="col-lg-2 col-md-6 text-center">
-                        <h1 class="mt-2" style="font-size:20px"> @Model.Schedule.Day1.DayOfWeek.DayOfWeek</h1>
-                        <h6>@Model.Schedule.Day1.DayOfWeek.ToShortDateString()</h6>
-                        <div class="list-group ml-3">
-                            <a class="list-group-item list-group-item-action" ; style="border:none" onclick="">Calculus 4pm</a>
-                            <a class="list-group-item list-group-item-action" style="border:none">Discrete Math 8pm</a>
+                    @foreach (var day in Model.Schedule)
+                    {
+                        <div class="col-lg-2 col-md-6 text-center">
+                            <h1 class="mt-2" style="font-size:20px">@day.DayOfWeek.DayOfWeek</h1>
+                            <h6>@day.DayOfWeek.ToShortDateString()</h6>
+                            <div class="list-group ml-3">
+                               @foreach(var task in day.StreamTaskList)
+                               {
+                                   <a  class="list-group-item ml-3 mr-3">@task.Name</a>
+                               }
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-lg-2 col-md-6 text-center">
-                        <h1 class="mt-2" style="font-size:20px"> @Model.Schedule.Day2.DayOfWeek.DayOfWeek</h1>
-                        <h6>@Model.Schedule.Day2.DayOfWeek.ToShortDateString()</h6>
-                        <div class="list-group ml-3">
-                            <a class="list-group-item list-group-item-action" ; style="border:none" onclick="OpenEditScheduleModal('Calculus 1')">Calculus 4pm</a>
-                            <a class="list-group-item list-group-item-action" style="border:none">Discrete Math 8pm</a>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-6 text-center">
-                        <h1 class="mt-2" style="font-size:20px"> @Model.Schedule.Day3.DayOfWeek.DayOfWeek</h1>
-                        <h6>@Model.Schedule.Day3.DayOfWeek.ToShortDateString()</h6>
-                    </div>
-                    <div class="col-lg-2 col-md-6 text-center">
-                        <h1 class="mt-2" style="font-size:20px"> @Model.Schedule.Day4.DayOfWeek.DayOfWeek</h1>
-                        <h6>@Model.Schedule.Day4.DayOfWeek.ToShortDateString()</h6>
-                    </div>
-                    <div class="col-lg-2 col-md-6 text-center">
-                        <h1 class="mt-2" style="font-size:20px"> @Model.Schedule.Day5.DayOfWeek.DayOfWeek</h1>
-                        <h6>@Model.Schedule.Day5.DayOfWeek.ToShortDateString()</h6>
-                    </div>
-                    <div class="col-lg-2 col-md-6 text-center">
-                        <h1 class="mt-2" style="font-size:20px"> @Model.Schedule.Day6.DayOfWeek.DayOfWeek</h1>
-                        <h6>@Model.Schedule.Day6.DayOfWeek.ToShortDateString()</h6>
-                    </div>
-                    <div class="col-lg-2 col-md-6 text-center">
-                        <h1 class="mt-2" style="font-size:20px"> @Model.Schedule.Day7.DayOfWeek.DayOfWeek</h1>
-                        <h6>@Model.Schedule.Day7.DayOfWeek.ToShortDateString()</h6>
-                        <div class="list-group ml-3">
-                            <a class="list-group-item list-group-item-action" ; style="border:none" onclick="">Calculus 4pm</a>
-                            <a class="list-group-item list-group-item-action" style="border:none">Discrete Math 8pm</a>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-6 text-center">
-                        <h1 class="mt-2" style="font-size:20px"> @Model.Schedule.Day8.DayOfWeek.DayOfWeek</h1>
-                        <h6>@Model.Schedule.Day8.DayOfWeek.ToShortDateString()</h6>
-                        <div class="list-group ml-3">
-                            <a class="list-group-item list-group-item-action" ; style="border:none" onclick="OpenScheduleModal()">Calculus 4pm</a>
-                            <a class="list-group-item list-group-item-action" style="border:none">Discrete Math 8pm</a>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-6 text-center">
-                        <h1 class="mt-2" style="font-size:20px"> @Model.Schedule.Day9.DayOfWeek.DayOfWeek</h1>
-                        <h6>@Model.Schedule.Day9.DayOfWeek.ToShortDateString()</h6>
-                    </div>
-                    <div class="col-lg-2 col-md-6 text-center">
-                        <h1 class="mt-2" style="font-size:20px"> @Model.Schedule.Day10.DayOfWeek.DayOfWeek</h1>
-                        <h6>@Model.Schedule.Day10.DayOfWeek.ToShortDateString()</h6>
-                    </div>
-                    <div class="col-lg-2 col-md-6 text-center">
-                        <h1 class="mt-2" style="font-size:20px"> @Model.Schedule.Day11.DayOfWeek.DayOfWeek</h1>
-                        <h6>@Model.Schedule.Day11.DayOfWeek.ToShortDateString()</h6>
-                    </div>
-                    <div class="col-lg-2 col-md-6 text-center">
-                        <h1 class="mt-2" style="font-size:20px"> @Model.Schedule.Day12.DayOfWeek.DayOfWeek</h1>
-                        <h6>@Model.Schedule.Day12.DayOfWeek.ToShortDateString()</h6>
-                    </div>
+                    }
                 </div>
             </div>
         </div>

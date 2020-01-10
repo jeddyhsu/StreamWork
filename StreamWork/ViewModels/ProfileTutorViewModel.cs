@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using StreamWork.DataModels;
 using StreamWork.TutorObjects;
 
@@ -18,6 +19,6 @@ namespace StreamWork.ViewModels {
         public string ChatSecretKey { get; set; }
         public bool IsUserFollowingThisTutor { get; set; }
 
-        public Schedule Schedule { get; set; }
+        public List<Day> Schedule = new List<Day>();
     }
 }
