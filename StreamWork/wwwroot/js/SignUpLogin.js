@@ -1,15 +1,19 @@
-﻿//Handles signing up
+﻿$(function () {
+    $('#loader').hide()
+});
+
+
+//Handles signing up
 function SignUpStudent() {
     var nameFirst = $("#nameFirstS").val();
     var nameLast = $("#nameLastS").val();
     var email = $("#emailS").val();
-    var payPalAddress = $("#payPalAddressS").val();
     var username = $("#usernameS").val();
     var password = $('#passwordS').val();
     var confirmPassword = $('#passwordConfirmS').val();
     var role = 'student';
 
-    if (nameFirst == "" || nameLast == "" || email == "" || payPalAddress == "" || username == "" || password == "" || confirmPassword == "") {
+    if (nameFirst == "" || nameLast == "" || email == ""  || username == "" || password == "" || confirmPassword == "") {
         OpenNotificationModal("Please fill out all fields")
         return;
     }
@@ -24,14 +28,11 @@ function SignUpStudent() {
         return
     }
 
-    if (ValidateEmail(payPalAddress) == false) {
-        OpenNotificationModal("Invalid Email")
-        return
-    }
-
     if (ValidatePassword(password) == false) {
         return;
     }
+
+    $('#loader').show();
 
     $.ajax({
         url: '/Home/SignUp',
@@ -41,7 +42,6 @@ function SignUpStudent() {
             'nameFirst': nameFirst,
             'nameLast': nameLast,
             'email': email,
-            'payPalAddress': payPalAddress,
             'username': username,
             'password': password,
             'passwordConfirm': confirmPassword,
@@ -49,19 +49,20 @@ function SignUpStudent() {
         },
         success: function(data) {
             if (data.message === "Success") {
-
                 window.location.href = '/Home/Login';
+                $('#loader').hide()
             } else if (data.message === "Wrong Password") {
                 OpenNotificationModal("Passwords do not match")
+                $('#loader').hide()
             } else {
                 OpenNotificationModal("Username already exists")
+                $('#loader').hide()
             }
         }
     });
 }
 
 function SignUpTutor() {
-
     var formData = new FormData();
     var transcript = document.getElementById("uploadTranscript").files;
     var letterOfrec = document.getElementById("uploadLetterofrec").files;
@@ -118,6 +119,8 @@ function SignUpTutor() {
     formData.append("confirmPassword", confirmPassword);
     formData.append("role", role);
 
+    $('#loader').show();
+
     $.ajax({
         url: '/Home/SignUp',
         type: 'post',
@@ -128,8 +131,10 @@ function SignUpTutor() {
         success: function (data) {
             if (data.message === "Success") {
                 window.location.href = '/Home/Login';
+                $('#loader').hide()
             } else {
                 OpenNotificationModal("Username already exists")
+                $('#loader').hide()
             }
         }
     });

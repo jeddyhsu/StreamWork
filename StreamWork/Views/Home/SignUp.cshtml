@@ -24,7 +24,8 @@
             <strong>Login Type: Student</strong> &nbsp; &nbsp; &nbsp;
             <br />
             <br />
-            <input type="button" class="btn btn-block" value="Watch Livestreams!" onclick="SignUpStudent()" style="background-color:#008080; color: white"> <br> <br>
+            <input type="button" class="btn btn-block" value="Watch Livestreams!" onclick="SignUpStudent()" style="background-color:#008080; color: white">
+            <div id="loader" class="loader mt-1" style="display:block; margin-left:auto; margin-right:auto"></div>
         </form>
     </section>
 
@@ -74,7 +75,6 @@
                     <button class="uploadbtn">Upload Resume</button>
                     <input id="uploadResume" type='file' accept="application/pdf" onchange="ReadFile(this, 'resume')" />
                     <h6 id="Resume" class="mt-2"></h6>
-                    
                 </div>
                 <br />
                 <a href="/Home/BecomeTutor">Why is StreamWork asking me for my resume?</a>
@@ -82,10 +82,9 @@
             </div>
         </div>
         <br />
-        <input type="button" class="btn btn-block" value="Become A StreamTutor!" onclick="SignUpTutor()" style="background-color:#008080; color: white; width:200px; display:block; margin-left:auto;margin-right:auto"> <br> <br>
-
+        <input type="button" class="btn btn-block" value="Become A StreamTutor!" onclick="SignUpTutor()" style="background-color:#008080; color: white; width:200px; display:block; margin-left:auto;margin-right:auto">
+        <div id="loader" class="loader mt-1" style="display:block; margin-left:auto; margin-right:auto"></div>
     </section>
-
 </div>
 
 <div id="notificationModal" class="modal" tabindex="-1" role="dialog">
