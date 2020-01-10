@@ -24,7 +24,7 @@ namespace StreamWork.HelperClasses
     public class HomeHelperFunctions
     {
         public static bool devEnvironment;
-        public readonly string _host = devEnvironment ? "http://localhost:58539" : "http://www.streamwork.live";
+        public readonly string _host = devEnvironment ? "http://localhost:58539" : "https://www.streamwork.live";
         public readonly string _connectionString = "Server=tcp:streamwork.database.windows.net,1433;Initial Catalog=StreamWork;Persist Security Info=False;User ID=streamwork;Password=arizonastate1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
         public readonly string _blobconnectionString = "DefaultEndpointsProtocol=https;AccountName=streamworkblob;AccountKey=//JfVlcPLOyzT3vRHxlY1lJ4NUpduVfiTmuHJHK1u/0vWzP8V5YHPLkPPGD2PVxEwTdNirqHzWYSk7c2vZ80Vg==;EndpointSuffix=core.windows.net";
         public readonly string _dacastAPIKey = "135034_c2914fb8c32374a13c89";

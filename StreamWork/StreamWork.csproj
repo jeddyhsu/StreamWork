@@ -103,6 +103,7 @@
     <Content Remove="Views\Home\Math.cshtml" />
     <Content Remove="Views\Home\Other.cshtml" />
     <Content Remove="Views\Home\Science.cshtml" />
+    <Content Remove="Views\Shared\_LayoutTutorStreamNavbar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="Views\Home\ProfileView.cshtml">

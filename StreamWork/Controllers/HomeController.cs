@@ -52,7 +52,7 @@ namespace StreamWork.Controllers
             {
                 viewModel = new DefaultViewModel
                 {
-                    userProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name)
+                    UserProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name)
                 };
             }
             else
@@ -69,7 +69,7 @@ namespace StreamWork.Controllers
             {
                 viewModel = new DefaultViewModel
                 {
-                    userProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name)
+                    UserProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name)
                 };
             }
             else
@@ -86,7 +86,7 @@ namespace StreamWork.Controllers
             {
                 viewModel = new DefaultViewModel
                 {
-                    userProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name)
+                    UserProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name)
                 };
             }
             else
@@ -103,7 +103,7 @@ namespace StreamWork.Controllers
             {
                 viewModel = new DefaultViewModel
                 {
-                    userProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name)
+                    UserProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name)
                 };
             }
             else
