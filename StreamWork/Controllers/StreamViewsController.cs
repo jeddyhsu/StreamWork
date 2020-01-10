@@ -16,6 +16,7 @@ namespace StreamWork.Controllers
         {
             return View();
         }
+
         public async Task<IActionResult> StreamPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamKeyandchatId)
         {
             var split = streamKeyandchatId.Split(new char[] { '|' }); //spilt[0] = video channel key, split[1] = channel chat id, split[2] = chat key, split[3] = channel username, split[4] = stream title
@@ -25,7 +26,8 @@ namespace StreamWork.Controllers
 
             ProfileTutorViewModel profile = new ProfileTutorViewModel {
                 UserProfile = User.Identity.Name != null ? await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name) : null,
-                StudentOrTutorProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, split[3])
+                StudentOrTutorProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, split[3]),
+                NumberOfStreams = (await _homehelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, channel[0].Username)).Count
             };
 
             if (profile.UserProfile != null && profile.UserProfile.FollowedTutors != null)
@@ -52,7 +54,8 @@ namespace StreamWork.Controllers
 
             ProfileTutorViewModel profile = new ProfileTutorViewModel {
                 UserProfile = User.Identity.Name != null ? await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name) : null,
-                StudentOrTutorProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, channel[0].Username)
+                StudentOrTutorProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, channel[0].Username),
+                NumberOfStreams = (await _homehelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, channel[0].Username)).Count
             };
 
             if (profile.UserProfile.FollowedTutors != null)
