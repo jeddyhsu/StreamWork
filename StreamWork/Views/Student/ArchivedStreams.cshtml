@@ -62,11 +62,11 @@
             </div>
             <div class="modal-body">
                 <form>
-                    <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.UserLogins[0].ProfileCaption" />
+                    <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.UserProfile.ProfileCaption" />
                     <br />
-                    <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.UserLogins[0].ProfileParagraph</textarea>
+                    <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.UserProfile.ProfileParagraph</textarea>
                     <br />
-                    <img id="previewProfilePic" src=@Model.UserLogins[0].ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
+                    <img id="previewProfilePic" src=@Model.UserProfile.ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
                     <br />
                     <div class="upload-uploadbtn-wrapper">
                         <button class="uploadbtn" style="margin-left:110px">Upload a Profile Picture</button>
