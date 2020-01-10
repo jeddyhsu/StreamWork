@@ -11,7 +11,7 @@
     <div class="card text-center mt-5 border-0" style="color:white;">
         <div class="card-body" style="background-color:#006565; border-top-right-radius:5px; border-top-left-radius:5px; ">
             <div class="col-12">
-                <img src=@Model.UserProfile.ProfilePicture style="width:115px; height: 150px; border-radius:50%" />
+                <img src=@Model.UserProfile.ProfilePicture style="width:115px; height: 150px; border-radius:5%" />
                 <h1 class="card-title mt-4" style=" font-size:24px; color:lightgray"><b>@Model.UserProfile.Name.Replace('|', ' ')</b></h1>
                 <p class="card-text" style="font-size:16px; color:white">@Model.UserProfile.ProfileCaption</p>
                 <p class="card-text" style="font-size:14px; color:white">@Model.UserProfile.ProfileParagraph</p>
@@ -44,7 +44,7 @@
 
 <br />
 <br />
-
+@*
 <div class="container-fluid">
     <button class="btn-dark" style="display:block; margin-left:auto; margin-right:auto; border-radius:10px;" onclick="OpenAddScheduleModal()">Schedule Stream</button>
     <br />
@@ -60,7 +60,7 @@
                             <div class="list-group ml-3">
                                @foreach(var task in day.StreamTaskList)
                                {
-                                   <button class="list-group-item ml-3 mr-3" onclick="OpenEditScheduleModal('@task.Name')">@task.Name <br /> @task.TimeOfDay</button>
+                                   <button class="list-group-item ml-3 mr-3" onclick="OpenEditScheduleModal('@task.Name', '@task.TimeOfDay')">@task.Name <br /> @task.TimeOfDay</button>
                                }
                             </div>
                         </div>
@@ -70,14 +70,14 @@
         </div>
     </div>
 </div>
+*@
 
-@*
     <div class="container-fluid" style="width:100%; padding-left:100px; padding-right:100px">
         <h2 class="text-center"><b>My Streams</b></h2>
         <div class="row">
             <div class="col-lg-12">
                 <div class="row">
-                    @foreach (var videoInfo in Model.userArchivedVideos)
+                    @foreach (var videoInfo in Model.UserArchivedVideos)
                     {
                         <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-6 zoom streamsubject @videoInfo.StreamSubject">
                             <div class="card mt-3" style="border-radius:5%; border:none; max-width:375px">
@@ -85,7 +85,7 @@
                                 <div class="card-body p-0" style="background-color:#008080 ;border-bottom-left-radius:5%; height:75px; border-bottom-right-radius:5%; border:none; min-width:250px" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@videoInfo.Username');">
                                     <div class="row">
                                         <div class="col-2 pr-2">
-                                            <input type="image" style="border-radius:50%; width:50px; margin-left:10px; margin-top:10px; height:60px;" src=@videoInfo.ProfilePicture />
+                                            <input type="image" style="border-radius:5%; width:50px; margin-left:10px; margin-top:10px; height:60px;" src=@videoInfo.ProfilePicture />
                                         </div>
                                         <div class="col-10" style="color:white;">
                                             <h5 class="text-truncate" style="font-family: 'Roboto'; font-size:20px; margin-left:20px; margin-top:10px;">@videoInfo.StreamTitle</h5>
@@ -100,7 +100,8 @@
             </div>
         </div>
     </div>
-*@
+
+
 <script>$(document).ready(function () {
 
         $("#nav").click(function () {

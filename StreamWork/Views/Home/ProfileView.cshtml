@@ -5,7 +5,7 @@
 <div class="container">
     <div class="card text-center mt-5 border-0" style="color:white;">
         <div class="card-body" style="background-color:#006565; border-top-right-radius:5px; border-top-left-radius:5px; ">
-            <img src=@Model.StudentOrTutorProfile.ProfilePicture style="width:115px; height: 150px; border-radius:50%" />
+            <img src=@Model.StudentOrTutorProfile.ProfilePicture style="width:115px; height: 150px; border-radius:5%" />
             <br />
             @if (Model.IsUserFollowingThisTutor == false && Model.UserProfile != null && Model.UserProfile.ProfileType == "student")
             {
@@ -59,7 +59,7 @@
                             <div class="card-body p-0" style="background-color:#008080 ;border-bottom-left-radius:5%; height:75px; border-bottom-right-radius:5%; border:none; min-width:250px; cursor: pointer;" onclick="window.location.href='/Home/ProfileView?Tutor=@videoInfo.Username';" onmouseover="">
                                 <div class="row">
                                     <div class="col-2 pr-2">
-                                        <input type="image" style="border-radius:50%; width:50px; margin-left:10px; margin-top:10px; height:60px;" src=@videoInfo.ProfilePicture />
+                                        <input type="image" style="border-radius:5%; width:50px; margin-left:10px; margin-top:10px; height:60px;" src=@videoInfo.ProfilePicture />
                                     </div>
                                     <div class="col-10" style="color:white;">
                                         <h5 class="text-truncate" style="font-family: 'Roboto'; font-size:20px; margin-left:20px; margin-top:10px;">@videoInfo.StreamTitle</h5>

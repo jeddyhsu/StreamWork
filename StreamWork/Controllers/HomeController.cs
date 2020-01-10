@@ -42,7 +42,7 @@ namespace StreamWork.Controllers
 
         public async Task<IActionResult> Subject([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, [FromQuery(Name = "s")] string s)
         { //s is subject
-            return View(await _homehelperFunctions.PopulateSubjectPage(storageConfig, s, HttpContext.Session.GetString(QueryHeaders.UserProfile.ToString())));
+            return View(await _homehelperFunctions.PopulateSubjectPage(storageConfig, s, HttpContext.User.Identity.Name));
         }
 
         public async Task<IActionResult> BecomeTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
