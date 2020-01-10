@@ -120,7 +120,7 @@ namespace StreamWork.HelperClasses
             if(channel.StreamTasks != null)
             {
                 var streamTaskList = JsonConvert.DeserializeObject<List<StreamTask>>(channel.StreamTasks);
-                streamTaskList.Add(new StreamTask(streamName, dateTime.ToString("MM/dd/yyyy h:mm tt"), dateTime.ToShortDateString()));
+                streamTaskList.Add(new StreamTask(streamName, dateTime.ToShortTimeString(), dateTime.ToShortDateString()));
                 var serialize = JsonConvert.SerializeObject(streamTaskList);
                 channel.StreamTasks = serialize;
                 await DataStore.SaveAsync(_helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", channel.Id } }, channel);
@@ -129,7 +129,7 @@ namespace StreamWork.HelperClasses
             else
             {
                 List<StreamTask> streamTasks = new List<StreamTask>();
-                streamTasks.Add(new StreamTask(streamName, dateTime.ToString("MM/dd/yyyy h:mm tt"), dateTime.ToShortDateString()));
+                streamTasks.Add(new StreamTask(streamName, dateTime.ToShortTimeString(), dateTime.ToShortDateString()));
                 var serialize = JsonConvert.SerializeObject(streamTasks);
                 channel.StreamTasks = serialize;
                 await DataStore.SaveAsync(_helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", channel.Id } }, channel);
