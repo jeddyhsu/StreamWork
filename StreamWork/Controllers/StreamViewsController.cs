@@ -32,9 +32,9 @@ namespace StreamWork.Controllers
                 profile.IsUserFollowingThisTutor = profile.UserProfile.FollowedTutors.Contains(profile.UserChannels[0].Id);
 
             StreamPageViewModel model = new StreamPageViewModel {
-                userProfile = profile.UserProfile,
-                profile = profile,
-                urlParams = arr
+                UserProfile = profile.UserProfile,
+                Profile = profile,
+                UrlParams = arr
             };
 
             return View ("StreamPage", model);
@@ -59,9 +59,9 @@ namespace StreamWork.Controllers
                 profile.IsUserFollowingThisTutor = profile.UserProfile.FollowedTutors.Contains(profile.UserChannels[0].Id);
 
             StreamPageViewModel model = new StreamPageViewModel {
-                userProfile = profile.UserProfile,
-                profile = profile,
-                urlParams = arr
+                UserProfile = profile.UserProfile,
+                Profile = profile,
+                UrlParams = arr
             };
 
             return View("StreamPlaybackPage", model);
