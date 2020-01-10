@@ -5,16 +5,6 @@
 <script src="~/js/EditProfile.js"></script>
 <link rel="stylesheet" href="~/css/Streams.css"/>
 
-@if(Model.UserProfile.ProfileType == "tutor")
-{
-    {Layout = "_LayoutTutorNavbar";}
-}
-else
-{
-    {Layout = "_LayoutStudentNavbar";}
-}
-
-
 @if (!Model.IsSubscribed())
 {
     <script>window.location.href = '/Home/Subscribe';</script>
@@ -24,8 +14,8 @@ else
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12 p-0">
             <div >
-                <iframe src="//iframe.dacast.com/b/135034/f/@Model.UrlParams[0]" width="100%" height="700px" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
-                <h2 class="text-center mt-3">@Model.UrlParams[1]</h2>
+                <iframe src="//iframe.dacast.com/b/135034/f/@Model.urlParams[0]" width="100%" height="700px" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+                <h2 class="text-center mt-3">@Model.urlParams[1]</h2>
             </div>
         </div>
     </div>
@@ -33,32 +23,32 @@ else
 <div class="container">
     <div class="card text-center mt-5 border-0" style="color:white;">
         <div class="card-body" style="background-color:#006565; border-top-right-radius:5px; border-top-left-radius:5px; ">
-            <img src=@Model.Profile.UserProfile.ProfilePicture style="width:115px; height: 150px; border-radius:5%" />
+            <img src=@Model.profile.UserProfile.ProfilePicture style="width:115px; height: 150px; border-radius:5%" />
              <br />
-            @if (Model.Profile.IsUserFollowingThisTutor == false && Model.UserProfile.ProfileType == "student")
+            @if (Model.profile.IsUserFollowingThisTutor == false && Model.userProfile.ProfileType == "student")
             {
-                <button id="FollowButton" type="button" style="font-size:12px" class="btn btn-primary mt-3" onclick="FollowStreamTutor('@Model.UrlParams[2]')">Follow StreamTutor</button>
-                <button id="UnfollowButton" type="button" style="font-size:12px; display:none" class="btn btn-primary mt-3" onclick="UnfollowStreamTutor('@Model.UrlParams[2]')">Unfollow StreamTutor</button>
+                <button id="FollowButton" type="button" style="font-size:12px" class="btn btn-primary mt-3" onclick="FollowStreamTutor('@Model.urlParams[2]')">Follow StreamTutor</button>
+                <button id="UnfollowButton" type="button" style="font-size:12px; display:none" class="btn btn-primary mt-3" onclick="UnfollowStreamTutor('@Model.urlParams[2]')">Unfollow StreamTutor</button>
             }
-            else if(Model.Profile.IsUserFollowingThisTutor == true && Model.UserProfile.ProfileType == "student")
+            else if(Model.profile.IsUserFollowingThisTutor == true && Model.userProfile.ProfileType == "student")
             {
-                <button id="FollowButton" type="button" style="font-size:12px;display:none" class="btn btn-primary mt-3" onclick="FollowStreamTutor('@Model.UrlParams[2]')">Follow StreamTutor</button>
-                <button id="UnfollowButton" type="button" style="font-size:12px" class="btn btn-primary mt-3" onclick="UnfollowStreamTutor('@Model.UrlParams[2]')">Unfollow StreamTutor</button>
+                <button id="FollowButton" type="button" style="font-size:12px;display:none" class="btn btn-primary mt-3" onclick="FollowStreamTutor('@Model.urlParams[2]')">Follow StreamTutor</button>
+                <button id="UnfollowButton" type="button" style="font-size:12px" class="btn btn-primary mt-3" onclick="UnfollowStreamTutor('@Model.urlParams[2]')">Unfollow StreamTutor</button>
             }
-            <h1 class="card-title mt-4" style=" font-size:24px; color:lightgray"><b>@Model.Profile.UserProfile.Name.Replace('|', ' ')</b></h1>
-            <p class="card-text" style="font-size:16px; color:white">@Model.Profile.UserProfile.ProfileCaption</p>
-            <p class="card-text" style="font-size:14px; color:white">@Model.Profile.UserProfile.ProfileParagraph</p>
+            <h1 class="card-title mt-4" style=" font-size:24px; color:lightgray"><b>@Model.profile.UserProfile.Name.Replace('|', ' ')</b></h1>
+            <p class="card-text" style="font-size:16px; color:white">@Model.profile.UserProfile.ProfileCaption</p>
+            <p class="card-text" style="font-size:14px; color:white">@Model.profile.UserProfile.ProfileParagraph</p>
         </div>
         <div class="row">
             <div class="col-4 pr-0">
                 <div class="card-body" style="background-color:#006565; border-bottom-left-radius:5px">
                    <h5 style="color:lightgray">Streams</h5>
-                    <h4>@Model.Profile.NumberOfStreams</h4>
+                    <h4>@Model.profile.NumberOfStreams</h4>
                 </div>
             </div>
             <div class="col-4 p-0">
                 <div class="card-body" style="background-color:#006565;border-top-left-radius:0px ">
-                  <a target="_blank" rel="noopener noreferrer" href="/Home/Donate?tutor=@Model.Profile.UserProfile.Username">
+                  <a target="_blank" rel="noopener noreferrer" href="/Home/Donate?tutor=@Model.profile.UserProfile.Username">
                     <img src="~/images/donate201911.png" target="_blank" rel="noopener noreferrer" style="display:block; margin-left:auto; margin-right:auto; width:37%; height:auto" />
                 </a>
                 </div>

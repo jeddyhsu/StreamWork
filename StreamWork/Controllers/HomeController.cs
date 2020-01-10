@@ -265,6 +265,7 @@ namespace StreamWork.Controllers
             var checkforUser = await DataStore.GetListAsync<UserLogin>(_homehelperFunctions._connectionString, storageConfig.Value, QueryHeaders.AllSignedUpUsersWithPassword.ToString(), new List<string> { username, _homehelperFunctions.DecryptPassword(userProfile.Password, password) });
             if (checkforUser.Count == 1)
             {
+
                 HttpContext.Session.SetString(QueryHeaders.UserProfile.ToString(), username);
 
                 var claims = new List<Claim>
@@ -277,6 +278,7 @@ namespace StreamWork.Controllers
 
                 ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
 
                 if (userProfile.ProfileType == "tutor")
                     return Json(new { Message = JsonResponse.Tutor.ToString() });
