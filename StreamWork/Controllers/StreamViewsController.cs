@@ -24,6 +24,7 @@ namespace StreamWork.Controllers
             string[] arr = { split[0], secretChatKey, split[4], channel[0].Id };
 
             ProfileTutorViewModel profile = new ProfileTutorViewModel {
+                UserChannels = await _homehelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, User.Identity.Name),
                 UserProfile = User.Identity.Name != null ? await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name) : null,
                 StudentOrTutorProfile = await _homehelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, split[3])
             };
@@ -56,7 +57,7 @@ namespace StreamWork.Controllers
             };
 
             if (profile.UserProfile.FollowedTutors != null)
-                profile.IsUserFollowingThisTutor = profile.UserProfile.FollowedTutors.Contains(profile.UserChannels[0].Id);
+                profile.IsUserFollowingThisTutor = profile.UserProfile.FollowedTutors.Contains(channel[0].Id);
 
             StreamPageViewModel model = new StreamPageViewModel {
                 UserProfile = profile.UserProfile,
