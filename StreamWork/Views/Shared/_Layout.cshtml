@@ -33,31 +33,31 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarText">
                         <ul class="navbar-nav mr-auto">
-                            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px; ">
+                            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:18px; ">
                                 <a class="nav-link underline" href="/Home/BecomeTutor" style="color:white;"><b>Become a StreamTutor</b></a>
                             </li>
-                            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
+                            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:18px;">
                                 <a class="nav-link underline" href="/Home/About" style="color:white;"><b>About</b></a>
                             </li>
-                            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
+                            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:18px;">
                                 <a class="nav-link underline" href="/Home/HowToStream" style="color:white;"><b>How to Stream</b></a>
                             </li>
                         </ul>
                         @if (@Model.UserProfile == null)
                         {
                             <ul class="navbar-nav">
-                                <li class="nav-item mt-1" style="font-size:17px;">
-                                    <a class="btn buttonSignIn pt-2" style="color:white" onclick="window.location.href='/Home/PickStudentOrTutor'"><b>Sign Up</b></a>
+                                <li class="nav-item mt-1">
+                                    <a class="btn m-2" style="color:#008080; font-size:17px; background-color:white" onclick="window.location.href='/Home/PickStudentOrTutor'"><b>Sign Up</b></a>
                                 </li>
-                                <li class="nav-item mt-1" style="font-size:17px;">
-                                    <a class="btn buttonStyleLogin pt-2" style="background-color:white; color:#008080" onclick="window.location.href='/Home/Login?dest=-Home-Profile'"><b>Login</b></a>
+                                <li class="nav-item mt-1">
+                                    <a class="btn m-2" style="background-color:#006565; font-size:17px; color:white";  onclick="window.location.href='/Home/Login?dest=-Home-Profile'"><b>Login</b></a>
                                 </li>
                             </ul>
                         }
                         else if (Model.UserProfile != null)
                         {
                             <div class="btn-group mt-2" style="margin-left:65px">
-                                <img src=@Model.UserProfile.ProfilePicture style="width:75px; height:95px; border-radius:5%" />
+                                <img src=@Model.UserProfile.ProfilePicture style="width:75px; height:95px; border-top-left-radius:5%; border-bottom-left-radius:5%" />
                                 <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:gold; border:none; margin-right:35px"></button>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="#" id="EditProfile" onclick="Dashboard('@Model.UserProfile.ProfileType')">Dashboard</a>

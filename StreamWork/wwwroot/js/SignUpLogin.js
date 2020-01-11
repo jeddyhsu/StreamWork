@@ -2,7 +2,6 @@
     $('#loader').hide()
 });
 
-
 //Handles signing up
 function SignUpStudent() {
     var nameFirst = $("#nameFirstS").val();
@@ -12,25 +11,6 @@ function SignUpStudent() {
     var password = $('#passwordS').val();
     var confirmPassword = $('#passwordConfirmS').val();
     var role = 'student';
-
-    if (nameFirst == "" || nameLast == "" || email == ""  || username == "" || password == "" || confirmPassword == "") {
-        OpenNotificationModal("Please fill out all fields")
-        return;
-    }
-
-    if (password != confirmPassword) {
-        OpenNotificationModal("Passwords do not match")
-        return;
-    }
-
-    if (ValidateEmail(email) == false) {
-        OpenNotificationModal("Invalid Email")
-        return
-    }
-
-    if (ValidatePassword(password) == false) {
-        return;
-    }
 
     $('#loader').show();
 
@@ -49,13 +29,10 @@ function SignUpStudent() {
         },
         success: function(data) {
             if (data.message === "Success") {
-                window.location.href = '/Home/Login';
+                window.location.href = '/Home/Login?dest=-Home-Profile';
                 $('#loader').hide()
             } else if (data.message === "Wrong Password") {
                 OpenNotificationModal("Passwords do not match")
-                $('#loader').hide()
-            } else {
-                OpenNotificationModal("Username already exists")
                 $('#loader').hide()
             }
         }
@@ -75,6 +52,104 @@ function SignUpTutor() {
     var password = $('#passwordT').val();
     var confirmPassword = $('#passwordConfirmT').val();
     var role = 'tutor';
+
+    var transcriptUpload = document.getElementById("Transcript");
+    var letterOfRecUpload = document.getElementById("LetterOfRec");
+    var resumeUpload = document.getElementById("Resume");
+
+    if (transcript.length != 1 || resume.length != 1 || letterOfrec.length != 1) {
+        if (transcript.length != 1)
+            transcriptUpload.innerHTML == "Transcript is required"
+        if (resume.length != 1)
+            letterOfRecUpload.innerHTML == "Resume is required"
+        if (resume.length != 1)
+            resumeUpload.innerHTML == "LOR is required"
+
+        return;
+    }
+
+    formData.append("Transcript", transcript[0]);
+    formData.append("LetterOfRec", letterOfrec[0]);
+    formData.append("Resume", resume[0]);
+    formData.append("nameFirst", nameFirst);
+    formData.append("nameLast", nameLast);
+    formData.append("email", email);
+    formData.append("payPalAddress", payPalAddress);
+    formData.append("username", username);
+    formData.append("password", password);
+    formData.append("confirmPassword", confirmPassword);
+    formData.append("role", role);
+
+    $('#loader').show();
+
+    $.ajax({
+        url: '/Home/SignUp',
+        type: 'post',
+        dataType: 'json',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (data) {
+            if (data.message === "Success") {
+                window.location.href = '/Home/Login?dest=-Home-Profile';
+                $('#loader').hide()
+            }
+        }
+    });
+}
+
+function RunStudentChecks() {
+    var nameFirst = $("#nameFirstS").val();
+    var nameLast = $("#nameLastS").val();
+    var email = $("#emailS").val();
+    var username = $("#usernameS").val();
+    var password = $('#passwordS').val();
+    var confirmPassword = $('#passwordConfirmS').val();
+
+    if (nameFirst == "" || nameLast == "" || email == "" || username == "" || password == "" || confirmPassword == "") {
+        OpenNotificationModal("Please fill out all fields")
+        return;
+    }
+
+    if (password != confirmPassword) {
+        OpenNotificationModal("Passwords do not match")
+        return;
+    }
+
+    if (ValidateEmail(email) == false) {
+        OpenNotificationModal("Invalid Email")
+        return
+    }
+
+    if (ValidatePassword(password) == false) {
+        return;
+    }
+
+    $.ajax({
+        url: '/Home/SignUp',
+        type: 'post',
+        dataType: 'json',
+        data: {
+            'username': username
+        },
+        success: function (data) {
+            if (data.message === "Success") {
+                OpenCheckStudentModal();
+            } else {
+                OpenNotificationModal("It looks like that username is already taken")
+            }
+        }
+    });
+}
+
+function RunTutorChecks() {
+    var nameFirst = $("#nameFirstT").val();
+    var nameLast = $("#nameLastT").val();
+    var email = $("#emailT").val();
+    var payPalAddress = $("#payPalAddressT").val();
+    var username = $("#usernameT").val();
+    var password = $('#passwordT').val();
+    var confirmPassword = $('#passwordConfirmT').val();
 
     if (nameFirst == "" || nameLast == "" || email == "" || payPalAddress == "" || username == "" || password == "" || confirmPassword == "") {
         OpenNotificationModal("Please fill out all fields");
@@ -100,41 +175,18 @@ function SignUpTutor() {
         return;
     }
 
-    if (transcript.length != 1 && resume.length != 1 && letterOfrec != 1) {
-        OpenNotificationModal("A transcript, resume and letter of recommendation are required");
-        return;
-    }
-
-    formData.append("Transcript", transcript[0]);
-    if (letterOfrec.length != 0) {
-        formData.append("LetterOfRec", letterOfrec[0]);
-    }
-    formData.append("Resume", resume[0]);
-    formData.append("nameFirst", nameFirst);
-    formData.append("nameLast", nameLast);
-    formData.append("email", email);
-    formData.append("payPalAddress", payPalAddress);
-    formData.append("username", username);
-    formData.append("password", password);
-    formData.append("confirmPassword", confirmPassword);
-    formData.append("role", role);
-
-    $('#loader').show();
-
     $.ajax({
         url: '/Home/SignUp',
         type: 'post',
         dataType: 'json',
-        data: formData,
-        contentType: false,
-        processData: false,
+        data: {
+            'username': username
+        },
         success: function (data) {
             if (data.message === "Success") {
-                window.location.href = '/Home/Login?dest=-Home-Profile';
-                $('#loader').hide()
+                OpenCheckTutorModal();
             } else {
-                OpenNotificationModal("Username already exists")
-                $('#loader').hide()
+                OpenNotificationModal("It looks like that username is already taken")
             }
         }
     });
@@ -346,6 +398,14 @@ function ChangePassword() {
             }
         }
     })
+}
+
+function OpenCheckTutorModal() {
+    $('#checkTutorModal').modal('show');
+}
+
+function OpenCheckStudentModal() {
+    $('#checkStudentModal').modal('show');
 }
 
 function OpenNotificationModal(body) {

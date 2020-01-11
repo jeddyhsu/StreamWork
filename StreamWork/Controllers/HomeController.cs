@@ -187,63 +187,68 @@ namespace StreamWork.Controllers
                                                 string nameFirst, string nameLast, string email, string payPalAddress, string username, string password, string passwordConfirm, string role)
         {
 
-            var checkCurrentUsers = await DataStore.GetListAsync<UserLogin>(_homehelperFunctions._connectionString, storageConfig.Value, "CurrentUser", new List<string> { username });
-            if (checkCurrentUsers.Count == 0)
+            if (password == null)
             {
-                UserLogin signUpProfile = new UserLogin
+                var checkCurrentUsers = await DataStore.GetListAsync<UserLogin>(_homehelperFunctions._connectionString, storageConfig.Value, "CurrentUser", new List<string> { username });
+                if (checkCurrentUsers.Count == 0)
                 {
-                    Id = Guid.NewGuid().ToString(),
-                    Name = nameFirst + "|" + nameLast,
-                    EmailAddress = email,
-                    Username = username,
-                    Password = _homehelperFunctions.EncryptPassword(password),
-                    ProfileType = role,
-                    AcceptedTutor = false,
-                    ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/default-profile.png",
-                    Balance = (decimal)0f,
-                    Expiration = DateTime.UtcNow,
-                    TrialAccepted = false,
-                    PayPalAddress = payPalAddress
-                };
-                await DataStore.SaveAsync(_homehelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", signUpProfile.Id } }, signUpProfile);
-
-                if (role == "tutor")
+                    return Json(new { Message = JsonResponse.Success.ToString() });
+                }
+                else
                 {
-                    //Create User Channel For Tutor
-                    UserChannel userChannel = new UserChannel
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        Username = username,
-                        ChannelKey = null,
-                        StreamSubject = null,
-                        StreamThumbnail = null,
-                        StreamTitle = null,
-                        ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/default-profile.png",
-                        ChatId = _homehelperFunctions.FormatChatId(DataStore.GetChatID("https://www.cbox.ws/apis/threads.php?id=6-829647-oq4rEn&key=ae1682707f17dbc2c473d946d2d1d7c3&act=mkthread"))
-                    };
-                    await DataStore.SaveAsync(_homehelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
-
-                    //Checks for the attachments that tutors provide and sends them to streamwork for verification
-                    if (Request.Form.Files.Count != 0)
-                    {
-                        List<string> values = new List<string>();
-                        foreach (var key in Request.Form.Keys)
-                        {
-                            Request.Form.TryGetValue(key, out StringValues value);
-                            values.Add(value);
-                        }
-
-                        var files = Request.Form.Files;
-                        List<Attachment> attachments = new List<Attachment>();
-                        foreach (var file in files)
-                            attachments.Add(new Attachment(file.OpenReadStream(), file.FileName));
-                        await _homehelperFunctions.SendEmailToAnyEmailAsync(_homehelperFunctions._streamworkEmailID, _homehelperFunctions._streamworkEmailID, "Tutor Evaluation", email, attachments);
-                    }
+                    return Json(new { Message = JsonResponse.Failed.ToString() });
                 }
             }
-            else
+
+            UserLogin signUpProfile = new UserLogin
             {
-                return Json(new { Message = JsonResponse.Failed.ToString() });
+                Id = Guid.NewGuid().ToString(),
+                Name = nameFirst + "|" + nameLast,
+                EmailAddress = email,
+                Username = username,
+                Password = _homehelperFunctions.EncryptPassword(password),
+                ProfileType = role,
+                AcceptedTutor = false,
+                ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/default-profile.png",
+                Balance = (decimal)0f,
+                Expiration = DateTime.UtcNow,
+                TrialAccepted = false,
+                PayPalAddress = payPalAddress
+            };
+            await DataStore.SaveAsync(_homehelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", signUpProfile.Id } }, signUpProfile);
+
+            if (role == "tutor")
+            {
+                //Create User Channel For Tutor
+                UserChannel userChannel = new UserChannel
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Username = username,
+                    ChannelKey = null,
+                    StreamSubject = null,
+                    StreamThumbnail = null,
+                    StreamTitle = null,
+                    ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/default-profile.png",
+                    ChatId = _homehelperFunctions.FormatChatId(DataStore.GetChatID("https://www.cbox.ws/apis/threads.php?id=6-829647-oq4rEn&key=ae1682707f17dbc2c473d946d2d1d7c3&act=mkthread"))
+                };
+                await DataStore.SaveAsync(_homehelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
+
+                //Checks for the attachments that tutors provide and sends them to streamwork for verification
+                if (Request.Form.Files.Count != 0)
+                {
+                    List<string> values = new List<string>();
+                    foreach (var key in Request.Form.Keys)
+                    {
+                        Request.Form.TryGetValue(key, out StringValues value);
+                        values.Add(value);
+                    }
+
+                    var files = Request.Form.Files;
+                    List<Attachment> attachments = new List<Attachment>();
+                    foreach (var file in files)
+                        attachments.Add(new Attachment(file.OpenReadStream(), file.FileName));
+                    await _homehelperFunctions.SendEmailToAnyEmailAsync(_homehelperFunctions._streamworkEmailID, _homehelperFunctions._streamworkEmailID, "Tutor Evaluation", email, attachments);
+                }
             }
 
             return Json(new { Message = JsonResponse.Success.ToString() });

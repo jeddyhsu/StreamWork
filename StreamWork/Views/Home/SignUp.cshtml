@@ -7,100 +7,142 @@
 <br />
 <br />
 <div class="text-center">
-    <section id="Student">
-        <form class="form-sign">
-            <img src="~/images/streamworklogo.png" width="250" height="70" onclick="window.location.href='/'" onmouseover="" style="cursor: pointer;" />
-            <h4>Sign Up</h4>
-            <br>
-            <input type="text" class="form-control" id="nameFirstS" placeholder="First Name">
-            <input type="text" class="form-control mt-2" id="nameLastS" placeholder="Last Name">
-            <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
-            <input type="text" class="form-control" id="emailS" placeholder="Email" size="45">
-            <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
-            <input type="text" class="form-control" id="usernameS" placeholder="Username" size="45">
-            <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
-            <input type="password" class="form-control" id="passwordS" placeholder="Password" size="45">
-            <input type="password" class="form-control mt-2" id="passwordConfirmS" placeholder="Re-enter Password" size="45"> <br>
-            <strong>Login Type: Student</strong> &nbsp; &nbsp; &nbsp;
-            <br />
-            <br />
-            <input type="button" class="btn btn-block" value="Watch Livestreams!" onclick="SignUpStudent()" style="background-color:#008080; color: white">
-        </form>
-    </section>
-
-    <section id="Tutor">
-        <form class="form-sign">
-            <img src="~/images/streamworklogo.png" width="250" height="70" onclick="window.location.href='/'" onmouseover="" style="cursor: pointer;" />
-            <h4>Sign Up</h4>
-            <br>
-            <input type="text" class="form-control" id="nameFirstT" placeholder="First Name">
-            <input type="text" class="form-control mt-2" id="nameLastT" placeholder="Last Name">
-            <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
-            <input type="text" class="form-control" id="emailT" placeholder="Email" size="45">
-            <input type="text" class="form-control mt-2" id="payPalAddressT" placeholder="Email Associated with your PayPal" />
-            <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
-            <input type="text" class="form-control" id="usernameT" placeholder="Username" size="45">
-            <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
-            <input type="password" class="form-control" id="passwordT" placeholder="Password" size="45">
-            <input type="password" class="form-control mt-2" id="passwordConfirmT" placeholder="Re-enter Password" size="45"><br>
-            <strong>Login Type: Tutor</strong> &nbsp; &nbsp; &nbsp;
-            <br />
-            <br />
-        </form>
+    <section id="Student" class="container">
         <div class="row">
-            <div class="col-3"></div>
-            <div class="col-lg-2 col-md-12 mt-3">
-                <div class="upload-uploadbtn-wrapper">
-                    <button class="uploadbtn">Upload Transcript</button>
-                    <input id="uploadTranscript" type='file' accept="application/pdf" onchange="ReadFile(this, 'transcript')" />
-                    <h6 id="Transcript" class="mt-2"></h6>
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <div class="card" style="background-color:whitesmoke">
+                    <div class="card-body">
+                        <form class="form-sign">
+                            <img src="~/images/streamworklogo.png" width="250" height="70" onclick="window.location.href='/'" onmouseover="" style="cursor: pointer;" />
+                            <h4>Sign Up</h4>
+                            <p>Get ready to venture into the world of Stream Tutoring!📚👩🏽‍🎓</p>
+                            <br>
+                            <input type="text" class="form-control" id="nameFirstS" placeholder="First Name">
+                            <input type="text" class="form-control mt-2" id="nameLastS" placeholder="Last Name">
+                            <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
+                            <input type="text" class="form-control" id="emailS" placeholder="Email" size="45">
+                            <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
+                            <input type="text" class="form-control" id="usernameS" placeholder="Username" size="45">
+                            <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
+                            <input type="password" class="form-control" id="passwordS" placeholder="Password" size="45">
+                            <input type="password" class="form-control mt-2" id="passwordConfirmS" placeholder="Re-enter Password" size="45"> <br>
+                            <strong>Login Type: Student</strong> &nbsp; &nbsp; &nbsp;
+                            <br />
+                            <br />
+                            <input type="button" class="btn btn-block" value="Watch Livestreams!" onclick="RunStudentChecks()" style="background-color:#008080; color: white">
+                        </form>
+                    </div>
                 </div>
-                <br />
-                <a href="/Home/BecomeTutor">Why is StreamWork asking me for my transcript?</a>
-                <br />
-            </div>
-            <div class="col-lg-2 col-md-12 mt-3">
-                <div class="upload-uploadbtn-wrapper">
-                    <button class="uploadbtn">Upload Letter of Recommendation</button>
-                    <input id="uploadLetterofrec" type='file' accept="application/pdf" onchange="ReadFile(this, 'letterofrec')" />
-                    <h6 id="LetterOfRec" class="mt-2"></h6>
-                </div>
-                <br />
-                <a href="/Home/BecomeTutor">Why is StreamWork asking me for a LOR?</a>
-                <br />
-            </div>
-            <div class="col-lg-2 col-md-12 mt-3">
-                <div class="upload-uploadbtn-wrapper">
-                    <button class="uploadbtn">Upload Resume</button>
-                    <input id="uploadResume" type='file' accept="application/pdf" onchange="ReadFile(this, 'resume')" />
-                    <h6 id="Resume" class="mt-2"></h6>
-                </div>
-                <br />
-                <a href="/Home/BecomeTutor">Why is StreamWork asking me for my resume?</a>
-                <br />
             </div>
         </div>
-        <br />
-        <input type="button" class="btn btn-block" value="Become A StreamTutor!" onclick="SignUpTutor()" style="background-color:#008080; color: white; width:200px; display:block; margin-left:auto;margin-right:auto">
-        <div id="loader" class="loader mt-1" style="display:block; margin-left:auto; margin-right:auto"></div>
+    </section>
+
+    <section id="Tutor" class="container">
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <div class="card" style="background-color:whitesmoke">
+                    <div class="card-body">
+                        <form class="form-sign">
+                            <img src="~/images/streamworklogo.png" width="250" height="70" onclick="window.location.href='/'" onmouseover="" style="cursor: pointer;" />
+                            <h4>Sign Up</h4>
+                            <p>Looks like you have the superpowers of a StreamTutor!📚👩🏽‍🎓</p>
+                            <br>
+                            <input type="text" class="form-control" id="nameFirstT" placeholder="First Name">
+                            <input type="text" class="form-control mt-2" id="nameLastT" placeholder="Last Name">
+                            <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
+                            <input type="text" class="form-control" id="emailT" placeholder="Email" size="45">
+                            <input type="text" class="form-control mt-2" id="payPalAddressT" size="45" placeholder="Email Associated with your PayPal" />
+                            <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
+                            <input type="text" class="form-control" id="usernameT" placeholder="Username" size="45">
+                            <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
+                            <input type="password" class="form-control" id="passwordT" placeholder="Password" size="45">
+                            <input type="password" class="form-control mt-2" id="passwordConfirmT" placeholder="Re-enter Password" size="45"><br>
+                            <strong>Login Type: Tutor</strong> &nbsp; &nbsp; &nbsp;
+                            <br />
+                            <br />
+                            <input type="button" class="btn btn-block" value="Sign Up!" onclick="RunTutorChecks()" style="background-color:#008080; color: white; width:200px; display:block; margin-left:auto;margin-right:auto">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 </div>
 
-<div id="notificationModal" class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="background-color: #008080">
-                <div class="modal-header">
-
-                    <h5 class="modal-title text-center" style="color:white">Alert!</h5>
-                </div>
-                <div class="modal-body">
-                    <p id="notificationBody" class=" text-center" style="color: white;">It appears you are not a verified StreamTutor! If you are a student, create a separate student account. If you are a StreamTutor, please wait to be approved.</p>
-                    <img src="~/images/streamworkPencilWhite.png" style="display:block; margin-left:auto; margin-right:auto; cursor: pointer;" height="70" onclick="window.location.href='/'" onmouseover="" />
-                </div>
+<div id="notificationModal" class="modal" tabindex="2" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color: #008080">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" style="color:white">Hmm, something isn't right!</h5>
+            </div>
+            <div class="modal-body">
+                <p id="notificationBody" class=" text-center" style="color: white;">It appears you are not a verified StreamTutor! If you are a student, create a separate student account. If you are a StreamTutor, please wait to be approved.</p>
+                <img src="~/images/streamworkPencilWhite.png" style="display:block; margin-left:auto; margin-right:auto; cursor: pointer;" height="70" onclick="window.location.href='/'" onmouseover="" />
             </div>
         </div>
     </div>
+</div>
 
-<script>
-    CheckIfStudentOrTutorIsSigningUp()
-</script>
+<div id="checkStudentModal" class="modal" tabindex="2" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color: #008080">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" style="color:white">One more thing!</h5>
+            </div>
+            <div class="modal-body">
+                <p id="notificationBody" class=" text-center" style="color: white;">Although donations aren't required to use StreamWork, we do encourage donating to our StreamTutors to show appreciation for their hard work. We hope that StreamWork will give you the tutoring necessary for you to excel in the classroom. Happy learning!</p>
+                <img src="~/images/streamworkPencilWhite.png" style="display:block; margin-left:auto; margin-right:auto; cursor: pointer;" height="70" onclick="window.location.href='/'" onmouseover="" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" style="background-color:#006565; color:white" class="btn" onclick="SignUpStudent()">Watch Livestreams!<span id="loader" class="loader mt-1" style="display:block; margin-left:auto; margin-right:auto"></span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="checkTutorModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color: #008080">
+            <div class="modal-header">
+                <h5 class="modal-title" style="color:white">One more thing!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p style="color:white">StreamWork strives to give students the best live tutoring there is and we can only acheive that by having the best StreamTutors. We ask that every StreamTutor provides a <b>transcript</b>, <b>resume</b> and <b>letter of reccomandation</b> to show their past tutoring experiences and qualifications. StreamWork will not keep any of the documents. Happy streaming!</p>
+                <div class="row">
+                    <div class="col-12"></div>
+                    <div class="col-4 mt-3">
+                        <div class="upload-uploadbtn-wrapper">
+                            <button class="uploadbtn" style="font-size:14px">Upload Transcript</button>
+                            <input id="uploadTranscript" type='file' accept="application/pdf" onchange="ReadFile(this, 'transcript')" />
+                            <h6 style="color:white" id="Transcript" class="mt-2"></h6>
+                        </div>
+                    </div>
+                    <div class="col-4 mt-3">
+                        <div class="upload-uploadbtn-wrapper">
+                            <button class="uploadbtn" style="font-size:14px; height:62px">Upload LOR</button>
+                            <input id="uploadLetterofrec" type='file' accept="application/pdf" onchange="ReadFile(this, 'letterofrec')" />
+                            <h6 style="color:white" id="LetterOfRec" class="mt-2"></h6>
+                        </div>
+                    </div>
+                    <div class="col-4 mt-3">
+                        <div class="upload-uploadbtn-wrapper">
+                            <button class="uploadbtn" style="font-size:14px">Upload Resume</button>
+                            <input id="uploadResume" type='file' accept="application/pdf" onchange="ReadFile(this, 'resume')" />
+                            <h6 style="color:white" id="Resume" class="mt-2"></h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" style="background-color:#006565; color:white" class="btn" onclick="SignUpTutor()">Become A StreamTutor!<span id="loader" class="loader mt-1" style="display:block; margin-left:auto; margin-right:auto"></span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>CheckIfStudentOrTutorIsSigningUp()</script>
