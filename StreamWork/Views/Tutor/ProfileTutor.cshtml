@@ -111,7 +111,7 @@
         });
     });</script>
 
-@if (Model.UserProfile.ProfileCaption == null && Model.UserProfile.ProfileParagraph == null)
+@if (Model.UserProfile.ProfileCaption == null && Model.UserProfile.ProfileParagraph == null && Model.UserProfile.AcceptedTutor == false)
 {
     <script>WriteTutorGreeting()</script>
 }
