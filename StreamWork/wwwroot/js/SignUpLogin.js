@@ -1,5 +1,6 @@
 ﻿$(function () {
-    $('#loader').hide()
+    $('#loaderTutor').hide()
+    $('#loaderStudent').hide()
 });
 
 //Handles signing up
@@ -12,7 +13,7 @@ function SignUpStudent() {
     var confirmPassword = $('#passwordConfirmS').val();
     var role = 'student';
 
-    $('#loader').show();
+    $('#loaderStudent').show();
 
     $.ajax({
         url: '/Home/SignUp',
@@ -30,11 +31,8 @@ function SignUpStudent() {
         success: function(data) {
             if (data.message === "Success") {
                 window.location.href = '/Home/Login?dest=-Home-Profile';
-                $('#loader').hide()
-            } else if (data.message === "Wrong Password") {
-                OpenNotificationModal("Passwords do not match")
-                $('#loader').hide()
-            }
+                $('#loaderStudent').hide()
+            } 
         }
     });
 }
@@ -80,7 +78,7 @@ function SignUpTutor() {
     formData.append("confirmPassword", confirmPassword);
     formData.append("role", role);
 
-    $('#loader').show();
+    $('#loaderTutor').show();
 
     $.ajax({
         url: '/Home/SignUp',
@@ -92,7 +90,7 @@ function SignUpTutor() {
         success: function (data) {
             if (data.message === "Success") {
                 window.location.href = '/Home/Login?dest=-Home-Profile';
-                $('#loader').hide()
+                $('#loaderTutor').hide()
             }
         }
     });

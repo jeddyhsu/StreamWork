@@ -359,7 +359,16 @@ lds-dual-ring {
     font-weight: bold;
 }
 
-.loader {
+.loaderTutor {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #008080; /* Blue */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+}
+
+.loaderStudent {
     border: 16px solid #f3f3f3; /* Light grey */
     border-top: 16px solid #008080; /* Blue */
     border-radius: 50%;
