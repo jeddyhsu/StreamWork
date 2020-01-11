@@ -3,58 +3,54 @@
 
 <link rel="stylesheet" href="~/css/Streams.css" />
 
-<div class="container-fluid">
+<div class="container-fluid" style="background-color:black">
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-9 p-0">
             <div>
                 <iframe class="p-0" src="//iframe.dacast.com/b/135034/c/@Model.UrlParams[0]" width="100%" height="700" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
-                <h2 class="text-center mt-1">@Model.UrlParams[2]</h2>
+                <h2 class="text-center mt-1" style="color:white">@Model.UrlParams[2]</h2>
+               
             </div>
         </div>
 
-        <div class="col-sm-12 col-md-12 col-lg-3 p-0">
-            <div>
-                <iframe src=@Model.UrlParams[1] width="100%" height="500" allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>
-            </div>
-            <br />
-            <a target="_blank" rel="noopener noreferrer" href="/Home/Donate?tutor=@Model.Profile.StudentOrTutorProfile.Username">
-                <img src="~/images/donate201911.png" target="_blank" rel="noopener noreferrer" style="display:block; margin-left:auto; margin-right:auto; width:80%; height:auto" />
-            </a>
-        </div>
-    </div>
-</div>
-<br />
-<div class="container-fluid p-0">
-    <div class="card text-center border-0 p-0" style="color:white;">
-        <div class="card-body" style="background-color:#006565; border-top-right-radius:5px; border-top-left-radius:5px; ">
-            <img src=@Model.Profile.StudentOrTutorProfile.ProfilePicture style="width:115px; height: 150px; border-radius:5%" />
-             <br />
-            @if (Model.Profile.IsUserFollowingThisTutor == false && Model.UserProfile != null && Model.UserProfile.ProfileType == "student")
-            {
-                <button id="FollowButton" type="button" style="font-size:12px" class="btn btn-primary mt-3" onclick="FollowStreamTutor('@Model.UrlParams[3]')">Follow StreamTutor</button>
-                <button id="UnfollowButton" type="button" style="font-size:12px; display:none" class="btn btn-primary mt-3" onclick="UnfollowStreamTutor('@Model.UrlParams[3]')">Unfollow StreamTutor</button>
-            }
-            else if(Model.Profile.IsUserFollowingThisTutor == true && Model.UserProfile != null && Model.UserProfile.ProfileType == "student")
-            {
-                <button id="FollowButton" type="button" style="font-size:12px;display:none" class="btn btn-primary mt-3" onclick="FollowStreamTutor('@Model.UrlParams[3]')">Follow StreamTutor</button>
-                <button id="UnfollowButton" type="button" style="font-size:12px" class="btn btn-primary mt-3" onclick="UnfollowStreamTutor('@Model.UrlParams[3]')">Unfollow StreamTutor</button>
-            }
-            <h1 class="card-title mt-4" style=" font-size:24px; color:lightgray"><b>@Model.Profile.StudentOrTutorProfile.Name.Replace('|', ' ')</b></h1>
-            <p class="card-text" style="font-size:16px; color:white">@Model.Profile.StudentOrTutorProfile.ProfileCaption</p>
-            <p class="card-text" style="font-size:14px; color:white">@Model.Profile.StudentOrTutorProfile.ProfileParagraph</p>
-        </div>
-        <div class="row">
-            <div class="col-6 pr-0">
-                <div class="card-body" style="background-color:#006565; border-bottom-left-radius:5px">
-                    <h5 style="color:lightgray">Streams</h5>
-                    <h4>@Model.Profile.NumberOfStreams</h4>
+        <div class="col-sm-12 col-md-12 col-lg-3 p-0 m-0">
+            <iframe class="p-0" src=@Model.UrlParams[1] width="100%" height="400" allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>
+            <div class="card text-center border-0 p-0" style="color:white;">
+                <div class="card-body" style="background-color:#006565; border-top-right-radius:5px; border-top-left-radius:5px; ">
+                    <a target="_blank" rel="noopener noreferrer" href="/Home/Donate?tutor=@Model.Profile.StudentOrTutorProfile.Username">
+                        <img src="~/images/donate201911.png" target="_blank" rel="noopener noreferrer" style="display:block; margin-left:auto; margin-right:auto; width:50%; height:auto" />
+                    </a>
+                    <br />
+                    <img src=@Model.Profile.StudentOrTutorProfile.ProfilePicture style="width:115px; height: 150px; border-radius:5%" />
+                    <br />
+                    @if (Model.Profile.IsUserFollowingThisTutor == false && Model.UserProfile != null && Model.UserProfile.ProfileType == "student")
+                    {
+                        <button id="FollowButton" type="button" style="font-size:12px" class="btn btn-primary mt-3" onclick="FollowStreamTutor('@Model.UrlParams[3]')">Follow StreamTutor</button>
+                        <button id="UnfollowButton" type="button" style="font-size:12px; display:none" class="btn btn-primary mt-3" onclick="UnfollowStreamTutor('@Model.UrlParams[3]')">Unfollow StreamTutor</button>
+                    }
+                    else if (Model.Profile.IsUserFollowingThisTutor == true && Model.UserProfile != null && Model.UserProfile.ProfileType == "student")
+                    {
+                        <button id="FollowButton" type="button" style="font-size:12px;display:none" class="btn btn-primary mt-3" onclick="FollowStreamTutor('@Model.UrlParams[3]')">Follow StreamTutor</button>
+                        <button id="UnfollowButton" type="button" style="font-size:12px" class="btn btn-primary mt-3" onclick="UnfollowStreamTutor('@Model.UrlParams[3]')">Unfollow StreamTutor</button>
+                    }
+                    <h1 class="card-title mt-4" style=" font-size:24px; color:lightgray"><b>@Model.Profile.StudentOrTutorProfile.Name.Replace('|', ' ')</b></h1>
+                    <p class="card-text" style="font-size:16px; color:white">@Model.Profile.StudentOrTutorProfile.ProfileCaption</p>
+                    <p class="card-text" style="font-size:14px; color:white">@Model.Profile.StudentOrTutorProfile.ProfileParagraph</p>
                 </div>
-            </div>
-            
-            <div class="col-6 pl-0">
-                <div class="card-body" style="background-color:#006565; border-bottom-right-radius:5px ">
-                    <h5 style="color:lightgray">Total Views</h5>
-                    <h4>0</h4>
+                <div class="row">
+                    <div class="col-6 pr-0">
+                        <div class="card-body" style="background-color:#006565; border-bottom-left-radius:5px">
+                            <h5 style="color:lightgray">Streams</h5>
+                            <h4>@Model.Profile.NumberOfStreams</h4>
+                        </div>
+                    </div>
+
+                    <div class="col-6 pl-0">
+                        <div class="card-body" style="background-color:#006565; border-bottom-right-radius:5px ">
+                            <h5 style="color:lightgray">Total Views</h5>
+                            <h4>0</h4>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

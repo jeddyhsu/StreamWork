@@ -130,7 +130,7 @@ function SignUpTutor() {
         processData: false,
         success: function (data) {
             if (data.message === "Success") {
-                window.location.href = '/Home/Login';
+                window.location.href = '/Home/Login?dest=-Home-Profile';
                 $('#loader').hide()
             } else {
                 OpenNotificationModal("Username already exists")
@@ -139,7 +139,6 @@ function SignUpTutor() {
         }
     });
 }
-
 
 function ValidatePassword(password){
     var UpperCase = false;
@@ -180,7 +179,6 @@ function ValidateEmail(email) {
 
     return false
 }
-
 
 //Handles logging in
 function Login() {
@@ -260,7 +258,6 @@ function StartBroadcast(type) {
     else
         window.location.href = '/Home/Login?dest=-Home-Profile'
 }
-
 
 function RecoverPassword() {
     $.ajax({
