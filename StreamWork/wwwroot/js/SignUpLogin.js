@@ -265,7 +265,7 @@ function Login() {
                     }
                 }
 
-                if (dest.includes("-Home-Subject") || dest.includes("StreamViews")) {
+                if (dest.includes("Home") || dest.includes("StreamViews")) {
                     window.location.href = dest.split('-').join('/');
                     return;
                 }
