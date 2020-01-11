@@ -23,7 +23,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
     <link rel="stylesheet" href="~/css/Index.css" />
-
 </head>
 
 <body style="font-family:'Roboto'; background-color:white">
@@ -48,7 +47,7 @@
                             </li>
                         </ul>
                         <div class="btn-group mt-2" style="margin-left:65px">
-                            <img src=@Model.UserProfile.ProfilePicture style="width:75px; height:95px; border-top-left-radius:5%; border-bottom-left-radius:5%" />
+                            <input type="image" data-toggle="dropdown" src=@Model.UserProfile.ProfilePicture style="width:75px; height:95px; border-top-left-radius:5%; border-bottom-left-radius:5%;" />
                             <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:gold; border:none; margin-right:35px"></button>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" onclick="EditProfile()">Edit Profile</a>
@@ -163,6 +162,6 @@
         </div>
     </div>
 
-    
+
 </body>
 </html>

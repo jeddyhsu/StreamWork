@@ -79,6 +79,10 @@ function OpenAddScheduleModal() {
     $('#addScheduleModal').modal('show');
 }
 
+function OpenTutorGreetingModal() {
+    $('#tutorGreetingModal').modal('show');
+}
+
 $(function () {
     var currentDate = new Date();
     var dateIn12Days = currentDate.setDate(currentDate.getDate() + 11);
@@ -108,6 +112,20 @@ function OpenNotificationModal(body) {
     var notification = document.getElementById('notificationBody');
     notification.textContent = body;
     $('#notificationModal').modal('show')
+}
+
+function WriteTutorGreeting() {
+    document.getElementById("ProfileCaptionOnPage").style.display = "none";
+    document.getElementById('ProfileParagraphOnPage').style.display = "none";
+    document.getElementById('ProfileCaptionGreeting').style.display = "block";
+    document.getElementById('ProfileParagraphGreeting').style.display = "block";
+}
+
+function WriteTutorGreeting1() {
+    document.getElementById('ProfileCaptionGreeting').style.display = "none";
+    document.getElementById('ProfileParagraphGreeting').style.display = "none";
+    document.getElementById('ProfileCaptionOnPage').style.display = "block";
+    document.getElementById('ProfileParagraphOnPage').style.display = "block";
 }
 
 

@@ -9,3 +9,11 @@
 .zoom:hover{
     transform: scale(1.05);
 }
+
+.borderChange {
+    border: 2px solid black;
+}
+
+.borderChange:hover {
+    border: 2px solid gold;
+}

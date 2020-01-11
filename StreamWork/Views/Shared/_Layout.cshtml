@@ -34,7 +34,7 @@
                     <div class="collapse navbar-collapse" id="navbarText">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:18px; ">
-                                <a class="nav-link underline" href="/Home/BecomeTutor" style="color:white;"><b>Become a StreamTutor</b></a>
+                                <a class="nav-link underline" href="/Home/BecomeTutor" style="color:white;"><b>What's a StreamTutor</b></a>
                             </li>
                             <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:18px;">
                                 <a class="nav-link underline" href="/Home/About" style="color:white;"><b>About</b></a>
@@ -57,7 +57,7 @@
                         else if (Model.UserProfile != null)
                         {
                             <div class="btn-group mt-2" style="margin-left:65px">
-                                <img src=@Model.UserProfile.ProfilePicture style="width:75px; height:95px; border-top-left-radius:5%; border-bottom-left-radius:5%" />
+                                <input type="image" data-toggle="dropdown" src=@Model.UserProfile.ProfilePicture style="width:75px; height:95px; border-top-left-radius:5%; border-bottom-left-radius:5%" />
                                 <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:gold; border:none; margin-right:35px"></button>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="#" id="EditProfile" onclick="Dashboard('@Model.UserProfile.ProfileType')">Dashboard</a>

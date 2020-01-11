@@ -11,12 +11,12 @@
     <div class="card text-center mt-5 border-0" style="color:white;">
         <div class="card-body" style="background-color:#006565; border-top-right-radius:5px; border-top-left-radius:5px; ">
             <div class="col-12">
-                <img src=@Model.UserProfile.ProfilePicture style="width:115px; height: 150px; border-radius:5%" />
-                <h1 class="card-title mt-4" style=" font-size:24px; color:lightgray"><b>@Model.UserProfile.Name.Replace('|', ' ')</b></h1>
-                <p class="card-text" style="font-size:16px; color:white">@Model.UserProfile.ProfileCaption</p>
-                <p class="card-text" style="font-size:14px; color:white">@Model.UserProfile.ProfileParagraph</p>
-                @* <h4 style="color:lightgray">Next Stream</h4>
-                    <h6>Friday 4pm</h6>*@
+                <input type="image" class="zoom" onclick="EditProfile()" src=@Model.UserProfile.ProfilePicture style="width:115px; height: 150px; border-radius:5%" />
+                <h1 class="card-title mt-4" style="font-size:24px; color:lightgray"><b>@Model.UserProfile.Name.Replace('|', ' ')</b></h1>
+                <p class="card-text" id="ProfileCaptionGreeting" style="font-size:16px; color:white">Welcome to StreamWork!</p>
+                <p class="card-text" id="ProfileParagraphGreeting" style="font-size:14px; color:white">StreamWork is very excited to have you onboard our amazing community of StreamTutors. If you haven't been verified yet feel free to edit your profile, explore other StreamTutors, and watch some livestreams.  We promise that your verification will be done soon and we can't wait for you to start streaming your tutoring sessions to our student viewers. Happy streaming!</p>
+                <p class="card-text" id="ProfileCaptionOnPage" style="font-size:16px; color:white">@Model.UserProfile.ProfileCaption</p>
+                <p class="card-text" id="ProfileParagraphOnPage" style="font-size:14px; color:white">@Model.UserProfile.ProfileParagraph</p>
             </div>
         </div>
     </div>
@@ -45,61 +45,61 @@
 <br />
 <br />
 @*
-<div class="container-fluid">
-    <button class="btn-dark" style="display:block; margin-left:auto; margin-right:auto; border-radius:10px;" onclick="OpenAddScheduleModal()">Schedule Stream</button>
-    <br />
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="row">
-                    @foreach (var day in Model.Schedule)
-                    {
-                        <div class="col-lg-2 col-md-6 text-center">
-                            <h1 class="mt-2" style="font-size:20px">@day.DayOfWeek.DayOfWeek</h1>
-                            <h6>@day.DayOfWeek.ToShortDateString()</h6>
-                            <div class="list-group ml-3">
-                               @foreach(var task in day.StreamTaskList)
-                               {
-                                   <button class="list-group-item ml-3 mr-3" onclick="OpenEditScheduleModal('@task.Name', '@task.TimeOfDay')">@task.Name <br /> @task.TimeOfDay</button>
-                               }
+    <div class="container-fluid">
+        <button class="btn-dark" style="display:block; margin-left:auto; margin-right:auto; border-radius:10px;" onclick="OpenAddScheduleModal()">Schedule Stream</button>
+        <br />
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="row">
+                        @foreach (var day in Model.Schedule)
+                        {
+                            <div class="col-lg-2 col-md-6 text-center">
+                                <h1 class="mt-2" style="font-size:20px">@day.DayOfWeek.DayOfWeek</h1>
+                                <h6>@day.DayOfWeek.ToShortDateString()</h6>
+                                <div class="list-group ml-3">
+                                   @foreach(var task in day.StreamTaskList)
+                                   {
+                                       <button class="list-group-item ml-3 mr-3" onclick="OpenEditScheduleModal('@task.Name', '@task.TimeOfDay')">@task.Name <br /> @task.TimeOfDay</button>
+                                   }
+                                </div>
                             </div>
-                        </div>
-                    }
+                        }
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 *@
 
-    <div class="container-fluid" style="width:100%; padding-left:100px; padding-right:100px">
-        <h2 class="text-center"><b>My Streams</b></h2>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="row">
-                    @foreach (var videoInfo in Model.UserArchivedVideos)
-                    {
-                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-6 zoom streamsubject @videoInfo.StreamSubject">
-                            <div class="card mt-3" style="border-radius:5%; border:none; max-width:375px">
-                                <input type="image" width="100%" height="210" style="border-top-left-radius:5%; border-top-right-radius:5%; min-width:250px" src=@videoInfo.StreamThumbnail onclick="window.location.href='../StreamViews/StreamPlaybackPage?streamId=@videoInfo.StreamID'">
-                                <div class="card-body p-0" style="background-color:#008080 ;border-bottom-left-radius:5%; height:75px; border-bottom-right-radius:5%; border:none; min-width:250px" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@videoInfo.Username');">
-                                    <div class="row">
-                                        <div class="col-2 pr-2">
-                                            <input type="image" style="border-radius:5%; width:50px; margin-left:10px; margin-top:10px; height:60px;" src=@videoInfo.ProfilePicture />
-                                        </div>
-                                        <div class="col-10" style="color:white;">
-                                            <h5 class="text-truncate" style="font-family: 'Roboto'; font-size:20px; margin-left:20px; margin-top:10px;">@videoInfo.StreamTitle</h5>
-                                            <h6 class="text-truncate" style="font-family: 'Roboto'; font-size:14px;margin-left:20px;">@videoInfo.Username</h6>
-                                        </div>
+<div class="container-fluid" style="width:100%; padding-left:100px; padding-right:100px">
+    <h2 class="text-center"><b>My Streams</b></h2>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="row">
+                @foreach (var videoInfo in Model.UserArchivedVideos)
+                {
+                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-6 zoom streamsubject @videoInfo.StreamSubject">
+                        <div class="card mt-3" style="border-radius:5%; border:none; max-width:375px">
+                            <input type="image" width="100%" height="210" style="border-top-left-radius:5%; border-top-right-radius:5%; min-width:250px" src=@videoInfo.StreamThumbnail onclick="window.location.href='../StreamViews/StreamPlaybackPage?streamId=@videoInfo.StreamID'">
+                            <div class="card-body p-0" style="background-color:#008080 ;border-bottom-left-radius:5%; height:75px; border-bottom-right-radius:5%; border:none; min-width:250px" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@videoInfo.Username');">
+                                <div class="row">
+                                    <div class="col-2 pr-2">
+                                        <input type="image" style="border-radius:5%; width:50px; margin-left:10px; margin-top:10px; height:60px;" src=@videoInfo.ProfilePicture />
+                                    </div>
+                                    <div class="col-10" style="color:white;">
+                                        <h5 class="text-truncate" style="font-family: 'Roboto'; font-size:20px; margin-left:20px; margin-top:10px;">@videoInfo.StreamTitle</h5>
+                                        <h6 class="text-truncate" style="font-family: 'Roboto'; font-size:14px;margin-left:20px;">@videoInfo.Username</h6>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    }
-                </div>
+                    </div>
+                }
             </div>
         </div>
     </div>
+</div>
 
 
 <script>$(document).ready(function () {
@@ -110,3 +110,12 @@
 
         });
     });</script>
+
+@if (Model.UserProfile.ProfileCaption == null && Model.UserProfile.ProfileParagraph == null)
+{
+    <script>WriteTutorGreeting()</script>
+}
+else
+{
+    <script>WriteTutorGreeting1()</script>
+}

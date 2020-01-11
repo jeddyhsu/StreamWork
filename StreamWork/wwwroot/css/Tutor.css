@@ -17,3 +17,11 @@
     background-color:white;
     border-color:black;
 }
+
+.borderChange {
+    border: 2px solid black;
+}
+
+.borderChange:hover {
+    border: 2px solid gold;
+}
