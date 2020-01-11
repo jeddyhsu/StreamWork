@@ -213,7 +213,7 @@ function Login() {
                     }
                 }
 
-                if (dest.includes("-Home-Subject")) {
+                if (dest.includes("-Home-Subject") || dest.includes("StreamViews")) {
                     window.location.href = dest.split('-').join('/');
                     return;
                 }

@@ -45,7 +45,7 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> StreamPlaybackPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamId)
         {
             if (HttpContext.User.Identity.IsAuthenticated == false)
-                return Redirect(_homehelperFunctions._host + "/Home/Login?dest=-StreamViews-StreamPlaybackPage");
+                return Redirect(_homehelperFunctions._host + "/Home/Login?dest=-StreamViews-StreamPlaybackPage?streamId=" + streamId);
 
             var archivedStreams = await _homehelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.ArchivedVideosByStreamId, streamId);
             var channel = await _homehelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, archivedStreams[0].Username);

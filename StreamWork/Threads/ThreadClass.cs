@@ -104,7 +104,7 @@ namespace StreamWork.Threads
 
                 while (tryAPI)
                 {
-                    await Task.Delay(15000, cancellationToken);
+                    await Task.Delay(3000, cancellationToken);
                     try
                     {
                         var live = DataStore.CallAPI<LiveRecordingAPI>("https://liverecording.dacast.com/l/status/live?contentId=135034_c_"
