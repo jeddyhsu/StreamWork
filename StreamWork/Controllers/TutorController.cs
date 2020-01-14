@@ -6,13 +6,10 @@ using StreamWork.Config;
 using System.Collections.Generic;
 using Microsoft.Extensions.Options;
 using StreamWork.ViewModels;
-using StreamWork.DataModels;
 using StreamWork.Threads;
 using StreamWork.DaCastAPI;
 using StreamWork.HelperClasses;
 using System;
-using System.Collections;
-using StreamWork.TutorObjects;
 
 namespace StreamWork.Controllers
 {
