@@ -46,6 +46,7 @@ function ValidateKey() {
         success: function (data) {
             if (data.message === "Success") {
                 $('#channelKeyModal').modal('hide')
+                $('#registerStreamModal').modal('show')
                 OpenNotificationModal("Key validated, welcome StreamTutor")
             }
             else {
