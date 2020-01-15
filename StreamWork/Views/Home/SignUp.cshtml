@@ -114,27 +114,39 @@
             <div class="modal-body">
                 <p style="color:white">StreamWork strives to give students the best live tutoring there is and we can only acheive that by having the best StreamTutors. We ask that every StreamTutor provides a <b>transcript</b>, <b>resume</b> and <b>letter of reccomandation</b> to show their past tutoring experiences and qualifications. StreamWork will not keep any of these documents. Happy streaming!</p>
                 <div class="row">
-                    <div class="col-12"></div>
                     <div class="col-4 mt-3">
                         <div class="upload-uploadbtn-wrapper">
                             <button class="uploadbtn" style="font-size:14px">Upload Transcript</button>
                             <input id="uploadTranscript" type='file' accept="application/pdf" onchange="ReadFile(this, 'transcript')" />
-                            <h6 style="color:white" id="Transcript" class="mt-2"></h6>
                         </div>
                     </div>
                     <div class="col-4 mt-3">
                         <div class="upload-uploadbtn-wrapper">
-                            <button class="uploadbtn" style="font-size:14px; height:62px">Upload LOR</button>
+                            <button class="uploadbtn" style="font-size:14px; width:135px; height:65px">Upload LOR</button>
                             <input id="uploadLetterofrec" type='file' accept="application/pdf" onchange="ReadFile(this, 'letterofrec')" />
-                            <h6 style="color:white" id="LetterOfRec" class="mt-2"></h6>
                         </div>
                     </div>
                     <div class="col-4 mt-3">
                         <div class="upload-uploadbtn-wrapper">
                             <button class="uploadbtn" style="font-size:14px">Upload Resume</button>
                             <input id="uploadResume" type='file' accept="application/pdf" onchange="ReadFile(this, 'resume')" />
-                            <h6 style="color:white" id="Resume" class="mt-2"></h6>
                         </div>
+                    </div>
+
+                    <br />
+                    <div class="col-12 mt-3">
+                       
+                    </div>
+
+                    <div class="col-12 mt-3">
+                        <h5 class="text-center"; style="color:white"><b>Uploaded Documents:</b></h5>
+                        <h6 class="text-center mt-2" style="color:white" id="Transcript"></h6>
+                    </div>
+                    <div class="col-12">
+                        <h6 class="text-center mt-2" style="color:white" id="LetterOfRec"></h6>
+                    </div>
+                    <div class="col-12">
+                        <h6 class="text-center mt-2" style="color:white" id="Resume"></h6>
                     </div>
                 </div>
             </div>
