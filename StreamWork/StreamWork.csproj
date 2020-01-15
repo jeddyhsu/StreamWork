@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.WebHooks.Receivers" Version="1.0.0-preview2-final" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
     <PackageReference Include="bootstrap" Version="4.3.1" />
     <PackageReference Include="Microsoft.Azure.Storage.Blob" Version="11.1.0" />
