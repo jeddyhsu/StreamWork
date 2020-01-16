@@ -182,11 +182,12 @@ namespace StreamWork.HelperClasses
             await client.SendMailAsync(message);
         }
 
-        public string CreateUri(string username)
+        public string CreateUri(string username, string key)
         {
             var uriBuilder = new UriBuilder("https://streamwork.live/Home/ChangePassword");
             var query = HttpUtility.ParseQueryString(uriBuilder.Query);
             query["username"] = username;
+            query["key"] = key;
             uriBuilder.Query = query.ToString();
             return uriBuilder.ToString();
         }

@@ -14,6 +14,7 @@ namespace StreamWork.DataModels
         public string EmailAddress { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+        public string ChangePasswordKey { get; set; }
         public string ProfileType { get; set; }
         public string ProfileCaption { get; set; }
         public string ProfilePicture { get; set; }

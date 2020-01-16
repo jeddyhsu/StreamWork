@@ -7,6 +7,7 @@ namespace StreamWork.HelperClasses
     {
         Success,
         Failed,
+        QueryFailed,
         Tutor,
         Student,
     }

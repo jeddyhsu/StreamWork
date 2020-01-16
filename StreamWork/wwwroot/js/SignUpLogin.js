@@ -360,10 +360,10 @@ function ReadFile(input, type) {
 
 function ChangePassword() {
     //gets url path with parameters
-    var path = (location.pathname + location.search).substr(1);
-    var newPassword = $('#newPassword').val()
-    var currentPassword = $('#confirmNewPassword').val()
+    var newPassword = $('#newPassword').val();
+    var currentPassword = $('#confirmNewPassword').val();
 
+    const urlParams = new URLSearchParams(window.location.search);
 
     if (newPassword != currentPassword) {
         OpenNotificationModal("Passwords do not match");
@@ -381,7 +381,8 @@ function ChangePassword() {
         data: {
             'newPassword': $('#newPassword').val(),
             'confirmNewPassword': $('#confirmNewPassword').val(),
-            'path': path
+            'username': urlParams.get('username'),
+            'key': urlParams.get('key')
         },
         success: function (data) {
             if (data.message === 'Success') {
@@ -390,6 +391,9 @@ function ChangePassword() {
             }
             else if (data.message === 'Failed') {
                 OpenNotificationModal('Passwords do not match. Please try again.')
+            }
+            else if (data.message === 'QueryFailed') {
+                OpenNotificationModal('Key failure. Make sure to use the link from te most recent change password email.')
             }
             else {
                 OpenNotificationModal('Error')

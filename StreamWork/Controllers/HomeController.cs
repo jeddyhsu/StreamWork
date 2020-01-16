@@ -324,7 +324,12 @@ namespace StreamWork.Controllers
             if (userProfile == null)
                 return Json(new { Message = JsonResponse.Failed.ToString() });
 
-            await _homeHelperFunctions.SendEmailToAnyEmailAsync(_homeHelperFunctions._streamworkEmailID, userProfile.EmailAddress, "Password Recovery", _homeHelperFunctions.CreateUri(userProfile.Username), null);
+            Random random = new Random();
+            string key = Convert.ToString(random.Next(int.MaxValue), 16);
+            userProfile.ChangePasswordKey = key;
+            await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
+
+            await _homeHelperFunctions.SendEmailToAnyEmailAsync(_homeHelperFunctions._streamworkEmailID, userProfile.EmailAddress, "Password Recovery", _homeHelperFunctions.CreateUri(userProfile.Username, key), null);
             return Json(new { Message = JsonResponse.Success.ToString() });
         }
 
@@ -335,15 +340,15 @@ namespace StreamWork.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ChangePassword([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string newPassword, string confirmNewPassword, string path)
-        {
-            if (newPassword == confirmNewPassword)
-            {
-                var pathFormat = path.Split(new char[] { '=' });
-                var username = pathFormat[1];
+        public async Task<IActionResult> ChangePassword([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string newPassword, string confirmNewPassword, string username, string key) {
+            if (newPassword == confirmNewPassword) {
                 var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
 
+                if (!key.Equals(userProfile.ChangePasswordKey))
+                    return Json(new { Message = JsonResponse.QueryFailed.ToString() });
+
                 userProfile.Password = _homeHelperFunctions.EncryptPassword(newPassword);
+                userProfile.ChangePasswordKey = null;
                 await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
 
                 return Json(new { Message = JsonResponse.Success.ToString() });
