@@ -3,22 +3,6 @@
 @{Layout = "_LayoutNoNavbar";}
 @{ViewData["title"] = "Donate";}
 
-<script>
-    $.ajax({
-        url: '/Home/CreateDonationAttempt',
-        type: 'POST',
-        dataType: 'json',
-
-        data: {
-            'studentName': "@Model.StudentOrTutorProfile.Username",
-            'tutorName': "@Model.UserProfile.Username",
-        },
-        success: function (data) {
-            test = 0
-        }
-    });
-</script>
-
 <br />
 <br />
 <br />
@@ -33,6 +17,7 @@
     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
         <input type="hidden" name="cmd" value="_s-xclick" />
         <input type="hidden" name="hosted_button_id" value="QQPAME3R7N5ZA" />
+        <input type="hidden" name="custom" value="@Model.StudentOrTutorProfile.Username+@Model.UserProfile.Username" />
         <input type="image" src="~/images/donate201911.png" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" style="display:block; margin-left:auto; margin-right:auto; width:75%; height:75%" />
         <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
     </form>

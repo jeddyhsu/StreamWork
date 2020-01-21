@@ -11,291 +11,147 @@ using Microsoft.Extensions.Options;
 using StreamWork.Config;
 using StreamWork.Models;
 using StreamWork.HelperClasses;
+using StreamWork.DataModels;
+using System.Collections.Generic;
 
-namespace StreamWork.Controllers
-{
-    [Produces("application/json")]
-    public class IPNController : Controller
-    {
-        private class IPNContext
-        {
-            public HttpRequest IPNRequest { get; set; }
-
-            public string RequestBody { get; set; }
-
-            public string Verification { get; set; } = string.Empty;
-        }
-
-        private IOptionsSnapshot<StorageConfig> _storageConfig;
-        private readonly HomeHelperFunctions _helperFunctions = new HomeHelperFunctions();
+namespace StreamWork.Controllers {
+    public class IPNController : Controller {
+        private IOptionsSnapshot<StorageConfig> storageConfig;
+        private readonly HomeHelperFunctions homeHelperFunctions = new HomeHelperFunctions();
 
         [HttpPost]
-        public IActionResult Receive([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
-        {
-            this._storageConfig = storageConfig;
+        public IActionResult WebhookB1A0139C65AC29499733B (PayPalNotification notification, [FromServices] IOptionsSnapshot<StorageConfig> _storageConfig) {
+            storageConfig = _storageConfig;
+            return VerifyPayPalNotification(notification).Result;
+        }
 
-            IPNContext ipnContext = new IPNContext
-            {
-                IPNRequest = Request
-            };
+        private async Task<IActionResult> VerifyPayPalNotification (PayPalNotification notification) {
+            // https://ipnpb.paypal.com/cgi-bin/webscr
+            // https://ipnpb.sandbox.paypal.com/cgi-bin/webscr
+            var verificationRequest = WebRequest.Create("https://ipnpb.paypal.com/cgi-bin/webscr");
 
-            using (StreamReader reader = new StreamReader(ipnContext.IPNRequest.Body, Encoding.ASCII))
-            {
-                ipnContext.RequestBody = reader.ReadToEnd();
+            verificationRequest.Method = "POST";
+            verificationRequest.ContentType = "application/x-www-form-urlencoded";
+
+            string strRequest = "cmd=_notify-validate&";
+            verificationRequest.ContentLength = strRequest.Length;
+
+            using (StreamWriter writer = new StreamWriter(verificationRequest.GetRequestStream(), Encoding.ASCII)) {
+                writer.Write(strRequest);
+                writer.Close();
             }
 
-            //Store the IPN received from PayPal
-            /*await LogRequest(new IPNContext {
-                IPNRequest = ipnContext.IPNRequest,
-                RequestBody = string.Copy(ipnContext.RequestBody)
-            });*/
+            string verification = "";
+            using (StreamReader reader = new StreamReader(verificationRequest.GetResponse().GetResponseStream())) {
+                verification = reader.ReadToEnd();
+                reader.Close();
+            }
 
-            //Fire and forget verification task
-            _ = VerifyTask(ipnContext);
+            await ProcessPayPalNotification(notification, verification);
 
-            //Reply back a 200 code
             return Ok();
         }
 
-        private async Task VerifyTask(IPNContext ipnContext)
-        {
-            string error = string.Empty;
-            /*try {
-                var verificationRequest = WebRequest.Create("https://www.sandbox.paypal.com/cgi-bin/webscr");
+        private async Task<IActionResult> ProcessPayPalNotification (PayPalNotification notification, string verification) {
 
-                //Set values for the verification request
-                verificationRequest.Method = "POST";
-                verificationRequest.ContentType = "application/x-www-form-urlencoded";
+            try {
+                string error = "";
+                bool subscription = false;
+                UserLogin student = null;
+                UserLogin tutor = null;
 
-                //Add cmd=_notify-validate to the payload
-                string strRequest = "cmd=_notify-validate&" + ipnContext.RequestBody;
-                verificationRequest.ContentLength = strRequest.Length;
+                verification = "VALID";
 
-                //Attach payload to the verification request
-                using (StreamWriter writer = new StreamWriter(verificationRequest.GetRequestStream(), Encoding.ASCII)) {
-                    writer.Write(strRequest);
-                    writer.Close();
-                }
+                notification.Payment_Gross = notification.Mc_Gross;
+                if (notification.Subcr_Id != null)
+                    notification.Txn_Id = notification.Subcr_Id;
 
-                //Send the request to PayPal and get the response
-                using (StreamReader reader = new StreamReader(verificationRequest.GetResponse().GetResponseStream())) {
-                    ipnContext.Verification = reader.ReadToEnd();
-                    reader.Close();
-                }
-            }
-            catch (Exception exception) {
-                error = exception.Message;
-            }*/
+                if (verification.Equals("INVALID"))
+                    error += " INVALID";
 
-            await ProcessVerificationResponse(ipnContext, error);
-        }
+                //if (await homeHelperFunctions.GetPayment(storageConfig, "PaymentsById", notification.Txn_Id) != null)
+                //    error += " DUPLICATE";
 
+                if (notification.Txn_Type == null || (!notification.Txn_Type.Equals("subscr_signup") && !notification.Txn_Type.Equals("web_accept")))
+                    error += " INVALID_TXN_TYPE=" + notification.Txn_Type;
 
-        private async Task LogRequest(IPNContext ipnContext)
-        {
-            // Persist the request values into a database or temporary data store
+                if (notification.Item_Name.Equals("SUBSCRIPTION")) {
+                    subscription = true;
 
-            await _helperFunctions.LogIPNRequest(_storageConfig, new IPNRequestBody
-            {
-                Id = Guid.NewGuid().ToString(),
-                RequestBody = ipnContext.RequestBody
-            });
-        }
+                    student = await homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, notification.Custom);
+                    if (student == null)
+                        error += " INVALID_STUDENT";
+                } else if (notification.Item_Name.Equals("DONATION")) {
+                    string[] users = notification.Custom.Split('+');
+                    if (users.Length < 2)
+                        error += " NO_TUTOR";
+                    else {
+                        student = await homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, users[0]);
+                        if (student == null)
+                            error += " INVALID_STUDENT";
 
-        private async Task ProcessVerificationResponse(IPNContext ipnContext, string error)
-        {
-            try
-            {
-                // For test parsing
-                //ipnContext.RequestBody = "mc_gross=19.95&protection_eligibility=Eligible&address_status=confirmed&payer_id=LPLWNMTBWMFAY&tax=0.00&address_street=1+Main+St&payment_date=20%3A12%3A59+Jan+13%2C+2009+PST&payment_status=Completed&charset=windows-1252&address_zip=95131&first_name=Test&mc_fee=0.88&address_country_code=US&address_name=Test+User&notify_version=2.6&custom=&payer_status=verified&address_country=United+States&address_city=San+Jose&quantity=1&verify_sign=AtkOfCXbDm2hu0ZELryHFjY-Vb7PAUvS6nMXgysbElEn9v-1XcmSoGtf&payer_email=gpmac_1231902590_per%40paypal.com&txn_id=61E67681CH3238416&payment_type=instant&last_name=User&address_state=CA&receiver_email=gpmac_1231902686_biz%40paypal.com&payment_fee=0.88&receiver_id=S8XGHLYDW9T3S&txn_type=express_checkout&item_name=&mc_currency=USD&item_number=&residence_country=US&test_ipn=1&handling_amount=0.00&transaction_subject=&payment_gross=19.95&shipping=0.00";
-                //ipnContext.RequestBody = "mc_gross=15.00&protection_eligibility=Eligible&address_status=confirmed&payer_id=LPLWNMTBWMFAY&tax=0.00&address_street=1+Main+St&payment_date=20%3A12%3A59+Jan+13%2C+2009+PST&payment_status=Completed&charset=windows-1252&address_zip=95131&first_name=Tom&mc_fee=0.88&address_country_code=US&address_name=Tom+Hansen&notify_version=2.6&custom=tom~rarun321&payer_status=verified&address_country=United+States&address_city=San+Jose&quantity=1&verify_sign=AtkOfCXbDm2hu0ZELryHFjY-Vb7PAUvS6nMXgysbElEn9v-1XcmSoGtf&payer_email=THansenAZ%40icloud.com&txn_id=61E67681CH3238423&payment_type=instant&last_name=Hansen&address_state=CA&receiver_email=streamworktutor%40gmail.com&payment_fee=0.88&receiver_id=S8XGHLYDW9T3S&txn_type=express_checkout&item_name=DONATION&mc_currency=USD&item_number=&residence_country=US&test_ipn=1&handling_amount=0.00&transaction_subject=&payment_gross=15.00&shipping=0.00";
-                NameValueCollection request = HttpUtility.ParseQueryString(ipnContext.RequestBody);
-
-                if (ipnContext.RequestBody.Equals(""))
-                {
-                    await _helperFunctions.SavePayment(_storageConfig, new Payment
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        TransactionId = "UNKNOWN",
-                        PayerEmail = "UNKNOWN",
-                        Student = "UNKNOWN",
-                        Tutor = "UNKNOWN",
-                        PaymentType = "UNKNOWN",
-                        Val = (decimal)0f,
-                        TimeSent = DateTime.UtcNow,
-                        Verified = ipnContext.Verification.Equals("VERIFIED") ? "TRUE" : "FALSE",
-                        Error = "NO_DATA " + error
-                    });
-                }
-                else if (ipnContext.Verification.Equals("VERIFIED") || "1".Equals(request["test_ipn"]))
-                {
-                    // check that Payment_status=Completed
-                    // check that Txn_id has not been previously processed
-                    // check that Receiver_email is your Primary PayPal email
-                    // check that Payment_amount/Payment_currency are correct
-                    // process payment
-
-                    if (!request["receiver_email"].ToLower().Equals("streamworktutor@gmail.com"))
-                    {
-                        error = "INCORRECT_RECEIVER " + error;
+                        tutor = await homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, users[1]);
+                        if (tutor == null)
+                            error += " INVALID_TUTOR";
                     }
+                } else
+                    error += " INVALID_ITEM_NAME=" + notification.Item_Name;
 
-                    if (!"1".Equals(request["test_ipn"]))
-                    {
-                        error = "TEST " + error;
+                if (notification.Payment_Status != null && !notification.Payment_Status.Equals("Completed"))
+                    error += " INVALID_PAYMENT_STATUS=" + notification.Payment_Status;
+
+                if (!notification.Receiver_Email.ToLower().Equals("streamworktutor@gmail.com"))
+                    error += " WRONG_RECEIVER=" + notification.Receiver_Email;
+
+                if (!notification.Residence_Country.Equals("US"))
+                    error += " WRONG_RECEIVER_COUNTRY=" + notification.Residence_Country;
+
+                if (notification.Test_Ipn)
+                    error += " TEST";
+
+                if (error.Equals("")) {
+                    if (subscription) {
+                        student.Expiration = DateTime.UtcNow.AddMonths(1);
+
+                        student.TrialAccepted = true;
+                        await homeHelperFunctions.UpdateUser(storageConfig, student);
+                    } else {
+                        tutor.Balance += notification.Payment_Gross * 0.9m;
+                        await homeHelperFunctions.UpdateUser(storageConfig, tutor);
                     }
+                } else
+                    await homeHelperFunctions.SendEmailToAnyEmailAsync("streamworktutor@gmail.com", "thansenaz@icloud.com", "StreamWork IPN Error", error, null);
 
-                    if (await _helperFunctions.GetPayment(_storageConfig, "PaymentsById", request["txn_id"]) != null)
-                    {
-                        error = "DUPLICATE " + error;
-                    }
-
-                    var customParams = request["custom"].Split("~");
-                    var username = customParams[0];
-                    var tutorName = customParams.Length >= 2 ? customParams[1] : null;
-                    var user = await _helperFunctions.GetUserProfile(_storageConfig, QueryHeaders.CurrentUser, username);
-                    if (user == null)
-                    {
-                        error = "UNMATCHED_USER " + error;
-                    }
-
-                    if (request["item_name"].Equals("SUBSCRIPTION"))
-                    { // User is making subscription payment
-                        if (!request["mc_currency"].Equals("USD"))
-                        {
-                            error = "INCORRECT_CURRENCY " + error;
-
-                        }
-                        else if (!user.TrialAccepted && !request["mc_gross"].Equals("0.01"))
-                        {
-                            error = "INCORRECT_VALUE" + error;
-
-                        }
-                        else
-                        {
-                            if (error.Equals(""))
-                            {
-                                if (DateTime.Compare(user.Expiration, DateTime.UtcNow) < 0)
-                                { // Subscription has expired
-                                    user.Expiration = DateTime.UtcNow.AddMonths(1);
-
-                                }
-                                else
-                                { // Subscription is still in effect; add to current subscription
-                                    user.Expiration = user.Expiration.AddMonths(1);
-                                }
-
-                                user.TrialAccepted = true;
-                                await _helperFunctions.UpdateUser(_storageConfig, user);
-                            }
-                        }
-
-                    }
-                    else if (request["item_name"].Equals("DONATION"))
-                    { // User is donating to a tutor
-                        if (tutorName == null)
-                        {
-                            error = "NO_TUTOR " + error;
-
-                        }
-                        else
-                        {
-                            var tutors = await _helperFunctions.GetUserLogins(_storageConfig, QueryHeaders.CurrentUser, tutorName);
-                            if (tutors.Count == 0)
-                            {
-                                error = "UNMATCHED_TUTOR " + error;
-                            }
-
-                            float donationAmt = float.Parse(request["payment_gross"]) * 0.9f - float.Parse(request["payment_fee"]) - float.Parse(request["tax"]);
-
-                            if (error.Equals(""))
-                            {
-                                var tutor = tutors[0];
-                                tutor.Balance += (decimal)donationAmt;
-                                await _helperFunctions.UpdateUser(_storageConfig, tutor);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        error = "UNKNOWN_ITEM " + error;
-                    }
-
-                    await _helperFunctions.SavePayment(_storageConfig, new Payment
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        TransactionId = request["txn_id"],
-                        PayerEmail = request["payer_email"],
-                        Student = username,
-                        Tutor = tutorName ?? "",
-                        PaymentType = request["item_name"],
-                        Val = (decimal)float.Parse(request["payment_gross"]),
-                        TimeSent = DateTime.UtcNow,
-                        Verified = "TRUE",
-                        Error = error
-                    });
-                }
-                else if (ipnContext.Verification.Equals("INVALID"))
-                {
-                    //Log for manual investigation
-
-                    var customParams = request["custom"].Split("~");
-                    var username = customParams[0];
-                    var tutorName = customParams.Length >= 2 ? customParams[1] : null;
-
-                    await _helperFunctions.SavePayment(_storageConfig, new Payment
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        TransactionId = request["txn_id"],
-                        PayerEmail = request["payer_email"],
-                        Student = username,
-                        Tutor = tutorName ?? "",
-                        PaymentType = request["item_name"],
-                        Val = (decimal)float.Parse(request["payment_gross"]),
-                        TimeSent = DateTime.UtcNow,
-                        Verified = "FALSE",
-                        Error = "VERIFICATION_INVALID " + error
-                    });
-                }
-                else
-                {
-                    //Log error
-
-                    var customParams = request["custom"].Split("~");
-                    var username = customParams[0];
-                    var tutorName = customParams.Length >= 2 ? customParams[1] : null;
-
-                    await _helperFunctions.SavePayment(_storageConfig, new Payment
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        TransactionId = request["txn_id"],
-                        PayerEmail = request["payer_email"],
-                        Student = username,
-                        Tutor = tutorName ?? "",
-                        PaymentType = request["item_name"],
-                        Val = (decimal)float.Parse(request["payment_gross"]),
-                        TimeSent = DateTime.UtcNow,
-                        Verified = "FALSE",
-                        Error = "VERIFICATION_UNKNOWN " + error
-                    });
-                }
-            }
-            catch (Exception e)
-            {
-                await _helperFunctions.SavePayment(_storageConfig, new Payment
-                {
+                await homeHelperFunctions.SavePayment(storageConfig, new Payment {
                     Id = Guid.NewGuid().ToString(),
-                    TransactionId = "",
-                    PayerEmail = "",
-                    Student = "",
-                    Tutor = "",
-                    PaymentType = "",
-                    Val = decimal.Zero,
+                    TransactionId = notification.Txn_Id ?? Guid.NewGuid().ToString(),
+                    PayerEmail = notification.Payer_Email,
+                    Student = student.Username,
+                    Tutor = tutor?.Username,
+                    PaymentType = notification.Item_Name,
+                    Val = notification.Payment_Gross,
                     TimeSent = DateTime.UtcNow,
-                    Verified = "",
+                    Verified = error.Equals(""),
+                    Error = error
+                });
+            }
+            catch (Exception e) {
+                await homeHelperFunctions.SendEmailToAnyEmailAsync("streamworktutor@gmail.com", "thansenaz@icloud.com", "StreamWork IPN Crash", "error: " + e.ToString(), null);
+                await homeHelperFunctions.SavePayment(storageConfig, new Payment {
+                    Id = Guid.NewGuid().ToString(),
+                    TransactionId = notification == null ? "NONE" : (notification.Txn_Id ?? "NONE"),
+                    PayerEmail = notification == null ? "NONE" : (notification.Payer_Email ?? "NONE"),
+                    Student = notification == null ? "NONE" : (notification.Custom ?? "NONE"),
+                    Tutor = notification == null ? "NONE" : (notification.Custom ?? "NONE"),
+                    PaymentType = notification == null ? "NONE" : (notification.Item_Name ?? "NONE"),
+                    Val = notification == null ? 0 : notification.Payment_Gross,
+                    TimeSent = DateTime.UtcNow,
+                    Verified = false,
                     Error = e.ToString()
                 });
             }
+
+            return Ok();
         }
     }
 }

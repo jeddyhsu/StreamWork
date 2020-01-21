@@ -366,9 +366,18 @@ namespace StreamWork.Controllers
         }
 
         [HttpGet]
-        public IActionResult Subscribe()
+        public async Task<IActionResult> Subscribe([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
-            return View();
+            if (HttpContext.User.Identity.IsAuthenticated == false)
+                return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-Home-Subscribe");
+
+            var user = HttpContext.Session.GetString(QueryHeaders.UserProfile.ToString());
+
+            DefaultViewModel model = new DefaultViewModel {
+                UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user)
+            };
+
+            return View(model);
         }
 
         [HttpGet]
