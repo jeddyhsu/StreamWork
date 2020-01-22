@@ -72,56 +72,6 @@
         });
     }
 
-    function apply(donationAttempt, tutor) {
-        $.ajax({
-            url: '/Home/ApplyDonationAttempt',
-            type: 'post',
-            dataType: 'json',
-            data: {
-                'id': donationAttempt,
-                'value': $('#' + donationAttempt + '-value').val()
-            },
-            success: function (data) {
-                if (data.message === 'Success') {
-                    $('#' + donationAttempt + '-student').text('REFERESH');
-                    $('#' + donationAttempt + '-tutor').text('REFRESH');
-                    $('#' + donationAttempt + '-dateLogged').text('REFRESH');
-                    $('#' + donationAttempt + '-value').val('');
-                    $('#' + donationAttempt + '-apply').remove();
-                    $('#' + donationAttempt + '-clear').remove();
-                    $('#' + tutor + '-balance').text('REFRESH');
-                }
-                else {
-                    alert('Error');
-                }
-            }
-        });
-    }
-
-    function clearAttempt(donationAttempt) {
-        $.ajax({
-            url: '/Home/RemoveDonationAttempt',
-            type: 'post',
-            dataType: 'json',
-            data: {
-                'id': donationAttempt
-            },
-            success: function (data) {
-                if (data.message === 'Success') {
-                    $('#' + donationAttempt + '-student').text('REFERESH');
-                    $('#' + donationAttempt + '-tutor').text('REFRESH');
-                    $('#' + donationAttempt + '-dateLogged').text('REFRESH');
-                    $('#' + donationAttempt + '-value').val('');
-                    $('#' + donationAttempt + '-apply').remove();
-                    $('#' + donationAttempt + '-clear').remove();
-                }
-                else {
-                    alert('Error');
-                }
-            }
-        });
-    }
-
     function test() {
         $.ajax({
             url: '/Home/Test',
@@ -212,38 +162,6 @@
                 @if (user.Expiration.CompareTo(DateTime.UtcNow) < 0) {
                     <button id="@user.Username-renew" onclick="renew('@user.Username');">Renew Subscription</button>
                 }
-            </th>
-        </tr>
-    }
-</table>
-
-<br />
-<p>Potential Donations</p>
-<table>
-    <tr>
-        <th>Student</th>
-        <th>Tutor</th>
-        <th>Date Logged</th>
-        <th>Value</th>
-        <th>Actions</th>
-    </tr>
-    @foreach (StreamWork.Models.DonationAttempt donationAttempt in Model.DonationAttempts) {
-        <tr>
-            <th>
-                <div id="@donationAttempt.Id-student">@donationAttempt.Student</div>
-            </th>
-            <th>
-                <div id="@donationAttempt.Id-tutor">@donationAttempt.Tutor</div>
-            </th>
-            <th>
-                <div id="@donationAttempt.Id-dateLogged">@donationAttempt.TimeSent.ToShortDateString() @donationAttempt.TimeSent.ToLongTimeString()</div>
-            </th>
-            <th>
-                <input id="@donationAttempt.Id-value" type="text" />
-            </th>
-            <th>
-                <button id="@donationAttempt.Id-apply" onclick="apply('@donationAttempt.Id', '@donationAttempt.Tutor')">Apply</button>
-                <button id="@donationAttempt.Id-clear" onclick="clearAttempt('@donationAttempt.Id')">Clear</button>
             </th>
         </tr>
     }
