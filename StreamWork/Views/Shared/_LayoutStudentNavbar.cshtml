@@ -44,11 +44,11 @@
                         </ul>
                         <div class="btn-group mt-2" style="margin-left:65px">
                             <img src=@Model.UserProfile.ProfilePicture style="width:75px; height:95px; border-top-left-radius:5%; border-bottom-left-radius:5%" />
-                            <button type="button" data-toggle="dropdown" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: gold; border:black; margin-right:35px"></button>
+                            <button type="button" data-toggle="dropdown" class="btn btn-info dropdown-toggle" aria-haspopup="true" aria-expanded="false" style="background-color: gold; border:black; margin-right:35px"></button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="/Student/StudentSettings">Settings</a>
+                                <a class="dropdown-item" href="/Student/StudentSettings" style="cursor:pointer">Settings</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
+                                <a class="dropdown-item" href="#" onclick="Logout()" style="cursor:pointer">Logout</a>
                             </div>
                         </div>
                     </div>

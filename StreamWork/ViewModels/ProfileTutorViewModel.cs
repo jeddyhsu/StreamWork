@@ -14,6 +14,7 @@ namespace StreamWork.ViewModels {
 
         public int NumberOfStreams { get; set; }
         public string Subject { get; set; }
+        public string SubjectIcon { get; set; }
         
         public string ChatSecretKey { get; set; }
         public bool IsUserFollowingThisTutor { get; set; }

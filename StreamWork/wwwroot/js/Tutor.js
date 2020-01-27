@@ -1,7 +1,6 @@
 ﻿
 var oDT = "";
 
-
 //Changes Stream
 function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail() {
     var streamTitle = $('#streamTitle').val();

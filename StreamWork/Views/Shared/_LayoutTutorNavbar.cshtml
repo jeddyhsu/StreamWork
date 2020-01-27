@@ -50,11 +50,11 @@
                             <input type="image" data-toggle="dropdown" src=@Model.UserProfile.ProfilePicture style="width:75px; height:95px; border-top-left-radius:5%; border-bottom-left-radius:5%;" />
                             <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:gold; border:none; margin-right:35px"></button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" onclick="EditProfile()">Edit Profile</a>
+                                <a class="dropdown-item" onclick="EditProfile()" style="cursor:pointer">Edit Profile</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/Tutor/TutorSettings">Settings</a>
+                                <a class="dropdown-item" href="/Tutor/TutorSettings" style="cursor:pointer">Settings</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" onclick="Logout()">Logout</a>
+                                <a class="dropdown-item" onclick="Logout()" style="cursor:pointer">Logout</a>
                             </div>
                         </div>
                     </div>
@@ -90,14 +90,14 @@
                         <br />
                         <div class="upload-uploadbtn-wrapper">
                             <button class="uploadbtn" style="margin-left:100px">Upload a Profile Picture</button>
-                            <input id="uploadProfilePic" type='file' onchange="readURL(this,'ProfilePic')" />
+                            <input id="uploadProfilePic" style="cursor:pointer" type='file' onchange="readURL(this,'ProfilePic')" />
                         </div>
                     </form>
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" style="background-color:black; color:white" class="btn" onclick="RegisterProfilePhotoAndCaption()">Save changes</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button class="btn" style="background-color:black; color:white"  onclick="RegisterProfilePhotoAndCaption()">Save changes</button>
+                    <button class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

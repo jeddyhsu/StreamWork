@@ -46,17 +46,19 @@
 <br />
 
 <div class="container-fluid">
-    <button class="btn-dark" style="display:block; margin-left:auto; margin-right:auto; border-radius:10px;" onclick="OpenAddScheduleModal()">Schedule Stream</button>
-    <br />
     <div class="row">
         <div class="col-12">
-            <div class="card">
+            <div class="card" style="background-color:#006565">
+                <br />
+                <h2 class="text-center"; style="color:white"><b>Stream Schedule</b></h2>
+                <br />
+                <button class="uploadbtn" style="display:block; margin-left:auto; margin-right:auto; border-radius:5px; cursor:pointer" onclick="OpenAddScheduleModal()">Add Stream<span><img width="20" class="mb-1 ml-1" src="~/images/Plus48.png" /></span></button>
                 <div class="row">
                     @foreach (var day in Model.Schedule)
                     {
                         <div class="col-lg-3 col-md-6 text-center mt-5 mb-5">
-                            <h1 class="mt-2" style="font-size:20px">@day.DayOfWeek.DayOfWeek</h1>
-                            <h6>@day.DayOfWeek.ToShortDateString()</h6>
+                            <h1 class="mt-2" style="font-size:20px; color:white"><b>@day.DayOfWeek.DayOfWeek</b></h1>
+                            <h6 style="color:white">@day.DayOfWeek.ToShortDateString()</h6>
 
                             <div class="list-group ml-3">
                                 @foreach (var task in day.StreamTaskList)
