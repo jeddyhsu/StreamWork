@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +18,6 @@ namespace StreamWork.HelperClasses
     public class TutorHelperFunctions //For functions involved with tutor code only
     {
         readonly HomeHelperFunctions _helperFunctions = new HomeHelperFunctions();
-        private const int NumberOfDays = 11;
 
         //Uses a hashtable to add default thumbnails based on subject
         public string GetCorrespondingDefaultThumbnail(string subject)
@@ -76,17 +77,13 @@ namespace StreamWork.HelperClasses
             Schedule schedule = new Schedule();
 
             schedule.Days.Add(todaysDate.ToShortDateString(), new Day(todaysDate));
-            schedule.Days.Add(todaysDate.AddDays(1.0).ToShortDateString(), new Day(todaysDate.AddDays(1.0)));
-            schedule.Days.Add(todaysDate.AddDays(2.0).ToShortDateString(), new Day(todaysDate.AddDays(2.0)));
-            schedule.Days.Add(todaysDate.AddDays(3.0).ToShortDateString(), new Day(todaysDate.AddDays(3.0)));
-            schedule.Days.Add(todaysDate.AddDays(4.0).ToShortDateString(), new Day(todaysDate.AddDays(4.0)));
-            schedule.Days.Add(todaysDate.AddDays(5.0).ToShortDateString(), new Day(todaysDate.AddDays(5.0)));
-            schedule.Days.Add(todaysDate.AddDays(6.0).ToShortDateString(), new Day(todaysDate.AddDays(6.0)));
-            schedule.Days.Add(todaysDate.AddDays(7.0).ToShortDateString(), new Day(todaysDate.AddDays(7.0)));
-            schedule.Days.Add(todaysDate.AddDays(8.0).ToShortDateString(), new Day(todaysDate.AddDays(8.0)));
-            schedule.Days.Add(todaysDate.AddDays(9.0).ToShortDateString(), new Day(todaysDate.AddDays(9.0)));
-            schedule.Days.Add(todaysDate.AddDays(10.0).ToShortDateString(), new Day(todaysDate.AddDays(10.0)));
-            schedule.Days.Add(todaysDate.AddDays(11.0).ToShortDateString(), new Day(todaysDate.AddDays(11.0)));
+            schedule.Days.Add(todaysDate.AddDays(1.0).ToString("MM/dd/yyyy"), new Day(todaysDate.AddDays(1.0)));
+            schedule.Days.Add(todaysDate.AddDays(2.0).ToString("MM/dd/yyyy"), new Day(todaysDate.AddDays(2.0)));
+            schedule.Days.Add(todaysDate.AddDays(3.0).ToString("MM/dd/yyyy"), new Day(todaysDate.AddDays(3.0)));
+            schedule.Days.Add(todaysDate.AddDays(4.0).ToString("MM/dd/yyyy"), new Day(todaysDate.AddDays(4.0)));
+            schedule.Days.Add(todaysDate.AddDays(5.0).ToString("MM/dd/yyyy"), new Day(todaysDate.AddDays(5.0)));
+            schedule.Days.Add(todaysDate.AddDays(6.0).ToString("MM/dd/yyyy"), new Day(todaysDate.AddDays(6.0)));
+            schedule.Days.Add(todaysDate.AddDays(7.0).ToString("MM/dd/yyyy"), new Day(todaysDate.AddDays(7.0)));
 
             FormatTutorStreamSchedule(schedule, channel);
 
@@ -110,30 +107,106 @@ namespace StreamWork.HelperClasses
 
             foreach (var streamTask in streamTaskList)
             {
-                var day = schedule.Days[streamTask.Day];
-                day.StreamTaskList.Add(streamTask);
+                if (schedule.Days.ContainsKey(streamTask.Day)){
+                    var day = schedule.Days[streamTask.Day];
+                    day.StreamTaskList.Add(streamTask);
+                }
+                else
+                {
+                    streamTaskList.ToList().Remove(streamTask);
+                }
             }
         }
 
         public async Task<bool> AddStreamTask([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamName, DateTime dateTime, UserChannel channel)
         {
-            if(channel.StreamTasks != null)
+            try
             {
-                var streamTaskList = JsonConvert.DeserializeObject<List<StreamTask>>(channel.StreamTasks);
-                streamTaskList.Add(new StreamTask(streamName, dateTime.ToShortTimeString(), dateTime.ToShortDateString()));
-                var serialize = JsonConvert.SerializeObject(streamTaskList);
-                channel.StreamTasks = serialize;
+                if (channel.StreamTasks != null)
+                {
+                    var streamTaskList = JsonConvert.DeserializeObject<List<StreamTask>>(channel.StreamTasks);
+
+                    streamTaskList.Add(new StreamTask(streamName, dateTime.ToString("h:mm tt"), dateTime.ToString("MM/dd/yyyy")));
+
+                    var serialize = JsonConvert.SerializeObject(streamTaskList);
+                    channel.StreamTasks = serialize;
+                    await DataStore.SaveAsync(_helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", channel.Id } }, channel);
+
+                    return true;
+                }
+                else
+                {
+                    List<StreamTask> streamTasks = new List<StreamTask>();
+
+                    streamTasks.Add(new StreamTask(streamName, dateTime.ToString("h:mm tt"), dateTime.ToString("MM/dd/yyyy")));
+
+                    var serialize = JsonConvert.SerializeObject(streamTasks);
+                    channel.StreamTasks = serialize;
+                    await DataStore.SaveAsync(_helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", channel.Id } }, channel);
+
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error in AddStreamTask: " + e.Message);
+                return false;
+            }
+        }
+
+        public async Task<bool> UpdateStreamTask([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamName, DateTime dateTime, DateTime originalDateTime, UserChannel channel)
+        {
+            try
+            {
+                var streamTasksList = JsonConvert.DeserializeObject<List<StreamTask>>(channel.StreamTasks);
+
+                foreach (var task in streamTasksList)
+                {
+                    if (originalDateTime.ToString("h:mm tt") == task.TimeOfDay && originalDateTime.ToString("MM/dd/yyyy") == task.Day && streamName == task.Name)
+                    {
+                        task.Name = streamName;
+                        task.TimeOfDay = dateTime.ToString("h:mm tt");
+                        task.Day = dateTime.ToString("MM/dd/yyyy");
+                        break;
+                    }
+                }
+
+                channel.StreamTasks = JsonConvert.SerializeObject(streamTasksList);
                 await DataStore.SaveAsync(_helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", channel.Id } }, channel);
+
                 return true;
             }
-            else
+            catch(Exception e)
             {
-                List<StreamTask> streamTasks = new List<StreamTask>();
-                streamTasks.Add(new StreamTask(streamName, dateTime.ToShortTimeString(), dateTime.ToShortDateString()));
-                var serialize = JsonConvert.SerializeObject(streamTasks);
-                channel.StreamTasks = serialize;
+                Console.WriteLine("Error in UpdateStreamTask: " + e.Message);
+                return false;
+            }
+        }
+
+        public async Task<bool> RemoveStreamTask([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamName, DateTime originalDateTime, UserChannel channel)
+        {
+            try
+            {
+                var streamTasksList = JsonConvert.DeserializeObject<List<StreamTask>>(channel.StreamTasks);
+
+                foreach (var task in streamTasksList)
+                {
+                    if (originalDateTime.ToString("h:mm tt") == task.TimeOfDay && originalDateTime.ToString("MM/dd/yyyy") == task.Day && streamName == task.Name)
+                    {
+                        streamTasksList.Remove(task);
+                        break;
+                    }
+                }
+
+                channel.StreamTasks = JsonConvert.SerializeObject(streamTasksList);
                 await DataStore.SaveAsync(_helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", channel.Id } }, channel);
+
                 return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error in RemoveStreamTask: " + e.Message);
+                return false;
             }
         }
     }

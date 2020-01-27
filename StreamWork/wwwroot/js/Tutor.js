@@ -1,4 +1,7 @@
 ﻿
+var oDT = "";
+
+
 //Changes Stream
 function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail() {
     var streamTitle = $('#streamTitle').val();
@@ -67,12 +70,69 @@ function AddStreamToSchedule() {
         data: {
             'streamName': streamName,
             'dateTime': dateTime,
+            'originalDateTime': null
         }
     });
 }
 
-function OpenEditScheduleModal(name) {
+function UpdateStreamSchedule() {
+    var streamName = $('#streamNameEdit').val();
+    var dateTime = $('#dateTimeEdit').val();
+    var originalDateTime = odt;
+
+    $.ajax({
+        url: '/Tutor/ProfileTutor',
+        type: 'post',
+        dataType: 'json',
+        data: {
+            'streamName': streamName,
+            'dateTime': dateTime,
+            'originalDateTime': originalDateTime
+        },
+        success: function (data) {
+            if (data.message === "Success") {
+                location.reload();
+            }
+            else {
+                OpenNotificationModal("Something went wrong.")
+            }
+        }
+    });
+}
+
+function RemoveStreamOnSchedule() {
+    var streamName = $('#streamNameEdit').val();
+    var dateTime = $('#dateTimeEdit').val();
+    var originalDateTime = odt;
+
+    $.ajax({
+        url: '/Tutor/ProfileTutor',
+        type: 'post',
+        dataType: 'json',
+        data: {
+            'streamName': streamName,
+            'dateTime': dateTime,
+            'originalDateTime': originalDateTime,
+            'remove': true
+        },
+        success: function (data) {
+            if (data.message === "Success") {
+                location.reload();
+            }
+            else {
+                OpenNotificationModal("Something went wrong.")
+            }
+        }
+    });
+}
+
+function OpenEditScheduleModal(name, time, date) {
+
+    var dateTime = date + ' ' + time;
+    odt = dateTime;
+
     document.getElementById('streamNameEdit').value = name;
+    document.getElementById('dateTimeEdit').value = dateTime;
     $('#editScheduleModal').modal('show');
 }
 

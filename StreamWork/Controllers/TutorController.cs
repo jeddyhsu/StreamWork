@@ -129,13 +129,13 @@ namespace StreamWork.Controllers
                 NumberOfStreams = (await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, User.Identity.Name)).Count,
             };
 
-            //viewModel.Schedule = _tutorHelperFunctions.GetTutorStreamSchedule(viewModel.UserChannels[0]);
+            viewModel.Schedule = _tutorHelperFunctions.GetTutorStreamSchedule(viewModel.UserChannels[0]);
 
             return View(viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> ProfileTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamName, DateTime dateTime) //StreamTask
+        public async Task<IActionResult> ProfileTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamName, DateTime dateTime, DateTime originalDateTime, bool remove) //StreamTask
         {
             var user = HttpContext.User.Identity.Name;
             var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
@@ -149,17 +149,35 @@ namespace StreamWork.Controllers
             }
 
             //Handles if there is not a profile picture with the caption or about paragraph
-            if (Request.Form.Keys.Count > 0)
+            if (Request.Form.Keys.Count > 0 && originalDateTime == null)
             {
                 var success = await _editProfileHelperFunctions.EditProfileWithNoProfilePicture(Request, storageConfig, user);
                 if(success)
                     return Json(new { Message = JsonResponse.Success.ToString() });
             }
 
-            if(streamName != null)
+            //Adds streams to schedule
+            if(originalDateTime.Year == 1 && remove == false)
             {
                 var userChannel = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user);
-                await _tutorHelperFunctions.AddStreamTask(storageConfig, streamName, dateTime, userChannel[0]);
+                if(await _tutorHelperFunctions.AddStreamTask(storageConfig, streamName, dateTime, userChannel[0]))
+                    return Json(new { Message = JsonResponse.Success.ToString() });
+            }
+
+            //Updates streams in schedule
+            if (originalDateTime.Year != 1 && remove == false)
+            {
+                var userChannel = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user);
+                if(await _tutorHelperFunctions.UpdateStreamTask(storageConfig, streamName, dateTime, originalDateTime, userChannel[0]))
+                    return Json(new { Message = JsonResponse.Success.ToString() });
+            }
+
+            //Removes streams in schedule
+            if (originalDateTime.Year != 1 && remove)
+            {
+                var userChannel = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user);
+                if (await _tutorHelperFunctions.RemoveStreamTask(storageConfig, streamName, originalDateTime, userChannel[0]))
+                    return Json(new { Message = JsonResponse.Success.ToString() });
             }
 
             return Json(new { Message = JsonResponse.Failed.ToString() });

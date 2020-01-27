@@ -44,33 +44,36 @@
 
 <br />
 <br />
-@*
-    <div class="container-fluid">
-        <button class="btn-dark" style="display:block; margin-left:auto; margin-right:auto; border-radius:10px;" onclick="OpenAddScheduleModal()">Schedule Stream</button>
-        <br />
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="row">
-                        @foreach (var day in Model.Schedule)
-                        {
-                            <div class="col-lg-2 col-md-6 text-center">
-                                <h1 class="mt-2" style="font-size:20px">@day.DayOfWeek.DayOfWeek</h1>
-                                <h6>@day.DayOfWeek.ToShortDateString()</h6>
-                                <div class="list-group ml-3">
-                                   @foreach(var task in day.StreamTaskList)
-                                   {
-                                       <button class="list-group-item ml-3 mr-3" onclick="OpenEditScheduleModal('@task.Name', '@task.TimeOfDay')">@task.Name <br /> @task.TimeOfDay</button>
-                                   }
-                                </div>
+
+<div class="container-fluid">
+    <button class="btn-dark" style="display:block; margin-left:auto; margin-right:auto; border-radius:10px;" onclick="OpenAddScheduleModal()">Schedule Stream</button>
+    <br />
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="row">
+                    @foreach (var day in Model.Schedule)
+                    {
+                        <div class="col-lg-3 col-md-6 text-center mt-5 mb-5">
+                            <h1 class="mt-2" style="font-size:20px">@day.DayOfWeek.DayOfWeek</h1>
+                            <h6>@day.DayOfWeek.ToShortDateString()</h6>
+
+                            <div class="list-group ml-3">
+                                @foreach (var task in day.StreamTaskList)
+                                {
+                                    <button class="list-group-item ml-3 mr-3" style="cursor:pointer" onclick="OpenEditScheduleModal('@task.Name', '@task.TimeOfDay', '@day.DayOfWeek.ToShortDateString()')">@task.Name <br /> @task.TimeOfDay</button>
+                                }
                             </div>
-                        }
-                    </div>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
     </div>
-*@
+</div>
+
+<br />
+<br />
 
 <div class="container-fluid" style="width:100%; padding-left:100px; padding-right:100px">
     <h2 class="text-center"><b>My Streams</b></h2>
