@@ -71,6 +71,14 @@ function AddStreamToSchedule() {
             'streamName': streamName,
             'dateTime': dateTime,
             'originalDateTime': null
+        },
+         success: function (data) {
+            if (data.message === "Success") {
+                location.reload();
+            }
+            else {
+                OpenNotificationModal("Something went wrong.")
+            }
         }
     });
 }

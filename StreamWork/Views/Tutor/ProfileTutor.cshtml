@@ -61,7 +61,7 @@
                             <div class="list-group ml-3">
                                 @foreach (var task in day.StreamTaskList)
                                 {
-                                    <button class="list-group-item ml-3 mr-3" style="cursor:pointer" onclick="OpenEditScheduleModal('@task.Name', '@task.TimeOfDay', '@day.DayOfWeek.ToShortDateString()')">@task.Name <br /> @task.TimeOfDay</button>
+                                    <button class="list-group-item ml-3 mr-3 zoom" style="cursor:pointer" onclick="OpenEditScheduleModal('@task.Name', '@task.TimeOfDay', '@day.DayOfWeek.ToShortDateString()')">@task.Name <br /> @task.TimeOfDay</button>
                                 }
                             </div>
                         </div>
