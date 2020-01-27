@@ -90,6 +90,7 @@ namespace StreamWork.HelperClasses
                 UserChannels = await GetUserChannels(storageConfig, QueryHeaders.AllUserChannelsThatAreStreaming, "N|A"),
                 UserLogins = await GetPopularStreamTutors(storageConfig),
             };
+
             return model;
         }
 
@@ -102,9 +103,7 @@ namespace StreamWork.HelperClasses
 
         private async Task<List<UserLogin>> GetPopularStreamTutors([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
-            List<UserLogin> list = new List<UserLogin>();
-            list = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, QueryHeaders.AllApprovedTutors.ToString(), null);
-            return list;
+            return await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, QueryHeaders.AllApprovedTutors.ToString(), null);
         }
 
         //Saves picture into container on Azure - replaces old one if there is one

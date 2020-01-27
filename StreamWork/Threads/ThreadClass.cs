@@ -148,6 +148,7 @@ namespace StreamWork.Threads
                         Console.WriteLine("Video Ready");
                         await StopStreamAndArchive(videoInfo);
                         archiveApi = false;
+                        break;
                     }
                     else
                     {
