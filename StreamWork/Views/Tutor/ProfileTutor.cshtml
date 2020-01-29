@@ -45,42 +45,37 @@
 <br />
 <br />
 
-@*
-       <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card" style="background-color:#006565">
-                        <br />
-                        <h2 class="text-center"; style="color:white"><b>Stream Schedule</b></h2>
-                        <br />
-                        <button class="uploadbtn" style="display:block; margin-left:auto; margin-right:auto; border-radius:5px; cursor:pointer" onclick="OpenAddScheduleModal()">Add Stream<span><img width="20" class="mb-1 ml-1" src="~/images/Plus48.png" /></span></button>
-                        <div class="row">
-                            @foreach (var day in Model.Schedule)
-                            {
-                                <div class="col-lg-3 col-md-6 text-center mt-5 mb-5">
-                                    <h1 class="mt-2" style="font-size:20px; color:white"><b>@day.DayOfWeek.DayOfWeek</b></h1>
-                                    <h6 style="color:white">@day.DayOfWeek.ToShortDateString()</h6>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card" style="background-color:#006565">
+                <br />
+                <h2 class="text-center"; style="color:white"><b>Stream Schedule</b></h2>
+                <br />
+                <button class="uploadbtn" style="display:block; margin-left:auto; margin-right:auto; border-radius:5px; cursor:pointer" onclick="OpenAddScheduleModal()">Add Stream<span><img width="20" class="mb-1 ml-1" src="~/images/Plus48.png" /></span></button>
+                <div class="row">
+                    @foreach (var day in Model.Schedule)
+                    {
+                        <div class="col-lg-3 col-md-6 text-center mt-5 mb-5" style="border:thick; border-color:rebeccapurple">
+                            <h1 class="mt-2" style="font-size:20px; color:white"><b>@day.DayOfWeek.DayOfWeek</b></h1>
+                            <h6 style="color:white">@day.DayOfWeek.ToShortDateString()</h6>
 
-                                    <div class="list-group ml-3">
-                                        @foreach (var task in day.StreamTaskList)
-                                        {
-                                            <button class="list-group-item ml-3 mr-3 zoom" style="cursor:pointer" onclick="OpenEditScheduleModal('@task.Name', '@task.TimeOfDay', '@day.DayOfWeek.ToShortDateString()')">@task.Name <br /> @task.TimeOfDay</button>
-                                        }
-                                    </div>
-                                </div>
-                            }
+                            <div class="list-group ml-3">
+                                @foreach (var task in day.StreamTaskList)
+                                {
+                                    <button class="list-group-item ml-3 mr-3 zoom" style="cursor:pointer" onclick="OpenEditScheduleModal('@task.Name', '@task.TimeOfDay', '@day.DayOfWeek.ToShortDateString()')"><b>@task.Name</b> <br /> @task.TimeOfDay</button>
+                                }
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
-        <br />
-    <br />
-*@
-
-
-
+<br />
+<br />
 
 <div class="container-fluid" style="width:100%; padding-left:100px; padding-right:100px">
     <h2 class="text-center"><b>My Streams</b></h2>
