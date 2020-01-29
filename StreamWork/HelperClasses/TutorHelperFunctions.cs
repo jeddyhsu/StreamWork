@@ -230,7 +230,7 @@ namespace StreamWork.HelperClasses
             }
         }
 
-        private void SortUtil(StreamTask[] tasksArray, int leftBound, int rightBound)
+        private void SortUtil(StreamTask[] tasksArray, int leftBound, int rightBound) //quicksort
         {
             if (leftBound >= rightBound) return;
 

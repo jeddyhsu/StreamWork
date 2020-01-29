@@ -62,6 +62,11 @@ function AddStreamToSchedule() {
     var streamName = $('#streamNameAdd').val();
     var dateTime = $('#dateTimeAdd').val();
 
+    if (streamName == "" || dateTime == "") {
+        OpenNotificationModal("Please fill out all fields!");
+        return;
+    }
+
     $.ajax({
         url: '/Tutor/ProfileTutor',
         type: 'post',
@@ -87,6 +92,11 @@ function UpdateStreamSchedule() {
     var dateTime = $('#dateTimeEdit').val();
     var originalDateTime = odt;
 
+    if (streamName == "" || dateTime == "") {
+        OpenNotificationModal("Please fill out all fields!");
+        return;
+    }
+
     $.ajax({
         url: '/Tutor/ProfileTutor',
         type: 'post',
@@ -98,7 +108,7 @@ function UpdateStreamSchedule() {
         },
         success: function (data) {
             if (data.message === "Success") {
-                location.reload();
+                location.reload()
             }
             else {
                 OpenNotificationModal("Something went wrong.")
