@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="~/images/favicon.ico" type="image/x-icon">
+    <title>@ViewData["Title"] | StreamWork</title>
+    <link rel="stylesheet" href="~/lib/bootstrap-4/css/bootstrap.css">
+    <link rel="stylesheet" href="~/lib/bootstrap-4/js/bootstrap.js">
+    <link rel="stylesheet" href="~/images/StreamworkLogo.png">
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="~/js/EditProfile.js"></script>
+    <script src="~/js/SignUpLogin.js"></script>
+    <script src="~/js/Tutor.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+    <link rel="stylesheet" href="~/css/Index.css" />
+    <script>!function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '825070711264915');
+        fbq('track', 'PageView');</script>
+    <noscript>
+        <img height="1" width="1"
+             src="https://www.facebook.com/tr?id=825070711264915&ev=PageView
+    &noscript=1" />
+    </noscript>
+</head>
+
+<body style="font-family:'Roboto'; background-color:white">
+    <div>
+        <div class="full-page">
+            <div class="in-page">
+                <nav class="navbar navbar-expand-lg navbar-light text-center" style="background-color:#008080; z-index:1000">
+                    <img src="~/images/streamworkPencilWhite.png" height="70" onclick="window.location.href='/'" onmouseover="" style="cursor: pointer;" />
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarText">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:18px;">
+                                <a class="nav-link underline" href="/Tutor/ProfileTutor" style="color:white;"><b>My Streams</b></a>
+                            </li>
+                            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:18px; ">
+                                <a class="nav-link underline" href="/Tutor/TutorStream" style="color:white;"><b>Start Streaming</b></a>
+                            </li>
+                            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:18px;">
+                                <a class="nav-link underline" href="/" style="color:white;"><b>Home</b></a>
+                            </li>
+                        </ul>
+                        <div class="btn-group mt-2" style="margin-left:65px">
+                            <input type="image" data-toggle="dropdown" src=@Model.UserProfile.ProfilePicture style="width:75px; height:95px; border-top-left-radius:5%; border-bottom-left-radius:5%;" />
+                            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:#B2D8D8; border:none; margin-right:35px"></button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" onclick="EditProfile()" style="cursor:pointer">Edit Profile</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/Tutor/TutorSettings" style="cursor:pointer">Settings</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" onclick="Logout()" style="cursor:pointer">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+                <div class="page-body">
+                    @RenderBody()
+                </div>
+                <div class="page-footer my-3">
+                    Copyright © 2020 StreamWork LLC. All rights reserved.
+                </div>
+                @RenderSection("Scripts", required: false)
+            </div>
+        </div>
+    </div>
+
+    @*Edit Modal for editing profile*@
+    <div id="editModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: #008080">
+                <div class="modal-header">
+                    <h5 class="modal-title" style="color:white">Edit Profile</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.UserProfile.ProfileCaption" />
+                        <br />
+                        <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.UserProfile.ProfileParagraph</textarea>
+                        <br />
+                        <img id="previewProfilePic" src=@Model.UserProfile.ProfilePicture alt="your image" style="border-radius: 5%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
+                        <br />
+                        <div class="upload-uploadbtn-wrapper">
+                            <button class="uploadbtn" style="margin-left:100px">Upload a Profile Picture</button>
+                            <input id="uploadProfilePic" style="cursor:pointer" type='file' onchange="readURL(this,'ProfilePic')" />
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn" style="background-color:black; color:white" onclick="RegisterProfilePhotoAndCaption()">Save changes</button>
+                    <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*Add Stream for scheduling system*@
+    <div id="addScheduleModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: #008080">
+                <div class="modal-header">
+                    <h5 class="modal-title" style="color:white">Schedule Stream</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4 class="text-center" style="color:white">Title</h4>
+                    <input id="streamNameAdd" type="text" style="display:block; margin-right:auto; margin-left:auto; border-radius:5px" />
+                    <br />
+                    <h4 class="text-center" style="color:white">Date & Time</h4>
+                    <div class="input-group date" id="datetimepickerAdd" data-target-input="nearest">
+                        <input id="dateTimeAdd" type="text" class="form-control datetimepicker-input" data-target="#datetimepickerAdd" />
+                        <div class="input-group-append" data-target="#datetimepickerAdd" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="uploadbtn" style="display:block; margin-left:auto; margin-right:auto; border-radius:5px; cursor:pointer" onclick="AddStreamToSchedule()">Add Stream<span><img width="20" class="mb-1 ml-1" src="~/images/Plus48.png" /></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*Edit Stream for scheduling system*@
+    <div id="editScheduleModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: #008080">
+                <div class="modal-header">
+                    <h5 id="Title" class="modal-title" style="color:white">Reschedule Or Remove Stream</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4 class="text-center" style="color:white">Title</h4>
+                    <input id="streamNameEdit" value="" type="text" style="display:block; margin-right:auto; margin-left:auto; border-radius:5px" />
+                    <br />
+                    <h4 class="text-center" style="color:white">Date & Time</h4>
+                    <div class="input-group date" id="datetimepickerEdit" data-target-input="nearest">
+                        <input id="dateTimeEdit" type="text" class="form-control datetimepicker-input" data-target="#datetimepickerEdit" />
+                        <div class="input-group-append" data-target="#datetimepickerEdit" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="uploadbtn" style="display:block; margin-left:auto; margin-right:auto; border-radius:5px; cursor:pointer" onclick="UpdateStreamSchedule()">Reschedule Stream</button>
+                    <button class="uploadbtn" style="display:block; margin-left:auto; margin-right:auto; border-radius:5px; cursor:pointer; color:red" onclick="RemoveStreamOnSchedule()">Remove Stream</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*For alert notifications*@
+    <div id="notificationModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: #008080">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" style="color:white">Alert!</h5>
+                </div>
+                <div class="modal-body">
+                    <p id="notificationBody" class=" text-center" style="color: white;">It appears you are not a verified StreamTutor! If you are a student, create a separate student account. If you are a StreamTutor, please wait to be approved.</p>
+                    <img src="~/images/streamworkPencilWhite.png" style="display:block; margin-left:auto; margin-right:auto;" height="70" onclick="window.location.href='/'" />
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

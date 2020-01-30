@@ -1,150 +1,62 @@
 ﻿@model StreamWork.ViewModels.ProfileTutorViewModel
+
+@{Layout = "_LayoutTutorNavbar";}
+@{ViewData["Title"] = "TutorSettings";}
+
 <script src="~/js/EditProfile.js"></script>
 <script src="~/js/Settings.js"></script>
-@{
-ViewData["Title"] = "TutorSettings";
-}
-<div style="font-family:'Roboto', sans-serif;">
-<nav class="navbar sticky-top navbar-expand-lg  text-center" style="background-color:#008080">
-   <img src="~/images/streamworkPencilWhite.png" height="70" onclick="" />
-   <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-   <span class="navbar-toggler-icon"></span>
-   </button>
-   <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav mr-auto">
-         <li class="nav-item ml-sm-4 mt-1" style="font-size:15px;">
-            <a class="nav-link" href="/Tutor/ProfileTutor" style="color:white;">Dashboard</a>
-         </li>
-         <li class="nav-item ml-sm-5 mt-1" style="font-size:14px; ">
-            <a class="nav-link" href="/Tutor/TutorStream" style="color:white;">Start Streaming</a>
-         </li>
-         <li class="nav-item ml-sm-5 mt-1" style="font-size:15px;">
-            <a id="button" class="nav-link" href="/" style="color:white;">Home</a>
-         </li>
-      </ul>
-   </div>
-   <div class="btn-group">
-      <img src=@Model.userProfile.ProfilePicture style="width:75px; height:95px; border-radius:50%" />
-      <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #008080; border:none; margin-right:35px"></button>
-      <div class="dropdown-menu">
-         <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Edit Profile</a>
-         <div class="dropdown-divider"></div>
-         <a class="dropdown-item" href="#" id="EditProfile">Settings</a>
-         <div class="dropdown-divider"></div>
-         <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
-      </div>
-   </div>
-</nav>
-<div class="container-fluid">
-   <div class="row">
-      <div class="col-lg-4 col-md-6 col-sm-12">
-         <br />
-         <div class="card" style="background-color: white">
-            <div class="card-header" style="background-color:#008080">
-               <h1 class="text-center" style="color:white">Overview</h1>
+<link rel="stylesheet" href="~/css/Tutor.css" />
+
+<div class="container">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-lg-8 col-md-8 col-sm-12">
+                <br />
+                <div class="card" style="background-color: white; height:550px">
+                    <div class="card-header" style="background-color:#008080">
+                        <h1 class="text-center" style="color:white">Security</h1>
+                    </div>
+                    <br />
+                    <div class="card-body">
+                        <form>
+                            <h3 class="text-center">Change Password</h3>
+                            <div class="row">
+                                <div class="col-12 mt-3">
+                                    <div>
+                                        <label>Current Password:</label>
+                                    </div>
+                                    <input id="CurrentPassword" type="password" style="width:100%; border-radius:5px" ; />
+                                </div>
+                                <div class="col-12 mt-3">
+                                    <div>
+                                        <label>New Password:</label>
+                                    </div>
+                                    <input id="NewPassword" type="password" style="width:100%; border-radius:5px" ; />
+                                </div>
+                                <div class="col-12 mt-3">
+                                    <div>
+                                        <label>Confirm Password:</label>
+                                    </div>
+                                    <input id="ConfirmPassword" type="password" style="width:100%; border-radius:5px" ; />
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+                            <button class="editbtn mt-2" onclick="EditTutorSecurity()" style="display:block; margin-left:auto; margin-right:auto;">Change Password</button>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="card-body">
-               <form>
-                  <img id="previewProfilePic" src=@Model.userProfile.ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
-                  <div class="row">
-                     <div class="col-6 mt-5">
-                        <div>
-                           <div style="font-size: 20px; color:black">
-                              <label>Name</label>
-                           </div>
-                           <input id="Name" type="text" style="border-radius:5px" value="@Model.userProfile.Name.Replace('|',' ')" />
-                        </div>
-                     </div>
-                      <div class="col-6 mt-5">
-                        <div>
-                           <div style="font-size: 20px; color:black">
-                              <label>Email</label>
-                           </div>
-                          <label style="color:black">@Model.userProfile.EmailAddress</label>
-                        </div>
-                     </div>
-                     <div class="col-6 mt-5">
-                        <div>
-                           <div style="font-size: 20px; color:black">
-                              <label>Username</label>
-                           </div>
-                          <label style="color:black">@Model.userProfile.Username</label>
-                        </div>
-                      </div>
-                      <div class="col-6 mt-5">
-                        <div>
-                           <div style="font-size: 20px; color:black">
-                              <label>Profile Type</label>
-                           </div>
-                           <label style="color:black">@Model.userProfile.ProfileType</label>
-                        </div>
-                     </div>
-                     <div class="col-12 mt-5">
-                        <div>
-                           <div style="font-size: 20px; color:black">
-                              <label>Profile Caption</label>
-                           </div>
-                           <input id="ProfileCaption" type="text" style="border-radius:5px; width:100%" value="@Model.userProfile.ProfileCaption" />
-                        </div>
-                     </div>
-                      <div class="col-12 mt-5">
-                        <div>
-                           <div style="font-size: 20px; color:black">
-                              <label>Profile Caption</label>
-                           </div>
-                           <textarea id="ProfileParagraph" style="border-radius:5px; width:100%">@Model.userProfile.ProfileParagraph</textarea>
-                        </div>
-                     </div>
-                  </div>
-                  <button class="editbtn mt-4" onclick="EditProfile()" style="display:block; margin-left:auto; margin-right:auto;">Save Changes</button>
-               </form>
-            </div>
-         </div>
-      </div>
-       <div class="col-lg-4 col-md-6 col-sm-12">
-         <br />
-         <div class="card" style="background-color: white">
-            <div class="card-header" style="background-color:#008080">
-               <h1 class="text-center" style="color:white">Security</h1>
-            </div>
-            <div class="card-body">
-               <form>
-                 <h3 class="text-center">Change Password</h3>
-                   <div class="row">
-                     <div class="col-12 mt-3">
-                        <div>
-                          <label>Current Password:</label>
-                        </div>
-                         <input id="CurrentPassword" type="password" style="width:100%; border-radius:5px";/>
-                     </div>
-                     <div class="col-12 mt-3">
-                        <div>
-                          <label>New Password:</label>
-                        </div>
-                         <input id="NewPassword" type="password" style="width:100%; border-radius:5px";/>
-                     </div>
-                    <div class="col-12 mt-3">
-                        <div>
-                          <label>Confirm Password:</label>
-                        </div>
-                         <input id="ConfirmPassword" type="password" style="width:100%; border-radius:5px";/>
-                     </div>
-                   </div>
-                   <button class="editbtn mt-4" onclick="EditProfile()" style="display:block; margin-left:auto; margin-right:auto;">Change Password</button>
-               </form>
-            </div>
-         </div>
-           <div class="card mt-4" style="background-color: white">
-            <div class="card-header" style="background-color:#008080">
-               <h1 class="text-center" style="color:white">Payments</h1>
-            </div>
-            <div class="card-body">
-               <form>   
-                  
-               </form>
-            </div>
-         </div>
-      </div>
-   </div>
-</div>
-</div>
+        </div>
+    </div>
+
+<script>
+    $(document).ready(function () {
+
+        $("#nav").click(function () {
+
+            $("#navbarText").slideToggle();
+
+        });
+    });
+</script>

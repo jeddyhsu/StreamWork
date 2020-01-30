@@ -1,147 +1,127 @@
 ﻿@model StreamWork.ViewModels.ProfileTutorViewModel
+
+@{Layout = "_LayoutTutorNavbar";}
+@{ViewData["Title"] = "ProfileTutor";}
+
 <script src="~/js/Tutor.js"></script>
 <script src="~/js/EditProfile.js"></script>
-@{
-    ViewData["Title"] = "ProfileTutor";
-}
-    <div style="font-family:'Roboto', sans-serif;">
-        <nav class="navbar sticky-top navbar-expand-lg  text-center" style="background-color:#008080">
-            <img src="~/images/streamworkPencilWhite.png" height="70" onclick="" />
-            <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarText">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item ml-sm-4 mt-1" style="font-size:15px;">
-                        <a class="nav-link" href="/Tutor/ProfileTutor" style="color:white;">Dashboard</a>
-                    </li>
-                    <li class="nav-item ml-sm-5 mt-1" style="font-size:14px; ">
-                        <a class="nav-link" href="/Tutor/TutorStream" style="color:white;">Start Streaming</a>
-                    </li>
-                    <li class="nav-item ml-sm-5 mt-1" style="font-size:15px;">
-                        <a id="button" class="nav-link" href="/" style="color:white;">Home</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="btn-group">
-                <img src=@Model.userProfile.ProfilePicture style="width:75px; height:95px; border-radius:50%" />
-                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #008080; border:none; margin-right:35px"></button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#" id="EditProfile" onclick="EditProfile()">Edit Profile</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/Tutor/TutorSettings" id="Settings">Settings</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#" onclick="">Logout</a>
-                </div>
-              </div>
-        </nav>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-3 d-none d-lg-block sidebar">
-                    <div class="sidebar-sticky">
-                        <ul class="nav flex-column">
-                            <li class="nav-item">
-                                <div class="card text-center mt-3 border-0" style="color:white;">
-                                    <div class="card-body" style="background-color:#006565">
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <img src=@Model.userProfile.ProfilePicture style="width: 115px; height: 150px; border-radius:50%" />
-                                        <h1 class="card-title mt-4" style=" font-size:1.8vw; color:lightgray"><b>@Model.userProfile.Name.Replace('|',' ')</b></h1>
-                                        <p class="card-text" style="font-size:1vw; color:white">@Model.userProfile.ProfileCaption</p>
-                                        <p class="card-text" style="font-size:1vw; color:white">@Model.userProfile.ProfileParagraph</p>
-                                        <button class="editbtn" onclick="EditProfile()" style="display:block; margin-left:auto; margin-right:auto;">Edit Profile</button>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-3"></div>
-                <div class="col-sm-12 col-md-12 col-lg-9 mt-3">
-                    <h3>PAST LIVESTREAMS</h3>
-                     <div class="row">
-                        @foreach(var stream in Model.userArchivedVideos){
-                        <div class="col-lg-4 col-md-6">
-                            <input type="image" width="100%" height="80%" src=@stream.StreamThumbnail onclick="onclick="window.location.href='../StreamViews/StreamPlaybackPage?streamId=' + ('@stream.StreamID')">
-                             <div class="row">
-                                <div class="col-3 pr-0">
-                                    <input type="image" width="80%" height="80%" style="border-radius:50%" src=@stream.ProfilePicture/>
-                                </div>
-                                <div class="col-9 pl-0">
-                                    <h5 style="font-family: 'Roboto';">@stream.StreamTitle</h5>
-                                    <h6 style="font-family: 'Roboto'">@stream.StreamSubject</h6>
-                                    <h6 style="font-family: 'Roboto';">@stream.Username</h6>
-                                </div>
-                            </div>
-                        </div>
-                        }
-                    </div>
-                </div>
+<link rel="stylesheet" href="~/css/Tutor.css" />
+
+<div class="container">
+    <div class="card text-center mt-5 border-0" style="color:white;">
+        <div class="card-body" style="background-color:#006565; border-top-right-radius:5px; border-top-left-radius:5px; ">
+            <div class="col-12">
+                <input type="image" class="zoom" onclick="EditProfile()" src=@Model.UserProfile.ProfilePicture style="width:115px; height: 150px; border-radius:5%" />
+                <h1 class="card-title mt-4" style="font-size:24px; color:lightgray"><b>@Model.UserProfile.Name.Replace('|', ' ')</b></h1>
+                <p class="card-text" id="ProfileCaptionGreeting" style="font-size:16px; color:white">Welcome to StreamWork!</p>
+                <p class="card-text" id="ProfileParagraphGreeting" style="font-size:14px; color:white">StreamWork is very excited to have you onboard our amazing community of StreamTutors. If you haven't been verified yet feel free to edit your profile, explore other StreamTutors, or watch some livestreams.  We promise that your verification will be done soon and we can't wait for you to start streaming your tutoring sessions to our student viewers. Happy streaming!</p>
+                <p class="card-text" id="ProfileCaptionOnPage" style="font-size:16px; color:white">@Model.UserProfile.ProfileCaption</p>
+                <p class="card-text" id="ProfileParagraphOnPage" style="font-size:14px; color:white">@Model.UserProfile.ProfileParagraph</p>
             </div>
         </div>
     </div>
-
-<div id="editModal" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" style="background-color: #008080">
-            <div class="modal-header">
-                <h5 class="modal-title" style="color:white">Edit Profile</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+    <div class="row text-center">
+        <div class="col-4 pr-0">
+            <div class="card-body" style="background-color:#006565; border-bottom-left-radius:5px">
+                <h5 style="color:lightgray">Streams</h5>
+                <h4 style="color:white">@Model.NumberOfStreams</h4>
             </div>
-            <div class="modal-body">
-                <form>
-                    <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.userProfile.ProfileCaption"/>
-                    <br />
-                    <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.userProfile.ProfileParagraph</textarea>
-                    <br />
-                    <img id="previewProfilePic" src=@Model.userProfile.ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
-                    <br />
-                    <div class="upload-uploadbtn-wrapper">
-                        <button class="uploadbtn" style="margin-left:110px">Upload a Profile Picture</button>
-                        <input id ="uploadProfilePic" type='file' onchange="readURL(this,'ProfilePic')" />
-                    </div>
-                </form>
+        </div>
+        <div class="col-4 p-0">
+            <div class="card-body" style="background-color:#006565;border-top-left-radius:0px ">
+                <h5 style="color:lightgray">Donations</h5>
+                <h4 style="color:white">$0</h4>
             </div>
-
-            <div class="modal-footer">
-                <button type="button" style="background-color:black; color:white" class="btn" onclick="RegisterProfilePhotoAndCaption()">Save changes</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        <div class="col-4 pl-0">
+            <div class="card-body" style="background-color:#006565; border-bottom-right-radius:5px ">
+                <h5 style="color:lightgray">Followers</h5>
+                <h4 style="color:white">@Model.NumberOfFollowers</h4>
             </div>
         </div>
     </div>
 </div>
-    
-<style>
-    .dot {
-        height: 10vw;
-        width: 10vw;
-        background-color: white;
-        border-radius: 50%;
-        text-align: center;
-        color: black
-    }
 
-    .sidebar {
-        height: 100%;
-        width: 30%;
-        position: fixed;
+<br />
+<br />
 
-        top: 0px;
-        bottom: 0px;
-        left: 0;
-        overflow-y: scroll;
-        background-color: #006565;
-        overflow-x: hidden;
-        color: white;
-        text-align: center;
-        margin: 0px;
-        padding: 0px
-    }
-</style>
+<div class="container-fluid">
+<div class="row">
+    <div class="col-12">
+        <div class="card" style="background-color:#006565">
+            <br />
+            <h2 class="text-center" ; style="color:white"><b>Stream Schedule</b><span> <img id="info" src="~/images/info_icon.png" style="width: 24px; height: 24px; margin-top: -5px;" data-toggle="tooltip" data-placement="right" title="The stream schedule is used for scheduling streams in advance. Every time you add or edit a stream your student followers will get a notification so that they can tune in at the appropriate time. " /></span></h2>
+            <hr />
+            <br />
+            <button class="uploadbtn" style="display:block; margin-left:auto; margin-right:auto; border-radius:5px; cursor:pointer" onclick="OpenAddScheduleModal()">Add Stream<span><img width="20" class="mb-1 ml-1" src="~/images/Plus48.png" /></span></button>
+            <div class="row">
+                @foreach (var day in Model.Schedule)
+                {
+                    <div class="col-lg-3 col-md-6 text-center mt-5 mb-5">
+                        <h1 class="mt-2" style="font-size:20px; color:white"><b>@day.DayOfWeek.DayOfWeek</b></h1>
+                        <h6 style="color:white">@day.DayOfWeek.ToShortDateString()</h6>
+
+                        <div class="list-group ml-3">
+                            @foreach (var task in day.StreamTaskList)
+                            {
+                                <button class="list-group-item ml-3 mr-3 zoom" style="cursor:pointer" onclick="OpenEditScheduleModal('@task.Name', '@task.TimeOfDay', '@day.DayOfWeek.ToShortDateString()')"><b>@task.Name</b> <br /> @task.TimeOfDay</button>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<br />
+<br />
+
+<div class="container-fluid" style="width:100%; padding-left:100px; padding-right:100px">
+    <h2 class="text-center"><b>My Streams</b></h2>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="row">
+                @foreach (var videoInfo in Model.UserArchivedVideos)
+                {
+                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-6 zoom streamsubject @videoInfo.StreamSubject">
+                        <div class="card mt-3" style="border-radius:5%; border:none; max-width:375px">
+                            <input type="image" width="100%" height="210" style="border-top-left-radius:5%; border-top-right-radius:5%; min-width:250px" src=@videoInfo.StreamThumbnail onclick="window.location.href='../StreamViews/StreamPlaybackPage?streamId=@videoInfo.StreamID'">
+                            <div class="card-body p-0" style="background-color:#008080 ;border-bottom-left-radius:5%; height:75px; border-bottom-right-radius:5%; border:none; min-width:250px" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@videoInfo.Username');">
+                                <div class="row">
+                                    <div class="col-2 pr-2">
+                                        <input type="image" style="border-radius:5%; width:50px; margin-left:10px; margin-top:10px; height:60px;" src=@videoInfo.ProfilePicture />
+                                    </div>
+                                    <div class="col-10" style="color:white;">
+                                        <h5 class="text-truncate" style="font-family: 'Roboto'; font-size:20px; margin-left:20px; margin-top:10px;">@videoInfo.StreamTitle</h5>
+                                        <h6 class="text-truncate" style="font-family: 'Roboto'; font-size:14px;margin-left:20px;">@videoInfo.Username</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
 
 
+<script>$(document).ready(function () {
+
+        $("#nav").click(function () {
+
+            $("#navbarText").slideToggle();
+
+        });
+    });</script>
+
+@if (Model.UserProfile.ProfileCaption == null && Model.UserProfile.ProfileParagraph == null && Model.UserProfile.AcceptedTutor == false)
+{
+    <script>WriteTutorGreeting()</script>
+}
+else
+{
+    <script>WriteTutorGreeting1()</script>
+}

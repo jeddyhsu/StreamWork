@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
@@ -10,265 +9,412 @@ using Microsoft.Extensions.Options;
 using StreamWork.ViewModels;
 using StreamWork.DataModels;
 using StreamWork.HelperClasses;
-using StreamWork.Models;
+using Microsoft.Extensions.Primitives;
+using System.Net.Mail;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System;
 
 namespace StreamWork.Controllers
 {
-    public class HomeController : Controller {
-        HelperFunctions helperFunctions = new HelperFunctions();
+    public class HomeController : Controller
+    {
 
-        public async Task<IActionResult> Index ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
-            if (Request.Host.ToString() == "streamwork.live") {
-                return Redirect("https://www.streamwork.live");
+        readonly HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
+        readonly TutorHelperFunctions _tutorHelperFunctions = new TutorHelperFunctions();
+        readonly FollowingHelperFunctions _followingHelperFunctions = new FollowingHelperFunctions();
+
+        [HttpGet]
+        public async Task<IActionResult> Index([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
+
+            var populatePage = await _homeHelperFunctions.PopulateHomePage(storageConfig);
+
+            if (HttpContext.User.Identity.IsAuthenticated == true)
+            {
+                var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name);
+                populatePage.UserProfile = userProfile;
+                return View(populatePage);
             }
-            var user = HttpContext.Session.GetString("UserProfile");
-            if (user == null) {
-                return View();
+
+            return View(populatePage);
+        }
+
+        public async Task<IActionResult> Subject([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, [FromQuery(Name = "s")] string s)
+        { //s is subject
+            return View(await _homeHelperFunctions.PopulateSubjectPage(storageConfig, s, HttpContext.User.Identity.Name));
+        }
+
+        public async Task<IActionResult> BecomeTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
+            DefaultViewModel viewModel;
+            if (HttpContext.User.Identity.IsAuthenticated == true)
+            {
+                viewModel = new DefaultViewModel
+                {
+                    UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name)
+                };
             }
-            var userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
-            return View(userProfile);
+            else
+            {
+                viewModel = new DefaultViewModel { };
+            }
+            return View(viewModel);
         }
 
-        public async Task<IActionResult> Math ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
-            return View(await PopulateSubjectPage(storageConfig, "Mathematics"));
+        public async Task<IActionResult> About([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
+            DefaultViewModel viewModel;
+            if (HttpContext.User.Identity.IsAuthenticated == true)
+            {
+                viewModel = new DefaultViewModel
+                {
+                    UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name)
+                };
+            }
+            else
+            {
+                viewModel = new DefaultViewModel { };
+            }
+            return View(viewModel);
         }
 
-        public async Task<IActionResult> Science ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
-            return View(await PopulateSubjectPage(storageConfig, "Science"));
+        public async Task<IActionResult> HowToStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
+            DefaultViewModel viewModel;
+            if (HttpContext.User.Identity.IsAuthenticated == true)
+            {
+                viewModel = new DefaultViewModel
+                {
+                    UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name)
+                };
+            }
+            else
+            {
+                viewModel = new DefaultViewModel { };
+            }
+            return View(viewModel);
         }
 
-        public async Task<IActionResult> Engineering ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
-            return View(await PopulateSubjectPage(storageConfig, "Engineering"));
+        public async Task<IActionResult> PickStudentOrTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
+            DefaultViewModel viewModel;
+            if (HttpContext.User.Identity.IsAuthenticated == true)
+            {
+                viewModel = new DefaultViewModel
+                {
+                    UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name)
+                };
+            }
+            else
+            {
+                viewModel = new DefaultViewModel { };
+            }
+            return View(viewModel);
         }
 
-        public async Task<IActionResult> Business ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
-            return View(await PopulateSubjectPage(storageConfig, "Business"));
-        }
-
-        public async Task<IActionResult> Law ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
-            return View(await PopulateSubjectPage(storageConfig, "Law"));
-        }
-
-        public async Task<IActionResult> DesignArt ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
-            return View(await PopulateSubjectPage(storageConfig, "Art"));
-        }
-
-        public async Task<IActionResult> Humanities ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
-            return View(await PopulateSubjectPage(storageConfig, "Humanities"));
-        }
-
-        public async Task<IActionResult> Other ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
-            return View(await PopulateSubjectPage(storageConfig, "Other"));
-        }
-
-        public IActionResult BecomeTutor () {
-            return View();
-        }
-
-        public IActionResult About () {
-            return View();
-        }
-
-        public IActionResult HowToStream () {
-            return View();
-        }
-
-        public IActionResult SplashPage () {
+        public IActionResult SplashPage()
+        {
             return View();
         }
 
         [HttpGet]
-        public async Task<IActionResult> ProfileView (string tutor, [FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
-            var user = HttpContext.Session.GetString("UserProfile");
-            ProfileTutorViewModel profile = new ProfileTutorViewModel {
-                userChannels = await helperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user),
-                userArchivedVideos = await helperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, tutor),
-                userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, tutor),
-                userProfile2 = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user)
+        public async Task<IActionResult> ProfileView([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string tutor)
+        {
+            ProfileTutorViewModel profile = new ProfileTutorViewModel
+            {
+                UserChannels = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, tutor),
+                UserArchivedVideos = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, tutor),
+                UserProfile = null,
+                StudentOrTutorProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, tutor),
+                NumberOfStreams = (await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, tutor)).Count
             };
+
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                profile.UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name);
+
+                if (profile.UserProfile.FollowedStudentsAndTutors != null)
+                    profile.IsUserFollowingThisTutor = profile.UserProfile.FollowedStudentsAndTutors.Contains(profile.UserChannels[0].Id);
+            }
+            else
+            {
+                profile.IsUserFollowingThisTutor = false;
+            }
+
+            profile.Schedule = _tutorHelperFunctions.GetTutorStreamSchedule(profile.UserChannels[0]);
+
             return View(profile);
         }
 
-        public IActionResult Error () {
+        [HttpPost]
+        public async Task<IActionResult> ProfileView([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string tutorId, string followRequest, string unFollowRequest)
+        {
+            //handles follow requests
+            if (followRequest != null && tutorId != null)
+            {
+                var user = HttpContext.User.Identity.Name;
+                var userLogin = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user);
+
+                var tutorChannel = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannelFromId, tutorId);
+                var tutorLogin = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, tutorChannel[0].Username);
+
+                var updatedUserList = _followingHelperFunctions.AddToListOfFollowedTutors(tutorId, userLogin[0].FollowedStudentsAndTutors);
+                var updatedTutorList = _followingHelperFunctions.AddToListOfFollowedStudents(userLogin[0].EmailAddress, tutorLogin[0].FollowedStudentsAndTutors);
+
+                userLogin[0].FollowedStudentsAndTutors = updatedUserList;
+                tutorLogin[0].FollowedStudentsAndTutors = updatedTutorList;
+
+                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userLogin[0].Id } }, userLogin[0]);
+                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", tutorLogin[0].Id } }, tutorLogin[0]);
+
+                return Json(new { Message = JsonResponse.Success.ToString() });
+            }
+
+            //handles unfollow requests
+            if (unFollowRequest != null && tutorId != null)
+            {
+                var user = HttpContext.User.Identity.Name;
+                var userLogin = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user);
+
+                var tutorChannel = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannelFromId, tutorId);
+                var tutorLogin = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, tutorChannel[0].Username);
+
+                var updatedUserList = _followingHelperFunctions.RemoveFromListOfFollowedTutors(tutorId, userLogin[0].FollowedStudentsAndTutors);
+                var updatedTutorList = _followingHelperFunctions.RemoveFromListOfFollowedStudents(userLogin[0].EmailAddress, tutorLogin[0].FollowedStudentsAndTutors);
+
+                userLogin[0].FollowedStudentsAndTutors = updatedUserList;
+                tutorLogin[0].FollowedStudentsAndTutors = updatedTutorList;
+
+                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userLogin[0].Id } }, userLogin[0]);
+                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", tutorLogin[0].Id } }, tutorLogin[0]);
+
+                return Json(new { Message = JsonResponse.Success.ToString() });
+            }
+
+            return Json(new { Message = JsonResponse.Failed.ToString() });
+        }
+
+
+        public IActionResult Error()
+        {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        private async Task<ProfileTutorViewModel> PopulateSubjectPage ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject) {
-            var user = HttpContext.Session.GetString("UserProfile");
+        [HttpPost]
+        public async Task<IActionResult> SignUp([FromServices] IOptionsSnapshot<StorageConfig> storageConfig,
+                                                string nameFirst, string nameLast, string email, string payPalAddress, string username, string password, string passwordConfirm, string role)
+        {
 
-            ProfileTutorViewModel model = new ProfileTutorViewModel {
-                userChannels = await helperFunctions.GetUserChannels(storageConfig, QueryHeaders.AllUserChannelsThatAreStreaming, subject),
-                userLogins = await GetPopularStreamTutors(storageConfig),
-                userProfile = user != null ? await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user) : null
+            if (password == null)
+            {
+                var checkCurrentUsers = await DataStore.GetListAsync<UserLogin>(_homeHelperFunctions._connectionString, storageConfig.Value, "CurrentUser", new List<string> { username });
+                if (checkCurrentUsers.Count == 0)
+                {
+                    return Json(new { Message = JsonResponse.Success.ToString() });
+                }
+                else
+                {
+                    return Json(new { Message = JsonResponse.Failed.ToString() });
+                }
+            }
+
+            UserLogin signUpProfile = new UserLogin
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = nameFirst + "|" + nameLast,
+                EmailAddress = email,
+                Username = username,
+                Password = _homeHelperFunctions.EncryptPassword(password),
+                ProfileType = role,
+                AcceptedTutor = false,
+                ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/default-profile.png",
+                Balance = (decimal)0f,
+                Expiration = DateTime.UtcNow,
+                TrialAccepted = false,
+                PayPalAddress = payPalAddress
             };
-            return model;
-        }
+            await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", signUpProfile.Id } }, signUpProfile);
 
-        private async Task<List<UserLogin>> GetPopularStreamTutors ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
-            List<UserLogin> list = new List<UserLogin>();
-            var getCurrentUsers = await DataStore.GetListAsync<UserLogin>(helperFunctions._connectionString, storageConfig.Value, "AllSignedUpUsers", null);
-            foreach (UserLogin user in getCurrentUsers) {
-                if (user.ProfileType.Equals("tutor")) {
-                    list.Add(user);
+            if (role == "tutor")
+            {
+                //Create User Channel For Tutor
+                UserChannel userChannel = new UserChannel
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Username = username,
+                    ChannelKey = null,
+                    StreamSubject = null,
+                    StreamThumbnail = null,
+                    StreamTitle = null,
+                    ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/default-profile.png",
+                    ChatId = _homeHelperFunctions.FormatChatId(DataStore.GetChatID("https://www.cbox.ws/apis/threads.php?id=6-829647-oq4rEn&key=ae1682707f17dbc2c473d946d2d1d7c3&act=mkthread"))
+                };
+                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
+
+                //Checks for the attachments that tutors provide and sends them to streamwork for verification
+                if (Request.Form.Files.Count != 0)
+                {
+                    List<string> values = new List<string>();
+                    foreach (var key in Request.Form.Keys)
+                    {
+                        Request.Form.TryGetValue(key, out StringValues value);
+                        values.Add(value);
+                    }
+
+                    var files = Request.Form.Files;
+                    List<Attachment> attachments = new List<Attachment>();
+                    foreach (var file in files)
+                        attachments.Add(new Attachment(file.OpenReadStream(), file.FileName));
+                    await _homeHelperFunctions.SendEmailToAnyEmailAsync(_homeHelperFunctions._streamworkEmailID, _homeHelperFunctions._streamworkEmailID, "Tutor Evaluation", email, attachments);
                 }
             }
-            return list;
-        }
 
-        private async Task<List<UserLogin>> GetStudents ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
-            List<UserLogin> list = new List<UserLogin>();
-            var getCurrentUsers = await DataStore.GetListAsync<UserLogin>(helperFunctions._connectionString, storageConfig.Value, "AllSignedUpUsers", null);
-            foreach (UserLogin user in getCurrentUsers) {
-                if (user.ProfileType.Equals("student")) {
-                    list.Add(user);
-                }
-            }
-            return list;
-        }
-
-        private async Task<List<DonationAttempt>> GetDonationAttempts ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
-            List<DonationAttempt> list = await DataStore.GetListAsync<DonationAttempt>(helperFunctions._connectionString, storageConfig.Value, "AllDonationAttempts");
-            return list;
-        }
-
-        [HttpGet]
-        public IActionResult SignUp () {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult TryLogin ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string placeholder) {
-            try {
-                HttpContext.Session.GetString("UserProfile");
-                if (HttpContext.Session.GetString("Tutor").Equals("true")) {
-                    return Json(new { Message = "Welcome, StreamTutor" });
-                }
-                return Json(new { Message = "Welcome" });
-            }
-            catch {
-                return Json(new { Message = "Wrong Password or Username " });
-            }
-        }
-
-        [HttpGet]
-        public IActionResult Login () {
-            return View();
-        }
-
-        private string FormatChatId (string chatID) {
-            var formattedphrase = chatID.Split(new char[] { '\t' });
-            var formattedChatID = formattedphrase[2].Split(new char[] { '\n' });
-            return formattedphrase[1] + "|" + formattedChatID[0];
-        }
-
-        [HttpGet]
-        public IActionResult PasswordRecovery () {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> PasswordRecovery ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string username) {
-            var userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
-            if (userProfile == null)
-                return Json(new { Message = JsonResponse.Failed.ToString() });
-            helperFunctions.SendEmailToAnyEmail(userProfile.EmailAddress, "Password Recovery", helperFunctions.CreateUri(userProfile.Username));
             return Json(new { Message = JsonResponse.Success.ToString() });
         }
 
         [HttpGet]
-        public IActionResult ChangePassword () {
+        public IActionResult SignUp()
+        {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> ChangePassword ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string newPassword, string confirmNewPassword, string path) {
-            if (newPassword == confirmNewPassword) {
-                var pathFormat = path.Split(new char[] { '=' });
-                var username = pathFormat[1];
-                var userProfile = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
-                userProfile.Password = newPassword;
-                await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
-                return Json(new { Message = JsonResponse.Success.ToString() });
+        public async Task<IActionResult> Login([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string username, string password)
+        {
+            var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
+            if (userProfile == null)
+                return Json(new { Message = JsonResponse.Failed.ToString() });
+
+            var checkforUser = await DataStore.GetListAsync<UserLogin>(_homeHelperFunctions._connectionString, storageConfig.Value, QueryHeaders.AllSignedUpUsersWithPassword.ToString(), new List<string> { username, _homeHelperFunctions.DecryptPassword(userProfile.Password, password) });
+            if (checkforUser.Count == 1)
+            {
+                HttpContext.Session.SetString(QueryHeaders.UserProfile.ToString(), username);
+
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, username),
+                    new Claim(ClaimTypes.Email, userProfile.EmailAddress),
+                };
+
+                var userIdentity = new ClaimsIdentity(claims, "cookie");
+
+                ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
+                if (userProfile.ProfileType == "tutor")
+                    return Json(new { Message = JsonResponse.Tutor.ToString() });
+                else
+                    return Json(new { Message = JsonResponse.Student.ToString() });
             }
-            return Json(new { Message = "Invalid Password Match" });
+
+            return Json(new { Message = JsonResponse.Failed.ToString() });
         }
 
         [HttpGet]
-        public IActionResult Logout () {
+        public IActionResult Login()
+        {
             return View();
         }
 
-        [HttpGet]
-        public IActionResult Subscribe () {
-            return View();
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> ControlPanel ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
-            var students = await GetStudents(storageConfig);
-            var tutors = await GetPopularStreamTutors(storageConfig);
-            var donationAttempts = await GetDonationAttempts(storageConfig);
-            return View(new ControlPanelViewModel {
-                Students = students,
-                Tutors = tutors,
-                DonationAttempts = donationAttempts
-            });
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> AcceptTutor ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string username) {
-            var user = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
-            user.AcceptedTutor = true;
-            await helperFunctions.UpdateUser(storageConfig, user);
-            return Json(new { Message = "Success" });
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> ZeroTutorBalance ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string username) {
-            var user = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
-            user.Balance = 0;
-            await helperFunctions.UpdateUser(storageConfig, user);
-            return Json(new { Message = "Success" });
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> RenewStudentSubscription ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string username) {
-            var user = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
-            user.Expiration = DateTime.UtcNow.AddMonths(1);
-            user.TrialAccepted = true;
-            await helperFunctions.UpdateUser(storageConfig, user);
-            return Json(new { Message = "Success" });
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> ApplyDonationAttempt ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string id, string value) {
-            if (decimal.TryParse(value, out decimal decimalValue)) {
-                var donationAttempt = await helperFunctions.GetDonationAttempt(storageConfig, "DonationAttemptsById", id);
-                var tutor = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, donationAttempt.Tutor);
-                tutor.Balance += decimalValue;
-                await helperFunctions.UpdateUser(storageConfig, tutor);
-                await helperFunctions.DeleteDonationAttempt(storageConfig, donationAttempt);
-                return Json(new { Message = "Success" });
-            }
-            return Json(new { Message = "Failure" });
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> RemoveDonationAttempt ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string id) {
-            var donationAttempt = await helperFunctions.GetDonationAttempt(storageConfig, "DonationAttemptsById", id);
-            await helperFunctions.DeleteDonationAttempt(storageConfig, donationAttempt);
-            return Json(new { Message = "Success" });
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Test ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
-            await helperFunctions.SaveDonationAttempt(storageConfig, new DonationAttempt {
+        public async Task<IActionResult> CreateDonationAttempt([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string studentName, string tutorName)
+        {
+            await _homeHelperFunctions.SaveDonationAttempt(storageConfig, new Models.DonationAttempt
+            {
                 Id = Guid.NewGuid().ToString(),
-                Student = "tom",
-                Tutor = "rarunT",
+                Student = studentName,
+                Tutor = tutorName,
                 TimeSent = DateTime.UtcNow
             });
-            return Json(new { Message = "Success" });
+
+            return Json(new { Message = JsonResponse.Success.ToString() });
+        }
+
+        [HttpGet]
+        public IActionResult PasswordRecovery()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PasswordRecovery([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string username)
+        {
+            var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
+            if (userProfile == null)
+                return Json(new { Message = JsonResponse.Failed.ToString() });
+
+            Random random = new Random();
+            string key = Convert.ToString(random.Next(int.MaxValue), 16);
+            userProfile.ChangePasswordKey = key;
+            await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
+
+            await _homeHelperFunctions.SendEmailToAnyEmailAsync(_homeHelperFunctions._streamworkEmailID, userProfile.EmailAddress, "Password Recovery", _homeHelperFunctions.CreateUri(userProfile.Username, key), null);
+            return Json(new { Message = JsonResponse.Success.ToString() });
+        }
+
+        [HttpGet]
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string newPassword, string confirmNewPassword, string username, string key) {
+            if (newPassword == confirmNewPassword) {
+                var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
+
+                if (!key.Equals(userProfile.ChangePasswordKey))
+                    return Json(new { Message = JsonResponse.QueryFailed.ToString() });
+
+                userProfile.Password = _homeHelperFunctions.EncryptPassword(newPassword);
+                userProfile.ChangePasswordKey = null;
+                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
+
+                return Json(new { Message = JsonResponse.Success.ToString() });
+            }
+
+            return Json(new { Message = JsonResponse.Failed.ToString() });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string logout)
+        {
+            HttpContext.Session.Clear();
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return Json(new { Message = JsonResponse.Success.ToString() });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Subscribe([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
+            if (HttpContext.User.Identity.IsAuthenticated == false)
+                return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-Home-Subscribe");
+
+            var user = HttpContext.Session.GetString(QueryHeaders.UserProfile.ToString());
+
+            DefaultViewModel model = new DefaultViewModel {
+                UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user)
+            };
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Donate(string tutor, [FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
+            if (HttpContext.User.Identity.IsAuthenticated == false)
+                return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-Home-Donate?tutor=" + tutor);
+
+            var user = HttpContext.Session.GetString(QueryHeaders.UserProfile.ToString());
+
+            ProfileTutorViewModel model = new ProfileTutorViewModel
+            {
+                UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, tutor),
+                StudentOrTutorProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user)
+            };
+
+            return View(model);
         }
     }
 }

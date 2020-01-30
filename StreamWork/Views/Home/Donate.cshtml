@@ -1,18 +1,25 @@
 ﻿@model StreamWork.ViewModels.ProfileTutorViewModel
 
+@{Layout = "_LayoutNoNavbar";}
 @{ViewData["title"] = "Donate";}
 
 <br />
 <br />
 <br />
 <br />
-<br />
-<br />
 <div class="form-sign text-center">
-    <img src="~/images/streamworklogo.png" width="250" height="70" onclick="window.location.href='/'" />
-    <h1 class="h3 mb-3 font-weight-normal">You are donating to<br /> <b>@Model.userLogins[0].Name.Replace('|', ' ')</b></h1>
-    <img class="bordered-image" src="@Model.userLogins[0].ProfilePicture" style="width: 115px; height: 150px"/>
+    <img src="~/images/streamworklogo.png" width="250" height="70" onclick="window.location.href='/'" onmouseover="" style="cursor: pointer;" />
+    <h4>You are donating to</h4>
+    <h1 class="mb-3"><b>@Model.UserProfile.Name.Replace('|', ' ')</b></h1>
+    <img class="bordered-image" src="@Model.UserProfile.ProfilePicture" style="width: 115px; height: 150px"/>
     <br />
     <br />
-    <input class="btn btn-lg  btn-block" type="button" value="Donate" style="background-color:#008080; color: white" onclick="Login()">
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+        <input type="hidden" name="cmd" value="_s-xclick" />
+        <input type="hidden" name="hosted_button_id" value="QQPAME3R7N5ZA" />
+        <input type="hidden" name="custom" value="@Model.StudentOrTutorProfile.Username+@Model.UserProfile.Username" />
+        <input type="image" src="~/images/donate201911.png" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" style="display:block; margin-left:auto; margin-right:auto; width:75%; height:75%" />
+        <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+    </form>
+    <p>Thank you for supporting your StreamTutors! All donations go through StreamWork to ensure financial security and fraud prevention. StreamWork also collects 10% of donations to keep the website up and running, striving to provide quality academic services and provide students with new educational features every day.</p>
 </div>

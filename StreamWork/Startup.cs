@@ -1,10 +1,12 @@
 ﻿using System;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StreamWork.Config;
+using StreamWork.HelperClasses;
 
 namespace StreamWork
 {
@@ -20,8 +22,8 @@ namespace StreamWork
                 .AddEnvironmentVariables();
 
             Configuration = builder.Build();
+            HomeHelperFunctions.devEnvironment = env.IsDevelopment();
         }
-
 
         public IConfiguration Configuration { get; }
 
@@ -34,6 +36,12 @@ namespace StreamWork
 
             services.AddSession(options =>
             {
+            });
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(options =>
+            {
+                options.LoginPath = "/Home/Login";
             });
 
             services.Configure<StorageConfig>(Configuration);
@@ -53,8 +61,11 @@ namespace StreamWork
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseHttpsRedirection();
             app.UseSession();
             app.UseStaticFiles();
+
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

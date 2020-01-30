@@ -1,5 +1,4 @@
-﻿
-.dot {
+﻿.dot {
     height: 10vw;
     width: 10vw;
     background-color: white;
@@ -29,6 +28,7 @@
     position: relative;
     overflow: hidden;
     display: inline-block;
+    cursor: pointer;
 }
 
 .uploadbtn {
@@ -47,5 +47,9 @@
     left: 0;
     top: 0;
     opacity: 0;
+}
+
+.pointer {
+    cursor: pointer;
 }
 

@@ -1,10 +1,43 @@
-function GetArchivedVideosBasedOnSubject(subject) {
+function FilterStreams(subject) {
+    var subjectDivs = $('.streamsubject');
+
+    $.each(subjectDivs, function (index, value) {
+        $(this).show();
+    });
+
+    $.each(subjectDivs, function (index, value) {
+        if ($(this).hasClass(subject) == false) {
+            $(this).hide();
+        }
+    });
+}
+
+function FollowStreamTutor(tutor) {
     $.ajax({
-        url: '/Student/ArchivedStreams',
-        type: 'POST',
-        dataType: 'json',
+        url: '/Home/ProfileView',
+        type: 'post',
+        datatype: 'json',
         data: {
-            'Subject': subject
-        },
-    })
+            'followRequest': 'follow',
+            'tutorId': tutor
+        }
+    });
+
+    $('#FollowButton').hide();
+    $('#UnfollowButton').show();
+}
+
+function UnfollowStreamTutor(tutor) {
+    $.ajax({
+        url: '/Home/ProfileView',
+        type: 'post',
+        datatype: 'json',
+        data: {
+            'unFollowRequest': 'Unfollow',
+            'tutorId': tutor
+        }
+    });
+
+    $('#FollowButton').show();
+    $('#UnfollowButton').hide();
 }

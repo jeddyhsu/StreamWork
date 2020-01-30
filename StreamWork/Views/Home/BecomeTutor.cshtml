@@ -1,57 +1,44 @@
-﻿@{
-    ViewData["Title"] = "Become a Tutor";
-}
+﻿@model StreamWork.ViewModels.DefaultViewModel
+@{ViewData["Title"] = "Become a Tutor";}
 
-<div style="font-family:'Roboto', sans-serif;">
-    <nav class="navbar navbar-expand-lg text-center" style="position:fixed;z-index:2 ;width:100%;background-color:#008080">
-        <img src="~/images/WhiteStreamWork.png" width="250" height="70" onclick="window.location.href='/'" />
-        <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item ml-sm-5" style="font-size:14px;">
-                    <a class="nav-link" href="/" style="color:white;">Browse by Subjects</a>
-                </li>
-                <li class="nav-item ml-sm-5" style="font-size:14px; ">
-                    <a class="nav-link" href="/Home/BecomeTutor" style="color:white;">Become a StreamTutor</a>
-                </li>
-                <li class="nav-item ml-sm-5" style="font-size:14px;">
-                    <a id="button" class="nav-link" href="/Home/About" style="color:white;">About</a>
-                </li>
-                <li class="nav-item ml-sm-5" style="font-size:14px;">
-                    <a class="nav-link" href="/Home/HowToStream" style="color:white;">How to Stream</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <div class="container-fluid" style="padding-top:140px;">
-        <div class="row">
-            <div class="col-lg-1 col-md-0 col-sm-0"></div>
-            <div class="col-lg-10 col-md-12 col-sm-12">
-                <div class="card" style="background-color: #006565;">
-                    <div class="card-body">
-                        <div class=" p-5" style=" color: white; text-align: justify;">
-                            <img src="/images/streamworkPencilWhite.png" style="height: 104px; width: 72px; margin-left:auto; margin-right:auto;display:block">
-                            <br />
-                            <h2 style="text-align: center">Become a Tutor</h2> <br>
-                            <p>Do you help your friends understand their homework 📓? Have you ever taught a classmate an easier way to solve a problem? You may have the qualities of a <strong>StreamTutor!</strong></p>
-                            <p>Tutors on <strong>StreamWork</strong> make up the backbone of the platform and are the stars of the community. When <strong>StreamTutors</strong> help out student viewers, they have the opportunity to receive donations as a thank you. If you are comfortable tutoring a subject and have received or maintain an A grade in the course, simply send us a letter of approval from your professor to start making money 🤑 from doing your homework!</p>
-                            To become a <strong>StreamTutor</strong>, students must:
-                            <ol>
-                                <li>Feel comfortable tutoring their chosen subject</li>
-                                <li>Maintain an A grade in the topic being taught</li>
-                                <li>Receive a letter of recommendation from the course professor</li>
-                                <ol type="a">
-                                    <li>Submit approval to <a href="mailto:streamworktutor@gmail.com" style="color: #AAAAFF">streamworktutor@gmail.com</a></li>
-                                </ol>
+<div class="container-fluid" style="padding-top:75px;">
+    <div class="row">
+        <div class="col-lg-1 col-md-0 col-sm-0"></div>
+        <div class="col-lg-10 col-md-12 col-sm-12">
+            <div class="card" style="background-color: #006565;">
+                <div class="card-body">
+                    <div class=" p-5" style=" color: white; text-align: left;">
+                        <img src="/images/streamworkPencilWhite.png" style="height: 104px; width: 72px; margin-left:auto; margin-right:auto;display:block">
+                        <br />
+                        <h2 style="text-align: center">What's a StreamTutor?</h2> <br>
+                        <p>Do you help your friends understand their homework 📓? Have you ever taught a classmate an easier way to solve a problem? You may have the qualities of a <strong>StreamTutor!</strong></p>
+                        <p>Tutors on <strong>StreamWork</strong> make up the backbone of the platform and are the stars of the community. When <strong>StreamTutors</strong> help out student viewers, they have the opportunity to receive donations as a thank you. If you are comfortable tutoring a subject and have received or maintain an A grade in the course, feel free to sign up as a StreamTutor and to start making money 🤑 from doing your homework!</p>
+                        To become a <strong>StreamTutor</strong>, students must:
+                        <ol>
+                            <li>Feel comfortable tutoring their chosen subject</li>
+                            <li>Maintain an A grade in the topic being taught</li>
+                            <li>Receive a letter of recommendation from the course professor (optional)</li>
+                            <li>Provide StreamWork with a resume and transcript</li>
+                            <ol type="a">
+                                <li>Transcripts and resume's let StreamWork verify that tutors are adequate and experienced enough to teach in certain subjects, in order to give students an optimal learning experience</li>
+                                <li>These documents will suffice (if approved) as a StreamTutors entry ticket to their own streaming channel, chat box and donation system</li>
+                                <li>These documents will be private to StreamWork and not be shared with any other tutors or students</li>
                             </ol>
-                        </div>
+                            <li>Wait 1-2 business days to get approved by StreamWork</li>
+                            <li>If you have the superpowers of a StreamTutor, <a href="https://www.streamwork.live/Home/SignUp?type=Tutor" ; style="color: #AAAAFF">sign up here! 📚👩🏽‍🎓</a></li>
+                        </ol>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
-    </div>
+</div>
 
+<script>$(document).ready(function () {
+
+        $("#nav").click(function () {
+
+            $("#navbarText").slideToggle();
+
+        });
+    });</script>

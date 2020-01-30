@@ -1,65 +1,65 @@
 ﻿@model StreamWork.ViewModels.StreamPageViewModel
+@{ ViewData["Title"] = "StreamPage";}
 
-@{
-    ViewData["Title"] = "StreamPage";
-}
+<link rel="stylesheet" href="~/css/Streams.css" />
 
-<script src="~/js/SignUpLogin.js"></script>
-
-@if (Model.profile.userProfile == null)
-{
-    <script>NavigateToPage('/Home/Math')</script>
-}
-else
-{
-    <script>checkLoggedIn('@Model.profile.userProfile.LoggedIn',"/Home/Math");</script>
-}
-
-@if (!Model.IsSubscribed()) {
-    <script>window.location.href = '/Home/Subscribe';</script>
-}
-
-<div style="font-family:'Roboto', sans-serif;">
-    <nav class="navbar navbar-expand-lg  text-center" style="position:fixed;z-index:2 ;width:100%;background-color:#008080">
-        <img src="~/images/WhiteStreamWork.png" width="250" height="70" onclick="window.location.href='/'" />
-        <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item ml-sm-5" style="font-size:14px;">
-                    <a class="nav-link" href="/" style="color:white;">Browse by Subjects</a>
-                </li>
-                <li class="nav-item ml-sm-5" style="font-size:14px;">
-                    <a class="nav-link" href="/Home/BecomeTutor" style="color:white;">Become a StreamTutor</a>
-                </li>
-                <li class="nav-item ml-sm-5" style="font-size:14px;">
-                    <a class="nav-link" href="/Home/About" style="color:white;">About</a>
-                </li>
-                <li class="nav-item ml-sm-5" style="font-size:14px;">
-                    <a class="nav-link" href="/Home/HowToStream" style="color:white;">How to Stream</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12 col-md-12 col-lg-9 p-2">
-                <div style="padding-top:115px">
-                    <iframe src="//iframe.dacast.com/b/135034/c/@Model.urlParams[0]" width="100%" height="700px" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
-                </div>
+<div class="container-fluid" style="background-color:black">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-9 p-0">
+            <div>
+                <iframe class="p-0" src="//iframe.dacast.com/b/135034/c/@Model.UrlParams[0]" width="100%" height="700" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+                <h2 class="text-center mt-1" style="color:white">@Model.UrlParams[2]</h2>
+               
             </div>
+        </div>
 
-            <div class="col-sm-12 col-md-12 col-lg-3 p-2">
-                <div style="padding-top:115px">
-                    <iframe src="https://www6.cbox.ws/box/?boxid=829647&boxtag=oq4rEn&tid=@Model.urlParams[1]&tkey=@Model.urlParams[2]" width="100%" height="525" allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>
+        <div class="col-sm-12 col-md-12 col-lg-3 p-0 m-0">
+            <iframe class="p-0" src=@Model.UrlParams[1] width="100%" height="400" allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>
+            <div class="card text-center border-0 p-0" style="color:white;">
+                <div class="card-body" style="background-color:#006565; border-top-right-radius:5px; border-top-left-radius:5px; ">
+                    <a target="_blank" rel="noopener noreferrer" href="/Home/Donate?tutor=@Model.Profile.StudentOrTutorProfile.Username">
+                        <img src="~/images/donate201911.png" target="_blank" rel="noopener noreferrer" style="display:block; margin-left:auto; margin-right:auto; width:50%; height:auto" />
+                    </a>
+                    <br />
+                    <img src=@Model.Profile.StudentOrTutorProfile.ProfilePicture style="width:115px; height: 150px; border-radius:5%" />
+                    <br />
+                    @if (Model.Profile.IsUserFollowingThisTutor == false && Model.UserProfile != null && Model.UserProfile.ProfileType == "student")
+                    {
+                        <button id="FollowButton" type="button" style="font-size:12px" class="btn btn-primary mt-3" onclick="FollowStreamTutor('@Model.UrlParams[3]')">Follow StreamTutor</button>
+                        <button id="UnfollowButton" type="button" style="font-size:12px; display:none" class="btn btn-primary mt-3" onclick="UnfollowStreamTutor('@Model.UrlParams[3]')">Unfollow StreamTutor</button>
+                    }
+                    else if (Model.Profile.IsUserFollowingThisTutor == true && Model.UserProfile != null && Model.UserProfile.ProfileType == "student")
+                    {
+                        <button id="FollowButton" type="button" style="font-size:12px;display:none" class="btn btn-primary mt-3" onclick="FollowStreamTutor('@Model.UrlParams[3]')">Follow StreamTutor</button>
+                        <button id="UnfollowButton" type="button" style="font-size:12px" class="btn btn-primary mt-3" onclick="UnfollowStreamTutor('@Model.UrlParams[3]')">Unfollow StreamTutor</button>
+                    }
+                    <h1 class="card-title mt-4" style=" font-size:24px; color:lightgray"><b>@Model.Profile.StudentOrTutorProfile.Name.Replace('|', ' ')</b></h1>
+                    <p class="card-text" style="font-size:16px; color:white">@Model.Profile.StudentOrTutorProfile.ProfileCaption</p>
+                    <p class="card-text" style="font-size:14px; color:white">@Model.Profile.StudentOrTutorProfile.ProfileParagraph</p>
                 </div>
-                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                    <input type="hidden" name="cmd" value="_s-xclick" />
-                    <input type="hidden" name="hosted_button_id" value="HBRMKP2RPW5LQ" />
-                    <input type="image" src="~/images/cash.png" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" style="width:100%; height:20%" />
-                </form>
+                <div class="row">
+                    <div class="col-6 pr-0">
+                        <div class="card-body" style="background-color:#006565; border-bottom-left-radius:5px">
+                            <h5 style="color:lightgray">Streams</h5>
+                            <h4>@Model.Profile.NumberOfStreams</h4>
+                        </div>
+                    </div>
+
+                    <div class="col-6 pl-0">
+                        <div class="card-body" style="background-color:#006565; border-bottom-right-radius:5px ">
+                            <h5 style="color:lightgray">Total Views</h5>
+                            <h4>0</h4>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+
+<script>$(document).ready(function () {
+    $("#nav").click(function () {
+        $("#navbarText").slideToggle();
+    });
+});</script>

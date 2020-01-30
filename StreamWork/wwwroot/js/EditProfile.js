@@ -1,5 +1,6 @@
 ﻿
     //Sends profile caption and paragraph to backend for saving
+
     function RegisterProfilePhotoAndCaption() {
         var formData = new FormData();
         var profileCaption = $("#ProfileCaption").val()
@@ -45,7 +46,6 @@
     }
 
  //Opens editing MODAL
-
  function EditProfile() {
         $('#editModal').modal('show')
  }
@@ -89,8 +89,13 @@ function Logout() {
         },
         success: function (data) {
             if (data.message === "Success") {
-                window.location.href = "/Home/Logout"
+                window.location.href = "/"
             }
         }
     })
+}
+
+function encodeURL(url) {
+    var encodedURI = encodeURIComponent(url);
+    window.location.href = encodedURI;
 }
