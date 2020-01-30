@@ -85,5 +85,10 @@ namespace StreamWork.HelperClasses
 
             return null;
         }
+
+        //public void SendOutEmailsToStudents(string streamName, string streamTime, string streamDate)
+        //{
+
+        //}
     }
 }

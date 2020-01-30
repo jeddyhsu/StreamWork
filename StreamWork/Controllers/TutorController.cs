@@ -130,7 +130,7 @@ namespace StreamWork.Controllers
             };
 
             viewModel.NumberOfFollowers = _tutorHelperFunctions.GetNumberOfFollowers(viewModel.UserLogins[0]);
-            //viewModel.Schedule = _tutorHelperFunctions.GetTutorStreamSchedule(viewModel.UserChannels[0]);
+            viewModel.Schedule = _tutorHelperFunctions.GetTutorStreamSchedule(viewModel.UserChannels[0]);
 
             return View(viewModel);
         }
@@ -154,7 +154,7 @@ namespace StreamWork.Controllers
             {
                 var success = await _editProfileHelperFunctions.EditProfileWithNoProfilePicture(Request, storageConfig, user);
                 if(success)
-                    return Json(new { Message = JsonResponse.Success.ToString() });
+                    return Json(new { Message = JsonResponse.Success.ToString()});
             }
 
             //Adds streams to schedule
@@ -162,7 +162,7 @@ namespace StreamWork.Controllers
             {
                 var userChannel = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user);
                 if(await _tutorHelperFunctions.AddStreamTask(storageConfig, streamName, dateTime, userChannel[0]))
-                    return Json(new { Message = JsonResponse.Success.ToString() });
+                    return Json(new { Message = JsonResponse.Success.ToString()});
             }
 
             //Updates streams in schedule
@@ -170,7 +170,7 @@ namespace StreamWork.Controllers
             {
                 var userChannel = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user);
                 if(await _tutorHelperFunctions.UpdateStreamTask(storageConfig, streamName, dateTime, originalDateTime, userChannel[0]))
-                    return Json(new { Message = JsonResponse.Success.ToString() });
+                    return Json(new { Message = JsonResponse.Success.ToString()});
             }
 
             //Removes streams in schedule
@@ -178,10 +178,10 @@ namespace StreamWork.Controllers
             {
                 var userChannel = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user);
                 if (await _tutorHelperFunctions.RemoveStreamTask(storageConfig, streamName, originalDateTime, userChannel[0]))
-                    return Json(new { Message = JsonResponse.Success.ToString() });
+                    return Json(new { Message = JsonResponse.Success.ToString()});
             }
 
-            return Json(new { Message = JsonResponse.Failed.ToString() });
+            return Json(new { Message = JsonResponse.Failed.ToString()});
         }
 
         [HttpGet]

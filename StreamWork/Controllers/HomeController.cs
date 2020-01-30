@@ -22,6 +22,7 @@ namespace StreamWork.Controllers
     {
 
         readonly HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
+        readonly TutorHelperFunctions _tutorHelperFunctions = new TutorHelperFunctions();
         readonly FollowingHelperFunctions _followingHelperFunctions = new FollowingHelperFunctions();
 
         [HttpGet]
@@ -128,7 +129,6 @@ namespace StreamWork.Controllers
                 UserProfile = null,
                 StudentOrTutorProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, tutor),
                 NumberOfStreams = (await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, tutor)).Count
-
             };
 
             if (HttpContext.User.Identity.IsAuthenticated)
@@ -142,6 +142,8 @@ namespace StreamWork.Controllers
             {
                 profile.IsUserFollowingThisTutor = false;
             }
+
+            profile.Schedule = _tutorHelperFunctions.GetTutorStreamSchedule(profile.UserChannels[0]);
 
             return View(profile);
         }
