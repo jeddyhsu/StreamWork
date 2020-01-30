@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="~/images/StreamworkLogo.png">
     <link rel="stylesheet" href="~/css/site.css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -24,7 +25,7 @@
     <script>!function (f, b, e, v, n, t, s) {
             if (f.fbq) return; n = f.fbq = function () {
                 n.callMethod ?
-                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
             };
             if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
             n.queue = []; t = b.createElement(e); t.async = !0;
@@ -46,21 +47,20 @@
     <div>
         <div class="full-page">
             <div class="in-page">
-                <nav class="navbar navbar-expand-lg navbar-light text-center" style="background-color:#008080; z-index:1000;">
-                    <img src="~/images/streamworkPencilWhite.png" height="70" onclick="window.location.href='/'" onmouseover="" style="cursor: pointer;" />
+                <nav class="navbar navbar-expand-lg navbar-light text-center" style="background-color:white; z-index:1000;">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarText">
                         <ul class="navbar-nav mr-auto">
-                            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:18px; ">
-                                <a class="nav-link underline" href="/Home/BecomeTutor" style="color:white;"><b>Become a StreamTutor</b></a>
+                            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px; ">
+                                <a class="nav-link underline" href="/Home/BecomeTutor" style="color:#008080;"><b>Become a StreamTutor</b></a>
                             </li>
-                            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:18px;">
-                                <a class="nav-link underline" href="/Home/About" style="color:white;"><b>About</b></a>
+                            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
+                                <a class="nav-link underline" href="/Home/About" style="color:#008080;"><b>About</b></a>
                             </li>
-                            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:18px;">
-                                <a class="nav-link underline" href="/Home/HowToStream" style="color:white;"><b>How to Stream</b></a>
+                            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
+                                <a class="nav-link underline" href="/Home/HowToStream" style="color:#008080;"><b>How to Stream</b></a>
                             </li>
                         </ul>
                         @if (@Model.UserProfile == null)
@@ -70,7 +70,7 @@
                                     <a class="btn m-2" style="color:#008080; font-size:17px; background-color:white" onclick="window.location.href='/Home/PickStudentOrTutor'"><b>Sign Up</b></a>
                                 </li>
                                 <li class="nav-item mt-1">
-                                    <a class="btn m-2" style="background-color:#006565; font-size:17px; color:white";  onclick="window.location.href='/Home/Login?dest=-Home-Profile'"><b>Login</b></a>
+                                    <a class="btn m-2" style="background-color:#006565; font-size:17px; color:white" ; onclick="window.location.href='/Home/Login?dest=-Home-Profile'"><b>Login</b></a>
                                 </li>
                             </ul>
                         }

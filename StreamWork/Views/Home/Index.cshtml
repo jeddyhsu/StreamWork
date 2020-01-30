@@ -1,57 +1,31 @@
 ﻿@model StreamWork.ViewModels.ProfileTutorViewModel
 
 @{ViewData["title"] = "Home";}
-
-<section class="jumbotron text-center" style="background-color:white">
-    <div class="container">
-        <img src="~/images/streamworklogo.png" width="317" height="87" />
-        <p><font size="3"><i>Your academic live-streaming tutoring center</i></font></p>    
-        <p><font size="3"><b>I'm a student and I need help with...</b></font></p>
-        <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6 mt-2" align="center">
-                <input class="zoom" type="image" src="~/images/MathCard.png" style="width:90%; height:95%; cursor: pointer;"; onclick="window.location.href='/Home/Subject?s=Mathematics'" onmouseover="" />
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 mt-2" align="center">
-               <input class="zoom" type="image" src="~/images/ScienceCard.png" style="width:90%; height:95%; cursor: pointer;" onclick="window.location.href='/Home/Subject?s=Science'" onmouseover="" />
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 mt-2" align="center">
-                <input class="zoom" type="image" src="~/images/EngineeringCard.png" style="width:90%; height:95%; cursor: pointer;" onclick="window.location.href='/Home/Subject?s=Engineering'" onmouseover="" />
-            </div>
-             <div class="col-lg-3 col-md-6 col-sm-6 mt-2" align="center">
-                <input class="zoom" type="image" src="~/images/BuisnessCard.png" style="width:90%; height:95%; cursor: pointer;" onclick="window.location.href='/Home/Subject?s=Business'" onmouseover="" />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6 mt-5" align="center">
-                <input class="zoom" type="image" src="~/images/LawCard.png" style="width:90%; height:95%; cursor: pointer;" onclick="window.location.href='/Home/Subject?s=Law'" onmouseover="" />
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 mt-5" align="center">
-                <input class="zoom" type="image" src="~/images/ArtCard.png" style="width:90%; height:95%; cursor: pointer;" onclick="window.location.href='/Home/Subject?s=Art'" onmouseover="" />
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 mt-5" align="center">
-                <input class="zoom" type="image" src="~/images/HumanitiesCard.png" style="width:90%; height:95%; cursor: pointer;" onclick="window.location.href='/Home/Subject?s=Humanities'" onmouseover="" />
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 mt-5" align="center">
-               <input class="zoom" type="image" src="~/images/OtherCard.png" style="width:90%; height:95%; cursor: pointer;" onclick="window.location.href='/Home/Subject?s=Other'" onmouseover="" />
+        <div class="container-fluid" style="background-color:#008080;">
+            <div class="row">
+                <div class="col-lg-12">
+                    <br />
+                    <br />
+                    <p class="text-center" style="color:white"><font size="3"><b>I'm a student and I need help with...</b></font></p>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <p style="color:white; font-size:12px">Homework - Tutoring - Streaming</p>
+                                <div class="display-4" style="font-family:'Roboto', sans-serif; color:white"><b>End your homework <br /> Procrastination Tonight</b></div>
+                                <br />
+                                <p style="color:white; font-size:12px">Streamwork is a revolutionary tool used to make learning easier, <br /> for everyone. Whether it's looking up exam help or specific homework <br /> answers, find it all here. </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <h1><font size="3"><b>Already a StreamTutor?</b> </font></h1>
-        @if(Model.UserProfile != null){
-             <img class="zoom" src="~/images/StartBroadcast.png" style="width:250px; cursor: pointer;" onclick="StartBroadcast('@Model.UserProfile.ProfileType')" onmouseover="" />
-        }
-        else{
-             <img class="zoom" src="~/images/StartBroadcast.png" style="width:250px; cursor: pointer;" onclick="window.location.href='/Home/Login?dest=-Home-Profile'" onmouseover="" />
-        }
-        <div class="row">
-            <div class="col-lg-4"></div>
-            <div class="col-sm-12 col-lg-4">
-                <p style="font-size:11px" class="mt-4">
-                    Made for ASU undergrads, StreamWork is an online educational platform which provides interactive peer-to-peer teaching and tutoring through live-stream sessions. Our StreamTutors are committed to bringing the minds of students together, building on each other’s knowledge to reach scholastic success. StreamWork is dedicated to academic integrity and does not tolerate cheating in any form.
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
+    
 
 
 <script>
@@ -68,7 +42,7 @@
 </script>
 
 <style>
-    .subjectCard:hover{
+    .subjectCard:hover {
         box-shadow: 10px 10px grey;
     }
 </style>
