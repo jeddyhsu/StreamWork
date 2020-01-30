@@ -14,7 +14,7 @@ namespace StreamWork.Models {
         public string PaymentType { get; set; }
         public decimal Val { get; set; }
         public DateTime TimeSent { get; set; }
-        public bool Verified { get; set; }
+        public string Verified { get; set; }
         public string Error { get; set; }
 
         [Timestamp]

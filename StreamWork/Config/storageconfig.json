@@ -1,112 +1,102 @@
 ﻿{
-  "EntityModels": [
-    {
-      "Name": "UserLogin",
-      "StorageType": "SqlServer",
-      "Queries": [
+    "EntityModels": [
         {
-          "Query": "SELECT * FROM [dbo].[UserLogin]",
-          "QueryId": "AllSignedUpUsers"
+            "Name": "UserLogin",
+            "StorageType": "SqlServer",
+            "Queries": [
+                {
+                    "Query": "SELECT * FROM [dbo].[UserLogin]",
+                    "QueryId": "AllSignedUpUsers"
+                },
+                {
+                    "Query": "SELECT * FROM [dbo].[UserLogin] WHERE Username = '@x0'",
+                    "QueryId": "CurrentUser"
+                },
+                {
+                    "Query": "SELECT * FROM [dbo].[UserLogin] WHERE Username = '@x0' AND Password = '@x1'",
+                    "QueryId": "AllSignedUpUsersWithPassword"
+                }
+            ]
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE Username = '@x0'",
-          "QueryId": "CurrentUser"
+            "Name": "UserChannel",
+            "StorageType": "SqlServer",
+            "Queries": [
+                {
+                    "Query": "SELECT * FROM [dbo].[UserChannel] WHERE StreamSubject = '@x0'",
+                    "QueryId": "AllUserChannelsThatAreStreamingWithSpecifiedSubject"
+                },
+                {
+                    "Query": "SELECT * FROM [dbo].[UserChannel] WHERE StreamSubject != '@x0'",
+                    "QueryId": "AllUserChannelsThatAreStreaming"
+                },
+                {
+                    "Query": "SELECT * FROM [dbo].[UserChannel] WHERE Username = '@x0'",
+                    "QueryId": "CurrentUserChannel"
+                }
+            ]
         },
+
         {
-          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE PayPalAddress = '@x0'",
-          "QueryId": "CheckUsersWithSamePayPalAddress"
+            "Name": "UserArchivedStreams",
+            "StorageType": "SqlServer",
+            "Queries": [
+                {
+                    "Query": "SELECT * FROM [dbo].[UserArchivedStreams]",
+                    "QueryId": "AllArchivedVideos"
+                },
+                {
+                    "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE Username = '@x0'",
+                    "QueryId": "UserArchivedVideos"
+                },
+                {
+                    "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE StreamSubject = '@x0'",
+                    "QueryId": "UserArchivedVideosBasedOnSubject"
+                }
+            ]
         },
+
         {
-          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE Username = '@x0' AND Password = '@x1'",
-          "QueryId": "AllSignedUpUsersWithPassword"
+            "Name": "Payment",
+            "StorageType": "SqlServer",
+            "Queries": [
+                {
+                    "Query": "SELECT * FROM [dbo].[Payment]",
+                    "QueryId": "AllPayments"
+                },
+
+                {
+                    "Query": "SELECT * FROM [dbo].[Payment] WHERE TransactionId = '@x0'",
+                    "QueryId": "PaymentsById"
+                }
+            ]
         },
+
         {
-          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE ProfileType = 'tutor' AND AcceptedTutor = '1'",
-          "QueryId": "AllApprovedTutors"
+            "Name": "DonationAttempt",
+            "StorageType": "SqlServer",
+            "Queries": [
+                {
+                    "Query": "SELECT * FROM [dbo].[DonationAttempt]",
+                    "QueryId": "AllDonationAttempts"
+                },
+
+                {
+                    "Query": "SELECT * FROM [dbo].[DonationAttempt] WHERE Id = '@x0'",
+                    "QueryId": "DonationAttemptsById"
+                }
+            ]
+        },
+
+        {
+            "Name": "IPNRequestBody",
+            "StorageType": "SqlServer",
+            "Queries": [
+                {
+                    "Query": "SELECT * FROM [dbo].[IPNRequestBody]",
+                    "QueryId": "AllIPNRequests"
+                }
+            ]
         }
-      ]
-    },
-    {
-      "Name": "UserChannel",
-      "StorageType": "SqlServer",
-      "Queries": [
-        {
-          "Query": "SELECT * FROM [dbo].[UserChannel] WHERE StreamSubject = '@x0'",
-          "QueryId": "AllUserChannelsThatAreStreamingWithSpecifiedSubject"
-        },
-        {
-          "Query": "SELECT * FROM [dbo].[UserChannel] WHERE StreamSubject != '@x0'",
-          "QueryId": "AllUserChannelsThatAreStreaming"
-        },
-        {
-          "Query": "SELECT * FROM [dbo].[UserChannel] WHERE Username = '@x0'",
-          "QueryId": "CurrentUserChannel"
-        },
-        {
-          "Query": "SELECT * FROM [dbo].[UserChannel] WHERE Id = '@x0'",
-          "QueryId": "CurrentUserChannelFromId"
-        }
-      ]
-    },
-
-    {
-      "Name": "UserArchivedStreams",
-      "StorageType": "SqlServer",
-      "Queries": [
-        {
-          "Query": "SELECT * FROM [dbo].[UserArchivedStreams]",
-          "QueryId": "AllArchivedVideos"
-        },
-        {
-          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE Username = '@x0'",
-          "QueryId": "UserArchivedVideos"
-        },
-        {
-          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE StreamSubject = '@x0'",
-          "QueryId": "UserArchivedVideosBasedOnSubject"
-        },
-        {
-          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE StreamId = '@x0'",
-          "QueryId": "ArchivedVideosByStreamId"
-        }
-      ]
-    },
-
-    {
-        "Name": "Payment",
-        "StorageType": "SqlServer",
-        "Queries": [
-            {
-                "Query": "SELECT * FROM [dbo].[Payment]",
-                "QueryId": "AllPayments"
-            },
-
-            {
-                "Query": "SELECT * FROM [dbo].[Payment] WHERE TransactionId = '@x0'",
-                "QueryId": "PaymentsById"
-            }
-        ]
-    },
-
-    {
-        "Name": "DonationAttempt",
-        "StorageType": "SqlServer",
-        "Queries": [
-            {
-                "Query": "SELECT * FROM [dbo].[DonationAttempt]"
-            }
-        ]
-    },
-
-    {
-        "Name": "IPNRequestBody",
-        "StorageType": "SqlServer",
-        "Queries": [
-            {
-                "Query": "SELECT * FROM [dbo].[IPNRequestBody]",
-                "QueryId": "AllIPNRequests"
-            }
-        ]
-    }
-  ]
+    ]
 }

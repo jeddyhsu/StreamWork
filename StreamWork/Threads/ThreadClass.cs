@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,117 +15,89 @@ namespace StreamWork.Threads
 {
     public class ThreadClass
     {
-        readonly HomeHelperFunctions _helperFunctions;
-        readonly IOptionsSnapshot<StorageConfig> _storageConfig;
-        readonly UserChannel _userChannel;
-        readonly UserLogin _userLogin;
-        readonly string _streamTitle;
-        readonly string _streamSubject;
-        readonly string _streamThumbnail;
-
-        private int _archivedVideoCount;
+        HelperFunctions helperFunctions;
+        IOptionsSnapshot<StorageConfig> storageConfig;
+        UserChannel userChannel;
+        UserLogin userLogin;
+        string streamTitle;
+        string streamSubject;
+        string streamThumbnail;
 
         public ThreadClass(IOptionsSnapshot<StorageConfig> storageConfig, UserChannel userChannel, UserLogin userLogin, string streamTitle, string streamSubject, string streamThumbnail)
         {
-            _helperFunctions = new HomeHelperFunctions();
-            _userChannel = userChannel;
-            _userLogin = userLogin;
-            _storageConfig = storageConfig;
-            _streamTitle = streamTitle;
-            _streamSubject = streamSubject;
-            _streamThumbnail = streamThumbnail;
+            helperFunctions = new HelperFunctions();
+            this.userChannel = userChannel;
+            this.userLogin = userLogin;
+            this.storageConfig = storageConfig;
+            this.streamTitle = streamTitle;
+            this.streamSubject = streamSubject;
+            this.streamThumbnail = streamThumbnail;
         }
 
-        public async Task TurnRecordingOn() //Turns Recording Capability On
+        public async Task StartRecordingStream()
         {
             try
             {
                 HttpClient httpClient = new HttpClient();
-                var response = await httpClient.PostAsync("https://api.dacast.com/v2/channel/"
-                                                           + _userChannel.ChannelKey
-                                                           + "/recording/watch?apikey="
-                                                           + _helperFunctions._dacastAPIKey, null);
+                var response = await httpClient.PostAsync("https://api.dacast.com/v2/channel/505911/recording/start?apikey=135034_9d5e445816dfcd2a96ad",null);
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error in TurnRecordingOn: " + ex.Message);
-            }
-        }
-
-        public async Task StartRecordingStream() //Starts Stream Recording
-        {
-            try
-            {
-                HttpClient httpClient = new HttpClient();
-                var response = await httpClient.PostAsync("https://api.dacast.com/v2/channel/"
-                                                           + _userChannel.ChannelKey
-                                                           + "/recording/start?apikey="
-                                                           + _helperFunctions._dacastAPIKey, null);
-            }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 Console.WriteLine("Error in StartRecordingStream: " + ex.Message);
             }
         }
 
-        public async Task TurnRecordingOff() //Turns Recording Capability Off
+        public void StopRecordingStream()
         {
             try
             {
-                HttpClient httpClient = new HttpClient();
-                var response = await httpClient.DeleteAsync("https://api.dacast.com/v2/channel/"
-                                                             + _userChannel.ChannelKey
-                                                             + "/recording/watch?apikey="
-                                                             + _helperFunctions._dacastAPIKey);
+                var startRecording = DataStore.CallAPI<string>("https://api.dacast.com/v2/channel/" + userChannel.ChannelKey + "/recording/stop?apikey=135034_9d5e445816dfcd2a96ad");
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error in TurnRecordingOff: " + ex.Message);
+                Console.WriteLine("Error in StopRecordingStream: " + ex.Message);
             }
         }
 
-        public bool RunVideoThread() //This thread handles checking if the stream is still live
+        public bool RunThread()
         {
-            _archivedVideoCount = (int)GetArchivedVideo().TotalCount;
             bool tryAPI = true;
+            //This thread handles getting streamed videos to our archive DB
             var cancellationToken = new CancellationToken();
             Task.Factory.StartNew(async () =>
             {
                 try
                 {
-                    _userChannel.StreamSubject = _streamSubject;
-                    _userChannel.StreamTitle = _streamTitle;
-                    _userChannel.StreamThumbnail = _streamThumbnail;
-                    await DataStore.SaveAsync(_helperFunctions._connectionString, _storageConfig.Value, new Dictionary<string, object> { { "Id", _userChannel.Id } }, _userChannel);
+                    userChannel.StreamSubject = streamSubject;
+                    userChannel.StreamTitle = streamTitle;
+                    userChannel.StreamThumbnail = streamThumbnail;
+                    await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
                 }
-                catch (Microsoft.EntityFrameworkCore.DbUpdateException e)
+                catch(Microsoft.EntityFrameworkCore.DbUpdateException e)
                 {
                     Console.WriteLine(e.Message);
                 }
-
+                
                 while (tryAPI)
                 {
-                    await Task.Delay(3000, cancellationToken);
+                    await Task.Delay(300000, cancellationToken);
                     try
                     {
-                        var live = DataStore.CallAPI<LiveRecordingAPI>("https://liverecording.dacast.com/l/status/live?contentId=135034_c_"
-                                                                        + _userChannel.ChannelKey
-                                                                        + "&apikey="
-                                                                        + _helperFunctions._dacastAPIKey);
-                        if (live.IsLive)
-                            Console.WriteLine("Live");
+                        var liveRecording = DataStore.CallAPI<LiveRecordingAPI>("https://api.dacast.com/v2/channel/" + userChannel.ChannelKey + "/recording/watch?apikey=135034_9d5e445816dfcd2a96ad&_format=JSON");
+                        if (liveRecording.RecordingStatus == "recording")
+                        {
+                            Console.WriteLine("Recording");
+                        }
                         else
                         {
-                            Console.WriteLine("Not Live");
+                            await StopStreamAndArchive();
                             await ClearChannelStreamInfo();
-                            await TurnRecordingOff();
-                            RunVideoArchiveThread();
                             tryAPI = false;
                         }
                     }
-                    catch (IndexOutOfRangeException ex)
+                    catch(IndexOutOfRangeException e)
                     {
-                        Console.WriteLine("Error in RunThread: " + ex.Message);
+                        Console.WriteLine("Error in RunThread: " + e.Message);
                         tryAPI = true;
                     }
                 }
@@ -133,97 +106,48 @@ namespace StreamWork.Threads
             return false;
         }
 
-        private void RunVideoArchiveThread() //This thread handles getting streamed videos to our archive DB
+        private async Task<bool> StopStreamAndArchive()
         {
-            var cancellationToken = new CancellationToken();
-            bool archiveApi = true;
-            Task.Factory.StartNew(async () =>
-            {
-                while (archiveApi)
-                {
-                    await Task.Delay(15000, cancellationToken);
-                    var videoInfo = GetArchivedVideo();
-                    if (videoInfo.TotalCount != _archivedVideoCount)
-                    {
-                        Console.WriteLine("Video Ready");
-                        await StopStreamAndArchive(videoInfo);
-                        archiveApi = false;
-                        break;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Video Not Ready");
-                        archiveApi = true;
-                    }
+            //stop stream and archvie video into database
+            var currentDate = DateTime.Now.ToString("ddd/MMM/d/yyyy").Replace('/', ' ');
 
-                }
+            //strict format!!!
+            var archivedVideo = DataStore.CallAPI<VideoArchiveAPI>("https://api.dacast.com/v2/vod?apikey=135034_9d5e445816dfcd2a96ad&title=" + "(" + userChannel.ChannelKey + ")" + " - " + currentDate);
 
-            }, TaskCreationOptions.LongRunning);
-        }
-
-        private async Task<bool> StopStreamAndArchive(VideoArchiveAPI archivedVideo)
-        {
             UserArchivedStreams archivedStream = new UserArchivedStreams
             {
                 Id = Guid.NewGuid().ToString(),
-                Username = _userChannel.Username,
+                Username = userChannel.Username,
                 StreamID = archivedVideo.Data[0].Id.ToString(),
-                StreamTitle = _streamTitle,
-                StreamSubject = _streamSubject,
-                StreamThumbnail = _streamThumbnail,
-                ProfilePicture = _userLogin.ProfilePicture
+                StreamTitle = streamTitle,
+                StreamSubject = streamSubject,
+                StreamThumbnail = streamThumbnail,
+                ProfilePicture = userLogin.ProfilePicture
             };
             try
             {
-                await DataStore.SaveAsync(_helperFunctions._connectionString, _storageConfig.Value, new Dictionary<string, object> { { "Id", archivedStream.Id } }, archivedStream);
+                await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", archivedStream.Id } }, archivedStream);
             }
-            catch (Exception ex)
+            catch (Microsoft.EntityFrameworkCore.DbUpdateException e)
             {
-                Console.WriteLine("Error in StopStreamAndArchive " + ex.Message);
+                Console.WriteLine(e.InnerException);
             }
-
+          
             return true;
-        }
-
-        private VideoArchiveAPI GetArchivedVideo()
-        {
-            var currentDate = DateTime.Now;
-            var finalDate = currentDate.AddHours(GetHoursAheadBasedOnTimeZone()).ToString("ddd/MMM/dd/yyyy").Replace('/', ' ');
-            var archivedVideos = DataStore.CallAPI<VideoArchiveAPI>("https://api.dacast.com/v2/vod?apikey="
-                                                                     + _helperFunctions._dacastAPIKey
-                                                                     + "&title=" + "Live recording ("
-                                                                     + _userChannel.ChannelKey
-                                                                     + ")"
-                                                                     + " - " + finalDate);   //strict format!!!
-            return archivedVideos;
-        }
-
-        private int GetHoursAheadBasedOnTimeZone()
-        {
-            TimeZoneInfo localZone = TimeZoneInfo.Local;
-            switch (localZone.DisplayName)
-            {
-                case "GMT-08:00": //PST
-                    return 8;
-                case "GMT-07:00": //MST
-                    return 7;
-            }
-
-            return 0;
         }
 
         private async Task ClearChannelStreamInfo()
         {
             try
             {
-                _userChannel.StreamTitle = null;
-                _userChannel.StreamSubject = null;
-                _userChannel.StreamThumbnail = null;
-                await DataStore.SaveAsync(_helperFunctions._connectionString, _storageConfig.Value, new Dictionary<string, object> { { "Id", _userChannel.Id } }, _userChannel);
+                userChannel.StreamTitle = null;
+                userChannel.StreamSubject = null;
+                userChannel.StreamThumbnail = null;
+                await DataStore.SaveAsync(helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
             }
-            catch (Exception ex)
+            catch (Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException e)
             {
-                Console.WriteLine("Error in ClearChannelStreamInfo " + ex.Message);
+                Console.WriteLine(e.Message);
             }
         }
     }

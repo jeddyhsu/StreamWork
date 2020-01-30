@@ -1,132 +1,68 @@
-﻿@model StreamWork.ViewModels.DefaultViewModel
+﻿@{
+    ViewData["Title"] = "How to Stream";
+}
 
-@{ViewData["Title"] = "How to Stream";}
-
-<div class="container-fluid" style="padding-top:75px">
-    <div class="row">
-        <div class="col-lg-1 col-md-0 col-sm-0"></div>
-        <div class="col-lg-10 col-md-12 col-sm-12">
-            <div class="card" style="background-color: #006565;">
-                <div class="card-body">
-                    <div class="d-none d-md-block col-3"></div>
-                    <div class="  p-5" style="background-color: #006565; color: white; text-align: justify;">
-                        <img src="/images/streamworkPencilWhite.png" style="height: 104px; width: 72px; margin-left:auto; margin-right:auto;display:block">
-                        <br />
-                        <h2 style="text-align:center">How To Stream</h2> <br />
-                        <h4>Initial Setup <span style="font-size:12px">(Only have to do it once)</span></h4>
-                        <div style="text-align:left">
+<div style="font-family:'Roboto', sans-serif;">
+    <nav class="navbar navbar-expand-lg text-center" style="position:fixed;z-index:2 ;width:100%;background-color:#008080">
+        <img src="~/images/WhiteStreamWork.png" width="250" height="70" onclick="window.location.href='/'" />
+        <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item ml-sm-5" style="font-size:14px;">
+                    <a class="nav-link" href="/" style="color:white;">Browse by Subjects</a>
+                </li>
+                <li class="nav-item ml-sm-5" style="font-size:14px; ">
+                    <a class="nav-link" href="/Home/BecomeTutor" style="color:white;">Become a StreamTutor</a>
+                </li>
+                <li class="nav-item ml-sm-5" style="font-size:14px;">
+                    <a id="button" class="nav-link" href="/Home/About" style="color:white;">About</a>
+                </li>
+                <li class="nav-item ml-sm-5" style="font-size:14px;">
+                    <a class="nav-link" href="/Home/HowToStream" style="color:white;">How to Stream</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container-fluid" style="padding-top:140px">
+        <div class="row">
+            <div class="col-lg-1 col-md-0 col-sm-0"></div>
+            <div class="col-lg-10 col-md-12 col-sm-12">
+                <div class="card" style="background-color: #006565;">
+                    <div class="card-body">
+                        <div class="d-none d-md-block col-3"></div>
+                        <div class="  p-5" style="background-color: #006565; color: white; text-align: justify;">
+                            <img src="/images/streamworkPencilWhite.png" style="height: 104px; width: 72px; margin-left:auto; margin-right:auto;display:block">
+                            <br />
+                            <h2 style="text-align: center">How To Stream</h2> <br />
+                            <h4>Initial Setup</h4>
                             <ol start="1">
                                 <li>Install <a href="https://obsproject.com/" style="color: #AAAAFF">Open Broadcast Software (OBS)</a></li>
                                 <li><a href="/Home/SignUp" style="color: #AAAAFF">Create a <strong>StreamTutor</strong> account</a> on <strong>StreamWork</strong> using an active email</li>
+                                <li>Send us your transcript and letter of recommandation from your professor at <a href="mailto:streamworklive@gmail.com" style="color: #AAAAFF">streamworktutor@gmail.com</a></li>
                                 <li>We will then verify your qualifications and provide you with a stream key, username and password for OBS within 1-2 business days</li>
                             </ol>
-                            <strong>Once you have received your verification email from StreamWork:</strong>
-                            <br />
-                            <br />
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <img src="/images/ClickSettings.png" width="100%" />
-                                    </div>
-                                    <div class="col-lg-6 mt-3">
-                                        <ol>
-                                            <li>Go to Settings on OBS</li>
-                                        </ol>
-
-                                    </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <img src="/images/ClickOnStream.png" width="100%" />
-                                    </div>
-                                    <div class="col-lg-6 mt-3">
-                                        <ol start="2">
-                                            <li>Click on the "Stream" tab on the left hand side</li>
-                                        </ol>
-
-                                    </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <img src="/images/ServerStreamKey.png" width="100%" />
-                                    </div>
-                                    <div class="col-lg-6 mt-3">
-                                        <ol start="3">
-                                            <li>In the dropdown box labeled "Service" make sure that it is set to "Custom"</li>
-                                            <li>In box labeled "Server" copy and paste the RTMP url that you were provided</li>
-                                            <li>In box labeled "StreamKey" copy and paste the stream key that you were provided</li>
-                                        </ol>
-
-                                    </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <img src="/images/Authentication.png" width="100%" />
-                                    </div>
-                                    <div class="col-lg-6 mt-3">
-                                        <ol start="6">
-                                            <li>Check "Use Authentication"</li>
-                                            <li>Enter the username and password that you were provided</li>
-                                        </ol>
-
-                                    </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <img src="/images/StartStreaming.png" width="100%" />
-                                    </div>
-                                    <div class="col-lg-6 mt-3">
-                                        <ol start="9">
-                                            <li>Login into your StreamWork account and click on "Start Streaming"</li>
-                                        </ol>
-                                    </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <img src="/images/ChannelKey.png" width="100%" />
-                                    </div>
-                                    <div class="col-lg-6 mt-3">
-                                        <ol start="10">
-                                            <li>Enter the channel key that you were provided</li>
-                                        </ol>
-                                    </div>
-                                </div>
-                            </div>
-                            <br />
+                            <strong>Once you have received your OBS information:</strong>
+                            <ol start="4">
+                                <li>Go to Settings/Stream on OBS</li>
+                                <li>In the dropdown box labeled "Service" make sure that it is set to "Custom"</li>
+                                <li>In box labeled "Server" copy and paste the RTMP url that you were provided</li>
+                                <li>In box labeled "StreamKey" copy and paste the stream key that you were provided</li>
+                                <li>Check "Use Authentication"</li>
+                                <li>Enter the username and password that you were provided</li>
+                            </ol>
                             <h4>Every Time Streaming</h4>
-                            <br />
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <img src="/images/EveryTimeStartStreaming.png" width="100%" />
-                                    </div>
-                                    <div class="col-lg-6 mt-3">
-                                        <ol start="1">
-                                            <li>Go to OBS and click "Start Streaming"</li>
-                                        </ol>
-                                    </div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <img src="/images/EveryStream.png" width="100%" />
-                                    </div>
-                                    <div class="col-lg-6 mt-3">
-                                        <ol start="2">
-                                            <li><a href="https://www.streamwork.live/Home/Login?-Home-Profile" style="color: #AAAAFF">Login</a> to your profile and click on "Start Streaming"</li>
-                                            <li>Enter a stream title and what subject you're streaming</li>
-                                            <li>Click on "Go Live"</li>
-                                            <li>If you want to stop a stream go to OBS and click "Stop Streaming"</li>
-                                        </ol>
-                                    </div>
-                                </div>
-                            </div>
-                            
+                            <strong>On OBS:</strong>
+                            <ol>
+                                <li>Start your stream</li>
+                            </ol>
+                            <strong>On StreamWork:</strong>
+                            <ol start="3">
+                                <li><a href="https://www.streamwork.live/Home/Login?-Home-Profile" style="color: #AAAAFF">Login</a> to your profile and you will see your stream playing on "Start Streaming"</li>
+                                <li>Enter the stream title and what subject you're streaming</li>
+                                <li>Go live!</li>
+                            </ol>
                         </div>
                     </div>
                 </div>
@@ -134,14 +70,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    $(document).ready(function () {
-
-        $("#nav").click(function () {
-
-            $("#navbarText").slideToggle();
-
-        });
-    });
-</script>

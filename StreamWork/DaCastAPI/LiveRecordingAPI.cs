@@ -5,7 +5,10 @@ namespace StreamWork.DaCastAPI
 {
     public class LiveRecordingAPI
     {
-        [JsonProperty("isLive")]
-        public bool IsLive { get; set; }
+        [JsonProperty("watchingStatus")]
+        public bool WatchingStatus { get; set; }
+
+        [JsonProperty("recordingStatus")]
+        public string RecordingStatus { get; set; }
     }
 }

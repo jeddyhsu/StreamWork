@@ -1,84 +1,93 @@
 ﻿@model StreamWork.ViewModels.ProfileStudentViewModel
-
-@{Layout = "_LayoutStudentNavbar";}
-@{ViewData["Title"] = "Archived Streams";}
-
 <script src="~/js/Student.js"></script>
-<link rel="stylesheet" href="~/css/Student.css"/>
+<script src="~/js/EditProfile.js"></script>
+@{
+    ViewData["Title"] = "ArchivedStreams";
+}
 
-<div class="container">
-    <br />
-    <br />
-    <div class="row ml-4">
-        <div class="col-1"></div>
-        <input type="image" runat="server" src="~/images/MathCard.png" style="width:10%; height:10%;" onclick="FilterStreams('Mathematics')" />
-        <input type="image" src="~/images/ScienceCard.png" style="width:10%; height:10%;" onclick="FilterStreams('Science')" />
-        <input type="image" src="~/images/EngineeringCard.png" style="width:10%; height:10%;" onclick="FilterStreams('Engineering')" />
-        <input type="image" src="~/images/BuisnessCard.png" style="width:10%; height:10%;" onclick="FilterStreams('Business')" />
-        <input type="image" src="~/images/LawCard.png" style="width:10%; height:10%;" onclick="FilterStreams('Law')" />
-        <input type="image" src="~/images/ArtCard.png" style="width:10%; height:10%;" onclick="FilterStreams('Art')" />
-        <input type="image" src="~/images/HumanitiesCard.png" style="width:10%; height:10%;" onclick="FilterStreams('Humanities')" />
-        <input type="image" src="~/images/OtherCard.png" style="width:10%; height:10%;" onclick="FilterStreams('Other')" />
-    </div>
-</div>
-<br />
-<div class="container-fluid" style="width:100%; padding-left:100px; padding-right:100px">
-    <h2 class="text-center"><b>Archived Streams</b></h2>
-    <div class="row">
-        <div class="col-lg-12">
+<div style="font-family:'Roboto', sans-serif;">
+    <nav class="navbar sticky-top navbar-expand-lg  text-center" style="background-color:#008080">
+        <img src="~/images/streamworkPencilWhite.png" height="70" onclick="window.location.href='/'" />
+        <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item ml-sm-4 mt-1" style="font-size:15px;">
+                    <a class="nav-link" href="/Student/ProfileStudent" style="color:white;">Dashboard</a>
+                </li>
+                <li class="nav-item ml-sm-5 mt-1" style="font-size:14px; ">
+                    <a class="nav-link" href="/Student/ArchivedStreams" style="color:white;">Past Streams</a>
+                </li>
+                <li class="nav-item ml-sm-5 mt-1" style="font-size:15px;">
+                    <a id="button" class="nav-link" href="/" style="color:white;">Home</a>
+                </li>
+            </ul>
+        </div>
+        <div class="btn-group">
+            <img src=@Model.userLogins[0].ProfilePicture style="width:75px; height:95px; border-radius:50%" />
+            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #008080; border:none; margin-right:35px"></button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#" id="EditProfile">Settings</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
+            </div>
+        </div>
+    </nav>
+    <div class="contaier-fluid">
+        <section class="m-5">
+             <div class="col-sm-12 col-lg-6 mb-5" style="display:block; margin-left:auto; margin-right:auto">
+            <input class="form-control mr-lg-2" type="text" placeholder="Search for subject..." aria-label="Search" style="background-color:#008080;  color:white">
+            </div>
             <div class="row">
-                @foreach (var videoInfo in Model.UserArchivedStreams)
-                {
-                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-6 zoom streamsubject @videoInfo.StreamSubject">
-                        <div class="card mt-3" style="border-radius:5%; border:none; max-width:375px">
-                            <input type="image" width="100%" height="210px" style="border-top-left-radius:5%; border-top-right-radius:5%; min-width:250px" src=@videoInfo.StreamThumbnail onclick="window.location.href='../StreamViews/StreamPlaybackPage?streamId=@videoInfo.StreamID'">
-                            <div class="card-body p-0" style="background-color:#008080 ;border-bottom-left-radius:5%; height:75px; border-bottom-right-radius:5%; border:none; min-width:250px" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@videoInfo.Username');">
-                                <div class="row">
-                                    <div class="col-2 pr-2">
-                                        <input type="image" style="border-radius:5%; width:50px; margin-left:10px; margin-top:10px; height:60px;" src=@videoInfo.ProfilePicture />
-                                    </div>
-                                    <div class="col-10" style="color:white;">
-                                        <h5 class="text-truncate" style="font-family: 'Roboto'; font-size:20px; margin-left:20px; margin-top:10px;">@videoInfo.StreamTitle</h5>
-                                        <h6 class="text-truncate" style="font-family: 'Roboto'; font-size:14px;margin-left:20px;">@videoInfo.Username</h6>
-                                    </div>
+                 @foreach(var stream in Model.userArchivedStreams){
+                        <div class="col-lg-3 col-md-6 mb-5">
+                            <input type="image" width="100%" height="80%" src=@stream.StreamThumbnail onclick="window.location.href='../StreamViews/StreamPlaybackPage?streamId=' + ('@stream.StreamID')">
+                            <div class="row">
+                                <div class="col-3 pr-0">
+                                    <input type="image" width="80%" height="70%" style="border-radius:50%" src=@stream.ProfilePicture onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@stream.Username');" />
+                                </div>
+                                <div class="col-9 pl-0">
+                                    <h5 style="font-family: 'Roboto';">@stream.StreamTitle</h5>
+                                    <h6 style="font-family: 'Roboto'">@stream.StreamSubject</h6>
+                                    <h6 style="font-family: 'Roboto';">@stream.Username</h6>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                }
+                  }
             </div>
-        </div>
+        </section>
     </div>
-</div>
 
-<div id="editModal" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" style="background-color: #008080">
-            <div class="modal-header">
-                <h5 class="modal-title" style="color:white">Edit Profile</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.UserProfile.ProfileCaption" />
-                    <br />
-                    <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.UserProfile.ProfileParagraph</textarea>
-                    <br />
-                    <img id="previewProfilePic" src=@Model.UserProfile.ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
-                    <br />
-                    <div class="upload-uploadbtn-wrapper">
-                        <button class="uploadbtn" style="margin-left:110px">Upload a Profile Picture</button>
-                        <input id="uploadProfilePic" type='file' onchange="readURL(this,'ProfilePic');" />
-                    </div>
+    <div id="editModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: #008080">
+                <div class="modal-header">
+                    <h5 class="modal-title" style="color:white">Edit Profile</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.userLogins[0].ProfileCaption" />
+                        <br />
+                        <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.userLogins[0].ProfileParagraph</textarea>
+                        <br />
+                        <img id="previewProfilePic" src=@Model.userLogins[0].ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
+                        <br />
+                        <div class="upload-uploadbtn-wrapper">
+                            <button class="uploadbtn" style="margin-left:110px">Upload a Profile Picture</button>
+                            <input id="uploadProfilePic" type='file' onchange="readURL(this,'ProfilePic');" />
+                        </div>
 
-                </form>
-            </div>
+                    </form>
+                </div>
 
-            <div class="modal-footer">
-                <button type="button" style="background-color:black; color:white" class="btn" onclick="RegisterProfilePhotoAndCaption()">Save changes</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <div class="modal-footer">
+                    <button type="button" style="background-color:black; color:white" class="btn" onclick="RegisterProfilePhotoAndCaption()">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
@@ -86,8 +95,6 @@
 
 
 <style>
-
-
     .dot {
         height: 10vw;
         width: 10vw;
@@ -130,15 +137,5 @@
 
     input[type="text"]::placeholder { /* Firefox, Chrome, Opera */
         color: white;
-    }
+    } 
 </style>
-
-
-<script>$(document).ready(function () {
-
-        $("#nav").click(function () {
-
-            $("#navbarText").slideToggle();
-
-        });
-    });</script>

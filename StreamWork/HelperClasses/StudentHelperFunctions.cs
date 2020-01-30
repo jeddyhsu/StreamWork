@@ -1,7 +1,8 @@
-﻿namespace StreamWork.HelperClasses
+﻿using System;
+namespace StreamWork.HelperClasses
 {
     public class StudentHelperFunctions ////For functions involved with student code only
     {
-        
+       
     }
 }

@@ -1,171 +1,29 @@
-﻿@{Layout = "_LayoutNoNavbar";}
+﻿<script src="~/js/SignUpLogin.js"></script>
+
 @{ViewData["title"] = "Sign Up";}
-
-<script src="~/js/SignUpLogin.js"></script>
-
 <br />
 <br />
 <br />
-<div class="text-center">
-    <section id="Student" class="container">
-        <div class="row">
-            <div class="col-lg-3"></div>
-            <div class="col-lg-6">
-                <div class="card" style="background-color:whitesmoke">
-                    <div class="card-body">
-                        <form class="form-sign">
-                            <img src="~/images/streamworklogo.png" width="250" height="70" onclick="window.location.href='/'" onmouseover="" style="cursor: pointer;" />
-                            <h4><b>Sign Up</b></h4>
-                            <br>
-                            <input type="text" class="form-control" id="nameFirstS" placeholder="First Name">
-                            <input type="text" class="form-control mt-2" id="nameLastS" placeholder="Last Name">
-                            <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
-                            <input type="text" class="form-control" id="emailS" placeholder="Email" size="45">
-                            <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
-                            <input type="text" class="form-control" id="usernameS" placeholder="Username" size="45">
-                            <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
-                            <input type="password" class="form-control" id="passwordS" placeholder="Password" size="45">
-                            <input type="password" class="form-control mt-2" id="passwordConfirmS" placeholder="Re-enter Password" size="45"> <br>
-                            <strong>Login Type: Student</strong> &nbsp; &nbsp; &nbsp;
-                            <br />
-                            <br />
-                            <input type="button" class="btn btn-block" value="Watch Livestreams!" onclick="RunStudentChecks()" style="background-color:#008080; color: white">
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="Tutor" class="container">
-        <div class="row">
-            <div class="col-lg-3"></div>
-            <div class="col-lg-6">
-                <div class="card" style="background-color:whitesmoke">
-                    <div class="card-body">
-                        <form class="form-sign">
-                            <img src="~/images/streamworklogo.png" width="250" height="70" onclick="window.location.href='/'" onmouseover="" style="cursor: pointer;" />
-                            <h4><b>Sign Up</b></h4>
-                            <br>
-                            <input type="text" class="form-control" id="nameFirstT" placeholder="First Name">
-                            <input type="text" class="form-control mt-2" id="nameLastT" placeholder="Last Name">
-                            <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
-                            <input type="text" class="form-control" id="emailT" placeholder="Email" size="45">
-                            <table>
-                                <tr>
-                                    <th style="padding-right: 10px">
-                                        <input type="text" class="form-control mt-2" id="payPalAddressT" size="45" placeholder="PayPal Email" />
-                                    </th>
-                                    <th>
-                                        <img id="info" src="~/images/info_icon.png" style="width: 24px; height: 24px; margin-top: 8px;" data-toggle="tooltip" data-placement="right" title="Your email address associated with your PayPal account will be used to securely send you the money you earn through donations." />
-                                    </th>
-                                </tr>
-                            </table>
-                            <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
-                            <input type="text" class="form-control" id="usernameT" placeholder="Username" size="45">
-                            <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
-                            <input type="password" class="form-control" id="passwordT" placeholder="Password" size="45">
-                            <input type="password" class="form-control mt-2" id="passwordConfirmT" placeholder="Re-enter Password" size="45"><br>
-                            <strong>Login Type: Tutor</strong> &nbsp; &nbsp; &nbsp;
-                            <br />
-                            <br />
-                            <input type="button" class="btn btn-block" value="Sign Up!" onclick="RunTutorChecks()" style="background-color:#008080; color: white; width:200px; display:block; margin-left:auto;margin-right:auto">
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<div class=" text-center">
+    <form class="form-sign">
+        <img src="~/images/streamworklogo.png" width="250" height="70" onclick="window.location.href='/'" />
+        <h1>Sign Up</h1>
+        <br>
+        <input type="text" class="form-control" id="nameFirst" placeholder="First Name">
+        <input type="text" class="form-control mt-2" id="nameLast" placeholder="Last Name">
+        <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
+        <input type="text" class="form-control" id="email" placeholder="Email Address" size="45">
+        <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
+        <input type="text" class="form-control" id="username" placeholder="Username" size="45">
+        <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
+        <input type="password" class="form-control" id="password" placeholder="Password" size="45">
+        <input type="password" class="form-control mt-2" id="passwordConfirm" placeholder="Re-enter Password" size="45"> <br>
+        <strong>Login Type:</strong> &nbsp; &nbsp; &nbsp;
+        <select id="role">
+            <option value="student" selected>Student</option>
+            <option value="tutor">StreamTutor</option>
+        </select>
+        <br> <br>
+        <input type="button" class="btn btn-block" value="Sign Up" onclick="SignUp()" style="background-color:#008080; color: white"> <br> <br>
+    </form>
 </div>
-
-<div id="notificationModal" class="modal" tabindex="2" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" style="background-color: #008080">
-            <div class="modal-header">
-                <h5 class="modal-title text-center" style="color:white">Hmm, something isn't right!</h5>
-            </div>
-            <div class="modal-body">
-                <p id="notificationBody" class=" text-center" style="color: white;">It appears you are not a verified StreamTutor! If you are a student, create a separate student account. If you are a StreamTutor, please wait to be approved.</p>
-                <img src="~/images/streamworkPencilWhite.png" style="display:block; margin-left:auto; margin-right:auto; cursor: pointer;" height="70" onclick="window.location.href='/'" onmouseover="" />
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="checkStudentModal" class="modal" tabindex="2" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" style="background-color: #008080">
-            <div class="modal-header">
-                <h5 class="modal-title text-center" style="color:white">One more thing!</h5>
-            </div>
-            <div class="modal-body">
-                <p id="notificationBody" class=" text-center" style="color: white;">Although donations aren't required to use StreamWork, we do encourage donating to our StreamTutors to show appreciation for their hard work. We hope that StreamWork will give you the tutoring necessary for you to excel in the classroom. Happy learning!</p>
-                <img src="~/images/streamworkPencilWhite.png" style="display:block; margin-left:auto; margin-right:auto; cursor: pointer;" height="70" onclick="window.location.href='/'" onmouseover="" />
-            </div>
-            <div class="modal-footer">
-                <button type="button" style="background-color:#006565; color:white" class="btn" onclick="SignUpStudent()">Watch Livestreams!<span id="loaderStudent" class="loaderStudent mt-1" style="display:block; margin-left:auto; margin-right:auto"></span></button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="checkTutorModal" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" style="background-color: #008080">
-            <div class="modal-header">
-                <h5 class="modal-title" style="color:white">One more thing!</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p style="color:white">StreamWork strives to give students the best live tutoring there is and we can only acheive that by having the best StreamTutors. We ask that every StreamTutor provides a <b>transcript</b>, <b>resume</b> and <b>letter of reccomandation</b> to show their past tutoring experiences and qualifications. StreamWork will not keep any of these documents. Happy streaming!</p>
-                <div class="row">
-                    <div class="col-4 mt-3">
-                        <div class="upload-uploadbtn-wrapper">
-                            <button class="uploadbtn" style="font-size:14px">Upload Transcript</button>
-                            <input id="uploadTranscript" type='file' accept="application/pdf" onchange="ReadFile(this, 'transcript')" />
-                        </div>
-                    </div>
-                    <div class="col-4 mt-3">
-                        <div class="upload-uploadbtn-wrapper">
-                            <button class="uploadbtn" style="font-size:14px; width:135px; height:65px">Upload LOR</button>
-                            <input id="uploadLetterofrec" type='file' accept="application/pdf" onchange="ReadFile(this, 'letterofrec')" />
-                        </div>
-                    </div>
-                    <div class="col-4 mt-3">
-                        <div class="upload-uploadbtn-wrapper">
-                            <button class="uploadbtn" style="font-size:14px">Upload Resume</button>
-                            <input id="uploadResume" type='file' accept="application/pdf" onchange="ReadFile(this, 'resume')" />
-                        </div>
-                    </div>
-
-                    <br />
-                    <div class="col-12 mt-3">
-                       
-                    </div>
-
-                    <div class="col-12 mt-3">
-                        <h5 class="text-center"; style="color:white"><b>Uploaded Documents:</b></h5>
-                        <h6 class="text-center mt-2" style="color:white" id="Transcript"></h6>
-                    </div>
-                    <div class="col-12">
-                        <h6 class="text-center mt-2" style="color:white" id="LetterOfRec"></h6>
-                    </div>
-                    <div class="col-12">
-                        <h6 class="text-center mt-2" style="color:white" id="Resume"></h6>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" style="background-color:#006565; color:white" class="btn" onclick="SignUpTutor()">Become A StreamTutor!<span id="loaderTutor" class="loaderTutor mt-1" style="display:block; margin-left:auto; margin-right:auto"></span></button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>CheckIfStudentOrTutorIsSigningUp()</script>
-
-<script>
-    $("#info").tooltip();
-</script>

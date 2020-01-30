@@ -14,7 +14,6 @@ namespace StreamWork.DataModels
         public string EmailAddress { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-        public string ChangePasswordKey { get; set; }
         public string ProfileType { get; set; }
         public string ProfileCaption { get; set; }
         public string ProfilePicture { get; set; }
@@ -25,12 +24,10 @@ namespace StreamWork.DataModels
         public DateTime Expiration { get; set; }
         public bool TrialAccepted { get; set; }
         public string PayPalAddress { get; set; }
+        public string FollowedTutors { get; set; }
 
         //Tutors
         public bool AcceptedTutor { get; set; }
-
-        //Both Tutors And Students
-        public string FollowedStudentsAndTutors { get; set; }
 
         [Timestamp]
         public byte[] RowVersion { get; set; }
