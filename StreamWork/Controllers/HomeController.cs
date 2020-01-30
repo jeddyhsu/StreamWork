@@ -22,7 +22,8 @@ namespace StreamWork.Controllers
     {
 
         readonly HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
-        readonly StudentHelperFunctions _studentHelperFunctions = new StudentHelperFunctions();
+        readonly TutorHelperFunctions _tutorHelperFunctions = new TutorHelperFunctions();
+        readonly FollowingHelperFunctions _followingHelperFunctions = new FollowingHelperFunctions();
 
         [HttpGet]
         public async Task<IActionResult> Index([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
@@ -128,20 +129,21 @@ namespace StreamWork.Controllers
                 UserProfile = null,
                 StudentOrTutorProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, tutor),
                 NumberOfStreams = (await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, tutor)).Count
-
             };
 
             if (HttpContext.User.Identity.IsAuthenticated)
             {
                 profile.UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name);
 
-                if (profile.UserProfile.FollowedTutors != null)
-                    profile.IsUserFollowingThisTutor = profile.UserProfile.FollowedTutors.Contains(profile.UserChannels[0].Id);
+                if (profile.UserProfile.FollowedStudentsAndTutors != null)
+                    profile.IsUserFollowingThisTutor = profile.UserProfile.FollowedStudentsAndTutors.Contains(profile.UserChannels[0].Id);
             }
             else
             {
                 profile.IsUserFollowingThisTutor = false;
             }
+
+            profile.Schedule = _tutorHelperFunctions.GetTutorStreamSchedule(profile.UserChannels[0]);
 
             return View(profile);
         }
@@ -149,27 +151,45 @@ namespace StreamWork.Controllers
         [HttpPost]
         public async Task<IActionResult> ProfileView([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string tutorId, string followRequest, string unFollowRequest)
         {
+            //handles follow requests
             if (followRequest != null && tutorId != null)
             {
                 var user = HttpContext.User.Identity.Name;
                 var userLogin = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user);
 
-                var updatedList = _studentHelperFunctions.AddToListOfFollowedTutors(tutorId, userLogin[0].FollowedTutors);
-                userLogin[0].FollowedTutors = updatedList;
+                var tutorChannel = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannelFromId, tutorId);
+                var tutorLogin = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, tutorChannel[0].Username);
+
+                var updatedUserList = _followingHelperFunctions.AddToListOfFollowedTutors(tutorId, userLogin[0].FollowedStudentsAndTutors);
+                var updatedTutorList = _followingHelperFunctions.AddToListOfFollowedStudents(userLogin[0].EmailAddress, tutorLogin[0].FollowedStudentsAndTutors);
+
+                userLogin[0].FollowedStudentsAndTutors = updatedUserList;
+                tutorLogin[0].FollowedStudentsAndTutors = updatedTutorList;
 
                 await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userLogin[0].Id } }, userLogin[0]);
+                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", tutorLogin[0].Id } }, tutorLogin[0]);
+
                 return Json(new { Message = JsonResponse.Success.ToString() });
             }
 
+            //handles unfollow requests
             if (unFollowRequest != null && tutorId != null)
             {
                 var user = HttpContext.User.Identity.Name;
                 var userLogin = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user);
 
-                var updatedList = _studentHelperFunctions.RemoveFromListOfFollowedTutors(tutorId, userLogin[0].FollowedTutors);
-                userLogin[0].FollowedTutors = updatedList;
+                var tutorChannel = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannelFromId, tutorId);
+                var tutorLogin = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, tutorChannel[0].Username);
+
+                var updatedUserList = _followingHelperFunctions.RemoveFromListOfFollowedTutors(tutorId, userLogin[0].FollowedStudentsAndTutors);
+                var updatedTutorList = _followingHelperFunctions.RemoveFromListOfFollowedStudents(userLogin[0].EmailAddress, tutorLogin[0].FollowedStudentsAndTutors);
+
+                userLogin[0].FollowedStudentsAndTutors = updatedUserList;
+                tutorLogin[0].FollowedStudentsAndTutors = updatedTutorList;
 
                 await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userLogin[0].Id } }, userLogin[0]);
+                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", tutorLogin[0].Id } }, tutorLogin[0]);
+
                 return Json(new { Message = JsonResponse.Success.ToString() });
             }
 

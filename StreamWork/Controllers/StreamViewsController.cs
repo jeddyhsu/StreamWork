@@ -30,8 +30,8 @@ namespace StreamWork.Controllers
                 NumberOfStreams = (await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, channel[0].Username)).Count
             };
 
-            if (profile.UserProfile != null && profile.UserProfile.FollowedTutors != null)
-                profile.IsUserFollowingThisTutor = profile.UserProfile.FollowedTutors.Contains(channel[0].Id);
+            if (profile.UserProfile != null && profile.UserProfile.FollowedStudentsAndTutors != null)
+                profile.IsUserFollowingThisTutor = profile.UserProfile.FollowedStudentsAndTutors.Contains(channel[0].Id);
 
             StreamPageViewModel model = new StreamPageViewModel {
                 UserProfile = profile.UserProfile,
@@ -58,8 +58,8 @@ namespace StreamWork.Controllers
                 NumberOfStreams = (await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, channel[0].Username)).Count
             };
 
-            if (profile.UserProfile.FollowedTutors != null)
-                profile.IsUserFollowingThisTutor = profile.UserProfile.FollowedTutors.Contains(channel[0].Id);
+            if (profile.UserProfile.FollowedStudentsAndTutors != null)
+                profile.IsUserFollowingThisTutor = profile.UserProfile.FollowedStudentsAndTutors.Contains(channel[0].Id);
 
             StreamPageViewModel model = new StreamPageViewModel {
                 UserProfile = profile.UserProfile,

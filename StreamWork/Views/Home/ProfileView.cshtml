@@ -12,7 +12,7 @@
                 <button id="FollowButton" type="button" style="font-size:12px" class="btn btn-primary mt-3" onclick="FollowStreamTutor('@Model.UserChannels[0].Id')">Follow StreamTutor</button>
                 <button id="UnfollowButton" type="button" style="font-size:12px; display:none" class="btn btn-primary mt-3" onclick="UnfollowStreamTutor('@Model.UserChannels[0].Id')">Unfollow StreamTutor</button>
             }
-            else if(Model.IsUserFollowingThisTutor == true && Model.UserProfile != null && Model.UserProfile.ProfileType == "student")
+            else if (Model.IsUserFollowingThisTutor == true && Model.UserProfile != null && Model.UserProfile.ProfileType == "student")
             {
                 <button id="FollowButton" type="button" style="font-size:12px;display:none" class="btn btn-primary mt-3" onclick="FollowStreamTutor('@Model.UserChannels[0].Id')">Follow StreamTutor</button>
                 <button id="UnfollowButton" type="button" style="font-size:12px" class="btn btn-primary mt-3" onclick="UnfollowStreamTutor('@Model.UserChannels[0].Id')">Unfollow StreamTutor</button>
@@ -24,21 +24,50 @@
         <div class="row">
             <div class="col-4 pr-0">
                 <div class="card-body" style="background-color:#006565; border-bottom-left-radius:5px">
-                   <h5 style="color:lightgray">Streams</h5>
+                    <h5 style="color:lightgray">Streams</h5>
                     <h4>@Model.NumberOfStreams</h4>
                 </div>
             </div>
             <div class="col-4 p-0">
                 <div class="card-body" style="background-color:#006565;border-top-left-radius:0px ">
-                  <a target="_blank" rel="noopener noreferrer" href="/Home/Donate?tutor=@Model.StudentOrTutorProfile.Username">
-                    <img src="~/images/donate201911.png" target="_blank" rel="noopener noreferrer" style="display:block; margin-left:auto; margin-right:auto; width:120px; height:68px" />
-                </a>
+                    <a target="_blank" rel="noopener noreferrer" href="/Home/Donate?tutor=@Model.StudentOrTutorProfile.Username">
+                        <img src="~/images/donate201911.png" target="_blank" rel="noopener noreferrer" style="display:block; margin-left:auto; margin-right:auto; width:120px; height:68px" />
+                    </a>
                 </div>
             </div>
             <div class="col-4 pl-0">
                 <div class="card-body" style="background-color:#006565; border-bottom-right-radius:5px ">
-                  <h5 style="color:lightgray">Total Views</h5>
-                   <h4>0</h4>
+                    <h5 style="color:lightgray">Total Views</h5>
+                    <h4>0</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card" style="background-color:#006565">
+                <br />
+                <h2 class="text-center" ; style="color:white"><b>Stream Schedule</b><span> <img id="info" src="~/images/info_icon.png" style="width: 24px; height: 24px; margin-top: -5px;" data-toggle="tooltip" data-placement="right" title="This tutor will stream these topic throughout the week" /></span></h2>
+                <hr />
+                <div class="row">
+                    @foreach (var day in Model.Schedule)
+                    {
+                        <div class="col-lg-3 col-md-6 text-center mt-5 mb-5">
+                            <h1 class="mt-2" style="font-size:20px; color:white"><b>@day.DayOfWeek.DayOfWeek</b></h1>
+                            <h6 style="color:white">@day.DayOfWeek.ToShortDateString()</h6>
+
+                            <div class="list-group ml-3">
+                                @foreach (var task in day.StreamTaskList)
+                                {
+                                    <button class="list-group-item ml-3 mr-3"><b>@task.Name</b> <br /> @task.TimeOfDay</button>
+                                }
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
@@ -131,10 +160,8 @@
 </style>
 
 
-<script>
-    $(document).ready(function () {
+<script>$(document).ready(function () {
         $("#nav").click(function () {
             $("#navbarText").slideToggle();
         });
-    });
-</script>
+    });</script>

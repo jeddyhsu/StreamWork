@@ -13,6 +13,7 @@ namespace StreamWork.ViewModels {
         public List<UserLogin> UserLogins { get; set; }
 
         public int NumberOfStreams { get; set; }
+        public int NumberOfFollowers { get; set; }
         public string Subject { get; set; }
         public string SubjectIcon { get; set; }
         

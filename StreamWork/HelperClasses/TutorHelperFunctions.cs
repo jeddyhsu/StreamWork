@@ -17,7 +17,7 @@ namespace StreamWork.HelperClasses
 {
     public class TutorHelperFunctions //For functions involved with tutor code only
     {
-        readonly HomeHelperFunctions _helperFunctions = new HomeHelperFunctions();
+        readonly HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
 
         //Uses a hashtable to add default thumbnails based on subject
         public string GetCorrespondingDefaultThumbnail(string subject)
@@ -50,22 +50,22 @@ namespace StreamWork.HelperClasses
 
         public async Task ChangeAllArchivedStreamAndUserChannelProfilePhotos([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string user, string profilePicture) //changes all profile photos on streams if user has changed it
         {
-            var allArchivedStreams = await _helperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, user);
-            var userChannel = await _helperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user);
+            var allArchivedStreams = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, user);
+            var userChannel = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user);
             foreach (var stream in allArchivedStreams)
             {
                 stream.ProfilePicture = profilePicture;
-                await DataStore.SaveAsync(_helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", stream.Id } }, stream);
+                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", stream.Id } }, stream);
             }
             userChannel[0].ProfilePicture = profilePicture;
-            await DataStore.SaveAsync(_helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel[0].Id } }, userChannel[0]);
+            await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel[0].Id } }, userChannel[0]);
         }
 
         public async Task<string> GetChatSecretKey([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string user)
         {
-            var userChannel = await _helperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user);
+            var userChannel = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user);
             var ids = userChannel[0].ChatId.Split("|");
-            var encodedUrl = HttpUtility.UrlEncode(Convert.ToBase64String(_helperFunctions.hmacSHA256("/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + ids[0] + "&tkey=" + ids[1] + "&nme=" + userChannel[0].Username, "3O08UU-OtQ_rycx3")));
+            var encodedUrl = HttpUtility.UrlEncode(Convert.ToBase64String(_homeHelperFunctions.hmacSHA256("/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + ids[0] + "&tkey=" + ids[1] + "&nme=" + userChannel[0].Username, "3O08UU-OtQ_rycx3")));
             var finalString = "https://www6.cbox.ws" + "/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + ids[0] + "&tkey=" + ids[1] + "&nme=" + userChannel[0].Username + "&sig=" + encodedUrl;
             return finalString;
         }
@@ -90,7 +90,7 @@ namespace StreamWork.HelperClasses
             ICollection collection = schedule.Days.Keys;
             List<Day> days = new List<Day>();
 
-            foreach(string key in collection)
+            foreach (string key in collection)
                 days.Add(schedule.Days[key]);
 
             return days;
@@ -107,7 +107,8 @@ namespace StreamWork.HelperClasses
 
             foreach (var streamTask in streamTaskList)
             {
-                if (schedule.Days.ContainsKey(streamTask.Day)){
+                if (schedule.Days.ContainsKey(streamTask.Day))
+                {
                     var day = schedule.Days[streamTask.Day];
                     day.StreamTaskList.Add(streamTask);
                 }
@@ -124,13 +125,15 @@ namespace StreamWork.HelperClasses
             {
                 if (channel.StreamTasks != null)
                 {
-                    var streamTaskList = JsonConvert.DeserializeObject<List<StreamTask>>(channel.StreamTasks);
+                    var streamTasksList = JsonConvert.DeserializeObject<List<StreamTask>>(channel.StreamTasks);
+                    
+                    streamTasksList.Add(new StreamTask(streamName, dateTime.ToString("h:mm tt"), dateTime.ToString("MM/dd/yyyy")));
 
-                    streamTaskList.Add(new StreamTask(streamName, dateTime.ToString("h:mm tt"), dateTime.ToString("MM/dd/yyyy")));
+                    streamTasksList = SortStreamTasksList(streamTasksList);
 
-                    var serialize = JsonConvert.SerializeObject(streamTaskList);
+                    var serialize = JsonConvert.SerializeObject(streamTasksList);
                     channel.StreamTasks = serialize;
-                    await DataStore.SaveAsync(_helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", channel.Id } }, channel);
+                    await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", channel.Id } }, channel);
 
                     return true;
                 }
@@ -142,7 +145,7 @@ namespace StreamWork.HelperClasses
 
                     var serialize = JsonConvert.SerializeObject(streamTasks);
                     channel.StreamTasks = serialize;
-                    await DataStore.SaveAsync(_helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", channel.Id } }, channel);
+                    await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", channel.Id } }, channel);
 
                     return true;
                 }
@@ -171,12 +174,14 @@ namespace StreamWork.HelperClasses
                     }
                 }
 
+                streamTasksList = SortStreamTasksList(streamTasksList);
+
                 channel.StreamTasks = JsonConvert.SerializeObject(streamTasksList);
-                await DataStore.SaveAsync(_helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", channel.Id } }, channel);
+                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", channel.Id } }, channel);
 
                 return true;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine("Error in UpdateStreamTask: " + e.Message);
                 return false;
@@ -199,7 +204,7 @@ namespace StreamWork.HelperClasses
                 }
 
                 channel.StreamTasks = JsonConvert.SerializeObject(streamTasksList);
-                await DataStore.SaveAsync(_helperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", channel.Id } }, channel);
+                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", channel.Id } }, channel);
 
                 return true;
             }
@@ -208,6 +213,60 @@ namespace StreamWork.HelperClasses
                 Console.WriteLine("Error in RemoveStreamTask: " + e.Message);
                 return false;
             }
+        }
+
+        private List<StreamTask> SortStreamTasksList(List<StreamTask> streamTasks)
+        {
+            try
+            {
+                var tasks = streamTasks.ToArray();
+                SortUtil(tasks, 0, tasks.Length - 1);
+                return tasks.ToList();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Error in SortStreamTasksList: " + e.Message);
+                return null;
+            }
+        }
+
+        private void SortUtil(StreamTask[] tasksArray, int leftBound, int rightBound) //quicksort
+        {
+            if (leftBound >= rightBound) return;
+
+            var pivot = DateTime.ParseExact(tasksArray[tasksArray.Length - 1].TimeOfDay, "h:mm tt", CultureInfo.InvariantCulture);
+            int counter = leftBound - 1;
+
+            for (int i = leftBound; i < rightBound; i++)
+            {
+                if (DateTime.ParseExact(tasksArray[i].TimeOfDay, "h:mm tt", CultureInfo.InvariantCulture) <= pivot)
+                {
+                    counter++;
+
+                    var temp = tasksArray[i];
+                    tasksArray[i] = tasksArray[counter];
+                    tasksArray[counter] = temp;
+                }
+            }
+
+            var temp2 = tasksArray[counter + 1];
+            tasksArray[counter + 1] = tasksArray[rightBound];
+            tasksArray[rightBound] = temp2;
+
+            counter++;
+
+            SortUtil(tasksArray, leftBound, counter - 1);
+            SortUtil(tasksArray, counter + 1, rightBound);
+        }
+
+        public int GetNumberOfFollowers(UserLogin userLogin)
+        {
+            if (userLogin.FollowedStudentsAndTutors == null) return 0;
+
+            if (!userLogin.FollowedStudentsAndTutors.Contains('|')) return 1;
+
+            var list = userLogin.FollowedStudentsAndTutors.Split('|');
+            return list.Length;
         }
     }
 }

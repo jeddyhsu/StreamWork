@@ -66,7 +66,7 @@
                         </ul>
                         <div class="btn-group mt-2" style="margin-left:65px">
                             <input type="image" data-toggle="dropdown" src=@Model.UserProfile.ProfilePicture style="width:75px; height:95px; border-top-left-radius:5%; border-bottom-left-radius:5%;" />
-                            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:gold; border:none; margin-right:35px"></button>
+                            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:#B2D8D8; border:none; margin-right:35px"></button>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" onclick="EditProfile()" style="cursor:pointer">Edit Profile</a>
                                 <div class="dropdown-divider"></div>
@@ -114,7 +114,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button class="btn" style="background-color:black; color:white"  onclick="RegisterProfilePhotoAndCaption()">Save changes</button>
+                    <button class="btn" style="background-color:black; color:white" onclick="RegisterProfilePhotoAndCaption()">Save changes</button>
                     <button class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -144,7 +144,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" style="background-color:black; color:white" class="btn" onclick="AddStreamToSchedule()">Add Stream</button>
+                    <button class="uploadbtn" style="display:block; margin-left:auto; margin-right:auto; border-radius:5px; cursor:pointer" onclick="AddStreamToSchedule()">Add Stream<span><img width="20" class="mb-1 ml-1" src="~/images/Plus48.png" /></span></button>
                 </div>
             </div>
         </div>
@@ -173,8 +173,23 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" style="background-color:black; color:white" class="btn" onclick="UpdateStreamSchedule()">Save Updates</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="RemoveStreamOnSchedule()">Remove</button>
+                    <button class="uploadbtn" style="display:block; margin-left:auto; margin-right:auto; border-radius:5px; cursor:pointer" onclick="UpdateStreamSchedule()">Reschedule Stream</button>
+                    <button class="uploadbtn" style="display:block; margin-left:auto; margin-right:auto; border-radius:5px; cursor:pointer; color:red" onclick="RemoveStreamOnSchedule()">Remove Stream</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*For alert notifications*@
+    <div id="notificationModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: #008080">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" style="color:white">Alert!</h5>
+                </div>
+                <div class="modal-body">
+                    <p id="notificationBody" class=" text-center" style="color: white;">It appears you are not a verified StreamTutor! If you are a student, create a separate student account. If you are a StreamTutor, please wait to be approved.</p>
+                    <img src="~/images/streamworkPencilWhite.png" style="display:block; margin-left:auto; margin-right:auto;" height="70" onclick="window.location.href='/'" />
                 </div>
             </div>
         </div>

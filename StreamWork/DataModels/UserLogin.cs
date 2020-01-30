@@ -25,10 +25,12 @@ namespace StreamWork.DataModels
         public DateTime Expiration { get; set; }
         public bool TrialAccepted { get; set; }
         public string PayPalAddress { get; set; }
-        public string FollowedTutors { get; set; }
 
         //Tutors
         public bool AcceptedTutor { get; set; }
+
+        //Both Tutors And Students
+        public string FollowedStudentsAndTutors { get; set; }
 
         [Timestamp]
         public byte[] RowVersion { get; set; }

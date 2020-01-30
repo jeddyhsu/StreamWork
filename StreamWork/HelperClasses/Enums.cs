@@ -15,6 +15,7 @@ namespace StreamWork.HelperClasses
     public enum QueryHeaders
     {
         CurrentUser,
+        CurrentUserChannelFromId,
         AllUserChannelsThatAreStreaming,
         AllUserChannelsThatAreStreamingWithSpecifiedSubject,
         UserArchivedVideosBasedOnSubject,

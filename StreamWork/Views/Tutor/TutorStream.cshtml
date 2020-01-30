@@ -92,7 +92,7 @@ else if (Model.UserChannels[0].StreamTitle == null && Model.UserChannels[0].Stre
                         <br />
                         <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.UserProfile.ProfileParagraph</textarea>
                         <br />
-                        <img id="previewProfilePic" src=@Model.UserProfile.ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
+                        <img id="previewProfilePic" src=@Model.UserProfile.ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto;" />
                         <br />
                         <div class="upload-uploadbtn-wrapper">
                             <button class="uploadbtn" style="margin-left:110px">Upload a Profile Picture</button>
@@ -136,7 +136,7 @@ else if (Model.UserChannels[0].StreamTitle == null && Model.UserChannels[0].Stre
                 </div>
                 <div class="modal-body">
                     <form>
-                        <input align="middle" type="text" class="form-control" value="@Model.UserChannels[0].StreamTitle" id="streamTitle" placeholder="Stream Title">                      <select class="mt-1" style="width: 100%" id="streamSubject">
+                        <input align="middle" type="text" class="form-control" value="@Model.UserChannels[0].StreamTitle" id="streamTitle" placeholder="Stream Title">                         <select class="mt-1" style="width: 100%" id="streamSubject">
                             <option value="Select Subject">Select Subject</option>
                             <option value="Mathematics">Mathematics</option>
                             <option value="Science">Science</option>
@@ -150,7 +150,7 @@ else if (Model.UserChannels[0].StreamTitle == null && Model.UserChannels[0].Stre
                         <br />
                         <br />
                         <h5 style="color:white">Add A Custom Thumbnail</h5>
-                        <img id="previewThumbnail" src="~/images/MathDefault.png" alt="your image" style="width:100%" />
+                        <img id="previewThumbnail" src="~/images/MathDefault.png" alt="your image" style="width:100%; border-radius:10px" />
                         <br />
                         <br />
                         <div class="upload-uploadbtn-wrapper">
@@ -184,19 +184,6 @@ else if (Model.UserChannels[0].StreamTitle == null && Model.UserChannels[0].Stre
     </div>
 </div>
 
-<div id="notificationModal" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" style="background-color: #008080">
-            <div class="modal-header">
-                <h5 class="modal-title text-center" style="color:white">Alert!</h5>
-            </div>
-            <div class="modal-body">
-                <p id="notificationBody" class=" text-center" style="color: white;">It appears you are not a verified StreamTutor! If you are a student, create a separate student account. If you are a StreamTutor, please wait to be approved.</p>
-                <img src="~/images/streamworkPencilWhite.png" style="display:block; margin-left:auto; margin-right:auto;" height="70" onclick="window.location.href='/'" />
-            </div>
-        </div>
-    </div>
-</div>
 
 
 <style>
