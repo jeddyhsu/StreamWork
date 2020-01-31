@@ -52,16 +52,22 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarText">
                         <ul class="navbar-nav mr-auto">
-                            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px; ">
+                            <li class="nav-item ml-md-0 ml-lg-5 mt-3" style="font-size:15px; ">
                                 <a class="nav-link underline" href="/Home/BecomeTutor" style="color:#008080;"><b>Become a StreamTutor</b></a>
                             </li>
-                            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
+                            <li class="nav-item ml-md-0 ml-lg-5 mt-3" style="font-size:15px;">
                                 <a class="nav-link underline" href="/Home/About" style="color:#008080;"><b>About</b></a>
                             </li>
-                            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
+                            <li class="nav-item ml-md-0 ml-lg-5 mt-3" style="font-size:15px;">
                                 <a class="nav-link underline" href="/Home/HowToStream" style="color:#008080;"><b>How to Stream</b></a>
                             </li>
                         </ul>
+
+                        @*
+        <img class="ml-auto mr-auto" src="~/images/streamworklogo.png" height="40" onclick="window.location.href='/'" onmouseover="" style="cursor: pointer;" />
+                        *@
+
+
                         @if (@Model.UserProfile == null)
                         {
                             <ul class="navbar-nav">

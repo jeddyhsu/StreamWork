@@ -7,12 +7,12 @@
 <script src="~/js/EditProfile.js"></script>
 <link rel="stylesheet" href="~/css/Tutor.css" />
 
-<div class="container">
-    <div class="card text-center mt-5 border-0" style="color:white;">
-        <div class="card-body" style="background-color:#006565; border-top-right-radius:5px; border-top-left-radius:5px; ">
+<div class="container-fluid" style="width:94%">
+    <div class="card text-center border-0" style="color:white;">
+        <div class="card-body" style="background:linear-gradient(to bottom, white 25%, #008080 0%);">
             <div class="col-12">
                 <input type="image" class="zoom" onclick="EditProfile()" src=@Model.UserProfile.ProfilePicture style="width:115px; height: 150px; border-radius:5%" />
-                <h1 class="card-title mt-4" style="font-size:24px; color:lightgray"><b>@Model.UserProfile.Name.Replace('|', ' ')</b></h1>
+                <h1 class="card-title mt-4" style="font-size: 24px; font-family: 'Roboto Slab', serif; color: whitesmoke"><b>@Model.UserProfile.Name.Replace('|', ' ')</b></h1>
                 <p class="card-text" id="ProfileCaptionGreeting" style="font-size:16px; color:white">Welcome to StreamWork!</p>
                 <p class="card-text" id="ProfileParagraphGreeting" style="font-size:14px; color:white">StreamWork is very excited to have you onboard our amazing community of StreamTutors. If you haven't been verified yet feel free to edit your profile, explore other StreamTutors, or watch some livestreams.  We promise that your verification will be done soon and we can't wait for you to start streaming your tutoring sessions to our student viewers. Happy streaming!</p>
                 <p class="card-text" id="ProfileCaptionOnPage" style="font-size:16px; color:white">@Model.UserProfile.ProfileCaption</p>
@@ -22,20 +22,20 @@
     </div>
     <div class="row text-center">
         <div class="col-4 pr-0">
-            <div class="card-body" style="background-color:#006565; border-bottom-left-radius:5px">
-                <h5 style="color:lightgray">Streams</h5>
+            <div class="card-body" style="background-color:#008080; border-bottom-left-radius:5px">
+                <h5 style="color:whitesmoke">Streams</h5>
                 <h4 style="color:white">@Model.NumberOfStreams</h4>
             </div>
         </div>
         <div class="col-4 p-0">
-            <div class="card-body" style="background-color:#006565;border-top-left-radius:0px ">
-                <h5 style="color:lightgray">Donations</h5>
+            <div class="card-body" style="background-color:#008080;border-top-left-radius:0px ">
+                <h5 style="color:whitesmoke">Donations</h5>
                 <h4 style="color:white">$0</h4>
             </div>
         </div>
         <div class="col-4 pl-0">
-            <div class="card-body" style="background-color:#006565; border-bottom-right-radius:5px ">
-                <h5 style="color:lightgray">Followers</h5>
+            <div class="card-body" style="background-color:#008080; border-bottom-right-radius:5px ">
+                <h5 style="color:whitesmoke">Followers</h5>
                 <h4 style="color:white">@Model.NumberOfFollowers</h4>
             </div>
         </div>
@@ -45,12 +45,12 @@
 <br />
 <br />
 
-<div class="container-fluid">
+<div class="container-fluid" style="width:94%">
 <div class="row">
     <div class="col-12">
-        <div class="card" style="background-color:#006565">
+        <div class="card" style="background-color:whitesmoke">
             <br />
-            <h2 class="text-center" ; style="color:white"><b>Stream Schedule</b><span> <img id="info" src="~/images/info_icon.png" style="width: 24px; height: 24px; margin-top: -5px;" data-toggle="tooltip" data-placement="right" title="The stream schedule is used for scheduling streams in advance. Every time you add or edit a stream your student followers will get a notification so that they can tune in at the appropriate time. " /></span></h2>
+            <h2 class="text-center"; style="color:black; font-family: 'Roboto Slab', serif;"><b>Stream Schedule</b><span> <img id="info" src="~/images/info_icon.png" style="width: 24px; height: 24px; margin-top: -5px;" data-toggle="tooltip" data-placement="right" title="The stream schedule is used for scheduling streams in advance. Every time you add or edit a stream your student followers will get a notification so that they can tune in at the appropriate time. " /></span></h2>
             <hr />
             <br />
             <button class="uploadbtn" style="display:block; margin-left:auto; margin-right:auto; border-radius:5px; cursor:pointer" onclick="OpenAddScheduleModal()">Add Stream<span><img width="20" class="mb-1 ml-1" src="~/images/Plus48.png" /></span></button>
@@ -58,13 +58,12 @@
                 @foreach (var day in Model.Schedule)
                 {
                     <div class="col-lg-3 col-md-6 text-center mt-5 mb-5">
-                        <h1 class="mt-2" style="font-size:20px; color:white"><b>@day.DayOfWeek.DayOfWeek</b></h1>
-                        <h6 style="color:white">@day.DayOfWeek.ToShortDateString()</h6>
-
+                        <h1 class="mt-2" style="font-size:20px; color:black"><b>@day.DayOfWeek.DayOfWeek</b></h1>
+                        <h6 style="color:black">@day.DayOfWeek.ToShortDateString()</h6>
                         <div class="list-group ml-3">
                             @foreach (var task in day.StreamTaskList)
                             {
-                                <button class="list-group-item ml-3 mr-3 zoom" style="cursor:pointer" onclick="OpenEditScheduleModal('@task.Name', '@task.TimeOfDay', '@day.DayOfWeek.ToShortDateString()')"><b>@task.Name</b> <br /> @task.TimeOfDay</button>
+                                <button class="list-group-item ml-3 mr-3 zoom" style="cursor:pointer; border-color:#008080" onclick="OpenEditScheduleModal('@task.Name', '@task.TimeOfDay', '@day.DayOfWeek.ToShortDateString()')"><b>@task.Name</b> <br /> @task.TimeOfDay</button>
                             }
                         </div>
                     </div>
