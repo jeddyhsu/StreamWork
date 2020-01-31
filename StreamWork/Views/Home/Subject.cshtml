@@ -4,65 +4,45 @@
 
 <link rel="stylesheet" href="~/css/Subject.css" />
 
-<div class="container-fluid">
+
+<div class="container-fluid" style="width:94%">
     <div class="row">
-        <div class=" col-lg-10 col-md-10 col-sm-12 col-xs-12">
-            <h1 style="font-size:75px; font-family:'Roboto'" class="pt-3">@Model.Subject</h1>
-            <h5>POPULAR LIVESTREAMS</h5>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h1 style="font-size:75px; font-family:'Roboto Slab', serif" class="pt-3">@Model.Subject</h1>
+            <h5>TOP LIVE STREAMS</h5>
             <hr />
-            <div class="row">
-                @if (Model.UserChannels.ToArray().Length > 0)
+        </div>
+    </div>
+    <div class="row">
+        @if (Model.UserChannels.ToArray().Length > 0)
+        {
+            foreach (var videoInfo in Model.UserChannels)
+            {
+                if (videoInfo.StreamTitle != null)
                 {
-                    foreach (var videoInfo in Model.UserChannels)
-                    {
-                        if (videoInfo.StreamTitle != null)
-                        {
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 zoom">
-                                <div class="card mt-3" style="border-radius:5%; border:none;min-width:15rem; max-width:20rem">
-                                    <iframe src="//iframe.dacast.com/b/135034/c/@videoInfo.ChannelKey" style="border-top-left-radius:5%; border-top-right-radius:5%; min-width:250px" height="250" frameborder="0" scrolling="no" allow="autoplay"></iframe>
-                                    <div class="card-body p-0" style="background-color:#008080 ;border-bottom-left-radius:5%; height:75px; border-bottom-right-radius:5%; border:none; min-width:250px; cursor:pointer" onclick="window.location.href='../StreamViews/StreamPage?streamKeyandchatId=' + ('@videoInfo.ChannelKey') + ('|') + ('@Model.UserChannels[0].ChatId') + ('|') + ('@videoInfo.Username') + ('|') + ('@videoInfo.StreamTitle');">
-                                        <div class="row">
-                                            <div class="col-2 pr-2">
-                                                <input type="image" style="border-radius:5%; width:50px; margin-left:10px; margin-top:10px; height:60px;" src=@videoInfo.ProfilePicture onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@videoInfo.Username');" />
-                                            </div>
-                                            <div class="col-10" style="color:white;">
-                                                <h5 class="text-truncate" style="font-family: 'Roboto'; font-size:20px; margin-left:20px; margin-top:10px;">@videoInfo.StreamTitle</h5>
-                                                <h6 class="text-truncate" style="font-family: 'Roboto'; font-size:14px;margin-left:20px;">@videoInfo.Username</h6>
-                                            </div>
-                                        </div>
+                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 zoom streamsubject @videoInfo.StreamSubject">
+                        <div class="card mt-3" style="border-radius:5%; border:none;min-width:200px; max-width:400px">
+                            <iframe src="//iframe.dacast.com/b/135034/c/@videoInfo.ChannelKey" style="border-top-left-radius:5%; border-top-right-radius:5%; min-width:250px" height="215" frameborder="0" scrolling="no" allow="autoplay"></iframe>
+                            <div class="card-body p-0" style="background-color:black;border-bottom-left-radius:5%; height:75px; border-bottom-right-radius:5%; border:none; min-width:250px; cursor:pointer" onclick="window.location.href='../StreamViews/StreamPage?streamKeyandchatId=' + ('@videoInfo.ChannelKey') + ('|') + ('@Model.UserChannels[0].ChatId') + ('|') + ('@videoInfo.Username') + ('|') + ('@videoInfo.StreamTitle');">
+                                <div class="row">
+                                    <div class="col-2 pr-2">
+                                        <input type="image" style="border-radius:5%; width:50px; margin-left:10px; margin-top:10px; height:60px;" src=@videoInfo.ProfilePicture onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@videoInfo.Username');" />
+                                    </div>
+                                    <div class="col-10" style="color:white;">
+                                        <h5 class="text-truncate" style="font-family: 'Roboto'; font-size:20px; margin-left:20px; margin-top:10px;">@videoInfo.StreamTitle</h5>
+                                        <h6 class="text-truncate" style="font-family: 'Roboto'; font-size:14px;margin-left:20px;">@videoInfo.Username</h6>
                                     </div>
                                 </div>
                             </div>
-                        }
-                    }
+                        </div>
+                    </div>
                 }
-                else
-                {
+            }
+        }
+        else
+        {
 
-                }
-            </div>
-        </div>
-
-        <nav class="col-md-2 col-sm-1 d-none d-md-block sidebar ">
-            <div class="sidebar-sticky">
-                <h5 class="mt-lg-5 mt-md-3" style="font-size:16px; font-weight:bold;">Popular StreamTutors</h5>
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">
-                            @foreach (var tutor in Model.UserLogins)
-                            {
-                                <div class="card pt-3 pd-3 zoom" style="display:block;background-color:#006565;border:none" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@tutor.Username');">
-                                    <div class="card-title">
-                                        <input type="image" style="width:55px; height:75px; border-radius: 5%" src=@tutor.ProfilePicture />
-                                        <h3 style="font-size:14px; color:white">@tutor.Name.Replace('|', ' ')</h3>
-                                    </div>
-                                </div>
-                            }
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+        }
     </div>
 </div>
 

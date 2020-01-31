@@ -28,9 +28,10 @@
             <div class="col-lg-2 col-md-2 mt-3 mb-3">
                 <div class="card p-0" style="height:450px">
                     <input class="mt-3" type="image" data-toggle="dropdown" src="~/images/RithvikArun.jpeg" style="width:75px; height:95px; border-top-left-radius:5%; border-bottom-left-radius:5%; display:block; margin-left:auto; margin-right:auto" />
-                    <h6 class="text-center mt-3"><b>Rithvik Arun</b></h6>
+                    <h6 class="text-center mt-3" style="font-family: 'Roboto Slab', serif; color:black"><b>Rithvik Arun</b></h6>
                     <br />
-                    <br />
+                    <a class="btn" style="background-color:#006565; width:100px; font-size:15px; color:white; display:block; margin-left:auto; margin-right:auto" ; onclick="window.location.href='/Home/Login?dest=-Home-Profile'"><b>Follow</b></a>
+                    <a class="btn mt-1" style="background-color:#006565; width:100px; font-size:15px; color:white; display:block; margin-left:auto; margin-right:auto" ; onclick="window.location.href='/Home/Login?dest=-Home-Profile'"><b>Profile</b></a>
                     <br />
                     <br />
                     <br />
@@ -186,33 +187,17 @@
     </div>
 </div>
 
-
-
-
-
-
-
-
-
-
-
 <script>$(document).ready(function () {
 
         $("#nav").click(function () {
-
             $("#navbarText").slideToggle();
-
         });
-    });</script>
+});
+</script>
 
 <style>
 
-
-
-
-
-
-    .subjectCard:hover {
-        box-shadow: 10px 10px grey;
-    }
+.subjectCard:hover {
+    box-shadow: 10px 10px grey;
+}
 </style>
