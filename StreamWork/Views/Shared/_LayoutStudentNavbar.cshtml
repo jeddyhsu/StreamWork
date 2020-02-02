@@ -40,74 +40,72 @@
 </head>
 
 <body style="font-family:'Roboto'; background-color:white">
-    <div>
-        <div class="full-page">
-            <div class="in-page">
-                <nav class="navbar navbar-expand-lg navbar-light text-center" style="background-color:#008080; z-index:1000">
-                    <img src="~/images/streamworkPencilWhite.png" height="70" onclick="window.location.href='/'" onmouseover="" style="cursor: pointer;" />
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarText">
-                        <ul class="navbar-nav mr-auto">
-                            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:18px;">
-                                <a class="nav-link underline" href="/Student/ProfileStudent" style="color:white;"><b>Live Streams</b></a>
-                            </li>
-                            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:18px; ">
-                                <a class="nav-link underline" href="/Student/ArchivedStreams" style="color:white;"><b>Archived Streams</b></a>
-                            </li>
-                            <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:18px;">
-                                <a class="nav-link underline" href="/" style="color:white;"><b>Home</b></a>
-                            </li>
-                        </ul>
-                        <div class="btn-group mt-2" style="margin-left:65px">
-                            <img src=@Model.UserProfile.ProfilePicture style="width:75px; height:95px; border-top-left-radius:5%; border-bottom-left-radius:5%" />
-                            <button type="button" data-toggle="dropdown" class="btn btn-info dropdown-toggle" aria-haspopup="true" aria-expanded="false" style="background-color:#B2D8D8; border:black; margin-right:35px"></button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="/Student/StudentSettings" style="cursor:pointer">Settings</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" onclick="Logout()" style="cursor:pointer">Logout</a>
-                            </div>
-                        </div>
+
+    <div class="container-fluid" style="max-width:2400px">
+        <nav class="navbar navbar-expand-lg navbar-light text-center" style="background-color:white; z-index:1000; width:97%">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
+                        <a class="nav-link underline" href="/Student/ProfileStudent" style="color:#008080;"><b>Live Streams</b></a>
+                    </li>
+                    <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px; ">
+                        <a class="nav-link underline" href="/Student/ArchivedStreams" style="color:#008080;"><b>Archived Streams</b></a>
+                    </li>
+                    <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
+                        <a class="nav-link underline" href="/" style="color:#008080;"><b>Home</b></a>
+                    </li>
+                </ul>
+                <div class="btn-group mt-2" style="position:relative; left:4%">
+                    <input type="image" data-toggle="dropdown" src=@Model.UserProfile.ProfilePicture style="width:75px; height:95px; border-top-left-radius:5%; border-bottom-left-radius:5%;" />
+                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:#B2D8D8; border:none; margin-right:35px"></button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" onclick="EditProfile()" style="cursor:pointer">Edit Profile</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/Tutor/TutorSettings" style="cursor:pointer">Settings</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" onclick="Logout()" style="cursor:pointer">Logout</a>
                     </div>
-                </nav>
-                <div class="page-body">
-                    @RenderBody()
                 </div>
-                @*
+            </div>
+        </nav>
+        <div class="page-body">
+            @RenderBody()
+        </div>
+        @*
 
         <div class="page-footer my-0">
-                            <div class="container-fluid p-0" style="background-color:#008080; height:100%; color:white">
-                                <div class="row">
-                                    <div class="col-lg-1"></div>
-                                    <div class="col-lg-2">
-                                        <img class="mt-3 mb-3" src="~/images/WhiteStreamWork.png" height="50" onclick="window.location.href='/'" onmouseover="" style="cursor: pointer;" />
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <h3 class="mt-4 mb-3" ; style="font-size:20px">Company</h3>
-                                        <p>About</p>
-                                        <p>Our Team</p>
-                                        <p>Become A StreamTutor</p>
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <h3 class="mt-4 mb-3" ; style="font-size:20px">Streamers</h3>
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <h3 class="mt-4 mb-3" ; style="font-size:20px">Education</h3>
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <h3 class="mt-4 mb-3" ; style="font-size:20px">Follow Us</h3>
-                                    </div>
-                                </div>
-                                <br />
-                                Copyright © 2020 StreamWork LLC. All rights reserved.
-                            </div>
-                        </div>
-                *@
-
-                @RenderSection("Scripts", required: false)
+            <div class="container-fluid p-0" style="background-color:#008080; height:100%; color:white">
+                <div class="row">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-2">
+                        <img class="mt-3 mb-3" src="~/images/WhiteStreamWork.png" height="50" onclick="window.location.href='/'" onmouseover="" style="cursor: pointer;" />
+                    </div>
+                    <div class="col-lg-2">
+                        <h3 class="mt-4 mb-3" ; style="font-size:20px">Company</h3>
+                        <p>About</p>
+                        <p>Our Team</p>
+                        <p>Become A StreamTutor</p>
+                    </div>
+                    <div class="col-lg-2">
+                        <h3 class="mt-4 mb-3" ; style="font-size:20px">Streamers</h3>
+                    </div>
+                    <div class="col-lg-2">
+                        <h3 class="mt-4 mb-3" ; style="font-size:20px">Education</h3>
+                    </div>
+                    <div class="col-lg-2">
+                        <h3 class="mt-4 mb-3" ; style="font-size:20px">Follow Us</h3>
+                    </div>
+                </div>
+                <br />
+                Copyright © 2020 StreamWork LLC. All rights reserved.
             </div>
-        </div>
+       </div>
+        *@
+
+        @RenderSection("Scripts", required: false)
     </div>
 </body>
 </html>

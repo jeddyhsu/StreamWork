@@ -106,8 +106,7 @@
                 }
                 else
                 {
-                    <div class="col-lg-4">
-                    </div>
+                    <div class="col-lg-4"></div>
                     <div class="col-lg-4">
                         <h6 class="text-center" style="color:black">No Streams Yet!</h6>
                     </div>
@@ -119,14 +118,13 @@
 </div>
 
 
-<script>$(document).ready(function () {
-
+<script>
+    $(document).ready(function () {
         $("#nav").click(function () {
-
             $("#navbarText").slideToggle();
-
         });
-    });</script>
+    });
+</script>
 
 @if (Model.UserProfile.ProfileCaption == null && Model.UserProfile.ProfileParagraph == null && Model.UserProfile.AcceptedTutor == false)
 {
