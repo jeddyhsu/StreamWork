@@ -9,16 +9,23 @@
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-10">
-            <form style="background-color: white">
+            <form style="background-color: white; border-radius: 6px; box-shadow: 0px 0px 30px -10px">
                 <div class="row no-gutters align-items-center p-2">
-                    <div class="col-1 pr-3" style="text-align: right;">
-                        <img src="~/images/magnifying-glass.svg" style="width: 40%" />
+                    <div class="col-1 pr-3">
+                        <div class="row">
+                            <div class="col-4"></div>
+                            <div class="col-8" style="text-align: right;">
+                                <img src="~/images/magnifying-glass.svg" style="width: 60%" />
+                            </div>
+                        </div>
                     </div>
                     <div class="col">
                         <input class="form-control form-control-lg" type="search" placeholder="Homework problem..." style="border: none;">
                     </div>
-                    <div class="col-auto">
-                        <button class="btn btn-lg" type="submit" style="color: white; background-color:#006060">Search</button>
+                    <div class="col-auto pr-4">
+                        <button class="btn btn-lg px-4 ml-3" type="submit" style="color: white; background-color:#006060;">
+                            <div style="font-size: 70%; font-weight: bold;">Search</div>
+                        </button>
                     </div>
                 </div>
             </form>
@@ -218,7 +225,27 @@
     });</script>
 
 <style>
+    :-moz-placeholder {
+        color: lightgray !important;
+        opacity: 1 !important;
+    }
 
+    ::-moz-placeholder {
+        color: lightgray !important;
+        opacity: 1 !important;
+    }
+
+    ::-webkit-input-placeholder {
+        color: lightgray !important;
+    }
+
+    :-ms-input-placeholder {
+        color: lightgray !important;
+    }
+
+    ::placeholder {
+        color: lightgray !important;
+    }
 
     .subjectCard:hover {
         box-shadow: 10px 10px grey;
