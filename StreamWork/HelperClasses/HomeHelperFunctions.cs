@@ -76,7 +76,7 @@ namespace StreamWork.HelperClasses
             ProfileTutorViewModel model = new ProfileTutorViewModel
             {
                 UserChannels = await GetUserChannels(storageConfig, QueryHeaders.AllUserChannelsThatAreStreamingWithSpecifiedSubject, subject),
-                UserLogins = await GetPopularStreamTutors(storageConfig),
+                UserLogins = await GetPopularStreamTutor(storageConfig),
                 UserProfile = user != null ? await GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user) : null,
                 Subject = subject
             };
@@ -88,7 +88,8 @@ namespace StreamWork.HelperClasses
             ProfileTutorViewModel model = new ProfileTutorViewModel
             {
                 UserChannels = await GetUserChannels(storageConfig, QueryHeaders.AllUserChannelsThatAreStreaming, "N|A"),
-                UserLogins = await GetPopularStreamTutors(storageConfig),
+                UserLogins = await GetPopularStreamTutor(storageConfig),
+                UserArchivedVideos = await GetArchivedStreams(storageConfig, QueryHeaders.ArchivedVideosByStreamId, "805958")
             };
 
             return model;
@@ -101,9 +102,9 @@ namespace StreamWork.HelperClasses
             return formattedphrase[1] + "|" + formattedChatID[0];
         }
 
-        private async Task<List<UserLogin>> GetPopularStreamTutors([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        private async Task<List<UserLogin>> GetPopularStreamTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
-            return await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, QueryHeaders.AllApprovedTutors.ToString(), null);
+            return await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, QueryHeaders.CurrentUser.ToString(), new List<string> {"admin"});
         }
 
         //Saves picture into container on Azure - replaces old one if there is one
