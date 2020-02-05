@@ -12,7 +12,7 @@
         <div class="card-body" style="background:linear-gradient(to bottom, white 25%, #008080 0%);">
             <div class="col-12">
                 <input type="image" class="zoom" onclick="EditProfile()" src=@Model.UserProfile.ProfilePicture style="width:115px; height: 150px; border-radius:5%" />
-                <h1 class="card-title mt-4" style="font-size: 24px; font-family: 'Roboto Slab', serif; color: whitesmoke"><b>@Model.UserProfile.Name.Replace('|', ' ')</b></h1>
+                <h1 class="card-title mt-4" style="font-size:24px; color:whitesmoke;font-family: 'Roboto Slab', serif;"><b>@Model.UserProfile.Name.Replace('|', ' ')</b></h1>
                 <p class="card-text" id="ProfileCaptionGreeting" style="font-size:16px; color:white">Welcome to StreamWork!</p>
                 <p class="card-text" id="ProfileParagraphGreeting" style="font-size:14px; color:white">StreamWork is very excited to have you onboard our amazing community of StreamTutors. If you haven't been verified yet feel free to edit your profile, explore other StreamTutors, or watch some livestreams.  We promise that your verification will be done soon and we can't wait for you to start streaming your tutoring sessions to our student viewers. Happy streaming!</p>
                 <p class="card-text" id="ProfileCaptionOnPage" style="font-size:16px; color:white">@Model.UserProfile.ProfileCaption</p>

@@ -71,25 +71,29 @@ namespace StreamWork.HelperClasses
             await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", user.Id } }, user);
         }
 
-        public async Task<ProfileTutorViewModel> PopulateSubjectPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject, string user)
+        public async Task<SubjectViewModel> PopulateSubjectPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject, string user)
         {
-            ProfileTutorViewModel model = new ProfileTutorViewModel
+            SubjectViewModel model = new SubjectViewModel
             {
                 UserChannels = await GetUserChannels(storageConfig, QueryHeaders.AllUserChannelsThatAreStreamingWithSpecifiedSubject, subject),
                 UserLogins = await GetPopularStreamTutor(storageConfig),
                 UserProfile = user != null ? await GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user) : null,
                 Subject = subject
             };
+
             return model;
         }
 
-        public async Task<ProfileTutorViewModel> PopulateHomePage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        public async Task<IndexViewModel> PopulateHomePage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
-            ProfileTutorViewModel model = new ProfileTutorViewModel
+            var userLogin = await GetUserLogins(storageConfig, QueryHeaders.CurrentUser, "admin");
+            var getArchivedStreams = await GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos, null);
+
+            IndexViewModel model = new IndexViewModel
             {
-                UserChannels = await GetUserChannels(storageConfig, QueryHeaders.AllUserChannelsThatAreStreaming, "N|A"),
-                UserLogins = await GetPopularStreamTutor(storageConfig),
-                UserArchivedVideos = await GetArchivedStreams(storageConfig, QueryHeaders.ArchivedVideosByStreamId, "805958")
+                UserLogin = userLogin[0],
+                UserArchivedStream = getArchivedStreams[0],
+                UserArchivedStreams = await GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos, null)
             };
 
             return model;
@@ -104,7 +108,7 @@ namespace StreamWork.HelperClasses
 
         private async Task<List<UserLogin>> GetPopularStreamTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
-            return await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, QueryHeaders.CurrentUser.ToString(), new List<string> {"admin"});
+            return await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, QueryHeaders.AllApprovedTutors.ToString());
         }
 
         //Saves picture into container on Azure - replaces old one if there is one
