@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -78,10 +79,40 @@ namespace StreamWork.HelperClasses
                 UserChannels = await GetUserChannels(storageConfig, QueryHeaders.AllUserChannelsThatAreStreamingWithSpecifiedSubject, subject),
                 UserLogins = await GetPopularStreamTutor(storageConfig),
                 UserProfile = user != null ? await GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user) : null,
-                Subject = subject
+                Subject = subject,
+                SubjectIcon = GetSubjectIcon(subject)
             };
 
             return model;
+        }
+
+        private string GetSubjectIcon(string subject)
+        {
+            string defaultURL = "";
+
+            Hashtable defaultPic = new Hashtable
+            {
+                { "Mathematics", "/images/mathematics.svg" },
+                { "Humanities", "/images/book.svg" },
+                { "Science", "/images/microscope.svg" },
+                { "Business", "/images/business-strategy.svg" },
+                { "Engineering", "/images/gear.svg" },
+                { "Law", "/images/court-gavel.svg" },
+                { "Art", "/images/inclilned-paint-brush.svg" },
+                { "Other", "/images/eye.svg" }
+            };
+
+            ICollection key = defaultPic.Keys;
+
+            foreach (string pic in key)
+            {
+                if (pic == subject)
+                {
+                    defaultURL = ((string)defaultPic[pic]);
+                }
+            }
+
+            return defaultURL;
         }
 
         public async Task<IndexViewModel> PopulateHomePage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)

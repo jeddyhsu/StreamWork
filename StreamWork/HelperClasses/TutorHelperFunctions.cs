@@ -45,6 +45,7 @@ namespace StreamWork.HelperClasses
                     defaultURL = ((string)defaultPic[pic]);
                 }
             }
+
             return defaultURL;
         }
 
