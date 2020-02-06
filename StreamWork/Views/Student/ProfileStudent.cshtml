@@ -34,7 +34,7 @@
                     {
                         if (videoInfo.StreamSubject != null)
                         {
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 zoom streamsubject @videoInfo.StreamSubject">
+                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 streamsubject @videoInfo.StreamSubject">
                                 <div class="card mt-3" style="border-radius:5%; border:none;min-width:200px; max-width:400px">
                                     <iframe src="//iframe.dacast.com/b/135034/c/@videoInfo.ChannelKey" style="border-top-left-radius:5%; border-top-right-radius:5%; min-width:250px; cursor:pointer" height="215" frameborder="0" scrolling="no" allow="autoplay"></iframe>
                                     <div class="card-body p-0" style="background-color:black;border-bottom-left-radius:5%; height:75px; border-bottom-right-radius:5%; border:none; min-width:250px; cursor:pointer" onclick="window.location.href='../StreamViews/StreamPage?streamKeyandchatId=' + ('@videoInfo.ChannelKey') + ('|') + ('@Model.UserChannels[0].ChatId') + ('|') + ('@videoInfo.Username') + ('|') + ('@videoInfo.StreamTitle');">

@@ -67,6 +67,22 @@ namespace StreamWork.Threads
             }
         }
 
+        public async Task StopRecordingStream() //Stops Stream Recording
+        {
+            try
+            {
+                HttpClient httpClient = new HttpClient();
+                var response = await httpClient.PostAsync("https://api.dacast.com/v2/channel/"
+                                                           + _userChannel.ChannelKey
+                                                           + "/recording/stop?apikey="
+                                                           + _helperFunctions._dacastAPIKey, null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error in StopRecordingStream: " + ex.Message);
+            }
+        }
+
         public async Task TurnRecordingOff() //Turns Recording Capability Off
         {
             try
@@ -117,6 +133,7 @@ namespace StreamWork.Threads
                         {
                             Console.WriteLine("Not Live");
                             await ClearChannelStreamInfo();
+                            await StopRecordingStream();
                             await TurnRecordingOff();
                             RunVideoArchiveThread();
                             tryAPI = false;
