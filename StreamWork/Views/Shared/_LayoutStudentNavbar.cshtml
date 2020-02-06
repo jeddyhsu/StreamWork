@@ -40,42 +40,145 @@
 </head>
 
 <body style="font-family:'Roboto'; background-color:white">
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color:white;">
+            <div class="navbar-header">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
 
-    <div class="container-fluid" style="max-width:2400px">
-        <nav class="navbar navbar-expand-lg navbar-light text-center" style="background-color:white; z-index:1000; width:97%">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
             <div class="collapse navbar-collapse" id="navbarText">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
-                        <a class="nav-link underline" href="/Student/ProfileStudent" style="color:#008080;"><b>Live Streams</b></a>
-                    </li>
-                    <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px; ">
-                        <a class="nav-link underline" href="/Student/ArchivedStreams" style="color:#008080;"><b>Archived Streams</b></a>
-                    </li>
-                    <li class="nav-item ml-md-0 ml-lg-5 mt-1" style="font-size:15px;">
-                        <a class="nav-link underline" href="/" style="color:#008080;"><b>Home</b></a>
-                    </li>
-                </ul>
-                <div class="btn-group mt-2" style="position:relative; left:4%">
-                    <input type="image" data-toggle="dropdown" src=@Model.UserProfile.ProfilePicture style="width:75px; height:95px; border-top-left-radius:5%; border-bottom-left-radius:5%;" />
-                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:#B2D8D8; border:none; margin-right:35px"></button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" onclick="EditProfile()" style="cursor:pointer">Edit Profile</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/Tutor/TutorSettings" style="cursor:pointer">Settings</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" onclick="Logout()" style="cursor:pointer">Logout</a>
-                    </div>
+                <div class="col-lg-5">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item" style="font-size:15px;">
+                            <a class="nav-link underline" href="/Student/ProfileStudent" style="color:#008080;"><b>Live Streams</b></a>
+                        </li>
+                        <li class="nav-item ml-lg-5" style="font-size:15px; ">
+                            <a class="nav-link underline" href="/Student/ArchivedStreams" style="color:#008080;"><b>Archived Streams</b></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <ul class="nav navbar-nav d-lg-none">
+                        <li>
+                            <a class="nav-link underline" href="/" style="color:#008080"><b>Home</b></a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav d-none d-lg-block" style="float: none; margin: 0 auto; display: block; text-align: center;">
+                        <li style="display: inline-block; float: none;">
+                            <img src="~/images/streamworklogo.png" height="50" onclick="window.location.href='/'" onmouseover="" style="cursor: pointer;" />
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-5">
+                    @if (@Model.UserProfile == null)
+                    {
+                        <ul class="nav navbar-nav d-lg-none">
+                            <li>
+                                <a class="nav-link" style="color:#008080;" onclick="window.location.href='/Home/PickStudentOrTutor'"><b>Sign Up</b></a>
+                            </li>
+                            <li>
+                                <a class="btn nav-link" style="background-color:#006060; color:white; width: 80px" onclick="window.location.href='/Home/Login?dest=-Home-Profile'"><b>Login</b></a>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav d-none d-lg-block" style="float: none; margin: 0 auto; display: block; text-align: right;">
+                            <li class="nav-item mt-1" style="display: inline-block; float: none;">
+                                <a class="btn m-2" style="color:#008080; font-size:17px; background-color:white" onclick="window.location.href='/Home/PickStudentOrTutor'"><b>Sign Up</b></a>
+                            </li>
+                            <li class="nav-item mt-1" style="display: inline-block; float: none;">
+                                <a class="btn m-2" style="background-color:#006565; font-size:17px; color:white" ; onclick="window.location.href='/Home/Login?dest=-Home-Profile'"><b>Login</b></a>
+                            </li>
+                        </ul>
+                    }
+                    else if (Model.UserProfile != null)
+                    {
+                        <ul class="navbar-nav mt-2 d-lg-none">
+                            <li>
+                                <div class="btn-group" style="position:relative;">
+                                    <input type="image" data-toggle="dropdown" src=@Model.UserProfile.ProfilePicture style="width:60px; height:76px; border-top-left-radius:5%; border-bottom-left-radius:5%" />
+                                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:#006060; border:none;"></button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#" id="EditProfile" onclick="Dashboard('@Model.UserProfile.ProfileType')">Dashboard</a>
+                                        <div class="dropdown-divider"></div>
+                                        @if (Model.UserProfile.ProfileType == "tutor")
+                                        {
+                                            <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Tutor/TutorSettings'">Settings</a>
+                                        }
+                                        else
+                                        {
+                                            <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Student/StudentSettings'">Settings</a>
+                                        }
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav d-none d-lg-block" style="float: none; margin: 0 auto; display: block; text-align: right;">
+                            <li>
+                                <div class="btn-group" style="position:relative; left:2%">
+                                    <input type="image" data-toggle="dropdown" src=@Model.UserProfile.ProfilePicture style="width:60px; height:76px; border-top-left-radius:5%; border-bottom-left-radius:5%" />
+                                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:#006060; border:none;"></button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#" id="EditProfile" onclick="Dashboard('@Model.UserProfile.ProfileType')">Dashboard</a>
+                                        <div class="dropdown-divider"></div>
+                                        @if (Model.UserProfile.ProfileType == "tutor")
+                                        {
+                                            <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Tutor/TutorSettings'">Settings</a>
+                                        }
+                                        else
+                                        {
+                                            <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Student/StudentSettings'">Settings</a>
+                                        }
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div id="editModal" class="modal" tabindex="1" role="dialog">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content" style="background-color: #008080">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" style="color:white">Edit Profile</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.UserProfile.ProfileCaption" />
+                                            <br />
+                                            <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.UserProfile.ProfileParagraph</textarea>
+                                            <br />
+                                            <img id="previewProfilePic" src=@Model.UserProfile.ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
+                                            <br />
+                                            <div class="upload-uploadbtn-wrapper">
+                                                <button class="uploadbtn">Upload a Profile Picture</button>
+                                                <input id="uploadProfilePic" type='file' onchange="readURL(this,'ProfilePic');" />
+                                            </div>
+
+                                        </form>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" style="background-color:black; color:white" class="btn" onclick="RegisterProfilePhotoAndCaption()">Save changes</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
         </nav>
-        <div class="page-body">
-            @RenderBody()
-        </div>
-        @*
+    </div>
 
+    <div class="page-body">
+        @RenderBody()
+    </div>
+    @*
         <div class="page-footer my-0">
             <div class="container-fluid p-0" style="background-color:#008080; height:100%; color:white">
                 <div class="row">
@@ -102,10 +205,8 @@
                 <br />
                 Copyright © 2020 StreamWork LLC. All rights reserved.
             </div>
-       </div>
-        *@
-
-        @RenderSection("Scripts", required: false)
-    </div>
+        </div>
+    *@
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
