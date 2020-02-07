@@ -88,7 +88,7 @@ namespace StreamWork.HelperClasses
         }
 
         public async Task<SearchViewModel> PopulateSearchPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject, string searchQuery, string user) {
-            searchQuery = searchQuery.ToLower();
+            searchQuery = searchQuery == null ? "" : searchQuery.ToLower();
             var streams = subject == null ? await GetUserChannels(storageConfig, QueryHeaders.AllUserChannelsThatAreStreaming, "")
                                           : await GetUserChannels(storageConfig, QueryHeaders.AllUserChannelsThatAreStreamingWithSpecifiedSubject, subject);
             var archive = subject == null ? await GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos)
