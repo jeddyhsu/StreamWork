@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Security.Cryptography;
@@ -80,6 +81,26 @@ namespace StreamWork.HelperClasses
                 UserLogins = await GetPopularStreamTutor(storageConfig),
                 UserProfile = user != null ? await GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user) : null,
                 Subject = subject,
+                SubjectIcon = GetSubjectIcon(subject)
+            };
+
+            return model;
+        }
+
+        public async Task<SearchViewModel> PopulateSearchPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject, string searchQuery, string user) {
+            searchQuery = searchQuery.ToLower();
+            var streams = subject == null ? await GetUserChannels(storageConfig, QueryHeaders.AllUserChannelsThatAreStreaming, "")
+                                          : await GetUserChannels(storageConfig, QueryHeaders.AllUserChannelsThatAreStreamingWithSpecifiedSubject, subject);
+            var archive = subject == null ? await GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos)
+                                          : await GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideosBasedOnSubject, subject);
+
+            SearchViewModel model = new SearchViewModel {
+                PopularStreamTutors = await GetPopularStreamTutor(storageConfig),
+                StreamResults = (from s in streams select s).Where(s => s.StreamTitle.ToLower().Contains(searchQuery)).ToList(),
+                ArchiveResults = (from a in archive select a).Where(a => a.StreamTitle.ToLower().Contains(searchQuery)).ToList(),
+                UserProfile = user == null ? null : await GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user),
+                Subject = string.IsNullOrEmpty(subject) ? "Any" : subject,
+                SearchQuery = searchQuery,
                 SubjectIcon = GetSubjectIcon(subject)
             };
 
