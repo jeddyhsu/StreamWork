@@ -4,12 +4,14 @@
 
 <link rel="stylesheet" href="~/css/Subject.css" />
 
+
 <div class="container-fluid" style="max-width:2400px">
       <div class="row">
           <div class="col-lg-10">
               <div class="row">
                   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                      <h1 style="font-size:50px; font-family:'Roboto Slab', serif" class="pt-3">@Model.Subject<span style="margin-left:10px"><img width="40" src="@Model.SubjectIcon" /></span></h1>
+                      <img width="40" src="@Model.SubjectIcon"  style="float:left; margin-top:27px; margin-right: 10px"/>
+                      <h1 style="font-size:50px; font-family:'Roboto Slab', serif" class="pt-3">@Model.Subject</h1>
                       <h5>TOP LIVE STREAMS</h5>
                       <hr />
                   </div>
@@ -22,9 +24,9 @@
                           if (videoInfo.StreamTitle != null)
                           {
                               <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 streamsubject @videoInfo.StreamSubject">
-                                  <div class="card mt-3" style="border-radius:5%; border:none;min-width:200px; max-width:400px">
+                                  <div class="card mt-3" style="border-radius:5%; border:none; max-width:375px">
                                       <iframe src="//iframe.dacast.com/b/135034/c/@videoInfo.ChannelKey" style="border-top-left-radius:10px; border-top-right-radius:10px; min-width:250px" height="215" frameborder="0" scrolling="no" allow="autoplay"></iframe>
-                                      <div class="card-body p-0" style="background-color:black;border-bottom-left-radius:10px; height:75px; border-bottom-right-radius:10px; border:none; min-width:250px; cursor:pointer" onclick="window.location.href='../StreamViews/StreamPage?streamKeyandchatId=' + ('@videoInfo.ChannelKey') + ('|') + ('@Model.UserChannels[0].ChatId') + ('|') + ('@videoInfo.Username') + ('|') + ('@videoInfo.StreamTitle');">
+                                      <div class="card-body p-0" style="background-color:#008080;border-bottom-left-radius:10px; height:75px; border-bottom-right-radius:10px; border:none; min-width:250px; cursor:pointer" onclick="window.location.href='../StreamViews/StreamPage?streamKeyandchatId=' + ('@videoInfo.ChannelKey') + ('|') + ('@Model.UserChannels[0].ChatId') + ('|') + ('@videoInfo.Username') + ('|') + ('@videoInfo.StreamTitle');">
                                           <div class="row">
                                               <div class="col-2 pr-2">
                                                   <input type="image" style="border-radius:5%; width:50px; margin-left:10px; margin-top:10px; height:60px;" src=@videoInfo.ProfilePicture onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@videoInfo.Username');" />
