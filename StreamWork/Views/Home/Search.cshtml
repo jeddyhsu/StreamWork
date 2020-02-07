@@ -49,7 +49,14 @@
                         <div class="col-md-1"></div>
                     </div>
                     <h1 style="font-size:75px; font-family:'Roboto Slab', serif" class="pt-3">@Model.Subject<span style="margin-left:10px"><img width="60" src="@Model.SubjectIcon" /></span></h1>
-                    <h5>LIVE STREAMS FOR "@Model.SearchQuery"</h5>
+                    @if (String.IsNullOrEmpty(Model.SearchQuery))
+                    {
+                        <h5>LIVE STREAMS</h5>
+                    }
+                    else
+                    {
+                        <h5>LIVE STREAMS FOR "@Model.SearchQuery"</h5>
+                    }
                     <hr />
                 </div>
             </div>
@@ -87,7 +94,14 @@
             </div>
             <br />
             <br />
-            <h5>ARCHIVE FOR "@Model.SearchQuery"</h5>
+            @if (String.IsNullOrEmpty(Model.SearchQuery))
+            {
+                <h5>ARCHIVE</h5>
+            }
+            else
+            {
+                <h5>ARCHIVE FOR "@Model.SearchQuery"</h5>
+            }
             <hr />
             <div class="row">
                 @if (Model.ArchiveResults.ToArray().Length > 0)
