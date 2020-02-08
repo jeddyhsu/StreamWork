@@ -99,7 +99,7 @@ namespace StreamWork.HelperClasses
                 StreamResults = (from s in streams select s).Where(s => s.StreamTitle.ToLower().Contains(searchQuery)).ToList(),
                 ArchiveResults = (from a in archive select a).Where(a => a.StreamTitle.ToLower().Contains(searchQuery)).ToList(),
                 UserProfile = user == null ? null : await GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user),
-                Subject = string.IsNullOrEmpty(subject) ? "Any" : subject,
+                Subject = string.IsNullOrEmpty(subject) ? "All Subjects" : subject,
                 SearchQuery = searchQuery,
                 SubjectIcon = GetSubjectIcon(subject)
             };
