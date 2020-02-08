@@ -8,7 +8,7 @@ function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail() {
     var formData = new FormData()
    
     if (streamTitle == "" || streamSubject == 'Select Subject') {
-        alert("You must have title for your stream and you must select a subject")
+        alert("Please select a title and subject!")
         return;
     }
 
@@ -31,7 +31,10 @@ function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail() {
         success: function (data) {
             if (data.message === "Success") {
                 $('#registerStreamModal').modal('hide'),
-                OpenNotificationModal("Your broadcast is visible to students!");
+                    OpenNotificationModal("Your broadcast is visible to students!");
+            }
+            else {
+                alert("You must wait atleast five minutes in between streams");
             }
         }
     });   

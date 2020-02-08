@@ -60,7 +60,7 @@ else if (Model.UserChannels[0].StreamTitle == null && Model.UserChannels[0].Stre
                          var player = dacast.players["135034_c_@Model.UserChannels[0].ChannelKey"]
 
                             if (player.currentTime() == 0) {
-                                  OpenNotificationModal("It looks like your stream hasn't been started on OBS. Start the stream on OBS and once you see your stream on this page then enter the title and subject.")
+                                  alert("It looks like your stream hasn't been started on OBS. Start the stream on OBS and once you see your stream on this page then enter the title and subject.")
                               }
                               else {
                                   RegisterStreamTitleAndStreamSubjectAndCustomThumbanail()
@@ -127,7 +127,7 @@ else if (Model.UserChannels[0].StreamTitle == null && Model.UserChannels[0].Stre
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" style=" color: white" onclick="window.location.href = '/Tutor/ProfileTutor'">Go Back</button>
+                    <button type="button" class="btn btn-danger" style=" color: white" onclick="window.location.href = '/Tutor/ProfileTutor'">Exit</button>
                     <button type="button" class="btn" style="background-color:black; color: white" onclick="CheckForStream()">Start Stream</button>
                 </div>
             </div>
