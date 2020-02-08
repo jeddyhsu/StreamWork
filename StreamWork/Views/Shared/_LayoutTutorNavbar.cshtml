@@ -44,7 +44,6 @@
 </head>
 
 <body style="font-family:'Roboto'; background-color:white">
-
     <div class="container-fluid">
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color:white;">
             <div class="navbar-header">
@@ -178,6 +177,113 @@
                 </div>
             </div>
         </nav>
+    </div>
+
+    @*Edit Modal for editing profile*@
+    <div id="editModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: #008080">
+                <div class="modal-header">
+                    <h5 class="modal-title" style="color:white">Edit Profile</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.UserProfile.ProfileCaption" />
+                        <br />
+                        <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.UserProfile.ProfileParagraph</textarea>
+                        <br />
+                        <img id="previewProfilePic" src=@Model.UserProfile.ProfilePicture alt="your image" style="border-radius: 5%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
+                        <br />
+                        <div class="upload-uploadbtn-wrapper">
+                            <button class="uploadbtn" style="margin-left:100px">Upload a Profile Picture</button>
+                            <input id="uploadProfilePic" style="cursor:pointer" type='file' onchange="readURL(this,'ProfilePic')" />
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn" style="background-color:black; color:white" onclick="RegisterProfilePhotoAndCaption()">Save changes</button>
+                    <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*Add Stream for scheduling system*@
+    <div id="addScheduleModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: #008080">
+                <div class="modal-header">
+                    <h5 class="modal-title" style="color:white">Schedule Stream</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4 class="text-center" style="color:white">Title</h4>
+                    <input id="streamNameAdd" type="text" style="display:block; margin-right:auto; margin-left:auto; border-radius:5px" />
+                    <br />
+                    <h4 class="text-center" style="color:white">Date & Time</h4>
+                    <div class="input-group date" id="datetimepickerAdd" data-target-input="nearest">
+                        <input id="dateTimeAdd" type="text" class="form-control datetimepicker-input" data-target="#datetimepickerAdd" />
+                        <div class="input-group-append" data-target="#datetimepickerAdd" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="uploadbtn" style="display:block; margin-left:auto; margin-right:auto; border-radius:5px; cursor:pointer" onclick="AddStreamToSchedule()">Add Stream<span><img width="20" class="mb-1 ml-1" src="~/images/Plus48.png" /></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*Edit Stream for scheduling system*@
+    <div id="editScheduleModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: #008080">
+                <div class="modal-header">
+                    <h5 id="Title" class="modal-title" style="color:white">Reschedule Or Remove Stream</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4 class="text-center" style="color:white">Title</h4>
+                    <input id="streamNameEdit" value="" type="text" style="display:block; margin-right:auto; margin-left:auto; border-radius:5px" />
+                    <br />
+                    <h4 class="text-center" style="color:white">Date & Time</h4>
+                    <div class="input-group date" id="datetimepickerEdit" data-target-input="nearest">
+                        <input id="dateTimeEdit" type="text" class="form-control datetimepicker-input" data-target="#datetimepickerEdit" />
+                        <div class="input-group-append" data-target="#datetimepickerEdit" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="uploadbtn" style="display:block; margin-left:auto; margin-right:auto; border-radius:5px; cursor:pointer" onclick="UpdateStreamSchedule()">Reschedule Stream</button>
+                    <button class="uploadbtn" style="display:block; margin-left:auto; margin-right:auto; border-radius:5px; cursor:pointer; color:red" onclick="RemoveStreamOnSchedule()">Remove Stream</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*For alert notifications*@
+    <div id="notificationModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: #008080">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" style="color:white">Alert!</h5>
+                </div>
+                <div class="modal-body">
+                    <p id="notificationBody" class=" text-center" style="color: white;">It appears you are not a verified StreamTutor! If you are a student, create a separate student account. If you are a StreamTutor, please wait to be approved.</p>
+                    <img src="~/images/streamworkPencilWhite.png" style="display:block; margin-left:auto; margin-right:auto;" height="70" onclick="window.location.href='/'" />
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="page-body">
