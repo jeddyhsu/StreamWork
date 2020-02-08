@@ -9,9 +9,11 @@
         <div class="col-lg-10">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="row">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-10">
+                    <div class="row py-3">
+                        <div class="col-md-4">
+                            <h1 style="font-size:40px; font-family:'Roboto Slab', serif">@Model.Subject<span style="margin-left:10px"><img width="60" src="@Model.SubjectIcon" /></span></h1>
+                        </div>
+                        <div class="col-md-8">
                             <form onsubmit="return search();" style="background-color: white; border-radius: 6px; box-shadow: 0px 0px 30px -10px">
                                 <div class="row no-gutters align-items-center p-2">
                                     <div class="col-1 pr-3">
@@ -46,9 +48,7 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="col-md-1"></div>
                     </div>
-                    <h1 style="font-size:50px; font-family:'Roboto Slab', serif" class="pt-3">@Model.Subject<span style="margin-left:10px"><img width="60" src="@Model.SubjectIcon" /></span></h1>
                     @if (String.IsNullOrEmpty(Model.SearchQuery))
                     {
                         <h5>LIVE STREAMS</h5>
