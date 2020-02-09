@@ -93,7 +93,7 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
                 <div class="col-lg-5">
                     @if (@Model.UserProfile == null)
                     {
-                        <ul class="nav navbar-nav d-lg-none" style="z-index:1000">
+                        <ul class="nav navbar-nav d-lg-none">
                             <li>
                                 <a class="btn nav-link ml-1" style="color:#008080; background-color:whitesmoke; width: 80px; z-index:1000" onclick="window.location.href='/Home/PickStudentOrTutor'"><b>Sign Up</b></a>
                             </li>
@@ -114,7 +114,7 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
                     {
                         <ul class="navbar-nav mt-2 d-lg-none">
                             <li>
-                                <div class="btn-group" style="position:relative; z-index:1000">
+                                <div class="btn-group" style="position:relative;">
                                     <input type="image" data-toggle="dropdown" src=@Model.UserProfile.ProfilePicture style="width:60px; height:76px; border-top-left-radius:5%; border-bottom-left-radius:5%" />
                                     <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:#006060; border:none;"></button>
                                     <div class="dropdown-menu">
@@ -136,7 +136,7 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
                         </ul>
                         <ul class="navbar-nav d-none d-lg-block" style="float: none; margin: 0 auto; display: block; text-align: right;">
                             <li>
-                                <div class="btn-group" style="position:relative; left:2%; z-index:1000">
+                                <div class="btn-group" style="position:relative; left:2%;">
                                     <input type="image" data-toggle="dropdown" src=@Model.UserProfile.ProfilePicture style="width:60px; height:76px; border-top-left-radius:5%; border-bottom-left-radius:5%" />
                                     <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:#006060; border:none;"></button>
                                     <div class="dropdown-menu">

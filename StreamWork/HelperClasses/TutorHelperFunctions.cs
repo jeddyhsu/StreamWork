@@ -62,15 +62,6 @@ namespace StreamWork.HelperClasses
             await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel[0].Id } }, userChannel[0]);
         }
 
-        public async Task<string> GetChatSecretKey([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string user)
-        {
-            var userChannel = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user);
-            var ids = userChannel[0].ChatId.Split("|");
-            var encodedUrl = HttpUtility.UrlEncode(Convert.ToBase64String(_homeHelperFunctions.hmacSHA256("/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + ids[0] + "&tkey=" + ids[1] + "&nme=" + userChannel[0].Username, "3O08UU-OtQ_rycx3")));
-            var finalString = "https://www6.cbox.ws" + "/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + ids[0] + "&tkey=" + ids[1] + "&nme=" + userChannel[0].Username + "&sig=" + encodedUrl;
-            return finalString;
-        }
-
         public List<Day> GetTutorStreamSchedule(UserChannel channel)
         {
             var todaysDate = DateTime.Now;

@@ -124,18 +124,35 @@ namespace StreamWork.HelperClasses
             return defaultURL;
         }
 
-        public async Task<IndexViewModel> PopulateHomePage ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
-            var userLogin = await GetUserLogins(storageConfig, QueryHeaders.CurrentUser, "admin");
-            var getArchivedStreams = await GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos, null);
+        public async Task<IndexViewModel> PopulateHomePage ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string currentUser) {
+            var streamingUserChannels = await GetUserChannels(storageConfig, QueryHeaders.AllUserChannelsThatAreStreaming, "N|A");
+            if (streamingUserChannels.Count == 0)
+            {
+                var userLogin = await GetUserLogins(storageConfig, QueryHeaders.CurrentUser, "admin");
+                var userChannel = await GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, "admin");
+                var getArchivedStreams = await GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos, null);
 
-            IndexViewModel model = new IndexViewModel {
-                UserLogin = userLogin[0],
-                UserChannel = (await GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, userLogin[0].Username))[0],
-                UserArchivedStream = getArchivedStreams[0],
-                UserArchivedStreams = await GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos, null)
+                IndexViewModel model = new IndexViewModel
+                {
+                    UserLogin = userLogin[0],
+                    UserArchivedStream = getArchivedStreams[0],
+                    UserArchivedStreams = await GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos, null),
+                    ChatBox = GetChatSecretKey(userChannel[0].ChatId, currentUser)
+                };
+
+                return model;
+            }
+
+            var userLoginForChannel = await GetUserLogins(storageConfig, QueryHeaders.CurrentUser, streamingUserChannels[0].Username);
+            IndexViewModel channelModel = new IndexViewModel
+            {
+                UserLogin = userLoginForChannel[0],
+                UserChannel = streamingUserChannels[0],
+                UserArchivedStreams = await GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos, null),
+                ChatBox = GetChatSecretKey(streamingUserChannels[0].ChatId, currentUser)
             };
 
-            return model;
+            return channelModel;
         }
 
         public string FormatChatId (string chatID) {
@@ -213,16 +230,11 @@ namespace StreamWork.HelperClasses
             return uriBuilder.ToString();
         }
 
-        public async Task<string> GetChatSecretKey ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string user) {
-            var userChannel = await GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user);
-            var ids = userChannel[0].ChatId.Split("|");
-            var encodedUrl = HttpUtility.UrlEncode(Convert.ToBase64String(hmacSHA256("/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + ids[0] + "&tkey=" + ids[1] + "&nme=" + userChannel[0].Username, "3O08UU-OtQ_rycx3")));
-            var finalString = "https://www6.cbox.ws" + "/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + ids[0] + "&tkey=" + ids[1] + "&nme=" + userChannel[0].Username + "&sig=" + encodedUrl;
-            return finalString;
-        }
-
-        public string GetChatSecretKey (string tid, string tkey, string userName) //Overload for StreamPage
+        public string GetChatSecretKey(string chatId, string userName) //Overload for StreamPage
         {
+            var split = chatId.Split("|");
+            var tid = split[0];
+            var tkey = split[1];
             var encodedUrl = HttpUtility.UrlEncode(Convert.ToBase64String(hmacSHA256("/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + tid + "&tkey=" + tkey + "&nme=" + userName, "3O08UU-OtQ_rycx3")));
             var finalString = "https://www6.cbox.ws" + "/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + tid + "&tkey=" + tkey + "&nme=" + userName + "&sig=" + encodedUrl;
             return finalString;
