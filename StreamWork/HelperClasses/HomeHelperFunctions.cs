@@ -135,6 +135,7 @@ namespace StreamWork.HelperClasses
                 IndexViewModel model = new IndexViewModel
                 {
                     UserLogin = userLogin[0],
+                    UserChannel = userChannel[0],
                     UserArchivedStream = getArchivedStreams[0],
                     UserArchivedStreams = await GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos, null),
                     ChatBox = GetChatSecretKey(userChannel[0].ChatId, currentUser)
