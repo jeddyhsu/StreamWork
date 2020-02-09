@@ -17,27 +17,20 @@ namespace StreamWork.Controllers
             return View();
         }
 
-        public async Task<IActionResult> StreamPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamKeyandchatId)
+        public async Task<IActionResult> StreamPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamTutorUsername)
         {
-            var split = streamKeyandchatId.Split(new char[] { '|' }); //spilt[0] = video channel key, split[1] = channel chat id, split[2] = chat key, split[3] = channel username, split[4] = stream title
-            var secretChatKey = _homeHelperFunctions.GetChatSecretKey(split[1], split[2], User.Identity.Name);
-            var channel = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, split[3]);
-            string[] arr = { split[0], secretChatKey, split[4], channel[0].Id };
+            var channel = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, streamTutorUsername);
+            var chatBox = _homeHelperFunctions.GetChatSecretKey(channel[0].ChatId, HttpContext.User.Identity.Name);
 
-            ProfileTutorViewModel profile = new ProfileTutorViewModel {
-                UserProfile = User.Identity.Name != null ? await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name) : null,
-                StudentOrTutorProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, split[3]),
-                NumberOfStreams = (await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, channel[0].Username)).Count
+            StreamPageViewModel model = new StreamPageViewModel
+            {
+                UserProfile = HttpContext.User.Identity.Name != null ? (await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name))[0] : null,
+                ChatBox = chatBox,
+                UserChannel = channel[0]
             };
 
-            if (profile.UserProfile != null && profile.UserProfile.FollowedStudentsAndTutors != null)
-                profile.IsUserFollowingThisTutor = profile.UserProfile.FollowedStudentsAndTutors.Contains(channel[0].Id);
-
-            StreamPageViewModel model = new StreamPageViewModel {
-                UserProfile = profile.UserProfile,
-                Profile = profile,
-                UrlParams = arr
-            };
+            if (model.UserProfile != null && model.UserProfile.FollowedStudentsAndTutors != null)
+                model.IsUserFollowingThisTutor = model.UserProfile.FollowedStudentsAndTutors.Contains(channel[0].Id);
 
             return View ("StreamPage", model);
         }
@@ -47,27 +40,22 @@ namespace StreamWork.Controllers
             if (HttpContext.User.Identity.IsAuthenticated == false)
                 return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-StreamViews-StreamPlaybackPage?streamId=" + streamId);
 
-            var archivedStreams = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.ArchivedVideosByStreamId, streamId);
-            var channel = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, archivedStreams[0].Username);
+            var archivedStream = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.ArchivedVideosByStreamId, streamId);
+            var channel = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, archivedStream[0].Username);
 
-            string[] arr = { streamId, archivedStreams[0].StreamTitle,channel[0].Id};
-
-            ProfileTutorViewModel profile = new ProfileTutorViewModel {
-                UserProfile = User.Identity.Name != null ? await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name) : null,
-                StudentOrTutorProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, channel[0].Username),
+            StreamPlayBackPageViewModel model = new StreamPlayBackPageViewModel
+            {
+                UserProfile = (await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name))[0],
+                TutorUserProfile = (await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, channel[0].Username))[0],
+                ArchivedStream = archivedStream[0],
+                UserChannel = channel[0],
                 NumberOfStreams = (await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, channel[0].Username)).Count
             };
 
-            if (profile.UserProfile.FollowedStudentsAndTutors != null)
-                profile.IsUserFollowingThisTutor = profile.UserProfile.FollowedStudentsAndTutors.Contains(channel[0].Id);
+            if (model.UserProfile != null && model.UserProfile.FollowedStudentsAndTutors != null)
+                model.IsUserFollowingThisTutor = model.UserProfile.FollowedStudentsAndTutors.Contains(channel[0].Id);
 
-            StreamPageViewModel model = new StreamPageViewModel {
-                UserProfile = profile.UserProfile,
-                Profile = profile,
-                UrlParams = arr
-            };
-
-            return View("StreamPlaybackPage", model);
+            return View("StreamPlaybackPage", model) ;
         }
     }
 }

@@ -29,7 +29,7 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> Index([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
 
-            var populatePage = await _homeHelperFunctions.PopulateHomePage(storageConfig);
+            var populatePage = await _homeHelperFunctions.PopulateHomePage(storageConfig, HttpContext.User.Identity.Name);
             populatePage.IsUserFollowingThisTutor = false;
 
             if (HttpContext.User.Identity.IsAuthenticated == true)
@@ -37,7 +37,7 @@ namespace StreamWork.Controllers
                 var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name);
                 populatePage.UserProfile = userProfile;
 
-                if (populatePage.UserProfile.FollowedStudentsAndTutors != null)
+                if (populatePage.UserProfile.FollowedStudentsAndTutors != null && populatePage.UserChannel != null)
                     populatePage.IsUserFollowingThisTutor = populatePage.UserProfile.FollowedStudentsAndTutors.Contains(populatePage.UserChannel.Id);
 
                 return View(populatePage);
