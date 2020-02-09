@@ -93,7 +93,7 @@
         "StorageType": "SqlServer",
         "Queries": [
             {
-                "Query": "SELECT * FROM [dbo].[Recommendation] WHERE Tutor = '@x0'",
+                "Query": "SELECT * FROM [dbo].[Recommendations] WHERE Tutor = '@x0'",
                 "QueryId": "RecommendationsByTutor"
             },
         ]

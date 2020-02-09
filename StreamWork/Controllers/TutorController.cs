@@ -127,7 +127,6 @@ namespace StreamWork.Controllers
                 UserChannels = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, User.Identity.Name),
                 UserArchivedVideos = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, User.Identity.Name),
                 NumberOfStreams = (await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, User.Identity.Name)).Count,
-                Recommendations = await _homeHelperFunctions.GetRecommendationsForTutor(storageConfig, User.Identity.Name),
             };
 
             viewModel.NumberOfFollowers = _tutorHelperFunctions.GetNumberOfFollowers(viewModel.UserLogins[0]);
@@ -183,13 +182,6 @@ namespace StreamWork.Controllers
             }
 
             return Json(new { Message = JsonResponse.Failed.ToString()});
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> ClearRecommendation([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string id)
-        {
-            await _tutorHelperFunctions.ClearRecommendation(storageConfig, id);
-            return Json(new { Message = JsonResponse.Success.ToString() });
         }
 
         [HttpGet]

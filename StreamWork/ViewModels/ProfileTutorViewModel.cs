@@ -18,7 +18,6 @@ namespace StreamWork.ViewModels {
         public string ChatSecretKey { get; set; }
         public bool IsUserFollowingThisTutor { get; set; }
 
-        public List<Recommendation> Recommendations { get; set; }
         public List<Day> Schedule = new List<Day>();
     }
 }

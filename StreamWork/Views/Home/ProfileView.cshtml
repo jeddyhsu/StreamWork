@@ -39,7 +39,7 @@
             </div>
             <div class="col-3 pl-1">
                 <div class="card-body" style="background-color:#008080;border-top-left-radius:0px;">
-                    <button class="uploadbtn" style="font-family:'Roboto Slab', serif; cursor: pointer; display:block; margin-left:auto; margin-right:auto; height:68px; width:100%;" onclick="showSubmitRecommendationModal();" onmouseover="">Submit Recommendation</button>
+                    <button class="uploadbtn" style="font-family:'Roboto Slab', serif; cursor: pointer; display:block; margin-left:auto; margin-right:auto; height:68px; width:100%;" onclick="window.location.href='/Home/Donate?tutor=@Model.StudentOrTutorProfile.Username'" onmouseover="">Submit Recommendation</button>
                 </div>
             </div>
             <div class="col-3 pl-0">
@@ -83,27 +83,27 @@
 <br />
 <div class="container" style="width:100%;">
     <h2 class="text-center" style="font-family: 'Roboto Slab', serif;"><b>Past Streams</b></h2>
-        <div class="row">
-            @foreach (var videoInfo in Model.UserArchivedVideos)
-            {
-                <div class="col-lg-4 col-md-6 streamsubject @videoInfo.StreamSubject">
-                    <div class="card mt-3" style="border-radius: 5%; border: none; max-width: 375px">
-                        <input type="image" width="100%" height="210px" style="border-top-left-radius:5%; border-top-right-radius:5%; min-width:250px" src=@videoInfo.StreamThumbnail onclick="window.location.href = '/StreamViews/StreamPlaybackPage?streamId=@videoInfo.StreamID'">
-                        <div class="card-body p-0" style="background-color:black ;border-bottom-left-radius:5%; height:75px; border-bottom-right-radius:5%; border:none; min-width:250px; cursor: pointer;" onclick="window.location.href='/Home/ProfileView?Tutor=@videoInfo.Username';" onmouseover="">
-                            <div class="row">
-                                <div class="col-2 pr-2">
-                                    <input type="image" style="border-radius:5%; width:50px; margin-left:10px; margin-top:10px; height:60px;" src=@videoInfo.ProfilePicture />
-                                </div>
-                                <div class="col-10" style="color:white;">
-                                    <h5 class="text-truncate" style="font-family: 'Roboto'; font-size:20px; margin-left:20px; margin-top:10px;">@videoInfo.StreamTitle</h5>
-                                    <h6 class="text-truncate" style="font-family: 'Roboto'; font-size:14px;margin-left:20px;">@videoInfo.Username</h6>
+            <div class="row">
+                @foreach (var videoInfo in Model.UserArchivedVideos)
+                {
+                    <div class="col-lg-4 col-md-6 streamsubject @videoInfo.StreamSubject">
+                        <div class="card mt-3" style="border-radius: 5%; border: none; max-width: 375px">
+                            <input type="image" width="100%" height="210px" style="border-top-left-radius:5%; border-top-right-radius:5%; min-width:250px" src=@videoInfo.StreamThumbnail onclick="window.location.href = '/StreamViews/StreamPlaybackPage?streamId=@videoInfo.StreamID'">
+                            <div class="card-body p-0" style="background-color:black ;border-bottom-left-radius:5%; height:75px; border-bottom-right-radius:5%; border:none; min-width:250px; cursor: pointer;" onclick="window.location.href='/Home/ProfileView?Tutor=@videoInfo.Username';" onmouseover="">
+                                <div class="row">
+                                    <div class="col-2 pr-2">
+                                        <input type="image" style="border-radius:5%; width:50px; margin-left:10px; margin-top:10px; height:60px;" src=@videoInfo.ProfilePicture />
+                                    </div>
+                                    <div class="col-10" style="color:white;">
+                                        <h5 class="text-truncate" style="font-family: 'Roboto'; font-size:20px; margin-left:20px; margin-top:10px;">@videoInfo.StreamTitle</h5>
+                                        <h6 class="text-truncate" style="font-family: 'Roboto'; font-size:14px;margin-left:20px;">@videoInfo.Username</h6>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            }
-        </div>
+                }
+            </div>
 </div>
 <div id="editModal" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -131,35 +131,6 @@
 
             <div class="modal-footer">
                 <button type="button" style="background-color:black; color:white" class="btn" onclick="RegisterProfilePhotoAndCaption()">Save changes</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="submitRecommendationModal" class="modal" tabindex="-2" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" style="background-color: #008080;">
-            <div class="modal-header">
-                <h5 class="modal-title" style="color: white;">Submit a Recommendation</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <textarea align="middle" class="form-control" id="submitRecommendationText" style="height:200px;"></textarea>
-                </form>
-            </div>
-            <div class="modal-footer">
-                @if (Model.UserProfile == null)
-                {
-                    <button type="button" style="background-color: black; color: white;" class="btn" data-dismiss="modal" onclick="submitRecommendation('Anonymous', '@Model.StudentOrTutorProfile.Username')">Submit</button>
-                }
-                else
-                {
-                    <button type="button" style="background-color: black; color: white;" class="btn" data-dismiss="modal" onclick="submitRecommendation('@Model.UserProfile.Username', '@Model.StudentOrTutorProfile.Username')">Submit</button>
-                }
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
