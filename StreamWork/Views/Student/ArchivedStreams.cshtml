@@ -23,7 +23,7 @@
 </div>
 <br />
 <div class="container" style="width:100%; padding-left:0; padding-right:0">
-    <h2 class="text-center" style="font-family:'Roboto Slab', serif"><b>Archived Streams</b></h2>
+    <h2 class="text-center" style="font-family:'Roboto Slab', serif"><b>Archived Streams</b><span class="ml-2"><img id="info" src="~/images/info_icon.png" style="width: 24px; height: 24px; margin-top: -5px;" data-toggle="tooltip" data-placement="right" title="Watch all the previously archived livestreams here. It's only $10 a month!" /></span></h2>
             <div class="row">
                 @foreach (var videoInfo in Model.UserArchivedStreams)
                 {
@@ -138,3 +138,7 @@
 
         });
     });</script>
+
+
+<script>$("#info").tooltip();
+    $("#info2").tooltip()</script>

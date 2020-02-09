@@ -24,7 +24,7 @@
 </div>
 <br />
 <div class="container" style="width:100%;">
-    <h2 class="text-center" style="font-family:'Roboto Slab', serif"><b>Top Live Streams</b></h2>
+    <h2 class="text-center" style="font-family:'Roboto Slab', serif"><b>Top Live Streams</b><span class="ml-2"><img id="info" src="~/images/info_icon.png" style="width: 24px; height: 24px; margin-top: -5px;" data-toggle="tooltip" data-placement="right" title="Watch all your favorite educational livestreams here. The best part is that they are all free!" /></span></h2>
             <div class="row">
                 @if (Model.UserChannels.ToArray().Length > 0)
                 {
@@ -54,6 +54,10 @@
             </div>
 </div>
 
+<script>
+    $("#info").tooltip();
+    $("#info2").tooltip()
+</script>
 
 <style>
     .underline:hover{
