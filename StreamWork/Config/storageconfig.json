@@ -89,23 +89,13 @@
     },
 
     {
-        "Name": "DonationAttempt",
+        "Name": "Recommendation",
         "StorageType": "SqlServer",
         "Queries": [
             {
-                "Query": "SELECT * FROM [dbo].[DonationAttempt]"
-            }
-        ]
-    },
-
-    {
-        "Name": "IPNRequestBody",
-        "StorageType": "SqlServer",
-        "Queries": [
-            {
-                "Query": "SELECT * FROM [dbo].[IPNRequestBody]",
-                "QueryId": "AllIPNRequests"
-            }
+                "Query": "SELECT * FROM [dbo].[Recommendations] WHERE Tutor = '@x0'",
+                "QueryId": "RecommendationsByTutor"
+            },
         ]
     }
   ]

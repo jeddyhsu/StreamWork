@@ -25,21 +25,24 @@
                 </div>
             </div>
         </div>
-        <div class="row text-center">
-            <div class="col-4 pr-0">
+        <div class="row text-center mx-0" style="background-color:#008080;">
+            <div class="col-3 pr-0">
                 <div class="card-body" style="background-color:#008080; border-bottom-left-radius:5px">
                     <h5 style="color:whitesmoke">Streams</h5>
                     <h4 style="color:white">@Model.NumberOfStreams</h4>
                 </div>
             </div>
-            <div class="col-4 p-0">
-                <div class="card-body" style="background-color:#008080;border-top-left-radius:0px ">
-                    <a target="_blank" rel="noopener noreferrer" href="/Home/Donate?tutor=@Model.StudentOrTutorProfile.Username">
-                        <img src="~/images/donate201911.png" target="_blank" rel="noopener noreferrer" style="display:block; margin-left:auto; margin-right:auto; width:120px; height:68px" />
-                    </a>
-                 </div>
+            <div class="col-3 pr-1">
+                <div class="card-body" style="background-color:#008080;border-top-left-radius:0px;">
+                    <button class="uploadbtn" style="font-family:'Roboto Slab', serif; cursor: pointer; display:block; margin-left:auto; margin-right:auto; height:68px; width:100%;" onclick="window.location.href='/Home/Donate?tutor=@Model.StudentOrTutorProfile.Username'" onmouseover="">Donate</button>
+                </div>
             </div>
-            <div class="col-4 pl-0">
+            <div class="col-3 pl-1">
+                <div class="card-body" style="background-color:#008080;border-top-left-radius:0px;">
+                    <button class="uploadbtn" style="font-family:'Roboto Slab', serif; cursor: pointer; display:block; margin-left:auto; margin-right:auto; height:68px; width:100%;" onclick="window.location.href='/Home/Donate?tutor=@Model.StudentOrTutorProfile.Username'" onmouseover="">Submit Recommendation</button>
+                </div>
+            </div>
+            <div class="col-3 pl-0">
                 <div class="card-body" style="background-color:#008080; border-bottom-right-radius:5px ">
                     <h5 style="color:whitesmoke">Followers</h5>
                     <h4 style="color:white">@Model.NumberOfFollowers</h4>
@@ -62,7 +65,7 @@
                     {
                         <div class="col-lg-3 col-md-6 text-center mt-5 mb-5">
                             <h1 class="mt-2" style="font-size:20px; color:black"><b>@day.DayOfWeek.DayOfWeek</b></h1>
-                            <h6 style="color:black">@day.DayOfWeek.ToShortDateString()</h6>
+                            <h6 style="color: black">@day.DayOfWeek.ToShortDateString()</h6>
                             <div class="list-group ml-3">
                                 @foreach (var task in day.StreamTaskList)
                                 {
@@ -84,7 +87,7 @@
                 @foreach (var videoInfo in Model.UserArchivedVideos)
                 {
                     <div class="col-lg-4 col-md-6 streamsubject @videoInfo.StreamSubject">
-                        <div class="card mt-3" style="border-radius:5%; border:none; max-width:375px">
+                        <div class="card mt-3" style="border-radius: 5%; border: none; max-width: 375px">
                             <input type="image" width="100%" height="210px" style="border-top-left-radius:5%; border-top-right-radius:5%; min-width:250px" src=@videoInfo.StreamThumbnail onclick="window.location.href = '/StreamViews/StreamPlaybackPage?streamId=@videoInfo.StreamID'">
                             <div class="card-body p-0" style="background-color:black ;border-bottom-left-radius:5%; height:75px; border-bottom-right-radius:5%; border:none; min-width:250px; cursor: pointer;" onclick="window.location.href='/Home/ProfileView?Tutor=@videoInfo.Username';" onmouseover="">
                                 <div class="row">

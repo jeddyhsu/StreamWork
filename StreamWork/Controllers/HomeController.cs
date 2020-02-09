@@ -206,6 +206,11 @@ namespace StreamWork.Controllers
             return Json(new { Message = JsonResponse.Failed.ToString() });
         }
 
+        [HttpPost]
+        public async Task<IActionResult> CreateRecommendation ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string student, string tutor, string recommendation) {
+            await _homeHelperFunctions.SaveRecommendation(storageConfig, student, tutor, recommendation);
+            return Json(new { Message = JsonResponse.Success.ToString() });
+        }
 
         public IActionResult Error()
         {
@@ -326,19 +331,6 @@ namespace StreamWork.Controllers
         public IActionResult Login()
         {
             return View();
-        }
-
-        public async Task<IActionResult> CreateDonationAttempt([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string studentName, string tutorName)
-        {
-            await _homeHelperFunctions.SaveDonationAttempt(storageConfig, new Models.DonationAttempt
-            {
-                Id = Guid.NewGuid().ToString(),
-                Student = studentName,
-                Tutor = tutorName,
-                TimeSent = DateTime.UtcNow
-            });
-
-            return Json(new { Message = JsonResponse.Success.ToString() });
         }
 
         [HttpGet]
