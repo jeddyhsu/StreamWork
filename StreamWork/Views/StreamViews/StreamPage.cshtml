@@ -3,14 +3,13 @@
 
 <link rel="stylesheet" href="~/css/Streams.css" />
 
-<div class="container-fluid" style="background-color:black">
+<div class="container-fluid" style="background-color:black; height:100%">
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-9 p-0">
-            <div>
-                <iframe class="p-0" src="//iframe.dacast.com/b/135034/c/@Model.UrlParams[0]" width="100%" height="700" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
-                <div class="m-3">
-                    <img class="ml-2" src=@Model.Profile.StudentOrTutorProfile.ProfilePicture style="width:115px; height: 150px; border-radius:5%; float:left; margin-right:10px" />
-                    <h2 class="mt-1" style="color:white">@Model.UrlParams[2]<span></span></h2>
+                <iframe style="height:700px; width:100%" class="p-0" src="//iframe.dacast.com/b/135034/c/@Model.UrlParams[0]"frameborder="0" scrolling="no" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+                <div class="">
+                    <img class="ml-2 mb-2" src=@Model.Profile.StudentOrTutorProfile.ProfilePicture style="width:115px; height: 150px; border-radius:5%; float:left; margin-right:10px" />
+                    <h2 class="mt-1" style="color:white; font-family:'Roboto Slab', serif;">@Model.UrlParams[2]<span></span></h2>
                     <h1 class="card-title" style=" font-size:12px; color:lightgray"><b>@Model.Profile.StudentOrTutorProfile.Name.Replace('|', ' ')</b></h1>
                     @if (Model.Profile.IsUserFollowingThisTutor == false && Model.UserProfile != null && Model.UserProfile.ProfileType == "student")
                     {
@@ -23,11 +22,9 @@
                         <button id="UnfollowButton" type="button" style="font-size:12px" class="btn btn-primary" onclick="UnfollowStreamTutor('@Model.UrlParams[3]')">Unfollow StreamTutor</button>
                     }
                 </div>
-            </div>
-            <br />
         </div>
         <div class="col-sm-12 col-md-12 col-lg-3 p-0 m-0">
-            <iframe class="p-0" src=@Model.UrlParams[1] style="width:100%; height:100%" allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>
+                <iframe class="p-0" src=@Model.UrlParams[1] style="width:100%; height:100%; " allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>
         </div>
     </div>
 </div>

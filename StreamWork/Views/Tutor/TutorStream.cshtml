@@ -60,7 +60,7 @@ else if (Model.UserChannels[0].StreamTitle == null && Model.UserChannels[0].Stre
                          var player = dacast.players["135034_c_@Model.UserChannels[0].ChannelKey"]
 
                             if (player.currentTime() == 0) {
-                                  alert("It looks like your stream hasn't been started on OBS. Start the stream on OBS and once you see your stream on this page then enter the title and subject.")
+                                  OpenNotificationModal("It looks like your stream hasn't been started on OBS. Start the stream on OBS and once you see your stream on this page then enter the title and subject.")
                               }
                               else {
                                   RegisterStreamTitleAndStreamSubjectAndCustomThumbanail()

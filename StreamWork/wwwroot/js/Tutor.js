@@ -8,7 +8,7 @@ function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail() {
     var formData = new FormData()
    
     if (streamTitle == "" || streamSubject == 'Select Subject') {
-        alert("Please select a title and subject!")
+        OpenNotificationModal("Please select a title and subject!")
         return;
     }
 
