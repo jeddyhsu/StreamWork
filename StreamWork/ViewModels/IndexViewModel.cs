@@ -10,5 +10,6 @@ namespace StreamWork.ViewModels
         public UserArchivedStreams UserArchivedStream { get; set; }
         public UserLogin UserLogin { get; set; }
         public List<UserArchivedStreams> UserArchivedStreams { get; set; }
+        public bool IsUserFollowingThisTutor { get; set; }
     }
 }

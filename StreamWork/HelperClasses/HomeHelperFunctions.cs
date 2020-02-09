@@ -144,6 +144,7 @@ namespace StreamWork.HelperClasses
             IndexViewModel model = new IndexViewModel
             {
                 UserLogin = userLogin[0],
+                UserChannel = (await GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, userLogin[0].Username))[0],
                 UserArchivedStream = getArchivedStreams[0],
                 UserArchivedStreams = await GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos, null)
             };

@@ -30,11 +30,16 @@ namespace StreamWork.Controllers
         {
 
             var populatePage = await _homeHelperFunctions.PopulateHomePage(storageConfig);
+            populatePage.IsUserFollowingThisTutor = false;
 
             if (HttpContext.User.Identity.IsAuthenticated == true)
             {
                 var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name);
                 populatePage.UserProfile = userProfile;
+
+                if (populatePage.UserProfile.FollowedStudentsAndTutors != null)
+                    populatePage.IsUserFollowingThisTutor = populatePage.UserProfile.FollowedStudentsAndTutors.Contains(populatePage.UserChannel.Id);
+
                 return View(populatePage);
             }
 
