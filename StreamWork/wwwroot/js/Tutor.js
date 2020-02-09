@@ -209,6 +209,22 @@ function WriteTutorGreeting1() {
     document.getElementById('ProfileParagraphOnPage').style.display = "block";
 }
 
+function OpenViewRecommendationsModal() {
+    $('#viewRecommendationsModal').modal('show');
+}
 
+function ClearRecommendation(index, id) {
+    $.ajax({
+        url: '/Tutor/ClearRecommendation',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            'id': id,
+        },
+        success: function (data) {
+            $('#recommendation-' + index).hide();
+        }
+    });
+}
 
 

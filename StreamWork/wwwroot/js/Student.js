@@ -41,3 +41,27 @@ function UnfollowStreamTutor(tutor) {
     $('#FollowButton').show();
     $('#UnfollowButton').hide();
 }
+
+function showSubmitRecommendationModal() {
+    $('#submitRecommendationModal').modal('show');
+}
+
+function submitRecommendation(student, tutor) {
+    var text = $("#submitRecommendationText").val()
+
+    if (text != "") {
+        $.ajax({
+            type: "POST",
+            url: '/Home/CreateRecommendation',
+            dataType: 'json',
+            data: {
+                'student': student,
+                'tutor': tutor,
+                'recommendation': text,
+            },
+            success: function (data) {
+
+            }
+        });
+    }
+}

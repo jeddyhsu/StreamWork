@@ -269,5 +269,10 @@ namespace StreamWork.HelperClasses
             var list = userLogin.FollowedStudentsAndTutors.Split('|');
             return list.Length;
         }
+
+        public async Task ClearRecommendation ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string id)
+        {
+            await DataStore.DeleteAsync<Recommendation>(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", id } });
+        }
     }
 }
