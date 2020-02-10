@@ -58,7 +58,7 @@
         <div class="col-12">
             <div class="card" style="background-color:whitesmoke">
                 <br />
-                <h2 class="text-center" ; style="color:black; font-family: 'Roboto Slab', serif;"><b>Stream Schedule</b><span> <img id="info" src="~/images/info_icon.png" style="width: 24px; height: 24px; margin-top: -5px;" data-toggle="tooltip" data-placement="right" title="The stream schedule is used for scheduling streams in advance. Every time you add or edit a stream your student followers will get a notification so that they can tune in at the appropriate time. " /></span></h2>
+                <h2 class="text-center" ; style="color:black; font-family: 'Roboto Slab', serif;"><b>Stream Schedule</b><span> <img id="info1" src="~/images/info_icon.png" style="width: 24px; height: 24px; margin-top: -5px;" data-toggle="tooltip" data-placement="right" title="This calendar allows Stream Tutors to schedule streams in advance. Make sure to tune in at the time scheduled!" /></span></h2>
                 <hr />
                 <div class="row">
                     @foreach (var day in Model.Schedule)
@@ -196,3 +196,7 @@
             $("#navbarText").slideToggle();
         });
     });</script>
+
+<script>
+    $('#info1').tooltip()
+</script>

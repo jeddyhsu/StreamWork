@@ -51,32 +51,32 @@
 <br />
 
 <div class="container-fluid" style="max-width:2400px">
-<div class="row">
-    <div class="col-12">
-        <div class="card" style="background-color:whitesmoke">
-            <br />
-            <h2 class="text-center"; style="color:black; font-family: 'Roboto Slab', serif;"><b>Stream Schedule</b><span> <img id="info" src="~/images/info_icon.png" style="width: 24px; height: 24px; margin-top: -5px;" data-toggle="tooltip" data-placement="right" title="The stream schedule is used for scheduling streams in advance. Every time you add or edit a stream your student followers will get a notification so that they can tune in at the appropriate time. " /></span></h2>
-            <hr />
-            <br />
-            <button class="uploadbtn" style="display:block; margin-left:auto; margin-right:auto; border-radius:5px; cursor:pointer" onclick="OpenAddScheduleModal()">Add Stream<span><img width="20" class="mb-1 ml-1" src="~/images/Plus48.png" /></span></button>
-            <div class="row">
-                @foreach (var day in Model.Schedule)
-                {
-                    <div class="col-lg-3 col-md-6 text-center mt-5 mb-5">
-                        <h1 class="mt-2" style="font-size:20px; color:black"><b>@day.DayOfWeek.DayOfWeek</b></h1>
-                        <h6 style="color:black">@day.DayOfWeek.ToShortDateString()</h6>
-                        <div class="list-group ml-3">
-                            @foreach (var task in day.StreamTaskList)
-                            {
-                                <button class="list-group-item ml-3 mr-3 zoom" style="cursor:pointer; border-color:#008080" onclick="OpenEditScheduleModal('@task.Name', '@task.TimeOfDay', '@day.DayOfWeek.ToShortDateString()')"><b>@task.Name</b> <br /> @task.TimeOfDay</button>
-                            }
+    <div class="row">
+        <div class="col-12">
+            <div class="card" style="background-color:whitesmoke">
+                <br />
+                <h2 class="text-center" ; style="color:black; font-family: 'Roboto Slab', serif;"><b>Stream Schedule</b><span> <img id="info" src="~/images/info_icon.png" style="width: 24px; height: 24px; margin-top: -5px;" data-toggle="tooltip" data-placement="right" title="The stream schedule is used for scheduling streams in advance. Every time you add or edit a stream your student followers will get a notification so that they can tune in at the appropriate time. " /></span></h2>
+                <hr />
+                <br />
+                <button class="uploadbtn" style="display:block; margin-left:auto; margin-right:auto; border-radius:5px; cursor:pointer" onclick="OpenAddScheduleModal()">Add Stream<span><img width="20" class="mb-1 ml-1" src="~/images/Plus48.png" /></span></button>
+                <div class="row">
+                    @foreach (var day in Model.Schedule)
+                    {
+                        <div class="col-lg-3 col-md-6 text-center mt-5 mb-5">
+                            <h1 class="mt-2" style="font-size:20px; color:black"><b>@day.DayOfWeek.DayOfWeek</b></h1>
+                            <h6 style="color:black">@day.DayOfWeek.ToShortDateString()</h6>
+                            <div class="list-group ml-3">
+                                @foreach (var task in day.StreamTaskList)
+                                {
+                                    <button class="list-group-item ml-3 mr-3 zoom" style="cursor:pointer; border-color:#008080" onclick="OpenEditScheduleModal('@task.Name', '@task.TimeOfDay', '@day.DayOfWeek.ToShortDateString()')"><b>@task.Name</b> <br /> @task.TimeOfDay</button>
+                                }
+                            </div>
                         </div>
-                    </div>
-                }
+                    }
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 <br />
@@ -159,13 +159,11 @@
     </div>
 </div>
 
-<script>
-    $(document).ready(function () {
+<script>$(document).ready(function () {
         $("#nav").click(function () {
             $("#navbarText").slideToggle();
         });
-    });
-</script>
+    });</script>
 
 @if (Model.UserProfile.ProfileCaption == null && Model.UserProfile.ProfileParagraph == null && Model.UserProfile.AcceptedTutor == false)
 {
@@ -176,7 +174,5 @@ else
     <script>WriteTutorGreeting1()</script>
 }
 
-<script>
-    $("#info").tooltip();
-    $("#info2").tooltip()
-</script>
+<script>$("#info").tooltip();
+    $("#info2").tooltip()</script>

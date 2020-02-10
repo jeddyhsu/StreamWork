@@ -51,7 +51,7 @@
     <br />
     <div class="container-fluid" style="max-width:1500px">
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-8 col-md-12">
                 <p style="color:white; font-size:12px; ">Streaming - Coursework - Tutoring</p>
                 <div class="display-4" style="font-family: 'Roboto Slab', serif; color:white"><b>End your homework <br /> procrastination <span>TONIGHT.</span><span style='font-size:50px; margin-left:20px'>&#127881;</span></b></div>
                 <br />
@@ -63,7 +63,7 @@
     <br />
     <div id="StreamContainer" class="container-fluid" style=" background-color:whitesmoke; border-radius:10px; max-width:1500px">
         <div class="row">
-            <div class="col-lg-2 col-md-2 mt-3 mb-3">
+            <div class="col-lg-2 col-md-12 mt-3 mb-3">
                 <div class="card p-0" style="height:450px">
                     <input class="mt-3" type="image" data-toggle="dropdown" src=@Model.UserLogin.ProfilePicture style="width:75px; height:95px; border-top-left-radius:5%; border-bottom-left-radius:5%; display:block; margin-left:auto; margin-right:auto" />
                     <h6 class="text-center mt-3" style="font-family: 'Roboto Slab', serif; color:black"><b>@Model.UserLogin.Name.Replace('|', ' ')</b></h6>
@@ -88,9 +88,9 @@
             </div>
             @if (Model.UserArchivedStream != null)
             {
-                <div class="col-lg-6 col-md-6 mt-3 mb-3 p-0">
-                    <div class="card" style="border-radius:5%; border:none;">
-                        <iframe src="//iframe.dacast.com/b/135034/f/@Model.UserArchivedStream.StreamID" style="border-top-left-radius:10px; border-top-right-radius:10px; min-width:250px; cursor:pointer" height="375" frameborder="0" scrolling="no" allow="autoplay"></iframe>
+                <div class="col-lg-6 col-md-12 mt-3 mb-3 p-0">
+                    <div class="card ml-2 mr-2" style="border-radius:5%; border:none;">
+                        <iframe  src="//iframe.dacast.com/b/135034/f/@Model.UserArchivedStream.StreamID" style="border-top-left-radius:10px; border-top-right-radius:10px; min-width:250px; cursor:pointer" height="375" frameborder="0" scrolling="no" allow="autoplay"></iframe>
                         <div class="card-body p-0" style="background-color:white; height:75px; border:none;">
                             <div class="row">
                                 <div class="col-lg-12" style="color:black;">
@@ -101,7 +101,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4 mt-3">
+                <div class="col-lg-4 col-md-12 mt-3">
                     <iframe src="@Model.ChatBox" width="100%" height="450" allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>
                 </div>
             }
@@ -112,7 +112,7 @@
                         <iframe src="//iframe.dacast.com/b/135034/c/@Model.UserChannel.ChannelKey" style="border-top-left-radius:10px; border-top-right-radius:10px; min-width:250px; cursor:pointer" height="375" frameborder="0" scrolling="no" allow="autoplay"></iframe>
                         <div class="card-body p-0" style="background-color:white; height:75px; border:none;">
                             <div class="row">
-                                <div class="col-lg-12" style="color:black;">
+                                <div class="col-lg-12">
                                     <h5 class="text-truncate" style="font-family: 'Roboto Slab'; font-size:20px; margin-left:20px; margin-top:10px;">@Model.UserChannel.StreamTitle</h5>
                                     <h6 class="text-truncate" style="font-family: 'Roboto Slab'; font-size:14px;margin-left:20px;">@Model.UserChannel.StreamSubject</h6>
                                 </div>
@@ -236,9 +236,10 @@
     <div class="card" style="background-color:white; border:none">
         <div class="row p-4">
             <div class="col-lg-7">
-                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/Cww1Pc8uVpk"></iframe>
+                <iframe class="mb-3 mr-3" style="border-radius:10px" width="100%" height="500px" src="https://www.youtube.com/embed/Cww1Pc8uVpk"></iframe>
             </div>
-            <div class="col-lg-5">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-4">
                 <p style="color:black; font-size:12px; ">Streaming - Coursework - Tutoring</p>
                 <div class="display-4" style="font-family: 'Roboto Slab', serif; color:black"><b>Education <br /> meets <br /> innovation.</b></div>
                 <br />
