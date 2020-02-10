@@ -16,19 +16,21 @@
                 </a>
 
             </div>
-            @if (Model.IsUserFollowingThisTutor == false && Model.UserProfile.ProfileType == "student")
-            {
-                <button id="FollowButton" type="button" style="font-size:12px" class="btn btn-primary mt-3" onclick="FollowStreamTutor('@Model.UserChannel.Id')">Follow StreamTutor</button>
-                <button id="UnfollowButton" type="button" style="font-size:12px; display:none" class="btn btn-primary mt-3" onclick="UnfollowStreamTutor('@Model.UserChannel.Id')">Unfollow StreamTutor</button>
-            }
-            else if (Model.IsUserFollowingThisTutor == true && Model.UserProfile.ProfileType == "student")
-            {
-                <button id="FollowButton" type="button" style="font-size:12px;display:none" class="btn btn-primary mt-3" onclick="FollowStreamTutor('@Model.UserChannel.Id')">Follow StreamTutor</button>
-                <button id="UnfollowButton" type="button" style="font-size:12px" class="btn btn-primary mt-3" onclick="UnfollowStreamTutor('@Model.UserChannel.Id')">Unfollow StreamTutor</button>
+            @if(Model.UserProfile != null){
+                if (Model.IsUserFollowingThisTutor == false && Model.UserProfile.ProfileType == "student")
+                {
+                    <button id="FollowButton" type="button" style="font-size:12px" class="btn btn-primary mt-3" onclick="FollowStreamTutor('@Model.UserChannel.Id')">Follow StreamTutor</button>
+                    <button id="UnfollowButton" type="button" style="font-size:12px; display:none" class="btn btn-primary mt-3" onclick="UnfollowStreamTutor('@Model.UserChannel.Id')">Unfollow StreamTutor</button>
+                }
+                else if (Model.IsUserFollowingThisTutor == true && Model.UserProfile.ProfileType == "student")
+                {
+                    <button id="FollowButton" type="button" style="font-size:12px;display:none" class="btn btn-primary mt-3" onclick="FollowStreamTutor('@Model.UserChannel.Id')">Follow StreamTutor</button>
+                    <button id="UnfollowButton" type="button" style="font-size:12px" class="btn btn-primary mt-3" onclick="UnfollowStreamTutor('@Model.UserChannel.Id')">Unfollow StreamTutor</button>
+                }
             }
         </div>
         <div class="col-sm-12 col-md-12 col-lg-3 p-0 m-0">
-                <iframe class="p-0" src=@Model.ChatBox style="width:100%; height:100%; " allowtransparency="yes" allow="autoplay" frameborder="0" marginheigh="0" marginwidth="0" scrolling="auto"></iframe>
+            <iframe class="p-0" src=@Model.ChatBox style="width:100%; height:100vh; " allowtransparency="yes" allow="autoplay" frameborder="0" marginheigh="0" marginwidth="0" scrolling="auto"></iframe>
         </div>
     </div>
 </div>

@@ -50,8 +50,7 @@ else if (Model.UserChannels[0].StreamTitle == null && Model.UserChannels[0].Stre
                 <script>
                     window.addEventListener("load", function () {
                               var myPlayer = dacast("135034_c_@Model.UserChannels[0].ChannelKey", 'dacastPlayer', {
-                                  width: 1800,
-                                  height: 800
+                                  
                               });
 
                     });
@@ -71,7 +70,7 @@ else if (Model.UserChannels[0].StreamTitle == null && Model.UserChannels[0].Stre
             <div class="col-sm-12 col-md-12 col-lg-3  ">
                 @if (true)
                 {
-                    <iframe src=@Model.ChatSecretKey width="100%" height="800" allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>
+                    <iframe style="height:100vh; width:100%" src=@Model.ChatSecretKey allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>
                 }
             </div>
         </div>
