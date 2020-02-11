@@ -26,23 +26,23 @@
             </div>
         </div>
         <div class="row text-center mx-0" style="background-color:#008080;">
-            <div class="col-3 pr-0">
+            <div class="col-lg-3 px-0">
                 <div class="card-body" style="background-color:#008080; border-bottom-left-radius:5px">
                     <h5 style="color:whitesmoke">Streams</h5>
                     <h4 style="color:white">@Model.NumberOfStreams</h4>
                 </div>
             </div>
-            <div class="col-3 pr-1">
+            <div class="col-lg-3 px-1">
                 <div class="card-body" style="background-color:#008080;border-top-left-radius:0px;">
                     <button class="uploadbtn" style="font-family:'Roboto Slab', serif; cursor: pointer; display:block; margin-left:auto; margin-right:auto; height:68px; width:100%;" onclick="window.location.href='/Home/Donate?tutor=@Model.StudentOrTutorProfile.Username'" onmouseover="">Donate</button>
                 </div>
             </div>
-            <div class="col-3 pl-1">
+            <div class="col-lg-3 px-1">
                 <div class="card-body" style="background-color:#008080;border-top-left-radius:0px;">
                     <button class="uploadbtn" style="font-family:'Roboto Slab', serif; cursor: pointer; display:block; margin-left:auto; margin-right:auto; height:68px; width:100%;" onclick="showSubmitRecommendationModal();" onmouseover="">Submit Recommendation</button>
                 </div>
             </div>
-            <div class="col-3 pl-0">
+            <div class="col-lg-3 px-0">
                 <div class="card-body" style="background-color:#008080; border-bottom-right-radius:5px ">
                     <h5 style="color:whitesmoke">Followers</h5>
                     <h4 style="color:white">@Model.NumberOfFollowers</h4>
