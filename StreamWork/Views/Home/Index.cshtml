@@ -3,30 +3,22 @@
 @{Layout = "_LayoutFooter";}
 @{ViewData["title"] = "Home";}
 
-<div class="container-fluid" style="background: linear-gradient(to bottom, #008080 60%, white 0%); max-width:2400px">
-    <br />
-    <br />
-    <p class="text-center" style="color: white "><font size="3"><b>Find helpful videos in our scholastic database.</b></font></p>
-    <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-10">
-            <form onsubmit="return search();" style="background-color: white; border-radius: 6px; box-shadow: 0px 0px 30px -10px">
-                <div class="row no-gutters align-items-center p-2">
-                    <div class="col-1 pr-3">
-                        <div class="row">
-                            <div class="col-4"></div>
-                            <div class="col-8" style="text-align: right;">
-                                <img src="~/images/magnifying-glass.svg" style="width: 30px" />
+    <div class="container-fluid" style="background: linear-gradient(to bottom, #008080 60%, white 0%); max-width:2400px">
+        <br />
+        <br />
+        <p class="text-center" style="color: white "><font size="3"><b>Find helpful videos in our scholastic database.</b></font></p>
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10 col-md-12 col-sm-12">
+                <form class="p-2" onsubmit="return search();" style="background-color: white; border-radius: 6px; box-shadow: 0px 0px 30px -10px">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-12 col-sm-12">
+                            <div>
+                                <input id="searchQuery" class="form-control form-control-lg mt-2 mb-2" type="search" placeholder="🔎 Homework topic..." style="border: none;">
                             </div>
                         </div>
-                    </div>
-                    <div class="col" style="min-width: 200px">
-                        <input id="searchQuery" class="form-control form-control-lg" type="search" placeholder="Homework topic..." style="border: none;">
-                    </div>
-                    <div class="col-auto pl-3 pr-4" style="min-width: 300px">
-                        <div class="row">
-                            <div class="col-auto">
-                                <select id="searchSubject" class="custom-select" style="background-color: #006060; color: white; font-size: 85%; font-weight: bold;">
+                        <div class="col-lg-2 col-md-12 col-sm-12">
+                                <select id="searchSubject" class="custom-select mt-2 mb-2" style="background-color: #006060; height:46px; color: white; font-size: 85%; font-weight: bold;">
                                     <option value="Any">All Subjects</option>
                                     <option value="Mathematics">Mathematics</option>
                                     <option value="Science">Science</option>
@@ -37,128 +29,127 @@
                                     <option value="Humanities">Humanities</option>
                                     <option value="Other">Other</option>
                                 </select>
-                            </div>
-                            <div class="col-auto">
-                                <button class="btn btn-lg" type="submit" style="color: white; background-color:#006060;">
+                        </div>
+                        <div class="col-lg-1 col-md-12">
+                            <button class="btn btn-lg mt-2 mb-2" type="submit" style="color: white; background-color:#006060; height:46px; width:100px;margin-left:auto; margin-right:auto; display:block">
+                                <div>
                                     <div style="font-size: 70%; font-weight: bold;">Search</div>
-                                </button>
-                            </div>
+                                </div>
+                            </button>
                         </div>
                     </div>
-                </div>
-            </form>
-        </div>
-        <div class="col-md-1"></div>
-    </div>
-    <br />
-    <br />
-    <br />
-    <br />
-    <div class="container-fluid" style="max-width:1500px">
-        <div class="row">
-            <div class="col-lg-8 col-md-12">
-                <p style="color:white; font-size:12px; ">Streaming - Coursework - Tutoring</p>
-                <div class="d-sm-none" style="font-family: 'Roboto Slab', serif; color:white; font-size: 2.5rem; font-weight: 300; line-height: 1.2;"><b>End your homework <br /> procrastination <span>TONIGHT.</span><span style='font-size:50px; margin-left:20px'>&#127881;</span></b></div>
-                <div class="display-4 d-none d-sm-block" style="font-family: 'Roboto Slab', serif; color:white"><b>End your homework <br /> procrastination <span>TONIGHT.</span><span style='font-size:50px; margin-left:20px'>&#127881;</span></b></div>
-                <br />
-                <p style="color:white; font-size:15px">StreamWork is an educational live-streaming platform for homework tutoring <br />that allows for students to learn from their classmates.</p>
+                </form>
             </div>
         </div>
-    </div>
-    <br />
-    <br />
-    <div id="StreamContainer" class="container-fluid" style=" background-color:whitesmoke; border-radius:10px; max-width:1500px">
-        <div class="row">
-            <div class="col-lg-2 col-md-12 mt-3 mb-3">
-                <div class="card p-0" style="height:450px">
-                    <input class="mt-3" type="image" data-toggle="dropdown" src=@Model.UserLogin.ProfilePicture style="width:75px; height:95px; border-top-left-radius:5%; border-bottom-left-radius:5%; display:block; margin-left:auto; margin-right:auto" />
-                    <h6 class="text-center mt-3" style="font-family: 'Roboto Slab', serif; color:black"><b>@Model.UserLogin.Name.Replace('|', ' ')</b></h6>
-                    <p class="text-center mt-3" style="font-family: 'Roboto Slab';">@Model.UserLogin.ProfileCaption</p>
-                    @if (Model.IsUserFollowingThisTutor == false && Model.UserProfile != null && Model.UserProfile.ProfileType == "student")
-                    {
-                        <a id="FollowButton" class="btn" style="background-color:#006565; width:100px; font-size:15px; color:white; display:block; margin-left:auto; margin-right:auto" ; onclick="FollowStreamTutor('@Model.UserChannel.Id')"><b>Follow</b></a>
-                        <a id="UnfollowButton" class="btn" style="background-color:#006565; width:100px; font-size:15px; color:white; display:none; margin-left:auto; margin-right:auto" ; onclick="UnfollowStreamTutor('@Model.UserChannel.Id')"><b>Unfollow</b></a>
-                    }
-                    else if (Model.IsUserFollowingThisTutor == true && Model.UserProfile != null && Model.UserProfile.ProfileType == "student")
-                    {
-                        <a id="FollowButton" class="btn" style="background-color:#006565; width:100px; font-size:15px; color:white; display:none; margin-left:auto; margin-right:auto" ; onclick="FollowStreamTutor('@Model.UserChannel.Id')"><b>Follow</b></a>
-                        <a id="UnfollowButton" class="btn" style="background-color:#006565; width:100px; font-size:15px; color:white; display:block; margin-left:auto; margin-right:auto" ; onclick="UnfollowStreamTutor('@Model.UserChannel.Id')"><b>Unfollow</b></a>
-                    }
-                    else
-                    {
-                        <a class="btn" style="background-color:#006565; width:100px; font-size:15px; color:white; display:block; margin-left:auto; margin-right:auto" ; onclick="window.location.href='/Home/Login'"><b>Follow</b></a>
-                    }
-                    <a class="btn mt-1" style="background-color:#006565; width:100px; font-size:15px; color:white; display:block; margin-left:auto; margin-right:auto" ; onclick="window.location.href='/Home/ProfileView?Tutor=@Model.UserLogin.Username'"><b>Profile</b></a>
-                    <p class="text-center m-3" style="font-family: 'Roboto Slab'; font-size:12px">@Model.UserLogin.ProfileParagraph</p>
+        <br />
+        <br />
+        <br />
+        <br />
+        <div class="container-fluid" style="max-width:1500px">
+            <div class="row">
+                <div class="col-lg-8 col-md-12">
+                    <p style="color:white; font-size:12px; ">Streaming - Coursework - Tutoring</p>
+                    <div class="d-sm-none" style="font-family: 'Roboto Slab', serif; color:white; font-size: 2.5rem; font-weight: 300; line-height: 1.2;"><b>End your homework <br /> procrastination <span>TONIGHT.</span><span style='font-size:50px; margin-left:20px'>&#127881;</span></b></div>
+                    <div class="display-4 d-none d-sm-block" style="font-family: 'Roboto Slab', serif; color:white"><b>End your homework <br /> procrastination <span>TONIGHT.</span><span style='font-size:50px; margin-left:20px'>&#127881;</span></b></div>
+                    <br />
+                    <p style="color:white; font-size:15px">StreamWork is an educational live-streaming platform for homework tutoring <br />that allows for students to learn from their classmates.</p>
                 </div>
             </div>
-            @if (Model.UserArchivedStream != null)
-            {
-                <div class="col-lg-6 col-md-12 mt-3 mb-3 p-0">
-                    <div class="card ml-2 mr-2" style="border-radius:5%; border:none;">
-                        <iframe  src="//iframe.dacast.com/b/135034/f/@Model.UserArchivedStream.StreamID" style="border-top-left-radius:10px; border-top-right-radius:10px; min-width:250px; cursor:pointer" height="375" frameborder="0" scrolling="no" allow="autoplay"></iframe>
-                        <div class="card-body p-0" style="background-color:white; height:75px; border:none;">
-                            <div class="row">
-                                <div class="col-lg-12" style="color:black;">
-                                    <h5 class="text-truncate" style="font-family: 'Roboto Slab'; font-size:20px; margin-left:20px; margin-top:10px;">@Model.UserArchivedStream.StreamTitle</h5>
-                                    <h6 class="text-truncate" style="font-family: 'Roboto Slab'; font-size:14px;margin-left:20px;">@Model.UserArchivedStream.StreamSubject</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-12 mt-3">
-                    <iframe src="@Model.ChatBox" width="100%" height="450" allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>
-                </div>
-            }
-            else
-            {
-                <div class="col-lg-6 col-md-6 mt-3 mb-3 p-0">
-                    <div class="card" style="border-radius:5%; border:none;">
-                        <iframe src="//iframe.dacast.com/b/135034/c/@Model.UserChannel.ChannelKey" style="border-top-left-radius:10px; border-top-right-radius:10px; min-width:250px; cursor:pointer" height="375" frameborder="0" scrolling="no" allow="autoplay"></iframe>
-                        <div class="card-body p-0" style="background-color:white; height:75px; border:none;">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <h5 class="text-truncate" style="font-family: 'Roboto Slab'; font-size:20px; margin-left:20px; margin-top:10px;">@Model.UserChannel.StreamTitle</h5>
-                                    <h6 class="text-truncate" style="font-family: 'Roboto Slab'; font-size:14px;margin-left:20px;">@Model.UserChannel.StreamSubject</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 mt-3">
-                    <iframe src="@Model.ChatBox" width="100%" height="450" allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>
-                </div>
-            }
-
         </div>
-        <hr />
-        <div class="container">
-            <div class=" row">
-                @foreach (var videoInfo in Model.UserArchivedStreams)
+        <br />
+        <br />
+        <div id="StreamContainer" class="container-fluid" style=" background-color:whitesmoke; border-radius:10px; max-width:1500px">
+            <div class="row">
+                <div class="col-lg-2 col-md-12 mt-3 mb-3">
+                    <div class="card p-0" style="height:450px">
+                        <input class="mt-3" type="image" data-toggle="dropdown" src=@Model.UserLogin.ProfilePicture style="width:75px; height:95px; border-top-left-radius:5%; border-bottom-left-radius:5%; display:block; margin-left:auto; margin-right:auto" />
+                        <h6 class="text-center mt-3" style="font-family: 'Roboto Slab', serif; color:black"><b>@Model.UserLogin.Name.Replace('|', ' ')</b></h6>
+                        <p class="text-center mt-3" style="font-family: 'Roboto Slab';">@Model.UserLogin.ProfileCaption</p>
+                        @if (Model.IsUserFollowingThisTutor == false && Model.UserProfile != null && Model.UserProfile.ProfileType == "student")
+                        {
+                            <a id="FollowButton" class="btn" style="background-color:#006565; width:100px; font-size:15px; color:white; display:block; margin-left:auto; margin-right:auto" ; onclick="FollowStreamTutor('@Model.UserChannel.Id')"><b>Follow</b></a>
+                            <a id="UnfollowButton" class="btn" style="background-color:#006565; width:100px; font-size:15px; color:white; display:none; margin-left:auto; margin-right:auto" ; onclick="UnfollowStreamTutor('@Model.UserChannel.Id')"><b>Unfollow</b></a>
+                        }
+                        else if (Model.IsUserFollowingThisTutor == true && Model.UserProfile != null && Model.UserProfile.ProfileType == "student")
+                        {
+                            <a id="FollowButton" class="btn" style="background-color:#006565; width:100px; font-size:15px; color:white; display:none; margin-left:auto; margin-right:auto" ; onclick="FollowStreamTutor('@Model.UserChannel.Id')"><b>Follow</b></a>
+                            <a id="UnfollowButton" class="btn" style="background-color:#006565; width:100px; font-size:15px; color:white; display:block; margin-left:auto; margin-right:auto" ; onclick="UnfollowStreamTutor('@Model.UserChannel.Id')"><b>Unfollow</b></a>
+                        }
+                        else
+                        {
+                            <a class="btn" style="background-color:#006565; width:100px; font-size:15px; color:white; display:block; margin-left:auto; margin-right:auto" ; onclick="window.location.href='/Home/Login'"><b>Follow</b></a>
+                        }
+                        <a class="btn mt-1" style="background-color:#006565; width:100px; font-size:15px; color:white; display:block; margin-left:auto; margin-right:auto" ; onclick="window.location.href='/Home/ProfileView?Tutor=@Model.UserLogin.Username'"><b>Profile</b></a>
+                        <p class="text-center m-3" style="font-family: 'Roboto Slab'; font-size:12px">@Model.UserLogin.ProfileParagraph</p>
+                    </div>
+                </div>
+                @if (Model.UserArchivedStream != null)
                 {
-                    <div class="col-lg-4 col-md-6 col-sm-12 streamsubject @videoInfo.StreamSubject">
-                        <div class="card mt-3" style="border-radius:5%; border:none; max-width:375px">
-                            <input type="image" width="100%" height="215" style="border-top-left-radius:5%; border-top-right-radius:5%; min-width:250px" src=@videoInfo.StreamThumbnail onclick="window.location.href='../StreamViews/StreamPlaybackPage?streamId=@videoInfo.StreamID'">
-                            <div class="card-body p-0" style="background-color:black ;border-bottom-left-radius:5%; height:75px; border-bottom-right-radius:5%; border:none; min-width:250px" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@videoInfo.Username');">
+                    <div class="col-lg-6 col-md-12 mt-3 mb-3 p-0">
+                        <div class="card ml-2 mr-2" style="border-radius:5%; border:none;">
+                            <iframe src="//iframe.dacast.com/b/135034/f/@Model.UserArchivedStream.StreamID" style="border-top-left-radius:10px; border-top-right-radius:10px; min-width:250px; cursor:pointer" height="375" frameborder="0" scrolling="no" allow="autoplay"></iframe>
+                            <div class="card-body p-0" style="background-color:white; height:75px; border:none;">
                                 <div class="row">
-                                    <div class="col-2 pr-2">
-                                        <input type="image" style="border-radius:5%; width:50px; margin-left:10px; margin-top:10px; height:60px;" src=@videoInfo.ProfilePicture />
-                                    </div>
-                                    <div class="col-10" style="color:white;">
-                                        <h5 class="text-truncate" style="font-family: 'Roboto'; font-size:20px; margin-left:20px; margin-top:10px;">@videoInfo.StreamTitle</h5>
-                                        <h6 class="text-truncate" style="font-family: 'Roboto'; font-size:14px;margin-left:20px;">@videoInfo.Username</h6>
+                                    <div class="col-lg-12" style="color:black;">
+                                        <h5 class="text-truncate" style="font-family: 'Roboto Slab'; font-size:20px; margin-left:20px; margin-top:10px;">@Model.UserArchivedStream.StreamTitle</h5>
+                                        <h6 class="text-truncate" style="font-family: 'Roboto Slab'; font-size:14px;margin-left:20px;">@Model.UserArchivedStream.StreamSubject</h6>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 mt-3">
+                        <iframe src="@Model.ChatBox" width="100%" height="450" allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>
                     </div>
                 }
+                else
+                {
+                    <div class="col-lg-6 col-md-6 mt-3 mb-3 p-0">
+                        <div class="card" style="border-radius:5%; border:none;">
+                            <iframe src="//iframe.dacast.com/b/135034/c/@Model.UserChannel.ChannelKey" style="border-top-left-radius:10px; border-top-right-radius:10px; min-width:250px; cursor:pointer" height="375" frameborder="0" scrolling="no" allow="autoplay"></iframe>
+                            <div class="card-body p-0" style="background-color:white; height:75px; border:none;">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h5 class="text-truncate" style="font-family: 'Roboto Slab'; font-size:20px; margin-left:20px; margin-top:10px;">@Model.UserChannel.StreamTitle</h5>
+                                        <h6 class="text-truncate" style="font-family: 'Roboto Slab'; font-size:14px;margin-left:20px;">@Model.UserChannel.StreamSubject</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 mt-3">
+                        <iframe src="@Model.ChatBox" width="100%" height="450" allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>
+                    </div>
+                }
+
             </div>
-            <br />
+            <hr />
+            <div class="container">
+                <div class=" row">
+                    @foreach (var videoInfo in Model.UserArchivedStreams)
+                    {
+                        <div class="col-lg-4 col-md-6 col-sm-12 streamsubject @videoInfo.StreamSubject">
+                            <div class="card mt-3" style="border-radius:5%; border:none; max-width:375px">
+                                <input type="image" width="100%" height="215" style="border-top-left-radius:5%; border-top-right-radius:5%; min-width:250px" src=@videoInfo.StreamThumbnail onclick="window.location.href='../StreamViews/StreamPlaybackPage?streamId=@videoInfo.StreamID'">
+                                <div class="card-body p-0" style="background-color:black ;border-bottom-left-radius:5%; height:75px; border-bottom-right-radius:5%; border:none; min-width:250px" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@videoInfo.Username');">
+                                    <div class="row">
+                                        <div class="col-2 pr-2">
+                                            <input type="image" style="border-radius:5%; width:50px; margin-left:10px; margin-top:10px; height:60px;" src=@videoInfo.ProfilePicture />
+                                        </div>
+                                        <div class="col-10" style="color:white;">
+                                            <h5 class="text-truncate" style="font-family: 'Roboto'; font-size:20px; margin-left:20px; margin-top:10px;">@videoInfo.StreamTitle</h5>
+                                            <h6 class="text-truncate" style="font-family: 'Roboto'; font-size:14px;margin-left:20px;">@videoInfo.Username</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <br />
+            </div>
         </div>
     </div>
-</div>
 <br />
 <br />
 <br />
@@ -317,4 +308,6 @@
     .subjectCard:hover {
         box-shadow: 10px 10px grey;
     }
+
+
 </style>

@@ -14,40 +14,32 @@
                             <h1 style="font-size:40px; font-family:'Roboto Slab', serif">@Model.Subject<span style="margin-left:10px"><img width="60" src="@Model.SubjectIcon" /></span></h1>
                         </div>
                         <div class="col-md-8">
-                            <form onsubmit="return search();" style="background-color: white; border-radius: 6px; box-shadow: 0px 0px 30px -10px">
-                                <div class="row no-gutters align-items-center p-2">
-                                    <div class="col-1 pr-3">
-                                        <div class="row">
-                                            <div class="col-4"></div>
-                                            <div class="col-8" style="text-align: right;">
-                                                <img src="~/images/magnifying-glass.svg" style="width: 30px" />
-                                            </div>
+                            <form class="p-1" onsubmit="return search();" style="background-color: white; border-radius: 6px; box-shadow: 0px 0px 30px -10px">
+                                <div class="row">
+                                    <div class="col-lg-8 col-md-12 col-sm-12">
+                                        <div>
+                                            <input id="searchQuery" class="form-control form-control-lg mt-2 mb-2" type="search" placeholder="🔎 Homework topic..." style="border: none;">
                                         </div>
                                     </div>
-                                    <div class="col" style="min-width: 200px">
-                                        <input id="searchQuery" class="form-control form-control-lg" type="search" placeholder="Homework topic..." style="border: none;">
+                                    <div class="col-lg-2 col-md-12 col-sm-12">
+                                        <select id="searchSubject" class="custom-select mt-2 mb-2" style="background-color: #006060; height:46px; color: white; font-size: 85%; font-weight: bold;">
+                                            <option value="Any">All Subjects</option>
+                                            <option value="Mathematics">Mathematics</option>
+                                            <option value="Science">Science</option>
+                                            <option value="Engineering">Engineering</option>
+                                            <option value="Business">Business</option>
+                                            <option value="Law">Law</option>
+                                            <option value="Art">Art</option>
+                                            <option value="Humanities">Humanities</option>
+                                            <option value="Other">Other</option>
+                                        </select>
                                     </div>
-                                    <div class="col-auto pl-3 pr-4" style="min-width: 300px">
-                                        <div class="row">
-                                            <div class="col-auto">
-                                                <select id="searchSubject" class="custom-select" style="background-color: #006060; color: white; font-size: 85%; font-weight: bold;">
-                                                    <option value="Any">All Subjects</option>
-                                                    <option value="Mathematics">Mathematics</option>
-                                                    <option value="Science">Science</option>
-                                                    <option value="Engineering">Engineering</option>
-                                                    <option value="Business">Business</option>
-                                                    <option value="Law">Law</option>
-                                                    <option value="Art">Art</option>
-                                                    <option value="Humanities">Humanities</option>
-                                                    <option value="Other">Other</option>
-                                                </select>
+                                    <div class="col-lg-1 col-md-12">
+                                        <button class="btn btn-lg mt-2 mb-2" type="submit" style="color: white; background-color:#006060; height:46px; width:100px;margin-left:auto; margin-right:auto; display:block">
+                                            <div>
+                                                <div style="font-size: 70%; font-weight: bold;">Search</div>
                                             </div>
-                                            <div class="col-auto">
-                                                <button class="btn btn-lg" type="submit" style="color: white; background-color:#006060;">
-                                                    <div style="font-size: 70%; font-weight: bold;">Search</div>
-                                                </button>
-                                            </div>
-                                        </div>
+                                        </button>
                                     </div>
                                 </div>
                             </form>
