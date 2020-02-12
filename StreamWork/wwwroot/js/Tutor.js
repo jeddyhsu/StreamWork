@@ -21,6 +21,9 @@ function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail() {
         formData.append(streamInfo, 'No Thumbnail');
     }
 
+    document.getElementById('loaderStartStream').display = 'block';
+    document.getElementById('StartStream').display = 'none';
+
     $.ajax({
         url: '/Tutor/TutorStream',
         type: 'post',
@@ -30,8 +33,10 @@ function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail() {
         processData: false,
         success: function (data) {
             if (data.message === "Success") {
-                $('#registerStreamModal').modal('hide'),
-                alert("Your broadcast is visible to students!");
+                 $('#registerStreamModal').modal('hide'),
+                 document.getElementById('loaderStartStream').display = 'none';
+                 alert("Your broadcast is visible to students!");
+
             }
             else {
                 alert("You must wait atleast five minutes in between streams");
