@@ -165,13 +165,18 @@
                         <br />
                         <img id="previewProfilePic" src=@Model.UserProfile.ProfilePicture alt="your image" style="border-radius: 5%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
                         <br />
-                        <div class="upload-uploadbtn-wrapper">
-                            <button class="uploadbtn" style="margin-left:100px">Upload a Profile Picture</button>
-                            <input id="uploadProfilePic" style="cursor:pointer" type='file' onchange="readURL(this,'ProfilePic')" />
+                        <div class="row">
+                            <div class="col-3"></div>
+                            <div class=" col-6">
+                                <div class="upload-uploadbtn-wrapper">
+                                    <button class="uploadbtn">Upload a Profile Picture</button>
+                                    <input id="uploadProfilePic" style="cursor:pointer" type='file' onchange="readURL(this,'ProfilePic')" />
+                                </div>
+                            </div>
                         </div>
+
                     </form>
                 </div>
-
                 <div class="modal-footer">
                     <button class="btn" style="background-color:black; color:white" onclick="RegisterProfilePhotoAndCaption()">Save changes</button>
                     <button class="btn btn-secondary" data-dismiss="modal">Close</button>

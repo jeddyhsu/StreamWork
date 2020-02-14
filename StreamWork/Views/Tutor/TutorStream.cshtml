@@ -119,10 +119,16 @@ else if (Model.UserChannels[0].StreamTitle == null && Model.UserChannels[0].Stre
                         <img id="previewThumbnail" src="~/images/MathDefault.png" alt="your image" style="width:100%; border-radius:10px" />
                         <br />
                         <br />
-                        <div class="upload-uploadbtn-wrapper">
-                            <button class="uploadbtn" style="margin-left:125px">Upload a Thumbnail</button>
-                            <input id="uploadThumbnail" type='file' value="~/images/MathDefault.png" onchange="readURL(this,'Thumbnail');" />
+                        <div class="row">
+                            <div class="col-3"></div>
+                            <div class=" col-6">
+                                <div class="upload-uploadbtn-wrapper">
+                                    <button class="uploadbtn">Upload a Thumbnail</button>
+                                    <input id="uploadThumbnail" type='file' value="~/images/MathDefault.png" onchange="readURL(this,'Thumbnail');" />
+                                </div>
+                            </div>
                         </div>
+                       
                     </form>
                 </div>
                 <div class="modal-footer">
