@@ -171,7 +171,7 @@ function OpenTutorGreetingModal() {
 
 $(function () {
     var currentDate = new Date();
-    var dateIn12Days = currentDate.setDate(currentDate.getDate() + 7);
+    var dateIn12Days = currentDate.setDate(currentDate.getDate() + 11);
 
     $('#datetimepickerAdd').datetimepicker({
         minDate: new Date(),
