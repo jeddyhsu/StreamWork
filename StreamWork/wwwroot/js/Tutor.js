@@ -171,16 +171,16 @@ function OpenTutorGreetingModal() {
 
 $(function () {
     var currentDate = new Date();
-    var dateIn12Days = currentDate.setDate(currentDate.getDate() + 11);
+    var dateIn7Days = currentDate.setDate(currentDate.getDate() + 7);
 
     $('#datetimepickerAdd').datetimepicker({
         minDate: new Date(),
-        maxDate: dateIn12Days,
+        maxDate: dateIn7Days,
     });
 
     $('#datetimepickerEdit').datetimepicker({
         minDate: new Date(),
-        maxDate: dateIn12Days,
+        maxDate: dateIn7Days,
     });
 
 });
