@@ -11,38 +11,38 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="row py-3">
                         <div class="col-2"></div>
-                            <div class="col-md-8">
-                                <form class="p-1" onsubmit="return search();" style="background-color: white; border-radius: 6px; box-shadow: 0px 0px 30px -10px">
-                                    <div class="row">
-                                        <div class="col-lg-8 col-md-12 col-sm-12">
-                                            <div>
-                                                <input id="searchQuery" class="form-control form-control-lg mt-2 mb-2" type="search" placeholder="🔎 Homework topic..." style="border: none;">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2 col-md-12 col-sm-12">
-                                            <select id="searchSubject" class="custom-select mt-2 mb-2" style="background-color: #006060; height:46px; color: white; font-size: 85%; font-weight: bold;">
-                                                <option value="Any">All Subjects</option>
-                                                <option value="Mathematics">Mathematics</option>
-                                                <option value="Science">Science</option>
-                                                <option value="Engineering">Engineering</option>
-                                                <option value="Business">Business</option>
-                                                <option value="Law">Law</option>
-                                                <option value="Art">Art</option>
-                                                <option value="Humanities">Humanities</option>
-                                                <option value="Other">Other</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-1 col-md-12">
-                                            <button class="btn btn-lg mt-2 mb-2" type="submit" style="color: white; background-color:#006060; height:46px; width:100px;margin-left:auto; margin-right:auto; display:block">
-                                                <div>
-                                                    <div style="font-size: 70%; font-weight: bold;">Search</div>
-                                                </div>
-                                            </button>
+                        <div class="col-md-8">
+                            <form class="p-1" onsubmit="return search();" style="background-color: white; border-radius: 6px; box-shadow: 0px 0px 30px -10px">
+                                <div class="row">
+                                    <div class="col-lg-8 col-md-12 col-sm-12">
+                                        <div>
+                                            <input id="searchQuery" class="form-control form-control-lg mt-2 mb-2" type="search" placeholder="🔎 Homework topic..." style="border: none;">
                                         </div>
                                     </div>
-                                </form>
-                             </div>
-                        <div class="col-md-12 mt-3">
+                                    <div class="col-lg-2 col-md-12 col-sm-12">
+                                        <select id="searchSubject" class="custom-select mt-2 mb-2" style="background-color: #006060; height:46px; color: white; font-size: 85%; font-weight: bold;">
+                                            <option value="Any">All Subjects</option>
+                                            <option value="Mathematics">Mathematics</option>
+                                            <option value="Science">Science</option>
+                                            <option value="Engineering">Engineering</option>
+                                            <option value="Business">Business</option>
+                                            <option value="Law">Law</option>
+                                            <option value="Art">Art</option>
+                                            <option value="Humanities">Humanities</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-1 col-md-12">
+                                        <button class="btn btn-lg mt-2 mb-2" type="submit" style="color: white; background-color:#006060; height:46px; width:100px;margin-left:auto; margin-right:auto; display:block">
+                                            <div>
+                                                <div style="font-size: 70%; font-weight: bold;">Search</div>
+                                            </div>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-12 mt-5">
                             <h1 style="font-size:40px; font-family:'Roboto Slab', serif">@Model.Subject<span style="margin-left:10px"><img width="60" src="@Model.SubjectIcon" /></span></h1>
                         </div>
                     </div>
@@ -172,8 +172,10 @@
     </div>
 </div>
 
-<script>$(document).ready(function () {
+<script>
+    $(document).ready(function () {
         $("#nav").click(function () {
             $("#navbarText").slideToggle();
         });
-    });</script>
+    });
+</script>
