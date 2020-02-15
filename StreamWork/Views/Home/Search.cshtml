@@ -109,7 +109,7 @@
                         {
                             <div class="col-lg-3 col-md-6 col-sm-6 streamsubject @videoInfo.StreamSubject">
                                 <div class="card mt-3" style="border:none; background-color:transparent">
-                                    <input type="image" style="width:100%; height:100%; background-size:cover; border-top-left-radius:10px; border-top-right-radius:10px; cursor:pointer" src=@videoInfo.StreamThumbnail onclick="window.location.href='../StreamViews/StreamPlaybackPage?streamId=@videoInfo.StreamID'">
+                                    <input type="image" style="width:100%; height:100%; border-top-left-radius:10px; border-top-right-radius:10px; border-bottom-left-radius:0px; border-bottom-right-radius:0px; cursor:pointer" src=@videoInfo.StreamThumbnail onclick="window.location.href='../StreamViews/StreamPlaybackPage?streamId=@videoInfo.StreamID'">
                                     <div class="card-body p-0" style="background-color:black;" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@videoInfo.Username');">
                                         <div class="row">
                                             <div class="col-12">
