@@ -50,18 +50,18 @@ else
             <p class="card-text" style="font-size:14px; color:black">@Model.TutorUserProfile.ProfileParagraph</p>
         </div>
         <div class="row">
-            <div class="col-4 pr-0">
+            <div class="col-lg-4 col-md-4 col-sm-12 pr-lg-0 pr-md-0">
                 <div class="card-body" style="background-color:whitesmoke; border-bottom-left-radius:5px">
                     <h5 style="color:black">Streams</h5>
                     <h4 style="color:black">@Model.NumberOfStreams</h4>
                 </div>
             </div>
-            <div class="col-4 p-0">
+            <div class="col-lg-4 col-md-4 col-sm-12 p-lg-0 p-md-0">
                 <div class="card-body" style="background-color:whitesmoke;border-top-left-radius:0px ">
-                        <button class="uploadbtn" style="font-family:'Roboto Slab', serif; cursor: pointer; display:block; margin-left:auto; margin-right:auto; height:68px; width:100%;" onclick="window.location.href='/Home/Donate?tutor=@Model.UserChannel.Username'" onmouseover="">Donate</button>
+                      <button class="uploadbtn" style="font-family:'Roboto Slab', serif; cursor: pointer; display:block; margin-left:auto; margin-right:auto; height:68px; width:100%;" onclick="window.location.href='/Home/Donate?tutor=@Model.UserChannel.Username'" onmouseover="">Donate</button>
                 </div>
             </div>
-            <div class="col-4 pl-0">
+            <div class="col-lg-4 col-md-4 col-sm-12 pl-lg-0 pl-md-0">
                 <div class="card-body" style="background-color:whitesmoke; border-bottom-right-radius:5px ">
                     <h5 style="color:black">Total Views</h5>
                     <h4 style="color:black">0</h4>
