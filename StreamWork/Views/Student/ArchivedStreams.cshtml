@@ -10,38 +10,72 @@
     <br />
     <br />
     <div class="row">
-        <div class="col-1"></div>
-        <input type="image" runat="server" src="~/images/MathCard.png" style="width:10%; height:10%;" onclick="FilterStreams('Mathematics')" />
-        <input type="image" src="~/images/ScienceCard.png" style="width:10%; height:10%;" onclick="FilterStreams('Science')" />
-        <input type="image" src="~/images/EngineeringCard.png" style="width:10%; height:10%;" onclick="FilterStreams('Engineering')" />
-        <input type="image" src="~/images/BuisnessCard.png" style="width:10%; height:10%;" onclick="FilterStreams('Business')" />
-        <input type="image" src="~/images/LawCard.png" style="width:10%; height:10%;" onclick="FilterStreams('Law')" />
-        <input type="image" src="~/images/ArtCard.png" style="width:10%; height:10%;" onclick="FilterStreams('Art')" />
-        <input type="image" src="~/images/HumanitiesCard.png" style="width:10%; height:10%;" onclick="FilterStreams('Humanities')" />
-        <input type="image" src="~/images/OtherCard.png" style="width:10%; height:10%;" onclick="FilterStreams('Other')" />
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10 col-md-12 col-sm-12">
+            <form class="p-2" onsubmit="return searchArchives();" style="background-color: white; border-radius: 6px; box-shadow: 0px 0px 30px -10px">
+                <div class="row">
+                    <div class="col-lg-8 col-md-12 col-sm-12">
+                        <div>
+                            <input id="searchQuery" class="form-control form-control-lg mt-2 mb-2" type="search" placeholder="🔎 Homework topic..." style="border: none;">
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-12 col-sm-12">
+                        <select id="searchSubject" class="custom-select mt-2 mb-2" style="background-color: #006060; height:46px; color: white; font-size: 85%; font-weight: bold;">
+                            <option value="Any">All Subjects</option>
+                            <option value="Mathematics">Mathematics</option>
+                            <option value="Science">Science</option>
+                            <option value="Engineering">Engineering</option>
+                            <option value="Business">Business</option>
+                            <option value="Law">Law</option>
+                            <option value="Art">Art</option>
+                            <option value="Humanities">Humanities</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-1 col-md-12">
+                        <button class="btn btn-lg mt-2 mb-2" type="submit" style="color: white; background-color:#006060; height:46px; width:100px;margin-left:auto; margin-right:auto; display:block">
+                            <div>
+                                <div style="font-size: 70%; font-weight: bold;">Search</div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 <br />
 <div class="container">
     <h2 class="text-center" style="font-family:'Roboto Slab', serif"><b>Archived Streams</b><span class="ml-2"><img id="info" src="~/images/info_icon.png" style="width: 24px; height: 24px; margin-top: -5px;" data-toggle="tooltip" data-placement="right" title="Watch all the previously archived livestreams here. It's only $10 a month!" /></span></h2>
     <div class="row">
-        @foreach (var videoInfo in Model.UserArchivedStreams)
-         {
-            <div class="col-lg-4 col-md-6 col-sm-6 streamsubject @videoInfo.StreamSubject">
-                <div class="card mt-3" style="border:none; background-color:transparent">
-                    <input type="image" style="width:100%; height:100%; border-top-left-radius:10px; border-top-right-radius:10px; border-bottom-left-radius:0px; border-bottom-right-radius:0px;" src=@videoInfo.StreamThumbnail onclick="window.location.href='../StreamViews/StreamPlaybackPage?streamId=@videoInfo.StreamID'">
-                    <div class="card-body p-0" style="background-color:black;" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@videoInfo.Username');">
-                        <div class="row">
-                            <div class="col-12">
-                                <input type="image" style="border-radius:5%; width:50px; margin-left:10px; margin-top:10px; margin-bottom:10px; height:60px; float:left" src=@videoInfo.ProfilePicture />
-                                <h5 class="text-truncate" style="font-family: 'Roboto'; font-size:15px; color:white; margin-left:80px; margin-top:10px;">@videoInfo.StreamTitle</h5>
-                                <h6 class="text-truncate" style="font-family: 'Roboto'; font-size:14px; color:white; margin-left:80px;">@videoInfo.Username</h6>
+        @if (Model.UserArchivedStreams.Count > 0)
+        {
+            @foreach (var videoInfo in Model.UserArchivedStreams)
+            {
+                <div class="col-lg-4 col-md-6 col-sm-6 streamsubject @videoInfo.StreamSubject">
+                    <div class="card mt-3" style="border:none; background-color:transparent">
+                        <input type="image" style="width:100%; height:100%; border-top-left-radius:10px; border-top-right-radius:10px; border-bottom-left-radius:0px; border-bottom-right-radius:0px;" src=@videoInfo.StreamThumbnail onclick="window.location.href='../StreamViews/StreamPlaybackPage?streamId=@videoInfo.StreamID'">
+                        <div class="card-body p-0" style="background-color:black;" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@videoInfo.Username');">
+                            <div class="row">
+                                <div class="col-12">
+                                    <input type="image" style="border-radius:5%; width:50px; margin-left:10px; margin-top:10px; margin-bottom:10px; height:60px; float:left" src=@videoInfo.ProfilePicture />
+                                    <h5 class="text-truncate" style="font-family: 'Roboto'; font-size:15px; color:white; margin-left:80px; margin-top:10px;">@videoInfo.StreamTitle</h5>
+                                    <h6 class="text-truncate" style="font-family: 'Roboto'; font-size:14px; color:white; margin-left:80px;">@videoInfo.Username</h6>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            }
+        }
+        else
+        {
+            <div class="col-12" style="text-align: center;">
+                <br />
+                <br />
+                <h4>No results were found for your query.</h4>
             </div>
-          }
+        }
     </div>
 </div>
 

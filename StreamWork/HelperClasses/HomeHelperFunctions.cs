@@ -98,6 +98,23 @@ namespace StreamWork.HelperClasses
             return model;
         }
 
+        public async Task<ProfileStudentViewModel> PopulateArchivePage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject, string searchQuery, string user)
+        {
+            searchQuery = searchQuery == null ? "" : searchQuery.ToLower();
+            var streams = subject == null ? await GetUserChannels(storageConfig, QueryHeaders.AllUserChannelsThatAreStreaming, "")
+                                          : await GetUserChannels(storageConfig, QueryHeaders.AllUserChannelsThatAreStreamingWithSpecifiedSubject, subject);
+            var archive = subject == null ? await GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos)
+                                          : await GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideosBasedOnSubject, subject);
+
+            ProfileStudentViewModel model = new ProfileStudentViewModel
+            {
+                UserArchivedStreams = (from a in archive select a).Where(a => a.StreamTitle.ToLower().Contains(searchQuery)).ToList(),
+                UserProfile = user == null ? null : await GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user),
+            };
+
+            return model;
+        }
+
         private string GetSubjectIcon (string subject) {
             string defaultURL = "";
 

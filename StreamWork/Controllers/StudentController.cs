@@ -38,18 +38,13 @@ namespace StreamWork.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ArchivedStreams([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        public async Task<IActionResult> ArchivedStreams([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, [FromQuery(Name = "s")] string s, [FromQuery(Name = "q")] string q)
         {
+            // s is subject, q is search query
             if (HttpContext.User.Identity.IsAuthenticated == false)
                 return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-Student-ArchivedStreams");
 
-            ProfileStudentViewModel viewModel = new ProfileStudentViewModel
-            {
-                UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
-                UserArchivedStreams = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos)
-            };
-
-            return View(viewModel);
+            return View(await _homeHelperFunctions.PopulateArchivePage(storageConfig, s, q, HttpContext.User.Identity.Name));
         }
 
         [HttpPost]

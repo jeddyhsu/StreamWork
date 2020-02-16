@@ -7,3 +7,13 @@
     }
     return false;
 }
+
+function searchArchives() {
+    var searchSubject = $("#searchSubject").val();
+    if (searchSubject == "Any") {
+        window.location.href = '/Student/ArchivedStreams?q=' + $("#searchQuery").val();
+    } else {
+        window.location.href = '/Student/ArchivedStreams?s=' + searchSubject + '&q=' + $("#searchQuery").val();
+    }
+    return false;
+}
