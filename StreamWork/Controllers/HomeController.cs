@@ -207,11 +207,9 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> ControlPanel ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
             var students = await GetStudents(storageConfig);
             var tutors = await GetPopularStreamTutors(storageConfig);
-            var donationAttempts = await GetDonationAttempts(storageConfig);
             return View(new ControlPanelViewModel {
                 Students = students,
-                Tutors = tutors,
-                DonationAttempts = donationAttempts
+                Tutors = tutors
             });
         }
 
