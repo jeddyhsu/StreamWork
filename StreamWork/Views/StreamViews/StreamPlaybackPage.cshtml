@@ -33,7 +33,7 @@ else
 <div class="container">
     <div class="card text-center mt-5 border-0" style="color:white;">
         <div class="card-body" style="background-color:whitesmoke; border-top-right-radius:5px; border-top-left-radius:5px; ">
-            <img src=@Model.TutorUserProfile.ProfilePicture style="width:115px; height: 150px; border-radius:5%" />
+            <img src=@Model.TutorUserProfile.ProfilePicture style="width:115px; height: 150px; border-radius:5%; cursor:pointer" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@Model.TutorUserProfile.Username');" />
             <br />
             @if (Model.IsUserFollowingThisTutor == false && Model.UserProfile.ProfileType == "student")
             {
@@ -58,9 +58,7 @@ else
             </div>
             <div class="col-4 p-0">
                 <div class="card-body" style="background-color:whitesmoke;border-top-left-radius:0px ">
-                    <a target="_blank" rel="noopener noreferrer" href="/Home/Donate?tutor=@Model.UserChannel.Username">
-                        <img src="~/images/donate201911.png" target="_blank" rel="noopener noreferrer" style="display:block; margin-left:auto; margin-right:auto; width:37%; height:auto" />
-                    </a>
+                        <button class="uploadbtn" style="font-family:'Roboto Slab', serif; cursor: pointer; display:block; margin-left:auto; margin-right:auto; height:68px; width:100%;" onclick="window.location.href='/Home/Donate?tutor=@Model.UserChannel.Username'" onmouseover="">Donate</button>
                 </div>
             </div>
             <div class="col-4 pl-0">
