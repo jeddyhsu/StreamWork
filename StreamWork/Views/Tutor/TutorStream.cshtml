@@ -99,6 +99,7 @@ else if (Model.UserChannels[0].StreamTitle == null && Model.UserChannels[0].Stre
             <div class="modal-content" style="background-color:whitesmoke">
                 <div class="modal-header">
                     <h5 class="modal-title" style="color:black">Start Streaming<span><img id="info" src="~/images/info_icon.png" style="width: 24px; height: 24px; margin-top: -5px; margin-left:7px" data-toggle="tooltip" data-placement="right" title="This is where you start all of you streams!" /></span></h5>
+                    <a class="mt-1" href="/Home/HowToStream" style="color:#008080">How to stream?</a>
                 </div>
                 <div class="modal-body">
                     <form>
@@ -142,12 +143,12 @@ else if (Model.UserChannels[0].StreamTitle == null && Model.UserChannels[0].Stre
 
     <div id="unapprovedTutorModal" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
-            <div class="modal-content" style="background-color: #008080">
+            <div class="modal-content" style="background-color: whitesmoke">
                 <div class="modal-header">
-                    <h5 class="modal-title" style="color:white">Looks like you haven't been verified yet!</h5>
+                    <h5 class="modal-title" style="color:black">Looks like you haven't been verified yet!</h5>
                 </div>
                 <div class="modal-body">
-                    <p style="color: white;">It appears you are not a verified StreamTutor! If you are a student, create a separate student account. If you are a StreamTutor, please wait 1-2 business days to be approved. In the meantime feel free to edit your profile and watch some streams. </p>
+                    <p style="color: black;">It appears you are not a verified StreamTutor! If you are a student, create a separate student account. If you are a StreamTutor, please wait 1-2 business days to be approved. In the meantime feel free to edit your profile and watch some streams. </p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn" style=" color:white;  background-color:black"; onclick="window.location.href = '/Tutor/ProfileTutor'">Go Back</button>

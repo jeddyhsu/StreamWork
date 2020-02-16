@@ -1,8 +1,9 @@
 ﻿@model StreamWork.ViewModels.DefaultViewModel
 
+@{Layout = "_LayoutTutorNavbar";}
 @{ViewData["Title"] = "How to Stream";}
 
-<div class="container-fluid" style="padding-top:25px; width:94%">
+<div class="container-fluid">
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="card" style="background-color: #008080;">
@@ -125,7 +126,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -134,13 +135,11 @@
     </div>
 </div>
 
-<script>
-    $(document).ready(function () {
+<script>$(document).ready(function () {
 
         $("#nav").click(function () {
 
             $("#navbarText").slideToggle();
 
         });
-    });
-</script>
+    });</script>
