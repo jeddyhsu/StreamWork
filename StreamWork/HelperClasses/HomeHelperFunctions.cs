@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -184,8 +186,21 @@ namespace StreamWork.HelperClasses
             return await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, QueryHeaders.AllApprovedTutors.ToString());
         }
 
+        public Image ResizeImage(IFormFile file, int width, int height)
+        {
+            var image = Image.FromStream(file.OpenReadStream());
+            var newImage = new Bitmap(width, height);
+            using (var graphic = Graphics.FromImage(newImage))
+            {
+                graphic.DrawImage(image, 0, 0, width, height);
+            }
+
+            return newImage;
+        }
+
         //Saves picture into container on Azure - replaces old one if there is one
-        public async Task<string> SaveIntoBlobContainer (IFormFile file, [FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string user, string reference) {
+        public string SaveIntoBlobContainer(Image image, IFormFile file, string reference) {
+
             //Connects to blob storage and saves picture
             CloudStorageAccount cloudStorage = CloudStorageAccount.Parse(_blobconnectionString);
             CloudBlobClient blobClient = cloudStorage.CreateCloudBlobClient();
@@ -194,10 +209,10 @@ namespace StreamWork.HelperClasses
 
             blockBlob.DeleteIfExists();
 
-            using (MemoryStream ms = new MemoryStream()) {
+            using (MemoryStream ms = new MemoryStream((int)file.Length)) {
                 try {
-                    await file.CopyToAsync(ms);
-                    blockBlob.UploadFromByteArray(ms.ToArray(), 0, (int)file.Length);
+                    image.Save(ms, ImageFormat.Png);
+                    blockBlob.UploadFromByteArray(ms.ToArray(), 0, (int)ms.Length);
                 }
                 catch (ObjectDisposedException e) {
                     Console.WriteLine(e.Message);
@@ -225,8 +240,11 @@ namespace StreamWork.HelperClasses
                 EnableSsl = true
             };
 
-            MailMessage message = new MailMessage();
-            message.Subject = subject;
+            MailMessage message = new MailMessage
+            {
+                Subject = subject
+            };
+
             message.To.Add(to);
             message.Body = body;
             message.From = new MailAddress(from);

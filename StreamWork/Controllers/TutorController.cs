@@ -75,7 +75,7 @@ namespace StreamWork.Controllers
                 var streamInfo = Request.Form.Files[0].Name.Split(new char[] { '|' });
                 var streamTitle = streamInfo[0];
                 var streamSubject = streamInfo[1];
-                var streamThumbnail = await _homeHelperFunctions.SaveIntoBlobContainer(Request.Form.Files[0], storageConfig, user, userChannel[0].Id);
+                var streamThumbnail =  _homeHelperFunctions.SaveIntoBlobContainer(_homeHelperFunctions.ResizeImage(Request.Form.Files[0], 1280, 720), Request.Form.Files[0], userChannel[0].Id);
 
                 ThreadClass handleStreams = new ThreadClass(storageConfig, userChannel[0], userLogin[0], streamTitle, streamSubject, streamThumbnail);
 
@@ -153,7 +153,7 @@ namespace StreamWork.Controllers
             }
 
             //Handles if there is not a profile picture with the caption or about paragraph
-            if (Request.Form.Keys.Count > 0 && originalDateTime == null)
+            if (Request.Form.Keys.Count > 0 && originalDateTime.ToShortDateString() == "01/01/0001")
             {
                 var success = await _editProfileHelperFunctions.EditProfileWithNoProfilePicture(Request, storageConfig, user);
                 if(success)

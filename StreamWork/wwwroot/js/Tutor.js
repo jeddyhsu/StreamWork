@@ -14,30 +14,7 @@ function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail() {
     var streamInfo = streamTitle + '|' + streamSubject;
     var totalFile = document.getElementById("uploadThumbnail").files.length;
     if (totalFile != 0) {
-        var fileReader = new FileReader;
-        var isSizeCorrect = true;
-
-        fileReader.onload = function () {
-            var img = new Image;
-
-            img.onload = function () {
-                if (img.width != 1280 || img.height != 720) {
-                    alert('Thumbnails must be 1280x720!');
-                     isSizeCorrect = false;;
-                }
-            };
-
-            img.src = fileReader.result;
-        };
-
-        fr.readAsDataURL(document.getElementById("uploadThumbnail").files[0]);
-
-        if (isSizeCorrect == true) {
-            formData.append(streamInfo, document.getElementById("uploadThumbnail").files[0])
-        }
-        else {
-            return;
-        }
+     formData.append(streamInfo, document.getElementById("uploadThumbnail").files[0])
     }
     else {
         formData.append(streamInfo, 'No Thumbnail');
