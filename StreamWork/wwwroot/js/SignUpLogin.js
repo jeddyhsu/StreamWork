@@ -406,6 +406,10 @@ function OpenCheckTutorModal() {
     $('#checkTutorModal').modal('show');
 }
 
+function OpenLoginSignUpModal() {
+    $('#loginSignUpModal').modal('show');
+}
+
 function OpenCheckStudentModal() {
     $('#checkStudentModal').modal('show');
 }
