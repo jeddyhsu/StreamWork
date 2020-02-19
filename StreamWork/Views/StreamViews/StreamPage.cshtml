@@ -7,27 +7,32 @@
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-9 p-0">
             <iframe style="height:700px; width:100%" class="p-0" src="//iframe.dacast.com/b/135034/c/@Model.UserChannel.ChannelKey" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
-            <div class="">
-                <img class="ml-2 mb-2" src=@Model.UserChannel.ProfilePicture style="width:115px; height: 150px; border-radius:5%; float:left; margin-right:10px" />
-                <h2 class="mt-1" style="color:white; font-family:'Roboto Slab', serif;">@Model.UserChannel.StreamTitle<span></span></h2>
-                <h1 class="card-title" style=" font-size:12px; color:lightgray"><b>@Model.UserChannel.Username</b></h1>
-                <a target="_blank" rel="noopener noreferrer" href="/Home/Donate?tutor=@Model.UserChannel.Username">
-                    <img src="~/images/donate201911.png" target="_blank" rel="noopener noreferrer" style="width:100px; height:auto" />
-                </a>
-
+            <div class="row">
+                <div class="col-6">
+                    <div class="m-3">
+                        <img class="ml-2 mb-2" src=@Model.UserChannel.ProfilePicture style="width:115px; height: 150px; border-radius:5%; float:left; margin-right:10px" />
+                        <h2 class="mt-1 ml-2" style="color:white; font-family:'Roboto Slab', serif;">@Model.UserChannel.StreamTitle<span></span></h2>
+                        <h6 class="ml-4" style="color:lightgray"><b>@Model.UserChannel.Username</b></h6>
+                        @if (Model.UserProfile != null)
+                        {
+                            if (Model.IsUserFollowingThisTutor == false && Model.UserProfile.ProfileType == "student")
+                            {
+                                <button id="FollowButton" type="button" style="font-size:10px" class="btn mt-1" onclick="FollowStreamTutor('@Model.UserChannel.Id')">Follow</button>
+                                <button id="UnfollowButton" type="button" style="font-size:10px; display:none" class="btn mt-1" onclick="UnfollowStreamTutor('@Model.UserChannel.Id')">Unfollow</button>
+                            }
+                            else if (Model.IsUserFollowingThisTutor == true && Model.UserProfile.ProfileType == "student")
+                            {
+                                <button id="FollowButton" type="button" style="font-size:10px;display:none" class="btn mt-1" onclick="FollowStreamTutor('@Model.UserChannel.Id')">Follow</button>
+                                <button id="UnfollowButton" type="button" style="font-size:10px" class="btn mt-1" onclick="UnfollowStreamTutor('@Model.UserChannel.Id')">Unfollow</button>
+                            }
+                        }
+                    </div>
+                    </div>
+                <div class="col-6">
+                    <button class="uploadbtn mt-3 mr-2" style="font-family:'Roboto Slab', serif; cursor: pointer; display:block; margin-left:auto;  height:75px; width:50%;" onclick="window.location.href='/Home/Donate?tutor=@Model.UserChannel.Username'" onmouseover="">Donate<span><img style="height:26px; margin-bottom:10px" class="ml-2" src="https://img.icons8.com/pastel-glyph/64/000000/initiate-money-transfer--v1.png"></span></button>
+                    <button class="uploadbtn mt-2 mr-2" style="font-family:'Roboto Slab', serif; cursor: pointer; display:block; margin-left:auto;  height:75px; width:50%;" onclick="window.location.href='/Home/ProfileView?tutor=@Model.UserChannel.Username'" onmouseover="">Profile<span><img style="height:26px; margin-bottom:8px" class="ml-2" src="https://img.icons8.com/material/26/000000/name--v1.png"></span></button>
+                </div>
             </div>
-            @if(Model.UserProfile != null){
-                if (Model.IsUserFollowingThisTutor == false && Model.UserProfile.ProfileType == "student")
-                {
-                    <button id="FollowButton" type="button" style="font-size:12px" class="btn btn-primary mt-3" onclick="FollowStreamTutor('@Model.UserChannel.Id')">Follow StreamTutor</button>
-                    <button id="UnfollowButton" type="button" style="font-size:12px; display:none" class="btn btn-primary mt-3" onclick="UnfollowStreamTutor('@Model.UserChannel.Id')">Unfollow StreamTutor</button>
-                }
-                else if (Model.IsUserFollowingThisTutor == true && Model.UserProfile.ProfileType == "student")
-                {
-                    <button id="FollowButton" type="button" style="font-size:12px;display:none" class="btn btn-primary mt-3" onclick="FollowStreamTutor('@Model.UserChannel.Id')">Follow StreamTutor</button>
-                    <button id="UnfollowButton" type="button" style="font-size:12px" class="btn btn-primary mt-3" onclick="UnfollowStreamTutor('@Model.UserChannel.Id')">Unfollow StreamTutor</button>
-                }
-            }
         </div>
         <div class="col-sm-12 col-md-12 col-lg-3 p-0 m-0">
             <iframe class="p-0" src=@Model.ChatBox style="width:100%; height:100vh; " allowtransparency="yes" allow="autoplay" frameborder="0" marginheigh="0" marginwidth="0" scrolling="auto"></iframe>
