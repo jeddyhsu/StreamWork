@@ -49,23 +49,18 @@
                 </button>
             </div>
 
+            <img class="d-lg-none d-sm-block p-0" src="~/images/streamworkPencil.png" onclick="window.location.href='/'" style="height:60px; margin-left:auto; margin-right:auto; cursor:p" />
+
             @if (@Model.UserProfile == null)
             {
-                <ul class="nav navbar-nav d-lg-none d-sm-block" style="float: none; margin-right:0px; display: block; text-align: right;">
-                    <li class="nav-item mt-1" style="display: inline-block; float: none;">
-                        <a class="btn ml-4" style="color:#008080; font-size:17px; background-color:whitesmoke" onclick="window.location.href='/Home/PickStudentOrTutor'"><b>Sign Up</b></a>
-                    </li>
-                    <li class="nav-item mt-1" style="display: inline-block; float: none;">
-                        <a class="btn " style="background-color:#006565; font-size:17px; color:white" ; onclick="window.location.href='/Home/Login?dest=-Home-Profile'"><b>Login</b></a>
-                    </li>
-                </ul>
+                <img class="d-lg-none d-sm-block p-0" onclick="OpenLoginSignUpModal()" src="https://img.icons8.com/ios-glyphs/100/000000/person-male.png" style="margin-right:0px; height:30px; cursor:pointer; " />
             }
             else
             {
                 <ul class="navbar-nav d-lg-none d-sm-block" style="float: none; margin:0px; display: block; text-align: right;">
                     <li>
                         <div class="btn-group">
-                            <input type="image" data-toggle="dropdown" onclick="Dashboard('@Model.UserProfile.ProfileType')" src=@Model.UserProfile.ProfilePicture style="width:32px; height:43px; border-radius:10px" />
+                            <input type="image" onclick="Dashboard('@Model.UserProfile.ProfileType')" src=@Model.UserProfile.ProfilePicture style="width:32px; height:43px; border-radius:10px" />
                         </div>
                     </li>
                 </ul>
