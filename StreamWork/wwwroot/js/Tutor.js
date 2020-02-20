@@ -215,6 +215,7 @@ function WriteTutorGreeting1() {
 
 function OpenViewRecommendationsModal() {
     $('#viewRecommendationsModal').modal('show');
+    $('#recommendationsBadge').hide();
 }
 
 function ClearRecommendation(index, id) {
