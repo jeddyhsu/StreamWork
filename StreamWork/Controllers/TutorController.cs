@@ -153,7 +153,7 @@ namespace StreamWork.Controllers
             }
 
             //Handles if there is not a profile picture with the caption or about paragraph
-            if (Request.Form.Keys.Count > 0 && originalDateTime.ToShortDateString() == "01/01/0001")
+            if (Request.Form.Keys.Count == 1)
             {
                 var success = await _editProfileHelperFunctions.EditProfileWithNoProfilePicture(Request, storageConfig, user);
                 if(success)
