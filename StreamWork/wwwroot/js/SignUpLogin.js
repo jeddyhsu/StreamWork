@@ -11,6 +11,7 @@ function SignUpStudent() {
     var username = $("#usernameS").val();
     var password = $('#passwordS').val();
     var confirmPassword = $('#passwordConfirmS').val();
+    var college = $('#collegeS').val();
     var role = 'student';
 
     $('#loaderStudent').show();
@@ -26,6 +27,7 @@ function SignUpStudent() {
             'username': username,
             'password': password,
             'passwordConfirm': confirmPassword,
+            'college': college,
             'role': role,
         },
         success: function(data) {
@@ -49,6 +51,7 @@ function SignUpTutor() {
     var username = $("#usernameT").val();
     var password = $('#passwordT').val();
     var confirmPassword = $('#passwordConfirmT').val();
+    var college = $('#collegeT').val();
     var role = 'tutor';
 
     var transcriptUpload = document.getElementById("Transcript");
@@ -76,6 +79,7 @@ function SignUpTutor() {
     formData.append("username", username);
     formData.append("password", password);
     formData.append("confirmPassword", confirmPassword);
+    formData.append("college", college);
     formData.append("role", role);
 
     $('#loaderTutor').show();
@@ -105,7 +109,7 @@ function RunStudentChecks() {
     var confirmPassword = $('#passwordConfirmS').val();
 
     if (nameFirst == "" || nameLast == "" || email == "" || username == "" || password == "" || confirmPassword == "") {
-        OpenNotificationModal("Please fill out all fields")
+        OpenNotificationModal("Please fill out all required fields (College is optional)")
         return;
     }
 
@@ -148,8 +152,9 @@ function RunTutorChecks() {
     var username = $("#usernameT").val();
     var password = $('#passwordT').val();
     var confirmPassword = $('#passwordConfirmT').val();
+    var college = $('#collegeT').val();
 
-    if (nameFirst == "" || nameLast == "" || email == "" || payPalAddress == "" || username == "" || password == "" || confirmPassword == "") {
+    if (nameFirst == "" || nameLast == "" || email == "" || payPalAddress == "" || username == "" || password == "" || confirmPassword == "" || college == "") {
         OpenNotificationModal("Please fill out all fields");
         return;
     }

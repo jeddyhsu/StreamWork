@@ -219,7 +219,7 @@ namespace StreamWork.Controllers
 
         [HttpPost]
         public async Task<IActionResult> SignUp([FromServices] IOptionsSnapshot<StorageConfig> storageConfig,
-                                                string nameFirst, string nameLast, string email, string payPalAddress, string username, string password, string passwordConfirm, string role)
+                                                string nameFirst, string nameLast, string email, string payPalAddress, string username, string password, string passwordConfirm, string college, string role)
         {
 
             if (password == null)
@@ -244,6 +244,7 @@ namespace StreamWork.Controllers
                 Password = _homeHelperFunctions.EncryptPassword(password),
                 ProfileType = role,
                 AcceptedTutor = false,
+                College = college,
                 ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/default-profile.png",
                 Balance = (decimal)0f,
                 Expiration = DateTime.UtcNow,
