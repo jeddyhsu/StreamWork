@@ -206,7 +206,7 @@ function WriteTutorGreeting() {
     document.getElementById('ProfileParagraphGreeting').style.display = "block";
 }
 
-function WriteTutorGreeting1() {
+function WriteTutorProfileCaptionAndParagraph() {
     document.getElementById('ProfileCaptionGreeting').style.display = "none";
     document.getElementById('ProfileParagraphGreeting').style.display = "none";
     document.getElementById('ProfileCaptionOnPage').style.display = "block";

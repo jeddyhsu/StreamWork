@@ -74,14 +74,14 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
                     </li>
                 </ul>
             }
-
             <div class="collapse navbar-collapse" id="navbarText">
                 <div class="col-lg-5">
                     <ul class="navbar-nav text-center">
-                        <li class="nav-item" style="font-size:17px;">
+
+                        <li class="nav-item ml-lg-3" style="font-size:17px;">
                             <a class="nav-link underline" href="/Student/ProfileStudent" style="color:#008080;"><b>Live Streams</b></a>
                         </li>
-                        <li class="nav-item ml-lg-5" style="font-size:17px; ">
+                        <li class="nav-item ml-lg-3" style="font-size:17px; ">
                             <a class="nav-link underline" href="/Student/ArchivedStreams" style="color:#008080;"><b>Archived Streams</b></a>
                         </li>
                     </ul>
@@ -162,6 +162,45 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
         </nav>
     </div>
 
+    @*Edit Modal for editing profile*@
+    <div id="editModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: whitesmoke">
+                <div class="modal-header">
+                    <h5 class="modal-title" style="color:black">Edit Profile</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <input align="middle" type="text" class="form-control" id="ProfileCaption" maxlength="50" placeholder="Caption" value="@Model.UserProfile.ProfileCaption" />
+                        <br />
+                        <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" maxlength="189" placeholder="About Me" style="height:100px">@Model.UserProfile.ProfileParagraph</textarea>
+                        <br />
+                        <img id="previewProfilePic" src=@Model.UserProfile.ProfilePicture alt="your image" style="border-radius: 5%; width:115px; display:block;margin-left:auto;margin-right:auto" />
+                        <br />
+                        <div class="row">
+                            <div class="col-3"></div>
+                            <div class=" col-6">
+                                <div class="upload-uploadbtn-wrapper">
+                                    <button class="uploadbtn">Upload a Profile Picture</button>
+                                    <input id="uploadProfilePic" style="cursor:pointer" type='file' onchange="readURL(this,'ProfilePic')" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" style="background-color:black; color:white" onclick="RegisterProfilePhotoAndCaption()">Save changes</button>
+                    <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*Login SignUp Modal for when phone is in mobile form*@
     <div id="loginSignUpModal" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="background-color: whitesmoke">

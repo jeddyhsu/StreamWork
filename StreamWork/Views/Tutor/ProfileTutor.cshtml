@@ -165,11 +165,13 @@
     </div>
 </div>
 
-<script>$(document).ready(function () {
+<script>
+    $(document).ready(function () {
         $("#nav").click(function () {
             $("#navbarText").slideToggle();
         });
-    });</script>
+    });
+</script>
 
 @if (Model.UserProfile.ProfileCaption == null && Model.UserProfile.ProfileParagraph == null && Model.UserProfile.AcceptedTutor == false)
 {
@@ -177,8 +179,10 @@
 }
 else
 {
-    <script>WriteTutorGreeting1()</script>
+    <script>WriteTutorProfileCaptionAndParagraph()</script>
 }
 
-<script>$("#info").tooltip();
-    $("#info2").tooltip()</script>
+<script>
+    $("#info").tooltip();
+    $("#info2").tooltip()
+</script>

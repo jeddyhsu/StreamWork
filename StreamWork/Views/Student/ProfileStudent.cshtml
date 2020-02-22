@@ -5,7 +5,24 @@
 
 <script src="~/js/EditProfile.js"></script>
 <script src="~/js/Student.js"></script>
-<link rel="stylesheet" href="~/css/Student.css"/>
+<link rel="stylesheet" href="~/css/Student.css" />
+
+<div class="container-fluid" style="max-width:2400px">
+    <div class="card text-center border-0" style="color:white;">
+        <div class="card-body" style="background:linear-gradient(to bottom, white 13%, #008080 0%);">
+            <div class="col-12">
+                <input type="image" class="zoom" onclick="EditProfile()" src=@Model.UserProfile.ProfilePicture style="border-radius:5%; width:115px" />
+                <h1 class="card-title mt-4" style="font-size:24px; color:whitesmoke;font-family: 'Roboto Slab', serif;"><b>@Model.UserProfile.Name.Replace('|', ' ')</b></h1>
+                <p class="card-text" id="ProfileCaptionGreeting" style="font-size:16px; color:white">Welcome to StreamWork!</p>
+                <p class="card-text" id="ProfileParagraphGreeting" style="font-size:14px; color:white">StreamWork is very excited to have you onboard our amazing community of students. Learn live from some of the best streamtutors and end your homework procrastination tonight!</p>
+                <p class="card-text" id="ProfileCaptionOnPage" style="font-size:16px; color:white">@Model.UserProfile.ProfileCaption</p>
+                <p class="card-text" id="ProfileParagraphOnPage" style="font-size:14px; color:white">@Model.UserProfile.ProfileParagraph</p>
+            </div>
+            <br />
+            <br />
+        </div>
+    </div>
+</div>
 
 <div class="container">
     <br />
@@ -52,22 +69,33 @@
     </div>
 </div>
 
+@if (Model.UserProfile.ProfileCaption == null && Model.UserProfile.ProfileParagraph == null && Model.UserProfile.AcceptedTutor == false)
+{
+    <script>WriteStudentGreeting()</script>
+}
+else
+{
+    <script>WriteStudentProfileCaptionAndParagraph()</script>
+}
+
 <script>
     $("#info").tooltip();
     $("#info2").tooltip()
 </script>
 
 <style>
-    .underline:hover{
-        text-decoration:underline;
+    .underline:hover {
+        text-decoration: underline;
     }
 </style>
 
-<script>$(document).ready(function () {
+<script>
+    $(document).ready(function () {
 
         $("#nav").click(function () {
 
             $("#navbarText").slideToggle();
 
         });
-    });</script>
+    });
+</script>

@@ -65,3 +65,17 @@ function submitRecommendation(student, tutor) {
         });
     }
 }
+
+function WriteStudentGreeting() {
+    document.getElementById("ProfileCaptionOnPage").style.display = "none";
+    document.getElementById('ProfileParagraphOnPage').style.display = "none";
+    document.getElementById('ProfileCaptionGreeting').style.display = "block";
+    document.getElementById('ProfileParagraphGreeting').style.display = "block";
+}
+
+function WriteStudentProfileCaptionAndParagraph() {
+    document.getElementById('ProfileCaptionGreeting').style.display = "none";
+    document.getElementById('ProfileParagraphGreeting').style.display = "none";
+    document.getElementById('ProfileCaptionOnPage').style.display = "block";
+    document.getElementById('ProfileParagraphOnPage').style.display = "block";
+}
