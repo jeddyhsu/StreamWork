@@ -1,10 +1,6 @@
 ﻿@model StreamWork.ViewModels.StreamPlayBackPageViewModel
 @{ViewData["Title"] = "StreamPlaybackPage";}
 
-<script src="~/js/SignUpLogin.js"></script>
-<script src="~/js/EditProfile.js"></script>
-<link rel="stylesheet" href="~/css/Streams.css" />
-
 @if (Model.UserProfile.ProfileType == "tutor")
 {
     { Layout = "_LayoutTutorNavbar"; }
