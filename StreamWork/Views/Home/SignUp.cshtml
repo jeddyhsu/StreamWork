@@ -33,6 +33,7 @@
                                     </th>
                                 </tr>
                             </table>
+                           
                             <br />
                             <strong>Login Type: Student</strong> &nbsp; &nbsp; &nbsp;
                             <br />
@@ -77,28 +78,42 @@
                             <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
                             <input type="text" class="form-control" id="collegeT" placeholder="College">
                             <!--
-                            <div class="row">
-                                <div class="col-6">
-                                    <b>Referred?</b>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="referred" id="yes" value="yes">
-                                        <label class="form-check-label" for="yes">Yes</label>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <b>Referred?</b>
                                     </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="referred" id="no" value="no">
-                                        <label class="form-check-label" for="no">No</label>
+                                    <div class="col-6">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="referred" id="yes" value="yes">
+                                            <label class="form-check-label" for="yes">Yes</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="referred" id="no" value="no">
+                                            <label class="form-check-label" for="no">No</label>
+                                        </div>
                                     </div>
                                 </div>
+                                <input type="text" class="form-control mt-2" id="referrerName" style="display: none;" placeholder="Referrer Name">
+                                -->
+                            <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
+                            <div class="upload-uploadbtn-wrapper">
+                                <button class="uploadbtn" style="font-size:14px; width:255px;">Transcript</button>
+                                <input id="uploadTranscript" type='file' accept="application/pdf" onchange="ReadFile(this, 'transcript')" />
                             </div>
-                            <input type="text" class="form-control mt-2" id="referrerName" style="display: none;" placeholder="Referrer Name">
-                            -->
-                            <br />
+                            <img id="transcript" src="~/images/info_icon.png" style="width: 24px; height: 24px; margin-top: 3px; margin-left:10px" data-toggle="tooltip" data-placement="right" title="Transcripts are used to verify that StreamTutors are maintaining A grades in the courses they are tutoring. StreamWork will not keep this document." />
+                            <h6 class="text-center mt-2" style="color:black" id="Transcript"></h6>
+                            <div class="upload-uploadbtn-wrapper">
+                                <button class="uploadbtn" style="font-size:14px; width:255px;">Resume</button>
+                                <input id="uploadResume" type='file' accept="application/pdf" onchange="ReadFile(this, 'resume')" />
+                            </div>
+                            <img id="resume" src="~/images/info_icon.png" style="width: 24px; height: 24px; margin-top: 3px; margin-left:10px" data-toggle="tooltip" data-placement="right" title="Resumes are used to verify that StreamTutors have some past tutoring expereince. StreamWork will not keep this document. " />
+                            <h6 class="text-center mt-2" style="color:black" id="Resume"></h6>
+                            <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
                             <strong>Login Type: Tutor</strong> &nbsp; &nbsp; &nbsp;
                             <br />
                             <br />
                             <input type="button" class="btn btn-block" value="Sign Up!" onclick="RunTutorChecks()" style="background-color:#008080; color: white; width:200px; display:block; margin-left:auto;margin-right:auto">
+                            <span id="loaderTutor" class="loaderTutor mt-3" style="display:block; margin-left:auto; margin-right:auto"></span>
                         </form>
                     </div>
                 </div>
@@ -138,66 +153,13 @@
     </div>
 </div>
 
-<div id="checkTutorModal" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" style="background-color: #008080">
-            <div class="modal-header">
-                <h5 class="modal-title" style="color:white">One more thing!</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p style="color:white">StreamWork strives to give students the best live tutoring there is and we can only acheive that by having the best StreamTutors. We ask that every StreamTutor provides a <b>transcript</b>, <b>resume</b> and <b>letter of reccomandation</b> to show their past tutoring experiences and qualifications. StreamWork will not keep any of these documents. Happy streaming!</p>
-                <div class="row">
-                    <div class="col-4 mt-3">
-                        <div class="upload-uploadbtn-wrapper">
-                            <button class="uploadbtn" style="font-size:14px">Upload Transcript</button>
-                            <input id="uploadTranscript" type='file' accept="application/pdf" onchange="ReadFile(this, 'transcript')" />
-                        </div>
-                    </div>
-                    <div class="col-4 mt-3">
-                        <div class="upload-uploadbtn-wrapper">
-                            <button class="uploadbtn" style="font-size:14px; width:135px; height:65px">Upload LOR</button>
-                            <input id="uploadLetterofrec" type='file' accept="application/pdf" onchange="ReadFile(this, 'letterofrec')" />
-                        </div>
-                    </div>
-                    <div class="col-4 mt-3">
-                        <div class="upload-uploadbtn-wrapper">
-                            <button class="uploadbtn" style="font-size:14px">Upload Resume</button>
-                            <input id="uploadResume" type='file' accept="application/pdf" onchange="ReadFile(this, 'resume')" />
-                        </div>
-                    </div>
-
-                    <br />
-                    <div class="col-12 mt-3">
-                       
-                    </div>
-
-                    <div class="col-12 mt-3">
-                        <h5 class="text-center"; style="color:white"><b>Uploaded Documents:</b></h5>
-                        <h6 class="text-center mt-2" style="color:white" id="Transcript"></h6>
-                    </div>
-                    <div class="col-12">
-                        <h6 class="text-center mt-2" style="color:white" id="LetterOfRec"></h6>
-                    </div>
-                    <div class="col-12">
-                        <h6 class="text-center mt-2" style="color:white" id="Resume"></h6>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" style="background-color:#006565; color:white" class="btn" onclick="SignUpTutor()">Become A StreamTutor!<span id="loaderTutor" class="loaderTutor mt-1" style="display:block; margin-left:auto; margin-right:auto"></span></button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <script>CheckIfStudentOrTutorIsSigningUp()</script>
 
 <script>
     $("#info").tooltip();
     $("#collegeInfo").tooltip();
+    $("#transcript").tooltip();
+    $("#resume").tooltip();
 </script>
 
 <script>

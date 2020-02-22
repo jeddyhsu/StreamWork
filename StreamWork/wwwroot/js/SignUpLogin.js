@@ -42,7 +42,6 @@ function SignUpStudent() {
 function SignUpTutor() {
     var formData = new FormData();
     var transcript = document.getElementById("uploadTranscript").files;
-    var letterOfrec = document.getElementById("uploadLetterofrec").files;
     var resume = document.getElementById("uploadResume").files;
     var nameFirst = $("#nameFirstT").val();
     var nameLast = $("#nameLastT").val();
@@ -54,23 +53,7 @@ function SignUpTutor() {
     var college = $('#collegeT').val();
     var role = 'tutor';
 
-    var transcriptUpload = document.getElementById("Transcript");
-    var letterOfRecUpload = document.getElementById("LetterOfRec");
-    var resumeUpload = document.getElementById("Resume");
-
-    if (transcript.length != 1 || resume.length != 1 || letterOfrec.length != 1) {
-        if (transcript.length != 1)
-            transcriptUpload.innerHTML == "Transcript is required"
-        if (resume.length != 1)
-            letterOfRecUpload.innerHTML == "Resume is required"
-        if (resume.length != 1)
-            resumeUpload.innerHTML == "LOR is required"
-
-        return;
-    }
-
     formData.append("Transcript", transcript[0]);
-    formData.append("LetterOfRec", letterOfrec[0]);
     formData.append("Resume", resume[0]);
     formData.append("nameFirst", nameFirst);
     formData.append("nameLast", nameLast);
@@ -153,6 +136,8 @@ function RunTutorChecks() {
     var password = $('#passwordT').val();
     var confirmPassword = $('#passwordConfirmT').val();
     var college = $('#collegeT').val();
+    var transcript = document.getElementById("uploadTranscript").files;
+    var resume = document.getElementById("uploadResume").files;
 
     if (nameFirst == "" || nameLast == "" || email == "" || payPalAddress == "" || username == "" || password == "" || confirmPassword == "" || college == "") {
         OpenNotificationModal("Please fill out all fields");
@@ -178,6 +163,11 @@ function RunTutorChecks() {
         return;
     }
 
+    if (transcript.length != 1 || resume.length != 1) {
+        OpenNotificationModal("Please provide both a transcript and resume");
+        return;
+    }
+
     $.ajax({
         url: '/Home/SignUp',
         type: 'post',
@@ -187,7 +177,7 @@ function RunTutorChecks() {
         },
         success: function (data) {
             if (data.message === "Success") {
-                OpenCheckTutorModal();
+                SignUpTutor();
             } else {
                 OpenNotificationModal("It looks like that username is already taken")
             }
