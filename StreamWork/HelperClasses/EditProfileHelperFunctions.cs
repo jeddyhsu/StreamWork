@@ -23,7 +23,7 @@ namespace StreamWork.HelperClasses
                 var fileSplit = file.Name.Split(new char[] { '|' });
                 var profileCaption = fileSplit[0];
                 var profileParagraph = fileSplit[1];
-                var profilePicture =  _homeHelperFunctions.SaveIntoBlobContainer(_homeHelperFunctions.ResizeImage(file, 115, 150), file, userProfile.Id);
+                var profilePicture =  _homeHelperFunctions.SaveIntoBlobContainer(_homeHelperFunctions.ResizeImage(file, 240, 320), file, userProfile.Id);
 
                 userProfile.ProfileCaption = profileCaption != "NA" ? profileCaption : null;
                 userProfile.ProfilePicture = profilePicture;

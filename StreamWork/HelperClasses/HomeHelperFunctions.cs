@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
@@ -192,6 +193,12 @@ namespace StreamWork.HelperClasses
             var newImage = new Bitmap(width, height);
             using (var graphic = Graphics.FromImage(newImage))
             {
+                graphic.CompositingMode = CompositingMode.SourceCopy;
+                graphic.CompositingQuality = CompositingQuality.HighQuality;
+                graphic.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphic.SmoothingMode = SmoothingMode.HighQuality;
+                graphic.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
                 graphic.DrawImage(image, 0, 0, width, height);
             }
 
