@@ -96,18 +96,36 @@
                                 <input type="text" class="form-control mt-2" id="referrerName" style="display: none;" placeholder="Referrer Name">
                                 -->
                             <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
-                            <div class="upload-uploadbtn-wrapper">
-                                <button class="uploadbtn" style="font-size:14px; width:255px;">Transcript</button>
-                                <input id="uploadTranscript" type='file' accept="application/pdf" onchange="ReadFile(this, 'transcript')" />
-                            </div>
-                            <img id="transcript" src="~/images/info_icon.png" style="width: 24px; height: 24px; margin-top: 3px; margin-left:10px" data-toggle="tooltip" data-placement="right" title="Transcripts are used to verify that StreamTutors are maintaining A grades in the courses they are tutoring. StreamWork will not keep this document." />
+                            <table>
+                                <tr>
+                                    <th style="padding-right: 10px">
+                                        <div class="upload-uploadbtn-wrapper">
+                                            <button class="uploadbtn" style="font-size:14px; width:245px;">Transcript</button>
+                                            <input id="uploadTranscript" type='file' accept="application/pdf" onchange="ReadFile(this, 'transcript')" />
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <img id="transcript" src="~/images/info_icon.png" style="width: 24px; height: 24px;" data-toggle="tooltip" data-placement="right" title="Transcripts are used to verify that StreamTutors are maintaining A grades in the courses they are tutoring. StreamWork will not keep this document." />
+                                    </th>
+                                </tr>
+                            </table>
                             <h6 class="text-center mt-2" style="color:black" id="Transcript"></h6>
-                            <div class="upload-uploadbtn-wrapper">
-                                <button class="uploadbtn" style="font-size:14px; width:255px;">Resume</button>
-                                <input id="uploadResume" type='file' accept="application/pdf" onchange="ReadFile(this, 'resume')" />
-                            </div>
-                            <img id="resume" src="~/images/info_icon.png" style="width: 24px; height: 24px; margin-top: 3px; margin-left:10px" data-toggle="tooltip" data-placement="right" title="Resumes are used to verify that StreamTutors have some past tutoring expereince. StreamWork will not keep this document. " />
+
+                            <table>
+                                <tr>
+                                    <th style="padding-right: 10px">
+                                        <div class="upload-uploadbtn-wrapper" style="float:left">
+                                            <button class="uploadbtn" style="font-size:14px; width:245px;">Resume</button>
+                                            <input id="uploadResume" type='file' accept="application/pdf" onchange="ReadFile(this, 'resume')" />
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <img id="resume" src="~/images/info_icon.png" style="width: 24px; height: 24px; margin-top:8px;" data-toggle="tooltip" data-placement="right" title="Resumes are used to verify that StreamTutors have some past tutoring expereince. StreamWork will not keep this document. " />
+                                    </th>
+                                </tr>
+                            </table>
                             <h6 class="text-center mt-2" style="color:black" id="Resume"></h6>
+
                             <hr style="border-width: medium; margin-left: 40px; margin-right: 40px;" />
                             <strong>Login Type: Tutor</strong> &nbsp; &nbsp; &nbsp;
                             <br />
