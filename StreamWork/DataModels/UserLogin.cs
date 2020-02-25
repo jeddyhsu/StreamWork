@@ -17,6 +17,7 @@ namespace StreamWork.DataModels {
         public string ProfileCaption { get; set; }
         public string ProfilePicture { get; set; }
         public string ProfileParagraph { get; set; }
+        public string College { get; set; }
 
         //Students
         public decimal Balance { get; set; }
@@ -33,7 +34,8 @@ namespace StreamWork.DataModels {
         [Timestamp]
         public byte[] RowVersion { get; set; }
 
-        public virtual void Configure (EntityTypeBuilder<UserLogin> builder) {
+        public virtual void Configure(EntityTypeBuilder<UserLogin> builder)
+        {
 
         }
     }
