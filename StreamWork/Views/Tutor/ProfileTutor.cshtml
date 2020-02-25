@@ -7,52 +7,83 @@
 <script src="~/js/EditProfile.js"></script>
 <link rel="stylesheet" href="~/css/Tutor.css" />
 
-<div class="container-fluid" style="max-width:2400px">
-    <div class="card text-center border-0" style="color:white;">
-        <div class="card-body" style="background:linear-gradient(to bottom, white 13%, #008080 0%);">
-            <div class="col-12">
-                <input type="image" class="zoom" onclick="EditProfile()" src=@Model.UserProfile.ProfilePicture style="border-radius:5%; width:115px" />
-                <h1 class="card-title mt-4" style="font-size:24px; color:whitesmoke;font-family: 'Roboto Slab', serif;"><b>@Model.UserProfile.Name.Replace('|', ' ')</b></h1>
-                <p class="card-text" id="ProfileCaptionGreeting" style="font-size:16px; color:white">Welcome to StreamWork!</p>
-                <p class="card-text" id="ProfileParagraphGreeting" style="font-size:14px; color:white">StreamWork is very excited to have you onboard our amazing community of StreamTutors. If you haven't been verified yet feel free to edit your profile, explore other StreamTutors, or watch some livestreams.  We promise that your verification will be done soon and we can't wait for you to start streaming your tutoring sessions to our student viewers. Happy streaming!</p>
-                <p class="card-text" id="ProfileCaptionOnPage" style="font-size:16px; color:white">@Model.UserProfile.ProfileCaption</p>
-                <p class="card-text" id="ProfileParagraphOnPage" style="font-size:14px; color:white">@Model.UserProfile.ProfileParagraph</p>
-            </div>
-            <br />
-            <br />
-            <div class="row text-center" style="background-color:#008080;">
-                <div class="col-lg-3">
-                    <div class="card-body" style="background-color:#008080; border-bottom-left-radius:5px; height: 110px;">
-                        <h5 style="color:whitesmoke">Streams</h5>
-                        <h4 style="color:white">@Model.NumberOfStreams</h4>
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card text-center border-0" style="color:white;">
+                <div class="card-body" style="background:linear-gradient(to bottom, white 13%, #008080 0%);">
+                    <div class="col-12">
+                        <input type="image" class="zoom" onclick="EditProfile()" src=@Model.UserProfile.ProfilePicture style="border-radius:5%; width:115px" />
+                        <h1 class="card-title mt-4" style="font-size:24px; color:whitesmoke;font-family: 'Roboto Slab', serif;"><b>@Model.UserProfile.Name.Replace('|', ' ')</b></h1>
+                        <p class="card-text" id="ProfileCaptionGreeting" style="font-size:16px; color:white">Welcome to StreamWork!</p>
+                        <p class="card-text" id="ProfileParagraphGreeting" style="font-size:14px; color:white">StreamWork is very excited to have you onboard our amazing community of StreamTutors. If you haven't been verified yet feel free to edit your profile, explore other StreamTutors, or watch some livestreams.  We promise that your verification will be done soon and we can't wait for you to start streaming your tutoring sessions to our student viewers. Happy streaming!</p>
+                        <p class="card-text" id="ProfileCaptionOnPage" style="font-size:16px; color:white">@Model.UserProfile.ProfileCaption</p>
+                        <p class="card-text" id="ProfileParagraphOnPage" style="font-size:14px; color:white">@Model.UserProfile.ProfileParagraph</p>
                     </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="card-body" style="background-color:#008080;border-top-left-radius:0px; height: 110px;">
-                        <h5 style="color:whitesmoke">Donations</h5>
-                        <h4 style="color:white">$0</h4>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="card-body" style="background-color:#008080; border-bottom-right-radius:0px; height: 110px;">
-                        <h5 style="color:whitesmoke">Followers</h5>
-                        <h4 style="color:white">@Model.NumberOfFollowers</h4>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="card-body" style="background-color:#008080; border-bottom-right-radius:5px; height: 110px;">
-                        <button class="uploadbtn" style="display:block; margin-left:auto; margin-right:auto; border-radius:5px; cursor:pointer" onclick="OpenViewRecommendationsModal()">
-                            Recommendations
-                            @if (Model.Recommendations.Count > 0)
-                            {
-                                <div id="recommendationsBadge" class="badge badge-dark">@Model.Recommendations.Count</div>
-                            }
-                        </button>
+                    <br />
+                    <br />
+                    <div class="row text-center" style="background-color:#008080;">
+                        <div class="col-lg-4">
+                            <div class="card-body" style="background-color:#008080; border-bottom-left-radius:5px; height: 110px;">
+                                <h5 style="color:whitesmoke">Streams</h5>
+                                <h4 style="color:white">@Model.NumberOfStreams</h4>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="card-body" style="background-color:#008080;border-top-left-radius:0px; height: 110px;">
+                                <h5 style="color:whitesmoke">Donations</h5>
+                                <h4 style="color:white">$0</h4>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="card-body" style="background-color:#008080; border-bottom-right-radius:0px; height: 110px;">
+                                <h5 style="color:whitesmoke">Followers</h5>
+                                <h4 style="color:white">@Model.NumberOfFollowers</h4>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="col-lg-4" style="margin-top:65px;">
+            <div class="card" style="background-color:whitesmoke; height:440px; overflow-y:scroll">
+                <br />
+                <div class="card-title">
+                    <h2 class="text-center" ; style="color:black; font-family: 'Roboto Slab', serif;"><b>Recommendations</b></h2>
+                </div>
+                <hr />
+                @if (Model.Recommendations.Count == 0)
+                {
+                    <h4 class="m-3" style="color: black;">There are no recommendations available at this time.</h4>
+                }
+                else
+                {
+                    <div class="ul">
+                        @for (int i = 0; i < Model.Recommendations.Count; i++)
+                        {
+                            <div id="recommendation-@i" class="card my-2 m-2">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <h5 class="card-title">@Model.Recommendations[i].Student</h5>
+                                            <p class="card-text">@Model.Recommendations[i].Text</p>
+                                        </div>
+                                        <div class="col-4">
+                                            <button class="btn" style="width: 100%; height: 50px; background-color: #008080; color: white;" onclick="ClearRecommendation(@i, '@Model.Recommendations[i].Id')">Clear</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                }
+            </div>
+        </div>
     </div>
+
 </div>
 
 <br />
@@ -134,29 +165,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                @if (Model.Recommendations.Count == 0)
-                {
-                    <h4 style="color: white;">There are no recommendations available at this time.</h4>
-                }
-                else
-                {
-                    for (int i = 0; i < Model.Recommendations.Count; i++)
-                    {
-                        <div id="recommendation-@i" class="card my-2">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-8">
-                                        <h5 class="card-title">@Model.Recommendations[i].Student</h5>
-                                        <p class="card-text">@Model.Recommendations[i].Text</p>
-                                    </div>
-                                    <div class="col-4">
-                                        <button class="btn" style="width: 100%; height: 50px; background-color: #008080; color: white;" onclick="ClearRecommendation(@i, '@Model.Recommendations[i].Id')">Clear</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                }
+
             </div>
             <div class="modal-footer">
                 <button type="button" style="background-color: black; color: white;" class="btn" data-dismiss="modal">Close</button>
@@ -165,13 +174,11 @@
     </div>
 </div>
 
-<script>
-    $(document).ready(function () {
+<script>$(document).ready(function () {
         $("#nav").click(function () {
             $("#navbarText").slideToggle();
         });
-    });
-</script>
+    });</script>
 
 @if (Model.UserProfile.ProfileCaption == null && Model.UserProfile.ProfileParagraph == null && Model.UserProfile.AcceptedTutor == false)
 {
@@ -182,7 +189,5 @@ else
     <script>WriteTutorProfileCaptionAndParagraph()</script>
 }
 
-<script>
-    $("#info").tooltip();
-    $("#info2").tooltip()
-</script>
+<script>$("#info").tooltip();
+    $("#info2").tooltip()</script>
