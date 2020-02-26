@@ -20,7 +20,7 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> StreamPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamTutorUsername)
         {
             var channel = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, streamTutorUsername);
-            var chatBox = _homeHelperFunctions.GetChatSecretKey(channel[0].ChatId, HttpContext.User.Identity.Name);
+            var chatBox = await _homeHelperFunctions.GetChatSecretKey(storageConfig, channel[0].ChatId, HttpContext.User.Identity.Name);
 
             StreamPageViewModel model = new StreamPageViewModel
             {

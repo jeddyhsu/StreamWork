@@ -32,4 +32,7 @@
     <Folder Include="HelperClasses\" />
     <Folder Include="TutorObjects\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="ViewModels\ProfileTutorWatchViewModel.cs" />
+  </ItemGroup>
 </Project>
