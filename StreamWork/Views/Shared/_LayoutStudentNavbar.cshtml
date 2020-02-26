@@ -77,11 +77,13 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
             <div class="collapse navbar-collapse" id="navbarText">
                 <div class="col-lg-5">
                     <ul class="navbar-nav text-center">
-
                         <li class="nav-item ml-lg-3" style="font-size:17px;">
-                            <a class="nav-link underline" href="/Student/ProfileStudent" style="color:#008080;"><b>Live Streams</b></a>
+                            <a class="nav-link underline" href="/Student/ProfileStudent" style="color:#008080;"><b>My Page</b></a>
                         </li>
-                        <li class="nav-item ml-lg-3" style="font-size:17px; ">
+                        <li class="nav-item ml-lg-5" style="font-size:17px;">
+                            <a class="nav-link underline" href="/Student/LiveStreams" style="color:#008080;"><b>Live Streams</b></a>
+                        </li>
+                        <li class="nav-item ml-lg-5" style="font-size:17px; ">
                             <a class="nav-link underline" href="/Student/ArchivedStreams" style="color:#008080;"><b>Archived Streams</b></a>
                         </li>
                     </ul>
@@ -101,14 +103,14 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
                 <div class="col-lg-5">
                     @if (@Model.UserProfile == null)
                     {
-                        <ul class="nav navbar-nav d-none d-lg-block" style="float: none; margin: 0 auto; display: block; text-align: right;">
-                            <li class="nav-item mt-1" style="display: inline-block; float: none;">
-                                <a class="btn ml-4" style="color:#008080; font-size:17px; background-color:whitesmoke" onclick="window.location.href='/Home/PickStudentOrTutor'"><b>Sign Up</b></a>
-                            </li>
-                            <li class="nav-item mt-1" style="display: inline-block; float: none;">
-                                <a class="btn" style="background-color:#006565; font-size:17px; color:white" ; onclick="window.location.href='/Home/Login?dest=-Home-Profile'"><b>Login</b></a>
-                            </li>
-                        </ul>
+                    <ul class="nav navbar-nav d-none d-lg-block" style="float: none; margin: 0 auto; display: block; text-align: right;">
+                        <li class="nav-item mt-1" style="display: inline-block; float: none;">
+                            <a class="btn ml-4" style="color:#008080; font-size:17px; background-color:whitesmoke" onclick="window.location.href='/Home/PickStudentOrTutor'"><b>Sign Up</b></a>
+                        </li>
+                        <li class="nav-item mt-1" style="display: inline-block; float: none;">
+                            <a class="btn" style="background-color:#006565; font-size:17px; color:white" ; onclick="window.location.href='/Home/Login?dest=-Home-Profile'"><b>Login</b></a>
+                        </li>
+                    </ul>
                     }
                     else if (Model.UserProfile != null)
                     {
