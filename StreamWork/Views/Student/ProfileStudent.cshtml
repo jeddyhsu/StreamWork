@@ -28,17 +28,41 @@
     <br />
     <br />
     <div class="row">
-        <div class="col-1"></div>
-        <input type="image" runat="server" src="~/images/MathCard.png" style="width:10%; height:10%;" onclick="FilterStreams('Mathematics')" />
-        <input type="image" src="~/images/ScienceCard.png" style="width:10%; height:10%;" onclick="FilterStreams('Science')" />
-        <input type="image" src="~/images/EngineeringCard.png" style="width:10%; height:10%;" onclick="FilterStreams('Engineering')" />
-        <input type="image" src="~/images/BuisnessCard.png" style="width:10%; height:10%;" onclick="FilterStreams('Business')" />
-        <input type="image" src="~/images/LawCard.png" style="width:10%; height:10%;" onclick="FilterStreams('Law')" />
-        <input type="image" src="~/images/ArtCard.png" style="width:10%; height:10%;" onclick="FilterStreams('Art')" />
-        <input type="image" src="~/images/HumanitiesCard.png" style="width:10%; height:10%;" onclick="FilterStreams('Humanities')" />
-        <input type="image" src="~/images/OtherCard.png" style="width:10%; height:10%;" onclick="FilterStreams('Other')" />
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10 col-md-12 col-sm-12">
+            <form class="p-2" onsubmit="return searchStreams();" style="background-color: white; border-radius: 6px; box-shadow: 0px 0px 30px -10px">
+                <div class="row">
+                    <div class="col-lg-8 col-md-12 col-sm-12">
+                        <div>
+                            <input id="searchQuery" class="form-control form-control-lg mt-2 mb-2" type="search" placeholder="🔎 Homework topic..." style="border: none;">
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-12 col-sm-12">
+                        <select id="searchSubject" class="custom-select mt-2 mb-2" style="background-color: #006060; height:46px; color: white; font-size: 85%; font-weight: bold;">
+                            <option value="Any">All Subjects</option>
+                            <option value="Mathematics">Mathematics</option>
+                            <option value="Science">Science</option>
+                            <option value="Engineering">Engineering</option>
+                            <option value="Business">Business</option>
+                            <option value="Law">Law</option>
+                            <option value="Art">Art</option>
+                            <option value="Humanities">Humanities</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-1 col-md-12">
+                        <button class="btn btn-lg mt-2 mb-2" type="submit" style="color: white; background-color:#006060; height:46px; width:100px;margin-left:auto; margin-right:auto; display:block">
+                            <div>
+                                <div style="font-size: 70%; font-weight: bold;">Search</div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
+
 <br />
 <div class="container" style="width:100%;">
     <h2 class="text-center" style="font-family:'Roboto Slab', serif"><b>Live Streams</b><span class="ml-2"><img id="info" src="~/images/info_icon.png" style="width: 24px; height: 24px; margin-top: -5px;" data-toggle="tooltip" data-placement="right" title="Watch all your favorite educational livestreams here. The best part is that they are all free!" /></span></h2>

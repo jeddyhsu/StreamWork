@@ -20,7 +20,6 @@ namespace StreamWork.Controllers
 {
     public class HomeController : Controller
     {
-
         readonly HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
         readonly TutorHelperFunctions _tutorHelperFunctions = new TutorHelperFunctions();
         readonly FollowingHelperFunctions _followingHelperFunctions = new FollowingHelperFunctions();

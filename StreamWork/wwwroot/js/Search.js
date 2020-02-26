@@ -17,3 +17,13 @@ function searchArchives() {
     }
     return false;
 }
+
+function searchStreams() {
+    var searchSubject = $("#searchSubject").val();
+    if (searchSubject == "Any") {
+        window.location.href = '/Student/ProfileStudent?q=' + $("#searchQuery").val();
+    } else {
+        window.location.href = '/Student/ProfileStudent?s=' + searchSubject + '&q=' + $("#searchQuery").val();
+    }
+    return false;
+}

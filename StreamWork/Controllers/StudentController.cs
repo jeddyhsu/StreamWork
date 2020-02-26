@@ -16,7 +16,7 @@ namespace StreamWork.Controllers
         HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
 
         [HttpGet]
-        public async Task<IActionResult> ProfileStudent([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject)
+        public async Task<IActionResult> ProfileStudent([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, [FromQuery(Name = "s")] string s, [FromQuery(Name = "q")] string q)
         {
             var model = new UserProfile();
 
@@ -28,11 +28,8 @@ namespace StreamWork.Controllers
             model.FirstName = splitName[0];
             model.LastName = splitName[1];
 
-            ProfileStudentViewModel viewModel = new ProfileStudentViewModel
-            {
-                UserProfile = userProfile,
-                UserChannels = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.AllUserChannelsThatAreStreaming, "NULL"),
-            };
+            ProfileStudentViewModel viewModel = await _homeHelperFunctions.PopulateStudentProfile(storageConfig, s, q, HttpContext.User.Identity.Name);
+            viewModel.UserProfile = userProfile;
 
             return View(viewModel);
         }
