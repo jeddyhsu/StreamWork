@@ -77,9 +77,7 @@ namespace StreamWork.Controllers {
 
                 if (notification.Item_Name.Equals("SUBSCRIPTION")) {
                     // THIS CODE IS CURRENTLY OUT OF USE, BUT MIGHT BE USED IN THE FUTURE!
-                    // For future reference, it uses the user's username in the custom field to identify the payer.
-                    // This is a problem however, since subscription renewals (subscr_eot and subscr_payment) DO NOT keep this custom information.
-                    // Instead, you should save a copy of the PayPal email address when the user subscribes, and use that for further verification.
+                    // If you are debugging this code in the future, note that errors may occur when subscribed accounts no longer exist
                     subscription = true;
 
                     student = await homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, notification.Custom);
