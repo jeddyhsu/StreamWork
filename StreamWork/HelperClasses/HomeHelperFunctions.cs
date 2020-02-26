@@ -40,6 +40,13 @@ namespace StreamWork.HelperClasses
             return channels;
         }
 
+        //All user channels
+        public async Task<List<UserChannel>> GetUserChannels([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, QueryHeaders query)
+        {
+            var channels = await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, query.ToString());
+            return channels;
+        }
+
         //Gets a set of archived streams with the query that you specify
         public async Task<List<UserArchivedStreams>> GetArchivedStreams ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, QueryHeaders query, string user) {
             var archivedStreams = await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, query.ToString(), new List<string> { user });
@@ -67,6 +74,11 @@ namespace StreamWork.HelperClasses
         public async Task UpdateUser ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, UserLogin user) {
             await DataStore.DeleteAsync<UserLogin>(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", user.Id } });
             await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", user.Id } }, user);
+        }
+
+        private async Task<List<UserLogin>> GetPopularStreamTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
+            return await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, QueryHeaders.AllApprovedTutors.ToString());
         }
 
         public async Task<SubjectViewModel> PopulateSubjectPage ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject, string user) {
@@ -101,36 +113,7 @@ namespace StreamWork.HelperClasses
             return model;
         }
 
-        public async Task<ProfileStudentViewModel> PopulateArchivePage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject, string searchQuery, string user)
-        {
-            searchQuery = searchQuery == null ? "" : searchQuery.ToLower();
-            var archive = subject == null ? await GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos)
-                                          : await GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideosBasedOnSubject, subject);
-
-            ProfileStudentViewModel model = new ProfileStudentViewModel
-            {
-                UserArchivedStreams = (from a in archive select a).Where(a => a.StreamTitle.ToLower().Contains(searchQuery)).ToList(),
-                UserProfile = user == null ? null : await GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user),
-            };
-
-            return model;
-        }
-
-        public async Task<ProfileStudentViewModel> PopulateStudentProfile([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject, string searchQuery, string user)
-        {
-            searchQuery = searchQuery == null ? "" : searchQuery.ToLower();
-            var streams = subject == null ? await GetUserChannels(storageConfig, QueryHeaders.AllUserChannelsThatAreStreaming, "")
-                                          : await GetUserChannels(storageConfig, QueryHeaders.AllUserChannelsThatAreStreamingWithSpecifiedSubject, subject);
-
-            ProfileStudentViewModel model = new ProfileStudentViewModel
-            {
-                UserChannels = (from s in streams select s).Where(s => s.StreamTitle.ToLower().Contains(searchQuery)).ToList(),
-                UserProfile = user == null ? null : await GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user),
-            };
-
-            return model;
-        }
-
+       
         private string GetSubjectIcon (string subject) {
             string defaultURL = "";
 
@@ -193,11 +176,6 @@ namespace StreamWork.HelperClasses
             var formattedphrase = chatID.Split(new char[] { '\t' });
             var formattedChatID = formattedphrase[2].Split(new char[] { '\n' });
             return formattedphrase[1] + "|" + formattedChatID[0];
-        }
-
-        private async Task<List<UserLogin>> GetPopularStreamTutor ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
-
-            return await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, QueryHeaders.AllApprovedTutors.ToString());
         }
 
         public Image ResizeImage(IFormFile file, int width, int height)

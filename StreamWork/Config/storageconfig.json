@@ -43,9 +43,9 @@
                 "QueryId": "CurrentUserChannel"
             },
             {
-                "Query": "SELECT * FROM [dbo].[UserChannel] WHERE Id = '@x0'",
-                "QueryId": "CurrentUserChannelFromId"
-            }
+              "Query": "SELECT * FROM [dbo].[UserChannel] WHERE Id = '@x0'",
+              "QueryId": "CurrentUserChannelFromId"
+            },
         ]
     },
 

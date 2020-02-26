@@ -14,6 +14,7 @@ namespace StreamWork.Controllers
     public class StudentController : Controller
     {
         HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
+        StudentHelperFunctions _studentHelperFunctions = new StudentHelperFunctions();
 
         [HttpGet]
         public async Task<IActionResult> ProfileStudent([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, [FromQuery(Name = "s")] string s, [FromQuery(Name = "q")] string q)
@@ -28,7 +29,7 @@ namespace StreamWork.Controllers
             model.FirstName = splitName[0];
             model.LastName = splitName[1];
 
-            ProfileStudentViewModel viewModel = await _homeHelperFunctions.PopulateStudentProfile(storageConfig, s, q, HttpContext.User.Identity.Name);
+            ProfileStudentViewModel viewModel = await _studentHelperFunctions.PopulateProfileStudentPage(storageConfig, HttpContext.User.Identity.Name);
             viewModel.UserProfile = userProfile;
 
             return View(viewModel);
@@ -47,7 +48,7 @@ namespace StreamWork.Controllers
             model.FirstName = splitName[0];
             model.LastName = splitName[1];
 
-            ProfileStudentViewModel viewModel = await _homeHelperFunctions.PopulateStudentProfile(storageConfig, s, q, HttpContext.User.Identity.Name);
+            ProfileStudentViewModel viewModel = await _studentHelperFunctions.PopulateStudentLiveStreamsPage(storageConfig, s, q, HttpContext.User.Identity.Name);
             viewModel.UserProfile = userProfile;
 
             return View(viewModel);
@@ -60,7 +61,7 @@ namespace StreamWork.Controllers
             if (HttpContext.User.Identity.IsAuthenticated == false)
                 return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-Student-ArchivedStreams");
 
-            return View(await _homeHelperFunctions.PopulateArchivePage(storageConfig, s, q, HttpContext.User.Identity.Name));
+            return View(await _studentHelperFunctions.PopulateArchivePage(storageConfig, s, q, HttpContext.User.Identity.Name));
         }
 
         [HttpPost]
