@@ -34,7 +34,7 @@ namespace StreamWork.Controllers
                
             };
 
-            viewModel.ChatSecretKey = _homeHelperFunctions.GetChatSecretKey(viewModel.UserChannels[0].ChatId, User.Identity.Name);
+            viewModel.ChatSecretKey = await _homeHelperFunctions.GetChatSecretKey(storageConfig, viewModel.UserChannels[0].ChatId, User.Identity.Name);
 
             return View(viewModel);
         }
@@ -210,6 +210,24 @@ namespace StreamWork.Controllers
 
             return View(viewModel);
         }
+
+        public async Task<IActionResult> TutorWatch([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, [FromQuery(Name = "s")] string s, [FromQuery(Name = "q")] string q)
+        {
+            if (HttpContext.User.Identity.IsAuthenticated == false)
+                return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-Tutor-TutorStream");
+
+            ProfileTutorViewModel viewModel = new ProfileTutorViewModel
+            {
+                UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
+                UserLogins = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
+                UserChannels = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, User.Identity.Name),
+                UserArchivedVideos = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, User.Identity.Name),
+                SearchViewModel = await _homeHelperFunctions.PopulateSearchPage(storageConfig, s, q, HttpContext.User.Identity.Name)
+            };
+
+            return View(viewModel);
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> TutorSettings([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string name,

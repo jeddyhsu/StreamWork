@@ -171,7 +171,7 @@ namespace StreamWork.HelperClasses
                     UserChannel = userChannel[0],
                     UserArchivedStream = getArchivedStreams[0],
                     UserArchivedStreams = await GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos, null),
-                    ChatBox = GetChatSecretKey(userChannel[0].ChatId, currentUser)
+                    ChatBox = await GetChatSecretKey(storageConfig, userChannel[0].ChatId, currentUser)
                 };
 
                 return model;
@@ -183,7 +183,7 @@ namespace StreamWork.HelperClasses
                 UserLogin = userLoginForChannel[0],
                 UserChannel = streamingUserChannels[0],
                 UserArchivedStreams = await GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos, null),
-                ChatBox = GetChatSecretKey(streamingUserChannels[0].ChatId, currentUser)
+                ChatBox = await GetChatSecretKey(storageConfig, streamingUserChannels[0].ChatId, currentUser)
             };
 
             return channelModel;
@@ -286,11 +286,19 @@ namespace StreamWork.HelperClasses
             return uriBuilder.ToString();
         }
 
-        public string GetChatSecretKey(string chatId, string userName) //Overload for StreamPage
+        public async Task<string> GetChatSecretKey([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string chatId, string userName) //Overload for StreamPage
         {
             var split = chatId.Split("|");
             var tid = split[0];
             var tkey = split[1];
+            if (userName != null)
+            {
+                var userLogin = (await GetUserLogins(storageConfig, QueryHeaders.CurrentUser, userName))[0];
+                var _encodedUrl = HttpUtility.UrlEncode(Convert.ToBase64String(hmacSHA256("/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + tid + "&tkey=" + tkey + "&nme=" + userName + "&pic=" + userLogin.ProfilePicture, "3O08UU-OtQ_rycx3")));
+                var _finalString = "https://www6.cbox.ws" + "/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + tid + "&tkey=" + tkey + "&nme=" + userName + "&pic=" + userLogin.ProfilePicture + "&sig=" + _encodedUrl;
+                return _finalString;
+            }
+
             var encodedUrl = HttpUtility.UrlEncode(Convert.ToBase64String(hmacSHA256("/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + tid + "&tkey=" + tkey + "&nme=" + userName, "3O08UU-OtQ_rycx3")));
             var finalString = "https://www6.cbox.ws" + "/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + tid + "&tkey=" + tkey + "&nme=" + userName + "&sig=" + encodedUrl;
             return finalString;

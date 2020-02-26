@@ -35,6 +35,25 @@ namespace StreamWork.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> LiveStreams([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, [FromQuery(Name = "s")] string s, [FromQuery(Name = "q")] string q)
+        {
+            var model = new UserProfile();
+
+            if (HttpContext.User.Identity.IsAuthenticated == false)
+                return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-Student-ProfileStudent");
+
+            var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name);
+            var splitName = userProfile.Name.Split(new char[] { '|' });
+            model.FirstName = splitName[0];
+            model.LastName = splitName[1];
+
+            ProfileStudentViewModel viewModel = await _homeHelperFunctions.PopulateStudentProfile(storageConfig, s, q, HttpContext.User.Identity.Name);
+            viewModel.UserProfile = userProfile;
+
+            return View(viewModel);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> ArchivedStreams([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, [FromQuery(Name = "s")] string s, [FromQuery(Name = "q")] string q)
         {
             // s is subject, q is search query

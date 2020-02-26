@@ -20,5 +20,7 @@ namespace StreamWork.ViewModels {
 
         public List<Recommendation> Recommendations { get; set; }
         public List<Day> Schedule = new List<Day>();
+
+        public SearchViewModel SearchViewModel { get; set; }
     }
 }
