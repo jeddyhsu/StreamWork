@@ -69,7 +69,7 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
                 <ul class="navbar-nav d-lg-none d-sm-block" style="float: none; margin:0px; display: block; text-align: right;">
                     <li>
                         <div class="btn-group">
-                            <input type="image" onclick="Dashboard('@Model.UserProfile.ProfileType')" src=@Model.UserProfile.ProfilePicture style="width:32px; height:43px; border-radius:10px" />
+                            <input type="image" onclick="OpenLogoutModal()" src=@Model.UserProfile.ProfilePicture style="width:32px; height:43px; border-radius:10px" />
                         </div>
                     </li>
                 </ul>
@@ -115,28 +115,6 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
                     }
                     else if (Model.UserProfile != null)
                     {
-                        <ul class="navbar-nav mt-2 d-lg-none">
-                            <li>
-                                <div class="btn-group" style="position:relative; left:40%">
-                                    <input type="image" data-toggle="dropdown" src=@Model.UserProfile.ProfilePicture style="width:60px; height:76px; border-top-left-radius:5%; border-bottom-left-radius:5%; border-top-right-radius:0%; border-bottom-right-radius:0%" />
-                                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:#006060; border:none;"></button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#" id="EditProfile" onclick="Dashboard('@Model.UserProfile.ProfileType')">Dashboard</a>
-                                        <div class="dropdown-divider"></div>
-                                        @if (Model.UserProfile.ProfileType == "tutor")
-                                        {
-                                            <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Tutor/TutorSettings'">Settings</a>
-                                        }
-                                        else
-                                        {
-                                            <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Student/StudentSettings'">Settings</a>
-                                        }
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
                         <ul class="navbar-nav d-none d-lg-block" style="float: none; margin: 0 auto; display: block; text-align: right;">
                             <li>
                                 <div class="btn-group" style="position:relative; left:2%;">
@@ -175,6 +153,20 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
             </div>
         </div>
     </div>
+
+    @if (@Model.UserProfile != null)
+    {
+        <div id="logoutModal" class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="background-color: whitesmoke">
+                    <div class="modal-body">
+                        <a class="btn ml-3" style="color:#008080; font-size:17px; background-color:whitesmoke; display:block; margin-left:auto; margin-right:auto" onclick="Dashboard('@Model.UserProfile.ProfileType')"><b>Dashboard</b></a>
+                        <a class="btn ml-3" style="color:#008080; font-size:17px; background-color:whitesmoke; display:block; margin-left:auto; margin-right:auto" onclick="Logout()"><b>Logout</b></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 
     <div class="page-body">
         @RenderBody()

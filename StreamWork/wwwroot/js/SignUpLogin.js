@@ -405,6 +405,10 @@ function OpenLoginSignUpModal() {
     $('#loginSignUpModal').modal('show');
 }
 
+function OpenLogoutModal() {
+    $('#logoutModal').modal('show');
+}
+
 function OpenCheckStudentModal() {
     $('#checkStudentModal').modal('show');
 }
