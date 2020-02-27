@@ -80,13 +80,8 @@
                         <a class="btn" style="background-color:#006565; width:100px; font-size:15px; color:white; display:block; margin-left:auto; margin-right:auto" ; onclick="window.location.href='/Home/Login'"><b>Follow</b></a>
                     }
                     <a class="btn mt-1 mb-4" style="background-color:#006565; width:100px; font-size:15px; color:white; display:block; margin-left:auto; margin-right:auto" ; onclick="window.location.href='/Home/ProfileView?Tutor=@Model.UserLogin.Username'"><b>Profile</b></a>
-                    <p class="text-center mt-1 ml-3 mr-3 d-sm-none d-md-none d-lg-block d-none" style="font-family: 'Roboto Slab'; font-size:0.8vw">@Model.UserLogin.ProfileParagraph</p>
-                    <p class="text-center mt-1 d-sm-block d-md-block d-lg-none d-block" style="font-family: 'Roboto Slab'; font-size:12px">@Model.UserLogin.ProfileParagraph</p>
+                    <p class="text-center indexCaption" style="font-family: 'Roboto Slab';">@Model.UserLogin.ProfileParagraph</p>
                 </div>
-
-               
-
-
             </div>
             @if (Model.UserArchivedStream != null)
             {
@@ -312,4 +307,8 @@
     .subjectCard:hover {
         box-shadow: 10px 10px grey;
     }
+
+
+   
+
 </style>

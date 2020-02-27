@@ -1,9 +1,17 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using StreamWork.Config;
+using StreamWork.DataModels;
 
 namespace StreamWork.HelperClasses
 {
     public class FollowingHelperFunctions //All helper functions that have to with students following tutors
     {
+        readonly HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
+
         public string AddToListOfFollowedTutors(string id, string listOfFollwedTutors) //for students
         {
             if (listOfFollwedTutors == null)
@@ -84,6 +92,18 @@ namespace StreamWork.HelperClasses
             }
 
             return null;
+        }
+
+        public async Task<List<UserChannel>> GetFollowedTutors([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, UserLogin student)
+        {
+            List<UserChannel> followedTutors = new List<UserChannel>();
+            foreach(var tutor in student.FollowedStudentsAndTutors.Split("|"))
+            {
+                var tutorChannel = (await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannelFromId, tutor))[0];
+                followedTutors.Add(tutorChannel);
+            }
+
+            return followedTutors;
         }
 
         //public void SendOutEmailsToStudents(string streamName, string streamTime, string streamDate)

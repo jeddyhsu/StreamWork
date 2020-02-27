@@ -7,8 +7,7 @@
 <script src="~/js/EditProfile.js"></script>
 <link rel="stylesheet" href="~/css/Tutor.css" />
 
-<div class="container-fluid">
-
+<div class="container-fluid"  style="max-width:2400px">
     <div class="row">
         <div class="col-lg-8">
             <div class="card text-center border-0" style="color:white;">
@@ -47,13 +46,9 @@
             </div>
         </div>
 
-        <div class="col-lg-4" style="margin-top:65px;">
-            <div class="card" style="background-color:whitesmoke; height:440px; overflow-y:scroll">
-                <br />
-                <div class="card-title">
-                    <h2 class="text-center" ; style="color:black; font-family: 'Roboto Slab', serif;"><b>Recommendations</b></h2>
-                </div>
-                <hr />
+        <div class="col-lg-4" style="margin-top:30px;">
+            <h2 class="text-center" ; style="color:black; font-family: 'Roboto Slab', serif;"><b>Recommendations</b></h2>
+            <div class="card" style="background-color:white; border:none; height:385px; overflow-y:scroll">
                 @if (Model.Recommendations.Count == 0)
                 {
                     <h4 class="m-3" style="color: black;">There are no recommendations available at this time.</h4>

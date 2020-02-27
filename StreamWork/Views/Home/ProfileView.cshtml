@@ -20,6 +20,7 @@
                         <button id="UnfollowButton" type="button" style="font-size:12px; background-color:#007070; color:white" class="btn mt-3" onclick="UnfollowStreamTutor('@Model.UserChannels[0].Id')">Unfollow</button>
                     }
                     <h1 class="card-title mt-4" style="font-size:24px; color:whitesmoke;font-family: 'Roboto Slab', serif;"><b>@Model.StudentOrTutorProfile.Name.Replace('|', ' ')</b></h1>
+                    <h6 class="card-title mt-1" style="font-size:15px; color:white;font-family: 'Roboto Slab', serif;"><b>@Model.StudentOrTutorProfile.Username</b></h6>
                     <p class="card-text" style="font-size:16px; color:white">@Model.StudentOrTutorProfile.ProfileCaption</p>
                     <p class="card-text" style="font-size:14px; color:white">@Model.StudentOrTutorProfile.ProfileParagraph</p>
                 </div>

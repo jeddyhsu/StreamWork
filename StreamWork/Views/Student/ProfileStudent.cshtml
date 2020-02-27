@@ -49,28 +49,44 @@
     </div>
     <br />
     <hr />
-    <br />
 </div>
-
+@*
+    <div class="container">
+        <h5 class="text-center mt-3 mb-4" style="font-family: 'Roboto Slab', serif;">Followed StreamTutors</h5>
+        <div class="row">
+            @foreach (var tutor in Model.FollowedTutors)
+            {
+                <div class="col-lg-3">
+                    <div class="card pt-3 pd-3 zoom" style="display:block;background-color:whitesmoke;border:none" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@tutor.Username');">
+                        <div class="card-title" style="display:block; margin-left:auto; margin-right:auto">
+                            <input type="image" style="width:55px; height:75px; display:block; margin-left:auto; margin-right:auto; border-radius: 5%" src=@tutor.ProfilePicture />
+                            <h3 class="p-1 text-center" style="font-size:14px; color:black">@tutor.Username</h3>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <br />
+        <hr />
+        <br />
+    </div>
+*@
 <div class="container">
-    <h5 class="text-center mt-1" style="font-family: 'Roboto Slab', serif;">Popular Tutors</h5>
-    <br />
+    <h5 class="text-center mt-3 mb-4" style="font-family: 'Roboto Slab', serif;">Popular StreamTutors</h5>
     <div class="row">
         @foreach (var tutor in Model.UserLogins)
         {
-        <div class="col-lg-3">
-            <div class="card pt-3 pd-3 zoom" style="display:block;background-color:whitesmoke;border:none" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@tutor.Username');">
-                <div class="card-title" style="display:block; margin-left:auto; margin-right:auto">
-                    <input type="image" style="width:55px; height:75px; display:block; margin-left:auto; margin-right:auto; border-radius: 5%" src=@tutor.ProfilePicture />
-                    <h3 class="p-1 text-center" style="font-size:14px; color:black">@tutor.Name.Replace('|', ' ')</h3>
+            <div class="col-lg-3">
+                <div class="card pt-3 pd-3 zoom" style="display:block;background-color:whitesmoke;border:none" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@tutor.Username');">
+                    <div class="card-title" style="display:block; margin-left:auto; margin-right:auto">
+                        <input type="image" style="width:55px; height:75px; display:block; margin-left:auto; margin-right:auto; border-radius: 5%" src=@tutor.ProfilePicture />
+                        <h3 class="p-1 text-center" style="font-size:14px; color:black">@tutor.Username</h3>
+                    </div>
                 </div>
             </div>
-        </div>
-        
         }
     </div>
 </div>
-
 
 @if (Model.UserProfile.ProfileCaption == null && Model.UserProfile.ProfileParagraph == null && Model.UserProfile.AcceptedTutor == false)
 {
@@ -85,6 +101,7 @@ else
     $("#info2").tooltip()</script>
 
 <style>
+
     .underline:hover {
         text-decoration: underline;
     }
