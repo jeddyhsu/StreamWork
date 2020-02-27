@@ -387,6 +387,15 @@ lds-dual-ring {
     animation: spin 1s linear infinite;
 }
 
+.loaderStartStream {
+    border: 16px solid black; /* Light grey */
+    border-top: 16px solid #008080;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
 @keyframes spin {
     0% {
         transform: rotate(0deg);

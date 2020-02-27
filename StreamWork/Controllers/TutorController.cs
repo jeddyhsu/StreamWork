@@ -52,7 +52,7 @@ namespace StreamWork.Controllers
                 {
                     try
                     {
-                        var channelInfo = DataStore.CallAPI<ChannelAPI>("http://api.dacast.com/v2/channel/+"
+                        var channelInfo = DataStore.CallAPI<ChannelAPI>("http://api.dacast.com/v2/channel/"
                                                                          + channelKey
                                                                          + "?apikey="
                                                                          + _homeHelperFunctions._dacastAPIKey

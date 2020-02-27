@@ -20,8 +20,8 @@ function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail() {
         formData.append(streamInfo, 'No Thumbnail');
     }
 
-    document.getElementById('loaderStartStream').display = 'block';
-    document.getElementById('StartStream').display = 'none';
+    document.getElementById("StartStream").disabled = true;
+    document.getElementById('loaderStartStream').style.display = 'block';
 
     $.ajax({
         url: '/Tutor/TutorStream',
@@ -33,12 +33,11 @@ function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail() {
         success: function (data) {
             if (data.message === "Success") {
                  $('#registerStreamModal').modal('hide'),
-                 document.getElementById('loaderStartStream').display = 'none';
+                 document.getElementById('loaderStartStream').style.display = 'none';
                  alert("Your broadcast is visible to students!");
-
             }
             else {
-                alert("You must wait atleast five minutes in between streams");
+                alert("You must wait at least five minutes in between streams");
             }
         }
     });   
@@ -56,10 +55,10 @@ function ValidateKey() {
             if (data.message === "Success") {
                 $('#channelKeyModal').modal('hide')
                 $('#registerStreamModal').modal('show')
-                OpenNotificationModal("Key validated, welcome StreamTutor")
+                alert("Key validated, welcome StreamTutor")
             }
             else {
-                OpenNotificationModal("Invalid channel key, make sure you have entered the channel key correctley")
+                alert("Invalid channel key, make sure you have entered the channel key correctley")
             }
         }
     });
