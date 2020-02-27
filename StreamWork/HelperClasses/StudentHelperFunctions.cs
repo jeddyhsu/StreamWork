@@ -21,7 +21,7 @@ namespace StreamWork.HelperClasses
                 UserLogins = await _homeHelperFunctions.GetUserLogins(storageConfig,QueryHeaders.AllApprovedTutors,null),
                 UserProfile = user == null ? null : await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user),
                 UserArchivedStreams = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos),
-                FollowedTutors = await _followingHelperFunctions.GetFollowedTutors(storageConfig, studentProfile)
+                //FollowedTutors = await _followingHelperFunctions.GetFollowedTutors(storageConfig, studentProfile)
             };
 
             return model;

@@ -96,6 +96,7 @@ namespace StreamWork.HelperClasses
 
         public async Task<List<UserChannel>> GetFollowedTutors([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, UserLogin student)
         {
+            if (student.FollowedStudentsAndTutors == null) return null;
             List<UserChannel> followedTutors = new List<UserChannel>();
             foreach(var tutor in student.FollowedStudentsAndTutors.Split("|"))
             {
