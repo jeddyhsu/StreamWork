@@ -9,16 +9,18 @@
 
 <div class="container-fluid"  style="max-width:2400px">
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-7">
             <div class="card text-center border-0" style="color:white;">
                 <div class="card-body" style="background:linear-gradient(to bottom, white 13%, #008080 0%);">
-                    <div class="col-12">
-                        <input type="image" class="zoom" onclick="EditProfile()" src=@Model.UserProfile.ProfilePicture style="border-radius:5%; width:115px" />
-                        <h1 class="card-title mt-4" style="font-size:24px; color:whitesmoke;font-family: 'Roboto Slab', serif;"><b>@Model.UserProfile.Name.Replace('|', ' ')</b></h1>
-                        <p class="card-text" id="ProfileCaptionGreeting" style="font-size:16px; color:white">Welcome to StreamWork!</p>
-                        <p class="card-text" id="ProfileParagraphGreeting" style="font-size:14px; color:white">StreamWork is very excited to have you onboard our amazing community of StreamTutors. If you haven't been verified yet feel free to edit your profile, explore other StreamTutors, or watch some livestreams.  We promise that your verification will be done soon and we can't wait for you to start streaming your tutoring sessions to our student viewers. Happy streaming!</p>
-                        <p class="card-text" id="ProfileCaptionOnPage" style="font-size:16px; color:white">@Model.UserProfile.ProfileCaption</p>
-                        <p class="card-text" id="ProfileParagraphOnPage" style="font-size:14px; color:white">@Model.UserProfile.ProfileParagraph</p>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <input type="image" class="zoom" onclick="EditProfile()" src=@Model.UserProfile.ProfilePicture style="border-radius:5%; width:115px" />
+                            <h1 class="card-title mt-4" style="font-size:24px; color:whitesmoke;font-family: 'Roboto Slab', serif;"><b>@Model.UserProfile.Name.Replace('|', ' ')</b></h1>
+                            <p class="card-text" id="ProfileCaptionGreeting" style="font-size:16px; color:white">Welcome to StreamWork!</p>
+                            <p class="card-text" id="ProfileParagraphGreeting" style="font-size:14px; color:white">StreamWork is very excited to have you onboard our amazing community of StreamTutors. If you haven't been verified yet feel free to edit your profile, explore other StreamTutors, or watch some livestreams.  We promise that your verification will be done soon and we can't wait for you to start streaming your tutoring sessions to our student viewers. Happy streaming!</p>
+                            <p class="card-text" id="ProfileCaptionOnPage" style="font-size:16px; color:white">@Model.UserProfile.ProfileCaption</p>
+                            <p class="card-text" id="ProfileParagraphOnPage" style="font-size:14px; color:white">@Model.UserProfile.ProfileParagraph</p>
+                        </div>
                     </div>
                     <br />
                     <br />
@@ -46,7 +48,7 @@
             </div>
         </div>
 
-        <div class="col-lg-4" style="margin-top:30px;">
+        <div class="col-lg-5" style="margin-top:30px;">
             <h2 class="text-center" ; style="color:black; font-family: 'Roboto Slab', serif;"><b>Recommendations</b></h2>
             <div class="card" style="background-color:white; border:none; height:385px; overflow-y:scroll">
                 @if (Model.Recommendations.Count == 0)
