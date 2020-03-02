@@ -13,11 +13,11 @@ namespace StreamWork.Controllers
 {
     public class StudentController : Controller
     {
-        HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
-        StudentHelperFunctions _studentHelperFunctions = new StudentHelperFunctions();
+        readonly HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
+        readonly StudentHelperFunctions _studentHelperFunctions = new StudentHelperFunctions();
 
         [HttpGet]
-        public async Task<IActionResult> ProfileStudent([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, [FromQuery(Name = "s")] string s, [FromQuery(Name = "q")] string q)
+        public async Task<IActionResult> ProfileStudent([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
             var model = new UserProfile();
 
@@ -48,10 +48,12 @@ namespace StreamWork.Controllers
             model.FirstName = splitName[0];
             model.LastName = splitName[1];
 
-            ProfileStudentViewModel viewModel = await _studentHelperFunctions.PopulateStudentLiveStreamsPage(storageConfig, s, q, HttpContext.User.Identity.Name);
-            viewModel.UserProfile = userProfile;
-
-            return View(viewModel);
+            return View(new ProfileStudentViewModel
+            {
+                UserChannels = await _homeHelperFunctions.SearchUserChannels(storageConfig, s, q),
+                UserProfile = userProfile,
+                UserArchivedStreams = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos),
+            });
         }
 
         [HttpGet]
@@ -61,14 +63,17 @@ namespace StreamWork.Controllers
             if (HttpContext.User.Identity.IsAuthenticated == false)
                 return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-Student-ArchivedStreams");
 
-            return View(await _studentHelperFunctions.PopulateArchivePage(storageConfig, s, q, HttpContext.User.Identity.Name));
+            string user = HttpContext.User.Identity.Name;
+            return View(new ProfileStudentViewModel
+            {
+                UserArchivedStreams = await _homeHelperFunctions.SearchArchivedStreams(storageConfig, s, q),
+                UserProfile = user == null ? null : await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user),
+            });
         }
 
         [HttpPost]
         public async Task<IActionResult> ArchivedStreams([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject)
         {
-            var user = HttpContext.Session.GetString(QueryHeaders.UserProfile.ToString());
-
             ProfileStudentViewModel viewModel = new ProfileStudentViewModel
             {
                 UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),

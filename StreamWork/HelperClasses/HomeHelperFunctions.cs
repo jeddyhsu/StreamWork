@@ -76,13 +76,15 @@ namespace StreamWork.HelperClasses
             await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", user.Id } }, user);
         }
 
-        private async Task<List<UserLogin>> GetPopularStreamTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        public async Task<List<UserLogin>> GetPopularStreamTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
             return await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, QueryHeaders.AllApprovedTutors.ToString());
         }
 
-        public async Task<SubjectViewModel> PopulateSubjectPage ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject, string user) {
-            SubjectViewModel model = new SubjectViewModel {
+        public async Task<SubjectViewModel> PopulateSubjectPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject, string user)
+        {
+            SubjectViewModel model = new SubjectViewModel
+            {
                 UserChannels = await GetUserChannels(storageConfig, QueryHeaders.AllUserChannelsThatAreStreamingWithSpecifiedSubject, subject),
                 UserLogins = await GetPopularStreamTutor(storageConfig),
                 UserProfile = user != null ? await GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user) : null,
@@ -93,28 +95,59 @@ namespace StreamWork.HelperClasses
             return model;
         }
 
-        public async Task<SearchViewModel> PopulateSearchPage ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject, string searchQuery, string user) {
-            searchQuery = searchQuery == null ? "" : searchQuery.ToLower();
-            var streams = subject == null ? await GetUserChannels(storageConfig, QueryHeaders.AllUserChannelsThatAreStreaming, "")
-                                          : await GetUserChannels(storageConfig, QueryHeaders.AllUserChannelsThatAreStreamingWithSpecifiedSubject, subject);
-            var archive = subject == null ? await GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos)
-                                          : await GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideosBasedOnSubject, subject);
-
-            SearchViewModel model = new SearchViewModel {
-                PopularStreamTutors = await GetPopularStreamTutor(storageConfig),
-                StreamResults = (from s in streams select s).Where(s => s.StreamTitle.ToLower().Contains(searchQuery)).ToList(),
-                ArchiveResults = (from a in archive select a).Where(a => a.StreamTitle.ToLower().Contains(searchQuery)).ToList(),
-                UserProfile = user == null ? null : await GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user),
-                Subject = string.IsNullOrEmpty(subject) ? "All Subjects" : subject,
-                SearchQuery = searchQuery,
-                SubjectIcon = GetSubjectIcon(subject)
-            };
-
-            return model;
+        public async Task<List<UserChannel>> SearchUserChannels ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject, string searchQuery)
+        {
+            if (string.IsNullOrEmpty(subject))
+            {
+                if (string.IsNullOrWhiteSpace(searchQuery))
+                {
+                    return await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, QueryHeaders.AllUserChannelsThatAreStreaming.ToString(), new List<string> { "" });
+                }
+                else
+                {
+                    return await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, QueryHeaders.UserChannelsBySearchTerm.ToString(), new List<string> { searchQuery.ToLower() });
+                }
+            }
+            else
+            {
+                if (string.IsNullOrWhiteSpace(searchQuery))
+                {
+                    return await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, QueryHeaders.AllUserChannelsThatAreStreamingWithSpecifiedSubject.ToString(), new List<string> { subject });
+                }
+                else
+                {
+                    return await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, QueryHeaders.UserChannelsBySubjectAndSearchTerm.ToString(), new List<string> { subject, searchQuery.ToLower() });
+                }
+            }
         }
 
+        public async Task<List<UserArchivedStreams>> SearchArchivedStreams ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject, string searchQuery)
+        {
+            if (string.IsNullOrEmpty(subject))
+            {
+                if (string.IsNullOrWhiteSpace(searchQuery))
+                {
+                    return await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, QueryHeaders.AllArchivedVideos.ToString());
+                }
+                else
+                {
+                    return await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, QueryHeaders.ArchivedVideosBySearchTerm.ToString(), new List<string> { searchQuery.ToLower() });
+                }
+            }
+            else
+            {
+                if (string.IsNullOrWhiteSpace(searchQuery))
+                {
+                    return await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, QueryHeaders.UserArchivedVideosBasedOnSubject.ToString(), new List<string> { subject });
+                }
+                else
+                {
+                    return await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, QueryHeaders.ArchivedVideosBySubjectAndSearchTerm.ToString(), new List<string> { subject, searchQuery.ToLower() });
+                }
+            }
+        }
        
-        private string GetSubjectIcon (string subject) {
+        public string GetSubjectIcon (string subject) {
             string defaultURL = "";
 
             Hashtable defaultPic = new Hashtable

@@ -52,7 +52,17 @@ namespace StreamWork.Controllers
 
         public async Task<IActionResult> Search([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, [FromQuery(Name = "s")] string s, [FromQuery(Name = "q")] string q) {
             // s is subject, q is search query
-            return View(await _homeHelperFunctions.PopulateSearchPage(storageConfig, s, q, HttpContext.User.Identity.Name));
+            string user = HttpContext.User.Identity.Name;
+            return View(new SearchViewModel
+            {
+                PopularStreamTutors = await _homeHelperFunctions.GetPopularStreamTutor(storageConfig),
+                StreamResults = await _homeHelperFunctions.SearchUserChannels(storageConfig, s, q),
+                ArchiveResults = await _homeHelperFunctions.SearchArchivedStreams(storageConfig, s, q),
+                UserProfile = user == null ? null : await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user),
+                Subject = string.IsNullOrEmpty(s) ? "All Subjects" : s,
+                SearchQuery = q,
+                SubjectIcon = _homeHelperFunctions.GetSubjectIcon(s)
+            });
         }
 
         public async Task<IActionResult> BecomeTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
@@ -380,7 +390,7 @@ namespace StreamWork.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Logout([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string logout)
+        public async Task<IActionResult> Logout()
         {
             HttpContext.Session.Clear();
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

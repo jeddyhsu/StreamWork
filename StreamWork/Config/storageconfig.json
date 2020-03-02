@@ -30,22 +30,30 @@
       "Name": "UserChannel",
       "StorageType": "SqlServer",
         "Queries": [
-            {
-                "Query": "SELECT * FROM [dbo].[UserChannel] WHERE StreamSubject = '@x0'",
-                "QueryId": "AllUserChannelsThatAreStreamingWithSpecifiedSubject"
-            },
-            {
-                "Query": "SELECT * FROM [dbo].[UserChannel] WHERE StreamSubject != '@x0'",
-                "QueryId": "AllUserChannelsThatAreStreaming"
-            },
-            {
-                "Query": "SELECT * FROM [dbo].[UserChannel] WHERE Username = '@x0'",
-                "QueryId": "CurrentUserChannel"
-            },
-            {
-              "Query": "SELECT * FROM [dbo].[UserChannel] WHERE Id = '@x0'",
-              "QueryId": "CurrentUserChannelFromId"
-            }
+          {
+            "Query": "SELECT * FROM [dbo].[UserChannel] WHERE StreamSubject = '@x0'",
+            "QueryId": "AllUserChannelsThatAreStreamingWithSpecifiedSubject"
+          },
+          {
+            "Query": "SELECT * FROM [dbo].[UserChannel] WHERE StreamSubject != '@x0'",
+            "QueryId": "AllUserChannelsThatAreStreaming"
+          },
+          {
+            "Query": "SELECT * FROM [dbo].[UserChannel] WHERE Username = '@x0'",
+            "QueryId": "CurrentUserChannel"
+          },
+          {
+            "Query": "SELECT * FROM [dbo].[UserChannel] WHERE Id = '@x0'",
+            "QueryId": "CurrentUserChannelFromId"
+          },
+          {
+            "Query": "SELECT * FROM [dbo].[UserChannel] WHERE LOWER(StreamTitle) LIKE '%@x0%'",
+            "QueryId": "UserChannelsBySearchTerm"
+          },
+          {
+            "Query": "SELECT * FROM [dbo].[UserChannel] WHERE StreamSubject = '@x0' AND LOWER(StreamTitle) LIKE '%@x1%'",
+            "QueryId": "UserChannelsBySubjectAndSearchTerm"
+          }
         ]
     },
 
@@ -68,6 +76,14 @@
         {
           "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE StreamId = '@x0'",
           "QueryId": "ArchivedVideosByStreamId"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE LOWER(StreamTitle) LIKE '%@x0%'",
+          "QueryId": "ArchivedVideosBySearchTerm"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE StreamSubject = '@x0' AND LOWER(StreamTitle) LIKE '%@x1%'",
+          "QueryId": "ArchivedVideosBySubjectAndSearchTerm"
         }
       ]
     },

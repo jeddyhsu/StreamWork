@@ -28,5 +28,9 @@ namespace StreamWork.HelperClasses
         AllApprovedTutors,
         UserProfile,       //Use For Session
         RecommendationsByTutor,
+        UserChannelsBySearchTerm,
+        UserChannelsBySubjectAndSearchTerm,
+        ArchivedVideosBySearchTerm,
+        ArchivedVideosBySubjectAndSearchTerm,
     }
 }

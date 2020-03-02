@@ -221,7 +221,16 @@ namespace StreamWork.Controllers
                 UserLogins = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
                 UserChannels = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, User.Identity.Name),
                 UserArchivedVideos = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, User.Identity.Name),
-                SearchViewModel = await _homeHelperFunctions.PopulateSearchPage(storageConfig, s, q, HttpContext.User.Identity.Name)
+                SearchViewModel = new SearchViewModel
+                {
+                    PopularStreamTutors = await _homeHelperFunctions.GetPopularStreamTutor(storageConfig),
+                    StreamResults = await _homeHelperFunctions.SearchUserChannels(storageConfig, s, q),
+                    ArchiveResults = await _homeHelperFunctions.SearchArchivedStreams(storageConfig, s, q),
+                    UserProfile = User.Identity.Name == null ? null : await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
+                    Subject = string.IsNullOrEmpty(s) ? "All Subjects" : s,
+                    SearchQuery = q,
+                    SubjectIcon = _homeHelperFunctions.GetSubjectIcon(s)
+                }
             };
 
             return View(viewModel);
