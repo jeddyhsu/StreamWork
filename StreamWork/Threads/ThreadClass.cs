@@ -204,7 +204,7 @@ namespace StreamWork.Threads
 
         private VideoArchiveAPI GetArchivedVideo()
         {
-            var currentDate = DateTime.UtcNow;
+            var currentDate = DateTime.Now;
             var finalDate = currentDate.AddHours(GetHoursAheadBasedOnTimeZone()).ToString("ddd/MMM/dd/yyyy").Replace('/', ' ');
             var archivedVideos = DataStore.CallAPI<VideoArchiveAPI>("https://api.dacast.com/v2/vod?apikey="
                                                                      + _helperFunctions._dacastAPIKey

@@ -63,11 +63,11 @@ namespace StreamWork.HelperClasses
 
         public List<Day> GetTutorStreamSchedule(UserChannel channel)
         {
-            var todaysDate = DateTime.UtcNow;
+            var todaysDate = DateTime.UtcNow.AddHours(GetHoursAheadBasedOnTimeZone() - (GetHoursAheadBasedOnTimeZone() * 2));
 
             Schedule schedule = new Schedule();
 
-            schedule.Days.Add(todaysDate.ToShortDateString(), new Day(todaysDate));
+            schedule.Days.Add(todaysDate.ToString("MM/dd/yyyy"), new Day(todaysDate));
             schedule.Days.Add(todaysDate.AddDays(1.0).ToString("MM/dd/yyyy"), new Day(todaysDate.AddDays(1.0)));
             schedule.Days.Add(todaysDate.AddDays(2.0).ToString("MM/dd/yyyy"), new Day(todaysDate.AddDays(2.0)));
             schedule.Days.Add(todaysDate.AddDays(3.0).ToString("MM/dd/yyyy"), new Day(todaysDate.AddDays(3.0)));
@@ -263,6 +263,20 @@ namespace StreamWork.HelperClasses
         public async Task ClearRecommendation ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string id)
         {
             await DataStore.DeleteAsync<Recommendation>(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", id } });
+        }
+
+        private int GetHoursAheadBasedOnTimeZone()
+        {
+            TimeZoneInfo localZone = TimeZoneInfo.Local;
+            switch (localZone.DisplayName)
+            {
+                case "GMT-08:00": //PST
+                    return 8;
+                case "GMT-07:00": //MST
+                    return 7;
+            }
+
+            return 0;
         }
     }
 }
