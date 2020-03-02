@@ -63,7 +63,7 @@ namespace StreamWork.HelperClasses
 
         public List<Day> GetTutorStreamSchedule(UserChannel channel)
         {
-            var todaysDate = DateTime.Now;
+            var todaysDate = DateTime.UtcNow;
 
             Schedule schedule = new Schedule();
 
