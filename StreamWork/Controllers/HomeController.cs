@@ -115,6 +115,11 @@ namespace StreamWork.Controllers
             return list;
         }
 
+        private async Task<List<Payment>> GetPayments ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
+            return await DataStore.GetListAsync<Payment>(helperFunctions._connectionString, storageConfig.Value, "AllPayments");
+        }
+
         private async Task<List<UserLogin>> GetStudents ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
             List<UserLogin> list = new List<UserLogin>();
             var getCurrentUsers = await DataStore.GetListAsync<UserLogin>(helperFunctions._connectionString, storageConfig.Value, "AllSignedUpUsers", null);
@@ -207,10 +212,12 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> ControlPanel ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig) {
             var students = await GetStudents(storageConfig);
             var tutors = await GetPopularStreamTutors(storageConfig);
+            var payments = await GetPayments(storageConfig);
             return View(new ControlPanelViewModel {
                 Students = students,
-                Tutors = tutors
-            });
+                Tutors = tutors,
+                Payments = payments
+            });;
         }
 
         [HttpPost]
