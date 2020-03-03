@@ -51,27 +51,6 @@
         });
     }
 
-    function renew(user) {
-        $.ajax({
-            url: '/Home/RenewStudentSubscription',
-            type: 'post',
-            dataType: 'json',
-            data: {
-                'username': user
-            },
-            success: function (data) {
-                if (data.message === 'Success') {
-                    $('#' + user + '-trial').text('REFRESH');
-                    $('#' + user + '-expiration').text('REFRESH');
-                    $('#' + user + '-renew').remove();
-                }
-                else {
-                    alert('Error');
-                }
-            }
-        });
-    }
-
     function test() {
         $.ajax({
             url: '/Home/Test',
@@ -138,10 +117,6 @@
         <th>Username</th>
         <th>Name</th>
         <th>Email Address</th>
-        <th>PayPal</th>
-        <th>Trial Claimed</th>
-        <th>Subscription Expiration</th>
-        <th>Actions</th>
     </tr>
     @foreach (StreamWork.DataModels.UserLogin user in Model.Students)
     {
@@ -149,22 +124,6 @@
             <th>@user.Username</th>
             <th>@user.Name</th>
             <th>@user.EmailAddress</th>
-            <th>@user.PayPalAddress</th>
-            <th>
-                @if (user.TrialAccepted) {
-                    <div id="@user.Username-trial">True</div>
-                } else {
-                    <div id="@user.Username-trial">False</div>
-                }
-            </th>
-            <th>
-                <div id="@user.Username-expiration">@user.Expiration.ToShortDateString() @user.Expiration.ToLongTimeString()</div>
-            </th>
-            <th>
-                @if (user.Expiration.CompareTo(DateTime.UtcNow) < 0) {
-                    <button id="@user.Username-renew" onclick="renew('@user.Username');">Renew Subscription</button>
-                }
-            </th>
         </tr>
     }
 </table>
