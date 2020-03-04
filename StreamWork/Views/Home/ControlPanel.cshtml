@@ -11,9 +11,10 @@
 </style>
 
 <script>
-    function accept(user) {
+    function makeTutor(user) {
+        alert('test');
         $.ajax({
-            url: '/Home/AcceptTutor',
+            url: '/Home/MakeTutor',
             type: 'post',
             dataType: 'json',
             data: {
@@ -21,8 +22,71 @@
             },
             success: function (data) {
                 if (data.message === 'Success') {
+                    $('#' + user + '-username').text('REFRESH');
+                    $('#' + user + '-name').text('REFRESH');
+                    $('#' + user + '-emailAddress').text('REFRESH');
                     $('#' + user + '-accepted').text('REFRESH');
+                    $('#' + user + '-makeTutor').remove();
+                    $('#' + user + '-makeStudent').remove();
+                    $('#' + user + '-makeSuspended').remove();
+                }
+                else {
+                    alert('Error');
+                }
+            }
+        });
+    }
+
+    function makeStudent(user) {
+        $.ajax({
+            url: '/Home/MakeStudent',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                'username': user
+            },
+            success: function (data) {
+                if (data.message === 'Success') {
+                    $('#' + user + '-username').text('REFRESH');
+                    $('#' + user + '-name').text('REFRESH');
+                    $('#' + user + '-emailAddress').text('REFRESH');
+                    $('#' + user + '-payPalAddress').text('REFRESH');
+                    $('#' + user + '-accepted').text('REFRESH');
+                    $('#' + user + '-balance').text('RFERESH');
                     $('#' + user + '-accept').remove();
+                    $('#' + user + '-setZero').remove();
+                    $('#' + user + '-makeTutor').remove();
+                    $('#' + user + '-makeStudent').remove();
+                    $('#' + user + '-makeSuspended').remove();
+                }
+                else {
+                    alert('Error');
+                }
+            }
+        });
+    }
+
+    function makeSuspended(user) {
+        $.ajax({
+            url: '/Home/MakeSuspended',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                'username': user
+            },
+            success: function (data) {
+                if (data.message === 'Success') {
+                    $('#' + user + '-username').text('REFRESH');
+                    $('#' + user + '-name').text('REFRESH');
+                    $('#' + user + '-emailAddress').text('REFRESH');
+                    $('#' + user + '-payPalAddress').text('REFRESH');
+                    $('#' + user + '-accepted').text('REFRESH');
+                    $('#' + user + '-balance').text('RFERESH');
+                    $('#' + user + '-accept').remove();
+                    $('#' + user + '-setZero').remove();
+                    $('#' + user + '-makeTutor').remove();
+                    $('#' + user + '-makeStudent').remove();
+                    $('#' + user + '-makeSuspended').remove();
                 }
                 else {
                     alert('Error');
@@ -84,14 +148,25 @@
     @foreach (StreamWork.DataModels.UserLogin user in Model.Tutors)
     {
         <tr>
-            <th>@user.Username</th>
-            <th>@user.Name</th>
-            <th>@user.EmailAddress</th>
-            <th>@user.PayPalAddress</th>
             <th>
-                @if (user.AcceptedTutor) {
+                <div id="@user.Username-username">@user.Username</div>
+            </th>
+            <th>
+                <div id="@user.Username-name">@user.Name</div>
+            </th>
+            <th>
+                <div id="@user.Username-emailAddress">@user.EmailAddress</div>
+            </th>
+            <th>
+                <div id="@user.Username-payPalAddress">@user.PayPalAddress</div>
+            </th>
+            <th>
+                @if (user.AcceptedTutor)
+                {
                     <div id="@user.Username-accepted">True</div>
-                } else {
+                }
+                else
+                {
                     <div id="@user.Username-accepted">False</div>
                 }
             </th>
@@ -99,10 +174,14 @@
                 <div id="@user.Username-balance">@user.Balance</div>
             </th>
             <th>
-                @if (!user.AcceptedTutor) {
+                @if (!user.AcceptedTutor)
+                {
                     <button id="@user.Username-accept" onclick="accept('@user.Username');">Approve</button>
                 }
-                @if (user.Balance != 0) {
+                <button id="@user.Username-makeStudent" onclick="makeStudent('@user.Username');">Demote To Student</button>
+                <button id="@user.Username-makeSuspended" onclick="makeSuspended('@user.Username');">Suspend</button>
+                @if (user.Balance != 0)
+                {
                     <button id="@user.Username-setZero" onclick="setZero('@user.Username');">Set Amount Due to Zero</button>
                 }
             </th>
@@ -117,13 +196,64 @@
         <th>Username</th>
         <th>Name</th>
         <th>Email Address</th>
+        <th>Actions</th>
     </tr>
     @foreach (StreamWork.DataModels.UserLogin user in Model.Students)
     {
         <tr>
-            <th>@user.Username</th>
-            <th>@user.Name</th>
-            <th>@user.EmailAddress</th>
+            <th>
+                <div id="@user.Username-username">@user.Username</div>
+            </th>
+            <th>
+                <div id="@user.Username-name">@user.Name</div>
+            </th>
+            <th>
+                <div id="@user.Username-emailAddress">@user.EmailAddress</div>
+            </th>
+            <th>
+                <button id="@user.Username-makeTutor" onclick="makeTutor('@user.Username');">Promote to Tutor</button>
+                <button id="@user.Username-makeSuspended" onclick="makeSuspended('@user.Username');">Suspend</button>
+            </th>
+        </tr>
+    }
+</table>
+
+<br />
+<p>Suspended Accounts</p>
+<table>
+    <tr>
+        <th>Username</th>
+        <th>Name</th>
+        <th>Email Address</th>
+        <th>Approved Tutor</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (StreamWork.DataModels.UserLogin user in Model.Suspendeds)
+    {
+        <tr>
+            <th>
+                <div id="@user.Username-username">@user.Username</div>
+            </th>
+            <th>
+                <div id="@user.Username-name">@user.Name</div>
+            </th>
+            <th>
+                <div id="@user.Username-emailAddress">@user.EmailAddress</div>
+            </th>
+            <th>
+                @if (user.AcceptedTutor)
+                {
+                    <div id="@user.Username-accepted">True</div>
+                }
+                else
+                {
+                    <div id="@user.Username-accepted">False</div>
+                }
+            </th>
+            <th>
+                <button id="@user.Username-makeTutor" onclick="maketutor('@user.Username');">Promote to Tutor</button>
+                <button id="@user.Username-makeStudent" onclick="makeStudent('@user.Username');">Promote to Student</button>
+            </th>
         </tr>
     }
 </table>
