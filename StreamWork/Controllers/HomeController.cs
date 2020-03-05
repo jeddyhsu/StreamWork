@@ -273,6 +273,14 @@ namespace StreamWork.Controllers
         }
 
         [HttpPost]
+        public async Task<IActionResult> Delete([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string username)
+        {
+            var user = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
+            await helperFunctions.DeleteUser(storageConfig, user);
+            return Json(new { Message = "Success" });
+        }
+
+        [HttpPost]
         public async Task<IActionResult> ZeroTutorBalance ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string username)
         {
             var user = await helperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);

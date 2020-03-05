@@ -29,6 +29,7 @@
                     $('#' + user + '-makeTutor').remove();
                     $('#' + user + '-makeStudent').remove();
                     $('#' + user + '-makeSuspended').remove();
+                    $('#' + user + '-delete').remove();
                 }
                 else {
                     alert('Error');
@@ -52,12 +53,13 @@
                     $('#' + user + '-emailAddress').text('REFRESH');
                     $('#' + user + '-payPalAddress').text('REFRESH');
                     $('#' + user + '-accepted').text('REFRESH');
-                    $('#' + user + '-balance').text('RFERESH');
+                    $('#' + user + '-balance').text('REFRESH');
                     $('#' + user + '-accept').remove();
                     $('#' + user + '-setZero').remove();
                     $('#' + user + '-makeTutor').remove();
                     $('#' + user + '-makeStudent').remove();
                     $('#' + user + '-makeSuspended').remove();
+                    $('#' + user + '-delete').remove();
                 }
                 else {
                     alert('Error');
@@ -81,12 +83,37 @@
                     $('#' + user + '-emailAddress').text('REFRESH');
                     $('#' + user + '-payPalAddress').text('REFRESH');
                     $('#' + user + '-accepted').text('REFRESH');
-                    $('#' + user + '-balance').text('RFERESH');
+                    $('#' + user + '-balance').text('REFRESH');
                     $('#' + user + '-accept').remove();
                     $('#' + user + '-setZero').remove();
                     $('#' + user + '-makeTutor').remove();
                     $('#' + user + '-makeStudent').remove();
                     $('#' + user + '-makeSuspended').remove();
+                }
+                else {
+                    alert('Error');
+                }
+            }
+        });
+    }
+
+    function deleteUser(user) {
+        $.ajax({
+            url: '/Home/Delete',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                'username': user
+            },
+            success: function (data) {
+                if (data.message === 'Success') {
+                    $('#' + user + '-username').text('REFRESH');
+                    $('#' + user + '-name').text('REFRESH');
+                    $('#' + user + '-emailAddress').text('REFRESH');
+                    $('#' + user + '-accepted').text('REFRESH');
+                    $('#' + user + '-makeTutor').remove();
+                    $('#' + user + '-makeStudent').remove();
+                    $('#' + user + '-delete').remove();
                 }
                 else {
                     alert('Error');
@@ -253,6 +280,7 @@
             <th>
                 <button id="@user.Username-makeTutor" onclick="maketutor('@user.Username');">Promote to Tutor</button>
                 <button id="@user.Username-makeStudent" onclick="makeStudent('@user.Username');">Promote to Student</button>
+                <button id="@user.Username-delete" onclick="deleteUser('@user.Username');">Delete</button>
             </th>
         </tr>
     }
