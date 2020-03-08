@@ -271,7 +271,7 @@ namespace StreamWork.HelperClasses
             switch (localZone.DisplayName)
             {
                 case "GMT-08:00": //PST
-                    return 8;
+                    return 7;
                 case "GMT-07:00": //MST
                     return 7;
             }
