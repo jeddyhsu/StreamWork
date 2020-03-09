@@ -45,28 +45,28 @@ namespace StreamWork.Controllers
             var userChannel = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user);
             var userLogin = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user);
 
-            if (channelKey != null)
-            {
-                if (userChannel[0].ChannelKey == null)
-                {
-                    try
-                    {
-                        var channelInfo = DataStore.CallAPI<ChannelAPI>("http://api.dacast.com/v2/channel/"
-                                                                         + channelKey
-                                                                         + "?apikey="
-                                                                         + _homeHelperFunctions._dacastAPIKey
-                                                                         + "&_format=JSON");
-                        userChannel[0].ChannelKey = channelInfo.Id.ToString();
-                        await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel[0].Id } }, userChannel[0]);
-                        return Json(new { Message = JsonResponse.Success.ToString() });
-                    }
-                    catch (System.Net.WebException e)
-                    {
-                        e.ToString(); // Literally just did this to get rid of the warning
-                        return Json(new { Message = JsonResponse.Failed.ToString() });
-                    }
-                }
-            }
+            //if (channelKey != null)
+            //{
+            //    if (userChannel[0].ChannelKey == null)
+            //    {
+            //        try
+            //        {
+            //            var channelInfo = DataStore.CallAPI<ChannelAPI>("http://api.dacast.com/v2/channel/"
+            //                                                             + channelKey
+            //                                                             + "?apikey="
+            //                                                             + _homeHelperFunctions._dacastAPIKey
+            //                                                             + "&_format=JSON");
+            //            userChannel[0].ChannelKey = channelInfo.Id.ToString();
+            //            await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel[0].Id } }, userChannel[0]);
+            //            return Json(new { Message = JsonResponse.Success.ToString() });
+            //        }
+            //        catch (System.Net.WebException e)
+            //        {
+            //            e.ToString(); // Literally just did this to get rid of the warning
+            //            return Json(new { Message = JsonResponse.Failed.ToString() });
+            //        }
+            //    }
+            //}
 
             //Saves streamTitle, URl, and subject into sql database
             if (Request.Form.Files.Count != 0)
