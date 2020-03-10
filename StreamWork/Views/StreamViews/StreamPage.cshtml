@@ -8,9 +8,9 @@
         <div class="col-sm-12 col-md-12 col-lg-9 p-0">
             <iframe style="height:700px; width:100%" class="p-0" src="//iframe.dacast.com/b/135034/c/@Model.UserChannel.ChannelKey" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
             <div class="row">
-                <div class="col-6">
+                <div class="col-12">
                     <div class="m-3">
-                        <img class="ml-2 mb-2" src=@Model.UserChannel.ProfilePicture style="width:115px; height: 150px; border-radius:5%; float:left; margin-right:10px" />
+                        <img class="ml-2 mb-2" src=@Model.UserChannel.ProfilePicture style="width:115px; height: 150px; cursor:pointer; border-radius:5%; float:left; margin-right:10px" onclick="window.location.href='/Home/ProfileView?tutor=@Model.UserChannel.Username'" />
                         <h2 class="mt-1 ml-2" style="color:white; font-family:'Roboto Slab', serif;">@Model.UserChannel.StreamTitle<span></span></h2>
                         <h6 class="ml-4" style="color:lightgray"><b>@Model.UserChannel.Username</b></h6>
                         @if (Model.UserProfile != null)
@@ -28,14 +28,42 @@
                         }
                     </div>
                     </div>
-                <div class="col-6">
-                    <button class="uploadbtn mt-3 mr-2" style="font-family:'Roboto Slab', serif; cursor: pointer; display:block; margin-left:auto;  height:75px; width:50%;" onclick="window.location.href='/Home/Donate?tutor=@Model.UserChannel.Username'" onmouseover="">Donate<span><img style="height:26px; margin-bottom:10px" class="ml-2" src="https://img.icons8.com/pastel-glyph/64/000000/initiate-money-transfer--v1.png"></span></button>
-                    <button class="uploadbtn mt-2 mr-2" style="font-family:'Roboto Slab', serif; cursor: pointer; display:block; margin-left:auto;  height:75px; width:50%;" onclick="window.location.href='/Home/ProfileView?tutor=@Model.UserChannel.Username'" onmouseover="">Profile<span><img style="height:26px; margin-bottom:8px" class="ml-2" src="https://img.icons8.com/material/26/000000/name--v1.png"></span></button>
-                </div>
             </div>
         </div>
         <div class="col-sm-12 col-md-12 col-lg-3 p-0 m-0">
-            <iframe class="p-0" src=@Model.ChatBox style="width:100%; height:100vh; " allowtransparency="yes" allow="autoplay" frameborder="0" marginheigh="0" marginwidth="0" scrolling="auto"></iframe>
+            <button class="uploadbtn mb-2 mt-2 ml-1 mr-1" style="font-family:'Roboto Slab', serif; cursor: pointer; width:100%; background-color:#FFC04C; color:black; border:none; border-radius:3px" onclick="window.location.href='/Home/Donate?tutor=@Model.UserChannel.Username'" onmouseover="">Donate</button>
+            <button class="uploadbtn mb-2 ml-1 mr-1" style="font-family:'Roboto Slab', serif; cursor: pointer; width:100%; border-radius:3px" onclick="showSubmitRecommendationModal();" onmouseover="">Recommendation</button>
+            <iframe class="p-0" src=@Model.ChatBox style="width:100%; height:77vh;" allowtransparency="yes" allow="autoplay" frameborder="0" marginheigh="0" marginwidth="0" scrolling="auto"></iframe>
+        </div>
+    </div>
+</div>
+
+
+<div id="submitRecommendationModal" class="modal" tabindex="-2" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color: #008080;">
+            <div class="modal-header">
+                <h5 class="modal-title" style="color: white;">Submit a Recommendation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <textarea align="middle" class="form-control" id="submitRecommendationText" style="height:200px;"></textarea>
+                </form>
+            </div>
+            <div class="modal-footer">
+                @if (Model.UserProfile == null)
+                {
+                    <button type="button" style="background-color: black; color: white;" class="btn" data-dismiss="modal" onclick="submitRecommendation('Anonymous', '@Model.UserChannel.Username')">Submit</button>
+                }
+                else
+                {
+                    <button type="button" style="background-color: black; color: white;" class="btn" data-dismiss="modal" onclick="submitRecommendation('@Model.UserProfile.Username', '@Model.UserChannel.Username')">Submit</button>
+                }
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
 </div>
