@@ -105,7 +105,7 @@ namespace StreamWork.Controllers
         {
             if (currentPassword != null && newPassword != null && confirmPassword != null)
             {
-                var user = HttpContext.Session.GetString(QueryHeaders.UserProfile.ToString());
+                var user = HttpContext.User.Identity.Name;
                 var userLogin = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user);
 
                 if (_homeHelperFunctions.DecryptPassword(userLogin[0].Password, currentPassword) == userLogin[0].Password)

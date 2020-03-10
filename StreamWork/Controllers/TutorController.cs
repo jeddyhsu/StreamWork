@@ -41,7 +41,7 @@ namespace StreamWork.Controllers
         [HttpPost]
         public async Task<IActionResult> TutorStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string change, string channelKey)
         {
-            var user = HttpContext.Session.GetString(QueryHeaders.UserProfile.ToString());
+            var user = HttpContext.User.Identity.Name;
             var userChannel = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user);
             var userLogin = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user);
 
@@ -245,7 +245,7 @@ namespace StreamWork.Controllers
                                                                                                                      string newPassword,
                                                                                                                      string confirmPassword)
         {
-            var user = HttpContext.Session.GetString(QueryHeaders.UserProfile.ToString());
+            var user = HttpContext.User.Identity.Name;
             var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
 
             if (name != null || profileCaption != null || profileParagraph != null)
