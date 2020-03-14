@@ -231,4 +231,18 @@ function ClearRecommendation(index, id) {
     });
 }
 
+function DeleteStream(id) {
+    $.ajax({
+        url: '/Tutor/DeleteStream',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            'id': id,
+        },
+        success: function (data) {
+            $('#videoInfo-' + id).hide();
+        }
+    });
+}
+
 

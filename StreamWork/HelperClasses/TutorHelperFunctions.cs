@@ -265,6 +265,11 @@ namespace StreamWork.HelperClasses
             await DataStore.DeleteAsync<Recommendation>(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", id } });
         }
 
+        public async Task DeleteStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string id)
+        {
+            await DataStore.DeleteAsync<UserArchivedStreams>(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", id } });
+        }
+
         private int GetHoursAheadBasedOnTimeZone()
         {
             TimeZoneInfo localZone = TimeZoneInfo.Local;

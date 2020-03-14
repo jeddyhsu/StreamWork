@@ -210,6 +210,13 @@ namespace StreamWork.Controllers
             return View(viewModel);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> DeleteStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string id)
+        {
+            //await _tutorHelperFunctions.DeleteStream(storageConfig, id);
+            return Json(new { Message = JsonResponse.Success.ToString()});
+        }
+
         public async Task<IActionResult> TutorWatch([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, [FromQuery(Name = "s")] string s, [FromQuery(Name = "q")] string q)
         {
             if (HttpContext.User.Identity.IsAuthenticated == false)
