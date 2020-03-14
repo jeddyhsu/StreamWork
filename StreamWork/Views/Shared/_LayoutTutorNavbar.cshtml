@@ -184,18 +184,18 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
     @*Add Stream for scheduling system*@
     <div id="addScheduleModal" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
-            <div class="modal-content" style="background-color: black">
+            <div class="modal-content" style="background-color: whitesmoke">
                 <div class="modal-header">
-                    <h5 class="modal-title" style="color:white">Schedule Stream</h5>
+                    <h5 class="modal-title" style="color:black">Schedule Stream</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h4 class="text-center" style="color:white">Title</h4>
+                    <h4 class="text-center" style="color:black">Title</h4>
                     <input id="streamNameAdd" type="text" style="display:block; margin-right:auto; margin-left:auto; border-radius:5px" />
                     <br />
-                    <h4 class="text-center" style="color:white">Date & Time</h4>
+                    <h4 class="text-center" style="color:black">Date & Time</h4>
                     <div class="input-group date" id="datetimepickerAdd" data-target-input="nearest">
                         <input id="dateTimeAdd" type="text" class="form-control datetimepicker-input" data-target="#datetimepickerAdd" />
                         <div class="input-group-append" data-target="#datetimepickerAdd" data-toggle="datetimepicker">
@@ -204,7 +204,7 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="uploadbtn" style="display:block; margin-left:auto; margin-right:auto; border-radius:5px; cursor:pointer" onclick="AddStreamToSchedule()">Add Stream<span><img width="20" class="mb-1 ml-1" src="~/images/Plus48.png" /></span></button>
+                    <button class="btn btn-info" style="display:block; margin-left:auto; margin-right:auto; border-radius:5px; cursor:pointer" onclick="AddStreamToSchedule()">Add Stream</button>
                 </div>
             </div>
         </div>
@@ -213,18 +213,18 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
     @*Edit Stream for scheduling system*@
     <div id="editScheduleModal" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
-            <div class="modal-content" style="background-color: black">
+            <div class="modal-content" style="background-color: whitesmoke">
                 <div class="modal-header">
-                    <h5 id="Title" class="modal-title" style="color:white">Reschedule Or Remove Stream</h5>
+                    <h5 id="Title" class="modal-title" style="color:black">Reschedule or Remove Stream</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h4 class="text-center" style="color:white">Title</h4>
+                    <h4 class="text-center" style="color:black">Title</h4>
                     <input id="streamNameEdit" value="" type="text" style="display:block; margin-right:auto; margin-left:auto; border-radius:5px" />
                     <br />
-                    <h4 class="text-center" style="color:white">Date & Time</h4>
+                    <h4 class="text-center" style="color:black">Date & Time</h4>
                     <div class="input-group date" id="datetimepickerEdit" data-target-input="nearest">
                         <input id="dateTimeEdit" type="text" class="form-control datetimepicker-input" data-target="#datetimepickerEdit" />
                         <div class="input-group-append" data-target="#datetimepickerEdit" data-toggle="datetimepicker">
@@ -233,8 +233,8 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="uploadbtn" style="display:block; margin-left:auto; margin-right:auto; border-radius:5px; cursor:pointer" onclick="UpdateStreamSchedule()">Reschedule Stream</button>
-                    <button class="uploadbtn" style="display:block; margin-left:auto; margin-right:auto; border-radius:5px; cursor:pointer; color:red" onclick="RemoveStreamOnSchedule()">Remove Stream</button>
+                    <button class="btn btn-info" style="display:block; margin-left:auto; margin-right:auto; border-radius:5px; cursor:pointer" onclick="UpdateStreamSchedule()">Reschedule Stream</button>
+                    <button class="btn btn-danger" style="display:block; margin-left:auto; margin-right:auto; border-radius:5px; cursor:pointer; color:white" onclick="RemoveStreamOnSchedule()">Remove Stream</button>
                 </div>
             </div>
         </div>
