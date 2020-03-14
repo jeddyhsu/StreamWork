@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Options;
 using StreamWork.ViewModels;
 using StreamWork.Threads;
-using StreamWork.DaCastAPI;
 using StreamWork.HelperClasses;
 using System;
 
@@ -44,29 +43,6 @@ namespace StreamWork.Controllers
             var user = HttpContext.User.Identity.Name;
             var userChannel = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user);
             var userLogin = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user);
-
-            //if (channelKey != null)
-            //{
-            //    if (userChannel[0].ChannelKey == null)
-            //    {
-            //        try
-            //        {
-            //            var channelInfo = DataStore.CallAPI<ChannelAPI>("http://api.dacast.com/v2/channel/"
-            //                                                             + channelKey
-            //                                                             + "?apikey="
-            //                                                             + _homeHelperFunctions._dacastAPIKey
-            //                                                             + "&_format=JSON");
-            //            userChannel[0].ChannelKey = channelInfo.Id.ToString();
-            //            await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel[0].Id } }, userChannel[0]);
-            //            return Json(new { Message = JsonResponse.Success.ToString() });
-            //        }
-            //        catch (System.Net.WebException e)
-            //        {
-            //            e.ToString(); // Literally just did this to get rid of the warning
-            //            return Json(new { Message = JsonResponse.Failed.ToString() });
-            //        }
-            //    }
-            //}
 
             //Saves streamTitle, URl, and subject into sql database
             if (Request.Form.Files.Count != 0)
@@ -138,7 +114,7 @@ namespace StreamWork.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ProfileTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamName, DateTime dateTime, DateTime originalDateTime, bool remove) //StreamTask
+        public async Task<IActionResult> ProfileTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string remove)
         {
             var user = HttpContext.User.Identity.Name;
             var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
@@ -159,31 +135,39 @@ namespace StreamWork.Controllers
                     return Json(new { Message = JsonResponse.Success.ToString()});
             }
 
+            return Json(new { Message = JsonResponse.Failed.ToString()});
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> StreamCalendarUtil([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamName, DateTime dateTime, DateTime originalDateTime, bool remove) //StreamTask
+        {
+            var user = HttpContext.User.Identity.Name;
+            var userChannel = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user);
+
             //Adds streams to schedule
-            if(originalDateTime.Year == 1 && remove == false)
+            if (originalDateTime.Year == 1 && remove == false)
             {
-                var userChannel = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user);
-                if(await _tutorHelperFunctions.AddStreamTask(storageConfig, streamName, dateTime, userChannel[0]))
-                    return Json(new { Message = JsonResponse.Success.ToString()});
+                
+                if (await _tutorHelperFunctions.AddStreamTask(storageConfig, streamName, dateTime, userChannel[0]))
+                    return Json(new { Message = JsonResponse.Success.ToString() });
             }
 
             //Updates streams in schedule
             if (originalDateTime.Year != 1 && remove == false)
             {
-                var userChannel = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user);
-                if(await _tutorHelperFunctions.UpdateStreamTask(storageConfig, streamName, dateTime, originalDateTime, userChannel[0]))
-                    return Json(new { Message = JsonResponse.Success.ToString()});
+                if (await _tutorHelperFunctions.UpdateStreamTask(storageConfig, streamName, dateTime, originalDateTime, userChannel[0]))
+                    return Json(new { Message = JsonResponse.Success.ToString() });
             }
 
             //Removes streams in schedule
             if (originalDateTime.Year != 1 && remove)
             {
-                var userChannel = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user);
                 if (await _tutorHelperFunctions.RemoveStreamTask(storageConfig, streamName, originalDateTime, userChannel[0]))
-                    return Json(new { Message = JsonResponse.Success.ToString()});
+                    return Json(new { Message = JsonResponse.Success.ToString() });
             }
 
-            return Json(new { Message = JsonResponse.Failed.ToString()});
+            return Json(new { Message = JsonResponse.Failed.ToString() });
         }
 
         [HttpPost]

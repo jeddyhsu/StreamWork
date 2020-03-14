@@ -33,6 +33,7 @@ namespace StreamWork.HelperClasses
         public readonly string _blobconnectionString = "DefaultEndpointsProtocol=https;AccountName=streamworkblob;AccountKey=//JfVlcPLOyzT3vRHxlY1lJ4NUpduVfiTmuHJHK1u/0vWzP8V5YHPLkPPGD2PVxEwTdNirqHzWYSk7c2vZ80Vg==;EndpointSuffix=core.windows.net";
         public readonly string _dacastAPIKey = "135034_9245336a05f4d4bdb6fa";
         public readonly string _streamworkEmailID = "streamworktutor@gmail.com";
+        private readonly string _streamworkEmailPassword = "STREAMW0RK3R!";
 
         //Gets set of userchannels with the query that you specify
         public async Task<List<UserChannel>> GetUserChannels ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, QueryHeaders query, string user) {
@@ -95,7 +96,7 @@ namespace StreamWork.HelperClasses
             return model;
         }
 
-        public async Task<List<UserChannel>> SearchUserChannels ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject, string searchQuery)
+        public async Task<List<UserChannel>> SearchUserChannels([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject, string searchQuery)
         {
             if (string.IsNullOrEmpty(subject))
             {
@@ -271,7 +272,7 @@ namespace StreamWork.HelperClasses
         //sends to any email from streamworktutor@gmail.com provided the 'from' 'to' 'subject' 'body' & 'attachments' (if needed)
         public async Task SendEmailToAnyEmailAsync (string from, string to, string subject, string body, List<Attachment> attachments) {
             SmtpClient client = new SmtpClient("smtp.gmail.com", 587) {
-                Credentials = new NetworkCredential("streamworktutor@gmail.com", "STREAMW0RK3R!"),
+                Credentials = new NetworkCredential(_streamworkEmailID, _streamworkEmailPassword),
                 EnableSsl = true
             };
 

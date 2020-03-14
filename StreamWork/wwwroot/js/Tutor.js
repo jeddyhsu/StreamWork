@@ -75,7 +75,7 @@ function AddStreamToSchedule() {
     }
 
     $.ajax({
-        url: '/Tutor/ProfileTutor',
+        url: '/Tutor/StreamCalendarUtil',
         type: 'post',
         dataType: 'json',
         data: {
@@ -105,7 +105,7 @@ function UpdateStreamSchedule() {
     }
 
     $.ajax({
-        url: '/Tutor/ProfileTutor',
+        url: '/Tutor/StreamCalendarUtil',
         type: 'post',
         dataType: 'json',
         data: {
@@ -130,7 +130,7 @@ function RemoveStreamOnSchedule() {
     var originalDateTime = odt;
 
     $.ajax({
-        url: '/Tutor/ProfileTutor',
+        url: '/Tutor/StreamCalendarUtil',
         type: 'post',
         dataType: 'json',
         data: {
