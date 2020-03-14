@@ -213,7 +213,7 @@ namespace StreamWork.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string id)
         {
-            //await _tutorHelperFunctions.DeleteStream(storageConfig, id);
+            await _tutorHelperFunctions.DeleteStream(storageConfig, id);
             return Json(new { Message = JsonResponse.Success.ToString()});
         }
 

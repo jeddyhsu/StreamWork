@@ -1,5 +1,6 @@
 ﻿
 var oDT = "";
+var streamId = "";
 
 function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail() {
     var streamTitle = $('#streamTitle').val();
@@ -231,18 +232,25 @@ function ClearRecommendation(index, id) {
     });
 }
 
-function DeleteStream(id) {
+function DeleteStream() {
     $.ajax({
         url: '/Tutor/DeleteStream',
         type: 'POST',
         dataType: 'json',
         data: {
-            'id': id,
+            'id': streamId,
         },
         success: function (data) {
-            $('#videoInfo-' + id).hide();
+            $('#videoInfo-' + streamId).hide();
         }
     });
 }
+
+function OpenDeleteStreamModal(id) {
+    $('#deleteStreamModal').modal('show');
+    streamId = id
+}
+
+
 
 
