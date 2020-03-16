@@ -32,11 +32,4 @@
     <Folder Include="HelperClasses\" />
     <Folder Include="TutorObjects\" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="ViewModels\ProfileTutorWatchViewModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Remove="Views\Home\BecomeTutor.cshtml" />
-    <Content Remove="wwwroot\.DS_Store" />
-  </ItemGroup>
 </Project>
