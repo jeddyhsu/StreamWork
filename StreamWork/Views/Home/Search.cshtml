@@ -86,7 +86,14 @@
                 else
                 {
                     <div class="col-1"></div>
-                    <h3 class="m-4">No matches were found for your search</h3>
+                    @if (String.IsNullOrEmpty(Model.SearchQuery))
+                    {
+                        <h3 class="m-4">No StreamTutors are currently live-streaming this subject</h3>
+                    }
+                    else
+                    {
+                        <h3 class="m-4">No matches were found for your search</h3>
+                    }
                 }
             </div>
             <br />
@@ -127,7 +134,14 @@
                 else
                 {
                     <div class="col-1"></div>
-                    <h3 class="m-4">No matches were found for your search</h3>
+                    @if (String.IsNullOrEmpty(Model.SearchQuery))
+                    {
+                        <h3 class="m-4">There are no archived streams for this subject</h3>
+                    }
+                    else
+                    {
+                        <h3 class="m-4">No matches were found for your search</h3>
+                    }
                 }
             </div>
         </div>
