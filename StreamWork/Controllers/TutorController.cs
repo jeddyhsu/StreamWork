@@ -58,6 +58,7 @@ namespace StreamWork.Controllers
                 await handleStreams.StartRecordingStream();
                 handleStreams.RunVideoThread();
 
+
                 return Json(new { Message = JsonResponse.Success.ToString() });
             }
 
