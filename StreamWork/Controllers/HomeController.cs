@@ -260,6 +260,7 @@ namespace StreamWork.Controllers
                 TrialAccepted = false,
                 PayPalAddress = payPalAddress
             };
+            await _homeHelperFunctions.SendEmailToAnyEmailAsync(_homeHelperFunctions._streamworkEmailID, _homeHelperFunctions._streamworkEmailID, "We got a sign up!",signUpProfile.Name + " " + signUpProfile.ProfileType + " " + signUpProfile.EmailAddress, null);
             await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", signUpProfile.Id } }, signUpProfile);
 
             if (role == "tutor")
