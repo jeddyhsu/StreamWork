@@ -67,18 +67,20 @@ namespace StreamWork.Controllers
 
         public async Task<IActionResult> BecomeTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
-            DefaultViewModel viewModel;
+            PopularStreamTutorsViewModel viewModel;
             if (HttpContext.User.Identity.IsAuthenticated == true)
             {
-                viewModel = new DefaultViewModel
+                viewModel = new PopularStreamTutorsViewModel
                 {
                     UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name)
                 };
             }
             else
             {
-                viewModel = new DefaultViewModel { };
+                viewModel = new PopularStreamTutorsViewModel { };
             }
+            viewModel.PopularStreamTutors = await _homeHelperFunctions.GetPopularStreamTutor(storageConfig);
+
             return View(viewModel);
         }
 
