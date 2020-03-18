@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -282,6 +283,14 @@ namespace StreamWork.HelperClasses
             }
 
             return 0;
+        }
+
+        public async Task<bool> CheckIfChannelIsLive(string channelKey)
+        {
+            HttpClient httpClient = new HttpClient();
+            var response = await httpClient.GetAsync("https://c.streamhoster.com/link/hls/WxsdDM/mAe0epZsixC/" + channelKey + "/playlist.m3u8");
+            Console.WriteLine("Channel is live");
+            return true;
         }
     }
 }

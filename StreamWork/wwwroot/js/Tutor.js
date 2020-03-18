@@ -44,13 +44,13 @@ function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail() {
     });   
 }
 
-function ValidateKey() {
+function CheckIfStreamIsLive(channelKey) {
     $.ajax({
-        url: '/Tutor/TutorStream',
+        url: '/Tutor/CheckIfStreamIsLive',
         type: 'post',
         dataType: 'json',
         data: {
-            'channelKey': $('#channelKey').val()
+            'channelKey': channelKey
         },
         success: function (data) {
             if (data.message === "Success") {

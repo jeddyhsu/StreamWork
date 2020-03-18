@@ -38,7 +38,7 @@ namespace StreamWork.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> TutorStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string change, string channelKey)
+        public async Task<IActionResult> TutorStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string change)
         {
             var user = HttpContext.User.Identity.Name;
             var userChannel = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user);
@@ -175,6 +175,13 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> ClearRecommendation([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string id)
         {
             await _tutorHelperFunctions.ClearRecommendation(storageConfig, id);
+            return Json(new { Message = JsonResponse.Success.ToString() });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CheckIfStreamIsLive([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string channelKey)
+        {
+            await _tutorHelperFunctions.CheckIfChannelIsLive(channelKey);
             return Json(new { Message = JsonResponse.Success.ToString() });
         }
 
