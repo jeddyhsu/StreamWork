@@ -33,6 +33,8 @@ namespace StreamWork.DataModels
         //Both Tutors And Students
         public string FollowedStudentsAndTutors { get; set; }
 
+        public DateTime LastLogin { get; set; }
+
         [Timestamp]
         public byte[] RowVersion { get; set; }
 
