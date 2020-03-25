@@ -50,192 +50,7 @@ vbody{
     justify-content: center;
     margin:2%
 }
-.buttonStyle {
-    height: 35px;
-    border-radius: 5px;
-    width: 130px;
-    background-color: #008080;
-    color: white;
-    font-family: 'Roboto', sans-serif;
-    font-size:11px;
-    border:none;
-}
-.buttonStyleWhite {
-    height: 35px;
-    border-radius: 5px;
-    width: 130px;
-    background-color: #FFFFFF;
-    color: black;
-    font-family: 'Roboto', sans-serif;
-    font-size: 11px;
-    border: none;
-}
-.buttonInside {
-    position: relative;
-    margin-bottom: 10px;
-}
-.buttonStyle24 {
-    height: 50px;
-    border-radius: 5px;
-    width: 135px;
-    background-color: #008080;
-    color: white;
-    font-family: 'Roboto', sans-serif;
-    font-size: 11px;
-    border: none;
-}
-.buttonStyles1 {
-    height: 25px;
-    border-radius: 5px;
-    width: 75px;
-    background-color: #008080;
-    color: white;
-    font-family: 'Roboto', sans-serif;
-    font-size: 11px;
-    border: none;
-}
-.buttonStyles {
-    height: 35px;
-    border-radius: 5px;
-    width: 250px;
-    background-color: #008080;
-    color: white;
-    font-family: 'Roboto', sans-serif;
-    font-size: 11px;
-    border: none;
-}
-.buttonStyleStudent {
-    height: 20px;
-    border-radius: 5px;
-    width: 50px;
-    background-color: #008080;
-    color: white;
-    font-family: 'Roboto', sans-serif;
-    font-size:8px;
-    border: none;
-}
-.buttonStyleLogin {
-    height: 35px;
-    border-radius: 5px;
-    width: 115px;
-    background-color:white;
-    color: black;
-    font-family: 'Roboto', sans-serif;
-    font-size: 11px;
-    border-color: black;
-    border-width:thin
-}
-.buttonStyleLogin24 {
-    height: 50px;
-    border-radius: 5px;
-    width: 150px;
-    background-color: white;
-    color: black;
-    font-family: 'Roboto', sans-serif;
-    font-size: 11px;
-    border-color: black;
-    border-width: thin
-}
-.buttonStyletutor {
-    height: 35px;
-    border-radius: 5px;
-    width: 160px;
-    font-size: 10px;
-    background-color: #008080;
-    color: white;
-    font-family: 'Roboto', sans-serif;
-    font-size: 11px;
-    border: none;
-}
 
-.buttonStyleLearning {
-    height: 35px;
-    border-radius: 5px;
-    width: 170px;
-    background-color: transparent;
-    color: #008080;
-    font-family: 'Roboto', sans-serif;
-    font-size: 11px;
-    border: none;
-}
-.buttonStylePages{
-    height: 35px;
-    border-radius: 5px;
-    width: 130px;
-    background-color: transparent;
-    color: #008080;
-    font-family: 'Roboto', sans-serif;
-    font-size: 12px;
-    border: none;
-}
-.buttonStylePages2 {
-    height: 35px;
-    border-radius: 5px;
-    width: 170px;
-    background-color: transparent;
-    color: #008080;
-    font-family: 'Roboto', sans-serif;
-    font-size: 12px;
-    border: none;
-}
-
-.hr1 {
-    border: none;
-    border-left: 1px solid hsla(200, 10%, 50%,100);
-    height: 100vh;
-    width: 1px;
-}
-.dot {
-    height: 85px;
-    width: 85px;
-    border: 1px solid;
-    border-color: #000000;
-    border-radius:50%;
-    align-items:center;
-}
-.rectangle {
-    height: 175px;
-    width: 200px;
-    background-color: #bbb;
-}
-.hello {
-    height: 175px;
-    width: 200px;
-    background-color: #bbb;
-}
-.vl {
-    border-left: 1px solid black;
-    height: 40px;
-}
-.break{
-    word-wrap:break-word;
-}
-.test {
-    width: 270px;
-    height: 320px;
-    background-color: yellow;
-}
-.dot2 {
-    height: 85px;
-    width: 125px;
-    border: 1px solid;
-    border-color: #000000;
-    border-radius: 50%;
-    align-items: center;
-}
-.dot3 {
-    height: 55px;
-    width: 75px;
-    background-color: #bbb;
-    border-radius: 50%;
-}
-.dot4 {
-    height:60px;
-    width: 60px;
-    border: 1px solid;
-    border-color: #000000;
-    border-radius: 50%;
-}
 .topnav input[type=text] {
   width:400px;
   height:50px;
@@ -413,5 +228,51 @@ lds-dual-ring {
     .indexCaption {
         font-size: 14px;
     }
+}
+
+.indexCaption {
+    font-size: 11px;
+}
+
+@media screen and (min-width: 1200px) {
+    .indexCaption {
+        font-size: 14px;
+    }
+}
+
+.streamWorkPrimary {
+    border: none;
+    background-image: linear-gradient(#008080, #00B3B3);
+    color: #E6FFFF;
+    border-radius: 8px;
+    font-size: 22px;
+    padding: 8px 20px;
+}
+
+.streamWorkSecondary {
+    border: none;
+    background-image: linear-gradient(#B3FFFF, #E6FFFF);
+    color: #008080;
+    border-radius: 8px;
+    font-size: 22px;
+    padding: 8px 20px;
+}
+
+.streamWorkGrey {
+    border: none;
+    background-image: linear-gradient(#E8E8E8, #F7F7F7);
+    color: #808080;
+    border-radius: 8px;
+    font-size: 22px;
+    padding: 8px 22px;
+}
+
+.streamWorkGold {
+    border: none;
+    background-image: linear-gradient(#E6B800, #FFD11A);
+    color: #665200;
+    border-radius: 8px;
+    font-size: 22px;
+    padding: 8px 20px;
 }
 
