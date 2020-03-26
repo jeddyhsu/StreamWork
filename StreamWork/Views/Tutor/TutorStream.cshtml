@@ -64,7 +64,7 @@ else if (Model.UserChannels[0].StreamTitle == null && Model.UserChannels[0].Stre
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="background-color:whitesmoke">
                 <div class="modal-header">
-                    <h5 class="modal-title" style="color:black">Start Streaming<span><img id="info" src="~/images/info_icon.png" style="width: 24px; height: 24px; margin-top: -5px; margin-left:7px" data-toggle="tooltip" data-placement="right" title="This is where you start all of you streams!" /></span></h5>
+                    <h5 class="modal-title" style="color:black">Stream Settings<span><img id="info" src="~/images/info_icon.png" style="width: 24px; height: 24px; margin-top: -5px; margin-left:7px" data-toggle="tooltip" data-placement="right" title="This is where you start all of you streams!" /></span></h5>
                     <a class="mt-1" href="/Home/HowToStream" style="color:#008080">How to stream?</a>
                 </div>
                 <div class="modal-body">
@@ -83,19 +83,10 @@ else if (Model.UserChannels[0].StreamTitle == null && Model.UserChannels[0].Stre
                         <br />
                         <br />
                         <h5 style="color:black">Add A Custom Thumbnail</h5>
-                        <img id="previewThumbnail" src="~/images/MathDefault.png" alt="your image" style="width:100%; border-radius:10px" />
-                        <br />
-                        <br />
-                        <div class="row">
-                            <div class="col-3"></div>
-                            <div class=" col-6">
-                                <div class="upload-uploadbtn-wrapper">
-                                    <button class="uploadbtn">Upload a Thumbnail</button>
-                                    <input id="uploadThumbnail" type='file' value="~/images/MathDefault.png" onchange="readURL(this,'Thumbnail');" />
-                                </div>
-                            </div>
+                        <div class="upload-uploadbtn-wrapper">
+                            <img id="previewThumbnail" src="~/images/MathDefault.png" alt="your image" style="width:100%; border-radius:10px" />
+                            <input id="uploadThumbnail" type='file' value="~/images/MathDefault.png" onchange="readURL(this,'Thumbnail');" />
                         </div>
-
                     </form>
                 </div>
                 <div class="modal-footer">
