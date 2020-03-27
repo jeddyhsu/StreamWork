@@ -45,6 +45,8 @@ function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail() {
 }
 
 function CheckIfStreamIsLive(channelKey) {
+   
+
     $.ajax({
         url: '/Tutor/CheckIfStreamIsLive',
         type: 'post',
@@ -54,12 +56,10 @@ function CheckIfStreamIsLive(channelKey) {
         },
         success: function (data) {
             if (data.message === "Success") {
-                $('#channelKeyModal').modal('hide')
-                $('#registerStreamModal').modal('show')
-                alert("Key validated, welcome StreamTutor")
+                RegisterStreamTitleAndStreamSubjectAndCustomThumbanail();
             }
             else {
-                alert("Invalid channel key, make sure you have entered the channel key correctley")
+                alert("Looks like we can't see your stream preview. Make sure you have started on your encoder!")
             }
         }
     });

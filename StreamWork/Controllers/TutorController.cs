@@ -17,6 +17,7 @@ namespace StreamWork.Controllers
         readonly HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
         readonly TutorHelperFunctions _tutorHelperFunctions = new TutorHelperFunctions();
         readonly EditProfileHelperFunctions _editProfileHelperFunctions = new EditProfileHelperFunctions();
+        readonly ThreadClassHelperFunctions _threadClassHelperFunctions = new ThreadClassHelperFunctions();
 
         [HttpGet]
         public async Task<IActionResult> TutorStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
@@ -54,10 +55,7 @@ namespace StreamWork.Controllers
 
                 ThreadClass handleStreams = new ThreadClass(storageConfig, userChannel[0], userLogin[0], streamTitle, streamSubject, streamThumbnail);
 
-                await handleStreams.TurnRecordingOn();
-                await handleStreams.StartRecordingStream();
                 handleStreams.RunVideoThread();
-
 
                 return Json(new { Message = JsonResponse.Success.ToString() });
             }
@@ -74,8 +72,6 @@ namespace StreamWork.Controllers
 
                 ThreadClass handleStreams = new ThreadClass(storageConfig, userChannel[0], userLogin[0], streamTitle, streamSubject, _tutorHelperFunctions.GetCorrespondingDefaultThumbnail(streamSubject));
 
-                await handleStreams.TurnRecordingOn();
-                await handleStreams.StartRecordingStream();
                 handleStreams.RunVideoThread();
 
                 return Json(new { Message = JsonResponse.Success.ToString() });
@@ -179,10 +175,11 @@ namespace StreamWork.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CheckIfStreamIsLive([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string channelKey)
+        public IActionResult CheckIfStreamIsLive([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string channelKey)
         {
-            await _tutorHelperFunctions.CheckIfChannelIsLive(channelKey);
-            return Json(new { Message = JsonResponse.Success.ToString() });
+            bool response = _threadClassHelperFunctions.CheckIfUserChannelIsLive(channelKey);
+            if (response == true) return Json(new { Message = JsonResponse.Success.ToString() });
+            return Json(new { Message = JsonResponse.Failed.ToString() });
         }
 
         [HttpGet]

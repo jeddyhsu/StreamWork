@@ -6,6 +6,7 @@ using System.Net;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using Microsoft.EntityFrameworkCore;
 using StreamWork.Base;
 using StreamWork.Config;
@@ -177,20 +178,50 @@ namespace StreamWork.Core
         }
 
         //Takes Generic Type - use for any api that has json format
-        public static T CallAPI<T>(string URL)
+        public static object CallAPI<T>(string URL)
+        {
+            try
+            {
+                WebRequest webRequest = WebRequest.Create(URL);
+                webRequest.Credentials = CredentialCache.DefaultCredentials;
+                WebResponse response = webRequest.GetResponse();
+                Console.WriteLine(((HttpWebResponse)response).StatusDescription);
+
+                Stream dataStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(dataStream);
+
+                XmlSerializer serializer = new XmlSerializer(typeof(T));
+                //string serialized1 = reader.ReadToEnd();
+                var serialized = serializer.Deserialize(reader);
+                reader.Close();
+                response.Close();
+                return serialized;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.InnerException);
+            }
+
+            return null;
+        }
+
+        //Takes Generic Type - use for any api that has json format with authentication
+        public static T CallAPI<T>(string URL, string authenticationToken)
         {
             WebRequest webRequest = WebRequest.Create(URL);
+            webRequest.Headers.Add("Authorization", "Basic" + authenticationToken);
             webRequest.Credentials = CredentialCache.DefaultCredentials;
             WebResponse response = webRequest.GetResponse();
-            Console.WriteLine(((HttpWebResponse)response).StatusDescription);      
+            Console.WriteLine(((HttpWebResponse)response).StatusDescription);
             Stream dataStream = response.GetResponseStream();
             StreamReader reader = new StreamReader(dataStream);
             string responseFromServer = reader.ReadToEnd();
             reader.Close();
             response.Close();
             var API = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responseFromServer);
-            return API ;
+            return API;
         }
+
 
         //Use for just URL calls
         public static string GetChatID(string url)
