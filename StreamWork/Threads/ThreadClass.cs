@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using StreamHoster;
 using StreamWork.Config;
 using StreamWork.Core;
-using StreamWork.DaCastAPI;
 using StreamWork.DataModels;
 using StreamWork.HelperClasses;
 using StreamWork.StreamHoster;
@@ -24,7 +22,7 @@ namespace StreamWork.Threads
         readonly string _streamSubject;
         readonly string _streamThumbnail;
 
-        private string _latestVideoId;
+        private string _latestVideoId = "00000000";
 
         public ThreadClass(IOptionsSnapshot<StorageConfig> storageConfig, UserChannel userChannel, UserLogin userLogin, string streamTitle, string streamSubject, string streamThumbnail)
         {
@@ -37,15 +35,12 @@ namespace StreamWork.Threads
             _streamThumbnail = streamThumbnail;
         }
 
-        public bool RunVideoThread() //This thread handles checking if the stream is still live
+        public bool RunLiveThread()
         {
             bool tryAPI = true;
             var cancellationToken = new CancellationToken();
             var channelIds = _userChannel.ChannelKey;
-            var rssId = channelIds.Split("|")[1];
-
-            StreamHosterRSSFeed response = (StreamHosterRSSFeed)DataStore.CallAPI<StreamHosterRSSFeed>("https://c.streamhoster.com/feed/WxsdDM/mAe0epZsixC/" + rssId + "?format=mrss");
-            _latestVideoId = response.Channel.Item.Mediaid;
+            var channelKey = channelIds.Split("|")[0];
 
             Task.Factory.StartNew(async () =>
             {
@@ -66,15 +61,55 @@ namespace StreamWork.Threads
                     await Task.Delay(3000, cancellationToken);
                     try
                     {
+                        var response = DataStore.CallAPI<StreamHosterEndpoint>("https://a.streamhoster.com/v1/papi/media/stream/stat/realtime-stream?targetcustomerid=" + channelKey, "NjBjZDBjYzlkNTNlOGViZDc3YWYyZGE2ZDNhN2EyZjQ5YWNmODk1YTo=");
+                        if (response.Data.Length != 0)
+                            Console.WriteLine("Live");
+                        else
+                        {
+                            Console.WriteLine("Not Live");
+                            await ClearChannelStreamInfo();
+                            RunVideoThread();
+                            break;
+                        }
+                    }
+                    catch (IndexOutOfRangeException ex)
+                    {
+                        Console.WriteLine("Error in RunThread: " + ex.Message);
+                        tryAPI = true;
+                    }
+                }
+            }, TaskCreationOptions.LongRunning);
+         
+             return tryAPI;
+        }
+
+        public bool RunVideoThread() //This thread handles checking if the stream is still live
+        {
+            bool tryAPI = true;
+            var cancellationToken = new CancellationToken();
+            var channelIds = _userChannel.ChannelKey;
+            var rssId = channelIds.Split("|")[1];
+
+            StreamHosterRSSFeed initialResponse = (StreamHosterRSSFeed)DataStore.CallAPI<StreamHosterRSSFeed>("https://c.streamhoster.com/feed/WxsdDM/mAe0epZsixC/" + rssId + "?format=mrss");
+            if(initialResponse.Channel.Item != null)
+                _latestVideoId = initialResponse.Channel.Item.Mediaid;
+
+            Task.Factory.StartNew(async () =>
+            {
+                while (tryAPI)
+                {
+                    await Task.Delay(60000, cancellationToken);
+                    try
+                    {
                         StreamHosterRSSFeed response = (StreamHosterRSSFeed)DataStore.CallAPI<StreamHosterRSSFeed>("https://c.streamhoster.com/feed/WxsdDM/mAe0epZsixC/" + rssId + "?format=mrss");
-                        if (response.Channel.Item.Mediaid != _latestVideoId)
+                        if (response.Channel.Item != null && response.Channel.Item.Mediaid != _latestVideoId)
                         {
                             await ArchiveStream(response.Channel.Item.Mediaid);
                             await ClearChannelStreamInfo();
                             break;
                         }
                     }
-                    catch (IndexOutOfRangeException ex)
+                    catch (Exception ex)
                     {
                         Console.WriteLine("Error in RunThread: " + ex.Message);
                         tryAPI = true;

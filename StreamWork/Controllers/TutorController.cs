@@ -54,8 +54,7 @@ namespace StreamWork.Controllers
                 var streamThumbnail =  _homeHelperFunctions.SaveIntoBlobContainer(_homeHelperFunctions.ResizeImage(Request.Form.Files[0], 1280, 720), Request.Form.Files[0], userChannel[0].Id);
 
                 ThreadClass handleStreams = new ThreadClass(storageConfig, userChannel[0], userLogin[0], streamTitle, streamSubject, streamThumbnail);
-
-                handleStreams.RunVideoThread();
+                handleStreams.RunLiveThread();
 
                 return Json(new { Message = JsonResponse.Success.ToString() });
             }
@@ -71,8 +70,7 @@ namespace StreamWork.Controllers
                 var streamSubject = streamInfo[1];
 
                 ThreadClass handleStreams = new ThreadClass(storageConfig, userChannel[0], userLogin[0], streamTitle, streamSubject, _tutorHelperFunctions.GetCorrespondingDefaultThumbnail(streamSubject));
-
-                handleStreams.RunVideoThread();
+                handleStreams.RunLiveThread();
 
                 return Json(new { Message = JsonResponse.Success.ToString() });
             }

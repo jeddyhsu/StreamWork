@@ -180,7 +180,7 @@ namespace StreamWork.HelperClasses
             {
                 var userLogin = await GetUserLogins(storageConfig, QueryHeaders.CurrentUser, "admin");
                 var userChannel = await GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, "admin");
-                var getArchivedStreams = await GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos, null);
+                var getArchivedStreams = await GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, "admin");
 
                 IndexViewModel model = new IndexViewModel
                 {
