@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Cache;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -182,8 +183,14 @@ namespace StreamWork.Core
         {
             try
             {
+                HttpRequestCachePolicy policy = new HttpRequestCachePolicy(HttpRequestCacheLevel.Default);
+                HttpWebRequest.DefaultCachePolicy = policy;
+
                 WebRequest webRequest = WebRequest.Create(URL);
                 webRequest.Credentials = CredentialCache.DefaultCredentials;
+                HttpRequestCachePolicy noCachePolicy = new HttpRequestCachePolicy(HttpRequestCacheLevel.NoCacheNoStore);
+                webRequest.CachePolicy = noCachePolicy;
+
                 WebResponse response = webRequest.GetResponse();
                 Console.WriteLine(((HttpWebResponse)response).StatusDescription);
 

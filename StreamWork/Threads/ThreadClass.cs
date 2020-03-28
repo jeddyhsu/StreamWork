@@ -96,9 +96,11 @@ namespace StreamWork.Threads
 
             Task.Factory.StartNew(async () =>
             {
+                await Task.Delay(60000, cancellationToken);
+
                 while (tryAPI)
                 {
-                    await Task.Delay(60000, cancellationToken);
+                    await Task.Delay(30000, cancellationToken);
                     try
                     {
                         StreamHosterRSSFeed response = (StreamHosterRSSFeed)DataStore.CallAPI<StreamHosterRSSFeed>("https://c.streamhoster.com/feed/WxsdDM/mAe0epZsixC/" + rssId + "?format=mrss");
