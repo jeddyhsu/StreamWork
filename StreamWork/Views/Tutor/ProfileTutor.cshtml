@@ -127,7 +127,7 @@
             {
                 <div id="videoInfo-@videoInfo.Id" class="col-lg-4 col-md-6 col-sm-6">
                     <div class="card mt-3" style="border:none;background-color:transparent">
-                        <input type="image" style="width:100%; height:100%; border-top-left-radius:10px; border-top-right-radius:10px; border-bottom-left-radius:0px; border-bottom-right-radius:0px;" src=@videoInfo.StreamThumbnail onclick="window.location.href='../StreamViews/StreamPlaybackPage?streamId=@videoInfo.StreamID'">
+                        <a href="../StreamViews/StreamPlaybackPage?streamId=@videoInfo.StreamID"><img style="width:100%; height:100%; border-top-left-radius:10px; border-top-right-radius:10px; border-bottom-left-radius:0px; border-bottom-right-radius:0px;" src=@videoInfo.StreamThumbnail></a>
                         <div class="card-body p-0" style="background-color:black;">
                             <div class="row">
                                 <div class="col-10">

@@ -76,13 +76,13 @@
                     <h6 class="text-center mt-3" style="font-family: 'Roboto Slab', serif; color:black"><b>@Model.UserLogin.Name.Replace('|', ' ')</b></h6>
                     <p class="text-center mb-3 ml-3 mr-3" style="font-family: 'Roboto Slab'; font-size:12px">@Model.UserLogin.ProfileCaption</p>
                     @if(Model.UserArchivedStream != null){
-                        <a class="btn mt-1" style="background-color:#006565; width:100px; font-size:15px; color:white; display:block; margin-left:auto; margin-right:auto" ; onclick="window.location.href='../StreamViews/StreamPlaybackPage?streamId=@Model.UserArchivedStream.StreamID'"><b>Watch</b></a>
+                        <a class="btn mt-1" style="background-color:#006565; width:100px; font-size:15px; color:white; display:block; margin-left:auto; margin-right:auto;" href="../StreamViews/StreamPlaybackPage?streamId=@Model.UserArchivedStream.StreamID"><b>Watch</b></a>
                     }
                     else{
-                        <a class="btn mt-1" style="background-color:#006565; width:100px; font-size:15px; color:white; display:block; margin-left:auto; margin-right:auto" ; onclick="window.location.href = '../StreamViews/StreamPage?streamTutorUsername=' + ('@Model.UserChannel.Username')"><b>Watch</b></a>
+                        <a class="btn mt-1" style="background-color:#006565; width:100px; font-size:15px; color:white; display:block; margin-left:auto; margin-right:auto;" href="../StreamViews/StreamPage?streamTutorUsername=@Model.UserChannel.Username"><b>Watch</b></a>
                     }
 
-                    <a class="btn mt-1 mb-4" style="background-color:#006565; width:100px; font-size:15px; color:white; display:block; margin-left:auto; margin-right:auto" ; onclick="window.location.href='/Home/ProfileView?Tutor=@Model.UserLogin.Username'"><b>Profile</b></a>
+                    <a class="btn mt-1 mb-4" style="background-color:#006565; width:100px; font-size:15px; color:white; display:block; margin-left:auto; margin-right:auto;" href="/Home/ProfileView?Tutor=@Model.UserLogin.Username"><b>Profile</b></a>
                     <p class="text-center indexCaption" style="font-family: 'Roboto Slab';">@Model.UserLogin.ProfileParagraph</p>
                 </div>
             </div>
@@ -110,14 +110,14 @@
                 <div class="col-lg-6 col-md-6 mt-3 mb-3 p-0">
                     <div class="card" style="border-radius:5%; border:none;">
                         <iframe src="//iframe.dacast.com/b/135034/c/@Model.UserChannel.ChannelKey" style="border-top-left-radius:10px; border-top-right-radius:10px; min-width:250px; cursor:pointer" height="450" frameborder="0" scrolling="no"></iframe>
-                        <div class="card-body p-0" style="background-color:white; height:75px; border:none; cursor:pointer" onclick="window.location.href = '../StreamViews/StreamPage?streamTutorUsername=' + ('@Model.UserChannel.Username')">
+                        <a class="card-body p-0" style="background-color:white; height:75px; border:none; cursor:pointer" href="../StreamViews/StreamPage?streamTutorUsername=@Model.UserChannel.Username">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <h5 class="text-truncate" style="font-family: 'Roboto Slab'; font-size:20px; margin-left:20px; margin-top:10px;">@Model.UserChannel.StreamTitle</h5>
                                     <h6 class="text-truncate" style="font-family: 'Roboto Slab'; font-size:14px;margin-left:20px;">@Model.UserChannel.StreamSubject</h6>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 mt-3">
@@ -133,8 +133,8 @@
                 {
                     <div class="col-lg-3 col-md-6 col-sm-6 streamsubject @videoInfo.StreamSubject">
                         <div class="card mt-3" style="border:none; background-color:transparent">
-                            <input type="image" style="width:100%; height:100%; border-top-left-radius:10px; border-top-right-radius:10px; border-bottom-left-radius:0px; border-bottom-right-radius:0px; cursor:pointer" src=@videoInfo.StreamThumbnail onclick="window.location.href='../StreamViews/StreamPlaybackPage?streamId=@videoInfo.StreamID'">
-                            <div class="card-body p-0" style="background-color:black; border-bottom-left-radius:10px; border-bottom-right-radius:10px;" onclick="window.location.href='/Home/ProfileView?Tutor=' + ('@videoInfo.Username');">
+                            <a href="../StreamViews/StreamPlaybackPage?streamId=@videoInfo.StreamID"><img style="width:100%; height:100%; border-top-left-radius:10px; border-top-right-radius:10px; border-bottom-left-radius:0px; border-bottom-right-radius:0px; cursor:pointer" src=@videoInfo.StreamThumbnail></a>
+                            <a class="card-body p-0" style="background-color:black; border-bottom-left-radius:10px; border-bottom-right-radius:10px;" href="/Home/ProfileView?Tutor=@videoInfo.Username">
                                 <div class="row">
                                     <div class="col-12">
                                         <input type="image" style="border-radius:5%; width:50px; margin-left:10px; margin-top:10px; margin-bottom:10px; height:60px; float:left" src=@videoInfo.ProfilePicture />
@@ -142,7 +142,7 @@
                                         <h6 class="text-truncate" style="font-family: 'Roboto'; font-size:14px; color:white; margin-left:80px;">@videoInfo.Username</h6>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
                 }
@@ -159,13 +159,13 @@
         <div class="row p-4">
             <div class="col-lg-10 col-md-12">
                 <div>
-                    <img class="ml-3" src="~/images/pencil.svg" onclick="window.location.href='/'" onmouseover="" style="cursor: pointer; float:left; margin-right:20px;  height:7.5vh" />
+                    <a href="/"><img class="ml-3" src="~/images/pencil.svg" style="float:left; margin-right:20px;  height:7.5vh" /></a>
                     <h3 class="mt-3 ml-3" style="font-family: 'Roboto Slab', serif; color:black"><b>Watch and learn from LIVE A+ tutors for FREE!</b></h3>
                     <p>Interested in getting schooled by your friends and classmates?</p>
                 </div>
             </div>
             <div class="col-lg-2 col-md-12 mt-3">
-                <button class="streamWorkPrimary" style="font-family:'Roboto Slab', serif; cursor: pointer;" onclick="window.location.href='/Home/PickStudentOrTutor'" onmouseover="">Sign me up! 🙋🏻‍♀️</button>
+                <a href="/Home/PickStudentOrTutor"><button class="streamWorkPrimary" style="font-family:'Roboto Slab', serif; cursor: pointer;">Sign me up! 🙋🏻‍♀️</button></a>
             </div>
         </div>
     </div>
@@ -183,30 +183,30 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 col-6" align="center">
-                    <input class="zoom" type="image" src="~/images/MathCard.png" style="width:90%; height:100%; cursor: pointer;" ; onclick="window.location.href='/Home/Subject?s=Mathematics'" onmouseover="" />
+                    <a href="/Home/Subject?s=Mathematics"><img class="zoom" src="~/images/MathCard.png" style="width:90%; height:100%; cursor: pointer;" onmouseover="" /></a>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-6 col-6" align="center">
-                    <input class="zoom" type="image" src="~/images/ScienceCard.png" style="width:90%; height:100%; cursor: pointer;" onclick="window.location.href='/Home/Subject?s=Science'" onmouseover="" />
+                    <a href="/Home/Subject?s=Science"><img class="zoom" src="~/images/ScienceCard.png" style="width:90%; height:100%; cursor: pointer;" onmouseover="" /></a>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-6 col-6" align="center">
-                    <input class="zoom" type="image" src="~/images/EngineeringCard.png" style="width:90%; height:100%; cursor: pointer;" onclick="window.location.href='/Home/Subject?s=Engineering'" onmouseover="" />
+                    <a href="/Home/Subject?s=Engineering"><img class="zoom" src="~/images/EngineeringCard.png" style="width:90%; height:100%; cursor: pointer;" onmouseover="" /></a>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-6 col-6" align="center">
-                    <input class="zoom" type="image" src="~/images/BuisnessCard.png" style="width:90%; height:100%; cursor: pointer;" onclick="window.location.href='/Home/Subject?s=Business'" onmouseover="" />
+                    <a href="/Home/Subject?s=Business"><img class="zoom" src="~/images/BuisnessCard.png" style="width:90%; height:100%; cursor: pointer;" onmouseover="" /></a>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-3 col-md-3 col-sm-6 col-6 mt-2" align="center">
-                    <input class="zoom" type="image" src="~/images/LawCard.png" style="width:90%; height:100%; cursor: pointer;" onclick="window.location.href='/Home/Subject?s=Law'" onmouseover="" />
+                    <a href="/Home/Subject?s=Law"><img class="zoom" src="~/images/LawCard.png" style="width:90%; height:100%; cursor: pointer;" onmouseover="" /></a>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-6 col-6 mt-2" align="center">
-                    <input class="zoom" type="image" src="~/images/ArtCard.png" style="width:90%; height:100%; cursor: pointer;" onclick="window.location.href='/Home/Subject?s=Art'" onmouseover="" />
+                    <a href="/Home/Subject?s=Art"><img class="zoom" src="~/images/ArtCard.png" style="width:90%; height:100%; cursor: pointer;" onmouseover="" /></a>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-6 col-6 mt-2" align="center">
-                    <input class="zoom" type="image" src="~/images/HumanitiesCard.png" style="width:90%; height:100%; cursor: pointer;" onclick="window.location.href='/Home/Subject?s=Humanities'" onmouseover="" />
+                    <a herf="/Home/Subject?s=Humanities"><img class="zoom" src="~/images/HumanitiesCard.png" style="width:90%; height:100%; cursor: pointer;" onmouseover="" /></a>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-6 col-6 mt-2" align="center">
-                    <input class="zoom" type="image" src="~/images/OtherCard.png" style="width:90%; height:100%; cursor: pointer;" onclick="window.location.href='/Home/Subject?s=Other'" onmouseover="" />
+                    <a href="/Home/Subject?s=Other"><img class="zoom" src="~/images/OtherCard.png" style="width:90%; height:100%; cursor: pointer;" onmouseover="" /></a>
                 </div>
             </div>
         </div>
@@ -218,13 +218,13 @@
         <div class="row p-4">
             <div class="col-lg-10 col-md-12">
                 <div>
-                    <img class="ml-3" src="~/images/Tutor.png" onclick="window.location.href='/'" onmouseover="" style="cursor: pointer; float:left; margin-right:20px; height:8vh" />
+                    <a href="/Tutor/ProfileTutor"><img class="ml-3" src="~/images/Tutor.png" onmouseover="" style="cursor: pointer; float:left; margin-right:20px; height:8vh" /></a>
                     <h3 class="mt-3 ml-3" style="font-family: 'Roboto Slab', serif; color:black"><b>Best perks of becoming a StreamTutor?</b></h3>
                     <p>For a limited time, StreamTutors get paid $5 for every 15+ minute tutoring session streamed.</p>
                 </div>
             </div>
             <div class="col-lg-2 col-md-12 mt-3">
-                <button class="streamWorkSecondary" style="font-family:'Roboto Slab', serif; cursor: pointer; font-size:21px" onclick="window.location.href='/Tutor/ProfileTutor'" onmouseover="">Start Tutoring! 📚</button>
+                <a href="/Tutor/ProfileTutor"><button class="streamWorkSecondary" style="font-family:'Roboto Slab', serif; cursor: pointer; font-size:21px" onmouseover="">Start Tutoring! 📚</button></a>
             </div>
         </div>
     </div>
@@ -256,15 +256,15 @@
                 <br />
                 <p style="color:black; font-size:15px">StreamWork is dedicated to academic integrity and does not tolerate cheating in any form. Just like a physical tutoring center, we help students understand their coursework by teaching helpful methods and reviewing similar problems.</p>
                 <br />
-                <button class="streamWorkPrimary" style="font-family:'Roboto Slab', serif; cursor: pointer;" onclick="window.location.href='/Home/PickStudentOrTutor'" onmouseover="">Sign me up! 🙋🏽‍♂️</button>
+                <a href="/Home/PickStudentOrTutor"><button class="streamWorkPrimary" style="font-family:'Roboto Slab', serif; cursor: pointer;" onmouseover="">Sign me up! 🙋🏽‍♂️</button></a>
             </div>
 
             <div class="col-lg-7 ml-lg-5 ml-md-2 mt-sm-4 mt-4" >
                 <div class="card-title">
                     <img width="100%" src="~/images/Splash.png" style="border-top-left-radius:5px; border-top-right-radius:5px; " />
-                    <button onclick="window.location.href='/Home/SignUp?type=Tutor'" class="streamWorkGold" style="width:100%; font-size:15px; border-top-left-radius:0px; border-top-right-radius:0px; cursor:pointer; background-color:#FFC04C; color:black;">Earn money by doing your homework 👩🏼‍🏫</button>
+                    <a href="/Home/SignUp?type=Tutor"><button class="streamWorkGold" style="width:100%; font-size:15px; border-top-left-radius:0px; border-top-right-radius:0px; cursor:pointer; background-color:#FFC04C; color:black;">Earn money by doing your homework 👩🏼‍🏫</button></a>
                     <p class="m-3" ; style="text-align:center">Have you ever taught a classmate a simpler way to understand a homework problem? You may have the qualities of a StreamTutor! </p>
-                    <button onclick="window.location.href='/Home/SignUp?type=Student'" class="streamWorkPrimary mt-3" style="width:100%; font-size:15px; cursor:pointer; background-color:#008080; color: white">Study with your A+ classmates 👨🏽‍🎓</button>
+                    <a href="/Home/SignUp?type=Student"><button class="streamWorkPrimary mt-3" style="width:100%; font-size:15px; cursor:pointer; background-color:#008080; color: white">Study with your A+ classmates 👨🏽‍🎓</button></a>
                     <p class="m-3" ; style="text-align:center"> Progress at your own pace. Attend your favorite StreamTutors live academic sessions, and tune in to the subjects that you're interested in any hour of the day.</p>
                 </div>
             </div>

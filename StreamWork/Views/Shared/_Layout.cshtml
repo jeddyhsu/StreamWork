@@ -60,7 +60,7 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
 
             </div>
 
-            <img class="d-lg-none d-sm-block p-0" src="~/images/streamworkPencil.png" onclick="window.location.href='/'" style="height:60px; margin-left:auto; margin-right:auto; cursor:pointer" />
+            <a href="/"><img class="d-lg-none d-sm-block p-0" src="~/images/streamworkPencil.png" style="height:60px; margin-left:auto; margin-right:auto;" /></a>
 
             @if (@Model.UserProfile == null)
             {
@@ -99,7 +99,7 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
                     </ul>
                     <ul class="nav navbar-nav d-none d-lg-block" style="float: none; margin: 0 auto; display: block; text-align: center;">
                         <li style="display: inline-block; float: none;">
-                            <img src="~/images/streamworklogo.png" height="50" onclick="window.location.href='/'" onmouseover="" style="cursor: pointer;" />
+                            <a href="/"><img src="~/images/streamworklogo.png" height="50" /></a>
                         </li>
                     </ul>
                 </div>
@@ -109,10 +109,10 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
                     {
                         <ul class="nav navbar-nav d-none d-lg-block" style="float:none; margin: 0 auto; display: block; text-align: right;">
                             <li class="nav-item" style="display: inline-block; float: none;">
-                                <a class="btn ml-4" style="color:#008080; font-size:17px; background-color:whitesmoke" onclick="window.location.href='/Home/PickStudentOrTutor'"><b>Sign Up</b></a>
+                                <a class="btn ml-4" style="color:#008080; font-size:17px; background-color:whitesmoke" href="/Home/PickStudentOrTutor"><b>Sign Up</b></a>
                             </li>
                             <li class="nav-item mt-1" style="display: inline-block; float: none;">
-                                <a class="btn" style="background-color:#006565; font-size:17px; color:white" ; onclick="window.location.href='/Home/Login?dest=-Home-Profile'"><b>Login</b></a>
+                                <a class="btn" style="background-color:#006565; font-size:17px; color:white" href="/Home/Login?dest=-Home-Profile"><b>Login</b></a>
                             </li>
                         </ul>
                     }
@@ -128,11 +128,11 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
                                         <div class="dropdown-divider"></div>
                                         @if (Model.UserProfile.ProfileType == "tutor")
                                         {
-                                            <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Tutor/TutorSettings'">Settings</a>
+                                            <a class="dropdown-item" id="Settings" href="/Tutor/TutorSettings">Settings</a>
                                         }
                                         else
                                         {
-                                            <a class="dropdown-item" href="#" id="Settings" onclick="window.location.href='/Student/StudentSettings'">Settings</a>
+                                            <a class="dropdown-item" id="Settings" href="/Student/StudentSettings">Settings</a>
                                         }
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
@@ -150,8 +150,8 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="background-color: whitesmoke">
                 <div class="modal-body">
-                    <a class="btn ml-4" style="color:#008080; font-size:17px; background-color:whitesmoke; display:block; margin-left:auto; margin-right:auto" onclick="window.location.href='/Home/PickStudentOrTutor'"><b>Sign Up</b></a>
-                    <a class="btn " style="background-color:#006565; font-size:17px; color:white; display:block; margin-left:auto; margin-right:auto" ; onclick="window.location.href='/Home/Login?dest=-Home-Profile'"><b>Login</b></a>
+                    <a class="btn ml-4" style="color:#008080; font-size:17px; background-color:whitesmoke; display:block; margin-left:auto; margin-right:auto" href="/Home/PickStudentOrTutor"><b>Sign Up</b></a>
+                    <a class="btn " style="background-color:#006565; font-size:17px; color:white; display:block; margin-left:auto; margin-right:auto" ; href="/Home/Login?dest=-Home-Profile"><b>Login</b></a>
                 </div>
             </div>
         </div>
