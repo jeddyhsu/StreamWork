@@ -24,6 +24,8 @@ namespace StreamWork.Threads
 
         private string _latestVideoId = "00000000";
 
+        private static Semaphore semaphoreObject = new Semaphore(initialCount: 3, maximumCount: 3); //DO NOT MESS WITH!!!! COULD BRERAK SERVER COMPLETLEY
+
         public ThreadClass(IOptionsSnapshot<StorageConfig> storageConfig, UserChannel userChannel, UserLogin userLogin, string streamTitle, string streamSubject, string streamThumbnail)
         {
             _helperFunctions = new HomeHelperFunctions();
@@ -96,6 +98,7 @@ namespace StreamWork.Threads
 
             Task.Factory.StartNew(async () =>
             {
+                semaphoreObject.WaitOne();
                 await Task.Delay(300000, cancellationToken);
                 while (tryAPI)
                 {
@@ -106,6 +109,8 @@ namespace StreamWork.Threads
                         if (response.Channel.Item != null && response.Channel.Item.Mediaid != _latestVideoId)
                         {
                             Console.WriteLine("Video Found");
+                            semaphoreObject.Release();
+                            _latestVideoId = response.Channel.Item.Mediaid;
                             await ArchiveStream(response.Channel.Item.Mediaid);
                             await ClearChannelStreamInfo();
                             break;
