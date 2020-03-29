@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using StreamWork.DataModels;
 
 namespace StreamWork.ViewModels
@@ -9,6 +10,7 @@ namespace StreamWork.ViewModels
         public UserLogin TutorUserProfile { get; set; }
         public UserArchivedStreams ArchivedStream { get; set; }
         public UserChannel UserChannel { get; set; }
+        public List<UserArchivedStreams> ArchivedStreams { get; set; }
         public int NumberOfStreams { get; set; }
         public bool IsUserFollowingThisTutor { get; set; }
 

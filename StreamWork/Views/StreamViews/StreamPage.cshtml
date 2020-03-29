@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="m-3">
-                        <img class="ml-2 mb-2" src=@Model.UserChannel.ProfilePicture style="width:115px; height: 150px; cursor:pointer; border-radius:5%; float:left; margin-right:10px" onclick="window.location.href='/Home/ProfileView?tutor=@Model.UserChannel.Username'" />
+                        <a href="/Home/ProfileView?tutor=@Model.UserChannel.Username"><img class="ml-2 mb-2" src=@Model.UserChannel.ProfilePicture style="width:115px; height: 150px; border-radius:5%; float:left; margin-right:10px" /></a>
                         <h2 class="mt-1 ml-2" style="color:white; font-family:'Roboto Slab', serif;">@Model.UserChannel.StreamTitle<span></span></h2>
                         <h6 class="ml-4" style="color:lightgray"><b>@Model.UserChannel.Username</b></h6>
                         @if (Model.UserProfile != null)
@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="col-sm-12 col-md-12 col-lg-3 p-0 m-0">
-            <button class="uploadbtn mb-2 mt-2 ml-1 mr-1" style="font-family:'Roboto Slab', serif; cursor: pointer; width:100%; background-color:#FFC04C; color:black; border:none; border-radius:3px" onclick="window.location.href='/Home/Donate?tutor=@Model.UserChannel.Username'" onmouseover="">Donate</button>
+            <a href="/Home/Donate?tutor=@Model.UserChannel.Username"><button class="uploadbtn mb-2 mt-2 ml-1 mr-1" style="font-family:'Roboto Slab', serif; cursor: pointer; width:100%; background-color:#FFC04C; color:black; border:none; border-radius:3px" onmouseover="">Donate</button></a>
             <button class="uploadbtn mb-2 ml-1 mr-1" style="font-family:'Roboto Slab', serif; cursor: pointer; width:100%; border-radius:3px" onclick="showSubmitRecommendationModal();" onmouseover="">Recommendation</button>
             <iframe class="p-0" src=@Model.ChatBox style="width:100%; height:80vh;" allowtransparency="yes" allow="autoplay" frameborder="0" marginheigh="0" marginwidth="0" scrolling="auto"></iframe>
         </div>

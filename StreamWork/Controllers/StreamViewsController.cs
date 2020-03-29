@@ -49,6 +49,7 @@ namespace StreamWork.Controllers
                 TutorUserProfile = (await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, channel[0].Username))[0],
                 ArchivedStream = archivedStream[0],
                 UserChannel = channel[0],
+                ArchivedStreams = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos),
                 NumberOfStreams = (await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, channel[0].Username)).Count
             };
 
