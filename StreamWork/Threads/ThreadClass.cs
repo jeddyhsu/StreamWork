@@ -58,7 +58,7 @@ namespace StreamWork.Threads
 
                 while (tryAPI)
                 {
-                    await Task.Delay(3000, cancellationToken);
+                    await Task.Delay(5000, cancellationToken);
                     try
                     {
                         var response = DataStore.CallAPI<StreamHosterEndpoint>("https://a.streamhoster.com/v1/papi/media/stream/stat/realtime-stream?targetcustomerid=" + channelKey, "NjBjZDBjYzlkNTNlOGViZDc3YWYyZGE2ZDNhN2EyZjQ5YWNmODk1YTo=");
@@ -72,7 +72,7 @@ namespace StreamWork.Threads
                             break;
                         }
                     }
-                    catch (IndexOutOfRangeException ex)
+                    catch (Exception ex)
                     {
                         Console.WriteLine("Error in RunThread: " + ex.Message);
                         tryAPI = true;
@@ -96,16 +96,16 @@ namespace StreamWork.Threads
 
             Task.Factory.StartNew(async () =>
             {
-                await Task.Delay(60000, cancellationToken);
-
+                await Task.Delay(300000, cancellationToken);
                 while (tryAPI)
                 {
-                    await Task.Delay(30000, cancellationToken);
                     try
                     {
+                        await Task.Delay(150000, cancellationToken);
                         StreamHosterRSSFeed response = (StreamHosterRSSFeed)DataStore.CallAPI<StreamHosterRSSFeed>("https://c.streamhoster.com/feed/WxsdDM/mAe0epZsixC/" + rssId + "?format=mrss");
                         if (response.Channel.Item != null && response.Channel.Item.Mediaid != _latestVideoId)
                         {
+                            Console.WriteLine("Video Found");
                             await ArchiveStream(response.Channel.Item.Mediaid);
                             await ClearChannelStreamInfo();
                             break;
