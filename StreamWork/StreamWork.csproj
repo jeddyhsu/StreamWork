@@ -34,4 +34,15 @@
     <Folder Include="StreamHoster\" />
     <Folder Include="EmailTemplates\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Controllers\IPNController.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="EmailTemplates\PasswordRecoveryEmailTemplate.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="EmailTemplates\AutomatedEmailTemplate.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>
