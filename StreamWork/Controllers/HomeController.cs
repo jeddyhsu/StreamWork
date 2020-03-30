@@ -23,6 +23,7 @@ namespace StreamWork.Controllers
         readonly HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
         readonly TutorHelperFunctions _tutorHelperFunctions = new TutorHelperFunctions();
         readonly FollowingHelperFunctions _followingHelperFunctions = new FollowingHelperFunctions();
+        readonly EmailHelperFunctions _emailHelperFunctions = new EmailHelperFunctions();
 
         [HttpGet]
         public async Task<IActionResult> Index([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
@@ -262,7 +263,7 @@ namespace StreamWork.Controllers
                 TrialAccepted = false,
                 PayPalAddress = payPalAddress
             };
-            await _homeHelperFunctions.SendEmailToAnyEmailAsync(_homeHelperFunctions._streamworkEmailID, _homeHelperFunctions._streamworkEmailID, "We got a sign up from a " + signUpProfile.ProfileType + "!", signUpProfile.Name.Replace('|', ' ') + " " + signUpProfile.College + " " + signUpProfile.EmailAddress, null);
+            if(signUpProfile.ProfileType == "student") await _emailHelperFunctions.SendOutEmailToStreamWorkTeam(signUpProfile);
             await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", signUpProfile.Id } }, signUpProfile);
 
             if (role == "tutor")
@@ -295,7 +296,7 @@ namespace StreamWork.Controllers
                     List<Attachment> attachments = new List<Attachment>();
                     foreach (var file in files)
                         attachments.Add(new Attachment(file.OpenReadStream(), file.FileName));
-                    await _homeHelperFunctions.SendEmailToAnyEmailAsync(_homeHelperFunctions._streamworkEmailID, _homeHelperFunctions._streamworkEmailID, "Tutor Evaluation", email, attachments);
+                    await _emailHelperFunctions.SendOutEmailToStreamWorkTeam(nameFirst, nameLast, email, attachments);
                 }
             }
 
@@ -355,33 +356,36 @@ namespace StreamWork.Controllers
         [HttpPost]
         public async Task<IActionResult> PasswordRecovery([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string username)
         {
-            var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
-            if (userProfile == null)
+            var userLogin = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
+            if (userLogin == null)
                 return Json(new { Message = JsonResponse.Failed.ToString() });
 
             Random random = new Random();
             string key = Convert.ToString(random.Next(int.MaxValue), 16);
-            userProfile.ChangePasswordKey = key;
-            await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
+            userLogin.ChangePasswordKey = key;
+            await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userLogin.Id } }, userLogin);
 
-            await _homeHelperFunctions.SendEmailToAnyEmailAsync(_homeHelperFunctions._streamworkEmailID, userProfile.EmailAddress, "Password Recovery", _homeHelperFunctions.CreateUri(userProfile.Username, key), null);
+            await _emailHelperFunctions.SendOutPasswordRecoveryEmail(userLogin, _homeHelperFunctions.CreateUri(userLogin.Username, key));
             return Json(new { Message = JsonResponse.Success.ToString() });
         }
 
         [HttpGet]
-        public IActionResult ChangePassword()
+        public async Task<IActionResult> ChangePassword([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string username, string key)
         {
+            var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
+            if (!key.Equals(userProfile.ChangePasswordKey))
+                return Json(new { Message = "Link Expired" });
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> ChangePassword([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string newPassword, string confirmNewPassword, string username, string key) {
+            var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
+
+            if (!key.Equals(userProfile.ChangePasswordKey))
+                return Json(new { Message = JsonResponse.QueryFailed.ToString() });
+
             if (newPassword == confirmNewPassword) {
-                var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
-
-                if (!key.Equals(userProfile.ChangePasswordKey))
-                    return Json(new { Message = JsonResponse.QueryFailed.ToString() });
-
                 userProfile.Password = _homeHelperFunctions.EncryptPassword(newPassword);
                 userProfile.ChangePasswordKey = null;
                 await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);

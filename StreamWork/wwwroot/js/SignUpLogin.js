@@ -315,7 +315,6 @@ function RecoverPassword() {
         success: function (data) {
             if (data.message === 'Success') {
                 OpenNotificationModal('Email sent! Check your email to reset your password')
-                window.location.href = '/Home/Login'
             }
             else {
                 OpenNotificationModal('Invalid username')
@@ -382,13 +381,13 @@ function ChangePassword() {
         success: function (data) {
             if (data.message === 'Success') {
                 OpenNotificationModal('Password has been changed!')
-                window.location.href = '/Home/Login'
+                window.location.href = '/Home/Login?dest=-Home-Profile';
             }
             else if (data.message === 'Failed') {
                 OpenNotificationModal('Passwords do not match. Please try again.')
             }
-            else if (data.message === 'QueryFailed') {
-                OpenNotificationModal('Key failure. Make sure to use the link from te most recent change password email.')
+            else if (data.message === 'QueryFailed'){
+                OpenNotificationModal('')
             }
             else {
                 OpenNotificationModal('Error')

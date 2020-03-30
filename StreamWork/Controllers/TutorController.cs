@@ -53,6 +53,8 @@ namespace StreamWork.Controllers
                 var streamSubject = streamInfo[1];
                 var streamThumbnail =  _homeHelperFunctions.SaveIntoBlobContainer(_homeHelperFunctions.ResizeImage(Request.Form.Files[0], 1280, 720), Request.Form.Files[0], userChannel[0].Id);
 
+
+
                 ThreadClass handleStreams = new ThreadClass(storageConfig, userChannel[0], userLogin[0], streamTitle, streamSubject, streamThumbnail);
                 handleStreams.RunLiveThread();
 

@@ -284,5 +284,11 @@ namespace StreamWork.HelperClasses
 
             return 0;
         }
+
+        //public async Task<bool> SendStreamEmailToStudents([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, UserChannel channel)
+        //{
+        //    var listOfStudentEmails = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.AllStudentEmails, null);
+        //    await _homeHelperFunctions.SendEmailToAnyEmailAsync(_homeHelperFunctions._streamworkEmailID, null, listOfStudentEmails.ToArray(), "A tutor has started a live-stream on StreamWork!", "Hey Student", null);
+        //}
     }
 }

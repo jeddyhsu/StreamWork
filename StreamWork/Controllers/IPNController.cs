@@ -17,7 +17,8 @@ using System.Collections.Generic;
 namespace StreamWork.Controllers {
     public class IPNController : Controller {
         private IOptionsSnapshot<StorageConfig> storageConfig;
-        private readonly HomeHelperFunctions homeHelperFunctions = new HomeHelperFunctions();
+        private readonly HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
+        private readonly EmailHelperFunctions _emailHelperFunctions = new EmailHelperFunctions();
 
         [HttpPost]
         public IActionResult WebhookB1A0139C65AC29499733B (PayPalNotification notification, [FromServices] IOptionsSnapshot<StorageConfig> _storageConfig) {
@@ -80,7 +81,7 @@ namespace StreamWork.Controllers {
                     // If you are debugging this code in the future, note that errors may occur when subscribed accounts no longer exist
                     subscription = true;
 
-                    student = await homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, notification.Custom);
+                    student = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, notification.Custom);
                     if (student == null)
                         error += " INVALID_STUDENT";
                 } else if (notification.Item_Name.Equals("DONATION")) {
@@ -88,11 +89,11 @@ namespace StreamWork.Controllers {
                     if (users.Length < 2)
                         error += " NO_TUTOR";
                     else {
-                        student = await homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, users[0]);
+                        student = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, users[0]);
                         if (student == null)
                             error += " INVALID_STUDENT";
 
-                        tutor = await homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, users[1]);
+                        tutor = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, users[1]);
                         if (tutor == null)
                             error += " INVALID_TUTOR";
                     }
@@ -116,15 +117,15 @@ namespace StreamWork.Controllers {
                         student.Expiration = DateTime.UtcNow.AddMonths(1);
 
                         student.TrialAccepted = true;
-                        await homeHelperFunctions.UpdateUser(storageConfig, student);
+                        await _homeHelperFunctions.UpdateUser(storageConfig, student);
                     } else {
                         tutor.Balance += notification.Payment_Gross * 0.9m;
-                        await homeHelperFunctions.UpdateUser(storageConfig, tutor);
+                        await _homeHelperFunctions.UpdateUser(storageConfig, tutor);
                     }
                 } else
-                    await homeHelperFunctions.SendEmailToAnyEmailAsync("streamworktutor@gmail.com", "thansenaz@icloud.com", "StreamWork IPN Error", error, null);
+                    await _emailHelperFunctions.SendEmailToAnyEmailAsync("streamworktutor@gmail.com", "thansenaz@icloud.com", null, "StreamWork IPN Error", error, null);
 
-                await homeHelperFunctions.SavePayment(storageConfig, new Payment {
+                await _homeHelperFunctions.SavePayment(storageConfig, new Payment {
                     Id = Guid.NewGuid().ToString(),
                     TransactionId = notification.Txn_Id ?? Guid.NewGuid().ToString(),
                     PayerEmail = notification.Payer_Email,
@@ -138,8 +139,8 @@ namespace StreamWork.Controllers {
                 });
             }
             catch (Exception e) {
-                await homeHelperFunctions.SendEmailToAnyEmailAsync("streamworktutor@gmail.com", "thansenaz@icloud.com", "StreamWork IPN Crash", "error: " + e.ToString(), null);
-                await homeHelperFunctions.SavePayment(storageConfig, new Payment {
+                await _emailHelperFunctions.SendEmailToAnyEmailAsync("streamworktutor@gmail.com", "thansenaz@icloud.com", null, "StreamWork IPN Crash", "error: " + e.ToString(), null);
+                await _homeHelperFunctions.SavePayment(storageConfig, new Payment {
                     Id = Guid.NewGuid().ToString(),
                     TransactionId = notification == null ? "NONE" : (notification.Txn_Id ?? "NONE"),
                     PayerEmail = notification == null ? "NONE" : (notification.Payer_Email ?? "NONE"),

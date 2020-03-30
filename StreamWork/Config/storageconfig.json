@@ -23,6 +23,10 @@
         {
           "Query": "SELECT * FROM [dbo].[UserLogin] WHERE ProfileType = 'tutor' AND AcceptedTutor = '1'",
           "QueryId": "AllApprovedTutors"
+        },
+        {
+          "Query": "SELECT EmailAddress FROM [dbo].[UserLogin] WHERE ProfileType = 'student'",
+          "QueryId": "AllStudentEmails"
         }
       ]
     },

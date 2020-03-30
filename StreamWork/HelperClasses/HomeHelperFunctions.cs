@@ -6,8 +6,6 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,8 +30,6 @@ namespace StreamWork.HelperClasses
         public readonly string _connectionString = "Server=tcp:streamwork.database.windows.net,1433;Initial Catalog=StreamWork;Persist Security Info=False;User ID=streamwork;Password=arizonastate1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
         public readonly string _blobconnectionString = "DefaultEndpointsProtocol=https;AccountName=streamworkblob;AccountKey=//JfVlcPLOyzT3vRHxlY1lJ4NUpduVfiTmuHJHK1u/0vWzP8V5YHPLkPPGD2PVxEwTdNirqHzWYSk7c2vZ80Vg==;EndpointSuffix=core.windows.net";
         public readonly string _dacastAPIKey = "135034_9245336a05f4d4bdb6fa";
-        public readonly string _streamworkEmailID = "streamworktutor@gmail.com";
-        private readonly string _streamworkEmailPassword = "STREAMW0RK3R!";
 
         //Gets set of userchannels with the query that you specify
         public async Task<List<UserChannel>> GetUserChannels ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, QueryHeaders query, string user) {
@@ -100,25 +96,13 @@ namespace StreamWork.HelperClasses
         {
             if (string.IsNullOrEmpty(subject))
             {
-                if (string.IsNullOrWhiteSpace(searchQuery))
-                {
-                    return await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, QueryHeaders.AllUserChannelsThatAreStreaming.ToString(), new List<string> { "" });
-                }
-                else
-                {
-                    return await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, QueryHeaders.UserChannelsBySearchTerm.ToString(), new List<string> { searchQuery.ToLower() });
-                }
+                if (string.IsNullOrWhiteSpace(searchQuery)) return await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, QueryHeaders.AllUserChannelsThatAreStreaming.ToString(), new List<string> { "" });
+                return await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, QueryHeaders.UserChannelsBySearchTerm.ToString(), new List<string> { searchQuery.ToLower() });
             }
             else
             {
-                if (string.IsNullOrWhiteSpace(searchQuery))
-                {
-                    return await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, QueryHeaders.AllUserChannelsThatAreStreamingWithSpecifiedSubject.ToString(), new List<string> { subject });
-                }
-                else
-                {
-                    return await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, QueryHeaders.UserChannelsBySubjectAndSearchTerm.ToString(), new List<string> { subject, searchQuery.ToLower() });
-                }
+                if (string.IsNullOrWhiteSpace(searchQuery)) return await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, QueryHeaders.AllUserChannelsThatAreStreamingWithSpecifiedSubject.ToString(), new List<string> { subject });
+                return await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, QueryHeaders.UserChannelsBySubjectAndSearchTerm.ToString(), new List<string> { subject, searchQuery.ToLower() });
             }
         }
 
@@ -126,25 +110,13 @@ namespace StreamWork.HelperClasses
         {
             if (string.IsNullOrEmpty(subject))
             {
-                if (string.IsNullOrWhiteSpace(searchQuery))
-                {
-                    return await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, QueryHeaders.AllArchivedVideos.ToString());
-                }
-                else
-                {
-                    return await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, QueryHeaders.ArchivedVideosBySearchTerm.ToString(), new List<string> { searchQuery.ToLower() });
-                }
+                if (string.IsNullOrWhiteSpace(searchQuery)) return await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, QueryHeaders.AllArchivedVideos.ToString());
+                return await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, QueryHeaders.ArchivedVideosBySearchTerm.ToString(), new List<string> { searchQuery.ToLower() });
             }
             else
             {
-                if (string.IsNullOrWhiteSpace(searchQuery))
-                {
-                    return await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, QueryHeaders.UserArchivedVideosBasedOnSubject.ToString(), new List<string> { subject });
-                }
-                else
-                {
-                    return await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, QueryHeaders.ArchivedVideosBySubjectAndSearchTerm.ToString(), new List<string> { subject, searchQuery.ToLower() });
-                }
+                if (string.IsNullOrWhiteSpace(searchQuery)) return await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, QueryHeaders.UserArchivedVideosBasedOnSubject.ToString(), new List<string> { subject });
+                return await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, QueryHeaders.ArchivedVideosBySubjectAndSearchTerm.ToString(), new List<string> { subject, searchQuery.ToLower() });
             }
         }
        
@@ -269,32 +241,8 @@ namespace StreamWork.HelperClasses
             return null;
         }
 
-        //sends to any email from streamworktutor@gmail.com provided the 'from' 'to' 'subject' 'body' & 'attachments' (if needed)
-        public async Task SendEmailToAnyEmailAsync (string from, string to, string subject, string body, List<Attachment> attachments) {
-            SmtpClient client = new SmtpClient("smtp.gmail.com", 587) {
-                Credentials = new NetworkCredential(_streamworkEmailID, _streamworkEmailPassword),
-                EnableSsl = true
-            };
-
-            MailMessage message = new MailMessage
-            {
-                Subject = subject
-            };
-
-            message.To.Add(to);
-            message.Body = body;
-            message.From = new MailAddress(from);
-
-            if (attachments != null) {
-                foreach (var attachement in attachments)
-                    message.Attachments.Add(attachement);
-            }
-
-            await client.SendMailAsync(message);
-        }
-
         public string CreateUri (string username, string key) {
-            var uriBuilder = new UriBuilder("https://streamwork.live/Home/ChangePassword");
+            var uriBuilder = new UriBuilder(_host + "/Home/ChangePassword");
             var query = HttpUtility.ParseQueryString(uriBuilder.Query);
             query["username"] = username;
             query["key"] = key;
