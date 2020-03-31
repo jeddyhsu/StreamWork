@@ -71,7 +71,7 @@ namespace StreamHoster
 		[XmlElement(ElementName = "pubDate")]
 		public string PubDate { get; set; }
 		[XmlElement(ElementName = "item")]
-		public Item Item { get; set; }
+		public Item[] Item { get; set; }
 	}
 
 	[XmlRoot(ElementName = "rss")]

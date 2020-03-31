@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,9 +23,9 @@ namespace StreamWork.Threads
         readonly string _streamSubject;
         readonly string _streamThumbnail;
 
-        private string _latestVideoId = "00000000";
-
-        private static Semaphore semaphoreObject = new Semaphore(initialCount: 3, maximumCount: 3); //DO NOT MESS WITH!!!! COULD BRERAK SERVER COMPLETLEY
+        private int initialCount = 0;
+        private static int threadCount = 0;
+        private static Hashtable hashTable = new Hashtable();
 
         public ThreadClass(IOptionsSnapshot<StorageConfig> storageConfig, UserChannel userChannel, UserLogin userLogin, string streamTitle, string streamSubject, string streamThumbnail)
         {
@@ -69,6 +70,7 @@ namespace StreamWork.Threads
                         else
                         {
                             Console.WriteLine("Not Live");
+                            await Task.Delay(25000, cancellationToken);
                             await ClearChannelStreamInfo();
                             RunVideoThread();
                             break;
@@ -76,7 +78,7 @@ namespace StreamWork.Threads
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine("Error in RunThread: " + ex.Message);
+                        Console.WriteLine("Error in RunLiveThread: " + ex.Message);
                         tryAPI = true;
                     }
                 }
@@ -92,61 +94,78 @@ namespace StreamWork.Threads
             var channelIds = _userChannel.ChannelKey;
             var rssId = channelIds.Split("|")[1];
 
-            StreamHosterRSSFeed initialResponse = (StreamHosterRSSFeed)DataStore.CallAPI<StreamHosterRSSFeed>("https://c.streamhoster.com/feed/WxsdDM/mAe0epZsixC/" + rssId + "?format=mrss");
-            if(initialResponse.Channel.Item != null)
-                _latestVideoId = initialResponse.Channel.Item.Mediaid;
+            var archivedVideo = GetArchiveStream();
+            threadCount += 1;
+            hashTable.Add(threadCount, archivedVideo);
 
-            Task.Factory.StartNew(async () =>
+            StreamHosterRSSFeed initialResponse = (StreamHosterRSSFeed)DataStore.CallAPI<StreamHosterRSSFeed>("https://c.streamhoster.com/feed/WxsdDM/mAe0epZsixC/" + rssId + "?format=mrss");
+            if (initialResponse.Channel.Item != null)
+                initialCount = initialResponse.Channel.Item.Length;
+
+            if(threadCount <= 1)
             {
-                semaphoreObject.WaitOne();
-                await Task.Delay(300000, cancellationToken);
-                while (tryAPI)
+                Task.Factory.StartNew(async () =>
                 {
-                    try
+                    while (tryAPI)
                     {
-                        await Task.Delay(150000, cancellationToken);
-                        StreamHosterRSSFeed response = (StreamHosterRSSFeed)DataStore.CallAPI<StreamHosterRSSFeed>("https://c.streamhoster.com/feed/WxsdDM/mAe0epZsixC/" + rssId + "?format=mrss");
-                        if (response.Channel.Item != null && response.Channel.Item.Mediaid != _latestVideoId)
+                        try
                         {
-                            Console.WriteLine("Video Found");
-                            semaphoreObject.Release();
-                            _latestVideoId = response.Channel.Item.Mediaid;
-                            await ArchiveStream(response.Channel.Item.Mediaid);
-                            await ClearChannelStreamInfo();
-                            break;
+                            await Task.Delay(60000, cancellationToken);
+                            StreamHosterRSSFeed response = (StreamHosterRSSFeed)DataStore.CallAPI<StreamHosterRSSFeed>("https://c.streamhoster.com/feed/WxsdDM/mAe0epZsixC/" + rssId + "?format=mrss");
+                            if (response.Channel.Item != null && response.Channel.Item.Length == initialCount + threadCount)
+                            {
+                                Console.WriteLine("Videos Found");
+                                await ArchiveStreams(response);
+                                break;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("Error in RunVideoThread: " + ex.Message);
+                            tryAPI = true;
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine("Error in RunThread: " + ex.Message);
-                        tryAPI = true;
-                    }
-                }
-            }, TaskCreationOptions.LongRunning);
-
+                }, TaskCreationOptions.LongRunning);
+            }
+            
             return false;
         }
 
-        private async Task<bool> ArchiveStream(string streamId)
+        private UserArchivedStreams GetArchiveStream()
         {
             UserArchivedStreams archivedStream = new UserArchivedStreams
             {
                 Id = Guid.NewGuid().ToString(),
                 Username = _userChannel.Username,
-                StreamID = streamId,
+                StreamID = "",
                 StreamTitle = _streamTitle,
                 StreamSubject = _streamSubject,
                 StreamThumbnail = _streamThumbnail,
                 ProfilePicture = _userLogin.ProfilePicture
             };
-            try
+          
+            return archivedStream;
+        }
+
+        private async Task<bool> ArchiveStreams(StreamHosterRSSFeed response)
+        {
+            for(int i = 1; i < hashTable.Count + 1; i++)
             {
-                await DataStore.SaveAsync(_helperFunctions._connectionString, _storageConfig.Value, new Dictionary<string, object> { { "Id", archivedStream.Id } }, archivedStream);
+                var archivedStream = (UserArchivedStreams)hashTable[i];
+                archivedStream.StreamID = response.Channel.Item[threadCount - i].Mediaid;
+                try
+                {
+                    await DataStore.SaveAsync(_helperFunctions._connectionString, _storageConfig.Value, new Dictionary<string, object> { { "Id", archivedStream.Id } }, archivedStream);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error in GetArchiveStream: " + ex.Message);
+                }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error in StopStreamAndArchive " + ex.Message);
-            }
+
+            threadCount = 0;
+            initialCount = 0;
+            hashTable.Clear();
 
             return true;
         }

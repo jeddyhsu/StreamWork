@@ -64,17 +64,15 @@
                     {
                         if (videoInfo.StreamTitle != null)
                         {
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 streamsubject @videoInfo.StreamSubject">
-                                <div class="card mt-3" style="border-radius:5%; border:none; max-width:375px">
-                                    <iframe src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@videoInfo.ChannelKey.Split('|')[0]" style="border-top-left-radius:10px; border-top-right-radius:10px; min-width:250px" height="215" frameborder="0" scrolling="no" allow="autoplay"></iframe>
-                                    <a class="card-body p-0" style="background-color:#008080;border-bottom-left-radius:10px; height:75px; border-bottom-right-radius:10px; border:none; min-width:250px; cursor:pointer" href="../StreamViews/StreamPage?streamTutorUsername=@videoInfo.Username">
+                            <div class="col-lg-3 col-md-4 col-sm-6 streamsubject @videoInfo.StreamSubject">
+                                <div class="card mt-3" style="border-radius:5%; border:none;">
+                                    <iframe src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@videoInfo.ChannelKey.Split('|')[0]" style="width:100%; height:200px; border-top-left-radius:10px; border-top-right-radius:10px;" frameborder="0" scrolling="no" allow="autoplay"></iframe>
+                                    <a class="card-body p-0" style="background-color:#008080;border-bottom-left-radius:10px; border-bottom-right-radius:10px; border:none;" href="../StreamViews/StreamPage?streamTutorUsername=@videoInfo.Username">
                                         <div class="row">
-                                            <div class="col-2 pr-2">
-                                                <a href="/Home/ProfileView?Tutor=@videoInfo.Username"><img style="border-radius:5%; width:50px; margin-left:10px; margin-top:10px; height:60px;" src=@videoInfo.ProfilePicture /></a>
-                                            </div>
-                                            <div class="col-10" style="color:white;">
-                                                <h5 class="text-truncate" style="font-family: 'Roboto'; font-size:15px; margin-left:20px; margin-top:10px;">@videoInfo.StreamTitle</h5>
-                                                <h6 class="text-truncate" style="font-family: 'Roboto'; font-size:14px;margin-left:20px;">@videoInfo.Username</h6>
+                                            <div class="col-12">
+                                                <input type="image" style="border-radius:5%; width:50px; margin-left:10px; margin-top:10px; margin-bottom:10px; height:60px; float:left" src=@videoInfo.ProfilePicture />
+                                                <h5 class="text-truncate" style="font-family: 'Roboto'; font-size:15px; color:white; margin-left:80px; margin-top:10px;">@videoInfo.StreamTitle</h5>
+                                                <h6 class="text-truncate" style="font-family: 'Roboto'; font-size:14px; color:white; margin-left:80px;">@videoInfo.Username</h6>
                                             </div>
                                         </div>
                                     </a>

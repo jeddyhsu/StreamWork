@@ -60,7 +60,7 @@ namespace StreamWork.HelperClasses
                 reader = reader.Replace("{INTRODUCTION}", "It looks like we got a sign up from a " + login.ProfileType + "!");
                 reader = reader.Replace("{BODY}", "Name: " + login.Name.Replace('|', ' ') + " - College/University: " + login.College);
                 reader = reader.Replace("{CLOSING}", "GET SHIT DONE!!!"  );
-                await SendEmailToAnyEmailAsync(_streamworkEmailID, _streamworkEmailID, null, "New Sign Up", reader, null);
+                await SendEmailToAnyEmailAsync(_streamworkEmailID, _streamworkEmailID, null, "New Student Sign Up", reader, null);
             }
 
             return true;
@@ -75,7 +75,7 @@ namespace StreamWork.HelperClasses
                 reader = reader.Replace("{INTRODUCTION}", "It looks like we got a sign up from a tutor!");
                 reader = reader.Replace("{BODY}", "Name: " + firstName + " " + lastName  + " - Email: " + email );
                 reader = reader.Replace("{CLOSING}", "GET SHIT DONE!!!");
-                await SendEmailToAnyEmailAsync(_streamworkEmailID, _streamworkEmailID, null, "Tutor Evaluation", reader, attachments);
+                await SendEmailToAnyEmailAsync(_streamworkEmailID, _streamworkEmailID, null, "New Tutor SignUp", reader, attachments);
             }
 
             return true;
