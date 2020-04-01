@@ -62,6 +62,13 @@ namespace StreamWork.HelperClasses
             return logins;
         }
 
+        //Gets a set of user logins with the query that you specify
+        public async Task<List<UserLogin>> GetUserLogins([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, QueryHeaders query)
+        {
+            var logins = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, query.ToString());
+            return logins;
+        }
+
         public async Task<UserLogin> GetUserProfile ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, QueryHeaders query, string user) {
             var logins = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, query.ToString(), new List<string> { user });
             if (logins.Count > 0) return logins[0];

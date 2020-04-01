@@ -1,8 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using System.Web;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using StreamWork.Config;
 using StreamWork.DataModels;
 
 namespace StreamWork.HelperClasses
@@ -11,6 +16,8 @@ namespace StreamWork.HelperClasses
     {
         readonly string _streamworkEmailID = "streamworktutor@gmail.com";
         private readonly string _streamworkEmailPassword = "STREAMW0RK3R!";
+
+        private HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
 
         public async Task<bool> SendOutPasswordRecoveryEmail(UserLogin userLogin, string recoveryLink)
         {
@@ -46,6 +53,30 @@ namespace StreamWork.HelperClasses
                 reader = reader.Replace("{NAMEOFUSER}", userLogin.Name.Split('|')[0]);
                 reader = reader.Replace("{RESETLINK}", recoveryLink);
                 await SendEmailToAnyEmailAsync(_streamworkEmailID, userLogin.EmailAddress, null, "Change Password", reader, null);
+            }
+
+            return true;
+        }
+
+        public async Task<bool> SendOutMassEmail([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, UserLogin userLogin, UserChannel channel)
+        {
+            var allStudents = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.AllStudents, null);
+            string streamLink = string.Format("<a href=\"{0}\">here</a>", HttpUtility.HtmlEncode("https://www.streamwork.live/StreamViews/StreamPage?streamTutorUsername=" + channel.Username));
+            using (StreamReader streamReader = new StreamReader("EmailTemplates/AutomatedEmailTemplate.html"))
+            {
+                string reader = streamReader.ReadToEnd();
+                reader = reader.Replace("{INTRODUCTION}", "StreamTutor " + userLogin.Name.Replace("|", " ") + " is live-streaming " + channel.StreamTitle + " in " + channel.StreamSubject + "!");
+                reader = reader.Replace("{BODY}", "Tune in and study with your classmates and friends " + streamLink);
+                reader = reader.Replace("{CLOSING}", "See you there, Team StreamWork");
+                foreach (var student in allStudents)
+                {
+                    if(student.Name.Split('|')[0].Length > 1)
+                    {
+                        reader = reader.Replace("{NAMEOFUSER}", student.Name.Split('|')[0]);
+                        await SendEmailToAnyEmailAsync(_streamworkEmailID, "rithvikarun24@gmail.com", null, "A tutor has started a live-stream on StreamWork!", reader, null);
+                        reader = reader.Replace(student.Name.Split('|')[0], "{NAMEOFUSER}");
+                    }
+                } 
             }
 
             return true;
@@ -114,7 +145,15 @@ namespace StreamWork.HelperClasses
                     message.Attachments.Add(attachement);
             }
 
-            await client.SendMailAsync(message);
+            try
+            {
+                client.Send(message);
+                client.Dispose();
+            }
+            catch(Exception e)
+            {
+
+            }
         }
     }
 }

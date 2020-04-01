@@ -18,6 +18,7 @@ namespace StreamWork.Controllers
         readonly TutorHelperFunctions _tutorHelperFunctions = new TutorHelperFunctions();
         readonly EditProfileHelperFunctions _editProfileHelperFunctions = new EditProfileHelperFunctions();
         readonly ThreadClassHelperFunctions _threadClassHelperFunctions = new ThreadClassHelperFunctions();
+       
 
         [HttpGet]
         public async Task<IActionResult> TutorStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
@@ -51,12 +52,12 @@ namespace StreamWork.Controllers
                 var streamInfo = Request.Form.Files[0].Name.Split(new char[] { '|' });
                 var streamTitle = streamInfo[0];
                 var streamSubject = streamInfo[1];
+                var notifyStudents = streamInfo[2];
                 var streamThumbnail =  _homeHelperFunctions.SaveIntoBlobContainer(_homeHelperFunctions.ResizeImage(Request.Form.Files[0], 1280, 720), Request.Form.Files[0], userChannel[0].Id);
-
-
 
                 ThreadClass handleStreams = new ThreadClass(storageConfig, userChannel[0], userLogin[0], streamTitle, streamSubject, streamThumbnail);
                 handleStreams.RunLiveThread();
+                if(notifyStudents.Equals("yes")) handleStreams.RunEmailThread();
 
                 return Json(new { Message = JsonResponse.Success.ToString() });
             }
@@ -64,15 +65,17 @@ namespace StreamWork.Controllers
             //Saves if there is no thumbnail uploaded
             if (Request.Form.Count != 0)
             {
-                var streamInfo = new string[2];
+                var streamInfo = new string[3];
                 foreach (var key in Request.Form.Keys)
                     streamInfo = key.Split(new char[] { '|' });
 
                 var streamTitle = streamInfo[0];
                 var streamSubject = streamInfo[1];
+                var notifyStudents = streamInfo[2];
 
                 ThreadClass handleStreams = new ThreadClass(storageConfig, userChannel[0], userLogin[0], streamTitle, streamSubject, _tutorHelperFunctions.GetCorrespondingDefaultThumbnail(streamSubject));
                 handleStreams.RunLiveThread();
+                if(notifyStudents.Equals("yes")) handleStreams.RunEmailThread();
 
                 return Json(new { Message = JsonResponse.Success.ToString() });
             }
