@@ -25,8 +25,8 @@
           "QueryId": "AllApprovedTutors"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE ProfileType = 'student'",
-          "QueryId": "AllStudents"
+          "Query": "SELECT EmailAddress FROM [dbo].[UserLogin] WHERE ProfileType = 'student'",
+          "QueryId": "AllStudentEmails"
         }
       ]
     },

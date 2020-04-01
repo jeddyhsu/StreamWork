@@ -2,7 +2,7 @@
 var oDT = "";
 var streamId = "";
 
-function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail(notifyStudent) {
+function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail() {
     var streamTitle = $('#streamTitle').val();
     var streamSubject = $('#streamSubject').val();
     var formData = new FormData()
@@ -12,7 +12,7 @@ function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail(notifyStudent) {
         return;
     }
 
-    var streamInfo = streamTitle + '|' + streamSubject + '|' + notifyStudent;
+    var streamInfo = streamTitle + '|' + streamSubject;
     var totalFile = document.getElementById("uploadThumbnail").files.length;
     if (totalFile != 0) {
      formData.append(streamInfo, document.getElementById("uploadThumbnail").files[0])
@@ -33,9 +33,9 @@ function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail(notifyStudent) {
         processData: false,
         success: function (data) {
             if (data.message === "Success") {
-                $('#registerStreamModal').modal('hide'),
-                    document.getElementById('loaderStartStream').style.display = 'none';
-                alert("Your broadcast is visible to students!");
+                 $('#registerStreamModal').modal('hide'),
+                 document.getElementById('loaderStartStream').style.display = 'none';
+                 alert("Your broadcast is visible to students!");
             }
             else {
                 alert("You must wait at least five minutes in between streams");
@@ -44,11 +44,9 @@ function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail(notifyStudent) {
     });   
 }
 
-function DoYouWantToNotifyStudents() {
-    $('#letViewersKnow').modal('show');
-}
-
 function CheckIfStreamIsLive(channelKey) {
+   
+
     $.ajax({
         url: '/Tutor/CheckIfStreamIsLive',
         type: 'post',
@@ -58,7 +56,7 @@ function CheckIfStreamIsLive(channelKey) {
         },
         success: function (data) {
             if (data.message === "Success") {
-                DoYouWantToNotifyStudents()
+                RegisterStreamTitleAndStreamSubjectAndCustomThumbanail();
             }
             else {
                 alert("Looks like we can't see your stream preview. Make sure you have started on your encoder!")

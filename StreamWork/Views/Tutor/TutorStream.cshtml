@@ -83,17 +83,9 @@ else if (Model.UserChannels[0].StreamTitle == null && Model.UserChannels[0].Stre
                         <br />
                         <br />
                         <h5 style="color:black">Add A Custom Thumbnail</h5>
-                        <img id="previewThumbnail" src="~/images/MathDefault.png" alt="your image" style="width:100%; border-radius:10px" />
-                        <br />
-                        <br />
-                        <div class="row">
-                            <div class="col-3"></div>
-                            <div class=" col-6">
-                                <div class="upload-uploadbtn-wrapper">
-                                    <button class="uploadbtn">Upload a Thumbnail</button>
-                                    <input id="uploadThumbnail" type='file' value="~/images/MathDefault.png" onchange="readURL(this,'Thumbnail');" />
-                                </div>
-                            </div>
+                        <div class="upload-uploadbtn-wrapper">
+                            <img id="previewThumbnail" src="~/images/MathDefault.png" alt="your image" style="width:100%; border-radius:10px" />
+                            <input id="uploadThumbnail" type='file' value="~/images/MathDefault.png" onchange="readURL(this,'Thumbnail');" />
                         </div>
                     </form>
                 </div>
@@ -117,26 +109,6 @@ else if (Model.UserChannels[0].StreamTitle == null && Model.UserChannels[0].Stre
                 </div>
                 <div class="modal-footer">
                     <a href="/Tutor/ProfileTutor"><button type="button" class="btn" style="color:white; background-color:black;">Go Back</button></a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="letViewersKnow" class="modal" tabindex="-2" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="background-color: whitesmoke;">
-                <div class="modal-header">
-                    <h5 class="modal-title" style="color: black;">Let Viewers Know You're Streaming</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <h5>Do you want to let viewers know that you are streaming? They will get a notification that you have gone live.</h5>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" style="background-color: #008080; color: white;" class="btn" data-dismiss="modal" onclick="RegisterStreamTitleAndStreamSubjectAndCustomThumbanail('yes');">Let Viewers Know!</button>
-                    <button type="button" style="background-color: black; color: white;" class="btn" data-dismiss="modal" onclick="RegisterStreamTitleAndStreamSubjectAndCustomThumbanail('no');">Just Testing</button>
                 </div>
             </div>
         </div>
