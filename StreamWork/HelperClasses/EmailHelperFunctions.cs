@@ -72,9 +72,16 @@ namespace StreamWork.HelperClasses
                 {
                     if(student.Name.Split('|')[0].Length > 1)
                     {
-                        reader = reader.Replace("{NAMEOFUSER}", student.Name.Split('|')[0]);
-                        await SendEmailToAnyEmailAsync(_streamworkEmailID, "rithvikarun24@gmail.com", null, "A tutor has started a live-stream on StreamWork!", reader, null);
-                        reader = reader.Replace(student.Name.Split('|')[0], "{NAMEOFUSER}");
+                        try
+                        {
+                            reader = reader.Replace("{NAMEOFUSER}", student.Name.Split('|')[0]);
+                            await SendEmailToAnyEmailAsync(_streamworkEmailID, student.EmailAddress, null, "A tutor has started a live-stream on StreamWork!", reader, null);
+                            reader = reader.Replace(student.Name.Split('|')[0], "{NAMEOFUSER}");
+                        }
+                        catch(Exception ex)
+                        {
+                            Console.WriteLine("Error in SendOutMassEmail: " + ex.Message);
+                        }
                     }
                 } 
             }
