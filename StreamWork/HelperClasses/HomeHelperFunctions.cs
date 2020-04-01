@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -21,6 +18,10 @@ using StreamWork.Core;
 using StreamWork.DataModels;
 using StreamWork.Models;
 using StreamWork.ViewModels;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
+using SixLabors.ImageSharp.Formats;
+using SixLabors.ImageSharp.Formats.Png;
 
 namespace StreamWork.HelperClasses
 {
@@ -195,42 +196,27 @@ namespace StreamWork.HelperClasses
             return formattedphrase[1] + "|" + formattedChatID[0];
         }
 
-        public Image ResizeImage(IFormFile file, int width, int height)
-        {
-            var image = Image.FromStream(file.OpenReadStream());
-            var newImage = new Bitmap(width, height);
-            using (var graphic = Graphics.FromImage(newImage))
-            {
-                graphic.CompositingMode = CompositingMode.SourceCopy;
-                graphic.CompositingQuality = CompositingQuality.HighQuality;
-                graphic.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                graphic.SmoothingMode = SmoothingMode.HighQuality;
-                graphic.PixelOffsetMode = PixelOffsetMode.HighQuality;
-
-                graphic.DrawImage(image, 0, 0, width, height);
-            }
-
-            return newImage;
-        }
-
         //Saves picture into container on Azure - replaces old one if there is one
-        public string SaveIntoBlobContainer(Image image, IFormFile file, string reference) {
+        public string SaveIntoBlobContainer(IFormFile file, string reference, int width, int height) {
 
             //Connects to blob storage and saves picture
             CloudStorageAccount cloudStorage = CloudStorageAccount.Parse(_blobconnectionString);
             CloudBlobClient blobClient = cloudStorage.CreateCloudBlobClient();
             CloudBlobContainer blobContainer = blobClient.GetContainerReference("streamworkblobcontainer");
             CloudBlockBlob blockBlob = blobContainer.GetBlockBlobReference(reference);
-
             blockBlob.DeleteIfExists();
 
-            using (MemoryStream ms = new MemoryStream((int)file.Length)) {
-                try {
-                    image.Save(ms, ImageFormat.Png);
-                    blockBlob.UploadFromByteArray(ms.ToArray(), 0, (int)ms.Length);
-                }
-                catch (ObjectDisposedException e) {
-                    Console.WriteLine(e.Message);
+            var encoder = new PngEncoder();
+
+            using (var stream = file.OpenReadStream())
+            {
+                using (var output = new MemoryStream())
+                using (Image image = Image.Load(stream))
+                {
+                    image.Mutate(x => x.Resize(width, height));
+                    image.Save(output, encoder);
+                    output.Position = 0;
+                    blockBlob.UploadFromStream(output);
                 }
             }
 

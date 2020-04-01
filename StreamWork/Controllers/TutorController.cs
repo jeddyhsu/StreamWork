@@ -53,7 +53,7 @@ namespace StreamWork.Controllers
                 var streamTitle = streamInfo[0];
                 var streamSubject = streamInfo[1];
                 var notifyStudents = streamInfo[2];
-                var streamThumbnail =  _homeHelperFunctions.SaveIntoBlobContainer(_homeHelperFunctions.ResizeImage(Request.Form.Files[0], 1280, 720), Request.Form.Files[0], userChannel[0].Id);
+                var streamThumbnail =  _homeHelperFunctions.SaveIntoBlobContainer(Request.Form.Files[0], userChannel[0].Id, 1280, 720);
 
                 ThreadClass handleStreams = new ThreadClass(storageConfig, userChannel[0], userLogin[0], streamTitle, streamSubject, streamThumbnail);
                 handleStreams.RunLiveThread();
