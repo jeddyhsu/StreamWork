@@ -15,7 +15,8 @@ namespace StreamWork.Threads
 {
     public class ThreadClass
     {
-        readonly HomeHelperFunctions _helperFunctions;
+        readonly HomeHelperFunctions _homeHelperFunctions;
+        readonly EmailHelperFunctions _emailHelperFunctions;
         readonly IOptionsSnapshot<StorageConfig> _storageConfig;
         readonly UserChannel _userChannel;
         readonly UserLogin _userLogin;
@@ -29,13 +30,32 @@ namespace StreamWork.Threads
 
         public ThreadClass(IOptionsSnapshot<StorageConfig> storageConfig, UserChannel userChannel, UserLogin userLogin, string streamTitle, string streamSubject, string streamThumbnail)
         {
-            _helperFunctions = new HomeHelperFunctions();
+            _homeHelperFunctions = new HomeHelperFunctions();
+            _emailHelperFunctions = new EmailHelperFunctions();
             _userChannel = userChannel;
             _userLogin = userLogin;
             _storageConfig = storageConfig;
             _streamTitle = streamTitle;
             _streamSubject = streamSubject;
             _streamThumbnail = streamThumbnail;
+        }
+
+        public bool RunEmailThread()
+        {
+            Task.Factory.StartNew(async () =>
+            {
+                try
+                {
+                    await _emailHelperFunctions.SendOutMassEmail(_storageConfig,_userLogin,_userChannel);
+                }
+                catch (Microsoft.EntityFrameworkCore.DbUpdateException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+
+            }, TaskCreationOptions.LongRunning);
+
+            return true;
         }
 
         public bool RunLiveThread()
@@ -52,7 +72,7 @@ namespace StreamWork.Threads
                     _userChannel.StreamSubject = _streamSubject;
                     _userChannel.StreamTitle = _streamTitle;
                     _userChannel.StreamThumbnail = _streamThumbnail;
-                    await DataStore.SaveAsync(_helperFunctions._connectionString, _storageConfig.Value, new Dictionary<string, object> { { "Id", _userChannel.Id } }, _userChannel);
+                    await DataStore.SaveAsync(_homeHelperFunctions._connectionString, _storageConfig.Value, new Dictionary<string, object> { { "Id", _userChannel.Id } }, _userChannel);
                 }
                 catch (Microsoft.EntityFrameworkCore.DbUpdateException e)
                 {
@@ -155,7 +175,7 @@ namespace StreamWork.Threads
                 archivedStream.StreamID = response.Channel.Item[threadCount - i].Mediaid;
                 try
                 {
-                    await DataStore.SaveAsync(_helperFunctions._connectionString, _storageConfig.Value, new Dictionary<string, object> { { "Id", archivedStream.Id } }, archivedStream);
+                    await DataStore.SaveAsync(_homeHelperFunctions._connectionString, _storageConfig.Value, new Dictionary<string, object> { { "Id", archivedStream.Id } }, archivedStream);
                 }
                 catch (Exception ex)
                 {
@@ -177,7 +197,7 @@ namespace StreamWork.Threads
                 _userChannel.StreamTitle = null;
                 _userChannel.StreamSubject = null;
                 _userChannel.StreamThumbnail = null;
-                await DataStore.SaveAsync(_helperFunctions._connectionString, _storageConfig.Value, new Dictionary<string, object> { { "Id", _userChannel.Id } }, _userChannel);
+                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, _storageConfig.Value, new Dictionary<string, object> { { "Id", _userChannel.Id } }, _userChannel);
             }
             catch (Exception ex)
             {
