@@ -32,6 +32,7 @@ namespace StreamWork.HelperClasses
         UserChannelsBySubjectAndSearchTerm,
         ArchivedVideosBySearchTerm,
         ArchivedVideosBySubjectAndSearchTerm,
-        AllStudents
+        AllStudents,
+        AllSignedUpUsers
     }
 }

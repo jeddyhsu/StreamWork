@@ -60,7 +60,7 @@ namespace StreamWork.HelperClasses
 
         public async Task<bool> SendOutMassEmail([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, UserLogin userLogin, UserChannel channel)
         {
-            var allStudents = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.AllStudents, null);
+            var allUsers = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.AllSignedUpUsers, null);
             string streamLink = string.Format("<a href=\"{0}\">here</a>", HttpUtility.HtmlEncode("https://www.streamwork.live/StreamViews/StreamPage?streamTutorUsername=" + channel.Username));
             using (StreamReader streamReader = new StreamReader("EmailTemplates/AutomatedEmailTemplate.html"))
             {
@@ -68,15 +68,15 @@ namespace StreamWork.HelperClasses
                 reader = reader.Replace("{INTRODUCTION}", "StreamTutor " + userLogin.Name.Replace("|", " ") + " is live-streaming " + channel.StreamTitle + " in " + channel.StreamSubject + "!");
                 reader = reader.Replace("{BODY}", "Tune in and study with your classmates and friends " + streamLink);
                 reader = reader.Replace("{CLOSING}", "See you there, Team StreamWork");
-                foreach (var student in allStudents)
+                foreach (var user in allUsers)
                 {
-                    if(student.Name.Split('|')[0].Length > 1)
+                    if(user.Name.Split('|')[0].Length > 1 && user.Username != channel.Username)
                     {
                         try
                         {
-                            reader = reader.Replace("{NAMEOFUSER}", student.Name.Split('|')[0]);
-                            await SendEmailToAnyEmailAsync(_streamworkEmailID, student.EmailAddress, null, "A tutor has started a live-stream on StreamWork!", reader, null);
-                            reader = reader.Replace(student.Name.Split('|')[0], "{NAMEOFUSER}");
+                            reader = reader.Replace("{NAMEOFUSER}", user.Name.Split('|')[0]);
+                            await SendEmailToAnyEmailAsync(_streamworkEmailID, user.EmailAddress, null, "A tutor has started a live-stream on StreamWork!", reader, null);
+                            reader = reader.Replace(user.Name.Split('|')[0], "{NAMEOFUSER}");
                         }
                         catch(Exception ex)
                         {
