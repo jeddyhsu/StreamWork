@@ -11,21 +11,26 @@ namespace StreamWork.Threads
             try
             {
                 var response = DataStore.CallAPI<StreamHosterEndpoint>("https://a.streamhoster.com/v1/papi/media/stream/stat/realtime-stream?targetcustomerid=" + channelKey, "NjBjZDBjYzlkNTNlOGViZDc3YWYyZGE2ZDNhN2EyZjQ5YWNmODk1YTo=");
-                if (response.Data.Length != 0)
-                    Console.WriteLine("Live");
-                else
+                foreach(var channel in response.Data)
                 {
-                    Console.WriteLine("Not Live");
-                    return false;
+                    if (channel.MediaId == channelKey.Split("|")[0])
+                    {
+                        Console.WriteLine("Live");
+                        return true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Not Live");
+                    }
                 }
+
+                return false;
             }
             catch (IndexOutOfRangeException ex)
             {
                 Console.WriteLine("Error in RunThread: " + ex.Message);
                 return true;
             }
-
-            return true;
         }
     }
 }

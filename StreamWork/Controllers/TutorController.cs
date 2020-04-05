@@ -56,7 +56,7 @@ namespace StreamWork.Controllers
                 var streamThumbnail =  _homeHelperFunctions.SaveIntoBlobContainer(Request.Form.Files[0], userChannel[0].Id, 1280, 720);
 
                 ThreadClass handleStreams = new ThreadClass(storageConfig, userChannel[0], userLogin[0], streamTitle, streamSubject, streamThumbnail);
-                handleStreams.RunLiveThread();
+                //handleStreams.RunLiveThread();
                 if(notifyStudents.Equals("yes")) handleStreams.RunEmailThread();
 
                 return Json(new { Message = JsonResponse.Success.ToString() });
@@ -74,7 +74,7 @@ namespace StreamWork.Controllers
                 var notifyStudents = streamInfo[2];
 
                 ThreadClass handleStreams = new ThreadClass(storageConfig, userChannel[0], userLogin[0], streamTitle, streamSubject, _tutorHelperFunctions.GetCorrespondingDefaultThumbnail(streamSubject));
-                handleStreams.RunLiveThread();
+                //handleStreams.RunLiveThread();
                 if(notifyStudents.Equals("yes")) handleStreams.RunEmailThread();
 
                 return Json(new { Message = JsonResponse.Success.ToString() });

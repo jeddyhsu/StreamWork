@@ -20,7 +20,6 @@ using StreamWork.Models;
 using StreamWork.ViewModels;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
-using SixLabors.ImageSharp.Formats;
 using SixLabors.ImageSharp.Formats.Png;
 
 namespace StreamWork.HelperClasses

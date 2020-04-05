@@ -58,32 +58,44 @@ namespace StreamWork.HelperClasses
             return true;
         }
 
+        private string ReplaceFirstOccurrence(string Source, string Find, string Replace)
+        {
+            int Place = Source.IndexOf(Find);
+            string result = Source.Remove(Place, Find.Length).Insert(Place, Replace);
+            return result;
+        }
+
         public async Task<bool> SendOutMassEmail([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, UserLogin userLogin, UserChannel channel)
         {
             var allUsers = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.AllSignedUpUsers, null);
-            string streamLink = string.Format("<a href=\"{0}\">here</a>", HttpUtility.HtmlEncode("https://www.streamwork.live/StreamViews/StreamPage?streamTutorUsername=" + channel.Username));
+            string streamLink = string.Format("<a href=\"{0}\">here.</a>", HttpUtility.HtmlEncode("https://www.streamwork.live/StreamViews/StreamPage?streamTutorUsername=" + channel.Username));
             using (StreamReader streamReader = new StreamReader("EmailTemplates/AutomatedEmailTemplate.html"))
             {
                 string reader = streamReader.ReadToEnd();
-                reader = reader.Replace("{INTRODUCTION}", "StreamTutor " + userLogin.Name.Replace("|", " ") + " is live-streaming " + channel.StreamTitle + " in " + channel.StreamSubject + "!");
+                
+                var tutorName = userLogin.Name.Split("|");
+                reader = reader.Replace("{INTRODUCTION}", "StreamTutor " + userLogin.Name.Replace('|',' ') + " is live-streaming " + channel.StreamTitle + " in " + channel.StreamSubject + "!");
                 reader = reader.Replace("{BODY}", "Tune in and study with your classmates and friends " + streamLink);
-                reader = reader.Replace("{CLOSING}", "See you there, Team StreamWork");
+                reader = reader.Replace("{CLOSING}", "See you there,");
+                reader = reader.Replace("{CLOSINGNAME}", "Team StreamWork");
+
                 foreach (var user in allUsers)
                 {
-                    if(user.Name.Split('|')[0].Length > 1 && user.Username != channel.Username)
+                    var email = HomeHelperFunctions.devEnvironment ? "rithvikarun24@gmail.com" : user.EmailAddress;
+                    if (user.Name.Split('|')[0].Length > 1 && user.Username != channel.Username)
                     {
                         try
                         {
-                            reader = reader.Replace("{NAMEOFUSER}", user.Name.Split('|')[0]);
-                            await SendEmailToAnyEmailAsync(_streamworkEmailID, user.EmailAddress, null, "A tutor has started a live-stream on StreamWork!", reader, null);
-                            reader = reader.Replace(user.Name.Split('|')[0], "{NAMEOFUSER}");
+                            reader = ReplaceFirstOccurrence(reader, "{NAMEOFUSER}", user.Name.Split("|")[0]);
+                            await SendEmailToAnyEmailAsync(_streamworkEmailID, email, null, "A tutor has started a live-stream on StreamWork!", reader, null);
+                            reader = ReplaceFirstOccurrence(reader, user.Name.Split("|")[0], "{NAMEOFUSER}");
                         }
-                        catch(Exception ex)
+                        catch (Exception ex)
                         {
                             Console.WriteLine("Error in SendOutMassEmail: " + ex.Message);
                         }
                     }
-                } 
+                }
             }
 
             return true;
