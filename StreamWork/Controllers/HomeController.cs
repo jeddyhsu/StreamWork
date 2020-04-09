@@ -46,11 +46,6 @@ namespace StreamWork.Controllers
             return View(populatePage);
         }
 
-        public async Task<IActionResult> Subject([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, [FromQuery(Name = "s")] string s)
-        { //s is subject
-            return View(await _homeHelperFunctions.PopulateSubjectPage(storageConfig, s, HttpContext.User.Identity.Name));
-        }
-
         public async Task<IActionResult> Search([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, [FromQuery(Name = "s")] string s, [FromQuery(Name = "q")] string q) {
             // s is subject, q is search query
             string user = HttpContext.User.Identity.Name;

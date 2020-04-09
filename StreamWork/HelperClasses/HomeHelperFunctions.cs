@@ -84,20 +84,6 @@ namespace StreamWork.HelperClasses
             return await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, QueryHeaders.AllApprovedTutors.ToString());
         }
 
-        public async Task<SubjectViewModel> PopulateSubjectPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject, string user)
-        {
-            SubjectViewModel model = new SubjectViewModel
-            {
-                UserChannels = await GetUserChannels(storageConfig, QueryHeaders.AllUserChannelsThatAreStreamingWithSpecifiedSubject, subject),
-                UserLogins = await GetPopularStreamTutor(storageConfig),
-                UserProfile = user != null ? await GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user) : null,
-                Subject = subject,
-                SubjectIcon = GetSubjectIcon(subject)
-            };
-
-            return model;
-        }
-
         public async Task<List<UserChannel>> SearchUserChannels([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject, string searchQuery)
         {
             if (string.IsNullOrEmpty(subject))
