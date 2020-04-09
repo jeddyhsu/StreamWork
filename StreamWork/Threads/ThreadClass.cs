@@ -72,6 +72,7 @@ namespace StreamWork.Threads
                     _userChannel.StreamSubject = _streamSubject;
                     _userChannel.StreamTitle = _streamTitle;
                     _userChannel.StreamThumbnail = _streamThumbnail;
+                    _userChannel.Views = 0;
                     await DataStore.SaveAsync(_homeHelperFunctions._connectionString, _storageConfig.Value, new Dictionary<string, object> { { "Id", _userChannel.Id } }, _userChannel);
                 }
                 catch (Microsoft.EntityFrameworkCore.DbUpdateException e)
@@ -167,12 +168,15 @@ namespace StreamWork.Threads
             return archivedStream;
         }
 
-        private async Task<bool> ArchiveStreams(StreamHosterRSSFeed response)
+        private async Task<bool> ArchiveStreams(StreamHosterRSSFeed response) // HI SELF DO THIS
         {
             for(int i = 1; i < hashTable.Count + 1; i++)
             {
                 var archivedStream = (UserArchivedStreams)hashTable[i];
                 archivedStream.StreamID = response.Channel.Item[threadCount - i].Mediaid;
+
+                archivedStream.Views = _userChannel.Views;
+
                 try
                 {
                     await DataStore.SaveAsync(_homeHelperFunctions._connectionString, _storageConfig.Value, new Dictionary<string, object> { { "Id", archivedStream.Id } }, archivedStream);

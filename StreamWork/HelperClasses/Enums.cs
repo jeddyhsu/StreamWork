@@ -14,24 +14,45 @@ namespace StreamWork.HelperClasses
 
     public enum QueryHeaders
     {
+        // UserLogin
+        AllSignedUpUsers,
         CurrentUser,
-        CurrentUserChannelFromId,
-        AllUserChannelsOfAnyUsernameThatAreStreaming,
-        AllUserChannelsThatAreStreaming,
-        AllUserChannelsThatAreStreamingWithSpecifiedSubject,
-        UserArchivedVideosBasedOnSubject,
+        CheckUsersWithSamePayPalAddress,
         AllSignedUpUsersWithPassword,
-        CurrentUserChannel,
-        UserArchivedVideos,
-        AllArchivedVideos,
-        ArchivedVideosByStreamId,
         AllApprovedTutors,
-        UserProfile,       //Use For Session
-        RecommendationsByTutor,
+        AllStudents,
+
+        // UserChannel
+        AllUserChannelsThatAreStreamingWithSpecifiedSubject,
+        AllUserChannelsThatAreStreaming,
+        CurrentUserChannel,
+        CurrentUserChannelFromId,
         UserChannelsBySearchTerm,
         UserChannelsBySubjectAndSearchTerm,
+
+        // UserArchivedStream
+        AllArchivedVideos,
+        UserArchivedVideos,
+        UserArchivedVideosBasedOnSubject,
+        ArchivedVideosByStreamId,
         ArchivedVideosBySearchTerm,
         ArchivedVideosBySubjectAndSearchTerm,
-        AllStudents
+
+        // Payment
+        AllPayments,
+        PaymentsById,
+
+        // Recommendation
+        RecommendationsByTutor,
+
+        // View
+        ViewsByViewer,
+        ViewsByStreamId,
+        ViewsByViewerAndStreamId,
+        ViewsByChannelSince,
+        ViewsByViewerAndChannelSince,
+
+        // Misc
+        UserProfile,       //Use For Session
     }
 }

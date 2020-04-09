@@ -11,6 +11,7 @@ namespace StreamWork.Controllers
     public class StreamViewsController : Controller
     {
         readonly HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
+        readonly StreamHelperFunctions _streamHelperFunctions = new StreamHelperFunctions();
 
         public IActionResult Index()
         {
@@ -31,6 +32,8 @@ namespace StreamWork.Controllers
 
             if (model.UserProfile != null && model.UserProfile.FollowedStudentsAndTutors != null)
                 model.IsUserFollowingThisTutor = model.UserProfile.FollowedStudentsAndTutors.Contains(channel[0].Id);
+
+            await _streamHelperFunctions.IncrementChannelViews(storageConfig, HttpContext.User.Identity.Name, streamTutorUsername);
 
             return View ("StreamPage", model);
         }
@@ -55,6 +58,8 @@ namespace StreamWork.Controllers
 
             if (model.UserProfile != null && model.UserProfile.FollowedStudentsAndTutors != null)
                 model.IsUserFollowingThisTutor = model.UserProfile.FollowedStudentsAndTutors.Contains(channel[0].Id);
+
+            await _streamHelperFunctions.IncrementArchivedVideoViews(storageConfig, HttpContext.User.Identity.Name, streamId);
 
             return View("StreamPlaybackPage", model) ;
         }

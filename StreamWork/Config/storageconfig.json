@@ -109,14 +109,41 @@
     },
 
     {
-        "Name": "Recommendation",
-        "StorageType": "SqlServer",
-        "Queries": [
-            {
-                "Query": "SELECT * FROM [dbo].[Recommendation] WHERE Tutor = '@x0'",
-                "QueryId": "RecommendationsByTutor"
-            },
-        ]
+      "Name": "Recommendation",
+      "StorageType": "SqlServer",
+      "Queries": [
+        {
+          "Query": "SELECT * FROM [dbo].[Recommendation] WHERE Tutor = '@x0'",
+          "QueryId": "RecommendationsByTutor"
+        }
+      ]
+    },
+
+    {
+      "Name": "View",
+      "StorageType": "SqlServer",
+      "Queries": [
+        {
+          "Query": "SELECT * FROM [dbo].[View] WHERE Viewer = '@x0'",
+          "QueryId": "ViewsByViewer"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[View] WHERE StreamId = '@x0'",
+          "QueryId": "ViewsByStreamId"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[View] WHERE Viewer = '@x0' AND StreamId = '@x1'",
+          "QueryId": "ViewsByViewerAndStreamId"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[View] WHERE Channel = '@x0' AND StartTime <= '@x1'",
+          "QueryId": "ViewsByChannelSince"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[View] WHERE Viewer = '@x0', AND Channel = '@x1' AND StartTime <= '@x2'",
+          "QueryId": "ViewsByViewerAndChannelSince"
+        }
+      ]
     }
   ]
 }
