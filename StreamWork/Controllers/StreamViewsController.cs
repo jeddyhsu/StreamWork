@@ -19,13 +19,14 @@ namespace StreamWork.Controllers
 
         public async Task<IActionResult> StreamPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamTutorUsername)
         {
+            if (HttpContext.User.Identity.IsAuthenticated == false)
+                return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-StreamViews-StreamPage?streamTutorUsername=" + streamTutorUsername);
+
             var channel = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, streamTutorUsername);
             var chatBox = await _homeHelperFunctions.GetChatSecretKey(storageConfig, channel[0].ChatId, HttpContext.User.Identity.Name);
 
             if(channel[0].StreamTitle == null)
-            {
                 return Redirect("https://www.streamwork.live/Home/ProfileView?Tutor=" + channel[0].Username);
-            }
 
             StreamPageViewModel model = new StreamPageViewModel
             {
