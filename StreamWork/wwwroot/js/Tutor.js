@@ -22,8 +22,8 @@ function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail() {
     document.getElementById('loaderStartStream').style.display = 'block'
 
     var streamInfo = streamTitle + '|' + streamSubject + '|' + streamDescription + '|' + notifyStudent;
-    var totalFile = document.getElementById("uploadThumbnail").files.length;
 
+    var totalFile = document.getElementById("uploadThumbnail").files.length;
     if (totalFile != 0) formData.append(streamInfo, document.getElementById("uploadThumbnail").files[0])
     else formData.append(streamInfo, 'No Thumbnail');
 

@@ -183,8 +183,8 @@ namespace StreamWork.Controllers
         public IActionResult CheckIfStreamIsLive([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string channelKey)
         {
             bool response = _threadClassHelperFunctions.CheckIfUserChannelIsLive(channelKey);
-            if (response == true) return Json(new { Message = JsonResponse.Success.ToString() });
-            return Json(new { Message = JsonResponse.Failed.ToString() });
+            if (response == true) return Json(new { Message = JsonResponse.Success.ToString()});
+            return Json(new { Message = JsonResponse.Failed.ToString()});
         }
 
         [HttpGet]
