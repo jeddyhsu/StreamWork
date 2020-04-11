@@ -44,25 +44,4 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Content Remove="Views\Home\ProfileView.cshtml" />
-    <Content Remove="Views\Shared\_LayoutTutorNavbar.cshtml" />
-    <Content Remove="Views\Tutor\TutorStream.cshtml" />
-    <Content Remove="Views\Tutor\ProfileTutor.cshtml" />
-    <Content Remove="wwwroot\css\site.min.css" />
-    <Content Remove="wwwroot\css\site.css" />
-    <Content Remove="wwwroot\js\Tutor.js" />
-    <Content Remove="wwwroot\lib\bootstrap-4\css\bootstrap.min.css" />
-    <Content Remove="wwwroot\lib\bootstrap-4\css\bootstrap.css" />
-    <Content Remove="wwwroot\lib\bootstrap-4\css\bootstrap.css.map" />
-    <Content Remove="wwwroot\lib\bootstrap-4\css\bootstrap.min.css.map" />
-    <Content Remove="wwwroot\lib\bootstrap-4\js\bootstrap.bundle.js" />
-    <Content Remove="wwwroot\lib\bootstrap-4\js\bootstrap.bundle.min.js.map" />
-    <Content Remove="wwwroot\lib\bootstrap-4\js\bootstrap.bundle.js.map" />
-    <Content Remove="wwwroot\lib\bootstrap-4\js\bootstrap.js" />
-    <Content Remove="wwwroot\lib\bootstrap-4\js\bootstrap.bundle.min.js" />
-    <Content Remove="wwwroot\lib\bootstrap-4\js\bootstrap.min.js" />
-    <Content Remove="wwwroot\lib\bootstrap-4\js\bootstrap.js.map" />
-    <Content Remove="wwwroot\lib\bootstrap-4\js\bootstrap.min.js.map" />
-  </ItemGroup>
 </Project>
