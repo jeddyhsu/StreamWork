@@ -18,14 +18,14 @@ function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail() {
         return;
     }
 
+    document.getElementById("StartStream").disabled = true;
+    document.getElementById('loaderStartStream').style.display = 'block'
+
     var streamInfo = streamTitle + '|' + streamSubject + '|' + streamDescription + '|' + notifyStudent;
     var totalFile = document.getElementById("uploadThumbnail").files.length;
 
     if (totalFile != 0) formData.append(streamInfo, document.getElementById("uploadThumbnail").files[0])
     else formData.append(streamInfo, 'No Thumbnail');
-
-    document.getElementById("StartStream").disabled = true;
-    document.getElementById('loaderStartStream').style.display = 'block'
 
     $.ajax({
         url: '/Tutor/TutorStream',
