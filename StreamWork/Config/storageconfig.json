@@ -136,11 +136,11 @@
           "QueryId": "ViewsByViewerAndStreamId"
         },
         {
-          "Query": "SELECT * FROM [dbo].[View] WHERE Channel = '@x0' AND StartTime <= '@x1'",
+          "Query": "SELECT * FROM [dbo].[View] WHERE Channel = '@x0' AND Date <= '@x1'",
           "QueryId": "ViewsByChannelSince"
         },
         {
-          "Query": "SELECT * FROM [dbo].[View] WHERE Viewer = '@x0', AND Channel = '@x1' AND StartTime <= '@x2'",
+          "Query": "SELECT * FROM [dbo].[View] WHERE Viewer = '@x0' AND Channel = '@x1' AND Date <= '@x2'",
           "QueryId": "ViewsByViewerAndChannelSince"
         }
       ]
