@@ -141,12 +141,15 @@ namespace StreamWork.Controllers
         {
             ProfileTutorViewModel profile = new ProfileTutorViewModel
             {
+                UserLogins = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, tutor),
                 UserChannels = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, tutor),
                 UserArchivedVideos = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, tutor),
                 UserProfile = null,
                 StudentOrTutorProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, tutor),
                 NumberOfStreams = (await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, tutor)).Count
             };
+
+            profile.NumberOfFollowers = _tutorHelperFunctions.GetNumberOfFollowers(profile.UserLogins[0]);
 
             if (HttpContext.User.Identity.IsAuthenticated)
             {

@@ -22,13 +22,14 @@ namespace StreamWork.Threads
         readonly UserLogin _userLogin;
         readonly string _streamTitle;
         readonly string _streamSubject;
+        readonly string _streamDescription;
         readonly string _streamThumbnail;
 
         private int initialCount = 0;
         private static int threadCount = 0;
         private static Hashtable hashTable = new Hashtable();
 
-        public ThreadClass(IOptionsSnapshot<StorageConfig> storageConfig, UserChannel userChannel, UserLogin userLogin, string streamTitle, string streamSubject, string streamThumbnail)
+        public ThreadClass(IOptionsSnapshot<StorageConfig> storageConfig, UserChannel userChannel, UserLogin userLogin, string streamTitle, string streamSubject, string streamDescription, string streamThumbnail)
         {
             _homeHelperFunctions = new HomeHelperFunctions();
             _emailHelperFunctions = new EmailHelperFunctions();
@@ -37,6 +38,7 @@ namespace StreamWork.Threads
             _storageConfig = storageConfig;
             _streamTitle = streamTitle;
             _streamSubject = streamSubject;
+            _streamDescription = streamDescription;
             _streamThumbnail = streamThumbnail;
         }
 
@@ -71,6 +73,7 @@ namespace StreamWork.Threads
                 {
                     _userChannel.StreamSubject = _streamSubject;
                     _userChannel.StreamTitle = _streamTitle;
+                    _userChannel.StreamDescription = _streamDescription;
                     _userChannel.StreamThumbnail = _streamThumbnail;
                     _userChannel.Views = 0;
                     await DataStore.SaveAsync(_homeHelperFunctions._connectionString, _storageConfig.Value, new Dictionary<string, object> { { "Id", _userChannel.Id } }, _userChannel);
@@ -161,6 +164,7 @@ namespace StreamWork.Threads
                 StreamID = "",
                 StreamTitle = _streamTitle,
                 StreamSubject = _streamSubject,
+                StreamDescription = _streamDescription,
                 StreamThumbnail = _streamThumbnail,
                 ProfilePicture = _userLogin.ProfilePicture
             };
@@ -200,6 +204,7 @@ namespace StreamWork.Threads
             {
                 _userChannel.StreamTitle = null;
                 _userChannel.StreamSubject = null;
+                _userChannel.StreamDescription = null;
                 _userChannel.StreamThumbnail = null;
                 await DataStore.SaveAsync(_homeHelperFunctions._connectionString, _storageConfig.Value, new Dictionary<string, object> { { "Id", _userChannel.Id } }, _userChannel);
             }

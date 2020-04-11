@@ -16,6 +16,7 @@ namespace StreamWork.DataModels
         public string StreamSubject { get; set; }
         public string StreamTitle { get; set; }
         public string StreamThumbnail { get; set; }
+        public string StreamDescription { get; set; }
         public string ChatId { get; set; }
 
         public string ProfilePicture { get; set; }

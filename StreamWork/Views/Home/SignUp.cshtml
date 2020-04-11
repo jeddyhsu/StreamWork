@@ -38,7 +38,7 @@
                             <strong>Login Type: Student</strong> &nbsp; &nbsp; &nbsp;
                             <br />
                             <br />
-                            <input type="button" class="btn btn-block" value="Watch Livestreams!" onclick="RunStudentChecks()" style="background-color: #008080; color: white">
+                            <input type="button" class="streamWorkPrimary" value="Watch Livestreams!" onclick="RunStudentChecks()" style="cursor:pointer">
                         </form>
                     </div>
                 </div>
@@ -100,7 +100,7 @@
                                 <tr>
                                     <th style="padding-right: 10px">
                                         <div class="upload-uploadbtn-wrapper">
-                                            <button class="uploadbtn" style="font-size:14px; width:245px;">Transcript</button>
+                                            <button class="uploadbtn" style="font-size:14px; width:245px; cursor:pointer">Transcript</button>
                                             <input id="uploadTranscript" type='file' accept="application/pdf" onchange="ReadFile(this, 'transcript')" />
                                         </div>
                                     </th>
@@ -115,7 +115,7 @@
                                 <tr>
                                     <th style="padding-right: 10px">
                                         <div class="upload-uploadbtn-wrapper" style="float:left">
-                                            <button class="uploadbtn" style="font-size:14px; width:245px;">Resume</button>
+                                            <button class="uploadbtn" style="font-size:14px; width:245px; cursor:pointer">Resume</button>
                                             <input id="uploadResume" type='file' accept="application/pdf" onchange="ReadFile(this, 'resume')" />
                                         </div>
                                     </th>
@@ -130,7 +130,7 @@
                             <strong>Login Type: Tutor</strong> &nbsp; &nbsp; &nbsp;
                             <br />
                             <br />
-                            <input type="button" class="btn btn-block" value="Sign Up!" onclick="RunTutorChecks()" style="background-color:#008080; color: white; width:200px; display:block; margin-left:auto;margin-right:auto">
+                            <input type="button" class="streamWorkPrimary" value="Start Tutoring!" onclick="RunTutorChecks()" style="cursor:pointer;">
                             <span id="loaderTutor" class="loaderTutor mt-3" style="display:block; margin-left:auto; margin-right:auto"></span>
                         </form>
                     </div>
@@ -140,36 +140,6 @@
     </section>
 </div>
 
-<div id="notificationModal" class="modal" tabindex="2" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" style="background-color: #008080">
-            <div class="modal-header">
-                <h5 class="modal-title text-center" style="color:white">Hmm, something isn't right!</h5>
-            </div>
-            <div class="modal-body">
-                <p id="notificationBody" class=" text-center" style="color: white;">It appears you are not a verified StreamTutor! If you are a student, create a separate student account. If you are a StreamTutor, please wait to be approved.</p>
-                <a href="/"><img src="~/images/streamworkPencilWhite.png" style="display:block; margin-left:auto; margin-right:auto;" height="70"/></a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="checkStudentModal" class="modal" tabindex="2" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" style="background-color: #008080">
-            <div class="modal-header">
-                <h5 class="modal-title text-center" style="color:white">One more thing!</h5>
-            </div>
-            <div class="modal-body">
-                <p id="notificationBody" class=" text-center" style="color: white;">Although donations aren't required to use StreamWork, we do encourage donating to our StreamTutors to show appreciation for their hard work. We hope that StreamWork will give you the tutoring necessary for you to excel in the classroom. Happy learning!</p>
-                <a href="/"><img src="~/images/streamworkPencilWhite.png" style="display:block; margin-left:auto; margin-right:auto;" height="70" /></a>
-            </div>
-            <div class="modal-footer">
-                <button type="button" style="background-color:#006565; color:white" class="btn" onclick="SignUpStudent()">Watch Livestreams!<span id="loaderStudent" class="loaderStudent mt-1" style="display:block; margin-left:auto; margin-right:auto"></span></button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <script>CheckIfStudentOrTutorIsSigningUp()</script>
 

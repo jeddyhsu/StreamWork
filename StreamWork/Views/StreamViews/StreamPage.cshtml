@@ -3,66 +3,66 @@
 
 <link rel="stylesheet" href="~/css/Streams.css" />
 
-<div class="container-fluid" style="background-color:black; height:100%">
+<div class="container-fluid" style="background-color:white; height:100%">
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-9 p-0">
             <iframe style="height:700px; width:100%" class="p-0" src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.UserChannel.ChannelKey.Split('|')[0]" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
             <div class="row">
                 <div class="col-12">
                     <div class="m-3">
-                        <a href="/Home/ProfileView?tutor=@Model.UserChannel.Username"><img class="ml-2 mb-2" src=@Model.UserChannel.ProfilePicture style="width:115px; height: 150px; border-radius:5%; float:left; margin-right:10px" /></a>
-                        <h2 class="mt-1 ml-2" style="color:white; font-family:'Roboto Slab', serif;">@Model.UserChannel.StreamTitle<span></span></h2>
-                        <h6 class="ml-4" style="color:lightgray"><b>@Model.UserChannel.Username</b></h6>
-                        @if (Model.UserProfile != null)
-                        {
-                            if (Model.IsUserFollowingThisTutor == false && Model.UserProfile.ProfileType == "student")
-                            {
-                                <button id="FollowButton" type="button" style="font-size:10px" class="btn mt-1" onclick="FollowStreamTutor('@Model.UserChannel.Id')">Follow</button>
-                                <button id="UnfollowButton" type="button" style="font-size:10px; display:none" class="btn mt-1" onclick="UnfollowStreamTutor('@Model.UserChannel.Id')">Unfollow</button>
-                            }
-                            else if (Model.IsUserFollowingThisTutor == true && Model.UserProfile.ProfileType == "student")
-                            {
-                                <button id="FollowButton" type="button" style="font-size:10px;display:none" class="btn mt-1" onclick="FollowStreamTutor('@Model.UserChannel.Id')">Follow</button>
-                                <button id="UnfollowButton" type="button" style="font-size:10px" class="btn mt-1" onclick="UnfollowStreamTutor('@Model.UserChannel.Id')">Unfollow</button>
-                            }
-                        }
+                        <h2 class="mt-1" style="color:black; font-family:'Roboto Slab', serif;">@Model.UserChannel.StreamTitle<span></span></h2>
+                        <a href="/Home/ProfileView?tutor=@Model.UserChannel.Username"><b>by @Model.UserProfile.Name.Replace('|', ' ')</b></a>
+                        <p class="mt-2">@Model.UserChannel.StreamDescription</p>
                     </div>
-                    </div>
+                   
+                </div>
             </div>
         </div>
-        <div class="col-sm-12 col-md-12 col-lg-3 p-0 m-0">
-            <a href="/Home/Donate?tutor=@Model.UserChannel.Username"><button class="uploadbtn mb-2 mt-2 ml-1 mr-1" style="font-family:'Roboto Slab', serif; cursor: pointer; width:100%; background-color:#FFC04C; color:black; border:none; border-radius:3px" onmouseover="">Donate</button></a>
-            <button class="uploadbtn mb-2 ml-1 mr-1" style="font-family:'Roboto Slab', serif; cursor: pointer; width:100%; border-radius:3px" onclick="showSubmitRecommendationModal();" onmouseover="">Recommendation</button>
-            <iframe class="p-0" src=@Model.ChatBox style="width:100%; height:80vh;" allowtransparency="yes" allow="autoplay" frameborder="0" marginheigh="0" marginwidth="0" scrolling="auto"></iframe>
+        <div class="col-sm-12 col-md-12 col-lg-3 p-1">
+            @if (Model.UserProfile != null)
+            {
+                if (Model.IsUserFollowingThisTutor == false && Model.UserProfile.ProfileType == "student")
+                {
+                    <button id="FollowButton" type="button" style="font-family:'Roboto Slab', serif; cursor: pointer; width:100%;" class="streamWorkGrey mb-2" onclick="FollowStreamTutor('@Model.UserChannel.Id')">Follow</button>
+                    <button id="UnfollowButton" type="button" style="font-family:'Roboto Slab', serif; display:none; cursor: pointer; width:100%;" class="streamWorkGrey mb-2" onclick="UnfollowStreamTutor('@Model.UserChannel.Id')">Unfollow</button>
+                }
+                else if (Model.IsUserFollowingThisTutor == true && Model.UserProfile.ProfileType == "student")
+                {
+                    <button id="FollowButton" type="button" style="font-family:'Roboto Slab', serif; display:none; cursor: pointer; width:100%; " class="streamWorkGrey mb-2" onclick="FollowStreamTutor('@Model.UserChannel.Id')">Follow</button>
+                    <button id="UnfollowButton" type="button" style="font-family:'Roboto Slab', serif; cursor: pointer; width:100%; " class="streamWorkGrey mb-2" onclick="UnfollowStreamTutor('@Model.UserChannel.Id')">Unfollow</button>
+                }
+            }
+            <a href="/Home/Donate?tutor=@Model.UserChannel.Username"><button class="streamWorkGold mb-2 mr-1" style="font-family:'Roboto Slab', serif; cursor: pointer; width:100%;">Donate</button></a>
+            <button class="streamWorkSecondary" style="font-family:'Roboto Slab', serif; cursor: pointer; width:100%; border-radius:none" onclick="showSubmitRecommendationModal();">Recommendation</button>
+            <iframe class="p-0" src=@Model.ChatBox style="width:100%; height:75vh;" allowtransparency="yes" allow="autoplay" frameborder="0" marginheigh="0" marginwidth="0" scrolling="auto"></iframe>
         </div>
     </div>
 </div>
 
-
 <div id="submitRecommendationModal" class="modal" tabindex="-2" role="dialog">
     <div class="modal-dialog" role="document">
-        <div class="modal-content" style="background-color: #008080;">
+        <div class="modal-content" style="background-color: whitesmoke;">
             <div class="modal-header">
-                <h5 class="modal-title" style="color: white;">Submit a Recommendation</h5>
+                <h5 class="modal-title" style="color: black;">Submit a Recommendation</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <form>
-                    <textarea align="middle" class="form-control" id="submitRecommendationText" style="height:200px;"></textarea>
+                    <textarea align="middle" class="form-control" id="submitRecommendationText" style="height:200px;" placeholder="Recommendation"></textarea>
                 </form>
             </div>
             <div class="modal-footer">
+                <button class="streamWorkGrey" data-dismiss="modal">Exit</button>
                 @if (Model.UserProfile == null)
                 {
-                    <button type="button" style="background-color: black; color: white;" class="btn" data-dismiss="modal" onclick="submitRecommendation('Anonymous', '@Model.UserChannel.Username')">Submit</button>
+                    <button class="streamWorkPrimary" data-dismiss="modal" onclick="submitRecommendation('Anonymous', '@Model.UserChannel.Username')">Submit</button>
                 }
                 else
                 {
-                    <button type="button" style="background-color: black; color: white;" class="btn" data-dismiss="modal" onclick="submitRecommendation('@Model.UserProfile.Username', '@Model.UserChannel.Username')">Submit</button>
+                    <button class="streamWorkPrimary" data-dismiss="modal" onclick="submitRecommendation('@Model.UserProfile.Username', '@Model.UserChannel.Username')">Submit</button>
                 }
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

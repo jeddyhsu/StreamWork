@@ -158,24 +158,22 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
                         <input align="middle" type="text" class="form-control" id="ProfileCaption" maxlength="50" placeholder="Field Of Study" value="@Model.UserProfile.ProfileCaption" />
                         <br />
                         <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" maxlength="189" placeholder="About Me" style="height:100px">@Model.UserProfile.ProfileParagraph</textarea>
-                        <br />
-                        <img id="previewProfilePic" src=@Model.UserProfile.ProfilePicture alt="your image" style="border-radius: 5%; width:115px; display:block;margin-left:auto;margin-right:auto" />
-                        <br />
                         <div class="row">
-                            <div class="col-3"></div>
-                            <div class=" col-6">
+                            <div class="col-8">
                                 <div class="upload-uploadbtn-wrapper">
-                                    <button class="uploadbtn">Upload a Profile Picture</button>
+                                    <button class="form-control"><span><img src="/images/Upload16.png"></span> Upload Thumbnail</button>
                                     <input id="uploadProfilePic" style="cursor:pointer" type='file' onchange="readURL(this,'ProfilePic')" />
                                 </div>
                             </div>
+                            <div class="col-4">
+                                <img id="previewProfilePic" src=@Model.UserProfile.ProfilePicture alt="your image" style="border-radius: 5%; width:115px; display:block;margin-left:auto;margin-right:auto" />
+                            </div>
                         </div>
-
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn" style="background-color:black; color:white" onclick="RegisterProfilePhotoAndCaption()">Save changes</button>
-                    <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button class="streamWorkGrey" data-dismiss="modal">Close</button>
+                    <button class="streamWorkPrimary" style="background-color:black; color:white" onclick="RegisterProfilePhotoAndCaption()">Save</button>
                 </div>
             </div>
         </div>
@@ -192,19 +190,17 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h4 class="text-center" style="color:black">Title</h4>
-                    <input id="streamNameAdd" type="text" style="display:block; margin-right:auto; margin-left:auto; border-radius:5px" />
+                    <input id="streamNameAdd" class="form-control" type="text" placeholder="Title" style="display:block; margin-right:auto; margin-left:auto; border-radius:5px" />
                     <br />
-                    <h4 class="text-center" style="color:black">Date & Time</h4>
                     <div class="input-group date" id="datetimepickerAdd" data-target-input="nearest">
-                        <input id="dateTimeAdd" type="text" class="form-control datetimepicker-input" data-target="#datetimepickerAdd" />
+                        <input id="dateTimeAdd" type="text" class="form-control datetimepicker-input" placeholder="Date & Time" data-target="#datetimepickerAdd" />
                         <div class="input-group-append" data-target="#datetimepickerAdd" data-toggle="datetimepicker">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-info" style="display:block; margin-left:auto; margin-right:auto; border-radius:5px; cursor:pointer" onclick="AddStreamToSchedule()">Add Stream</button>
+                    <button class="streamWorkPrimary" style="display:block; margin-left:auto; margin-right:auto; border-radius:5px; cursor:pointer" onclick="AddStreamToSchedule()">Add Stream</button>
                 </div>
             </div>
         </div>
@@ -221,10 +217,8 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h4 class="text-center" style="color:black">Title</h4>
-                    <input id="streamNameEdit" value="" type="text" style="display:block; margin-right:auto; margin-left:auto; border-radius:5px" />
+                    <input class="form-control" id="streamNameEdit" value="" type="text" style="display:block; margin-right:auto; margin-left:auto; border-radius:5px" />
                     <br />
-                    <h4 class="text-center" style="color:black">Date & Time</h4>
                     <div class="input-group date" id="datetimepickerEdit" data-target-input="nearest">
                         <input id="dateTimeEdit" type="text" class="form-control datetimepicker-input" data-target="#datetimepickerEdit" />
                         <div class="input-group-append" data-target="#datetimepickerEdit" data-toggle="datetimepicker">
@@ -233,29 +227,73 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-info" style="display:block; margin-left:auto; margin-right:auto; border-radius:5px; cursor:pointer" onclick="UpdateStreamSchedule()">Reschedule Stream</button>
-                    <button class="btn btn-danger" style="display:block; margin-left:auto; margin-right:auto; border-radius:5px; cursor:pointer; color:white" onclick="RemoveStreamOnSchedule()">Remove Stream</button>
+                    <button class="streamWorkPrimary" style="display:block; margin-left:auto; margin-right:auto; border-radius:5px; cursor:pointer" onclick="UpdateStreamSchedule()">Reschedule Stream</button>
+                    <button class="streamWorkGrey" style="display:block; margin-left:auto; margin-right:auto; border-radius:5px; cursor:pointer;" onclick="RemoveStreamOnSchedule()">Remove Stream</button>
                 </div>
             </div>
         </div>
     </div>
 
-    @*For alert notifications*@
-    <div id="notificationModal" class="modal" tabindex="-1" role="dialog">
+    @*Unapproved Tutor Modal*@
+    <div id="unapprovedTutorModal" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
-            <div class="modal-content" style="background-color: #008080">
+            <div class="modal-content" style="background-color: whitesmoke">
                 <div class="modal-header">
-                    <h5 class="modal-title text-center" style="color:white">Alert!</h5>
+                    <h5 class="modal-title" style="color:black">Looks like you haven't been verified yet!</h5>
                 </div>
                 <div class="modal-body">
-                    <p id="notificationBody" class=" text-center" style="color: white;">It appears you are not a verified StreamTutor! If you are a student, create a separate student account. If you are a StreamTutor, please wait to be approved.</p>
-                    <a href="/"><img src="~/images/streamworkPencilWhite.png" style="display:block; margin-left:auto; margin-right:auto;" height="70" /></a>
+                    <p style="color: black;">It appears you are not a verified StreamTutor! If you are a student, create a separate student account. If you are a StreamTutor, please wait 1-2 business days to be approved. In the meantime feel free to edit your profile and watch some streams. </p>
+                </div>
+                <div class="modal-footer">
+                    <a href="/Tutor/ProfileTutor"><button type="button" class="btn" style="color:white; background-color:black;">Go Back</button></a>
                 </div>
             </div>
         </div>
     </div>
 
-    @*For login and signUp*@
+    @*Notifiy Viewers Modal*@
+    <div id="letViewersKnow" class="modal" tabindex="-2" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: whitesmoke;">
+                <div class="modal-header">
+                    <h5 class="modal-title" style="color: black;">Let Viewers Know You're Streaming</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h5>Do you want to let students know that you are streaming? They will get a notification that you have gone live.</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" style="background-color: #008080; color: white;" class="btn" data-dismiss="modal" onclick="RegisterStreamTitleAndStreamSubjectAndCustomThumbanail('yes');">Let Viewers Know!</button>
+                    <button type="button" style="background-color: black; color: white;" class="btn" data-dismiss="modal" onclick="RegisterStreamTitleAndStreamSubjectAndCustomThumbanail('no');">Just Testing</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*Delete Stream Modal*@
+    <div id="deleteStreamModal" class="modal" tabindex="-2" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: whitesmoke;">
+                <div class="modal-header">
+                    <h5 class="modal-title" style="color: black;">Delete Stream</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h5>Are you sure you want to delete this stream? It will not be recoverable.</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" style="background-color: red; color: white;" class="btn" data-dismiss="modal" onclick="DeleteStream()">Delete</button>
+                    <button type="button" style="background-color: black; color: white;" class="btn" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*Login/Sign Up Modal For Mobile View*@
     <div id="loginSignUpModal" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="background-color: whitesmoke">
@@ -267,6 +305,7 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
         </div>
     </div>
 
+    @*Logout Modal For Mobile View*@
     <div id="logoutModal" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="background-color: whitesmoke">

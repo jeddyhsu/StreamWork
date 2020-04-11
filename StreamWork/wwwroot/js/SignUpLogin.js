@@ -92,7 +92,7 @@ function RunStudentChecks() {
     var confirmPassword = $('#passwordConfirmS').val();
 
     if (nameFirst == "" || nameLast == "" || email == "" || username == "" || password == "" || confirmPassword == "") {
-        OpenNotificationModal("Please fill out all required fields (College is optional)")
+        OpenNotificationModal("Fill out all required fields (College is optional)")
         return;
     }
 
@@ -102,7 +102,7 @@ function RunStudentChecks() {
     }
 
     if (ValidateEmail(email) == false) {
-        OpenNotificationModal("Invalid Email")
+        OpenNotificationModal("Invalid email")
         return
     }
 
@@ -140,7 +140,7 @@ function RunTutorChecks() {
     var resume = document.getElementById("uploadResume").files;
 
     if (nameFirst == "" || nameLast == "" || email == "" || payPalAddress == "" || username == "" || password == "" || confirmPassword == "" || college == "") {
-        OpenNotificationModal("Please fill out all fields");
+        OpenNotificationModal("Fill out all fields");
         return;
     }
 
@@ -150,12 +150,12 @@ function RunTutorChecks() {
     }
 
     if (ValidateEmail(email) == false) {
-        OpenNotificationModal("Invalid Email");
+        OpenNotificationModal("Invalid email");
         return;
     }
 
     if (ValidateEmail(payPalAddress) == false) {
-        OpenNotificationModal("Invalid Email");
+        OpenNotificationModal("Invalid email");
         return;
     }
 
@@ -226,7 +226,16 @@ function ValidateEmail(email) {
 }
 
 //Handles logging in
+
 function Login() {
+    var username = $("#username").val();
+    var password = $('#password').val();
+
+    if (username == "" || password == "") {
+        OpenNotificationModal("Fill out all fields")
+        return;
+    }
+
     $.ajax({
         url: '/Home/Login',
         type: 'post',
@@ -238,7 +247,7 @@ function Login() {
         success: function (data) {
 
             if (data.message === "Failed") {
-                OpenNotificationModal("Wrong Username or Password")
+                OpenNotificationModal("Wrong username or password")
                 return;
             }
 
@@ -413,9 +422,9 @@ function OpenCheckStudentModal() {
 }
 
 function OpenNotificationModal(body) {
-    var notification = document.getElementById('notificationBody');
+    var notification = document.getElementById('notifyBody');
     notification.textContent = body;
-    $('#notificationModal').modal('show')
+    $('#notifyModal').modal('show')
 }
 
 

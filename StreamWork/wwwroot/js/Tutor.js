@@ -2,27 +2,30 @@
 var oDT = "";
 var streamId = "";
 
-function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail(notifyStudent) {
+function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail() {
     var streamTitle = $('#streamTitle').val();
     var streamSubject = $('#streamSubject').val();
+    var streamDescription = $('#streamDescription').val();
+    var notifyStudent = "";
+
+    if ($('#notifyStudents').is(':checked')) notifyStudent = "yes"
+    else notifyStudent = "no"
+        
     var formData = new FormData()
-   
-    if (streamTitle == "" || streamSubject == 'Select Subject') {
-        alert("Please select a title and subject!")
+
+    if (streamTitle == "" || streamSubject == 'Select Subject' || streamDescription == "") {
+        OpenNotificationModal("Please give a title, subject and description")
         return;
     }
 
-    var streamInfo = streamTitle + '|' + streamSubject + '|' + notifyStudent;
+    var streamInfo = streamTitle + '|' + streamSubject + '|' + streamDescription + '|' + notifyStudent;
     var totalFile = document.getElementById("uploadThumbnail").files.length;
-    if (totalFile != 0) {
-     formData.append(streamInfo, document.getElementById("uploadThumbnail").files[0])
-    }
-    else {
-        formData.append(streamInfo, 'No Thumbnail');
-    }
+
+    if (totalFile != 0) formData.append(streamInfo, document.getElementById("uploadThumbnail").files[0])
+    else formData.append(streamInfo, 'No Thumbnail');
 
     document.getElementById("StartStream").disabled = true;
-    document.getElementById('loaderStartStream').style.display = 'block';
+    document.getElementById('loaderStartStream').style.display = 'block'
 
     $.ajax({
         url: '/Tutor/TutorStream',
@@ -34,14 +37,15 @@ function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail(notifyStudent) {
         success: function (data) {
             if (data.message === "Success") {
                 $('#registerStreamModal').modal('hide'),
-                    document.getElementById('loaderStartStream').style.display = 'none';
-                alert("Your broadcast is visible to students!");
+                document.getElementById('loaderStartStream').style.display = 'none';
+                OpenNotificationModalSuccess("Your broadcast is visible to students!");
             }
             else {
                 alert("You must wait at least five minutes in between streams");
             }
         }
     });   
+
 }
 
 function DoYouWantToNotifyStudents() {
@@ -58,10 +62,10 @@ function CheckIfStreamIsLive(channelKey) {
         },
         success: function (data) {
             if (data.message === "Success") {
-                DoYouWantToNotifyStudents()
+                RegisterStreamTitleAndStreamSubjectAndCustomThumbanail();
             }
             else {
-                alert("Looks like we can't see your stream preview. Make sure you have started on your encoder!")
+                OpenNotificationModal("Stream is not live, make sure you have started on your encoder!")
             }
         }
     });
@@ -75,6 +79,8 @@ function AddStreamToSchedule() {
         OpenNotificationModal("Please fill out all fields!");
         return;
     }
+
+    //add date check here!!!!
 
     $.ajax({
         url: '/Tutor/StreamCalendarUtil',
@@ -105,6 +111,8 @@ function UpdateStreamSchedule() {
         OpenNotificationModal("Please fill out all fields!");
         return;
     }
+
+    //add date check here!!!!
 
     $.ajax({
         url: '/Tutor/StreamCalendarUtil',
@@ -186,19 +194,16 @@ $(function () {
 
 });
 
-function PrintLoad() {
-    alert("data has loaded!!!")
-}
-
-function RetreivePlayer() {
-    var myPlayer = dacast.players["135034_c_505911"];
-    //var isPlaying = myPlayer.playing();
-}
-
 function OpenNotificationModal(body) {
-    var notification = document.getElementById('notificationBody');
+    var notification = document.getElementById('notifyBody');
     notification.textContent = body;
-    $('#notificationModal').modal('show')
+    $('#notifyModal').modal('show')
+}
+
+function OpenNotificationModalSuccess(body) {
+    var notification = document.getElementById('notifyBodySuccess');
+    notification.textContent = body;
+    $('#notifyModalSuccess').modal('show')
 }
 
 function WriteTutorGreeting() {

@@ -1,8 +1,6 @@
 ﻿@{Layout = "_LayoutNoNavbar";}
 @{ViewData["title"] = "Login";}
 
-<script src="~/js/SignUpLogin.js"></script>
-
 <br />
 <br />
 <br />
@@ -15,31 +13,13 @@
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="password" class="form-control" placeholder="Password">
         <br />
-        <input class="btn btn-lg  btn-block" type="button" value="Login" style="background-color:#008080; color: white" onclick="Login()">
+        <input class="streamWorkPrimary" type="button" value="Login" style="width:300px;" onclick="Login()">
         <br />
         <div class="pt-2"> Don't have an account?  <a href="/Home/PickStudentOrTutor" style="color: rgb(0,160,160)">Sign Up!</a> </div>
         <br />
         <div class="pt-2"> Forgot Password?  <a href="/Home/PasswordRecovery" style="color: rgb(0,160,160)">Click Here</a> </div>
     </div>
 </form>
-
-
-
-<div id="notificationModal" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" style="background-color: #008080">
-            <div class="modal-header">
-
-                <h5 class="modal-title text-center" style="color:white">Alert!</h5>
-            </div>
-            <div class="modal-body">
-                <p id="notificationBody" class=" text-center" style="color: white;">It appears you are not a verified StreamTutor! If you are a student, create a separate StreamTutor account. If you are a StreamTutor, please wait to be approved.</p>
-                <a href="/"><img src="~/images/streamworkPencilWhite.png" style="display:block; margin-left:auto; margin-right:auto;" height="70" /></a>
-            </div>
-        </div>
-    </div>
-</div>
-
 <script>
     document.getElementById('username').onkeydown = function (event) {
         if (event.keyCode == 13) {

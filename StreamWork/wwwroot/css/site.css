@@ -248,6 +248,7 @@ lds-dual-ring {
     font-size: 22px;
     padding: 8px 20px;
     box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.3);
+    cursor:pointer
 }
 
 .streamWorkSecondary {
@@ -258,6 +259,7 @@ lds-dual-ring {
     font-size: 22px;
     padding: 8px 20px;
     box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.3);
+    cursor: pointer
 }
 
 .streamWorkGrey {
@@ -268,6 +270,7 @@ lds-dual-ring {
     font-size: 22px;
     padding: 8px 22px;
     box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.3);
+    cursor: pointer
 }
 
 .streamWorkGold {
@@ -278,5 +281,21 @@ lds-dual-ring {
     font-size: 22px;
     padding: 8px 20px;
     box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.3);
+    cursor: pointer
 }
+
+.form-control:focus {
+    outline: none;
+    box-shadow: none !important;
+    border: 3px solid #008080;
+    background-color: transparent
+}
+
+.form-control {
+    background: transparent;
+    border: none;
+    color: gray
+}
+
+
 

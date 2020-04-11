@@ -52,10 +52,11 @@ namespace StreamWork.Controllers
                 var streamInfo = Request.Form.Files[0].Name.Split(new char[] { '|' });
                 var streamTitle = streamInfo[0];
                 var streamSubject = streamInfo[1];
-                var notifyStudents = streamInfo[2];
+                var streamDescription = streamInfo[2];
+                var notifyStudents = streamInfo[3];
                 var streamThumbnail =  _homeHelperFunctions.SaveIntoBlobContainer(Request.Form.Files[0], userChannel[0].Id, 1280, 720);
 
-                ThreadClass handleStreams = new ThreadClass(storageConfig, userChannel[0], userLogin[0], streamTitle, streamSubject, streamThumbnail);
+                ThreadClass handleStreams = new ThreadClass(storageConfig, userChannel[0], userLogin[0], streamTitle, streamSubject, streamDescription, streamThumbnail);
                 handleStreams.RunLiveThread();
                 if(notifyStudents.Equals("yes")) handleStreams.RunEmailThread();
 
@@ -65,15 +66,16 @@ namespace StreamWork.Controllers
             //Saves if there is no thumbnail uploaded
             if (Request.Form.Count != 0)
             {
-                var streamInfo = new string[3];
+                var streamInfo = new string[4];
                 foreach (var key in Request.Form.Keys)
                     streamInfo = key.Split(new char[] { '|' });
 
                 var streamTitle = streamInfo[0];
                 var streamSubject = streamInfo[1];
-                var notifyStudents = streamInfo[2];
+                var streamDescription = streamInfo[2];
+                var notifyStudents = streamInfo[3];
 
-                ThreadClass handleStreams = new ThreadClass(storageConfig, userChannel[0], userLogin[0], streamTitle, streamSubject, _tutorHelperFunctions.GetCorrespondingDefaultThumbnail(streamSubject));
+                ThreadClass handleStreams = new ThreadClass(storageConfig, userChannel[0], userLogin[0], streamTitle, streamSubject, streamDescription, _tutorHelperFunctions.GetCorrespondingDefaultThumbnail(streamSubject));
                 handleStreams.RunLiveThread();
                 if(notifyStudents.Equals("yes")) handleStreams.RunEmailThread();
 
