@@ -304,15 +304,6 @@ function redirect () {
     return;
 }
 
-function StartBroadcast(type) {
-    if(type == "tutor")
-        window.location.href = '/Tutor/ProfileTutor';
-    else if(type == "student")
-        window.location.href = '/Student/ProfileStudent';
-    else
-        window.location.href = '/Home/Login?dest=-Home-Profile'
-}
-
 function RecoverPassword() {
     $.ajax({
         url: '/Home/PasswordRecovery',
@@ -323,7 +314,7 @@ function RecoverPassword() {
         },
         success: function (data) {
             if (data.message === 'Success') {
-                OpenNotificationModal('Email sent! Check your email to reset your password')
+                OpenNotificationModalSuccess('Email sent! Check your email to reset your password')
             }
             else {
                 OpenNotificationModal('Invalid username')
@@ -363,6 +354,7 @@ function ReadFile(input, type) {
 
 function ChangePassword() {
     //gets url path with parameters
+
     var newPassword = $('#newPassword').val();
     var currentPassword = $('#confirmNewPassword').val();
 
@@ -389,7 +381,7 @@ function ChangePassword() {
         },
         success: function (data) {
             if (data.message === 'Success') {
-                OpenNotificationModal('Password has been changed!')
+                OpenNotificationModalSuccess('Password has been changed!')
                 window.location.href = '/Home/Login?dest=-Home-Profile';
             }
             else if (data.message === 'Failed') {
@@ -425,6 +417,12 @@ function OpenNotificationModal(body) {
     var notification = document.getElementById('notifyBody');
     notification.textContent = body;
     $('#notifyModal').modal('show')
+}
+
+function OpenNotificationModalSuccess(body) {
+    var notification = document.getElementById('notifyBodySuccess');
+    notification.textContent = body;
+    $('#notifyModalSuccess').modal('show')
 }
 
 
