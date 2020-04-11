@@ -3,11 +3,6 @@
 @{Layout = "_LayoutTutorNavbar";}
 @{ViewData["Title"] = "TutorStream";}
 
-<script src="~/js/Tutor.js"></script>
-<script src="//player.dacast.com/js/player.js"></script>
-<script src="~/js/EditProfile.js"></script>
-<link rel="stylesheet" href="~/css/Tutor.css" />
-
 @if (!Model.UserProfile.ProfileType.Equals("tutor") || !Model.UserProfile.AcceptedTutor)
 {
     <script>$(document).ready(function () {
