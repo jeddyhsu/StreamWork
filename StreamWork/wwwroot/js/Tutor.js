@@ -14,12 +14,10 @@ function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail() {
     var formData = new FormData()
 
     if (streamTitle == "" || streamSubject == 'Select Subject' || streamDescription == "") {
+        Hide();
         OpenNotificationModal("Please give a title, subject and description")
         return;
     }
-
-    document.getElementById("StartStream").disabled = true;
-    document.getElementById('loaderStartStream').style.display = 'block'
 
     var streamInfo = streamTitle + '|' + streamSubject + '|' + streamDescription + '|' + notifyStudent;
 
@@ -37,7 +35,7 @@ function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail() {
         success: function (data) {
             if (data.message === "Success") {
                 $('#registerStreamModal').modal('hide'),
-                document.getElementById('loaderStartStream').style.display = 'none';
+                Hide();
                 OpenNotificationModalSuccess("Your broadcast is visible to students!");
             }
             else {
@@ -53,6 +51,10 @@ function DoYouWantToNotifyStudents() {
 }
 
 function CheckIfStreamIsLive(channelKey) {
+
+    document.getElementById("StartStream").disabled = true;
+    document.getElementById('loaderStartStream').style.display = 'block'
+
     $.ajax({
         url: '/Tutor/CheckIfStreamIsLive',
         type: 'post',
@@ -65,10 +67,16 @@ function CheckIfStreamIsLive(channelKey) {
                 RegisterStreamTitleAndStreamSubjectAndCustomThumbanail();
             }
             else {
+                Hide();
                 OpenNotificationModal("Stream is not live, make sure you have started on your encoder!")
             }
         }
     });
+}
+
+function Hide(){
+    document.getElementById("StartStream").disabled = false;
+    document.getElementById('loaderStartStream').style.display = 'none';
 }
 
 function AddStreamToSchedule() {

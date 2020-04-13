@@ -32,7 +32,10 @@
                     <button id="UnfollowButton" type="button" style="font-family:'Roboto Slab', serif; cursor: pointer; width:100%; " class="streamWorkGrey mb-2" onclick="UnfollowStreamTutor('@Model.UserChannel.Id')">Unfollow</button>
                 }
             }
-            <a href="/Home/Donate?tutor=@Model.UserChannel.Username"><button class="streamWorkGold mb-2 mr-1" style="font-family:'Roboto Slab', serif; cursor: pointer; width:100%;">Donate</button></a>
+            @if (!Model.TutorName.Equals("Scott|Underwood"))
+            {
+                <a href="/Home/Donate?tutor=@Model.UserChannel.Username"><button class="streamWorkGold mb-2 mr-1" style="font-family:'Roboto Slab', serif; cursor: pointer; width:100%;">Donate</button></a>
+            }
             <button class="streamWorkSecondary" style="font-family:'Roboto Slab', serif; cursor: pointer; width:100%; border-radius:none" onclick="showSubmitRecommendationModal();">Recommendation</button>
             <iframe class="p-0" src=@Model.ChatBox style="width:100%; height:75vh;" allowtransparency="yes" allow="autoplay" frameborder="0" marginheigh="0" marginwidth="0" scrolling="auto"></iframe>
         </div>
