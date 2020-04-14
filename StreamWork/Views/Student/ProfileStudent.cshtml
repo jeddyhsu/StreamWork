@@ -15,8 +15,12 @@
                     <div class="col-12">
                         <input type="image" class="zoom" onclick="EditProfile()" src=@Model.UserProfile.ProfilePicture style="border-radius:5%; width:115px" />
                         <h1 class="card-title mt-4" style="font-size:24px; color:whitesmoke;font-family: 'Roboto Slab', serif;"><b>@Model.UserProfile.Name.Replace('|', ' ')</b></h1>
+                        @if (Model.UserProfile.College != null)
+                        {
+                            <h6 class="card-title" style="font-size:16px; color:whitesmoke;font-family: 'Roboto Slab', serif;"><b>@Model.UserProfile.College</b></h6>
+                        }
                         <p class="card-text" id="ProfileCaptionGreeting" style="font-size:16px; color:white">Welcome to StreamWork!</p>
-                        <p class="card-text" id="ProfileParagraphGreeting" style="font-size:14px; color:white">StreamWork is very excited to have you onboard our amazing community of students. Learn live from some of the best streamtutors and end your homework procrastination tonight!</p>
+                        <p class="card-text" id="ProfileParagraphGreeting" style="font-size:14px; color:white">StreamWork is very excited to have you onboard our amazing community of students. Feel free to edit your profile above, learn live from some of the best streamtutors, and end your homework procrastination tonight!</p>
                         <p class="card-text" id="ProfileCaptionOnPage" style="font-size:16px; color:white">@Model.UserProfile.ProfileCaption</p>
                         <p class="card-text" id="ProfileParagraphOnPage" style="font-size:14px; color:white">@Model.UserProfile.ProfileParagraph</p>
                     </div>
