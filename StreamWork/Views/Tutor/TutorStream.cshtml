@@ -5,30 +5,30 @@
 
 @if (!Model.UserProfile.ProfileType.Equals("tutor") || !Model.UserProfile.AcceptedTutor)
 {
-    <script>$(document).ready(function () {
-            $('#unapprovedTutorModal').modal({
-                backdrop: 'static',
-                keyboard: false
-            })
-        })</script>
-}
-else if (Model.UserChannels[0].StreamTitle == null && Model.UserChannels[0].StreamSubject == null)
-{
     <script>
         $(document).ready(function () {
-            $('#registerStreamModal').modal({
+            $('#unapprovedTutorModal').modal({
                 backdrop: 'static',
                 keyboard: false
             })
         })
     </script>
 }
+else if (Model.UserChannels[0].StreamTitle == null && Model.UserChannels[0].StreamSubject == null)
+{
+    <script>$(document).ready(function () {
+            $('#registerStreamModal').modal({
+                backdrop: 'static',
+                keyboard: false
+            })
+        })</script>
+}
 
 <div style="background-color:black">
     <div class="container-fluid p-0">
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-9 mt-3 p-0" style="background-color:white">
-                <div><iframe src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.UserChannels[0].ChannelKey.Split('|')[0]"  style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" frameborder="0" scrolling="no" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="autoplay; fullscreen;"></iframe></div>
+                <div><iframe src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.UserChannels[0].ChannelKey.Split('|')[0]" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" frameborder="0" scrolling="no" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="autoplay; fullscreen;"></iframe></div>
             </div>
             <div class="col-sm-12 col-md-12 col-lg-3 p-0" style="background-color:whitesmoke">
                 @if (true)
@@ -39,7 +39,7 @@ else if (Model.UserChannels[0].StreamTitle == null && Model.UserChannels[0].Stre
         </div>
     </div>
 
-    <div id="registerStreamModal" class="modal show" tabindex="-1" role="dialog" style="display: block; padding-left: 0px;">
+    <div id="registerStreamModal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="background-color:whitesmoke">
                 <div class="modal-header">
@@ -120,6 +120,22 @@ else if (Model.UserChannels[0].StreamTitle == null && Model.UserChannels[0].Stre
     </div>
 </div>
 
+@*Unapproved Tutor Modal*@
+<div id="unapprovedTutorModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color: whitesmoke">
+            <div class="modal-header">
+                <h5 class="modal-title" style="color:black">Looks like you haven't been verified yet!</h5>
+            </div>
+            <div class="modal-body">
+                <p style="color: black;">It appears you are not a verified StreamTutor! If you are a student, create a separate student account. If you are a StreamTutor, please wait 1-2 business days to be approved. In the meantime feel free to edit your profile and watch some streams. </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="streamWorkGrey" style="cursor:pointer" onclick="window.location.href = '/Tutor/ProfileTutor'">Exit</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <style>
 
@@ -157,7 +173,5 @@ else if (Model.UserChannels[0].StreamTitle == null && Model.UserChannels[0].Stre
         });
     });</script>
 
-<script>
-    $("#info").tooltip();
-    $("#info2").tooltip();
-</script>
+<script>$("#info").tooltip();
+    $("#info2").tooltip();</script>

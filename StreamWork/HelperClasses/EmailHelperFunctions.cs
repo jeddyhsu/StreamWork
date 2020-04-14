@@ -125,7 +125,8 @@ namespace StreamWork.HelperClasses
                 reader = reader.Replace("{NAMEOFUSER}", "The StreamWork Team");
                 reader = reader.Replace("{INTRODUCTION}", "It looks like we got a sign up from a tutor!");
                 reader = reader.Replace("{BODY}", "Name: " + firstName + " " + lastName  + " - Email: " + email );
-                reader = reader.Replace("{CLOSING}", "GET SHIT DONE!!!");
+                reader = reader.Replace("{CLOSING}", "Great job,");
+                reader = reader.Replace("{CLOSINGNAME}", "Team StreamWork");
                 await SendEmailToAnyEmailAsync(_streamworkEmailID, _streamworkEmailID, null, "New Tutor SignUp", reader, attachments);
             }
 

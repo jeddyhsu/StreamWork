@@ -271,7 +271,7 @@ namespace StreamWork.Controllers
                 {
                     Id = Guid.NewGuid().ToString(),
                     Username = username,
-                    ChannelKey = null,
+                    ChannelKey = _homeHelperFunctions._defaultStreamHosterChannelKey,
                     StreamSubject = null,
                     StreamThumbnail = null,
                     StreamTitle = null,
