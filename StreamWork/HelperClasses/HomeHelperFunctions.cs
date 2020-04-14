@@ -236,8 +236,8 @@ namespace StreamWork.HelperClasses
             if (userName != null)
             {
                 var userLogin = (await GetUserLogins(storageConfig, QueryHeaders.CurrentUser, userName))[0];
-                var _encodedUrl = HttpUtility.UrlEncode(Convert.ToBase64String(hmacSHA256("/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + tid + "&tkey=" + tkey + "&nme=" + userName + "&pic=" + userLogin.ProfilePicture, "3O08UU-OtQ_rycx3")));
-                var _finalString = "https://www6.cbox.ws" + "/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + tid + "&tkey=" + tkey + "&nme=" + userName + "&pic=" + userLogin.ProfilePicture + "&sig=" + _encodedUrl;
+                var _encodedUrl = HttpUtility.UrlEncode(Convert.ToBase64String(hmacSHA256("/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + tid + "&tkey=" + tkey + "&nme=" + userLogin.Name.Replace('|','_') + "&pic=" + userLogin.ProfilePicture, "3O08UU-OtQ_rycx3")));
+                var _finalString = "https://www6.cbox.ws" + "/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + tid + "&tkey=" + tkey + "&nme=" + userLogin.Name.Replace('|', '_') + "&pic=" + userLogin.ProfilePicture + "&sig=" + _encodedUrl;
                 return _finalString;
             }
 
