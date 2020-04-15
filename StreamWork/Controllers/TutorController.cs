@@ -239,23 +239,9 @@ namespace StreamWork.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> TutorSettings([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string name,
-                                                                                                                     string profileCaption,
-                                                                                                                     string profileParagraph,
-                                                                                                                     string currentPassword,
-                                                                                                                     string newPassword,
-                                                                                                                     string confirmPassword)
+        public async Task<IActionResult> TutorSettings([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string currentPassword, string newPassword, string confirmPassword)
         {
             var user = HttpContext.User.Identity.Name;
-            var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
-
-            if (name != null || profileCaption != null || profileParagraph != null)
-            {
-                userProfile.Name = name;
-                userProfile.ProfileCaption = profileCaption;
-                userProfile.ProfileParagraph = profileParagraph;
-                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
-            }
 
             if (currentPassword != null && newPassword != null && confirmPassword != null)
             {
@@ -266,6 +252,7 @@ namespace StreamWork.Controllers
                     await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userLogin[0].Id } }, userLogin[0]);
                     return Json(new { Message = JsonResponse.Success.ToString() });
                 }
+                return Json(new { Message = JsonResponse.Failed.ToString() });
             }
 
             return Json(new { Message = JsonResponse.Failed.ToString() });

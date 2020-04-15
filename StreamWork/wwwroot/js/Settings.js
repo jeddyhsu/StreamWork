@@ -1,60 +1,35 @@
-﻿
-function EditOverview() {
-
-    var name = $('#Name').val();
-    var profileCaption = $('#ProfileCaption').val();
-    var profileParagraph = $('#ProfileParagraph').val();
-
-    $.ajax({
-        url: '/Tutor/TutorSettings',
-        type: 'post',
-        dataType: 'json',
-        data: {
-            'name': name,
-            'profileCaption': profileCaption,
-            'profileParagraph': profileParagraph
-        },
-        success: function (data) {
-            if (data.message === "Success") {
-                alert("Profile Saved!");
-                location.reload();
-            }
-        }
-    });
-}
-
-function EditTutorSecurity() {
-
+﻿function EditTutorSecurity() {
     var currentPassword = $('#CurrentPassword').val();
     var newPassword = $('#NewPassword').val();
     var confirmPassword = $('#ConfirmPassword').val();
-
-    if (newPassword != confirmPassword) {
-        alert("Passwords do not match.");
-        return;
-    }
 
     if (ValidatePassword(newPassword) == false) {
         return;
     }
 
+    if (newPassword != confirmPassword) {
+        OpenNotificationModal("Passwords do not match.");
+        return;
+    }
+
     $.ajax({
         url: '/Tutor/TutorSettings',
         type: 'post',
         dataType: 'json',
         data: {
-
             'currentPassword': currentPassword,
             'newPassword': newPassword,
             'confirmPassword': confirmPassword
         },
-        success: function data() {
+        success: function (data) {
             if (data.message === "Success") {
-                alert("Password Changed!");
-                location.reload();
+                OpenNotificationModalSuccess("Password Changed!");
+                $('#CurrentPassword').val("");
+                $('#NewPassword').val("");
+                $('#ConfirmPassword').val("");
             }
             else {
-                alert("Incorrect Password");
+                OpenNotificationModal("Incorrect Password");
             }
         }
     })
@@ -66,12 +41,12 @@ function EditStudentSecurity() {
     var newPassword = $('#NewPassword').val();
     var confirmPassword = $('#ConfirmPassword').val();
 
-    if (newPassword != confirmPassword) {
-        alert("Passwords do not match.");
+    if (ValidatePassword(newPassword) == false) {
         return;
     }
 
-    if (ValidatePassword(newPassword) == false) {
+    if (newPassword != confirmPassword) {
+        OpenNotificationModal("Passwords do not match.");
         return;
     }
 
@@ -80,18 +55,19 @@ function EditStudentSecurity() {
         type: 'post',
         dataType: 'json',
         data: {
-
             'currentPassword': currentPassword,
             'newPassword': newPassword,
             'confirmPassword': confirmPassword
         },
-        success: function data() {
+        success: function(data) {
             if (data.message === "Success") {
-                alert("Password Changed!");
-                location.reload();
+                OpenNotificationModalSuccess("Password Changed!");
+                $('#CurrentPassword').val("");
+                $('#NewPassword').val("");
+                $('#ConfirmPassword').val("");
             }
             else {
-                alert("Incorrect Password");
+                OpenNotificationModal("Incorrect Password");
             }
         }
     })
@@ -117,14 +93,26 @@ function ValidatePassword(password) {
         }
 
         if (UpperCase == false || LowerCase == false || Number == false) {
-            alert("Password must contain one lowercase letter, one uppercase letter, and one number");
+            OpenNotificationModal("Password must contain one lowercase letter, one uppercase letter, and one number");
             return false;
         }
     }
     else {
-        alert("Password must be at least 8 characters long");
+        OpenNotificationModal("Password must be at least 8 characters long");
         return false;
     }
 
     return true;
+}
+
+function OpenNotificationModal(body) {
+    var notification = document.getElementById('notifyBody');
+    notification.textContent = body;
+    $('#notifyModal').modal('show')
+}
+
+function OpenNotificationModalSuccess(body) {
+    var notification = document.getElementById('notifyBodySuccess');
+    notification.textContent = body;
+    $('#notifyModalSuccess').modal('show')
 }
