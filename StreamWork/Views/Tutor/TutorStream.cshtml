@@ -91,7 +91,7 @@ else if (Model.UserChannels[0].StreamTitle == null && Model.UserChannels[0].Stre
                 <div class="modal-footer">
                     <div id="loaderStartStream" style="display:none" class="loader mr-auto"></div>
                     <button type="button" class="streamWorkGrey" style="cursor:pointer" onclick="window.location.href = '/Tutor/ProfileTutor'">Exit</button>
-                    <button id="StartStream" type="button" class="streamWorkPrimary" style="cursor:pointer" onclick="CheckIfStreamIsLive('FwCi5UscdtW_5|xiUQyfivsMw')">Go Live!</button>
+                    <button id="StartStream" type="button" class="streamWorkPrimary" style="cursor:pointer" onclick="CheckIfStreamIsLive('@Model.UserChannels[0].ChannelKey')">Go Live!</button>
                 </div>
             </div>
         </div>
