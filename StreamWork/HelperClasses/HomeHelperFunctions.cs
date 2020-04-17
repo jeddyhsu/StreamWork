@@ -166,12 +166,12 @@ namespace StreamWork.HelperClasses
                 {
                     UserLogin = userLogin[0],
                     UserChannel = userChannel[0],
-                    UserArchivedStream = getArchivedStreams[0],
+                    UserArchivedStream = getArchivedStreams[1],
                     UserArchivedStreams = await GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos, null),
                     ChatBox = await GetChatSecretKey(storageConfig, userChannel[0].ChatId, currentUser)
                 };
 
-                model.UserArchivedStreams = model.UserArchivedStreams.Skip(model.UserArchivedStreams.Count - 4).ToList();
+                model.UserArchivedStreams = model.UserArchivedStreams.ToList().GetRange(2,4);
 
                 return model;
             }
@@ -185,7 +185,7 @@ namespace StreamWork.HelperClasses
                 ChatBox = await GetChatSecretKey(storageConfig, streamingUserChannels[0].ChatId, currentUser)
             };
 
-            channelModel.UserArchivedStreams = channelModel.UserArchivedStreams.Skip(channelModel.UserArchivedStreams.Count - 4).ToList();
+            channelModel.UserArchivedStreams = channelModel.UserArchivedStreams.ToList().GetRange(2,4);
 
             return channelModel;
         }
