@@ -1,4 +1,5 @@
-function FollowStreamTutor(tutor) {
+function FollowStreamTutor(tutor, i) {
+  
     $.ajax({
         url: '/Home/ProfileView',
         type: 'post',
@@ -8,12 +9,17 @@ function FollowStreamTutor(tutor) {
             'tutorId': tutor
         }
     });
-
-    $('#FollowButton').hide();
-    $('#UnfollowButton').show();
+    if (i == null) {
+        $('#FollowButton').hide();
+        $('#UnfollowButton').show();
+    }
+    else {
+        $('#FollowButton-' + i).hide();
+        $('#UnfollowButton-' + i).show();
+    }
 }
 
-function UnfollowStreamTutor(tutor) {
+function UnfollowStreamTutor(tutor, i) {
     $.ajax({
         url: '/Home/ProfileView',
         type: 'post',
@@ -23,9 +29,14 @@ function UnfollowStreamTutor(tutor) {
             'tutorId': tutor
         }
     });
-
-    $('#FollowButton').show();
-    $('#UnfollowButton').hide();
+    if (i == null) {
+        $('#FollowButton').show();
+        $('#UnfollowButton').hide();
+    }
+    else {
+        $('#FollowButton-' + i).show();
+        $('#UnfollowButton-' + i).hide();
+    }
 }
 
 function showSubmitRecommendationModal() {

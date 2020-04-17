@@ -21,6 +21,9 @@ namespace StreamWork.HelperClasses
         AllSignedUpUsersWithPassword,
         AllApprovedTutors,
         AllStudents,
+        GetFollowedLogins,
+        GetNotFollowedLogins,
+        CurrentUserUsingId,
 
         // UserChannel
         AllUserChannelsThatAreStreamingWithSpecifiedSubject,
@@ -37,6 +40,7 @@ namespace StreamWork.HelperClasses
         ArchivedVideosByStreamId,
         ArchivedVideosBySearchTerm,
         ArchivedVideosBySubjectAndSearchTerm,
+        MultipleArchivedVideosByStreamId,
 
         // Payment
         AllPayments,

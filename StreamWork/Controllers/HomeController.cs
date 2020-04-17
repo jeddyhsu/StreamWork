@@ -144,8 +144,6 @@ namespace StreamWork.Controllers
                 UserLogins = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, tutor),
                 UserChannels = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, tutor),
                 UserArchivedVideos = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, tutor),
-                UserProfile = null,
-                StudentOrTutorProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, tutor),
                 NumberOfStreams = (await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, tutor)).Count
             };
 
@@ -156,7 +154,7 @@ namespace StreamWork.Controllers
                 profile.UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name);
 
                 if (profile.UserProfile.FollowedStudentsAndTutors != null)
-                    profile.IsUserFollowingThisTutor = profile.UserProfile.FollowedStudentsAndTutors.Contains(profile.UserChannels[0].Id);
+                    profile.IsUserFollowingThisTutor = profile.UserProfile.FollowedStudentsAndTutors.Contains(profile.UserLogins[0].Id);
             }
             else
             {
@@ -177,8 +175,7 @@ namespace StreamWork.Controllers
                 var user = HttpContext.User.Identity.Name;
                 var userLogin = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user);
 
-                var tutorChannel = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannelFromId, tutorId);
-                var tutorLogin = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, tutorChannel[0].Username);
+                var tutorLogin = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUserUsingId, tutorId);
 
                 var updatedUserList = _followingHelperFunctions.AddToListOfFollowedTutors(tutorId, userLogin[0].FollowedStudentsAndTutors);
                 var updatedTutorList = _followingHelperFunctions.AddToListOfFollowedStudents(userLogin[0].EmailAddress, tutorLogin[0].FollowedStudentsAndTutors);
@@ -198,8 +195,7 @@ namespace StreamWork.Controllers
                 var user = HttpContext.User.Identity.Name;
                 var userLogin = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user);
 
-                var tutorChannel = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannelFromId, tutorId);
-                var tutorLogin = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, tutorChannel[0].Username);
+                var tutorLogin = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUserUsingId, tutorId);
 
                 var updatedUserList = _followingHelperFunctions.RemoveFromListOfFollowedTutors(tutorId, userLogin[0].FollowedStudentsAndTutors);
                 var updatedTutorList = _followingHelperFunctions.RemoveFromListOfFollowedStudents(userLogin[0].EmailAddress, tutorLogin[0].FollowedStudentsAndTutors);

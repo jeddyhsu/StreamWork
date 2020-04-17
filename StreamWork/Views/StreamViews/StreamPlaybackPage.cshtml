@@ -32,13 +32,13 @@ else
                     <br />
                     @if (Model.IsUserFollowingThisTutor == false && Model.UserProfile != null && Model.UserProfile.ProfileType == "student")
                     {
-                        <button id="FollowButton" type="button" style="font-size:12px; background-color:#007070; color:white" class="btn mt-3" onclick="FollowStreamTutor('@Model.UserChannel.Id')">Follow</button>
-                        <button id="UnfollowButton" type="button" style="font-size:12px; background-color:#007070; display:none; color:white" class="btn mt-3" onclick="UnfollowStreamTutor('@Model.UserChannel.Id')">Unfollow</button>
+                        <button id="FollowButton" type="button" style="font-size:12px;" class="streamWorkSecondary mt-3" onclick="FollowStreamTutor('@Model.TutorUserProfile.Id')">Follow</button>
+                        <button id="UnfollowButton" type="button" style="font-size:12px; display:none;" class="streamWorkGrey mt-3" onclick="UnfollowStreamTutor('@Model.TutorUserProfile.Id')">Unfollow</button>
                     }
                     else if (Model.IsUserFollowingThisTutor == true && Model.UserProfile != null && Model.UserProfile.ProfileType == "student")
                     {
-                        <button id="FollowButton" type="button" style="font-size:12px;display:none; background-color:#007070; color:white" class="btn mt-3" onclick="FollowStreamTutor('@Model.UserChannel.Id')">Follow</button>
-                        <button id="UnfollowButton" type="button" style="font-size:12px; background-color:#007070; color:white" class="btn mt-3" onclick="UnfollowStreamTutor('@Model.UserChannel.Id')">Unfollow</button>
+                        <button id="FollowButton" type="button" style="font-size:12px;display:none;" class="streamWorkSecondary mt-3" onclick="FollowStreamTutor('@Model.TutorUserProfile.Id')">Follow</button>
+                        <button id="UnfollowButton" type="button" style="font-size:12px;" class="streamWorkGrey mt-3" onclick="UnfollowStreamTutor('@Model.TutorUserProfile.Id')">Unfollow</button>
                     }
                     <h1 class="card-title mt-4" style="font-size: 24px; color: black; font-family: 'Roboto Slab', serif;"><b>@Model.TutorUserProfile.Name.Replace('|', ' ')</b></h1>
                     <p class="card-text" style="font-size:16px; color:black">@Model.TutorUserProfile.ProfileCaption</p>

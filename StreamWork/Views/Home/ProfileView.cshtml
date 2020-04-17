@@ -7,22 +7,22 @@
         <div class="card text-center border-0" style="color:white;">
             <div class="card-body" style="background:linear-gradient(to bottom, white 25%, #008080 0%);">
                 <div class="col-12">
-                    <img src=@Model.StudentOrTutorProfile.ProfilePicture style="width:115px; height: 150px; border-radius:5%" />
+                    <img src=@Model.UserLogins[0].ProfilePicture style="width:115px; height: 150px; border-radius:5%" />
                     <br />
                     @if (Model.IsUserFollowingThisTutor == false && Model.UserProfile != null && Model.UserProfile.ProfileType == "student")
                     {
-                        <button id="FollowButton" type="button" style="font-size:12px; background-color:#007070; color:white" class="btn mt-3" onclick="FollowStreamTutor('@Model.UserChannels[0].Id')">Follow</button>
-                        <button id="UnfollowButton" type="button" style="font-size:12px; background-color:#007070; display:none; color:white" class="btn mt-3" onclick="UnfollowStreamTutor('@Model.UserChannels[0].Id')">Unfollow</button>
+                        <button id="FollowButton" type="button" style="font-size:12px;" class="streamWorkSecondary mt-3" onclick="FollowStreamTutor('@Model.UserLogins[0].Id')">Follow</button>
+                        <button id="UnfollowButton" type="button" style="font-size:12px; display:none;" class="streamWorkGrey mt-3" onclick="UnfollowStreamTutor('@Model.UserLogins[0].Id')">Unfollow</button>
                     }
                     else if (Model.IsUserFollowingThisTutor == true && Model.UserProfile != null && Model.UserProfile.ProfileType == "student")
                     {
-                        <button id="FollowButton" type="button" style="font-size:12px;display:none; background-color:#007070; color:white" class="btn mt-3" onclick="FollowStreamTutor('@Model.UserChannels[0].Id')">Follow</button>
-                        <button id="UnfollowButton" type="button" style="font-size:12px; background-color:#007070; color:white" class="btn mt-3" onclick="UnfollowStreamTutor('@Model.UserChannels[0].Id')">Unfollow</button>
+                        <button id="FollowButton" type="button" style="font-size:12px;display:none;" class="streamWorkSecondary mt-3" onclick="FollowStreamTutor('@Model.UserLogins[0].Id')">Follow</button>
+                        <button id="UnfollowButton" type="button" style="font-size:12px;" class="streamWorkGrey mt-3" onclick="UnfollowStreamTutor('@Model.UserLogins[0].Id')">Unfollow</button>
                     }
-                    <h1 class="card-title mt-4" style="font-size:24px; color:whitesmoke;font-family: 'Roboto Slab', serif;"><b>@Model.StudentOrTutorProfile.Name.Replace('|', ' ')</b></h1>
-                    <h6 class="card-title mt-1" style="font-size:15px; color:white;font-family: 'Roboto Slab', serif;"><b>@Model.StudentOrTutorProfile.Username</b></h6>
-                    <p class="card-text" style="font-size:16px; color:white">@Model.StudentOrTutorProfile.ProfileCaption</p>
-                    <p class="card-text" style="font-size:14px; color:white">@Model.StudentOrTutorProfile.ProfileParagraph</p>
+                    <h1 class="card-title mt-4" style="font-size:24px; color:whitesmoke;font-family: 'Roboto Slab', serif;"><b>@Model.UserLogins[0].Name.Replace('|', ' ')</b></h1>
+                    <h6 class="card-title mt-1" style="font-size:15px; color:white;font-family: 'Roboto Slab', serif;"><b>@Model.UserLogins[0].Username</b></h6>
+                    <p class="card-text" style="font-size:16px; color:white">@Model.UserLogins[0].ProfileCaption</p>
+                    <p class="card-text" style="font-size:14px; color:white">@Model.UserLogins[0].ProfileParagraph</p>
 
                     <br />
                     @*
@@ -40,7 +40,7 @@
             </div>
             <div class="col-lg-3 px-1">
                 <div class="card-body" style="background-color:#008080;border-top-left-radius:0px;">
-                    <a href="/Home/Donate?tutor=@Model.StudentOrTutorProfile.Username"><button class="streamWorkGold" style="font-family:'Roboto Slab', serif; cursor: pointer; display:block; margin-left:auto; margin-right:auto; height:68px; width:100%;" onmouseover="">Donate</button></a>
+                    <a href="/Home/Donate?tutor=@Model.UserLogins[0].Username"><button class="streamWorkGold" style="font-family:'Roboto Slab', serif; cursor: pointer; display:block; margin-left:auto; margin-right:auto; height:68px; width:100%;" onmouseover="">Donate</button></a>
                 </div>
             </div>
             <div class="col-lg-3 px-1">
@@ -121,38 +121,6 @@
     </div>
 </div>
 
-<div id="editModal" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" style="background-color: #008080">
-            <div class="modal-header">
-                <h5 class="modal-title" style="color:white">Edit Profile</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.StudentOrTutorProfile.ProfileCaption" />
-                    <br />
-                    <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.StudentOrTutorProfile.ProfileParagraph</textarea>
-                    <br />
-                    <img id="previewProfilePic" src=@Model.StudentOrTutorProfile.ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
-                    <br />
-                    <div class="upload-uploadbtn-wrapper">
-                        <button class="uploadbtn" style="margin-left:110px">Upload a Profile Picture</button>
-                        <input id="uploadProfilePic" type='file' onchange="readURL(this,'ProfilePic');" />
-                    </div>
-                </form>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" style="background-color:black; color:white" class="btn" onclick="RegisterProfilePhotoAndCaption()">Save changes</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div id="submitRecommendationModal" class="modal" tabindex="-2" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content" style="background-color: whitesmoke;">
@@ -171,11 +139,11 @@
                 <button type="button" class="streamWorkGrey" data-dismiss="modal">Exit</button>
                 @if (Model.UserProfile == null)
                 {
-                    <button class="streamWorkPrimary" data-dismiss="modal" onclick="submitRecommendation('Anonymous', '@Model.StudentOrTutorProfile.Username')">Submit</button>
+                    <button class="streamWorkPrimary" data-dismiss="modal" onclick="submitRecommendation('Anonymous', '@Model.UserLogins[0].Username')">Submit</button>
                 }
                 else
                 {
-                    <button class="streamWorkPrimary" data-dismiss="modal" onclick="submitRecommendation('@Model.UserProfile.Username', '@Model.StudentOrTutorProfile.Username')">Submit</button>
+                    <button class="streamWorkPrimary" data-dismiss="modal" onclick="submitRecommendation('@Model.UserProfile.Username', '@Model.UserLogins[0].Username')">Submit</button>
                 }
             </div>
         </div>

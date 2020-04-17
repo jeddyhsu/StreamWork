@@ -33,13 +33,13 @@ namespace StreamWork.Controllers
             StreamPageViewModel model = new StreamPageViewModel
             {
                 UserProfile = HttpContext.User.Identity.Name != null ? (await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name))[0] : null,
-                TutorName = userLogin[0].Name,
+                TutorUserProfile = userLogin[0],
                 ChatBox = chatBox,
                 UserChannel = channel[0]
             };
 
             if (model.UserProfile != null && model.UserProfile.FollowedStudentsAndTutors != null)
-                model.IsUserFollowingThisTutor = model.UserProfile.FollowedStudentsAndTutors.Contains(channel[0].Id);
+                model.IsUserFollowingThisTutor = model.UserProfile.FollowedStudentsAndTutors.Contains(userLogin[0].Id);
 
             await _streamHelperFunctions.IncrementChannelViews(storageConfig, HttpContext.User.Identity.Name, streamTutorUsername);
 
@@ -53,6 +53,7 @@ namespace StreamWork.Controllers
 
             var archivedStream = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.ArchivedVideosByStreamId, streamId);
             var channel = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, archivedStream[0].Username);
+            var userLogin = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, archivedStream[0].Username);
 
             StreamPlayBackPageViewModel model = new StreamPlayBackPageViewModel
             {
@@ -65,7 +66,7 @@ namespace StreamWork.Controllers
             };
 
             if (model.UserProfile != null && model.UserProfile.FollowedStudentsAndTutors != null)
-                model.IsUserFollowingThisTutor = model.UserProfile.FollowedStudentsAndTutors.Contains(channel[0].Id);
+                model.IsUserFollowingThisTutor = model.UserProfile.FollowedStudentsAndTutors.Contains(userLogin[0].Id);
 
             await _streamHelperFunctions.IncrementArchivedVideoViews(storageConfig, HttpContext.User.Identity.Name, streamId);
 

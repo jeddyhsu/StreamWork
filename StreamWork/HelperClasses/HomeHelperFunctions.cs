@@ -45,6 +45,12 @@ namespace StreamWork.HelperClasses
             return channels;
         }
 
+        public async Task<List<UserChannel>> GetUserChannels([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, QueryHeaders query, List<string> parameters)
+        {
+            var channels = await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, query.ToString(), parameters);
+            return channels;
+        }
+
         //Gets a set of archived streams with the query that you specify
         public async Task<List<UserArchivedStreams>> GetArchivedStreams ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, QueryHeaders query, string user) {
             var archivedStreams = await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, query.ToString(), new List<string> { user });
@@ -74,6 +80,15 @@ namespace StreamWork.HelperClasses
             var logins = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, query.ToString(), new List<string> { user });
             if (logins.Count > 0) return logins[0];
             return null;
+        }
+
+        public async Task<List<UserArchivedStreams>> GetPreviouslyWatchedStreams([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string studentName)
+        {
+            var previousViews = await DataStore.GetListAsync<View>(_connectionString, storageConfig.Value, QueryHeaders.ViewsByViewer.ToString(), new List<string> { studentName });
+            if (previousViews.Count == 0) return null;
+            List<string> idList = new List<string>();
+            foreach (var view in previousViews) idList.Add(view.StreamId);
+            return await GetArchivedStreams(storageConfig, QueryHeaders.MultipleArchivedVideosByStreamId, FormatQueryString(idList));
         }
 
         public async Task UpdateUser ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, UserLogin user) {
@@ -283,6 +298,17 @@ namespace StreamWork.HelperClasses
                 Text = text,
             };
             await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", recommendation.Id } }, recommendation);
+        }
+
+        public string FormatQueryString(List<string> list)
+        {
+            if (list.Count == 0) return null;
+            string ids = "";
+            foreach (string id in list) ids += "'" + id + "'" + ",";
+            ids = ids.Remove(0, 1);
+            ids = ids.Remove(ids.Length - 2, 2);
+
+            return ids;
         }
     }
 }

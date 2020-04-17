@@ -48,9 +48,9 @@
 <div class="container">
     <h2 class="text-center" style="font-family:'Roboto Slab', serif"><b>Archived Streams</b><span class="ml-2"><img id="info" src="~/images/info_icon.png" style="width: 24px; height: 24px; margin-top: -5px;" data-toggle="tooltip" data-placement="right" title="Watch all the previously archived livestreams here. It's free!" /></span></h2>
     <div class="row">
-        @if (Model.UserArchivedStreams.Count > 0)
+        @if (Model.ArchivedStreams.Count > 0)
         {
-            @foreach (var videoInfo in Model.UserArchivedStreams)
+            @foreach (var videoInfo in Model.ArchivedStreams)
             {
                 <div class="col-lg-4 col-md-6 col-sm-6 streamsubject @videoInfo.StreamSubject">
                     <div class="card mt-3" style="border:none; background-color:transparent">

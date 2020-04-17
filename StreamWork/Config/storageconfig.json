@@ -13,6 +13,10 @@
           "QueryId": "CurrentUser"
         },
         {
+          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE Id = '@x0'",
+          "QueryId": "CurrentUserUsingId"
+        },
+        {
           "Query": "SELECT * FROM [dbo].[UserLogin] WHERE PayPalAddress = '@x0'",
           "QueryId": "CheckUsersWithSamePayPalAddress"
         },
@@ -27,38 +31,50 @@
         {
           "Query": "SELECT * FROM [dbo].[UserLogin] WHERE ProfileType = 'student'",
           "QueryId": "AllStudents"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE Id in ('@x0')",
+          "QueryId": "GetFollowedLogins"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE Id not in ('@x0') AND ProfileType = 'tutor' AND AcceptedTutor = '1'",
+          "QueryId": "GetNotFollowedLogins"
         }
       ]
     },
     {
       "Name": "UserChannel",
       "StorageType": "SqlServer",
-        "Queries": [
-          {
-            "Query": "SELECT * FROM [dbo].[UserChannel] WHERE StreamSubject = '@x0'",
-            "QueryId": "AllUserChannelsThatAreStreamingWithSpecifiedSubject"
-          },
-          {
-            "Query": "SELECT * FROM [dbo].[UserChannel] WHERE StreamSubject != '@x0'",
-            "QueryId": "AllUserChannelsThatAreStreaming"
-          },
-          {
-            "Query": "SELECT * FROM [dbo].[UserChannel] WHERE Username = '@x0'",
-            "QueryId": "CurrentUserChannel"
-          },
-          {
-            "Query": "SELECT * FROM [dbo].[UserChannel] WHERE Id = '@x0'",
-            "QueryId": "CurrentUserChannelFromId"
-          },
-          {
-            "Query": "SELECT * FROM [dbo].[UserChannel] WHERE LOWER(StreamTitle) LIKE '%@x0%'",
-            "QueryId": "UserChannelsBySearchTerm"
-          },
-          {
-            "Query": "SELECT * FROM [dbo].[UserChannel] WHERE StreamSubject = '@x0' AND LOWER(StreamTitle) LIKE '%@x1%'",
-            "QueryId": "UserChannelsBySubjectAndSearchTerm"
-          }
-        ]
+      "Queries": [
+        {
+          "Query": "SELECT * FROM [dbo].[UserChannel] WHERE StreamSubject = '@x0'",
+          "QueryId": "AllUserChannelsThatAreStreamingWithSpecifiedSubject"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[UserChannel] WHERE StreamSubject != '@x0'",
+          "QueryId": "AllUserChannelsThatAreStreaming"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[UserChannel] WHERE Username = '@x0'",
+          "QueryId": "CurrentUserChannel"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[UserChannel] WHERE Id = '@x0'",
+          "QueryId": "CurrentUserChannelFromId"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[UserChannel] WHERE LOWER(StreamTitle) LIKE '%@x0%'",
+          "QueryId": "UserChannelsBySearchTerm"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[UserChannel] WHERE StreamSubject = '@x0' AND LOWER(StreamTitle) LIKE '%@x1%'",
+          "QueryId": "UserChannelsBySubjectAndSearchTerm"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[UserChannel] WHERE StreamSubject = '@x0' AND LOWER(StreamTitle) LIKE '%@x1%'",
+          "QueryId": "UserChannelsBySubjectAndSearchTerm"
+        }
+      ]
     },
 
     {
@@ -88,6 +104,10 @@
         {
           "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE StreamSubject = '@x0' AND LOWER(StreamTitle) LIKE '%@x1%'",
           "QueryId": "ArchivedVideosBySubjectAndSearchTerm"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE StreamId in ('@x0')",
+          "QueryId": "MultipleArchivedVideosByStreamId"
         }
       ]
     },

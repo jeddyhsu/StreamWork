@@ -94,22 +94,21 @@ namespace StreamWork.HelperClasses
             return null;
         }
 
-        public async Task<List<UserChannel>> GetFollowedTutors([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, UserLogin student)
+        public async Task<List<UserLogin>> GetFollowedTutors([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, UserLogin student)
         {
             if (student.FollowedStudentsAndTutors == null) return null;
-            List<UserChannel> followedTutors = new List<UserChannel>();
-            foreach(var tutor in student.FollowedStudentsAndTutors.Split("|"))
-            {
-                var tutorChannel = (await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannelFromId, tutor))[0];
-                followedTutors.Add(tutorChannel);
-            }
-
-            return followedTutors;
+            List<string> idList = student.FollowedStudentsAndTutors.Split("|").ToList();
+            var followedLogins = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.GetFollowedLogins, _homeHelperFunctions.FormatQueryString(idList));
+            return followedLogins;
         }
 
-        //public void SendOutEmailsToStudents(string streamName, string streamTime, string streamDate)
-        //{
-
-        //}
+        public async Task<List<UserLogin>> GetNotFollowedTutors([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, List<UserLogin> followedTutors)
+        {
+            if (followedTutors == null) return await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.AllApprovedTutors,null);
+            List<string> idList = new List<string>();
+            foreach (var tutor in followedTutors) idList.Add(tutor.Id);
+            var notfollowedLogins= await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.GetNotFollowedLogins, _homeHelperFunctions.FormatQueryString(idList));
+            return notfollowedLogins;
+        }
     }
 }

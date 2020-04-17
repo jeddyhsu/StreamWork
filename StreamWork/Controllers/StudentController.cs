@@ -50,9 +50,9 @@ namespace StreamWork.Controllers
 
             return View(new ProfileStudentViewModel
             {
-                UserChannels = await _homeHelperFunctions.SearchUserChannels(storageConfig, s, q),
+                LiveChannels = await _homeHelperFunctions.SearchUserChannels(storageConfig, s, q),
                 UserProfile = userProfile,
-                UserArchivedStreams = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos),
+                ArchivedStreams = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos),
             });
         }
 
@@ -66,7 +66,7 @@ namespace StreamWork.Controllers
             string user = HttpContext.User.Identity.Name;
             return View(new ProfileStudentViewModel
             {
-                UserArchivedStreams = await _homeHelperFunctions.SearchArchivedStreams(storageConfig, s, q),
+                ArchivedStreams = await _homeHelperFunctions.SearchArchivedStreams(storageConfig, s, q),
                 UserProfile = user == null ? null : await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user),
             });
         }
@@ -77,7 +77,7 @@ namespace StreamWork.Controllers
             ProfileStudentViewModel viewModel = new ProfileStudentViewModel
             {
                 UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
-                UserArchivedStreams = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideosBasedOnSubject, subject)
+                ArchivedStreams = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideosBasedOnSubject, subject)
             };
 
             return View(viewModel);
@@ -92,7 +92,7 @@ namespace StreamWork.Controllers
             ProfileStudentViewModel viewModel = new ProfileStudentViewModel
             {
                 UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
-                UserLogins = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
+                AllTutors = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
             };
 
             return View(viewModel);
