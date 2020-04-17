@@ -49,10 +49,10 @@ else if (Model.UserChannels[0].StreamTitle == null && Model.UserChannels[0].Stre
                 <div class="modal-body">
                     <form>
                         <div class="row">
-                            <div class="col-8">
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-6">
                                 <input align="middle" type="text" class="form-control" id="streamTitle" placeholder="Title">
                             </div>
-                            <div class="col-4">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-6">
                                 <select class="form-control " id="streamSubject">
                                     <option value="Select Subject">Select Subject</option>
                                     <option value="Mathematics">Mathematics</option>
@@ -68,13 +68,13 @@ else if (Model.UserChannels[0].StreamTitle == null && Model.UserChannels[0].Stre
                         </div>
                         <textarea align="middle" class="form-control mt-3" id="streamDescription" placeholder="Description"></textarea>
                         <div class="row">
-                            <div class="col-7">
+                            <div class="col-lg-7 col-md-7 col-sm-7 col-6">
                                 <div class="upload-uploadbtn-wrapper">
                                     <button class="form-control"><span><img src="/images/Upload16.png"></span> Upload Thumbnail</button>
                                     <input id="uploadThumbnail" type="file" value="~/images/MathDefault.png" onchange="readURL(this,'Thumbnail');">
                                 </div>
                             </div>
-                            <div class="col-5">
+                            <div class="col-lg-5 col-md-5 col-sm-5 col-6">
                                 <div class="form-control ml-2">
                                     <input class="form-check-input" type="checkbox" value="" id="notifyStudents">
                                     <label class="form-check-label" for="notifyStudents">

@@ -160,14 +160,14 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
                         <input align="middle" type="text" class="form-control" id="ProfileCaption" maxlength="50" placeholder="Field Of Study" value="@Model.UserProfile.ProfileCaption" />
                         <br />
                         <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" maxlength="189" placeholder="About Me" style="height:100px">@Model.UserProfile.ProfileParagraph</textarea>
-                        <div class="row">
-                            <div class="col-8">
+                        <div class="row mt-4">
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-6">
                                 <div class="upload-uploadbtn-wrapper">
-                                    <button class="form-control"><span><img src="/images/Upload16.png"></span>Upload Profile Picture</button>
+                                    <button class="form-control"><span><img src="/images/Upload16.png"></span> Upload Profile Picture</button>
                                     <input id="uploadProfilePic" style="cursor:pointer" type='file' onchange="readURL(this,'ProfilePic')" />
                                 </div>
                             </div>
-                            <div class="col-4">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-6">
                                 <img id="previewProfilePic" src=@Model.UserProfile.ProfilePicture alt="your image" style="border-radius: 5%; width:115px; display:block;margin-left:auto;margin-right:auto" />
                             </div>
                         </div>
