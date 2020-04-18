@@ -71,10 +71,8 @@ namespace StreamWork.Controllers
                     UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name)
                 };
             }
-            else
-            {
-                viewModel = new PopularStreamTutorsViewModel { };
-            }
+            else viewModel = new PopularStreamTutorsViewModel { };
+
             viewModel.PopularStreamTutors = await _homeHelperFunctions.GetPopularStreamTutor(storageConfig);
 
             return View(viewModel);
@@ -90,10 +88,8 @@ namespace StreamWork.Controllers
                     UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name)
                 };
             }
-            else
-            {
-                viewModel = new DefaultViewModel { };
-            }
+            else viewModel = new DefaultViewModel { };
+
             return View(viewModel);
         }
 
@@ -107,10 +103,8 @@ namespace StreamWork.Controllers
                     UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name)
                 };
             }
-            else
-            {
-                viewModel = new DefaultViewModel { };
-            }
+            else viewModel = new DefaultViewModel { };
+
             return View(viewModel);
         }
 
@@ -124,10 +118,8 @@ namespace StreamWork.Controllers
                     UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name)
                 };
             }
-            else
-            {
-                viewModel = new DefaultViewModel { };
-            }
+            else viewModel = new DefaultViewModel { };
+
             return View(viewModel);
         }
 
@@ -213,7 +205,7 @@ namespace StreamWork.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateRecommendation ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string student, string tutor, string recommendation) {
+        public async Task<IActionResult> CreateRecommendation([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string student, string tutor, string recommendation) {
             await _homeHelperFunctions.SaveRecommendation(storageConfig, student, tutor, recommendation);
             return Json(new { Message = JsonResponse.Success.ToString() });
         }
@@ -225,20 +217,31 @@ namespace StreamWork.Controllers
 
         [HttpPost]
         public async Task<IActionResult> SignUp([FromServices] IOptionsSnapshot<StorageConfig> storageConfig,
-                                                string nameFirst, string nameLast, string email, string payPalAddress, string username, string password, string passwordConfirm, string college, string role)
+                                                                                               string nameFirst,
+                                                                                               string nameLast,
+                                                                                               string email,
+                                                                                               string payPalAddress,
+                                                                                               string username,
+                                                                                               string password,
+                                                                                               string college,
+                                                                                               string role)
         {
 
-            if (password == null)
+            if (password == null && email != null) //initial checks!
             {
-                var checkCurrentUsers = await DataStore.GetListAsync<UserLogin>(_homeHelperFunctions._connectionString, storageConfig.Value, "CurrentUser", new List<string> { username });
-                if (checkCurrentUsers.Count == 0)
+                var checkUsername = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, username);
+                if (checkUsername.Count != 0) return Json(new { Message = JsonResponse.UsernameExists.ToString() });
+
+                var checkEmail = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUserUsingEmail, email);
+                if (checkEmail.Count != 0) return Json(new { Message = JsonResponse.EmailExists.ToString() });
+
+                if (payPalAddress != null) //only for tutors
                 {
-                    return Json(new { Message = JsonResponse.Success.ToString() });
+                    var checkPayPalEmail = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CheckUserUsingPayPalAddress, payPalAddress);
+                    if (checkPayPalEmail.Count != 0) return Json(new { Message = JsonResponse.PayPalEmailExists.ToString() });
                 }
-                else
-                {
-                    return Json(new { Message = JsonResponse.Failed.ToString() });
-                }
+
+                return Json(new { Message = JsonResponse.Success.ToString() });
             }
 
             UserLogin signUpProfile = new UserLogin
@@ -257,7 +260,7 @@ namespace StreamWork.Controllers
                 TrialAccepted = false,
                 PayPalAddress = payPalAddress
             };
-            if(signUpProfile.ProfileType == "student") await _emailHelperFunctions.SendOutEmailToStreamWorkTeam(signUpProfile);
+            if (signUpProfile.ProfileType == "student") await _emailHelperFunctions.SendOutEmailToStreamWorkTeam(signUpProfile);
             await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", signUpProfile.Id } }, signUpProfile);
 
             if (role == "tutor")
@@ -428,6 +431,48 @@ namespace StreamWork.Controllers
             };
 
             return View(model);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> SubscribeToNotifications([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string email) //this is when the link is clicked from the settings page
+        {
+            if (email != null)
+            {
+                var userLogin = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUserUsingEmail, email);
+                userLogin[0].NotificationSubscribe = DatabaseValues.True.ToString();
+                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userLogin[0].Id } }, userLogin[0]);
+                return Json(new { Message = JsonResponse.Success.ToString() });
+            }
+
+            return Json(new { Message = JsonResponse.Failed.ToString() });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Unsubscribe([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string email) //this is when the link is clicked from the email directly
+        {
+            if (email != null)
+            {
+                var userLogin = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUserUsingEmail, email);
+                userLogin[0].NotificationSubscribe = DatabaseValues.False.ToString();
+                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userLogin[0].Id } }, userLogin[0]);
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UnsubscribeFromNotifications([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string email) //this is when the link is clicked from the settings page
+        {
+            if (email != null)
+            {
+                var userLogin = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUserUsingEmail, email);
+                userLogin[0].NotificationSubscribe = DatabaseValues.False.ToString();
+                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userLogin[0].Id } }, userLogin[0]);
+                return Json(new { Message = JsonResponse.Success.ToString()});
+            }
+
+            return Json(new { Message = JsonResponse.Failed.ToString()});
         }
     }
 }

@@ -13,12 +13,16 @@
           "QueryId": "CurrentUser"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE Id = '@x0'",
-          "QueryId": "CurrentUserUsingId"
+          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE EmailAddress = '@x0'",
+          "QueryId": "CurrentUserUsingEmail"
         },
         {
           "Query": "SELECT * FROM [dbo].[UserLogin] WHERE PayPalAddress = '@x0'",
-          "QueryId": "CheckUsersWithSamePayPalAddress"
+          "QueryId": "CheckUserUsingPayPalAddress"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE Id = '@x0'",
+          "QueryId": "CurrentUserUsingId"
         },
         {
           "Query": "SELECT * FROM [dbo].[UserLogin] WHERE Username = '@x0' AND Password = '@x1'",

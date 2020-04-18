@@ -105,6 +105,42 @@ function ValidatePassword(password) {
     return true;
 }
 
+function Unsubscribe(email) {
+    $.ajax({
+        url: '/Home/UnsubscribeFromNotifications',
+        type: 'post',
+        dataType: 'json',
+        data: {
+            'email': email
+        },
+        success: function (data) {
+            if (data.message === "Success") {
+                OpenNotificationModalSuccess("You will not receive email notifications anymore");
+                document.getElementById('UnsubscribeButton').style.display = 'none';
+                document.getElementById('SubscribeButton').style.display = 'block';
+            }
+        }
+    })
+}
+
+function Subscribe(email) {
+    $.ajax({
+        url: '/Home/SubscribeToNotifications',
+        type: 'post',
+        dataType: 'json',
+        data: {
+            'email': email
+        },
+        success: function (data) {
+            if (data.message === "Success") {
+                OpenNotificationModalSuccess("You will receive email notifications when tutors go live");
+                document.getElementById('UnsubscribeButton').style.display = 'block';
+                document.getElementById('SubscribeButton').style.display = 'none';
+            }
+        }
+    })
+}
+
 function OpenNotificationModal(body) {
     var notification = document.getElementById('notifyBody');
     notification.textContent = body;

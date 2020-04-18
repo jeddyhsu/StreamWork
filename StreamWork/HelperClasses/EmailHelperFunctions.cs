@@ -82,13 +82,15 @@ namespace StreamWork.HelperClasses
                 foreach (var user in allUsers)
                 {
                     var email = HomeHelperFunctions.devEnvironment ? "rithvikarun24@gmail.com" : user.EmailAddress;
-                    if (user.Name.Split('|')[0].Length > 1 && user.Username != channel.Username)
+                    if (user.Name.Split('|')[0].Length > 1 && user.Username != channel.Username && user.NotificationSubscribe == DatabaseValues.True.ToString())
                     {
                         try
                         {
+                            reader = reader.Replace("{UNSUBSCRIBELINK}", _homeHelperFunctions._host + "/Home/Unsubscribe?email=" + user.EmailAddress);
                             reader = ReplaceFirstOccurrence(reader, "{NAMEOFUSER}", user.Name.Split("|")[0]);
                             await SendEmailToAnyEmailAsync(_streamworkEmailID, email, null, "A tutor has started a live-stream on StreamWork!", reader, null);
                             reader = ReplaceFirstOccurrence(reader, user.Name.Split("|")[0], "{NAMEOFUSER}");
+                            reader = reader.Replace(_homeHelperFunctions._host + "/Home/Unsubscribe?email=" + user.EmailAddress, "{UNSUBSCRIBELINK}");
                         }
                         catch (Exception ex)
                         {
@@ -173,7 +175,7 @@ namespace StreamWork.HelperClasses
             }
             catch(Exception e)
             {
-
+                Console.WriteLine("Error in SendEmailToAnyEmailAsync: " + e.Message);
             }
         }
     }

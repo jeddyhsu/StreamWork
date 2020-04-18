@@ -35,6 +35,36 @@
     </div>
 </div>
 
+<div class="container mt-2">
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-lg-8 col-md-8 col-sm-12">
+            <br />
+            <div class="card" style="background-color: white;">
+                <div class="card-header" style="background-color:#008080">
+                    <h1 class="text-center" style="color:white; font-family: 'Roboto Slab', serif;">Notifications</h1>
+                </div>
+                <br />
+                <div class="card-body">
+                    <form>
+                        <h5 class="text-center">Subscribing to notifications will allow for an email to be sent to you when a tutor goes live.</h5>
+                        @if (Model.UserProfile.NotificationSubscribe.Equals("True"))
+                        {
+                            <button id="UnsubscribeButton" class="streamWorkGrey mt-3" type="button" onclick="Unsubscribe('@Model.UserProfile.EmailAddress')" style="display:block; margin-left:auto; margin-right:auto;">Unsubscribe</button>
+                            <button id="SubscribeButton" class="streamWorkSecondary mt-3" type="button" onclick="Subscribe('@Model.UserProfile.EmailAddress')" style="display:none; margin-left:auto; margin-right:auto;">Subscribe</button>
+                        }
+                        else
+                        {
+                            <button id="UnsubscribeButton" class="streamWorkGrey mt-3" type="button" onclick="Unsubscribe('@Model.UserProfile.EmailAddress')" style="display:none; margin-left:auto; margin-right:auto;">Unsubscribe</button>
+                            <button id="SubscribeButton" class="streamWorkSecondary mt-3" type="button" onclick="Subscribe('@Model.UserProfile.EmailAddress')" style="display:block; margin-left:auto; margin-right:auto;">Subscribe</button>
+                        }
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @*Notify Modal Fail*@
 <div class="modal fade" id="notifyModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">

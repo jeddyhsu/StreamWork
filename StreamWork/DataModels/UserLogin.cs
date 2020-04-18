@@ -20,6 +20,7 @@ namespace StreamWork.DataModels
         public string ProfilePicture { get; set; }
         public string ProfileParagraph { get; set; }
         public string College { get; set; }
+        public string NotificationSubscribe { get; set; }
 
         //Students
         public decimal Balance { get; set; }

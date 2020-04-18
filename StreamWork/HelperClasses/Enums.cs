@@ -10,6 +10,15 @@ namespace StreamWork.HelperClasses
         QueryFailed,
         Tutor,
         Student,
+        UsernameExists,
+        EmailExists,
+        PayPalEmailExists
+    }
+
+    public enum DatabaseValues
+    {
+        True,
+        False,
     }
 
     public enum QueryHeaders
@@ -17,7 +26,8 @@ namespace StreamWork.HelperClasses
         // UserLogin
         AllSignedUpUsers,
         CurrentUser,
-        CheckUsersWithSamePayPalAddress,
+        CurrentUserUsingEmail,
+        CheckUserUsingPayPalAddress,
         AllSignedUpUsersWithPassword,
         AllApprovedTutors,
         AllStudents,

@@ -115,13 +115,18 @@ function RunStudentChecks() {
         type: 'post',
         dataType: 'json',
         data: {
-            'username': username
+            'username': username,
+            'email': email,
         },
         success: function (data) {
             if (data.message === "Success") {
                 OpenCheckStudentModal();
-            } else {
-                OpenNotificationModal("It looks like that username is already taken")
+            }
+            else if (data.message === "UsernameExists") {
+                OpenNotificationModal("Username is taken")
+            }
+            else if (data.message === "EmailExists") {
+                OpenNotificationModal("The email that you have provided is already being used with another account")
             }
         }
     });
@@ -155,7 +160,7 @@ function RunTutorChecks() {
     }
 
     if (ValidateEmail(payPalAddress) == false) {
-        OpenNotificationModal("Invalid email");
+        OpenNotificationModal("Invalid PayPal email");
         return;
     }
 
@@ -173,13 +178,22 @@ function RunTutorChecks() {
         type: 'post',
         dataType: 'json',
         data: {
-            'username': username
+            'username': username,
+            'email': email,
+            'payPalAddress': payPalAddress
+
         },
         success: function (data) {
             if (data.message === "Success") {
                 SignUpTutor();
-            } else {
-                OpenNotificationModal("It looks like that username is already taken")
+            }else if (data.message === "UsernameExists") {
+                OpenNotificationModal("Username is taken")
+            }
+            else if (data.message === "EmailExists") {
+                OpenNotificationModal("The email that you have provided is already being used with another account")
+            }
+            else if (data.message === "PayPalEmailExists") {
+                OpenNotificationModal("The PayPal email that you have provided is already being used with another account")
             }
         }
     });
