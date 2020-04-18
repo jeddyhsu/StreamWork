@@ -237,11 +237,12 @@ namespace StreamWork.Controllers
 
                 if (payPalAddress != null) //only for tutors
                 {
+                    var checkPayPalEmailUsingRegularEmail = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUserUsingEmail, payPalAddress); //payPal email can't be someone elses regular email
                     var checkPayPalEmail = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CheckUserUsingPayPalAddress, payPalAddress);
-                    if (checkPayPalEmail.Count != 0) return Json(new { Message = JsonResponse.PayPalEmailExists.ToString() });
+                    if (checkPayPalEmailUsingRegularEmail.Count != 0 || checkPayPalEmail.Count != 0) return Json(new { Message = JsonResponse.PayPalEmailExists.ToString() });
                 }
 
-                return Json(new { Message = JsonResponse.Success.ToString() });
+                return Json(new { Message = JsonResponse.Success.ToString()});
             }
 
             UserLogin signUpProfile = new UserLogin
