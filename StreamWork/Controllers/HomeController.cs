@@ -258,8 +258,10 @@ namespace StreamWork.Controllers
                 Balance = (decimal)0f,
                 Expiration = DateTime.UtcNow,
                 TrialAccepted = false,
-                PayPalAddress = payPalAddress
+                PayPalAddress = payPalAddress,
+                NotificationSubscribe = DatabaseValues.True.ToString()
             };
+
             if (signUpProfile.ProfileType == "student") await _emailHelperFunctions.SendOutEmailToStreamWorkTeam(signUpProfile);
             await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", signUpProfile.Id } }, signUpProfile);
 
