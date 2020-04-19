@@ -34,9 +34,6 @@
     <Folder Include="EmailTemplates\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Remove="Controllers\IPNController.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <None Update="EmailTemplates\PasswordRecoveryEmailTemplate.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
