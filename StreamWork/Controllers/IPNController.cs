@@ -84,7 +84,7 @@ namespace StreamWork.Controllers {
                     student = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, notification.Custom);
                     if (student == null)
                         error += " INVALID_STUDENT";
-                } else if (notification.Item_Name.Equals("DONATION")) {
+                } else {
                     string[] users = notification.Custom.Split('+');
                     if (users.Length < 2)
                         error += " NO_TUTOR";
