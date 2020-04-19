@@ -97,8 +97,7 @@ namespace StreamWork.Controllers {
                         if (tutor == null)
                             error += " INVALID_TUTOR";
                     }
-                } else
-                    error += " INVALID_ITEM_NAME=" + notification.Item_Name;
+                }
 
                 if (notification.Payment_Status != null && !notification.Payment_Status.Equals("Completed"))
                     error += " INVALID_PAYMENT_STATUS=" + notification.Payment_Status;
