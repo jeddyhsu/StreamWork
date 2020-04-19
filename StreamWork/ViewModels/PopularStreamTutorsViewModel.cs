@@ -5,7 +5,7 @@ namespace StreamWork.ViewModels
 {
     public class PopularStreamTutorsViewModel
     {
-        public UserLogin UserProfile { get; set; }
+        public UserLogin GenericUserProfile { get; set; }
         public List<UserLogin> PopularStreamTutors { get; set; }
     }
 }

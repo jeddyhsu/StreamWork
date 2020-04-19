@@ -32,23 +32,33 @@ namespace StreamWork.HelperClasses
         public readonly string _dacastAPIKey = "135034_9245336a05f4d4bdb6fa";
         public readonly string _defaultStreamHosterChannelKey = "Ec9jbSsc880_5";
 
-        //Gets set of userchannels with the query that you specify
-        public async Task<List<UserChannel>> GetUserChannels ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, QueryHeaders query, string user) {
+        //Gets all user channels that are streaming
+        public async Task<List<UserChannel>> GetAllUserChannels([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
+            var channels = await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, QueryHeaders.AllUserChannelsThatAreStreaming.ToString());
+            return channels;
+        }
+
+        //Gets set of user channels with the query that you specify
+        public async Task<List<UserChannel>> GetUserChannels([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, QueryHeaders query, string user)
+        {
             var channels = await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, query.ToString(), new List<string> { user });
             return channels;
         }
 
-        //All user channels
-        public async Task<List<UserChannel>> GetUserChannels([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, QueryHeaders query)
+        //Gets a single user channel with the query that you specify
+        public async Task<UserChannel> GetUserChannel([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, QueryHeaders query, string user)
         {
-            var channels = await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, query.ToString());
-            return channels;
+            var channels = await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, query.ToString(), new List<string> { user });
+            if (channels.Count > 0) return channels[0];
+            return null;
         }
 
-        public async Task<List<UserChannel>> GetUserChannels([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, QueryHeaders query, List<string> parameters)
+        //Gets all archived streams
+        public async Task<List<UserArchivedStreams>> GetAllArchivedStreams([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
-            var channels = await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, query.ToString(), parameters);
-            return channels;
+            var archivedStreams = await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, QueryHeaders.AllArchivedVideos.ToString());
+            return archivedStreams;
         }
 
         //Gets a set of archived streams with the query that you specify
@@ -57,26 +67,29 @@ namespace StreamWork.HelperClasses
             return archivedStreams;
         }
 
-        //All Archived Streams
-        public async Task<List<UserArchivedStreams>> GetArchivedStreams ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, QueryHeaders query) {
-            var archivedStreams = await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, query.ToString());
-            return archivedStreams;
+        //Gets a single archived stream with the query that you specify
+        public async Task<UserArchivedStreams> GetArchivedStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, QueryHeaders query, string user)
+        {
+            var archivedStreams = await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, query.ToString(), new List<string> { user });
+            if (archivedStreams.Count > 0) return archivedStreams[0];
+            return null;
+        }
+
+        //Gets all user logins
+        public async Task<List<UserLogin>> GetAllUserProfiles([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
+            var logins = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, QueryHeaders.AllSignedUpUsers.ToString());
+            return logins;
         }
 
         //Gets a set of user logins with the query that you specify
-        public async Task<List<UserLogin>> GetUserLogins ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, QueryHeaders query, string user) {
+        public async Task<List<UserLogin>> GetUserProfiles ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, QueryHeaders query, string user) {
             var logins = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, query.ToString(), new List<string> { user });
             return logins;
         }
 
-        //Gets a set of user logins with the query that you specify
-        public async Task<List<UserLogin>> GetUserLogins([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, QueryHeaders query)
-        {
-            var logins = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, query.ToString());
-            return logins;
-        }
-
-        public async Task<UserLogin> GetUserProfile ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, QueryHeaders query, string user) {
+        //Gets a single user logins with the query that you specify
+        public async Task<UserLogin> GetUserProfile ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, QueryHeaders query, string user) { //one user login information
             var logins = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, query.ToString(), new List<string> { user });
             if (logins.Count > 0) return logins[0];
             return null;
@@ -155,20 +168,20 @@ namespace StreamWork.HelperClasses
         }
 
         public async Task<IndexViewModel> PopulateHomePage ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string currentUser) {
-            var streamingUserChannels = await GetUserChannels(storageConfig, QueryHeaders.AllUserChannelsThatAreStreaming, "N|A");
-            if (streamingUserChannels.Count == 0)
+            var streamingUserChannels = await GetUserChannel(storageConfig, QueryHeaders.AllUserChannelsThatAreStreaming, "N|A");
+            if (streamingUserChannels == null)
             {
-                var userLogin = await GetUserLogins(storageConfig, QueryHeaders.CurrentUser, "admin");
-                var userChannel = await GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, "admin");
+                var userProfile= await GetUserProfile(storageConfig, QueryHeaders.CurrentUser, "admin");
+                var userChannel = await GetUserChannel(storageConfig, QueryHeaders.CurrentUserChannel, "admin");
                 var getArchivedStreams = await GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, "admin");
 
                 IndexViewModel model = new IndexViewModel
                 {
-                    UserLogin = userLogin[0],
-                    UserChannel = userChannel[0],
+                    UserLogin = userProfile,
+                    UserChannel = userChannel,
                     UserArchivedStream = getArchivedStreams[1],
                     UserArchivedStreams = await GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos, null),
-                    ChatBox = await GetChatSecretKey(storageConfig, userChannel[0].ChatId, currentUser)
+                    ChatBox = await GetChatSecretKey(storageConfig, userChannel.ChatId, currentUser)
                 };
 
                 model.UserArchivedStreams = model.UserArchivedStreams.ToList().GetRange(2,4);
@@ -176,13 +189,13 @@ namespace StreamWork.HelperClasses
                 return model;
             }
 
-            var userLoginForChannel = await GetUserLogins(storageConfig, QueryHeaders.CurrentUser, streamingUserChannels[0].Username);
+            var userProfileForChannel = await GetUserProfile(storageConfig, QueryHeaders.CurrentUser, streamingUserChannels.Username);
             IndexViewModel channelModel = new IndexViewModel
             {
-                UserLogin = userLoginForChannel[0],
-                UserChannel = streamingUserChannels[0],
+                UserLogin = userProfileForChannel,
+                UserChannel = streamingUserChannels,
                 UserArchivedStreams = await GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos, null),
-                ChatBox = await GetChatSecretKey(storageConfig, streamingUserChannels[0].ChatId, currentUser)
+                ChatBox = await GetChatSecretKey(storageConfig, streamingUserChannels.ChatId, currentUser)
             };
 
             channelModel.UserArchivedStreams = channelModel.UserArchivedStreams.ToList().GetRange(2,4);
@@ -250,9 +263,9 @@ namespace StreamWork.HelperClasses
             var tkey = split[1];
             if (userName != null)
             {
-                var userLogin = (await GetUserLogins(storageConfig, QueryHeaders.CurrentUser, userName))[0];
-                var _encodedUrl = HttpUtility.UrlEncode(Convert.ToBase64String(hmacSHA256("/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + tid + "&tkey=" + tkey + "&nme=" + userLogin.Name.Replace('|','_') + "&pic=" + userLogin.ProfilePicture, "3O08UU-OtQ_rycx3")));
-                var _finalString = "https://www6.cbox.ws" + "/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + tid + "&tkey=" + tkey + "&nme=" + userLogin.Name.Replace('|', '_') + "&pic=" + userLogin.ProfilePicture + "&sig=" + _encodedUrl;
+                var userProfile = await GetUserProfile(storageConfig, QueryHeaders.CurrentUser, userName);
+                var _encodedUrl = HttpUtility.UrlEncode(Convert.ToBase64String(hmacSHA256("/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + tid + "&tkey=" + tkey + "&nme=" + userProfile.Name.Replace('|','_') + "&pic=" + userProfile.ProfilePicture, "3O08UU-OtQ_rycx3")));
+                var _finalString = "https://www6.cbox.ws" + "/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + tid + "&tkey=" + tkey + "&nme=" + userProfile.Name.Replace('|', '_') + "&pic=" + userProfile.ProfilePicture + "&sig=" + _encodedUrl;
                 return _finalString;
             }
 

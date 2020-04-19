@@ -19,14 +19,14 @@
             </div>
         </div>
         <div class="col-sm-12 col-md-12 col-lg-3 p-1">
-            @if (Model.UserProfile != null)
+            @if (Model.GenericUserProfile != null)
             {
-                @if (Model.IsUserFollowingThisTutor == false && Model.UserProfile != null && Model.UserProfile.ProfileType == "student")
+                @if (Model.IsUserFollowingThisTutor == false && Model.GenericUserProfile != null && Model.GenericUserProfile.ProfileType == "student")
                 {
                     <button id="FollowButton" type="button" style="width:100%; font-family:'Roboto Slab', serif;" class="streamWorkSecondary mb-2" onclick="FollowStreamTutor('@Model.TutorUserProfile.Id')">Follow</button>
                     <button id="UnfollowButton" type="button" style="width:100%; display:none; font-family:'Roboto Slab', serif;" class="streamWorkGrey mb-2" onclick="UnfollowStreamTutor('@Model.TutorUserProfile.Id')">Unfollow</button>
                 }
-                else if (Model.IsUserFollowingThisTutor == true && Model.UserProfile != null && Model.UserProfile.ProfileType == "student")
+                else if (Model.IsUserFollowingThisTutor == true && Model.GenericUserProfile != null && Model.GenericUserProfile.ProfileType == "student")
                 {
                     <button id="FollowButton" type="button" style="width:100%; display:none;font-family:'Roboto Slab', serif;" class="streamWorkSecondary mb-2" onclick="FollowStreamTutor('@Model.TutorUserProfile.Id')">Follow</button>
                     <button id="UnfollowButton" type="button" style="width:100%; font-family:'Roboto Slab', serif;" class="streamWorkGrey mb-2" onclick="UnfollowStreamTutor('@Model.TutorUserProfile.Id')">Unfollow</button>
@@ -58,13 +58,13 @@
             </div>
             <div class="modal-footer">
                 <button class="streamWorkGrey" data-dismiss="modal">Exit</button>
-                @if (Model.UserProfile == null)
+                @if (Model.GenericUserProfile == null)
                 {
                     <button class="streamWorkPrimary" data-dismiss="modal" onclick="submitRecommendation('Anonymous', '@Model.UserChannel.Username')">Submit</button>
                 }
                 else
                 {
-                    <button class="streamWorkPrimary" data-dismiss="modal" onclick="submitRecommendation('@Model.UserProfile.Username', '@Model.UserChannel.Username')">Submit</button>
+                    <button class="streamWorkPrimary" data-dismiss="modal" onclick="submitRecommendation('@Model.GenericUserProfile.Username', '@Model.UserChannel.Username')">Submit</button>
                 }
             </div>
         </div>

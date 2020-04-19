@@ -5,7 +5,7 @@ namespace StreamWork.ViewModels
 {
     public class ProfileStudentViewModel
     {
-        public UserLogin UserProfile { get; set; }
+        public UserLogin StudentUserProfile { get; set; }
         public List<UserLogin> AllTutors { get; set; }
         public List<UserLogin> FollowedTutors { get; set; }
         public List<UserChannel> LiveChannels { get; set; }

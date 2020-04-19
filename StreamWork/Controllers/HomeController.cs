@@ -35,10 +35,10 @@ namespace StreamWork.Controllers
             if (HttpContext.User.Identity.IsAuthenticated == true)
             {
                 var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name);
-                populatePage.UserProfile = userProfile;
+                populatePage.GenericUserProfile = userProfile;
 
-                if (populatePage.UserProfile.FollowedStudentsAndTutors != null && populatePage.UserChannel != null)
-                    populatePage.IsUserFollowingThisTutor = populatePage.UserProfile.FollowedStudentsAndTutors.Contains(populatePage.UserChannel.Id);
+                if (populatePage.GenericUserProfile.FollowedStudentsAndTutors != null && populatePage.UserChannel != null)
+                    populatePage.IsUserFollowingThisTutor = populatePage.GenericUserProfile.FollowedStudentsAndTutors.Contains(populatePage.UserChannel.Id);
 
                 return View(populatePage);
             }
@@ -68,7 +68,7 @@ namespace StreamWork.Controllers
             {
                 viewModel = new PopularStreamTutorsViewModel
                 {
-                    UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name)
+                    GenericUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name)
                 };
             }
             else viewModel = new PopularStreamTutorsViewModel { };
@@ -85,7 +85,7 @@ namespace StreamWork.Controllers
             {
                 viewModel = new DefaultViewModel
                 {
-                    UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name)
+                    GenericUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name)
                 };
             }
             else viewModel = new DefaultViewModel { };
@@ -100,7 +100,7 @@ namespace StreamWork.Controllers
             {
                 viewModel = new DefaultViewModel
                 {
-                    UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name)
+                    GenericUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name)
                 };
             }
             else viewModel = new DefaultViewModel { };
@@ -115,7 +115,7 @@ namespace StreamWork.Controllers
             {
                 viewModel = new DefaultViewModel
                 {
-                    UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name)
+                    GenericUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name)
                 };
             }
             else viewModel = new DefaultViewModel { };
@@ -133,20 +133,20 @@ namespace StreamWork.Controllers
         {
             ProfileTutorViewModel profile = new ProfileTutorViewModel
             {
-                UserLogins = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, tutor),
+                TutorUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, tutor),
                 UserChannels = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, tutor),
                 UserArchivedVideos = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, tutor),
                 NumberOfStreams = (await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, tutor)).Count
             };
 
-            profile.NumberOfFollowers = _tutorHelperFunctions.GetNumberOfFollowers(profile.UserLogins[0]);
+            profile.NumberOfFollowers = _tutorHelperFunctions.GetNumberOfFollowers(profile.TutorUserProfile);
 
             if (HttpContext.User.Identity.IsAuthenticated)
             {
-                profile.UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name);
+                profile.GenericUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name);
 
-                if (profile.UserProfile.FollowedStudentsAndTutors != null)
-                    profile.IsUserFollowingThisTutor = profile.UserProfile.FollowedStudentsAndTutors.Contains(profile.UserLogins[0].Id);
+                if (profile.GenericUserProfile.FollowedStudentsAndTutors != null)
+                    profile.IsUserFollowingThisTutor = profile.GenericUserProfile.FollowedStudentsAndTutors.Contains(profile.TutorUserProfile.Id);
             }
             else
             {
@@ -165,18 +165,18 @@ namespace StreamWork.Controllers
             if (followRequest != null && tutorId != null)
             {
                 var user = HttpContext.User.Identity.Name;
-                var userLogin = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user);
+                var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user); //tutor can follow tutors as well as students can follow tutors
 
-                var tutorLogin = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUserUsingId, tutorId);
+                var tutorProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUserUsingId, tutorId);
 
-                var updatedUserList = _followingHelperFunctions.AddToListOfFollowedTutors(tutorId, userLogin[0].FollowedStudentsAndTutors);
-                var updatedTutorList = _followingHelperFunctions.AddToListOfFollowedStudents(userLogin[0].EmailAddress, tutorLogin[0].FollowedStudentsAndTutors);
+                var updatedUserList = _followingHelperFunctions.AddToListOfFollowedTutors(tutorId, userProfile.FollowedStudentsAndTutors);
+                var updatedTutorList = _followingHelperFunctions.AddToListOfFollowedStudents(userProfile.EmailAddress, tutorProfile.FollowedStudentsAndTutors);
 
-                userLogin[0].FollowedStudentsAndTutors = updatedUserList;
-                tutorLogin[0].FollowedStudentsAndTutors = updatedTutorList;
+                userProfile.FollowedStudentsAndTutors = updatedUserList;
+                tutorProfile.FollowedStudentsAndTutors = updatedTutorList;
 
-                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userLogin[0].Id } }, userLogin[0]);
-                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", tutorLogin[0].Id } }, tutorLogin[0]);
+                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
+                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", tutorProfile.Id } }, tutorProfile);
 
                 return Json(new { Message = JsonResponse.Success.ToString() });
             }
@@ -185,18 +185,18 @@ namespace StreamWork.Controllers
             if (unFollowRequest != null && tutorId != null)
             {
                 var user = HttpContext.User.Identity.Name;
-                var userLogin = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user);
+                var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
 
-                var tutorLogin = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUserUsingId, tutorId);
+                var tutorProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUserUsingId, tutorId);
 
-                var updatedUserList = _followingHelperFunctions.RemoveFromListOfFollowedTutors(tutorId, userLogin[0].FollowedStudentsAndTutors);
-                var updatedTutorList = _followingHelperFunctions.RemoveFromListOfFollowedStudents(userLogin[0].EmailAddress, tutorLogin[0].FollowedStudentsAndTutors);
+                var updatedUserList = _followingHelperFunctions.RemoveFromListOfFollowedTutors(tutorId, userProfile.FollowedStudentsAndTutors);
+                var updatedTutorList = _followingHelperFunctions.RemoveFromListOfFollowedStudents(userProfile.EmailAddress, tutorProfile.FollowedStudentsAndTutors);
 
-                userLogin[0].FollowedStudentsAndTutors = updatedUserList;
-                tutorLogin[0].FollowedStudentsAndTutors = updatedTutorList;
+                userProfile.FollowedStudentsAndTutors = updatedUserList;
+                tutorProfile.FollowedStudentsAndTutors = updatedTutorList;
 
-                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userLogin[0].Id } }, userLogin[0]);
-                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", tutorLogin[0].Id } }, tutorLogin[0]);
+                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
+                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", tutorProfile.Id } }, tutorProfile);
 
                 return Json(new { Message = JsonResponse.Success.ToString() });
             }
@@ -229,23 +229,23 @@ namespace StreamWork.Controllers
 
             if (password == null && email != null) //initial checks!
             {
-                var checkUsername = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, username);
+                var checkUsername = await _homeHelperFunctions.GetUserProfiles(storageConfig, QueryHeaders.CurrentUser, username);
                 if (checkUsername.Count != 0) return Json(new { Message = JsonResponse.UsernameExists.ToString() });
 
-                var checkEmail = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUserUsingEmail, email);
+                var checkEmail = await _homeHelperFunctions.GetUserProfiles(storageConfig, QueryHeaders.CurrentUserUsingEmail, email);
                 if (checkEmail.Count != 0) return Json(new { Message = JsonResponse.EmailExists.ToString() });
 
                 if (payPalAddress != null) //only for tutors
                 {
-                    var checkPayPalEmailUsingRegularEmail = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUserUsingEmail, payPalAddress); //payPal email can't be someone elses regular email
-                    var checkPayPalEmail = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CheckUserUsingPayPalAddress, payPalAddress);
+                    var checkPayPalEmailUsingRegularEmail = await _homeHelperFunctions.GetUserProfiles(storageConfig, QueryHeaders.CurrentUserUsingEmail, payPalAddress); //payPal email can't be someone elses regular email
+                    var checkPayPalEmail = await _homeHelperFunctions.GetUserProfiles(storageConfig, QueryHeaders.CheckUserUsingPayPalAddress, payPalAddress);
                     if (checkPayPalEmailUsingRegularEmail.Count != 0 || checkPayPalEmail.Count != 0) return Json(new { Message = JsonResponse.PayPalEmailExists.ToString() });
                 }
 
                 return Json(new { Message = JsonResponse.Success.ToString()});
             }
 
-            UserLogin signUpProfile = new UserLogin
+            UserLogin userProfile = new UserLogin
             {
                 Id = Guid.NewGuid().ToString(),
                 Name = nameFirst + "|" + nameLast,
@@ -263,8 +263,8 @@ namespace StreamWork.Controllers
                 NotificationSubscribe = DatabaseValues.True.ToString()
             };
 
-            if (signUpProfile.ProfileType == "student") await _emailHelperFunctions.SendOutEmailToStreamWorkTeam(signUpProfile);
-            await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", signUpProfile.Id } }, signUpProfile);
+            if (userProfile.ProfileType == "student") await _emailHelperFunctions.SendOutEmailToStreamWorkTeam(userProfile);
+            await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
 
             if (role == "tutor")
             {
@@ -413,7 +413,7 @@ namespace StreamWork.Controllers
             var user = HttpContext.User.Identity.Name;
 
             DefaultViewModel model = new DefaultViewModel {
-                UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user)
+                GenericUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user)
             };
 
             return View(model);
@@ -429,8 +429,8 @@ namespace StreamWork.Controllers
 
             ProfileTutorViewModel model = new ProfileTutorViewModel
             {
-                UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, tutor),
-                StudentOrTutorProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user)
+                TutorUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, tutor),
+                GenericUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user)
             };
 
             return View(model);
@@ -442,9 +442,9 @@ namespace StreamWork.Controllers
         {
             if (email != null)
             {
-                var userLogin = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUserUsingEmail, email);
-                userLogin[0].NotificationSubscribe = DatabaseValues.True.ToString();
-                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userLogin[0].Id } }, userLogin[0]);
+                var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUserUsingEmail, email);
+                userProfile.NotificationSubscribe = DatabaseValues.True.ToString();
+                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
                 return Json(new { Message = JsonResponse.Success.ToString() });
             }
 
@@ -456,9 +456,9 @@ namespace StreamWork.Controllers
         {
             if (email != null)
             {
-                var userLogin = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUserUsingEmail, email);
-                userLogin[0].NotificationSubscribe = DatabaseValues.False.ToString();
-                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userLogin[0].Id } }, userLogin[0]);
+                var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUserUsingEmail, email);
+                userProfile.NotificationSubscribe = DatabaseValues.False.ToString();
+                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
             }
 
             return View();
@@ -469,9 +469,9 @@ namespace StreamWork.Controllers
         {
             if (email != null)
             {
-                var userLogin = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUserUsingEmail, email);
-                userLogin[0].NotificationSubscribe = DatabaseValues.False.ToString();
-                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userLogin[0].Id } }, userLogin[0]);
+                var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUserUsingEmail, email);
+                userProfile.NotificationSubscribe = DatabaseValues.False.ToString();
+                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
                 return Json(new { Message = JsonResponse.Success.ToString()});
             }
 

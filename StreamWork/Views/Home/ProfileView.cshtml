@@ -7,22 +7,22 @@
         <div class="card text-center border-0" style="color:white;">
             <div class="card-body" style="background:linear-gradient(to bottom, white 25%, #008080 0%);">
                 <div class="col-12">
-                    <img src=@Model.UserLogins[0].ProfilePicture style="width:115px; height: 150px; border-radius:5%" />
+                    <img src=@Model.TutorUserProfile.ProfilePicture style="width:115px; height: 150px; border-radius:5%" />
                     <br />
-                    @if (Model.IsUserFollowingThisTutor == false && Model.UserProfile != null && Model.UserProfile.ProfileType == "student")
+                    @if (Model.IsUserFollowingThisTutor == false && Model.GenericUserProfile != null && Model.GenericUserProfile.ProfileType == "student")
                     {
-                        <button id="FollowButton" type="button" style="font-size:12px;" class="streamWorkSecondary mt-3" onclick="FollowStreamTutor('@Model.UserLogins[0].Id')">Follow</button>
-                        <button id="UnfollowButton" type="button" style="font-size:12px; display:none;" class="streamWorkGrey mt-3" onclick="UnfollowStreamTutor('@Model.UserLogins[0].Id')">Unfollow</button>
+                        <button id="FollowButton" type="button" style="font-size:12px;" class="streamWorkSecondary mt-3" onclick="FollowStreamTutor('@Model.TutorUserProfile.Id')">Follow</button>
+                        <button id="UnfollowButton" type="button" style="font-size:12px; display:none;" class="streamWorkGrey mt-3" onclick="UnfollowStreamTutor('@Model.TutorUserProfile.Id')">Unfollow</button>
                     }
-                    else if (Model.IsUserFollowingThisTutor == true && Model.UserProfile != null && Model.UserProfile.ProfileType == "student")
+                    else if (Model.IsUserFollowingThisTutor == true && Model.GenericUserProfile != null && Model.GenericUserProfile.ProfileType == "student")
                     {
-                        <button id="FollowButton" type="button" style="font-size:12px;display:none;" class="streamWorkSecondary mt-3" onclick="FollowStreamTutor('@Model.UserLogins[0].Id')">Follow</button>
-                        <button id="UnfollowButton" type="button" style="font-size:12px;" class="streamWorkGrey mt-3" onclick="UnfollowStreamTutor('@Model.UserLogins[0].Id')">Unfollow</button>
+                        <button id="FollowButton" type="button" style="font-size:12px;display:none;" class="streamWorkSecondary mt-3" onclick="FollowStreamTutor('@Model.TutorUserProfile.Id')">Follow</button>
+                        <button id="UnfollowButton" type="button" style="font-size:12px;" class="streamWorkGrey mt-3" onclick="UnfollowStreamTutor('@Model.TutorUserProfile.Id')">Unfollow</button>
                     }
-                    <h1 class="card-title mt-4" style="font-size:24px; color:whitesmoke;font-family: 'Roboto Slab', serif;"><b>@Model.UserLogins[0].Name.Replace('|', ' ')</b></h1>
-                    <h6 class="card-title mt-1" style="font-size:15px; color:white;font-family: 'Roboto Slab', serif;"><b>@Model.UserLogins[0].Username</b></h6>
-                    <p class="card-text" style="font-size:16px; color:white">@Model.UserLogins[0].ProfileCaption</p>
-                    <p class="card-text" style="font-size:14px; color:white">@Model.UserLogins[0].ProfileParagraph</p>
+                    <h1 class="card-title mt-4" style="font-size:24px; color:whitesmoke;font-family: 'Roboto Slab', serif;"><b>@Model.TutorUserProfile.Name.Replace('|', ' ')</b></h1>
+                    <h6 class="card-title mt-1" style="font-size:15px; color:white;font-family: 'Roboto Slab', serif;"><b>@Model.TutorUserProfile.Username</b></h6>
+                    <p class="card-text" style="font-size:16px; color:white">@Model.TutorUserProfile.ProfileCaption</p>
+                    <p class="card-text" style="font-size:14px; color:white">@Model.TutorUserProfile.ProfileParagraph</p>
 
                     <br />
                     @*
@@ -40,7 +40,7 @@
             </div>
             <div class="col-lg-3 px-1">
                 <div class="card-body" style="background-color:#008080;border-top-left-radius:0px;">
-                    <a href="/Home/Donate?tutor=@Model.UserLogins[0].Username"><button class="streamWorkGold" style="font-family:'Roboto Slab', serif; cursor: pointer; display:block; margin-left:auto; margin-right:auto; height:68px; width:100%;" onmouseover="">Donate</button></a>
+                    <a href="/Home/Donate?tutor=@Model.TutorUserProfile.Username"><button class="streamWorkGold" style="font-family:'Roboto Slab', serif; cursor: pointer; display:block; margin-left:auto; margin-right:auto; height:68px; width:100%;" onmouseover="">Donate</button></a>
                 </div>
             </div>
             <div class="col-lg-3 px-1">
@@ -137,13 +137,13 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="streamWorkGrey" data-dismiss="modal">Exit</button>
-                @if (Model.UserProfile == null)
+                @if (Model.GenericUserProfile == null)
                 {
-                    <button class="streamWorkPrimary" data-dismiss="modal" onclick="submitRecommendation('Anonymous', '@Model.UserLogins[0].Username')">Submit</button>
+                    <button class="streamWorkPrimary" data-dismiss="modal" onclick="submitRecommendation('Anonymous', '@Model.TutorUserProfile.Username')">Submit</button>
                 }
                 else
                 {
-                    <button class="streamWorkPrimary" data-dismiss="modal" onclick="submitRecommendation('@Model.UserProfile.Username', '@Model.UserLogins[0].Username')">Submit</button>
+                    <button class="streamWorkPrimary" data-dismiss="modal" onclick="submitRecommendation('@Model.GenericUserProfile.Username', '@Model.TutorUserProfile.Username')">Submit</button>
                 }
             </div>
         </div>

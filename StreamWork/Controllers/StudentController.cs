@@ -24,13 +24,13 @@ namespace StreamWork.Controllers
             if (HttpContext.User.Identity.IsAuthenticated == false)
                 return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-Student-ProfileStudent");
 
-            var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name);
-            var splitName = userProfile.Name.Split(new char[] { '|' });
+            var studentProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name);
+            var splitName = studentProfile.Name.Split(new char[] { '|' });
             model.FirstName = splitName[0];
             model.LastName = splitName[1];
 
             ProfileStudentViewModel viewModel = await _studentHelperFunctions.PopulateProfileStudentPage(storageConfig, HttpContext.User.Identity.Name);
-            viewModel.UserProfile = userProfile;
+            viewModel.StudentUserProfile = studentProfile;
 
             return View(viewModel);
         }
@@ -43,16 +43,16 @@ namespace StreamWork.Controllers
             if (HttpContext.User.Identity.IsAuthenticated == false)
                 return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-Student-ProfileStudent");
 
-            var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name);
-            var splitName = userProfile.Name.Split(new char[] { '|' });
+            var studentProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name);
+            var splitName = studentProfile.Name.Split(new char[] { '|' });
             model.FirstName = splitName[0];
             model.LastName = splitName[1];
 
             return View(new ProfileStudentViewModel
             {
                 LiveChannels = await _homeHelperFunctions.SearchUserChannels(storageConfig, s, q),
-                UserProfile = userProfile,
-                ArchivedStreams = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos),
+                StudentUserProfile = studentProfile,
+                ArchivedStreams = await _homeHelperFunctions.GetAllArchivedStreams(storageConfig),
             });
         }
 
@@ -67,7 +67,7 @@ namespace StreamWork.Controllers
             return View(new ProfileStudentViewModel
             {
                 ArchivedStreams = await _homeHelperFunctions.SearchArchivedStreams(storageConfig, s, q),
-                UserProfile = user == null ? null : await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user),
+                StudentUserProfile = user == null ? null : await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user),
             });
         }
 
@@ -76,7 +76,7 @@ namespace StreamWork.Controllers
         {
             ProfileStudentViewModel viewModel = new ProfileStudentViewModel
             {
-                UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
+                StudentUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
                 ArchivedStreams = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideosBasedOnSubject, subject)
             };
 
@@ -91,8 +91,7 @@ namespace StreamWork.Controllers
 
             ProfileStudentViewModel viewModel = new ProfileStudentViewModel
             {
-                UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
-                AllTutors = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
+                StudentUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
             };
 
             return View(viewModel);
@@ -106,12 +105,12 @@ namespace StreamWork.Controllers
             if (currentPassword != null && newPassword != null && confirmPassword != null)
             {
                 var user = HttpContext.User.Identity.Name;
-                var userLogin = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user);
+                var studentProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
 
-                if (_homeHelperFunctions.DecryptPassword(userLogin[0].Password, currentPassword) == userLogin[0].Password)
+                if (_homeHelperFunctions.DecryptPassword(studentProfile.Password, currentPassword) == studentProfile.Password)
                 {
-                    userLogin[0].Password = _homeHelperFunctions.EncryptPassword(newPassword);
-                    await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userLogin[0].Id } }, userLogin[0]);
+                    studentProfile.Password = _homeHelperFunctions.EncryptPassword(newPassword);
+                    await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", studentProfile.Id } }, studentProfile);
                     return Json(new { Message = JsonResponse.Success.ToString() });
                 }
             }

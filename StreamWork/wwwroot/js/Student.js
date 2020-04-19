@@ -14,8 +14,8 @@ function FollowStreamTutor(tutor, i) {
         $('#UnfollowButton').show();
     }
     else {
-        $('#FollowButton-' + i).hide();
         $('#UnfollowButton-' + i).show();
+        $('#FollowButton-' + i).hide();
     }
 }
 

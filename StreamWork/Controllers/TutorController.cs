@@ -28,13 +28,12 @@ namespace StreamWork.Controllers
 
             ProfileTutorViewModel viewModel = new ProfileTutorViewModel
             {
-                UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
-                UserLogins = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
-                UserChannels = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, User.Identity.Name),
+                TutorUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
+                UserChannel = await _homeHelperFunctions.GetUserChannel(storageConfig, QueryHeaders.CurrentUserChannel, User.Identity.Name),
                 UserArchivedVideos = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, User.Identity.Name),
             };
 
-            viewModel.ChatSecretKey = await _homeHelperFunctions.GetChatSecretKey(storageConfig, viewModel.UserChannels[0].ChatId, User.Identity.Name);
+            viewModel.ChatSecretKey = await _homeHelperFunctions.GetChatSecretKey(storageConfig, viewModel.UserChannel.ChatId, User.Identity.Name);
 
             return View(viewModel);
         }
@@ -43,8 +42,8 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> TutorStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string change)
         {
             var user = HttpContext.User.Identity.Name;
-            var userChannel = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user);
-            var userLogin = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user);
+            var userChannel = await _homeHelperFunctions.GetUserChannel(storageConfig, QueryHeaders.CurrentUserChannel, user);
+            var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
 
             //Saves streamTitle, URl, and subject into sql database
             if (Request.Form.Files.Count != 0)
@@ -54,9 +53,9 @@ namespace StreamWork.Controllers
                 var streamSubject = streamInfo[1];
                 var streamDescription = streamInfo[2];
                 var notifyStudents = streamInfo[3];
-                var streamThumbnail =  _homeHelperFunctions.SaveIntoBlobContainer(Request.Form.Files[0], userChannel[0].Id, 1280, 720);
+                var streamThumbnail =  _homeHelperFunctions.SaveIntoBlobContainer(Request.Form.Files[0], userChannel.Id, 1280, 720);
 
-                ThreadClass handleStreams = new ThreadClass(storageConfig, userChannel[0], userLogin[0], streamTitle, streamSubject, streamDescription, streamThumbnail);
+                ThreadClass handleStreams = new ThreadClass(storageConfig, userChannel, userProfile, streamTitle, streamSubject, streamDescription, streamThumbnail);
                 handleStreams.RunLiveThread();
                 if(notifyStudents.Equals("yes")) handleStreams.RunEmailThread();
 
@@ -75,7 +74,7 @@ namespace StreamWork.Controllers
                 var streamDescription = streamInfo[2];
                 var notifyStudents = streamInfo[3];
 
-                ThreadClass handleStreams = new ThreadClass(storageConfig, userChannel[0], userLogin[0], streamTitle, streamSubject, streamDescription, _tutorHelperFunctions.GetCorrespondingDefaultThumbnail(streamSubject));
+                ThreadClass handleStreams = new ThreadClass(storageConfig, userChannel, userProfile, streamTitle, streamSubject, streamDescription, _tutorHelperFunctions.GetCorrespondingDefaultThumbnail(streamSubject));
                 handleStreams.RunLiveThread();
                 if(notifyStudents.Equals("yes")) handleStreams.RunEmailThread();
 
@@ -85,8 +84,8 @@ namespace StreamWork.Controllers
             //change stream subject
             if (change != null)
             {
-                userChannel[0].StreamSubject = change;
-                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel[0].Id } }, userChannel[0]);
+                userChannel.StreamSubject = change;
+                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
                 return Json(new { Message = JsonResponse.Success.ToString() });
             }
 
@@ -101,15 +100,14 @@ namespace StreamWork.Controllers
 
             ProfileTutorViewModel viewModel = new ProfileTutorViewModel
             {
-                UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
-                UserLogins = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
+                TutorUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
                 UserChannels = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, User.Identity.Name),
                 UserArchivedVideos = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, User.Identity.Name),
                 NumberOfStreams = (await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, User.Identity.Name)).Count,
                 Recommendations = await _homeHelperFunctions.GetRecommendationsForTutor(storageConfig, User.Identity.Name),
             };
 
-            viewModel.NumberOfFollowers = _tutorHelperFunctions.GetNumberOfFollowers(viewModel.UserLogins[0]);
+            viewModel.NumberOfFollowers = _tutorHelperFunctions.GetNumberOfFollowers(viewModel.TutorUserProfile);
             viewModel.Schedule = _tutorHelperFunctions.GetTutorStreamSchedule(viewModel.UserChannels[0]);
 
             return View(viewModel);
@@ -145,27 +143,27 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> StreamCalendarUtil([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamName, DateTime dateTime, DateTime originalDateTime, bool remove) //StreamTask
         {
             var user = HttpContext.User.Identity.Name;
-            var userChannel = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user);
+            var userChannel = await _homeHelperFunctions.GetUserChannel(storageConfig, QueryHeaders.CurrentUserChannel, user);
 
             //Adds streams to schedule
             if (originalDateTime.Year == 1 && remove == false)
             {
                 
-                if (await _tutorHelperFunctions.AddStreamTask(storageConfig, streamName, dateTime, userChannel[0]))
+                if (await _tutorHelperFunctions.AddStreamTask(storageConfig, streamName, dateTime, userChannel))
                     return Json(new { Message = JsonResponse.Success.ToString() });
             }
 
             //Updates streams in schedule
             if (originalDateTime.Year != 1 && remove == false)
             {
-                if (await _tutorHelperFunctions.UpdateStreamTask(storageConfig, streamName, dateTime, originalDateTime, userChannel[0]))
+                if (await _tutorHelperFunctions.UpdateStreamTask(storageConfig, streamName, dateTime, originalDateTime, userChannel))
                     return Json(new { Message = JsonResponse.Success.ToString() });
             }
 
             //Removes streams in schedule
             if (originalDateTime.Year != 1 && remove)
             {
-                if (await _tutorHelperFunctions.RemoveStreamTask(storageConfig, streamName, originalDateTime, userChannel[0]))
+                if (await _tutorHelperFunctions.RemoveStreamTask(storageConfig, streamName, originalDateTime, userChannel))
                     return Json(new { Message = JsonResponse.Success.ToString() });
             }
 
@@ -195,8 +193,7 @@ namespace StreamWork.Controllers
 
             ProfileTutorViewModel viewModel = new ProfileTutorViewModel
             {
-                UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
-                UserLogins = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
+                TutorUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
                 UserChannels = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, User.Identity.Name),
                 UserArchivedVideos = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, User.Identity.Name)
             };
@@ -218,10 +215,8 @@ namespace StreamWork.Controllers
 
             ProfileTutorViewModel viewModel = new ProfileTutorViewModel
             {
-                UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
-                UserLogins = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
-                UserChannels = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, User.Identity.Name),
-                UserArchivedVideos = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, User.Identity.Name),
+                TutorUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
+
                 SearchViewModel = new SearchViewModel
                 {
                     PopularStreamTutors = await _homeHelperFunctions.GetPopularStreamTutor(storageConfig),
@@ -237,7 +232,6 @@ namespace StreamWork.Controllers
             return View(viewModel);
         }
 
-
         [HttpPost]
         public async Task<IActionResult> TutorSettings([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string currentPassword, string newPassword, string confirmPassword)
         {
@@ -245,11 +239,11 @@ namespace StreamWork.Controllers
 
             if (currentPassword != null && newPassword != null && confirmPassword != null)
             {
-                var userLogin = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.CurrentUser, user);
-                if (_homeHelperFunctions.DecryptPassword(userLogin[0].Password, currentPassword) == userLogin[0].Password)
+                var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
+                if (_homeHelperFunctions.DecryptPassword(userProfile.Password, currentPassword) == userProfile.Password)
                 {
-                    userLogin[0].Password = _homeHelperFunctions.EncryptPassword(newPassword);
-                    await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userLogin[0].Id } }, userLogin[0]);
+                    userProfile.Password = _homeHelperFunctions.EncryptPassword(newPassword);
+                    await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
                     return Json(new { Message = JsonResponse.Success.ToString() });
                 }
                 return Json(new { Message = JsonResponse.Failed.ToString() });

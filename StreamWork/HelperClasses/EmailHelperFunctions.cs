@@ -19,40 +19,40 @@ namespace StreamWork.HelperClasses
 
         private HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
 
-        public async Task<bool> SendOutPasswordRecoveryEmail(UserLogin userLogin, string recoveryLink)
+        public async Task<bool> SendOutPasswordRecoveryEmail(UserLogin userProfile, string recoveryLink)
         {
             using (StreamReader streamReader = new StreamReader("EmailTemplates/PasswordRecoveryEmailTemplate.html"))
             {
                 string reader = streamReader.ReadToEnd();
-                reader = reader.Replace("{NAMEOFUSER}", userLogin.Name.Split('|')[0]);
+                reader = reader.Replace("{NAMEOFUSER}", userProfile.Name.Split('|')[0]);
                 reader = reader.Replace("{RESETLINK}", recoveryLink);
-                await SendEmailToAnyEmailAsync(_streamworkEmailID, userLogin.EmailAddress, null, "Change Password", reader, null);
+                await SendEmailToAnyEmailAsync(_streamworkEmailID, userProfile.EmailAddress, null, "Change Password", reader, null);
             }
 
             return true;
         }
 
-        public async Task<bool> SendOutStudentGreetingEmail(UserLogin userLogin, string recoveryLink)
+        public async Task<bool> SendOutStudentGreetingEmail(UserLogin userProfile, string recoveryLink)
         {
             using (StreamReader streamReader = new StreamReader("EmailTemplates/AutomatedEmailTemplate.html"))
             {
                 string reader = streamReader.ReadToEnd();
-                reader = reader.Replace("{NAMEOFUSER}", userLogin.Name.Split('|')[0]);
+                reader = reader.Replace("{NAMEOFUSER}", userProfile.Name.Split('|')[0]);
                 reader = reader.Replace("{RESETLINK}", recoveryLink);
-                await SendEmailToAnyEmailAsync(_streamworkEmailID, userLogin.EmailAddress, null, "Change Password", reader, null);
+                await SendEmailToAnyEmailAsync(_streamworkEmailID, userProfile.EmailAddress, null, "Change Password", reader, null);
             }
 
             return true;
         }
 
-        public async Task<bool> SendOutTutorGreetingEmail(UserLogin userLogin, string recoveryLink)
+        public async Task<bool> SendOutTutorGreetingEmail(UserLogin userProfile, string recoveryLink)
         {
             using (StreamReader streamReader = new StreamReader("EmailTemplates/AutomatedEmailTemplate.html"))
             {
                 string reader = streamReader.ReadToEnd();
-                reader = reader.Replace("{NAMEOFUSER}", userLogin.Name.Split('|')[0]);
+                reader = reader.Replace("{NAMEOFUSER}", userProfile.Name.Split('|')[0]);
                 reader = reader.Replace("{RESETLINK}", recoveryLink);
-                await SendEmailToAnyEmailAsync(_streamworkEmailID, userLogin.EmailAddress, null, "Change Password", reader, null);
+                await SendEmailToAnyEmailAsync(_streamworkEmailID, userProfile.EmailAddress, null, "Change Password", reader, null);
             }
 
             return true;
@@ -67,7 +67,7 @@ namespace StreamWork.HelperClasses
 
         public async Task<bool> SendOutMassEmail([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, UserLogin userLogin, UserChannel channel)
         {
-            var allUsers = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.AllSignedUpUsers, null);
+            var allUsers = await _homeHelperFunctions.GetAllUserProfiles(storageConfig);
             string streamLink = string.Format("<a href=\"{0}\">here.</a>", HttpUtility.HtmlEncode("https://www.streamwork.live/StreamViews/StreamPage?streamTutorUsername=" + channel.Username));
             using (StreamReader streamReader = new StreamReader("EmailTemplates/AutomatedEmailTemplate.html"))
             {

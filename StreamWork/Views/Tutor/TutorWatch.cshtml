@@ -1,134 +1,211 @@
-﻿@model StreamWork.ViewModels.ProfileTutorViewModel
+﻿@model StreamWork.ViewModels.ProfileTutorViewModel;
 
-@{Layout = "_LayoutTutorNavbar";}
 @{ViewData["Title"] = "TutorWatch";}
+@{Layout = "_LayoutTutorNavbar";}
 
+<link rel="stylesheet" href="~/css/Subject.css" />
 
-    <div class="container-fluid" style="max-width:2400px">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="row py-3">
-                            <div class="col-1"></div>
-                            <div class="col-md-10">
-                                <form class="p-2" onsubmit="return search();" style="background-color: white; border-radius: 6px; box-shadow: 0px 0px 30px -10px">
-                                    <div class="row">
-                                        <div class="col-lg-8 col-md-12 col-sm-12">
-                                            <div>
-                                                <input id="searchQuery" class="form-control form-control-lg mt-2 mb-2" type="search" placeholder="🔎 Homework topic..." style="border: none;">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2 col-md-12 col-sm-12">
-                                            <select id="searchSubject" class="custom-select mt-2 mb-2" style="background-color: #006060; height:46px; color: white; font-size: 85%; font-weight: bold;">
-                                                <option value="Any">All Subjects</option>
-                                                <option value="Mathematics">Mathematics</option>
-                                                <option value="Science">Science</option>
-                                                <option value="Engineering">Engineering</option>
-                                                <option value="Business">Business</option>
-                                                <option value="Law">Law</option>
-                                                <option value="Art">Art</option>
-                                                <option value="Humanities">Humanities</option>
-                                                <option value="Other">Other</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-1 col-md-12">
-                                            <button class="btn btn-lg mt-2 mb-2" type="submit" style="color: white; background-color:#006060; height:46px; width:100px;margin-left:auto; margin-right:auto; display:block">
-                                                <div>
-                                                    <div style="font-size: 70%; font-weight: bold;">Search</div>
-                                                </div>
-                                            </button>
+<div class="container-fluid" style="max-width:2400px">
+    <div class="row">
+        <div class="col-lg-10">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="row py-3">
+                        <div class="col-1"></div>
+                        <div class="col-md-10">
+                            <form class="p-2" onsubmit="return search();" style="background-color: white; border-radius: 6px; box-shadow: 0px 0px 30px -10px">
+                                <div class="row">
+                                    <div class="col-lg-8 col-md-12 col-sm-12">
+                                        <div>
+                                            <input id="searchQuery" class="form-control form-control-lg mt-2 mb-2" type="search" placeholder="🔎 Homework topic..." style="border: none;">
                                         </div>
                                     </div>
-                                </form>
-                            </div>
-                            <div class="col-md-12 mt-5">
-                                <h1 style="font-size:40px; font-family:'Roboto Slab', serif">@Model.SearchViewModel.Subject<span style="margin-left:10px"><img width="60" src="@Model.SearchViewModel.SubjectIcon" /></span></h1>
-                            </div>
-                        </div>
-                        @if (String.IsNullOrEmpty(Model.SearchViewModel.SearchQuery))
-                        {
-                            <h5>LIVE STREAMS</h5>
-                        }
-                        else
-                        {
-                            <h5>LIVE STREAMS FOR "@Model.SearchViewModel.SearchQuery"</h5>
-                        }
-                        <hr />
-                    </div>
-                </div>
-                <div class="row">
-                    @if (Model.SearchViewModel.StreamResults.ToArray().Length > 0)
-                    {
-                        foreach (var videoInfo in Model.SearchViewModel.StreamResults)
-                        {
-                            if (videoInfo.StreamTitle != null)
-                            {
-                                <div class="col-lg-3 col-md-4 col-sm-6 streamsubject @videoInfo.StreamSubject">
-                                    <div class="card mt-3" style="border-radius:5%; border:none;">
-                                        <iframe src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@videoInfo.ChannelKey.Split('|')[0]" style="width:100%; height:200px; border-top-left-radius:10px; border-top-right-radius:10px;" frameborder="0" scrolling="no" allow="autoplay"></iframe>
-                                        <a class="card-body p-0" style="background-color:#008080;border-bottom-left-radius:10px; border-bottom-right-radius:10px; border:none;" href="../StreamViews/StreamPage?streamTutorUsername=@videoInfo.Username">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <input type="image" style="border-radius:5%; width:50px; margin-left:10px; margin-top:10px; margin-bottom:10px; height:60px; float:left" src=@videoInfo.ProfilePicture />
-                                                    <h5 class="text-truncate" style="font-family: 'Roboto'; font-size:15px; color:white; margin-left:80px; margin-top:10px;">@videoInfo.StreamTitle</h5>
-                                                    <h6 class="text-truncate" style="font-family: 'Roboto'; font-size:14px; color:white; margin-left:80px;">@videoInfo.Username</h6>
-                                                </div>
+                                    <div class="col-lg-2 col-md-12 col-sm-12">
+                                        <select id="searchSubject" class="custom-select mt-2 mb-2" style="background-color: #006060; height:46px; color: white; font-size: 85%; font-weight: bold;">
+                                            <option value="Any">All Subjects</option>
+                                            <option value="Mathematics">Mathematics</option>
+                                            <option value="Science">Science</option>
+                                            <option value="Engineering">Engineering</option>
+                                            <option value="Business">Business</option>
+                                            <option value="Law">Law</option>
+                                            <option value="Art">Art</option>
+                                            <option value="Humanities">Humanities</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-1 col-md-12">
+                                        <button class="btn btn-lg mt-2 mb-2" type="submit" style="color: white; background-color:#006060; height:46px; width:100px;margin-left:auto; margin-right:auto; display:block">
+                                            <div>
+                                                <div style="font-size: 70%; font-weight: bold;">Search</div>
                                             </div>
-                                        </a>
+                                        </button>
                                     </div>
                                 </div>
-                            }
-                        }
+                            </form>
+                        </div>
+                        <div class="col-md-12 mt-5">
+                            <h1 style="font-size:40px; font-family:'Roboto Slab', serif">@Model.SearchViewModel.Subject<span style="margin-left:10px"><img width="60" src="@Model.SearchViewModel.SubjectIcon" /></span></h1>
+                        </div>
+                    </div>
+                    @if (String.IsNullOrEmpty(Model.SearchViewModel.SearchQuery))
+                    {
+                        <h5>LIVE STREAMS</h5>
                     }
                     else
                     {
-                        <div class="col-1"></div>
-                        <h3 class="m-4">No matches were found for your search</h3>
+                        <h5>LIVE STREAMS FOR "@Model.SearchViewModel.SearchQuery"</h5>
                     }
+                    <hr />
                 </div>
-                <br />
-                <br />
-                @if (String.IsNullOrEmpty(Model.SearchViewModel.SearchQuery))
+            </div>
+            <div class="row">
+                @if (Model.SearchViewModel.StreamResults.ToArray().Length > 0)
                 {
-                    <h5>ARCHIVE</h5>
+                    foreach (var videoInfo in Model.SearchViewModel.StreamResults)
+                    {
+                        if (videoInfo.StreamTitle != null)
+                        {
+                            <div class="col-lg-3 col-md-4 col-sm-6 streamsubject @videoInfo.StreamSubject">
+                                <div class="card mt-3" style="border-radius:5%; border:none;">
+                                    <iframe src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@videoInfo.ChannelKey.Split('|')[0]" style="width:100%; height:200px; border-top-left-radius:10px; border-top-right-radius:10px;" frameborder="0" scrolling="no" allow="autoplay"></iframe>
+                                    <a class="card-body p-0" style="background-color:#008080;border-bottom-left-radius:10px; border-bottom-right-radius:10px; border:none;" href="../StreamViews/StreamPage?streamTutorUsername=@videoInfo.Username">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <input type="image" style="border-radius:5%; width:50px; margin-left:10px; margin-top:10px; margin-bottom:10px; height:60px; float:left" src=@videoInfo.ProfilePicture />
+                                                <h5 class="text-truncate" style="font-family: 'Roboto'; font-size:15px; color:white; margin-left:80px; margin-top:10px;">@videoInfo.StreamTitle</h5>
+                                                <h6 class="text-truncate" style="font-family: 'Roboto'; font-size:14px; color:white; margin-left:80px;">@videoInfo.Username</h6>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                    }
                 }
                 else
                 {
-                    <h5>ARCHIVE FOR "@Model.SearchViewModel.SearchQuery"</h5>
-                }
-                <hr />
-                <div class="row">
-                    @if (Model.SearchViewModel.ArchiveResults.ToArray().Length > 0)
+                    <div class="col-1"></div>
+                    @if (String.IsNullOrEmpty(Model.SearchViewModel.SearchQuery))
                     {
-                        foreach (var videoInfo in Model.SearchViewModel.ArchiveResults)
-                        {
-                            if (videoInfo.StreamTitle != null)
-                            {
-                                <div class="col-lg-3 col-md-6 col-sm-6 streamsubject @videoInfo.StreamSubject">
-                                    <div class="card mt-3" style="border:none; background-color:transparent">
-                                        <a href="../StreamViews/StreamPlaybackPage?streamId=@videoInfo.StreamID"><img style="width:100%; height:100%; border-top-left-radius:10px; border-top-right-radius:10px; border-bottom-left-radius:0px; border-bottom-right-radius:0px;" src=@videoInfo.StreamThumbnail></a>
-                                        <a class="card-body p-0" style="background-color:black; border-bottom-left-radius:10px; border-bottom-right-radius:10px;" href="/Home/ProfileView?Tutor=@videoInfo.Username">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <input type="image" style="border-radius:5%; width:50px; margin-left:10px; margin-top:10px; margin-bottom:10px; height:60px; float:left" src=@videoInfo.ProfilePicture />
-                                                    <h5 class="text-truncate" style="font-family: 'Roboto'; font-size:15px; color:white; margin-left:80px; margin-top:10px;">@videoInfo.StreamTitle</h5>
-                                                    <h6 class="text-truncate" style="font-family: 'Roboto'; font-size:14px; color:white; margin-left:80px;">@videoInfo.Username</h6>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            }
-                        }
+                        <h3 class="m-4">No StreamTutors are currently live-streaming this subject</h3>
                     }
                     else
                     {
-                        <div class="col-1"></div>
                         <h3 class="m-4">No matches were found for your search</h3>
                     }
-                </div>
+                }
+            </div>
+            <br />
+            <br />
+            @if (String.IsNullOrEmpty(Model.SearchViewModel.SearchQuery))
+            {
+                <h5>ARCHIVE</h5>
+            }
+            else
+            {
+                <h5>ARCHIVE FOR "@Model.SearchViewModel.SearchQuery"</h5>
+            }
+            <hr />
+            <div class="row">
+                @if (Model.SearchViewModel.ArchiveResults.ToArray().Length > 0)
+                {
+                    foreach (var videoInfo in Model.SearchViewModel.ArchiveResults)
+                    {
+                        if (videoInfo.StreamTitle != null)
+                        {
+                            <div class="col-lg-3 col-md-6 col-sm-6 streamsubject @videoInfo.StreamSubject">
+                                <div class="card mt-3" style="border:none; background-color:transparent">
+                                    <a href="../StreamViews/StreamPlaybackPage?streamId=@videoInfo.StreamID"><img style="width:100%; height:100%; border-top-left-radius:10px; border-top-right-radius:10px; border-bottom-left-radius:0px; border-bottom-right-radius:0px; cursor:pointer" src=@videoInfo.StreamThumbnail></a>
+                                    <a class="card-body p-0" style="background-color:black; border-bottom-left-radius:10px; border-bottom-right-radius:10px;" href="/Home/ProfileView?Tutor=@videoInfo.Username">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <input type="image" style="border-radius:5%; width:50px; margin-left:10px; margin-top:10px; margin-bottom:10px; height:60px; float:left" src=@videoInfo.ProfilePicture />
+                                                <h5 class="text-truncate" style="font-family: 'Roboto'; font-size:15px; color:white; margin-left:80px; margin-top:10px;">@videoInfo.StreamTitle</h5>
+                                                <h6 class="text-truncate" style="font-family: 'Roboto'; font-size:14px; color:white; margin-left:80px;">@videoInfo.Username</h6>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                    }
+                }
+                else
+                {
+                    <div class="col-1"></div>
+                    @if (String.IsNullOrEmpty(Model.SearchViewModel.SearchQuery))
+                    {
+                        <h3 class="m-4">There are no archived streams for this subject</h3>
+                    }
+                    else
+                    {
+                        <h3 class="m-4">No matches were found for your search</h3>
+                    }
+                }
+            </div>
+        </div>
+        <nav class="col-lg-2 d-none d-lg-block sidebar">
+            <div class="sidebar-sticky">
+                <h5 class="mt-4" style="font-size:14px; font-family:'Roboto Slab', serif; font-weight:bold; color:black">Popular StreamTutors</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">
+                            @foreach (var tutor in Model.SearchViewModel.PopularStreamTutors)
+                            {
+                                <a class="card pt-3 pd-3 zoom" style="display:block;background-color:whitesmoke;border:none" href="/Home/ProfileView?Tutor=@tutor.Username">
+                                    <div class="card-title">
+                                        <input type="image" style="width:55px; height:75px; border-radius: 5%" src=@tutor.ProfilePicture />
+                                        <h3 class="p-1" style="font-size:14px; color:black">@tutor.Name.Replace('|', ' ')</h3>
+                                    </div>
+                                </a>
+                            }
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
+
+<div id="editModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color: #008080">
+
+            <div class="modal-header">
+                <h5 class="modal-title" style="color:white">Edit Profile</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
 
+            <div class="modal-body">
+                @if (Model.SearchViewModel.UserProfile != null)
+                {
+                    <form>
+                        <input align="middle" type="text" class="form-control" id="ProfileCaption" placeholder="Caption" value="@Model.SearchViewModel.UserProfile.ProfileCaption" />
+                        <br />
+                        <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" placeholder="About Me" style="height:100px">@Model.SearchViewModel.UserProfile.ProfileParagraph</textarea>
+                        <br />
+                        <img id="previewProfilePic" src=@Model.SearchViewModel.UserProfile.ProfilePicture alt="your image" style="border-radius: 50%; width:115px; height:150px; display:block;margin-left:auto;margin-right:auto" />
+                        <br />
+                        <div class="upload-uploadbtn-wrapper">
+                            <button class="uploadbtn" style="margin-left:110px">Upload a Profile Picture</button>
+                            <input id="uploadProfilePic" type='file' onchange="readURL(this,'ProfilePic');" />
+                        </div>
+                    </form>
+                }
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" style="background-color:black; color:white" class="btn" onclick="RegisterProfilePhotoAndCaption()">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
+</div>
+
+<script>$(document).ready(function () {
+        $("#nav").click(function () {
+            $("#navbarText").slideToggle();
+        });
+    });</script>

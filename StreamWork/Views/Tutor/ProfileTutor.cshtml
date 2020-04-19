@@ -10,12 +10,12 @@
                 <div class="card-body" style="background:linear-gradient(to bottom, white 13%, #008080 0%);">
                     <div class="row">
                         <div class="col-lg-12">
-                            <input type="image" class="zoom" onclick="EditProfile()" src=@Model.UserProfile.ProfilePicture style="border-radius:5%; width:115px" />
-                            <h1 class="card-title mt-4" style="font-size:24px; color:whitesmoke;font-family: 'Roboto Slab', serif;"><b>@Model.UserProfile.Name.Replace('|', ' ')</b></h1>
+                            <input type="image" class="zoom" onclick="EditProfile()" src=@Model.TutorUserProfile.ProfilePicture style="border-radius:5%; width:115px" />
+                            <h1 class="card-title mt-4" style="font-size:24px; color:whitesmoke;font-family: 'Roboto Slab', serif;"><b>@Model.TutorUserProfile.Name.Replace('|', ' ')</b></h1>
                             <p class="card-text" id="ProfileCaptionGreeting" style="font-size:16px; color:white">Welcome to StreamWork!</p>
                             <p class="card-text" id="ProfileParagraphGreeting" style="font-size:14px; color:white">StreamWork is very excited to have you onboard our amazing community of StreamTutors. If you haven't been verified yet feel free to edit your profile, explore other StreamTutors, or watch some livestreams.  We promise that your verification will be done soon and we can't wait for you to start streaming your tutoring sessions to our student viewers. Happy streaming!</p>
-                            <p class="card-text" id="ProfileCaptionOnPage" style="font-size:16px; color:white">@Model.UserProfile.ProfileCaption</p>
-                            <p class="card-text" id="ProfileParagraphOnPage" style="font-size:14px; color:white">@Model.UserProfile.ProfileParagraph</p>
+                            <p class="card-text" id="ProfileCaptionOnPage" style="font-size:16px; color:white">@Model.TutorUserProfile.ProfileCaption</p>
+                            <p class="card-text" id="ProfileParagraphOnPage" style="font-size:14px; color:white">@Model.TutorUserProfile.ProfileParagraph</p>
                         </div>
                     </div>
                     <br />
@@ -133,7 +133,7 @@
                 <div id="videoInfo-@videoInfo.Id" class="col-lg-3 col-md-6 col-sm-6">
                     <div class="card mt-3" style="border:none;background-color:transparent">
                         <a href="../StreamViews/StreamPlaybackPage?streamId=@videoInfo.StreamID"><img style="width:100%; height:100%; border-top-left-radius:10px; border-top-right-radius:10px; border-bottom-left-radius:0px; border-bottom-right-radius:0px;" src=@videoInfo.StreamThumbnail></a>
-                        <div class="card-body p-0" style="background-color:black;">
+                        <div class="card-body p-0" style="background-color:black; background-color:black; border-bottom-left-radius:10px; border-bottom-right-radius:10px;">
                             <div class="row">
                                 <div class="col-lg-9 col-md-10 col-sm-10 col-10 col-xl-10">
                                     <input type="image" style="border-radius:5%; width:50px; margin-left:10px; margin-top:10px; margin-bottom:10px; height:60px; float:left" src=@videoInfo.ProfilePicture />
@@ -166,7 +166,7 @@
         });
     });</script>
 
-@if (Model.UserProfile.ProfileCaption == null && Model.UserProfile.ProfileParagraph == null && Model.UserProfile.AcceptedTutor == false)
+@if (Model.TutorUserProfile.ProfileCaption == null && Model.TutorUserProfile.ProfileParagraph == null && Model.TutorUserProfile.AcceptedTutor == false)
 {
     <script>WriteTutorGreeting()</script>
 }

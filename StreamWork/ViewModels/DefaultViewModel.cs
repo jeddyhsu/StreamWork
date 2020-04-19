@@ -2,6 +2,6 @@
 
 namespace StreamWork.ViewModels {
     public class DefaultViewModel {
-        public UserLogin UserProfile { get; set; }
+        public UserLogin GenericUserProfile { get; set; }
     }
 }

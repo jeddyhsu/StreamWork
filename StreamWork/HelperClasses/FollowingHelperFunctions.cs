@@ -98,16 +98,16 @@ namespace StreamWork.HelperClasses
         {
             if (student.FollowedStudentsAndTutors == null) return null;
             List<string> idList = student.FollowedStudentsAndTutors.Split("|").ToList();
-            var followedLogins = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.GetFollowedLogins, _homeHelperFunctions.FormatQueryString(idList));
+            var followedLogins = await _homeHelperFunctions.GetUserProfiles(storageConfig, QueryHeaders.GetFollowedLogins, _homeHelperFunctions.FormatQueryString(idList));
             return followedLogins;
         }
 
         public async Task<List<UserLogin>> GetNotFollowedTutors([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, List<UserLogin> followedTutors)
         {
-            if (followedTutors == null) return await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.AllApprovedTutors,null);
+            if (followedTutors == null) return await _homeHelperFunctions.GetUserProfiles(storageConfig, QueryHeaders.AllApprovedTutors,null);
             List<string> idList = new List<string>();
             foreach (var tutor in followedTutors) idList.Add(tutor.Id);
-            var notfollowedLogins= await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.GetNotFollowedLogins, _homeHelperFunctions.FormatQueryString(idList));
+            var notfollowedLogins= await _homeHelperFunctions.GetUserProfiles(storageConfig, QueryHeaders.GetNotFollowedLogins, _homeHelperFunctions.FormatQueryString(idList));
             return notfollowedLogins;
         }
     }

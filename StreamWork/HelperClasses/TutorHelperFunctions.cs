@@ -51,15 +51,15 @@ namespace StreamWork.HelperClasses
 
         public async Task ChangeAllArchivedStreamAndUserChannelProfilePhotos([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string user, string profilePicture) //changes all profile photos on streams if user has changed it
         {
-            var allArchivedStreams = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, user);
-            var userChannel = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, user);
-            foreach (var stream in allArchivedStreams)
+            var allArchivedStreamsByUser = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, user);
+            var userChannel = await _homeHelperFunctions.GetUserChannel(storageConfig, QueryHeaders.CurrentUserChannel, user);
+            foreach (var stream in allArchivedStreamsByUser)
             {
                 stream.ProfilePicture = profilePicture;
                 await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", stream.Id } }, stream);
             }
-            userChannel[0].ProfilePicture = profilePicture;
-            await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel[0].Id } }, userChannel[0]);
+            userChannel.ProfilePicture = profilePicture;
+            await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
         }
 
         public List<Day> GetTutorStreamSchedule(UserChannel channel)
@@ -251,13 +251,13 @@ namespace StreamWork.HelperClasses
             SortUtil(tasksArray, counter + 1, rightBound);
         }
 
-        public int GetNumberOfFollowers(UserLogin userLogin)
+        public int GetNumberOfFollowers(UserLogin userProfile)
         {
-            if (userLogin.FollowedStudentsAndTutors == null) return 0;
+            if (userProfile.FollowedStudentsAndTutors == null) return 0;
 
-            if (!userLogin.FollowedStudentsAndTutors.Contains('|')) return 1;
+            if (!userProfile.FollowedStudentsAndTutors.Contains('|')) return 1;
 
-            var list = userLogin.FollowedStudentsAndTutors.Split('|');
+            var list = userProfile.FollowedStudentsAndTutors.Split('|');
             return list.Length;
         }
 
@@ -284,11 +284,5 @@ namespace StreamWork.HelperClasses
 
             return 0;
         }
-
-        //public async Task<bool> SendStreamEmailToStudents([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, UserChannel channel)
-        //{
-        //    var listOfStudentEmails = await _homeHelperFunctions.GetUserLogins(storageConfig, QueryHeaders.AllStudentEmails, null);
-        //    await _homeHelperFunctions.SendEmailToAnyEmailAsync(_homeHelperFunctions._streamworkEmailID, null, listOfStudentEmails.ToArray(), "A tutor has started a live-stream on StreamWork!", "Hey Student", null);
-        //}
     }
 }

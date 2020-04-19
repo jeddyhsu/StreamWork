@@ -15,13 +15,13 @@ namespace StreamWork.HelperClasses
         {
             ProfileStudentViewModel model = new ProfileStudentViewModel
             {
-                UserProfile = user == null ? null : await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user),
-                ArchivedStreams = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos),
+                StudentUserProfile = user == null ? null : await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user),
+                ArchivedStreams = await _homeHelperFunctions.GetAllArchivedStreams(storageConfig),
                 PreviouslyWatchedStreams = await _homeHelperFunctions.GetPreviouslyWatchedStreams(storageConfig, user),
-                LiveChannels = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.AllUserChannelsThatAreStreaming)
+                LiveChannels = await _homeHelperFunctions.GetAllUserChannels(storageConfig)
             };
 
-            model.FollowedTutors = await _followingHelperFunctions.GetFollowedTutors(storageConfig, model.UserProfile);
+            model.FollowedTutors = await _followingHelperFunctions.GetFollowedTutors(storageConfig, model.StudentUserProfile);
             model.AllTutors = await _followingHelperFunctions.GetNotFollowedTutors(storageConfig, model.FollowedTutors);
             return model;
         }

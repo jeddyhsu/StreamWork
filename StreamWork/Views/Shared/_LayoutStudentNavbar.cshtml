@@ -61,7 +61,7 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
 
             <a href="/"><img class="d-lg-none d-sm-block p-0" src="~/images/streamworkPencil.png" style="height:60px; margin-left:auto; margin-right:auto;" /></a>
 
-            @if (@Model.UserProfile == null)
+            @if (@Model.StudentUserProfile == null)
             {
                 <img class="d-lg-none d-sm-block p-0" onclick="OpenLoginSignUpModal()" src="https://img.icons8.com/ios-glyphs/100/000000/person-male.png" style="margin-right:0px; height:30px; cursor:pointer; " />
             }
@@ -70,7 +70,7 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
                 <ul class="navbar-nav d-lg-none d-sm-block" style="float: none; margin:0px; display: block; text-align: right;">
                     <li>
                         <div class="btn-group">
-                            <input type="image" onclick="OpenLogoutModal()" src=@Model.UserProfile.ProfilePicture style="width:32px; height:43px; border-radius:10px" />
+                            <input type="image" onclick="OpenLogoutModal()" src=@Model.StudentUserProfile.ProfilePicture style="width:32px; height:43px; border-radius:10px" />
                         </div>
                     </li>
                 </ul>
@@ -102,7 +102,7 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
                     </ul>
                 </div>
                 <div class="col-lg-5">
-                    @if (@Model.UserProfile == null)
+                    @if (@Model.StudentUserProfile == null)
                     {
                         <ul class="nav navbar-nav d-none d-lg-block" style="float: none; margin: 0 auto; display: block; text-align: right;">
                             <li class="nav-item mt-1" style="display: inline-block; float: none;">
@@ -113,17 +113,17 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
                             </li>
                         </ul>
                     }
-                    else if (Model.UserProfile != null)
+                    else if (Model.StudentUserProfile != null)
                     {
                         <ul class="navbar-nav d-none d-lg-block" style="float: none; margin: 0 auto; display: block; text-align: right;">
                             <li>
                                 <div class="btn-group" style="position:relative; left:2%;">
-                                    <input type="image" data-toggle="dropdown" src=@Model.UserProfile.ProfilePicture style="width:60px; height:76px; border-top-left-radius:5%; border-bottom-left-radius:5%; border-top-right-radius:0%; border-bottom-right-radius:0%" />
+                                    <input type="image" data-toggle="dropdown" src=@Model.StudentUserProfile.ProfilePicture style="width:60px; height:76px; border-top-left-radius:5%; border-bottom-left-radius:5%; border-top-right-radius:0%; border-bottom-right-radius:0%" />
                                     <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:#006060; border:none;"></button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#" id="EditProfile" onclick="Dashboard('@Model.UserProfile.ProfileType')">Dashboard</a>
+                                        <a class="dropdown-item" href="#" id="EditProfile" onclick="Dashboard('@Model.StudentUserProfile.ProfileType')">Dashboard</a>
                                         <div class="dropdown-divider"></div>
-                                        @if (Model.UserProfile.ProfileType == "tutor")
+                                        @if (Model.StudentUserProfile.ProfileType == "tutor")
                                         {
                                             <a class="dropdown-item" id="Settings" href="/Tutor/TutorSettings">Settings</a>
                                         }
@@ -155,9 +155,9 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
                 </div>
                 <div class="modal-body">
                     <form>
-                        <input align="middle" type="text" class="form-control" id="ProfileCaption" maxlength="50" placeholder="Field of Study" value="@Model.UserProfile.ProfileCaption" />
+                        <input align="middle" type="text" class="form-control" id="ProfileCaption" maxlength="50" placeholder="Field of Study" value="@Model.StudentUserProfile.ProfileCaption" />
                         <br />
-                        <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" maxlength="189" placeholder="About Me" style="height:100px">@Model.UserProfile.ProfileParagraph</textarea>
+                        <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" maxlength="189" placeholder="About Me" style="height:100px">@Model.StudentUserProfile.ProfileParagraph</textarea>
                         <div class="row mt-4">
                             <div class="col-lg-8 col-md-8 col-sm-8 col-6">
                                 <div class="upload-uploadbtn-wrapper">
@@ -166,7 +166,7 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-4 col-6">
-                                <img id="previewProfilePic" src=@Model.UserProfile.ProfilePicture alt="your image" style="border-radius: 5%; width:115px; display:block;margin-left:auto;margin-right:auto" />
+                                <img id="previewProfilePic" src=@Model.StudentUserProfile.ProfilePicture alt="your image" style="border-radius: 5%; width:115px; display:block;margin-left:auto;margin-right:auto" />
                             </div>
                         </div>
                     </form>
@@ -196,7 +196,7 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="background-color: whitesmoke">
                 <div class="modal-body">
-                    <a class="btn ml-3" style="color:#008080; font-size:17px; background-color:whitesmoke; display:block; margin-left:auto; margin-right:auto" onclick="Dashboard('@Model.UserProfile.ProfileType')"><b>Dashboard</b></a>
+                    <a class="btn ml-3" style="color:#008080; font-size:17px; background-color:whitesmoke; display:block; margin-left:auto; margin-right:auto" onclick="Dashboard('@Model.StudentUserProfile.ProfileType')"><b>Dashboard</b></a>
                     <a class="btn ml-3" style="color:#008080; font-size:17px; background-color:whitesmoke; display:block; margin-left:auto; margin-right:auto" href="/Tutor/StudentSettings"><b>Settings</b></a>
                     <a class="btn ml-3" style="color:#008080; font-size:17px; background-color:whitesmoke; display:block; margin-left:auto; margin-right:auto" onclick="Logout()"><b>Logout</b></a>
                 </div>

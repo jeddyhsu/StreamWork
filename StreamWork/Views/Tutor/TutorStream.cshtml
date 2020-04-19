@@ -3,7 +3,7 @@
 @{Layout = "_LayoutTutorNavbar";}
 @{ViewData["Title"] = "TutorStream";}
 
-@if (!Model.UserProfile.ProfileType.Equals("tutor") || !Model.UserProfile.AcceptedTutor)
+@if (!Model.TutorUserProfile.ProfileType.Equals("tutor") || !Model.TutorUserProfile.AcceptedTutor)
 {
     <script>
         $(document).ready(function () {
@@ -14,7 +14,7 @@
         })
     </script>
 }
-else if (Model.UserChannels[0].StreamTitle == null && Model.UserChannels[0].StreamSubject == null)
+else if (Model.UserChannel.StreamTitle == null && Model.UserChannel.StreamSubject == null)
 {
     <script>$(document).ready(function () {
             $('#registerStreamModal').modal({
@@ -28,7 +28,7 @@ else if (Model.UserChannels[0].StreamTitle == null && Model.UserChannels[0].Stre
     <div class="container-fluid p-0">
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-9 mt-3 p-0" style="background-color:white">
-                <div><iframe src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.UserChannels[0].ChannelKey.Split('|')[0]" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" frameborder="0" scrolling="no" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="autoplay; fullscreen;"></iframe></div>
+                <div><iframe src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.UserChannel.ChannelKey.Split('|')[0]" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" frameborder="0" scrolling="no" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="autoplay; fullscreen;"></iframe></div>
             </div>
             <div class="col-sm-12 col-md-12 col-lg-3 p-0" style="background-color:whitesmoke">
                 @if (true)
@@ -90,7 +90,7 @@ else if (Model.UserChannels[0].StreamTitle == null && Model.UserChannels[0].Stre
                 <div class="modal-footer">
                     <div id="loaderStartStream" style="display:none" class="loader mr-auto"></div>
                     <button type="button" class="streamWorkGrey" style="cursor:pointer" onclick="window.location.href = '/Tutor/ProfileTutor'">Exit</button>
-                    <button id="StartStream" type="button" class="streamWorkPrimary" style="cursor:pointer" onclick="CheckIfStreamIsLive('@Model.UserChannels[0].ChannelKey')">Go Live!</button>
+                    <button id="StartStream" type="button" class="streamWorkPrimary" style="cursor:pointer" onclick="CheckIfStreamIsLive('@Model.UserChannel.ChannelKey')">Go Live!</button>
                 </div>
             </div>
         </div>

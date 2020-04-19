@@ -48,15 +48,15 @@
                 <div class="card-body">
                     <form>
                         <h5 class="text-center">Subscribing to notifications will allow for an email to be sent to you when a tutor goes live.</h5>
-                        @if (Model.UserProfile.NotificationSubscribe.Equals("True"))
+                        @if (Model.StudentUserProfile.NotificationSubscribe.Equals("True"))
                         {
-                            <button id="UnsubscribeButton" class="streamWorkGrey mt-3" type="button" onclick="Unsubscribe('@Model.UserProfile.EmailAddress')" style="display:block; margin-left:auto; margin-right:auto;">Unsubscribe</button>
-                            <button id="SubscribeButton" class="streamWorkSecondary mt-3" type="button" onclick="Subscribe('@Model.UserProfile.EmailAddress')" style="display:none; margin-left:auto; margin-right:auto;">Subscribe</button>
+                            <button id="UnsubscribeButton" class="streamWorkGrey mt-3" type="button" onclick="Unsubscribe('@Model.StudentUserProfile.EmailAddress')" style="display:block; margin-left:auto; margin-right:auto;">Unsubscribe</button>
+                            <button id="SubscribeButton" class="streamWorkSecondary mt-3" type="button" onclick="Subscribe('@Model.StudentUserProfile.EmailAddress')" style="display:none; margin-left:auto; margin-right:auto;">Subscribe</button>
                         }
                         else
                         {
-                            <button id="UnsubscribeButton" class="streamWorkGrey mt-3" type="button" onclick="Unsubscribe('@Model.UserProfile.EmailAddress')" style="display:none; margin-left:auto; margin-right:auto;">Unsubscribe</button>
-                            <button id="SubscribeButton" class="streamWorkSecondary mt-3" type="button" onclick="Subscribe('@Model.UserProfile.EmailAddress')" style="display:block; margin-left:auto; margin-right:auto;">Subscribe</button>
+                            <button id="UnsubscribeButton" class="streamWorkGrey mt-3" type="button" onclick="Unsubscribe('@Model.StudentUserProfile.EmailAddress')" style="display:none; margin-left:auto; margin-right:auto;">Unsubscribe</button>
+                            <button id="SubscribeButton" class="streamWorkSecondary mt-3" type="button" onclick="Subscribe('@Model.StudentUserProfile.EmailAddress')" style="display:block; margin-left:auto; margin-right:auto;">Subscribe</button>
                         }
                     </form>
                 </div>

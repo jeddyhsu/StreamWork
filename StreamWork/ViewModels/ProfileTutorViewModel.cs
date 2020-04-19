@@ -6,11 +6,13 @@ namespace StreamWork.ViewModels {
 
     public class ProfileTutorViewModel {
 
-        public UserLogin UserProfile { get; set; }
-        public UserLogin StudentOrTutorProfile{ get; set; } //just in case
+        public UserLogin TutorUserProfile { get; set; }
+        public UserLogin GenericUserProfile { get; set; }
+        public UserChannel UserChannel { get; set; }
+
         public List<UserChannel> UserChannels { get; set; }
         public List<UserArchivedStreams> UserArchivedVideos { get; set; }
-        public List<UserLogin> UserLogins { get; set; }
+        public List<UserLogin> UserProfiles { get; set; }
 
         public int NumberOfStreams { get; set; }
         public int NumberOfFollowers { get; set; }
