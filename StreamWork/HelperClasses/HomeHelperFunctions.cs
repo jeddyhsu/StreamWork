@@ -171,15 +171,15 @@ namespace StreamWork.HelperClasses
             var streamingUserChannels = await GetUserChannel(storageConfig, QueryHeaders.AllUserChannelsThatAreStreaming, "N|A");
             if (streamingUserChannels == null)
             {
-                var userProfile= await GetUserProfile(storageConfig, QueryHeaders.CurrentUser, "admin");
-                var userChannel = await GetUserChannel(storageConfig, QueryHeaders.CurrentUserChannel, "admin");
-                var getArchivedStreams = await GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, "admin");
+                var userProfile= await GetUserProfile(storageConfig, QueryHeaders.CurrentUser, "juliamkim");
+                var userChannel = await GetUserChannel(storageConfig, QueryHeaders.CurrentUserChannel, "juliamkim");
+                var getArchivedStreams = await GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, "juliamkim");
 
                 IndexViewModel model = new IndexViewModel
                 {
                     UserLogin = userProfile,
                     UserChannel = userChannel,
-                    UserArchivedStream = getArchivedStreams[1],
+                    UserArchivedStream = getArchivedStreams[0],
                     UserArchivedStreams = await GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos, null),
                     ChatBox = await GetChatSecretKey(storageConfig, userChannel.ChatId, currentUser)
                 };
