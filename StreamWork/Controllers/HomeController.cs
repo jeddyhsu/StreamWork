@@ -134,7 +134,7 @@ namespace StreamWork.Controllers
             ProfileTutorViewModel profile = new ProfileTutorViewModel
             {
                 TutorUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, tutor),
-                UserChannels = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, tutor),
+                UserChannel = await _homeHelperFunctions.GetUserChannel(storageConfig, QueryHeaders.CurrentUserChannel, tutor),
                 UserArchivedVideos = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, tutor),
                 NumberOfStreams = (await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, tutor)).Count
             };
@@ -153,7 +153,7 @@ namespace StreamWork.Controllers
                 profile.IsUserFollowingThisTutor = false;
             }
 
-            profile.Schedule = _tutorHelperFunctions.GetTutorStreamSchedule(profile.UserChannels[0]);
+            profile.Schedule = _tutorHelperFunctions.GetTutorStreamSchedule(profile.UserChannel);
 
             return View(profile);
         }
