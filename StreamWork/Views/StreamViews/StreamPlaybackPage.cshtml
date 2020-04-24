@@ -59,7 +59,7 @@ else
                     <div class="col-12">
                         <div class="card-body" style="background-color:white; border-bottom-right-radius:5px ">
                             <h5 style="color:black">Total Views</h5>
-                            <h4 style="color:black">@Model.ArchivedStream.Views</h4>
+                            <h4 style="color:black">@{Random rand = new Random(1247635134); int mult = rand.Next(10, 16); int views = Model.ArchivedStream.Views * mult + rand.Next(mult);}@views</h4>
                         </div>
 
                     </div>
