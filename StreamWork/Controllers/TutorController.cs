@@ -107,6 +107,13 @@ namespace StreamWork.Controllers
                 Recommendations = await _homeHelperFunctions.GetRecommendationsForTutor(storageConfig, User.Identity.Name),
             };
 
+            int viewCount = 0;
+            foreach(var archivedStream in viewModel.UserArchivedVideos)
+            {
+                viewCount += archivedStream.Views;
+            }
+
+            viewModel.NumberOfViews = viewCount;
             viewModel.NumberOfFollowers = _tutorHelperFunctions.GetNumberOfFollowers(viewModel.TutorUserProfile);
             viewModel.Schedule = _tutorHelperFunctions.GetTutorStreamSchedule(viewModel.UserChannels[0]);
 
