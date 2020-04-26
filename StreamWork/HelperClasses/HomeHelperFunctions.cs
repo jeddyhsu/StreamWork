@@ -169,38 +169,41 @@ namespace StreamWork.HelperClasses
 
         public async Task<IndexViewModel> PopulateHomePage ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string currentUser) {
             var streamingUserChannels = await GetUserChannel(storageConfig, QueryHeaders.AllUserChannelsThatAreStreaming, "N|A");
+            IndexViewModel model = new IndexViewModel();
             if (streamingUserChannels == null)
             {
                 var userProfile= await GetUserProfile(storageConfig, QueryHeaders.CurrentUser, "juliamkim");
                 var userChannel = await GetUserChannel(storageConfig, QueryHeaders.CurrentUserChannel, "juliamkim");
                 var getArchivedStreams = await GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, "juliamkim");
 
-                IndexViewModel model = new IndexViewModel
+                model = new IndexViewModel
                 {
                     UserLogin = userProfile,
                     UserChannel = userChannel,
                     UserArchivedStream = getArchivedStreams[0],
-                    UserArchivedStreams = await GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos, null),
+                    UserArchivedStreams = new List<UserArchivedStreams>(),
                     ChatBox = await GetChatSecretKey(storageConfig, userChannel.ChatId, currentUser)
                 };
-
-                model.UserArchivedStreams = model.UserArchivedStreams.ToList().GetRange(2,4);
-
-                return model;
+            }
+            else
+            {
+                var userProfileForChannel = await GetUserProfile(storageConfig, QueryHeaders.CurrentUser, streamingUserChannels.Username);
+                 model = new IndexViewModel
+                {
+                    UserLogin = userProfileForChannel,
+                    UserChannel = streamingUserChannels,
+                    UserArchivedStreams = new List<UserArchivedStreams>(),
+                    ChatBox = await GetChatSecretKey(storageConfig, streamingUserChannels.ChatId, currentUser)
+                };
             }
 
-            var userProfileForChannel = await GetUserProfile(storageConfig, QueryHeaders.CurrentUser, streamingUserChannels.Username);
-            IndexViewModel channelModel = new IndexViewModel
-            {
-                UserLogin = userProfileForChannel,
-                UserChannel = streamingUserChannels,
-                UserArchivedStreams = await GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos, null),
-                ChatBox = await GetChatSecretKey(storageConfig, streamingUserChannels.ChatId, currentUser)
-            };
+            var archive = await GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos, null);
+            model.UserArchivedStreams.Add(archive[7]);
+            model.UserArchivedStreams.Add(archive[9]);
+            model.UserArchivedStreams.Add(archive[5]);
+            model.UserArchivedStreams.Add(archive[1]);
 
-            channelModel.UserArchivedStreams = channelModel.UserArchivedStreams.ToList().GetRange(2,4);
-
-            return channelModel;
+            return model;
         }
 
         public string FormatChatId (string chatID) {
