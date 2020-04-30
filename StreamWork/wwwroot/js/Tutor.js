@@ -52,7 +52,8 @@ function DoYouWantToNotifyStudents() {
 
 function CheckIfStreamIsLive(channelKey) {
 
-    document.getElementById("StartStream").disabled = true;
+    document.getElementById("ExitStream").style.display = 'none';
+    document.getElementById("StartStream").style.display = 'none';
     document.getElementById('loaderStartStream').style.display = 'block'
 
     $.ajax({
@@ -74,8 +75,9 @@ function CheckIfStreamIsLive(channelKey) {
     });
 }
 
-function Hide(){
-    document.getElementById("StartStream").disabled = false;
+function Hide() {
+    document.getElementById("ExitStream").style.display = 'block';
+    document.getElementById("StartStream").style.display = 'block';
     document.getElementById('loaderStartStream').style.display = 'none';
 }
 
