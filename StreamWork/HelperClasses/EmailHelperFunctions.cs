@@ -1,4 +1,4 @@
-﻿using System;
+﻿   using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -170,8 +170,7 @@ namespace StreamWork.HelperClasses
 
             try
             {
-                client.Send(message);
-                client.Dispose();
+                await client.SendMailAsync(message);
             }
             catch(Exception e)
             {
