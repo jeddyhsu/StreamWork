@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -199,7 +198,7 @@ namespace StreamWork.HelperClasses
 
             var archive = await GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos, null);
             model.UserArchivedStreams.Add(archive[8]);
-            model.UserArchivedStreams.Add(archive[10]);
+            model.UserArchivedStreams.Add(archive[9]);
             model.UserArchivedStreams.Add(archive[6]);
             model.UserArchivedStreams.Add(archive[1]);
 

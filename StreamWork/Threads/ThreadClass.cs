@@ -9,7 +9,6 @@ using StreamWork.Config;
 using StreamWork.Core;
 using StreamWork.DataModels;
 using StreamWork.HelperClasses;
-using StreamWork.StreamHoster;
 
 namespace StreamWork.Threads
 {
