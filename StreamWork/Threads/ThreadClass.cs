@@ -17,6 +17,7 @@ namespace StreamWork.Threads
     {
         readonly HomeHelperFunctions _homeHelperFunctions;
         readonly EmailHelperFunctions _emailHelperFunctions;
+        readonly ThreadClassHelperFunctions _threadClassHelperFunctions;
         readonly IOptionsSnapshot<StorageConfig> _storageConfig;
         readonly UserChannel _userChannel;
         readonly UserLogin _userLogin;
@@ -24,22 +25,25 @@ namespace StreamWork.Threads
         readonly string _streamSubject;
         readonly string _streamDescription;
         readonly string _streamThumbnail;
+        readonly string _archivedVideoId;
 
         private int initialCount = 0;
         private static int threadCount = 0;
         private static Hashtable hashTable = new Hashtable();
 
-        public ThreadClass(IOptionsSnapshot<StorageConfig> storageConfig, UserChannel userChannel, UserLogin userLogin, string streamTitle, string streamSubject, string streamDescription, string streamThumbnail)
+        public ThreadClass(IOptionsSnapshot<StorageConfig> storageConfig, UserChannel userChannel, UserLogin userLogin, string streamTitle, string streamSubject, string streamDescription, string streamThumbnail, string archivedVideoId)
         {
             _homeHelperFunctions = new HomeHelperFunctions();
             _emailHelperFunctions = new EmailHelperFunctions();
+            _threadClassHelperFunctions = new ThreadClassHelperFunctions();
+            _storageConfig = storageConfig;
             _userChannel = userChannel;
             _userLogin = userLogin;
-            _storageConfig = storageConfig;
             _streamTitle = streamTitle;
             _streamSubject = streamSubject;
             _streamDescription = streamDescription;
             _streamThumbnail = streamThumbnail;
+            _archivedVideoId = archivedVideoId;
         }
 
         public bool RunEmailThread()
@@ -88,8 +92,8 @@ namespace StreamWork.Threads
                     await Task.Delay(5000, cancellationToken);
                     try
                     {
-                        var response = DataStore.CallAPI<StreamHosterEndpoint>("https://a.streamhoster.com/v1/papi/media/stream/stat/realtime-stream?targetcustomerid=" + channelKey, "NjBjZDBjYzlkNTNlOGViZDc3YWYyZGE2ZDNhN2EyZjQ5YWNmODk1YTo=");
-                        if (response.Data.Length != 0)
+                        var response = _threadClassHelperFunctions.CheckIfUserChannelIsLive(_userChannel.ChannelKey);
+                        if (response)
                             Console.WriteLine("Live");
                         else
                         {
@@ -159,7 +163,7 @@ namespace StreamWork.Threads
         {
             UserArchivedStreams archivedStream = new UserArchivedStreams
             {
-                Id = Guid.NewGuid().ToString(),
+                Id = _archivedVideoId,
                 Username = _userChannel.Username,
                 StreamID = "",
                 StreamTitle = _streamTitle,

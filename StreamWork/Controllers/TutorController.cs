@@ -53,9 +53,10 @@ namespace StreamWork.Controllers
                 var streamSubject = streamInfo[1];
                 var streamDescription = streamInfo[2];
                 var notifyStudents = streamInfo[3];
-                var streamThumbnail =  _homeHelperFunctions.SaveIntoBlobContainer(Request.Form.Files[0], userChannel.Id, 1280, 720);
+                var archivedStreamId = Guid.NewGuid().ToString();
+                var streamThumbnail =  _homeHelperFunctions.SaveIntoBlobContainer(Request.Form.Files[0],archivedStreamId, 1280, 720);
 
-                ThreadClass handleStreams = new ThreadClass(storageConfig, userChannel, userProfile, streamTitle, streamSubject, streamDescription, streamThumbnail);
+                ThreadClass handleStreams = new ThreadClass(storageConfig, userChannel, userProfile, streamTitle, streamSubject, streamDescription, streamThumbnail, archivedStreamId);
                 handleStreams.RunLiveThread();
                 if(notifyStudents.Equals("yes")) handleStreams.RunEmailThread();
 
@@ -73,8 +74,9 @@ namespace StreamWork.Controllers
                 var streamSubject = streamInfo[1];
                 var streamDescription = streamInfo[2];
                 var notifyStudents = streamInfo[3];
+                var archivedStreamId = Guid.NewGuid().ToString();
 
-                ThreadClass handleStreams = new ThreadClass(storageConfig, userChannel, userProfile, streamTitle, streamSubject, streamDescription, _tutorHelperFunctions.GetCorrespondingDefaultThumbnail(streamSubject));
+                ThreadClass handleStreams = new ThreadClass(storageConfig, userChannel, userProfile, streamTitle, streamSubject, streamDescription, _tutorHelperFunctions.GetCorrespondingDefaultThumbnail(streamSubject), archivedStreamId);
                 handleStreams.RunLiveThread();
                 if(notifyStudents.Equals("yes")) handleStreams.RunEmailThread();
 
