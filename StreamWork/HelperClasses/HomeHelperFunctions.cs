@@ -197,10 +197,10 @@ namespace StreamWork.HelperClasses
             }
 
             var archive = await GetArchivedStreams(storageConfig, QueryHeaders.AllArchivedVideos, null);
-            model.UserArchivedStreams.Add(archive[8]);
-            model.UserArchivedStreams.Add(archive[9]);
-            model.UserArchivedStreams.Add(archive[6]);
+            model.UserArchivedStreams.Add(archive[7]);
+            model.UserArchivedStreams.Add(archive[11]);
             model.UserArchivedStreams.Add(archive[1]);
+            model.UserArchivedStreams.Add(archive[9]);
 
             return model;
         }
