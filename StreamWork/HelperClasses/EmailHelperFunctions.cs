@@ -138,43 +138,45 @@ namespace StreamWork.HelperClasses
         //sends to any email from streamworktutor@gmail.com provided the 'from' 'to' 'subject' 'body' & 'attachments' (if needed)
         public async Task SendEmailToAnyEmailAsync(string from, string to, string[] multipleAddresses, string subject, string body, List<Attachment> attachments)
         {
-            SmtpClient client = new SmtpClient("smtp.gmail.com", 587)
-            {
-                Credentials = new NetworkCredential(_streamworkEmailID, _streamworkEmailPassword),
-                EnableSsl = true
-            };
-
-            MailMessage message = new MailMessage
-            {
-                Subject = subject
-            };
-
-            if (multipleAddresses == null) message.To.Add(to);
-            else
-            {
-                foreach (var address in multipleAddresses)
-                {
-                    message.To.Add(address);
-                }
-            }
-
-            message.Body = body;
-            message.From = new MailAddress(from);
-            message.IsBodyHtml = true;
-
-            if (attachments != null)
-            {
-                foreach (var attachement in attachments)
-                    message.Attachments.Add(attachement);
-            }
-
             try
             {
+                SmtpClient client = new SmtpClient("smtp.gmail.com", 587)
+                {
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(_streamworkEmailID, _streamworkEmailPassword),
+                    EnableSsl = true,
+                };
+
+                MailMessage message = new MailMessage
+                {
+                    Subject = subject
+                };
+
+                if (multipleAddresses == null) message.To.Add(to);
+                else
+                {
+                    foreach (var address in multipleAddresses)
+                    {
+                        message.To.Add(address);
+                    }
+                }
+
+                message.Body = body;
+                message.From = new MailAddress(from);
+                message.IsBodyHtml = true;
+
+                if (attachments != null)
+                {
+                    foreach (var attachement in attachments)
+                        message.Attachments.Add(attachement);
+                }
+
                 await client.SendMailAsync(message);
+                await Task.Delay(3000);
             }
             catch(Exception e)
             {
-                Console.WriteLine("Error in SendEmailToAnyEmailAsync: " + e.Message);
+                Console.WriteLine("Error in SendEmailToAnyEmailAsync: " + e.InnerException);
             }
         }
     }
