@@ -4,14 +4,52 @@ var videoId = "";
 
 var isEdited = false;
 
-function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail() {
+//Streaming
+function CheckIfStreamIsLive(channelKey) {
+
+    document.getElementById("ExitStream").style.display = 'none';
+    document.getElementById("StartStream").style.display = 'none';
+    document.getElementById('loaderStartStream').style.display = 'block'
+
+    $.ajax({
+        url: '/Tutor/CheckIfStreamIsLive',
+        type: 'post',
+        dataType: 'json',
+        data: {
+            'channelKey': channelKey
+        },
+        success: function (data) {
+            if (data.message === "Success") {
+                OpenNotifyStudentsConfirmModal();
+            }
+            else {
+                Hide();
+                OpenNotificationModal("Stream is not live, make sure you have started on your encoder!")
+            }
+        }
+    });
+}
+
+function OpenNotifyStudentsConfirmModal() {
+    if ($('#notifyStudents').is(':checked')) {
+        $('#registerStreamModal').modal('hide');
+        $('#notifyStudentsConfirmModal').modal('show');
+    }
+    else RegisterStreamTitleAndStreamSubjectAndCustomThumbanail("no");
+}
+
+function NotifyStudentsConfirm() {
+    RegisterStreamTitleAndStreamSubjectAndCustomThumbanail("yes");
+}
+
+function NotifyStudentsDecline() {
+    RegisterStreamTitleAndStreamSubjectAndCustomThumbanail("no");
+}
+
+function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail(notifyStudent) {
     var streamTitle = $('#streamTitle').val();
     var streamSubject = $('#streamSubject').val();
     var streamDescription = $('#streamDescription').val();
-    var notifyStudent = "";
-
-    if ($('#notifyStudents').is(':checked')) notifyStudent = "yes"
-    else notifyStudent = "no"
         
     var formData = new FormData()
 
@@ -47,42 +85,15 @@ function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail() {
     });   
 
 }
-
-function DoYouWantToNotifyStudents() {
-    $('#letViewersKnow').modal('show');
-}
-
-function CheckIfStreamIsLive(channelKey) {
-
-    document.getElementById("ExitStream").style.display = 'none';
-    document.getElementById("StartStream").style.display = 'none';
-    document.getElementById('loaderStartStream').style.display = 'block'
-
-    $.ajax({
-        url: '/Tutor/CheckIfStreamIsLive',
-        type: 'post',
-        dataType: 'json',
-        data: {
-            'channelKey': channelKey
-        },
-        success: function (data) {
-            if (data.message === "Success") {
-                RegisterStreamTitleAndStreamSubjectAndCustomThumbanail();
-            }
-            else {
-                Hide();
-                OpenNotificationModal("Stream is not live, make sure you have started on your encoder!")
-            }
-        }
-    });
-}
-
 function Hide() {
     document.getElementById("ExitStream").style.display = 'block';
     document.getElementById("StartStream").style.display = 'block';
     document.getElementById('loaderStartStream').style.display = 'none';
 }
 
+
+
+//Scehdule
 function AddStreamToSchedule() {
     var streamName = $('#streamNameAdd').val();
     var dateTime = $('#dateTimeAdd').val();
@@ -191,6 +202,14 @@ function OpenTutorGreetingModal() {
     $('#tutorGreetingModal').modal('show');
 }
 
+function OpenRegisterStreamModal() {
+    Hide();
+    $('#registerStreamModal').modal({
+        backdrop: 'static',
+        keyboard: false
+    });
+}
+
 $(function () {
     var currentDate = new Date();
     var dateIn7Days = currentDate.setDate(currentDate.getDate() + 7);
@@ -207,6 +226,8 @@ $(function () {
 
 });
 
+
+//Tutor Greetings
 function WriteTutorGreeting() {
     document.getElementById("ProfileCaptionOnPage").style.display = "none";
     document.getElementById('ProfileParagraphOnPage').style.display = "none";
@@ -221,6 +242,8 @@ function WriteTutorProfileCaptionAndParagraph() {
     document.getElementById('ProfileParagraphOnPage').style.display = "block";
 }
 
+
+//Recommendations
 function OpenViewRecommendationsModal() {
     $('#viewRecommendationsModal').modal('show');
     $('#recommendationsBadge').hide();
@@ -240,6 +263,8 @@ function ClearRecommendation(index, id) {
     });
 }
 
+
+//Edit/Delete Streams
 function DeleteStream() {
     $.ajax({
         url: '/Tutor/DeleteStream',
@@ -298,6 +323,8 @@ function SaveEditedStreamInfo() {
     });
 }
 
+
+//Notifications
 function OpenNotificationModal(body) {
     var notification = document.getElementById('notifyBody');
     notification.textContent = body;
