@@ -24,6 +24,7 @@ namespace StreamWork.Controllers
         readonly TutorHelperFunctions _tutorHelperFunctions = new TutorHelperFunctions();
         readonly FollowingHelperFunctions _followingHelperFunctions = new FollowingHelperFunctions();
         readonly EmailHelperFunctions _emailHelperFunctions = new EmailHelperFunctions();
+        readonly EditProfileHelperFunctions _editProfileHelperFunctions = new EditProfileHelperFunctions();
 
         [HttpGet]
         public async Task<IActionResult> Index([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
@@ -336,6 +337,31 @@ namespace StreamWork.Controllers
                     return Json(new { Message = JsonResponse.Tutor.ToString() });
                 else
                     return Json(new { Message = JsonResponse.Student.ToString() });
+            }
+
+            return Json(new { Message = JsonResponse.Failed.ToString() });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditProfileInformation([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
+            var user = HttpContext.User.Identity.Name;
+            var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
+
+            //Handles if there is a profile picture with the caption or about paragraph
+            if (Request.Form.Files.Count > 0)
+            {
+                var success = await _editProfileHelperFunctions.EditProfileWithProfilePicture(Request, storageConfig, userProfile, user);
+                if (success != null)
+                    return Json(new { Message = JsonResponse.Success.ToString(), caption = success[0], paragraph = success[1], picture = success[2]});
+            }
+
+            //Handles if there is not a profile picture with the caption or about paragraph
+            if (Request.Form.Keys.Count == 1)
+            {
+                var success = await _editProfileHelperFunctions.EditProfileWithNoProfilePicture(Request, storageConfig, user);
+                if (success != null)
+                    return Json(new { Message = JsonResponse.Success.ToString(), caption = success[0], paragraph = success[1] });
             }
 
             return Json(new { Message = JsonResponse.Failed.ToString() });

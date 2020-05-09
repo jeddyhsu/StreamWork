@@ -121,30 +121,30 @@ namespace StreamWork.Controllers
             return View(viewModel);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> ProfileTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string remove)
-        {
-            var user = HttpContext.User.Identity.Name;
-            var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
+        //[HttpPost]
+        //public async Task<IActionResult> ProfileTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string remove)
+        //{
+        //    var user = HttpContext.User.Identity.Name;
+        //    var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
 
-            //Handles if there is a profile picture with the caption or about paragraph
-            if (Request.Form.Files.Count > 0)
-            {
-                var success = await _editProfileHelperFunctions.EditProfileWithProfilePicture(Request, storageConfig, userProfile, user);
-                if(success)
-                    return Json(new { Message = JsonResponse.Success.ToString()});
-            }
+        //    //Handles if there is a profile picture with the caption or about paragraph
+        //    if (Request.Form.Files.Count > 0)
+        //    {
+        //        var success = await _editProfileHelperFunctions.EditProfileWithProfilePicture(Request, storageConfig, userProfile, user);
+        //        if(success)
+        //            return Json(new { Message = JsonResponse.Success.ToString()});
+        //    }
 
-            //Handles if there is not a profile picture with the caption or about paragraph
-            if (Request.Form.Keys.Count == 1)
-            {
-                var success = await _editProfileHelperFunctions.EditProfileWithNoProfilePicture(Request, storageConfig, user);
-                if(success)
-                    return Json(new { Message = JsonResponse.Success.ToString()});
-            }
+        //    //Handles if there is not a profile picture with the caption or about paragraph
+        //    if (Request.Form.Keys.Count == 1)
+        //    {
+        //        var success = await _editProfileHelperFunctions.EditProfileWithNoProfilePicture(Request, storageConfig, user);
+        //        if(success)
+        //            return Json(new { Message = JsonResponse.Success.ToString()});
+        //    }
 
-            return Json(new { Message = JsonResponse.Failed.ToString()});
-        }
+        //    return Json(new { Message = JsonResponse.Failed.ToString()});
+        //}
 
 
         [HttpPost]

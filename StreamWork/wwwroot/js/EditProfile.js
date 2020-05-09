@@ -1,6 +1,5 @@
 ﻿
     //Sends profile caption and paragraph to backend for saving
-
     function RegisterProfilePhotoAndCaption() {
         var formData = new FormData();
         var profileCaption = $("#ProfileCaption").val()
@@ -26,20 +25,28 @@
              formData.append(userInfo, document.getElementById("uploadProfilePic").files[0]);
         }
         else {
-
             formData.append(userInfo, "No Profile Pic");
         }
        
         $.ajax({
             type: "POST",
-            url: '/Tutor/ProfileTutor',
+            url: '/Home/EditProfileInformation',
             data: formData,
             dataType: 'json',
             contentType: false,
             processData: false,
             success: function (data) {
                 if (data.message === "Success") {
-                    location.reload()
+                    document.getElementById('ProfileCaption').value = data.caption;
+                    document.getElementById('ProfileCaptionOnPage').innerHTML = data.caption;
+                    document.getElementById('ProfileParagraph').value = data.paragraph;
+                    document.getElementById('ProfileParagraphOnPage').innerHTML = data.paragraph;
+                    if (data.picture != null) {
+                        document.getElementById('previewProfilePic').src = data.picture;
+                        document.getElementById('ProfilePictureOnPage').src = data.picture; 
+                    }
+                    $('#editModal').modal('hide');
+                    OpenNotificationModalSuccess("Changes have been saved")
                 }
             }
         });
@@ -98,4 +105,17 @@ function Logout() {
 function encodeURL(url) {
     var encodedURI = encodeURIComponent(url);
     window.location.href = encodedURI;
+}
+
+//Notifications
+function OpenNotificationModal(body) {
+    var notification = document.getElementById('notifyBody');
+    notification.textContent = body;
+    $('#notifyModal').modal('show')
+}
+
+function OpenNotificationModalSuccess(body) {
+    var notification = document.getElementById('notifyBodySuccess');
+    notification.textContent = body;
+    $('#notifyModalSuccess').modal('show')
 }

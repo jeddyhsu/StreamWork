@@ -15,7 +15,7 @@ namespace StreamWork.HelperClasses
         readonly HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
         readonly TutorHelperFunctions _tutorHelperFunctions = new TutorHelperFunctions();
 
-        public async Task<bool> EditProfileWithProfilePicture(HttpRequest Request, [FromServices] IOptionsSnapshot<StorageConfig> storageConfig, UserLogin userProfile, string user)
+        public async Task<string[]> EditProfileWithProfilePicture(HttpRequest Request, [FromServices] IOptionsSnapshot<StorageConfig> storageConfig, UserLogin userProfile, string user)
         {
             try
             {
@@ -33,27 +33,28 @@ namespace StreamWork.HelperClasses
 
                 if (userProfile.ProfileType == "tutor")
                     await _tutorHelperFunctions.ChangeAllArchivedStreamAndUserChannelProfilePhotos(storageConfig, user, profilePicture); //only if tutor
+
+                return new string[] {profileCaption, profileParagraph, profilePicture};
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error in EditProfileWithProfilePicture: " + ex.Message);
-                return false;
+                return null;
             }
-
-            return true;
         }
 
-        public async Task<bool> EditProfileWithNoProfilePicture(HttpRequest Request, [FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string user)
+        public async Task<string[]> EditProfileWithNoProfilePicture(HttpRequest Request, [FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string user)
         {
             try
             {
                 var getUserInfo = await DataStore.GetListAsync<UserLogin>(_homeHelperFunctions._connectionString, storageConfig.Value, "CurrentUser", new List<string> { user });
                 var profileCaption = "";
                 var profileParagraph = "";
+                string[] array = null;
 
                 foreach (string s in Request.Form.Keys)
                 {
-                    var array = s.Split(new char[] { '|' });
+                    array = s.Split(new char[] { '|' });
                     profileCaption = array[0];
                     profileParagraph = array[1];
                     break;
@@ -63,14 +64,14 @@ namespace StreamWork.HelperClasses
                 getUserInfo[0].ProfileParagraph = profileParagraph != "NA" ? profileParagraph : null;
 
                 await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", getUserInfo[0].Id } }, getUserInfo[0]);
+
+                return array;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error in EditProfileWithNoProfilePicture: " + ex.Message);
-                return false;
+                return null;
             }
-
-            return true;
         }
     }
 }
