@@ -273,6 +273,17 @@ lds-dual-ring {
     cursor: pointer
 }
 
+.streamWorkRed {
+    border: none;
+    background-image: linear-gradient(#DC1C13, #EA4C46);
+    color: white;
+    border-radius: 8px;
+    font-size: 22px;
+    padding: 8px 22px;
+    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.3);
+    cursor: pointer
+}
+
 .streamWorkGold {
     border: none;
     background-image: linear-gradient(#E6B800, #FFD11A);

@@ -90,6 +90,10 @@
           "QueryId": "AllArchivedVideos"
         },
         {
+          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE Id = '@x0'",
+          "QueryId": "ArchivedVideosById"
+        },
+        {
           "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE Username = '@x0'",
           "QueryId": "UserArchivedVideos"
         },

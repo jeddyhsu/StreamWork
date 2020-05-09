@@ -45,6 +45,7 @@ namespace StreamWork.HelperClasses
 
         // UserArchivedStream
         AllArchivedVideos,
+        ArchivedVideosById,
         UserArchivedVideos,
         UserArchivedVideosBasedOnSubject,
         ArchivedVideosByStreamId,

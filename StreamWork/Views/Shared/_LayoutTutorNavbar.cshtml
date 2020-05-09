@@ -20,6 +20,7 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/Tutor.css" asp-append-version="true" />
     <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Slab:800&display=swap" rel="stylesheet">
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -34,7 +35,8 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
     <link rel="stylesheet" href="~/css/Index.css" asp-append-version="true" />
-    <script>!function (f, b, e, v, n, t, s) {
+    <script>
+!function (f, b, e, v, n, t, s) {
             if (f.fbq) return; n = f.fbq = function () {
                 n.callMethod ?
                     n.callMethod.apply(n, arguments) : n.queue.push(arguments)
@@ -257,22 +259,53 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
         </div>
     </div>
 
-    @*Delete Stream Modal*@
-    <div id="deleteStreamModal" class="modal" tabindex="-2" role="dialog">
+    @*DeleteStreamConfirm Modal*@
+    <div id="deleteStreamConfirmModal" class="modal" tabindex="-2" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="background-color: whitesmoke;">
                 <div class="modal-header">
                     <h5 class="modal-title" style="color: black;">Delete Stream</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <h5>Are you sure you want to delete this stream? It will not be recoverable.</h5>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" style="background-color: red; color: white;" class="btn" data-dismiss="modal" onclick="DeleteStream()">Delete</button>
-                    <button type="button" style="background-color: black; color: white;" class="btn" data-dismiss="modal">Close</button>
+                    <button type="button" class="streamWorkGrey" data-dismiss="modal">Close</button>
+                    <button type="button" class="streamWorkRed" data-dismiss="modal" onclick="DeleteStream()">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*Edit/Delete Stream Modal*@
+    <div id="editDeleteStreamModal" class="modal" tabindex="-2" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: whitesmoke;">
+                <div class="modal-header">
+                    <h5 class="modal-title" style="color: black;">Edit/Delete Stream</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <input align="middle" type="text" class="form-control" id="streamTitleEdit" value="">
+                            <textarea align="middle" class="form-control mt-4" id="streamDescriptionEdit" placeholder="Description" value=""></textarea>
+                            <div class="upload-uploadbtn-wrapper">
+                                <button class="form-control"><span><img src="/images/Upload16.png"></span> Upload New Thumbnail</button>
+                                <input id="uploadThumbnailEdit" type="file" value="~/images/MathDefault.png" onchange="readURL(this,'Thumbnail');">
+                            </div>
+                            <img class="mt-2" id="previewThumbnail" src="/images/MathDefault.png" alt="your image" style="width:100%; border-radius:10px">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="streamWorkRed" data-dismiss="modal" onclick="OpenDeleteStreamConfirmModal()">Delete Stream</button>
+                    <button type="button" class="streamWorkPrimary" data-dismiss="modal" onclick="SaveEditedStreamInfo()">Save</button>
                 </div>
             </div>
         </div>

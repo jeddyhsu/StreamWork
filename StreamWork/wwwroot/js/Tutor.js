@@ -1,6 +1,8 @@
 ﻿
 var oDT = "";
-var streamId = "";
+var videoId = "";
+
+var isEdited = false;
 
 function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail() {
     var streamTitle = $('#streamTitle').val();
@@ -106,6 +108,7 @@ function AddStreamToSchedule() {
                 location.reload();
             }
             else {
+
                 OpenNotificationModal("Something went wrong.")
             }
         }
@@ -204,18 +207,6 @@ $(function () {
 
 });
 
-function OpenNotificationModal(body) {
-    var notification = document.getElementById('notifyBody');
-    notification.textContent = body;
-    $('#notifyModal').modal('show')
-}
-
-function OpenNotificationModalSuccess(body) {
-    var notification = document.getElementById('notifyBodySuccess');
-    notification.textContent = body;
-    $('#notifyModalSuccess').modal('show')
-}
-
 function WriteTutorGreeting() {
     document.getElementById("ProfileCaptionOnPage").style.display = "none";
     document.getElementById('ProfileParagraphOnPage').style.display = "none";
@@ -255,18 +246,70 @@ function DeleteStream() {
         type: 'POST',
         dataType: 'json',
         data: {
-            'id': streamId,
+            'id': videoId,
         },
         success: function (data) {
-            $('#videoInfo-' + streamId).hide();
+            $('#videoInfo-' + videoId).hide();
         }
     });
 }
 
-function OpenDeleteStreamModal(id) {
-    $('#deleteStreamModal').modal('show');
-    streamId = id
+function OpenEditDeleteStreamModal(id, title, description, thumbnail) {
+    $('#editDeleteStreamModal').modal('show');
+    videoId = id
+    if (!isEdited) {
+        document.getElementById("streamTitleEdit").value = title;
+        document.getElementById("streamDescriptionEdit").value = description;
+        document.getElementById("previewThumbnail").src = thumbnail;
+    }
 }
+
+function OpenDeleteStreamConfirmModal() {
+    $('#deleteStreamConfirmModal').modal('show');
+}
+
+function SaveEditedStreamInfo() {
+    var streamTitle = $('#streamTitleEdit').val();
+    var streamDescription = $('#streamDescriptionEdit').val();
+    var streamInfo = videoId + "|" + streamTitle + '|' + streamDescription;
+    var formData = new FormData()
+    var totalFile = document.getElementById("uploadThumbnailEdit").files.length;
+    if (totalFile != 0) formData.append(streamInfo, document.getElementById("uploadThumbnailEdit").files[0])
+    else formData.append(streamInfo, 'No Thumbnail');
+
+    $.ajax({
+        url: '/Tutor/SaveEditedStreamInfo',
+        type: 'POST',
+        dataType: 'json',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (data) {
+            if (data.message === "Success") {
+                isEdited = true;
+                document.getElementById("streamTitle-" + videoId).innerHTML = data.title;
+                document.getElementById("streamThumbnail-" + videoId).src = data.thumbnail;
+                document.getElementById("streamTitleEdit").value = data.title;
+                document.getElementById("streamDescriptionEdit").value = data.description;
+                document.getElementById("previewThumbnail").src = data.thumbnail;
+                OpenNotificationModalSuccess("Changes have been saved");
+            }
+        }
+    });
+}
+
+function OpenNotificationModal(body) {
+    var notification = document.getElementById('notifyBody');
+    notification.textContent = body;
+    $('#notifyModal').modal('show')
+}
+
+function OpenNotificationModalSuccess(body) {
+    var notification = document.getElementById('notifyBodySuccess');
+    notification.textContent = body;
+    $('#notifyModalSuccess').modal('show')
+}
+
 
 
 
