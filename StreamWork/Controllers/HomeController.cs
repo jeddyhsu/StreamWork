@@ -333,6 +333,9 @@ namespace StreamWork.Controllers
                 ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
+                userProfile.LastLogin = DateTime.UtcNow;
+                await _homeHelperFunctions.UpdateUser(storageConfig, userProfile);
+
                 if (userProfile.ProfileType == "tutor")
                     return Json(new { Message = JsonResponse.Tutor.ToString() });
                 else
