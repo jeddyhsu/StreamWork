@@ -116,10 +116,6 @@
         {
           "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE StreamId in ('@x0')",
           "QueryId": "MultipleArchivedVideosByStreamId"
-        },
-        {
-          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE Username = ('@x0') ORDER BY StartTime DESC",
-          "QueryId": "LatestArchivedStreamByUser"
         }
       ]
     },

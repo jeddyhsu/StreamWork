@@ -51,7 +51,7 @@ namespace StreamWork.Threads
             {
                 try
                 {
-                    await _emailHelperFunctions.SendOutMassEmail(_storageConfig,_userLogin,_userChannel, _archivedVideoId);
+                    await _emailHelperFunctions.SendOutMassEmail(_storageConfig,_userLogin,_userChannel);
                 }
                 catch (Microsoft.EntityFrameworkCore.DbUpdateException e)
                 {
