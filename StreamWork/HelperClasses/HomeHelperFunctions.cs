@@ -228,7 +228,18 @@ namespace StreamWork.HelperClasses
                 using (var output = new MemoryStream())
                 using (Image image = Image.Load(stream))
                 {
-                    image.Mutate(x => x.Resize(width, height));
+                    int currWidth = image.Width;
+                    int currHeight = image.Height;
+                    if ((float) width / height > (float) currWidth / currHeight) // image is too tall relative to its width
+                    {
+                        int resizeHeight = currHeight / currWidth * width;
+                        image.Mutate(i => i.Resize(width, resizeHeight).Crop(new Rectangle(0, (resizeHeight - height) / 2, width, height)));
+                    }
+                    else // image is too wide relative to its height, or perfect
+                    {
+                        int resizeWidth = currWidth / currHeight * height;
+                        image.Mutate(i => i.Resize(resizeWidth, height).Crop(new Rectangle((resizeWidth - width) / 2, 0, width, height)));
+                    }
                     image.Save(output, encoder);
                     output.Position = 0;
                     blockBlob.UploadFromStream(output);
