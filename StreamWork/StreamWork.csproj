@@ -12,7 +12,7 @@
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.6"><PrivateAssets Condition="'%(PackageReference.Version)' == ''">all</PrivateAssets>
 <Publish Condition="'%(PackageReference.Version)' == ''">true</Publish>
 </PackageReference>
-    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0007" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-rc0001" />
   </ItemGroup>
 
   <ItemGroup>
