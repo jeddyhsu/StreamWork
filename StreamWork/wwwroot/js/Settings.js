@@ -152,3 +152,24 @@ function OpenNotificationModalSuccess(body) {
     notification.textContent = body;
     $('#notifyModalSuccess').modal('show')
 }
+
+function OpenDeleteAccountModal() {
+    $('#deleteModal').modal('show');
+}
+
+function DeleteAccount() {
+    $.ajax({
+        url: '/Student/DeleteCurrentAccount',
+        type: 'POST',
+        dataType: 'json',
+        data: {},
+        success: function (data) {
+            if (data.message === "Success") {
+                window.location.href = '/';
+            }
+            else {
+                OpenNotificationModal("Failed to delete account.");
+            }
+        }
+    })
+}

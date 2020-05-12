@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -13,6 +15,7 @@ namespace StreamWork.Controllers
 {
     public class StudentController : Controller
     {
+        readonly HomeController _homeController = new HomeController();
         readonly HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
         readonly StudentHelperFunctions _studentHelperFunctions = new StudentHelperFunctions();
 
@@ -116,6 +119,23 @@ namespace StreamWork.Controllers
             }
 
             return Json(new { Message = JsonResponse.Failed.ToString() });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteCurrentAccount([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
+            UserLogin user = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name);
+            if (user == null || user.ProfileType.Equals("Tutor"))
+            {
+                return Json(new { Message = JsonResponse.Failed.ToString() });
+            }
+
+            HttpContext.Session.Clear();
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            await _studentHelperFunctions.DeleteUser(storageConfig, user);
+
+            return Json(new { Message = JsonResponse.Success.ToString() });
         }
     }
 }

@@ -29,7 +29,6 @@ namespace StreamWork.Controllers
         [HttpGet]
         public async Task<IActionResult> Index([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
-
             var populatePage = await _homeHelperFunctions.PopulateHomePage(storageConfig, HttpContext.User.Identity.Name);
             populatePage.IsUserFollowingThisTutor = false;
 

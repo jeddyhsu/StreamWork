@@ -30,6 +30,7 @@ namespace StreamWork.HelperClasses
         CheckUserUsingPayPalAddress,
         AllSignedUpUsersWithPassword,
         AllApprovedTutors,
+        ApprovedTutorsByFollowers,
         AllStudents,
         GetFollowedLogins,
         GetNotFollowedLogins,

@@ -1,7 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using StreamWork.Config;
+using StreamWork.Core;
+using StreamWork.DataModels;
 using StreamWork.ViewModels;
 
 namespace StreamWork.HelperClasses
@@ -24,6 +27,11 @@ namespace StreamWork.HelperClasses
             model.FollowedTutors = await _followingHelperFunctions.GetFollowedTutors(storageConfig, model.StudentUserProfile);
             model.AllTutors = await _followingHelperFunctions.GetNotFollowedTutors(storageConfig, model.FollowedTutors);
             return model;
+        }
+
+        public async Task DeleteUser([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, UserLogin user)
+        {
+            await DataStore.DeleteAsync<UserLogin>(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", user.Id } });
         }
     }
 }
