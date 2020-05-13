@@ -65,10 +65,10 @@ namespace StreamWork.HelperClasses
             return result;
         }
 
-        public async Task<bool> SendOutMassEmail([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, UserLogin userLogin, UserChannel channel)
+        public async Task<bool> SendOutMassEmail([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, UserLogin userLogin, UserChannel channel, string archivedVideoId)
         {
             var allUsers = await _homeHelperFunctions.GetAllUserProfiles(storageConfig);
-            string streamLink = string.Format("<a href=\"{0}\">here.</a>", HttpUtility.HtmlEncode("https://www.streamwork.live/StreamViews/StreamPage?streamTutorUsername=" + channel.Username));
+            string streamLink = string.Format("<a href=\"{0}\">here.</a>", HttpUtility.HtmlEncode("https://www.streamwork.live/StreamViews/StreamPage?streamTutorUsername=" + channel.Username + "&id=" + archivedVideoId));
             using (StreamReader streamReader = new StreamReader("EmailTemplates/AutomatedEmailTemplate.html"))
             {
                 string reader = streamReader.ReadToEnd();
@@ -97,6 +97,8 @@ namespace StreamWork.HelperClasses
                             Console.WriteLine("Error in SendOutMassEmail: " + ex.Message);
                         }
                     }
+
+                    break;
                 }
             }
 
