@@ -10,6 +10,12 @@
 
 <link rel="stylesheet" href="~/css/Streams.css" />
 
+<script>
+    $(document).ready(function () {
+        StartConnectionToServer('@Model.UserChannel.Id');
+    })
+</script>
+
 <div class="container-fluid" style="background-color:white; height:100%">
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-9 p-0">
@@ -48,11 +54,11 @@
             <br />
             <br />
             <p>Type math here: <span id="math-field"></span></p>
+            <p id="userInput">Rithvik</p>
             <p>LaTeX of what you typed: <span id="latex"></span></p>
-            <button class="streamWorkPrimary">Send</button>
+            <button type="button" id="sendBtn" class="streamWorkPrimary" onclick="SendMessage()">Send</button>
             <script>var mathFieldSpan = document.getElementById('math-field');
                 var latexSpan = document.getElementById('latex');
-
                 var MQ = MathQuill.getInterface(2); // for backcompat
                 var mathField = MQ.MathField(mathFieldSpan, {
                     spaceBehavesLikeTab: true, // configurable
