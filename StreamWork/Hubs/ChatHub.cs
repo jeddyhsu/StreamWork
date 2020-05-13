@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 
@@ -11,7 +10,7 @@ namespace StreamWork.Hubs
 
         public void RegisterConnection(string userId)
         {
-            if (!idTable.Contains(userId)) idTable[userId] = Context.ConnectionId;
+            if (idTable.Contains(userId)) idTable[userId] = Context.ConnectionId;
             else idTable.Add(userId, Context.ConnectionId);
         }
 
@@ -23,7 +22,7 @@ namespace StreamWork.Hubs
         public async Task SendMessageToTutor(string studentName, string tutorId, string message)
         {
             string tutorConnectionId = (string)idTable[tutorId];
-            await Clients.User(tutorConnectionId).SendAsync("ReceiveMessage", studentName, message);
+            await Clients.Client(tutorConnectionId).SendAsync("ReceiveMessage", studentName, message);
         }
     }
 }

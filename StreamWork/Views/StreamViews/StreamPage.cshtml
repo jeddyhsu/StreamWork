@@ -12,9 +12,10 @@
 
 <script>
     $(document).ready(function () {
-        StartConnectionToServer('@Model.UserChannel.Id');
+        StartConnectionToServerStudent();
     })
 </script>
+
 
 <div class="container-fluid" style="background-color:white; height:100%">
     <div class="row">
@@ -56,7 +57,7 @@
             <p>Type math here: <span id="math-field"></span></p>
             <p id="userInput">Rithvik</p>
             <p>LaTeX of what you typed: <span id="latex"></span></p>
-            <button type="button" id="sendBtn" class="streamWorkPrimary" onclick="SendMessage()">Send</button>
+            <button type="button" id="sendBtn" class="streamWorkPrimary" onclick="SendMessageToTutor('@Model.GenericUserProfile.Name', '@Model.UserChannel.Id')">Send</button>
             <script>var mathFieldSpan = document.getElementById('math-field');
                 var latexSpan = document.getElementById('latex');
                 var MQ = MathQuill.getInterface(2); // for backcompat
