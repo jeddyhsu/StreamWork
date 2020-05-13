@@ -1,4 +1,11 @@
-﻿@model StreamWork.ViewModels.StreamPageViewModel
+﻿<link rel="stylesheet" href="~/mathquill/mathquill.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.3/signalr.min.js"></script>
+<script src="~/mathquill/mathquill.js"></script>
+<script>var MQ = MathQuill.getInterface(2);</script>
+<script src="~/js/chat.js" asp-append-version="true"></script>
+
+@model StreamWork.ViewModels.StreamPageViewModel
 @{ ViewData["Title"] = "StreamPage";}
 
 <link rel="stylesheet" href="~/css/Streams.css" />
@@ -14,7 +21,7 @@
                         <a href="/Home/ProfileView?tutor=@Model.UserChannel.Username"><b>by @Model.TutorUserProfile.Name.Replace('|', ' ')</b></a>
                         <p class="mt-2">@Model.UserChannel.StreamDescription</p>
                     </div>
-                   
+
                 </div>
             </div>
         </div>
@@ -37,7 +44,24 @@
                 <button class="streamWorkGold mb-2 mr-1" style="font-family:'Roboto Slab', serif; cursor: pointer; width:100%;" onclick="window.open('https://www.streamwork.live/Home/Donate?tutor=@Model.UserChannel.Username')">Donate</button>
             }
             <button class="streamWorkSecondary" style="font-family:'Roboto Slab', serif; cursor: pointer; width:100%;" onclick="showSubmitRecommendationModal();">Recommendation</button>
-            <iframe class="p-0" src=@Model.ChatBox style="width:100%; height:75vh;" allowtransparency="yes" allow="autoplay" frameborder="0" marginheigh="0" marginwidth="0" scrolling="auto"></iframe>
+            <iframe class="p-0" src=@Model.ChatBox style="width:100%; height:45vh;" allowtransparency="yes" allow="autoplay" frameborder="0" marginheigh="0" marginwidth="0" scrolling="auto"></iframe>
+            <br />
+            <br />
+            <p>Type math here: <span id="math-field"></span></p>
+            <p>LaTeX of what you typed: <span id="latex"></span></p>
+            <button class="streamWorkPrimary">Send</button>
+            <script>var mathFieldSpan = document.getElementById('math-field');
+                var latexSpan = document.getElementById('latex');
+
+                var MQ = MathQuill.getInterface(2); // for backcompat
+                var mathField = MQ.MathField(mathFieldSpan, {
+                    spaceBehavesLikeTab: true, // configurable
+                    handlers: {
+                        edit: function () { // useful event handlers
+                            latexSpan.textContent = mathField.latex(); // simple API
+                        }
+                    }
+                });</script>
         </div>
     </div>
 </div>
@@ -71,10 +95,8 @@
     </div>
 </div>
 
-<script>
-$(document).ready(function () {
-    $("#nav").click(function () {
-        $("#navbarText").slideToggle();
-    });
-});
-</script>
+<script>$(document).ready(function () {
+        $("#nav").click(function () {
+            $("#navbarText").slideToggle();
+        });
+    });</script>

@@ -1,0 +1,31 @@
+﻿<link rel="stylesheet" href="~/mathquill/mathquill.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="~/mathquill/mathquill.js"></script>
+<script>var MQ = MathQuill.getInterface(2);</script>
+
+@{Layout = "_LayoutNoNavbar";}
+@{ViewData["Title"] = "TutorQuestionChat";}
+
+<section>
+    <div class="container-fluid m-3">
+        <div class="row">
+            <div class="col-12">
+                <p>Rithvik Arun asked - Can you solve <span id="problem">ax^2 + bx + c = 0</span>.</p>
+                <script>var problemSpan = document.getElementById('problem');
+                    MQ.StaticMath(problemSpan);
+                </script>
+                <hr style="color:black" />
+            </div>
+
+            <div class="col-12">
+                <p style="font-size:20px">Rithvik Arun asked - Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups?</p>
+                <hr style="color:black" />
+            </div>
+            <hr />
+            <div class="col-12">
+                <p style="font-size:20px">Rithvik Arun asked - Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups?</p>
+                <hr style="color:black" />
+            </div>
+        </div>
+    </div>
+</section>

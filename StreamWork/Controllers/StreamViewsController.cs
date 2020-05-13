@@ -27,8 +27,8 @@ namespace StreamWork.Controllers
             var tutorProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, streamTutorUsername);
             var chatBox = await _homeHelperFunctions.GetChatSecretKey(storageConfig, channel.ChatId, HttpContext.User.Identity.Name);
 
-            if(channel.StreamTitle == null)
-                return Redirect("https://www.streamwork.live/Home/ProfileView?Tutor=" + channel.Username);
+            //if(channel.StreamTitle == null)
+            //    return Redirect("https://www.streamwork.live/Home/ProfileView?Tutor=" + channel.Username);
 
             StreamPageViewModel model = new StreamPageViewModel
             {

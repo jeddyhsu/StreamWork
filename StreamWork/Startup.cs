@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StreamWork.Config;
 using StreamWork.HelperClasses;
+using StreamWork.Hubs;
 
 namespace StreamWork
 {
@@ -32,6 +33,7 @@ namespace StreamWork
             services.AddOptions();
             services.AddDistributedMemoryCache();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSignalR();
 
             services.AddSession(options =>
             {
@@ -65,6 +67,11 @@ namespace StreamWork
             app.UseStaticFiles();
 
             app.UseAuthentication();
+
+            app.UseSignalR(route =>
+            {
+                route.MapHub<ChatHub>("/chatHub");
+            });
 
             app.UseMvc(routes =>
             {
