@@ -18,7 +18,7 @@ namespace StreamWork.Controllers
             return View();
         }
 
-        public async Task<IActionResult> StreamPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamTutorUsername)
+        public async Task<IActionResult> StreamPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamTutorUsername, string id) //id is archivedVideo id
         {
             if (HttpContext.User.Identity.IsAuthenticated == false)
                 return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-StreamViews-StreamPage?streamTutorUsername=" + streamTutorUsername);
@@ -28,7 +28,11 @@ namespace StreamWork.Controllers
             var chatBox = await _homeHelperFunctions.GetChatSecretKey(storageConfig, channel.ChatId, HttpContext.User.Identity.Name);
 
             if(channel.StreamTitle == null)
-                return Redirect("https://www.streamwork.live/Home/ProfileView?Tutor=" + channel.Username);
+            {
+                var archivedStream = await _homeHelperFunctions.GetArchivedStream(storageConfig, QueryHeaders.ArchivedVideosById, id);
+                if(archivedStream == null) return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-StreamViews-StreamPage?streamTutorUsername=" + streamTutorUsername);
+                return Redirect(_homeHelperFunctions._host + "/StreamViews/StreamPlaybackPage?streamId=" + archivedStream.StreamID);
+            }
 
             StreamPageViewModel model = new StreamPageViewModel
             {
