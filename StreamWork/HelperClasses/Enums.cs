@@ -54,6 +54,8 @@ namespace StreamWork.HelperClasses
         ArchivedVideosBySubjectAndSearchTerm,
         MultipleArchivedVideosByStreamId,
         LatestArchivedStreamByUser,
+        LatestArchivedStreams,
+        ArchivedStreamsByViews,
 
         // Payment
         AllPayments,

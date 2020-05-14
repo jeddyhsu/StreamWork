@@ -124,6 +124,14 @@
         {
           "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE Username = ('@x0') ORDER BY StartTime DESC",
           "QueryId": "LatestArchivedStreamByUser"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] ORDER BY StartTime DESC",
+          "QueryId": "LatestArchivedStreams"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] ORDER BY Views DESC",
+          "QueryId": "ArchivedStreamsByViews"
         }
       ]
     },
