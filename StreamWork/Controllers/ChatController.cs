@@ -15,6 +15,9 @@ namespace StreamWork.Controllers
 
         public async Task<IActionResult> TutorQuestionChat([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
+            if(HttpContext.User.Identity.Name == null)
+                return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-Chat-TutorQuestionChat");   
+
             ChatViewModel chatViewModel = new ChatViewModel
             {
                 TutorChannel = await _homeHelperFunctions.GetUserChannel(storageConfig, QueryHeaders.CurrentUserChannel, HttpContext.User.Identity.Name)

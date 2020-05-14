@@ -281,7 +281,7 @@ function Login() {
                     }
                 }
 
-                if (dest.includes("Home") || dest.includes("StreamViews")) {
+                if (dest.includes("Home") || dest.includes("StreamViews") || dest.includes("Chat")) {
                     window.location.href = dest.split('-').join('/');
                     return;
                 }
