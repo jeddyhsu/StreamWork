@@ -18,7 +18,7 @@ namespace StreamWork.Controllers
         private IHubContext<ChatHub> _hubContext;
 
         [HttpGet]
-        public async Task<IActionResult> TutorQuestionChat([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        public async Task<IActionResult> StreamWorkChat([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
             if(HttpContext.User.Identity.Name == null)
                 return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-Chat-TutorQuestionChat");   
