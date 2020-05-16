@@ -29,9 +29,16 @@ namespace StreamWork.Controllers
 
             if(channel.StreamTitle == null)
             {
-                var archivedStream = await _homeHelperFunctions.GetArchivedStream(storageConfig, QueryHeaders.ArchivedVideosById, id);
-                if(archivedStream == null) return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-StreamViews-StreamPage?streamTutorUsername=" + streamTutorUsername);
-                return Redirect(_homeHelperFunctions._host + "/StreamViews/StreamPlaybackPage?streamId=" + archivedStream.StreamID);
+                if(id != null)
+                {
+                    var archivedStream = await _homeHelperFunctions.GetArchivedStream(storageConfig, QueryHeaders.ArchivedVideosById, id);
+                    if (archivedStream == null) return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-StreamViews-StreamPage?streamTutorUsername=" + streamTutorUsername);
+                    return Redirect(_homeHelperFunctions._host + "/StreamViews/StreamPlaybackPage?streamId=" + archivedStream.StreamID);
+                }
+                else
+                {
+                    return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-StreamViews-StreamPage?streamTutorUsername=" + streamTutorUsername);
+                }
             }
 
             StreamPageViewModel model = new StreamPageViewModel
