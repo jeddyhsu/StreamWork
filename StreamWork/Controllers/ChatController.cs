@@ -1,18 +1,23 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Options;
 using StreamWork.Config;
+using StreamWork.Core;
+using StreamWork.DataModels;
 using StreamWork.HelperClasses;
+using StreamWork.Hubs;
 using StreamWork.ViewModels;
-
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace StreamWork.Controllers
 {
     public class ChatController : Controller
     {
-        readonly HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
+        private readonly HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
+        private IHubContext<ChatHub> _hubContext;
 
+        [HttpGet]
         public async Task<IActionResult> TutorQuestionChat([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
             if(HttpContext.User.Identity.Name == null)
