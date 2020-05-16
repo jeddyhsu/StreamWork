@@ -394,6 +394,17 @@ namespace StreamWork.Controllers
             await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userLogin.Id } }, userLogin);
 
             await _emailHelperFunctions.SendOutPasswordRecoveryEmail(userLogin, _homeHelperFunctions.CreateUri(userLogin.Username, key));
+            await Task.Factory.StartNew(async () => // Change password key is invalid after 30 min
+            {
+                System.Threading.Thread.Sleep(1800000); // 30 min in ms
+                var currentUserLogin = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
+                if (currentUserLogin.ChangePasswordKey.Equals(userLogin.ChangePasswordKey)) // Make sure you don't reset if user has generated another key
+                {
+                    currentUserLogin.ChangePasswordKey = null;
+                    // Save newer version, since it contains more up-to-date information
+                    await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", currentUserLogin.Id } }, currentUserLogin);
+                }
+            });
             return Json(new { Message = JsonResponse.Success.ToString() });
         }
 
