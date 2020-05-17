@@ -3,7 +3,7 @@
 @{Layout = "_LayoutFooter";}
 @{ViewData["title"] = "Home";}
 
-<div class="container-fluid" style="background: linear-gradient(to bottom right, #008080, #00C0C0); max-width:2400px; background-size: 100% 60%; background-repeat: no-repeat;">
+<div class="container-fluid" style="background: linear-gradient(to bottom right, #008080, #00C0C0); background-size: 100% 60%; background-repeat: no-repeat;">
     <section style="padding-top:50px;">
         <div id="SearchBarContainer" class="container-fluid" style="max-width:1500px">
             <div class="row">
@@ -110,7 +110,7 @@
                         <div class="card m-2" style=" border:none;">
                             <iframe src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.UserChannel.ChannelKey.Split('|')[0]" style="border-top-left-radius:10px; border-top-right-radius:10px; min-width:250px; cursor:pointer" height="450" frameborder="0" scrolling="no" allow="autoplay;"></iframe>
                             <div class="row">
-                                <div class="col-lg-12">
+                                <div class="col-lg-12 m-2">
                                     <a href="../StreamViews/StreamPage?streamTutorUsername=@Model.UserChannel.Username" class="text-truncate" style="font-family: 'Roboto Slab'; font-size:20px; margin-left:20px; margin-top:10px;">@Model.UserChannel.StreamTitle</a>
                                     <h6 class="text-truncate" style="font-family: 'Roboto Slab'; font-size:14px;margin-left:20px;">@Model.UserChannel.StreamSubject</h6>
                                 </div>
