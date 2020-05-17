@@ -5,6 +5,7 @@ namespace StreamWork.ViewModels
 {
     public class ChatViewModel
     {
-        public UserChannel TutorChannel { get; set; }
+        public UserLogin UserProfile { get; set; }
+        public string ChatId;
     }
 }

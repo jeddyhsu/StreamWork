@@ -2,16 +2,16 @@
 var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
 connection.on("ReceiveMessage", function (user, message, questionNumber, questionType) {
-    $('#tutorQuestionGroup').append("<li id='question-" + questionNumber + "'class='list-group-item' > " + message + "</li > ");
+    $('#chatField').append("<li id='question-" + questionNumber + "'class='list-group-item' > " + message + "</li > ");
     if (questionType != "regularQuestion") {
         var problemSpan = document.getElementById("question-" + questionNumber);
         MQ.StaticMath(problemSpan);
     }
 });
 
-function StartConnectionToServerTutor(tutorId) {
+function JoinChatRoom(chatId) {
     connection.start().then(function () {
-        connection.invoke("RegisterConnection", tutorId).catch(function (err) {
+        connection.invoke("JoinChatRoom", chatId).catch(function (err) {
             return console.error(err.toString());
         });
     }).catch(function (err) {
@@ -19,14 +19,7 @@ function StartConnectionToServerTutor(tutorId) {
     });
 }
 
-function StartConnectionToServerStudent() {
-    connection.start().then(function () {
-    }).catch(function (err) {
-        return console.error(err.toString());
-    });
-}
-
-function SendMessageToTutor(nameOfUser, tutorId) {
+function SendMessageToChatRoom(chatId, user){
     var message = "";
     var questionType = "";
     var equationMessage = document.getElementById("latex").textContent;
@@ -39,7 +32,7 @@ function SendMessageToTutor(nameOfUser, tutorId) {
         message = equationMessage;
         questionType = "equationQuestion";
     }
-    connection.invoke("SendMessageToTutor", nameOfUser, tutorId, message, questionType).catch(function (err) {
+    connection.invoke("SendMessageToChatRoom", chatId, user, message, questionType).catch(function (err) {
         return console.error(err.toString());
     });
     document.getElementById("regularQuestions").value = "";

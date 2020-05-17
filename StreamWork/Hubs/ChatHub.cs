@@ -19,15 +19,18 @@ namespace StreamWork.Hubs
             _sp = sp; 
         }
 
-        public void RegisterConnection(string userId)
+        public Task JoinChatRoom(string chatId)
         {
-            if (idTable.Contains(userId)) idTable[userId] = Context.ConnectionId; //register connection
-            else idTable.Add(userId, Context.ConnectionId);
+            return Groups.AddToGroupAsync(Context.ConnectionId, chatId);
+        }
+
+        public Task SendMessageToChatRoom(string chatId, string user, string message, string questionType)
+        {
+            return Clients.Group(chatId).SendAsync("ReceiveMessage", user, message, questionType, questionCount);
         }
 
         public async Task SendMessage(string user, string message)
         {
-
             await Clients.All.SendAsync("ReceiveMessage", user, message); //send message to all clients that have connected to the server
         }
 
