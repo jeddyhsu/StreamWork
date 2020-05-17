@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,8 +9,8 @@ namespace StreamWork.Hubs
 {
     public class ChatHub : Hub
     {
+        ChatClient _chatClient = new ChatClient();
         private IServiceProvider _sp;
-        private static Hashtable idTable = new Hashtable(); //associate tutorId with clientId
         private static long questionCount = 1;
 
         public ChatHub(IServiceProvider sp)
@@ -24,27 +23,14 @@ namespace StreamWork.Hubs
             return Groups.AddToGroupAsync(Context.ConnectionId, chatId);
         }
 
-        public Task SendMessageToChatRoom(string chatId, string user, string message, string questionType)
+        public async Task SendMessageToChatRoom(string chatId, string userId, string name, string message, string questionType)
         {
-            return Clients.Group(chatId).SendAsync("ReceiveMessage", user, message, questionType, questionCount);
-        }
-
-        public async Task SendMessage(string user, string message)
-        {
-            await Clients.All.SendAsync("ReceiveMessage", user, message); //send message to all clients that have connected to the server
-        }
-
-        public async Task SendMessageToTutor(string studentName, string tutorId, string message, string questionType) //send message to specific tutorId
-        {
+            await Clients.Group(chatId).SendAsync("ReceiveMessage", userId, message, questionType, questionCount);
             using (var scope = _sp.CreateScope())
             {
-                var dbContext = scope.ServiceProvider.GetRequiredService<IOptionsSnapshot <StorageConfig>> ();
+                var dbContext = scope.ServiceProvider.GetRequiredService<IOptionsSnapshot<StorageConfig>>();
+                await _chatClient.SaveMessage(dbContext, chatId, userId, name, message);
             }
-
-            string tutorConnectionId = (string)idTable[tutorId];
-            await Clients.Client(tutorConnectionId).SendAsync("ReceiveMessage", studentName, message, questionCount, questionType);
-            questionCount++;
-
         }
     }
 }

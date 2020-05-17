@@ -1,10 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using StreamWork.Framework;
 
 namespace StreamWork.DataModels
 {
-    public class Chats
+    public class Chats : IStorageBase<Chats>
     {
         [Key]
         public string Id { get; set; }
@@ -18,10 +19,9 @@ namespace StreamWork.DataModels
         [Timestamp]
         public byte[] RowVersion { get; set; }
 
-        public virtual void Configure(EntityTypeBuilder<View> builder)
+        public virtual void Configure(EntityTypeBuilder<Chats> builder)
         {
-
+            
         }
-
     }
 }

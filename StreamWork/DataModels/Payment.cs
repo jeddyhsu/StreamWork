@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using StreamWork.Framework;
 
 namespace StreamWork.Models {
+
     public class Payment : IStorageBase<Payment> {
         [Key]
         public string Id { get; set; }

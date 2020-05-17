@@ -176,6 +176,26 @@
           "QueryId": "ViewsByViewerAndChannelSince"
         }
       ]
+    },
+
+    {
+      "Name": "Chats",
+      "StorageType": "SqlServer",
+      "Queries": [
+        {
+          "Query": "SELECT * FROM [dbo].[Chats]",
+          "QueryId": "GetAllChats"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Chats] WHERE ChatId = '@x0' ORDER BY DATE ASC",
+          "QueryId": "GetAllChatsFromSpecificId"
+        },
+        {
+          "Query": "DELETE FROM [dbo].[Chats] WHERE ChatId = '@x0'",
+          "QueryId": "DeleteAllChatsFromSpecificId"
+        }
+      ]
     }
+
   ]
 }

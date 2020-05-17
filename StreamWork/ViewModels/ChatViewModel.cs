@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using StreamWork.DataModels;
 
 namespace StreamWork.ViewModels
@@ -7,5 +8,6 @@ namespace StreamWork.ViewModels
     {
         public UserLogin UserProfile { get; set; }
         public string ChatId;
+        public List<Chats> Chats { get; set; }
     }
 }

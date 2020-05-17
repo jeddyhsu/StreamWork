@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -28,7 +29,7 @@ namespace StreamWork.Hubs
                     Date = DateTime.UtcNow
                 };
 
-                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new System.Collections.Generic.Dictionary<string, object> { { "Id", chat.Id } }, chat);
+                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", chat.Id } }, chat);
                 return true;
             }
             catch (Exception e)

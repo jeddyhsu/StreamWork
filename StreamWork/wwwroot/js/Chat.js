@@ -19,7 +19,7 @@ function JoinChatRoom(chatId) {
     });
 }
 
-function SendMessageToChatRoom(chatId, user){
+function SendMessageToChatRoom(chatId, userId, name){
     var message = "";
     var questionType = "";
     var equationMessage = document.getElementById("latex").textContent;
@@ -32,7 +32,7 @@ function SendMessageToChatRoom(chatId, user){
         message = equationMessage;
         questionType = "equationQuestion";
     }
-    connection.invoke("SendMessageToChatRoom", chatId, user, message, questionType).catch(function (err) {
+    connection.invoke("SendMessageToChatRoom", chatId, userId, name, message, questionType).catch(function (err) {
         return console.error(err.toString());
     });
     document.getElementById("regularQuestions").value = "";

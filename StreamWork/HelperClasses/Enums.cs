@@ -68,6 +68,11 @@ namespace StreamWork.HelperClasses
         ViewsByChannelSince,
         ViewsByViewerAndChannelSince,
 
+        //Chats
+        GetAllChats,
+        GetAllChatsFromSpecificId,
+        DeleteAllChatsFromSpecificId,
+
         // Misc
         UserProfile,       //Use For Session
     }
