@@ -114,7 +114,7 @@ namespace StreamWork.Threads
              return tryAPI;
         }
 
-        public bool RunVideoThread() //This thread handles checking if the stream is still live
+        public void RunVideoThread() //This thread handles checking if the stream is still live
         {
             bool tryAPI = true;
             var cancellationToken = new CancellationToken();
@@ -137,7 +137,7 @@ namespace StreamWork.Threads
                     {
                         try
                         {
-                            await Task.Delay(60000, cancellationToken);
+                            await Task.Delay(30000, cancellationToken);
                             StreamHosterRSSFeed response = (StreamHosterRSSFeed)DataStore.CallAPI<StreamHosterRSSFeed>("https://c.streamhoster.com/feed/WxsdDM/mAe0epZsixC/" + rssId + "?format=mrss");
                             if (response.Channel.Item != null && response.Channel.Item.Length == initialCount + threadCount)
                             {
@@ -154,8 +154,6 @@ namespace StreamWork.Threads
                     }
                 }, TaskCreationOptions.LongRunning);
             }
-            
-            return false;
         }
 
         private UserArchivedStreams GetArchiveStream()
