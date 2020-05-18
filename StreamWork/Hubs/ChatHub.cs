@@ -23,9 +23,9 @@ namespace StreamWork.Hubs
             return Groups.AddToGroupAsync(Context.ConnectionId, chatId);
         }
 
-        public async Task SendMessageToChatRoom(string chatId, string userId, string name, string message, string questionType, string profilePicture)
+        public async Task SendMessageToChatRoom(string chatId, string userId, string name, string message, string profilePicture)
         {
-            await Clients.Group(chatId).SendAsync("ReceiveMessage", name.Replace('|',' '), message, profilePicture, questionType, questionCount);
+            await Clients.Group(chatId).SendAsync("ReceiveMessage", name.Replace('|',' '), message, profilePicture, questionCount);
             using (var scope = _sp.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<IOptionsSnapshot<StorageConfig>>();

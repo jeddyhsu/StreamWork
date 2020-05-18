@@ -17,11 +17,12 @@
                             <div  id="chat" style="width:100%">
                                 <div class="col-12">
                                     <ul style="overflow:scroll;" id="chatField" class="list-group p-0">
-                                        @foreach (var chat in Model.Chats)
+                                        @for (int i = 0; i < Model.Chats.Count; i++)
                                         {
-                                            <li style="background-color:transparent; border:none" class='list-group-item'><span><img class="profilePictureSetting" src="@chat.ProfilePicture"/></span> @chat.Name.Replace('|', ' '):  @chat.Message</li>
+                                            <li style="background-color:transparent; border:none" class='list-group-item'><span><img class="profilePictureSetting" src="@Model.Chats[i].ProfilePicture" /></span> @Model.Chats[i].Name.Replace('|', ' '):  <span id="chat-@i">@Model.Chats[i].Message</span></li>
                                         }
                                     </ul>
+                                    <script>Alert('@Model.Chats.Count')</script>
                                 </div>
                             </div>
                         </div>
@@ -30,31 +31,23 @@
                         <div class="card" style=" background-color:whitesmoke; border:none; height:100%">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-lg-11 col-md-11 col-sm-10 col-10">
-                                        <input id="regularQuestions" class="form-control" placeholder="Send message" />
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                                         <div>
-                                            <input style="display:none" id="equationQuestions" class="form-control" placeholder="Send equation" />
-                                            <p style="display:none"><span id="latex"></span></p>
-                                            <!--
-
-    <script>
-        var mathFieldSpan = document.getElementById('equationQuestions');
-        var latexSpan = document.getElementById('latex');
-        var MQ = MathQuill.getInterface(2); // for backcompat
-        var mathField = MQ.MathField(mathFieldSpan, {
-            spaceBehavesLikeTab: true, // configurable
-            handlers: {
-                edit: function () { // useful event handlers
-                    latexSpan.textContent = mathField.latex(); // simple API
-                }
-            }
-        });
-    </script>
-    -->
+                                            <p><span id="math-field" class="form-control"></span></p>
+                                            <p style="display:none">LaTeX of what you typed: <span id="latex"></span></p>
+                                            <script>
+                                                var mathFieldSpan = document.getElementById('math-field');
+                                                var latexSpan = document.getElementById('latex');
+                                                var MQ = MathQuill.getInterface(2);
+                                                var mathField = MQ.MathField(mathFieldSpan, {
+                                                    spaceBehavesLikeTab: false,
+                                                    handlers: {
+                                                        edit: function () {
+                                                            latexSpan.textContent = mathField.latex();
+                                                        }
+                                                    }
+                                                });</script>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-1 col-md-1 col-sm-2 col-2">
-                                        <i class='fas fa-calculator' onclick="SwitchInputs()" style='font-size:32px;color:#008080;cursor:pointer'></i>
                                     </div>
                                     <button type="button" id="sendQuestionButton" class="streamWorkPrimary mt-3" style="display:block; margin-left:auto; margin-right:auto;" onclick="SendMessageToChatRoom('@Model.ChatId','@Model.UserProfile.Id','@Model.UserProfile.Name', '@Model.UserProfile.ProfilePicture')">Send Question</button>
                                 </div>
