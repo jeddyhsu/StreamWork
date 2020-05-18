@@ -1,8 +1,8 @@
 ﻿var count = 0;
 var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
-connection.on("ReceiveMessage", function (user, message, questionNumber, questionType) {
-    $('#chatField').append("<li id='question-" + questionNumber + "'class='list-group-item' > " + message + "</li > ");
+connection.on("ReceiveMessage", function (name, message, profilePicture, questionNumber, questionType) {
+    $('#chatField').append("<li style='background-color:transparent; border:none' id='question-" + questionNumber + "'class='list-group-item'><span><img class='profilePictureSetting' src=" + profilePicture + "/></span> " + name + ": " + message + "</li > ");
     if (questionType != "regularQuestion") {
         var problemSpan = document.getElementById("question-" + questionNumber);
         MQ.StaticMath(problemSpan);
@@ -19,7 +19,7 @@ function JoinChatRoom(chatId) {
     });
 }
 
-function SendMessageToChatRoom(chatId, userId, name){
+function SendMessageToChatRoom(chatId, userId, name, profilePicture){
     var message = "";
     var questionType = "";
     var equationMessage = document.getElementById("latex").textContent;
@@ -32,7 +32,7 @@ function SendMessageToChatRoom(chatId, userId, name){
         message = equationMessage;
         questionType = "equationQuestion";
     }
-    connection.invoke("SendMessageToChatRoom", chatId, userId, name, message, questionType).catch(function (err) {
+    connection.invoke("SendMessageToChatRoom", chatId, userId, name, message, questionType, profilePicture).catch(function (err) {
         return console.error(err.toString());
     });
     document.getElementById("regularQuestions").value = "";

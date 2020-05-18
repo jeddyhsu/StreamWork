@@ -14,12 +14,12 @@
                     <div class="card-title text-center" style="font-family:'Roboto Slab', serif; font-size:22px">Chat</div>
                     <div class="card-body" style="max-height:90%; overflow:scroll">
                         <div class="row">
-                            <div class="m-3" id="chat" style="width:97%">
+                            <div  id="chat" style="width:100%">
                                 <div class="col-12">
-                                    <ul style="overflow:scroll" id="chatField" class="list-group">
+                                    <ul style="overflow:scroll;" id="chatField" class="list-group p-0">
                                         @foreach (var chat in Model.Chats)
                                         {
-                                            <li class='list-group-item'>@chat.Message</li>
+                                            <li style="background-color:transparent; border:none" class='list-group-item'><span><img class="profilePictureSetting" src="@chat.ProfilePicture"/></span> @chat.Name.Replace('|', ' '):  @chat.Message</li>
                                         }
                                     </ul>
                                 </div>
@@ -56,7 +56,7 @@
                                     <div class="col-lg-1 col-md-1 col-sm-2 col-2">
                                         <i class='fas fa-calculator' onclick="SwitchInputs()" style='font-size:32px;color:#008080;cursor:pointer'></i>
                                     </div>
-                                    <button type="button" id="sendQuestionButton" class="streamWorkPrimary mt-3" style="display:block; margin-left:auto; margin-right:auto;" onclick="SendMessageToChatRoom('@Model.ChatId','@Model.UserProfile.Id','@Model.UserProfile.Name')">Send Question</button>
+                                    <button type="button" id="sendQuestionButton" class="streamWorkPrimary mt-3" style="display:block; margin-left:auto; margin-right:auto;" onclick="SendMessageToChatRoom('@Model.ChatId','@Model.UserProfile.Id','@Model.UserProfile.Name', '@Model.UserProfile.ProfilePicture')">Send Question</button>
                                 </div>
                             </div>
                         </div>
