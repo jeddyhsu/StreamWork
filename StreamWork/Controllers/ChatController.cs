@@ -16,7 +16,7 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> StreamWorkChat([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string chatId)
         {
             if(HttpContext.User.Identity.Name == null)
-                return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-Chat-TutorQuestionChat");
+                return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-Chat-StreamWorkChat?chatId=" + chatId);
 
             ChatViewModel chatViewModel = new ChatViewModel
             {
