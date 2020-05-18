@@ -228,13 +228,13 @@ namespace StreamWork.HelperClasses
                     int currHeight = image.Height;
                     if ((float) width / height > (float) currWidth / currHeight) // image is too tall relative to its width
                     {
-                        int resizeHeight = currHeight / currWidth * width;
-                        image.Mutate(i => i.Resize(width, resizeHeight).Crop(new Rectangle(0, (resizeHeight - height) / 2, width, height)));
+                        int resizeHeight = (int) ((float) currHeight / currWidth * width);
+                        image.Mutate(i => i.Resize(width, resizeHeight).Crop(new Rectangle(0, Math.Abs(resizeHeight - height) / 2, width - 1, height - 1)));
                     }
                     else // image is too wide relative to its height, or perfect
                     {
-                        int resizeWidth = currWidth / currHeight * height;
-                        image.Mutate(i => i.Resize(resizeWidth, height).Crop(new Rectangle((resizeWidth - width) / 2, 0, width, height)));
+                        int resizeWidth = (int) ((float) currWidth / currHeight * height);
+                        image.Mutate(i => i.Resize(resizeWidth, height).Crop(new Rectangle(Math.Abs(resizeWidth - width) / 2, 0, width - 1, height - 1)));
                     }
                     image.Save(output, encoder);
                     output.Position = 0;
