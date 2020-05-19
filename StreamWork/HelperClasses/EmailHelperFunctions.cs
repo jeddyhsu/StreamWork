@@ -97,8 +97,6 @@ namespace StreamWork.HelperClasses
                             Console.WriteLine("Error in SendOutMassEmail: " + ex.Message);
                         }
                     }
-
-                    break;
                 }
             }
 
