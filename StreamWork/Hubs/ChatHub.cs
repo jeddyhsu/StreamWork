@@ -28,6 +28,7 @@ namespace StreamWork.Hubs
             await Clients.Group(chatId).SendAsync("ReceiveMessage", name.Replace('|',' '), message, profilePicture, questionCount);
             using (var scope = _sp.CreateScope())
             {
+                questionCount++;
                 var dbContext = scope.ServiceProvider.GetRequiredService<IOptionsSnapshot<StorageConfig>>();
                 await _chatClient.SaveMessage(dbContext, chatId, userId, name, message, profilePicture);
             }

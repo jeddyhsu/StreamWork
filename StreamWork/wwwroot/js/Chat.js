@@ -22,7 +22,7 @@ function SendMessageToChatRoom(chatId, userId, name, profilePicture){
     connection.invoke("SendMessageToChatRoom", chatId, userId, name, message, profilePicture).catch(function (err) {
         return console.error(err.toString());
     });
-    document.getElementById("regularQuestions").value = "";
+    
     event.preventDefault();
 }
 
@@ -34,16 +34,14 @@ function Alert(count) {
     }
 }
 
-var inputCheck = false;
-function SwitchInputs() {
-    if (!inputCheck) {
-        document.getElementById("regularQuestions").style.display = 'none';
-        document.getElementById("equationQuestions").style.display = 'block';
-        inputCheck = true;
-    }
-    else {
-        document.getElementById("regularQuestions").style.display = 'block';
-        document.getElementById("equationQuestions").style.display = 'none';
-        inputCheck = false;
-    }
+function WriteCommmand(command) {
+    var mathFieldSpan = document.getElementById('math-field');
+    var mathField = MQ.MathField(mathFieldSpan);
+    mathField.cmd(command);
+}
+
+function WriteExpression(expression) {
+    var mathFieldSpan = document.getElementById('math-field');
+    var mathField = MQ.MathField(mathFieldSpan);
+    mathField.write(expression);
 }

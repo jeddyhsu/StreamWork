@@ -14,7 +14,7 @@
                     <div class="card-title text-center" style="font-family:'Roboto Slab', serif; font-size:22px">Chat</div>
                     <div class="card-body" style="max-height:90%; overflow:scroll">
                         <div class="row">
-                            <div  id="chat" style="width:100%">
+                            <div id="chat" style="width:100%">
                                 <div class="col-12">
                                     <ul style="overflow:scroll;" id="chatField" class="list-group p-0">
                                         @for (int i = 0; i < Model.Chats.Count; i++)
@@ -41,6 +41,7 @@
                                                 var MQ = MathQuill.getInterface(2);
                                                 var mathField = MQ.MathField(mathFieldSpan, {
                                                     spaceBehavesLikeTab: false,
+                                                    autoCommands: 'pi theta sqrt sum integral delta gamma infinity isin pm',
                                                     handlers: {
                                                         edit: function () {
                                                             latexSpan.textContent = mathField.latex();
@@ -54,8 +55,52 @@
                             </div>
                         </div>
                     </div>
+                    <section>
+                        <div class="container">
+                            <div class="row text-center" style="font-size:50px;color:black; cursor:pointer">
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-4">
+                                    <div onclick="WriteCommmand('+')">&#43;</div>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-4">
+                                    <div onclick="WriteCommmand('-')">&#8722;</div>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-4">
+                                    <div onclick="WriteCommmand('*')">&#215;</div>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-4">
+                                    <div onclick="WriteCommmand('\\fraction')">&#247;</div>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-4">
+                                    <div onclick="WriteCommmand('=')">&#61;</div>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-4">
+                                    <div onclick="WriteCommmand('\\pm')">&#177;</div>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-4">
+                                    <div onclick="WriteCommmand('\\sqrt')">&#8730;</div>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-4">
+                                    <div onclick="WriteCommmand('\\infinity')">&#8734;</div>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-4">
+                                    <div onclick="WriteExpression('\\\int_{}^{}')">&#8747;</div>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-4">
+                                    <div onclick="WriteCommmand('\\summation')">&#8721;</div>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-4">
+                                    <div onclick="WriteCommmand('\\pi')">&#960;</div>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-4">
+                                    <div onclick="WriteCommmand('\\neq')">&#8800;</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
                 </div>
             </div>
+            
         </div>
     </div>
+    
 </section>
