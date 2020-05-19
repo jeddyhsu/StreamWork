@@ -6,7 +6,7 @@ namespace StreamWork.ViewModels
 {
     public class StreamPlayBackPageViewModel
     {
-        public UserLogin StudentUserProfile { get; set; }
+        public UserLogin GenericUserProfile { get; set; }
         public UserLogin TutorUserProfile { get; set; }
         public UserArchivedStreams ArchivedStream { get; set; }
         public UserChannel UserChannel { get; set; }

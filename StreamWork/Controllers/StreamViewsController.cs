@@ -75,7 +75,7 @@ namespace StreamWork.Controllers
 
             StreamPlayBackPageViewModel model = new StreamPlayBackPageViewModel
             {
-                StudentUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name), //just a viwer
+                GenericUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name), //just a viewer
                 TutorUserProfile = tutorProfile,
                 ArchivedStream = archivedStream,
                 UserChannel = channel,
@@ -83,8 +83,8 @@ namespace StreamWork.Controllers
                 NumberOfStreams = (await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, channel.Username)).Count
             };
 
-            if (model.StudentUserProfile != null && model.StudentUserProfile.FollowedStudentsAndTutors != null)
-                model.IsUserFollowingThisTutor = model.StudentUserProfile.FollowedStudentsAndTutors.Contains(tutorProfile.Id);
+            if (model.GenericUserProfile != null && model.GenericUserProfile.FollowedStudentsAndTutors != null)
+                model.IsUserFollowingThisTutor = model.GenericUserProfile.FollowedStudentsAndTutors.Contains(tutorProfile.Id);
 
             await _streamHelperFunctions.IncrementArchivedVideoViews(storageConfig, HttpContext.User.Identity.Name, streamId);
 

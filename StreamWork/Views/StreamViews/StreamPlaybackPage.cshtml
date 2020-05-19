@@ -1,20 +1,11 @@
 ﻿@model StreamWork.ViewModels.StreamPlayBackPageViewModel
 @{ViewData["Title"] = "StreamPlaybackPage";}
 
-@if (Model.StudentUserProfile.ProfileType == "tutor")
-{
-    { Layout = "_LayoutTutorNavbar"; }
-}
-else
-{
-    { Layout = "_LayoutStudentNavbar"; }
-}
-
 @*
-@if (!Model.IsSubscribed())
-{
-    <script>window.location.href = '/Home/Subscribe';</script>
-}
+    @if (!Model.IsSubscribed())
+    {
+        <script>window.location.href = '/Home/Subscribe';</script>
+    }
 *@
 
 <div class="container-fluid">
@@ -31,12 +22,12 @@ else
                 <div class="card-body" style="background-color:white; border-top-right-radius:5px; border-top-left-radius:5px; ">
                     <a href="/Home/ProfileView?Tutor=@Model.TutorUserProfile.Username"><img src=@Model.TutorUserProfile.ProfilePicture style="width:115px; height: 150px; border-radius:5%; cursor:pointer" /></a>
                     <br />
-                    @if (Model.IsUserFollowingThisTutor == false && Model.StudentUserProfile != null && Model.StudentUserProfile.Username != Model.TutorUserProfile.Username)
+                    @if (Model.IsUserFollowingThisTutor == false && Model.GenericUserProfile != null && Model.GenericUserProfile.Username != Model.TutorUserProfile.Username)
                     {
                         <button id="FollowButton" type="button" style="font-size:12px;" class="streamWorkSecondary mt-3" onclick="FollowStreamTutor('@Model.TutorUserProfile.Id')">Follow</button>
                         <button id="UnfollowButton" type="button" style="font-size:12px; display:none;" class="streamWorkGrey mt-3" onclick="UnfollowStreamTutor('@Model.TutorUserProfile.Id')">Unfollow</button>
                     }
-                    else if (Model.IsUserFollowingThisTutor == true && Model.StudentUserProfile != null && Model.StudentUserProfile.ProfileType == "student")
+                    else if (Model.IsUserFollowingThisTutor == true && Model.GenericUserProfile != null && Model.GenericUserProfile.ProfileType == "student")
                     {
                         <button id="FollowButton" type="button" style="font-size:12px;display:none;" class="streamWorkSecondary mt-3" onclick="FollowStreamTutor('@Model.TutorUserProfile.Id')">Follow</button>
                         <button id="UnfollowButton" type="button" style="font-size:12px;" class="streamWorkGrey mt-3" onclick="UnfollowStreamTutor('@Model.TutorUserProfile.Id')">Unfollow</button>
