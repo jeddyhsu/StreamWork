@@ -1,13 +1,21 @@
-﻿var count = 0;
-var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+﻿var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+var initialUserId = "";
 
-connection.on("ReceiveMessage", function (name, message, profilePicture, questionNumber) {
-    $('#chatField').append("<li style='background-color:transparent; border:none' class='list-group-item'><span><img class='profilePictureSetting' src=" + profilePicture + "/></span>  " + name + ": <span id='question-" + questionNumber + "'>" + message + "</span></li > ");
+connection.on("ReceiveMessage", function (name, message, profilePicture, questionNumber, date, userID) {
+
+    var listName = "";
+    if (initialUserId == userID) listName = "<h5 class='text-truncate mb-0 chatName'>" + name + " (you)" + "<span class='chatDate'> " + date + "</span></h5>";
+    else listName = "<h5 class='text-truncate mb-0 chatName'>" + name + "<span class='chatDate'> " + date + "</span></h5>";
+       
+    var listItem = "<li class='list-group-item chatList'><div class='row'><div class='col-12'><input type='image' class='chatProfilePicture' src=" + profilePicture + "/>" + listName + "<p id='question-" + questionNumber + "'class='text-truncate mt-2 chatMessage'>" + message + "</p> </div></div></li>"
+
+    $('#chatField').append(listItem);
     var problemSpan = document.getElementById("question-" + questionNumber);
     MQ.StaticMath(problemSpan);
 });
 
-function JoinChatRoom(chatId) {
+function JoinChatRoom(chatId, userId) {
+    initialUserId = userId;
     connection.start().then(function () {
         connection.invoke("JoinChatRoom", chatId).catch(function (err) {
             return console.error(err.toString());
@@ -19,6 +27,7 @@ function JoinChatRoom(chatId) {
 
 function SendMessageToChatRoom(chatId, userId, name, profilePicture){
     var message = document.getElementById("latex").textContent;
+    FormatMessage(message);
     connection.invoke("SendMessageToChatRoom", chatId, userId, name, message, profilePicture).catch(function (err) {
         return console.error(err.toString());
     });
@@ -44,4 +53,8 @@ function WriteExpression(expression) {
     var mathFieldSpan = document.getElementById('math-field');
     var mathField = MQ.MathField(mathFieldSpan);
     mathField.write(expression);
+}
+
+function FormatMessage(message) {
+
 }

@@ -3,3 +3,38 @@
     border-radius:5px;
 }
 
+.chatList {
+    background-color: transparent;
+    border: none
+}
+
+.chatProfilePicture {
+    border-radius: 5%;
+    width: 50px;
+    margin-left: 10px;
+    margin-top: 10px;
+    height: 60px;
+    float: left;
+}
+
+.chatName {
+    font-family: 'Roboto Slab', serif;
+    font-size: 18px;
+    color: #D9534F;
+    margin-left: 80px;
+    margin-top: 10px;
+}
+
+.chatDate {
+    font-size: 10px;
+    color: black
+}
+
+.chatMessage {
+    font-family: 'Roboto';
+    font-size: 16px;
+    border: thick;
+    color: black;
+    margin-left: 20px;
+}
+

@@ -9,9 +9,9 @@ namespace StreamWork.Hubs
 {
     public class ChatHub : Hub
     {
-        ChatClient _chatClient = new ChatClient();
-        private IServiceProvider _sp;
-        private static long questionCount = 1;
+        readonly ChatClient _chatClient = new ChatClient();
+        private readonly IServiceProvider _sp;
+        private static long _questionCount = 1;
 
         public ChatHub(IServiceProvider sp)
         {
@@ -25,12 +25,13 @@ namespace StreamWork.Hubs
 
         public async Task SendMessageToChatRoom(string chatId, string userId, string name, string message, string profilePicture)
         {
-            await Clients.Group(chatId).SendAsync("ReceiveMessage", name.Replace('|',' '), message, profilePicture, questionCount);
+            var dateRightNow = DateTime.UtcNow;
+            await Clients.Group(chatId).SendAsync("ReceiveMessage", name.Replace('|',' '), message, profilePicture, _questionCount, dateRightNow.ToShortTimeString(), userId);
             using (var scope = _sp.CreateScope())
             {
-                questionCount++;
+                _questionCount++;
                 var dbContext = scope.ServiceProvider.GetRequiredService<IOptionsSnapshot<StorageConfig>>();
-                await _chatClient.SaveMessage(dbContext, chatId, userId, name, message, profilePicture);
+                await _chatClient.SaveMessage(dbContext, chatId, userId, name, message, profilePicture, dateRightNow);
             }
         }
     }
