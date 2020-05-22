@@ -22,11 +22,6 @@ namespace StreamWork.Controllers
         {
             if (HttpContext.User.Identity.IsAuthenticated == false && id != null)
             {
-                var archivedStream = await _homeHelperFunctions.GetArchivedStream(storageConfig, QueryHeaders.ArchivedVideosById, id);
-                return Redirect(_homeHelperFunctions._host + "/StreamViews/StreamPlaybackPage?streamId=" + archivedStream.StreamID);
-            }
-            else if(HttpContext.User.Identity.IsAuthenticated == false && id == null)
-            {
                 return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-StreamViews-StreamPage?streamTutorUsername=" + streamTutorUsername);
             }
                 
