@@ -25,7 +25,7 @@ function JoinChatRoom(chatId, userId) {
     });
 }
 
-function SendMessageToChatRoom(chatId, userId, name, profilePicture){
+function SendMessageToChatRoom(chatId, userId, name, profilePicture) {
     var message = document.getElementById("latex").textContent;
     FormatMessage(message);
     connection.invoke("SendMessageToChatRoom", chatId, userId, name, message, profilePicture).catch(function (err) {
