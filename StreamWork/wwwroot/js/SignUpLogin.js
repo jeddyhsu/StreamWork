@@ -259,18 +259,19 @@ function Login() {
             'password': $('#password').val()
         },
         success: function (data) {
-
             if (data.message === "Failed") {
                 OpenNotificationModal("Wrong username or password")
                 return;
             }
 
-            const urlParams = new URLSearchParams(window.location.search);
-            var dest = urlParams.get('dest');
-            var subject = urlParams.get('s');
+            var url = window.location.search;
+            var modifiedURL = "";
+            if (url.includes("dest")) {
+                modifiedURL = url.replace("?dest=", "");
+            }
 
-            if (dest != null) {
-                if (dest.includes("-Home-Profile")) {
+            if (modifiedURL != null) {
+                if (modifiedURL.includes("-Home-Profile")) {
                     if (data.message === "Tutor") {
                         window.location.href = '/Tutor/ProfileTutor'
                         return;
@@ -281,26 +282,18 @@ function Login() {
                     }
                 }
 
-                if (dest.includes("Home") || dest.includes("StreamViews")) {
-                    window.location.href = dest.split('-').join('/');
+                if (modifiedURL.includes("Home") || modifiedURL.includes("StreamViews")) {
+                    window.location.href = modifiedURL.split('-').join('/');
                     return;
                 }
 
-                if (data.message === "Tutor" && dest.includes("Tutor")) {
-                    window.location.href = dest.split('-').join('/');
+                if (data.message === "Tutor") {
+                    window.location.href = '/Tutor/ProfileTutor'
                     return;
                 }
-                else {
+              
+                if (data.message === "Student") {
                     window.location.href = '/Student/ProfileStudent'
-                    return;
-                }
-
-                if (data.message === "Student" && dest.includes("Student")) {
-                    window.location.href = dest.split('-').join('/');
-                    return;
-                }
-                else {
-                    window.location.href = '/Student/ProfileTutor'
                     return;
                 }
             }
