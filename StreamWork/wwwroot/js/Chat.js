@@ -10,8 +10,8 @@ connection.on("ReceiveMessage", function (name, message, profilePicture, questio
     var listItem = "<li class='list-group-item chatList'><div class='row'><div class='col-12'><input type='image' class='chatProfilePicture' src=" + profilePicture + "/>" + listName + "<p id='question-" + questionNumber + "'class='text-truncate mt-2 chatMessage'>" + message + "</p> </div></div></li>"
 
     $('#chatField').append(listItem);
-    var problemSpan = document.getElementById("question-" + questionNumber);
-    MQ.StaticMath(problemSpan);
+    //var problemSpan = document.getElementById("question-" + questionNumber);
+    //MQ.StaticMath(problemSpan);
 });
 
 function JoinChatRoom(chatId, userId) {
@@ -26,7 +26,7 @@ function JoinChatRoom(chatId, userId) {
 }
 
 function SendMessageToChatRoom(chatId, userId, name, profilePicture) {
-    var message = document.getElementById("latex").textContent;
+    var message = document.getElementById("chatInput").value;
     FormatMessage(message);
     connection.invoke("SendMessageToChatRoom", chatId, userId, name, message, profilePicture).catch(function (err) {
         return console.error(err.toString());
@@ -55,6 +55,17 @@ function WriteExpression(expression) {
     mathField.write(expression);
 }
 
-function FormatMessage(message) {
-
+function FormatMessage() {
+    var mathFieldSpan = document.getElementById('math-field')
+    var latexSpan = document.getElementById('latex');
+    var MQ = MathQuill.getInterface(2);
+    var mathField = MQ.MathField(mathFieldSpan, {
+        spaceBehavesLikeTab: false,
+        autoCommands: 'pi theta sqrt sum integral delta gamma infinity isin pm',
+        handlers: {
+            edit: function () {
+                latexSpan.textContent = mathField.latex();
+            }
+        }
+    });
 }

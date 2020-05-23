@@ -11,17 +11,17 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card fixed-top" style="border-radius:0px">
-                    <div class="card-tite m-3 ml-5" style="font-family:'Roboto Slab', serif; font-size:20px">Chat</div>
+                    <div class="card-tite mt-3 mb-3 ml-3" style="font-family:'Roboto Slab', serif; font-size:20px">Chat</div>
                 </div>
                 <div class="card" style="border:none">
-                    <div class="card-body" style="padding-top:60px; padding-bottom:120px">
+                    <div class="card-body pl-0 pr-0" style="padding-top:60px; padding-bottom:120px">
                         <ul style="overflow:scroll;" id="chatField" class="list-group p-0">
                             @for (int i = 0; i < Model.Chats.Count; i++)
                             {
-                                <li class='list-group-item chatList'>
+                                <li class='list-group-item chatList border border-left-0 border-right-0'>
                                     <div class="row">
                                         <div class="col-12">
-                                            <input type="image" class="chatProfilePicture" src=@Model.Chats[i].ProfilePicture />
+                                            <input align="left" type="image" class="chatProfilePicture" src=@Model.Chats[i].ProfilePicture />
                                             @if (Model.UserProfile.Id == Model.Chats[i].UserId)
                                             {
                                                 <h5 class="text-truncate mb-0 chatName">@Model.Chats[i].Name.Replace('|', ' ') (you) <span class="chatDate">@Model.Chats[i].Date.ToShortTimeString()</span></h5>
@@ -30,13 +30,12 @@
                                             {
                                                 <h5 class="text-truncate mb-0 chatName">@Model.Chats[i].Name.Replace('|', ' ') </h5>
                                             }
-                                            <p id="chat-@i" class="  chatMessage">@Model.Chats[i].Message</p>
+                                            <p id="chat-@i" class="chatMessage">@Model.Chats[i].Message</p>
                                         </div>
                                     </div>
                                 </li>
                             }
                         </ul>
-                        <script>Alert('@Model.Chats.Count')</script>
                     </div>
                 </div>
                 <div class="card" style="border:none">
@@ -47,23 +46,7 @@
                                     <div class="row">
                                         <div class="col-lg-11 col-md-10 col-sm-10 col-9">
                                             <div>
-                                                <!--<textarea id="chatInput" class="form-control"></textarea>-->
-                                                <div>
-                                                    <p><span id="math-field" class="form-control" style="height:50px; border:none;"></span></p>
-                                                    <p style="display:none">LaTeX of what you typed: <span id="latex"></span></p>
-                                                    <script>var mathFieldSpan = document.getElementById('math-field')
-                                                        var latexSpan = document.getElementById('latex');
-                                                        var MQ = MathQuill.getInterface(2);
-                                                        var mathField = MQ.MathField(mathFieldSpan, {
-                                                            spaceBehavesLikeTab: false,
-                                                            autoCommands: 'pi theta sqrt sum integral delta gamma infinity isin pm',
-                                                            handlers: {
-                                                                edit: function () {
-                                                                    latexSpan.textContent = mathField.latex();
-                                                                }
-                                                            }
-                                                        });</script>
-                                                </div>
+                                               <textarea id="chatInput" class="form-control"></textarea>
                                             </div>
                                         </div>
                                         <div class="col-lg-1 col-md-2 col-sm-2 col-3">
@@ -95,7 +78,7 @@
                     </div>
                 </div>
             </div>
-            
+
             </div>
             <!--
 
