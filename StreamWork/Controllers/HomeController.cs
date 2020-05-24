@@ -325,6 +325,7 @@ namespace StreamWork.Controllers
                 {
                     new Claim(ClaimTypes.Name, username),
                     new Claim(ClaimTypes.Email, userProfile.EmailAddress),
+                    new Claim(ClaimTypes.UserData, _homeHelperFunctions.GetRandomChatColor())
                 };
 
                 var userIdentity = new ClaimsIdentity(claims, "cookie");

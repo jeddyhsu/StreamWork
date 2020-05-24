@@ -15,7 +15,7 @@
                 </div>
                 <div class="card" style="border:none">
                     <div class="card-body pl-0 pr-0" style="padding-top:60px; padding-bottom:85px">
-                        <ul style="overflow:scroll;" id="chatField" class="list-group p-0">
+                        <ul style="overflow-x:hidden" id="chatField" class="list-group p-0">
                             @for (int i = 0; i < Model.Chats.Count; i++)
                             {
                                 <li class='list-group-item chatList border border-left-0 border-right-0'>
@@ -24,11 +24,11 @@
                                             <input align="left" type="image" class="chatProfilePicture" src=@Model.Chats[i].ProfilePicture />
                                             @if (Model.UserProfile.Id == Model.Chats[i].UserId)
                                             {
-                                                <h5 class="text-truncate mb-0 chatName">@Model.Chats[i].Name.Replace('|', ' ') (you) <span class="chatDate">@Model.Chats[i].Date.ToShortTimeString()</span></h5>
+                                                <h5 class="text-truncate mb-0 chatName" style="color:@Model.Chats[i].ChatColor">@Model.Chats[i].Name.Replace('|', ' ') (you) <span class="chatDate">@Model.Chats[i].Date.ToShortTimeString()</span></h5>
                                             }
                                             else
                                             {
-                                                <h5 class="text-truncate mb-0 chatName">@Model.Chats[i].Name.Replace('|', ' ') </h5>
+                                                <h5 class="text-truncate mb-0 chatName" style="color:@Model.Chats[i].ChatColor">@Model.Chats[i].Name.Replace('|', ' ') </h5>
                                             }
                                             <p id="chat-@i" class="chatMessage">@Model.Chats[i].Message</p>
                                         </div>
@@ -38,7 +38,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="card">
+                <div class="card" style="border:none">
                     <div class="card-footer fixed-bottom p-0">
                         <div id="questionBox">
                             <div class="card border" style=" background-color:whitesmoke; border:none; height:100%">
@@ -50,7 +50,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-1 col-md-2 col-sm-2 col-3">
-                                            <button type="button" id="sendQuestionButton" class="streamWorkPrimary" style="font-size:12px; height:100%" onclick="SendMessageToChatRoom('@Model.ChatId','@Model.UserProfile.Id','@Model.UserProfile.Name', '@Model.UserProfile.ProfilePicture')">Send</button>
+                                            <button type="button" id="sendQuestionButton" class="streamWorkPrimary" style="font-size:12px; height:100%" onclick="SendMessageToChatRoom('@Model.ChatId','@Model.UserProfile.Id','@Model.UserProfile.Name', '@Model.UserProfile.ProfilePicture', '@Model.ChatColor')">Send</button>
                                         </div>
                                     </div>
                                 </div>
@@ -63,72 +63,4 @@
     </div>
 </section>
 
-
-<!--
-    <div class="row" style="position:fixed; height:100%; width:103%; overflow:scroll">
-    <div class="col-12">
-        <div class="card" style="border-bottom-left-radius:0px; border-bottom-right-radius:0px; width:100%; height:100%;border:none; background-color:whitesmoke">
-            <div class="card-title m-3" style="font-family:'Roboto Slab', serif; font-size:22px;">Chat</div>
-            <div class="card-body" style="max-height:90%; overflow:scroll">
-                <div class="row">
-                    <div id="chat" style="width:100%">
-                        <div class="col-12">
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            </div>
-            <!--
-
-              <section>
-                <div class="container">
-                    <div class="row text-center" style="font-size:50px;color:black; cursor:pointer">
-                        <div class="col-lg-2 col-md-2 col-sm-4 col-4">
-                            <div onclick="WriteCommmand('+')">&#43;</div>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-sm-4 col-4">
-                            <div onclick="WriteCommmand('-')">&#8722;</div>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-sm-4 col-4">
-                            <div onclick="WriteCommmand('*')">&#215;</div>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-sm-4 col-4">
-                            <div onclick="WriteCommmand('\\fraction')">&#247;</div>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-sm-4 col-4">
-                            <div onclick="WriteCommmand('=')">&#61;</div>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-sm-4 col-4">
-                            <div onclick="WriteCommmand('\\pm')">&#177;</div>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-sm-4 col-4">
-                            <div onclick="WriteCommmand('\\sqrt')">&#8730;</div>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-sm-4 col-4">
-                            <div onclick="WriteCommmand('\\infinity')">&#8734;</div>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-sm-4 col-4">
-                            <div onclick="WriteExpression('\\\int_{}^{}')">&#8747;</div>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-sm-4 col-4">
-                            <div onclick="WriteCommmand('\\summation')">&#8721;</div>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-sm-4 col-4">
-                            <div onclick="WriteCommmand('\\pi')">&#960;</div>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-sm-4 col-4">
-                            <div onclick="WriteCommmand('\\neq')">&#8800;</div>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-sm-4 col-4">
-                            <div onclick="WriteExpression('\\\lim_{x \\to 2}')">lim</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            -->
-        </div>
-    </div>
-</div>
 

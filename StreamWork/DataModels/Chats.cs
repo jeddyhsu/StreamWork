@@ -15,6 +15,7 @@ namespace StreamWork.DataModels
         public string Message { get; set; }
         public string ProfilePicture { get; set; }
         public DateTime Date { get; set; }
+        public string ChatColor { get; set; }
 
         [Timestamp]
         public byte[] RowVersion { get; set; }

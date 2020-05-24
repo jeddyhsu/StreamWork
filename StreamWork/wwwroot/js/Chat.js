@@ -1,11 +1,11 @@
 ﻿var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 var initialUserId = "";
 
-connection.on("ReceiveMessage", function (name, message, profilePicture, questionNumber, date, userID) {
+connection.on("ReceiveMessage", function (name, message, profilePicture, questionNumber, date, userID, chatColor) {
 
     var listName = "";
-    if (initialUserId == userID) listName = "<h5 class='text-truncate mb-0 chatName'>" + name + " (you)" + "<span class='chatDate'> " + date + "</span></h5>";
-    else listName = "<h5 class='text-truncate mb-0 chatName'>" + name + "<span class='chatDate'> " + date + "</span></h5>";
+    if (initialUserId == userID) listName = "<h5 class='text-truncate mb-0 chatName' style='color:" + chatColor + "'>" + name + " (you)" + "<span class='chatDate'> " + date + "</span></h5>";
+    else listName = "<h5 class='text-truncate mb-0 chatName' style='color:" + chatColor + "'>" + name + "<span class='chatDate'> " + date + "</span></h5>";
        
     var listItem = "<li class='list-group-item chatList'><div class='row'><div class='col-12'><input align='left' type='image' class='chatProfilePicture' src=" + profilePicture + "/>" + listName + "<p id='question-" + questionNumber + "'class='chatMessage'>" + message + "</p> </div></div></li>"
 
@@ -26,10 +26,10 @@ function JoinChatRoom(chatId, userId) {
     });
 }
 
-function SendMessageToChatRoom(chatId, userId, name, profilePicture) {
+function SendMessageToChatRoom(chatId, userId, name, profilePicture, chatColor) {
     var message = document.getElementById("chatInput").value;
     FormatMessage(message);
-    connection.invoke("SendMessageToChatRoom", chatId, userId, name, message, profilePicture).catch(function (err) {
+    connection.invoke("SendMessageToChatRoom", chatId, userId, name, message, profilePicture, chatColor).catch(function (err) {
         return console.error(err.toString());
     });
     

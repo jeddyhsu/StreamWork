@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using StreamWork.Config;
@@ -18,11 +19,18 @@ namespace StreamWork.Controllers
             if(HttpContext.User.Identity.Name == null)
                 return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-Chat-StreamWorkChat?chatId=" + chatId);
 
+            string chatColor = "";
+            foreach(var claims in HttpContext.User.Claims)
+            {
+                if (claims.Type == ClaimTypes.UserData) chatColor = claims.Value;
+            }
+
             ChatViewModel chatViewModel = new ChatViewModel
             {
                 UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name),
                 ChatId = chatId,
-                Chats = await _chatHelperFunctions.GetAllChatsWithChatId(storageConfig, chatId)
+                Chats = await _chatHelperFunctions.GetAllChatsWithChatId(storageConfig, chatId),
+                ChatColor = chatColor
             };
 
             return View(chatViewModel);

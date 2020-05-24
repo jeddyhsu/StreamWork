@@ -16,19 +16,12 @@
                             <p style="font-size:12px">Tutoring Math</p>
                         </div>
                     </div>
-                    <!--
-                        <div class="col-lg-4 col-md-12 col-sm-12 col-12">
-                        <div class="m-2">
-                            
-                        </div>
-                    </div>
-                    -->
-
                 </div>
                 <div class="row mt-3 mb-3">
-                    <div class="col-lg-4 col-md-4">
+                    <div class="col-6">
                         <input align="left" type="image" class="rounded" style="width:30px" src=@Model.TutorUserProfile.ProfilePicture />
-                        <h3 style="font-family:'Roboto Slab', serif; font-size:20px; margin-left:40px">@Model.TutorUserProfile.Name.Replace('|', ' ')</h3>
+                        <h3 class="mb-0" style="font-family:'Roboto Slab', serif; font-size:20px; margin-left:40px; color:#D9534F">@Model.TutorUserProfile.Name.Replace('|', ' ')</h3>
+                        <p style="margin-left:40px">@Model.TutorUserProfile.ProfileCaption</p>
                     </div>
                     <div class="inline-block m-2 ml-auto">
                         @if (Model.GenericUserProfile != null)
