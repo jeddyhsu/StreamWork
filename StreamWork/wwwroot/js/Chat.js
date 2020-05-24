@@ -7,9 +7,10 @@ connection.on("ReceiveMessage", function (name, message, profilePicture, questio
     if (initialUserId == userID) listName = "<h5 class='text-truncate mb-0 chatName'>" + name + " (you)" + "<span class='chatDate'> " + date + "</span></h5>";
     else listName = "<h5 class='text-truncate mb-0 chatName'>" + name + "<span class='chatDate'> " + date + "</span></h5>";
        
-    var listItem = "<li class='list-group-item chatList'><div class='row'><div class='col-12'><input type='image' class='chatProfilePicture' src=" + profilePicture + "/>" + listName + "<p id='question-" + questionNumber + "'class='text-truncate mt-2 chatMessage'>" + message + "</p> </div></div></li>"
+    var listItem = "<li class='list-group-item chatList'><div class='row'><div class='col-12'><input align='left' type='image' class='chatProfilePicture' src=" + profilePicture + "/>" + listName + "<p id='question-" + questionNumber + "'class='chatMessage'>" + message + "</p> </div></div></li>"
 
     $('#chatField').append(listItem);
+    window.scroll(0, document.documentElement.offsetHeight);
     //var problemSpan = document.getElementById("question-" + questionNumber);
     //MQ.StaticMath(problemSpan);
 });
@@ -68,4 +69,8 @@ function FormatMessage() {
             }
         }
     });
+}
+
+function Toggle() {
+    
 }

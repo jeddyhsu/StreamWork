@@ -3,18 +3,19 @@
 
 <link rel="stylesheet" href="~/css/Streams.css" />
 
-<div class="container-fluid">
-    <div class="row justify-content-center" style="background-color:white;position:absolute; height:93%; width:100%;">
-        <div class="d-flex flex-column col-lg-9 col-md-12 col-sm-12 col-12 p-0" style="position:relative">
+<div class="container-fluid" style="overflow:hidden">
+    <div class="row justify-content-center border" style="background-color:#F8F8FF;position:absolute; height: calc(100% - 100px); width:100%;">
+        <div class="d-flex flex-column col-lg-8 col-md-12 col-sm-12 col-12 p-0" style="position: relative; overflow: scroll ">
             <iframe style=" width:100%; height:82%; min-height:500px" class="p-0" src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.UserChannel.ChannelKey.Split('|')[0]" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-8 col-md-12 col-sm-12 col-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="m-2" id="StreamInfo">
-                            <h2 class="mt-1" style="color:black; font-family:'Roboto Slab', serif;">Calculus 2: Integration By Parts<span></span></h2>
-                            <a href="/Home/ProfileView?tutor=@Model.UserChannel.Username"><b>by @Model.TutorUserProfile.Name.Replace('|', ' ')</b></a>
-                            <p class="mt-2">Today we will be going over how to solve integrals using one of the four techniques</p>
+                            <h3 class="mt-1" style="color:black; font-family:'Roboto Slab', serif;">Calculus 2: Integration By Parts<span></span></h3>
+                            <p class="mt-2 mb-0">Today we will be going over how to solve integrals using one of the four techniques</p>
+                            <p style="font-size:12px">Tutoring Math</p>
                         </div>
+                       
                     </div>
                     <!--
                         <div class="col-lg-4 col-md-12 col-sm-12 col-12">
@@ -32,20 +33,21 @@
                                     <button id="UnfollowButton" type="button" style="width:100%; font-family:'Roboto Slab', serif;" class="streamWorkGrey mb-2" onclick="UnfollowStreamTutor('@Model.TutorUserProfile.Id')">Unfollow</button>
                                 }
                             }
-                            @if (!Model.TutorUserProfile.Name.Equals("Scott|Underwood"))
-                            {
-                                <button class="streamWorkGold mb-2 mr-1" style="font-family:'Roboto Slab', serif; cursor: pointer; width:100%;" onclick="window.open('https://www.streamwork.live/Home/Donate?tutor=@Model.UserChannel.Username')">Donate</button>
-                            }
-                            <button class="streamWorkSecondary" style="font-family:'Roboto Slab', serif; cursor: pointer; width:100%;" onclick="showSubmitRecommendationModal();">Recommendation</button>
                         </div>
                     </div>
                     -->
 
                 </div>
+                <div class="row mt-3">
+                    <div class="col-lg-12">
+                        <input align="left" type="image" class="rounded" style="width:30px" src=@Model.TutorUserProfile.ProfilePicture />
+                        <h3 style="font-family:'Roboto Slab', serif; font-size:20px; margin-left:40px">@Model.TutorUserProfile.Name.Replace('|',' ')</h3>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="d-flex flex-column col-lg-3 col-md-12 col-sm-12 col-12 p-0">
-            <iframe style="height:100%; min-height:500px; border:none" src="http://localhost:58539/chat/streamworkchat?chatId=@Model.UserChannel.Username"></iframe>
+        <div class="d-flex flex-column col-lg-4 col-md-12 col-sm-12 col-12 p-0">
+            <object style="height:100%; border:none" data="http://localhost:58539/chat/streamworkchat?chatId=@Model.UserChannel.Username"></object>
         </div>
     </div>
 </div>
