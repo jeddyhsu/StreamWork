@@ -16,7 +16,7 @@
                             <div class="card-tite mt-3 mb-3 ml-3" style="font-family:'Roboto Slab', serif; font-size:20px">Chat</div>
                         </div>
                         <div class="inline-block m-2 mr-4 ml-auto">
-                            <img src="~/images/ChatAssets/Collapse.png" style="cursor:pointer" onclick="Toggle()" />
+                            <img src="~/images/ChatAssets/Collapse.png" style="cursor:pointer" onclick="PopoutChat('@Model.ChatId')" />
                             <img src="~/images/ChatAssets/Settings.png" style="cursor:pointer" />
                             <img src="~/images/ChatAssets/ViewerList.png" style="cursor:pointer" />
                         </div>
@@ -60,7 +60,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-1 col-md-2 col-sm-2 col-3">
-                                            <button type="button" id="sendQuestionButton" class="streamWorkPrimary" style="font-size:12px; height:100%" onclick="SendMessageToChatRoom('@Model.ChatId','@Model.UserProfile.Id','@Model.UserProfile.Name', '@Model.UserProfile.ProfilePicture', '@Model.ChatColor')">Send</button>
+                                            <button type="button" id="sendQuestionButton" class="streamWorkPrimary" style="font-size:12px; height:100%; display:block; margin-left:auto; margin-right:auto" onclick="SendMessageToChatRoom('@Model.ChatId','@Model.UserProfile.Id','@Model.UserProfile.Name', '@Model.UserProfile.ProfilePicture', '@Model.ChatColor')">Send</button>
                                         </div>
                                     </div>
                                 </div>

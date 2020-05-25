@@ -11,9 +11,16 @@ connection.on("ReceiveMessage", function (name, message, profilePicture, questio
 
     $('#chatField').append(listItem);
     window.scroll(0, document.documentElement.offsetHeight);
+    if (initialUserId != userID) PlayAudio();
     //var problemSpan = document.getElementById("question-" + questionNumber);
     //MQ.StaticMath(problemSpan);
 });
+
+function PlayAudio() {
+    var audioElement = document.createElement('audio');
+    audioElement.setAttribute('src', '/media/juntos.mp3')
+    audioElement.play();
+}
 
 function JoinChatRoom(chatId, userId) {
     initialUserId = userId;
@@ -71,6 +78,9 @@ function FormatMessage() {
     });
 }
 
-function Toggle() {
-    
+function PopoutChat(chatId) {
+    var windowObjectRef;
+    var windowFeatures = "menubar=no, toolbar=no,location=yes,resizable=yes,scrollbars=yes,status=yes, width=500, height=600";
+    windowObjectRef = window.open('http://localhost:58539/chat/streamworkchat?chatId=' + chatId, 'StreamWork Chat', windowFeatures);
+
 }

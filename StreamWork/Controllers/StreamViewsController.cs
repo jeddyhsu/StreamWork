@@ -32,14 +32,14 @@ namespace StreamWork.Controllers
 
             StreamPageViewModel model = new StreamPageViewModel
             {
-                GenericUserProfile = HttpContext.User.Identity.Name != null ? await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name) : null,
+                StudentUserProfile = HttpContext.User.Identity.Name != null ? await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name) : null,
                 TutorUserProfile = tutorProfile,
                 ChatBox = chatBox,
                 UserChannel = channel
             };
 
-            if (model.GenericUserProfile != null && model.GenericUserProfile.FollowedStudentsAndTutors != null)
-                model.IsUserFollowingThisTutor = model.GenericUserProfile.FollowedStudentsAndTutors.Contains(tutorProfile.Id);
+            if (model.StudentUserProfile != null && model.StudentUserProfile.FollowedStudentsAndTutors != null)
+                model.IsUserFollowingThisTutor = model.StudentUserProfile.FollowedStudentsAndTutors.Contains(tutorProfile.Id);
 
             await _streamHelperFunctions.IncrementChannelViews(storageConfig, HttpContext.User.Identity.Name, streamTutorUsername);
 
