@@ -30,7 +30,7 @@ namespace StreamWork.Controllers
                 UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name),
                 ChatId = chatId,
                 Chats = await _chatHelperFunctions.GetAllChatsWithChatId(storageConfig, chatId),
-                ChatColor = chatColor
+                ChatColor = chatColor,
             };
 
             return View(chatViewModel);

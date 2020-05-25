@@ -3,7 +3,7 @@
 @model StreamWork.ViewModels.ChatViewModel
 
 <script>
-    JoinChatRoom('@Model.ChatId', '@Model.UserProfile.Id')
+    JoinChatRoom('@Model.ChatId', '@Model.UserProfile.Username')
 </script>
 
 <section>
@@ -32,7 +32,11 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <input align="left" type="image" class="chatProfilePicture" src=@Model.Chats[i].ProfilePicture />
-                                            @if (Model.UserProfile.Id == Model.Chats[i].UserId)
+                                            @if (Model.ChatId == Model.Chats[i].Username)
+                                            {
+                                                <h5 class="text-truncate mb-0 chatName" style='color:@Model.Chats[i].ChatColor'>@Model.Chats[i].Name.Replace('|', ' ')<span><img id="tutortip" src="/images/ChatAssets/Tutor.png" data-toggle="tooltip" data-placement="top" title="StreamTutor" /></span><span class='chatDate'>@Model.Chats[i].Date.ToShortTimeString()</span></h5>
+                                            }
+                                            else if(Model.UserProfile.Username == Model.Chats[i].Username)
                                             {
                                                 <h5 class="text-truncate mb-0 chatName" style="color:@Model.Chats[i].ChatColor">@Model.Chats[i].Name.Replace('|', ' ') (you) <span class="chatDate">@Model.Chats[i].Date.ToShortTimeString()</span></h5>
                                             }
@@ -60,7 +64,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-1 col-md-2 col-sm-2 col-3">
-                                            <button type="button" id="sendQuestionButton" class="streamWorkPrimary" style="font-size:12px; height:100%; display:block; margin-left:auto; margin-right:auto" onclick="SendMessageToChatRoom('@Model.ChatId','@Model.UserProfile.Id','@Model.UserProfile.Name', '@Model.UserProfile.ProfilePicture', '@Model.ChatColor')">Send</button>
+                                            <button type="button" id="sendQuestionButton" class="streamWorkPrimary" style="font-size:12px; height:100%; display:block; margin-left:auto; margin-right:auto" onclick="SendMessageToChatRoom('@Model.ChatId','@Model.UserProfile.Username','@Model.UserProfile.Name', '@Model.UserProfile.ProfilePicture', '@Model.ChatColor')">Send</button>
                                         </div>
                                     </div>
                                 </div>

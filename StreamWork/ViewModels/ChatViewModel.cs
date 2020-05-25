@@ -9,5 +9,6 @@ namespace StreamWork.ViewModels
         public string ChatId;
         public List<Chats> Chats { get; set; }
         public string ChatColor { get; set; }
+        public string TutorUserName { get; set; }
     }
 }

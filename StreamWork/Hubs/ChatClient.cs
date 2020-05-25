@@ -14,21 +14,22 @@ namespace StreamWork.Hubs
     {
         private readonly HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
 
-        public async Task<bool> SaveMessage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string chatId, string userId, string name, string message, string profilePicture, DateTime dateTime, string chatColor)
+        public async Task<bool> SaveMessage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string chatId, string userName, string name, string message, string profilePicture, DateTime dateTime, string chatColor)
         {
             try
             {
-                var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUserUsingId, userId);
+                var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, userName);
                 Chats chat = new Chats
                 {
                     Id = Guid.NewGuid().ToString(),
                     ChatId = chatId,
-                    UserId = userId,
+                    Username = userProfile.Username,
                     Name = name,
                     Message = message,
                     ProfilePicture = profilePicture,
                     Date = dateTime,
-                    ChatColor = chatColor
+                    ChatColor = chatColor,
+
                 };
 
                 await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", chat.Id } }, chat);

@@ -1,15 +1,17 @@
 ﻿var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
-var initialUserId = "";
+var initialUserName = "";
+var initialChatId = "";
 
-connection.on("ReceiveMessage", function (name, message, profilePicture, questionNumber, date, userID, chatColor) {
-
+connection.on("ReceiveMessage", function (name, message, profilePicture, questionNumber, date, userName, chatColor) {
     var listName = "";
-    if (initialUserId == userID) listName = "<h5 class='text-truncate mb-0 chatName' style='color:" + chatColor + "'>" + name + " (you)" + "<span class='chatDate'> " + date + "</span></h5>";
+    if (initialChatId == userName) listName = "<h5 class='text-truncate mb-0 chatName' style='color:" + chatColor + "'>" + name + "<span><img id='tutortip' src='/images/ChatAssets/Tutor.png' data-toggle='tooltip' data-placement='top' title='StreamTutor'/></span><span class='chatDate'> " + date + "</span></h5>";
+    else if (initialUserName == userName) listName = "<h5 class='text-truncate mb-0 chatName' style='color:" + chatColor + "'>" + name + " (you)" + "<span class='chatDate'> " + date + "</span></h5>";
     else listName = "<h5 class='text-truncate mb-0 chatName' style='color:" + chatColor + "'>" + name + "<span class='chatDate'> " + date + "</span></h5>";
        
     var listItem = "<li class='list-group-item chatList'><div class='row'><div class='col-12'><input align='left' type='image' class='chatProfilePicture' src=" + profilePicture + "/>" + listName + "<p id='question-" + questionNumber + "'class='chatMessage'>" + message + "</p> </div></div></li>"
 
     $('#chatField').append(listItem);
+    $("#tutortip").tooltip()
     window.scroll(0, document.documentElement.offsetHeight);
     if (initialUserId != userID) PlayAudio();
     //var problemSpan = document.getElementById("question-" + questionNumber);
@@ -22,8 +24,9 @@ function PlayAudio() {
     audioElement.play();
 }
 
-function JoinChatRoom(chatId, userId) {
-    initialUserId = userId;
+function JoinChatRoom(chatId, userName) {
+    initialChatId = chatId;
+    initialUserName = userName;
     connection.start().then(function () {
         connection.invoke("JoinChatRoom", chatId).catch(function (err) {
             return console.error(err.toString());
@@ -33,13 +36,13 @@ function JoinChatRoom(chatId, userId) {
     });
 }
 
-function SendMessageToChatRoom(chatId, userId, name, profilePicture, chatColor) {
+function SendMessageToChatRoom(chatId, userName, name, profilePicture, chatColor) {
     var message = document.getElementById("chatInput").value;
     FormatMessage(message);
-    connection.invoke("SendMessageToChatRoom", chatId, userId, name, message, profilePicture, chatColor).catch(function (err) {
+    connection.invoke("SendMessageToChatRoom", chatId, userName, name, message, profilePicture, chatColor).catch(function (err) {
         return console.error(err.toString());
     });
-    
+    document.getElementById("chatInput").value = "";
     event.preventDefault();
 }
 

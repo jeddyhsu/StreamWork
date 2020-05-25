@@ -10,7 +10,7 @@ namespace StreamWork.DataModels
         [Key]
         public string Id { get; set; }
         public string ChatId { get; set; }
-        public string UserId { get; set; }
+        public string Username { get; set; }
         public string Name { get; set; }
         public string Message { get; set; }
         public string ProfilePicture { get; set; }

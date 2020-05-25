@@ -23,15 +23,15 @@ namespace StreamWork.Hubs
             return Groups.AddToGroupAsync(Context.ConnectionId, chatId);
         }
 
-        public async Task SendMessageToChatRoom(string chatId, string userId, string name, string message, string profilePicture, string chatColor)
+        public async Task SendMessageToChatRoom(string chatId, string userName, string name, string message, string profilePicture, string chatColor)
         {
             var dateRightNow = DateTime.UtcNow;
-            await Clients.Group(chatId).SendAsync("ReceiveMessage", name.Replace('|',' '), message, profilePicture, _questionCount, dateRightNow.ToShortTimeString(), userId, chatColor);
+            await Clients.Group(chatId).SendAsync("ReceiveMessage", name.Replace('|',' '), message, profilePicture, _questionCount, dateRightNow.ToShortTimeString(), userName, chatColor);
             using (var scope = _sp.CreateScope())
             {
                 _questionCount++;
                 var dbContext = scope.ServiceProvider.GetRequiredService<IOptionsSnapshot<StorageConfig>>();
-                await _chatClient.SaveMessage(dbContext, chatId, userId, name, message, profilePicture, dateRightNow, chatColor);
+                await _chatClient.SaveMessage(dbContext, chatId, userName, name, message, profilePicture, dateRightNow, chatColor);
             }
         }
     }
