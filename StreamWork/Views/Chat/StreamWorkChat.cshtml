@@ -16,9 +16,9 @@
                             <div class="card-tite mt-3 mb-3 ml-3" style="font-family:'Roboto Slab', serif; font-size:20px">Chat</div>
                         </div>
                         <div class="inline-block m-2 mr-4 ml-auto">
-                            <img src="~/images/ChatAssets/Collapse.png" style="cursor:pointer" onclick="PopoutChat('@Model.ChatId')" />
-                            <img src="~/images/ChatAssets/Settings.png" style="cursor:pointer" />
                             <img src="~/images/ChatAssets/ViewerList.png" style="cursor:pointer" />
+                            <img src="~/images/ChatAssets/Settings.png" style="cursor:pointer" />
+                            <img src="~/images/ChatAssets/Collapse.png" style="cursor:pointer" onclick="PopoutChat('@Model.ChatId')" />
                         </div>
 
                     </div>
@@ -28,10 +28,10 @@
                         <ul style="overflow-x:hidden" id="chatField" class="list-group p-0">
                             @for (int i = 0; i < Model.Chats.Count; i++)
                             {
-                                <li class='list-group-item chatList border border-left-0 border-right-0'>
+                                <li class='list-group-item chatList border-top-0 border-left-0 border-right-0 border-bottom' >
                                     <div class="row">
                                         <div class="col-12">
-                                            <input align="left" type="image" class="chatProfilePicture" src=@Model.Chats[i].ProfilePicture />
+                                            <input align="left" type="image" class="chatProfilePicture rounded" src=@Model.Chats[i].ProfilePicture />
                                             @if (Model.ChatId == Model.Chats[i].Username)
                                             {
                                                 <h5 class="text-truncate mb-0 chatName" style='color:@Model.Chats[i].ChatColor'>@Model.Chats[i].Name.Replace('|', ' ')<span><img id="tutortip" src="/images/ChatAssets/Tutor.png" data-toggle="tooltip" data-placement="top" title="StreamTutor" /></span><span class='chatDate'>@Model.Chats[i].Date.ToShortTimeString()</span></h5>
@@ -42,7 +42,7 @@
                                             }
                                             else
                                             {
-                                                <h5 class="text-truncate mb-0 chatName" style="color:@Model.Chats[i].ChatColor">@Model.Chats[i].Name.Replace('|', ' ') </h5>
+                                                <h5 class="text-truncate mb-0 chatName" style="color:@Model.Chats[i].ChatColor">@Model.Chats[i].Name.Replace('|', ' ') <span class="chatDate">@Model.Chats[i].Date.ToShortTimeString()</span></h5>
                                             }
                                             <p id="chat-@i" class="chatMessage">@Model.Chats[i].Message</p>
                                         </div>
@@ -55,7 +55,7 @@
                 <div class="card" style="border:none">
                     <div class="card-footer fixed-bottom p-0">
                         <div id="questionBox">
-                            <div class="card border" style=" background-color:whitesmoke; border:none; height:100%">
+                            <div class="card border-left" style=" background-color:whitesmoke; border:none; height:100%">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-lg-11 col-md-10 col-sm-10 col-9">

@@ -5,6 +5,7 @@ using StreamWork.HelperClasses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using StreamWork.Config;
+using System.Security.Claims;
 
 namespace StreamWork.Controllers
 {
@@ -35,7 +36,7 @@ namespace StreamWork.Controllers
                 StudentUserProfile = HttpContext.User.Identity.Name != null ? await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name) : null,
                 TutorUserProfile = tutorProfile,
                 ChatBox = chatBox,
-                UserChannel = channel
+                UserChannel = channel,
             };
 
             if (model.StudentUserProfile != null && model.StudentUserProfile.FollowedStudentsAndTutors != null)
