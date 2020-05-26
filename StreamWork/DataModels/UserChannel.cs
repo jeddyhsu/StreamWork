@@ -20,6 +20,7 @@ namespace StreamWork.DataModels
 
         public string ProfilePicture { get; set; }
         public string StreamTasks { get; set; }
+        public string ChatColor { get; set; }
 
         public DateTime StartTime { get; set; }
         public int Views { get; set; }

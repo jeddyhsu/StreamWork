@@ -29,18 +29,19 @@ namespace StreamWork.Controllers
             var chatBox = await _homeHelperFunctions.GetChatSecretKey(storageConfig, channel.ChatId, HttpContext.User.Identity.Name);
 
             //if(channel.StreamTitle == null)
-            //    return Redirect("https://www.streamwork.live/Home/ProfileView?Tutor=" + channel.Username);
+            //    return Redirect("https://www.streamwork.live/Home/ProfileView?Tutor=" + channel.Username);\
 
-            StreamPageViewModel model = new StreamPageViewModel
-            {
-                StudentUserProfile = HttpContext.User.Identity.Name != null ? await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name) : null,
-                TutorUserProfile = tutorProfile,
-                ChatBox = chatBox,
-                UserChannel = channel,
-            };
+            var student = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name);
 
-            if (model.StudentUserProfile != null && model.StudentUserProfile.FollowedStudentsAndTutors != null)
-                model.IsUserFollowingThisTutor = model.StudentUserProfile.FollowedStudentsAndTutors.Contains(tutorProfile.Id);
+            StreamPageViewModel model = new StreamPageViewModel();
+            if(student.ProfileType != "tutor") model.StudentUserProfile = student;
+            else model.TutorUserProfile = student;
+            model.TutorStreamingUserProfile = tutorProfile;
+            model.ChatBox = chatBox;
+            model.UserChannel = channel;
+
+            if (student != null && student.FollowedStudentsAndTutors != null)
+                model.IsUserFollowingThisTutor = student.FollowedStudentsAndTutors.Contains(tutorProfile.Id);
 
             await _streamHelperFunctions.IncrementChannelViews(storageConfig, HttpContext.User.Identity.Name, streamTutorUsername);
 
