@@ -14,25 +14,25 @@ namespace StreamWork.Controllers
         readonly StreamHelperFunctions _streamHelperFunctions = new StreamHelperFunctions();
 
         [HttpGet]
-        public async Task<IActionResult> StreamPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamTutorUsername, string codeId) //id is archivedVideo id
+        public async Task<IActionResult> StreamPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamTutorUsername, string id) //id is archivedVideo id
         {
-            if (HttpContext.User.Identity.IsAuthenticated == false && codeId == null)
+            if (HttpContext.User.Identity.IsAuthenticated == false && id == null)
             {
                 return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-StreamViews-StreamPage?streamTutorUsername=" + streamTutorUsername);
             }
-            else if (HttpContext.User.Identity.IsAuthenticated == false && codeId != null)
+            else if (HttpContext.User.Identity.IsAuthenticated == false && id != null)
             {
-                return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-StreamViews-StreamPage?streamTutorUsername=" + streamTutorUsername + "&codeId=" + codeId);
+                return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-StreamViews-StreamPage?streamTutorUsername=" + streamTutorUsername + "&codeId=" + id);
             }
            
             var channel = await _homeHelperFunctions.GetUserChannel(storageConfig, QueryHeaders.CurrentUserChannel, streamTutorUsername);
             var tutorProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, streamTutorUsername);
             var chatBox = await _homeHelperFunctions.GetChatSecretKey(storageConfig, channel.ChatId, HttpContext.User.Identity.Name);
            
-            if(channel.StreamTitle == null && codeId != null)
+            if(channel.StreamTitle == null && id != null)
             {
-                codeId = codeId.Replace('/', '-');
-                var archivedStream = await _homeHelperFunctions.GetArchivedStream(storageConfig, QueryHeaders.ArchivedVideosById, codeId);
+                id = id.Replace('/', '-');
+                var archivedStream = await _homeHelperFunctions.GetArchivedStream(storageConfig, QueryHeaders.ArchivedVideosById, id);
                 if(archivedStream == null) return Redirect(_homeHelperFunctions._host + "/Home/ProfileView?Tutor=" + channel.Username);
                 else return Redirect(_homeHelperFunctions._host + "/StreamViews/StreamPlaybackPage?streamId=" + archivedStream.StreamID);
             }
