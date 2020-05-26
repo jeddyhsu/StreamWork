@@ -22,7 +22,7 @@ namespace StreamWork.Controllers
             }
             else if (HttpContext.User.Identity.IsAuthenticated == false && id != null)
             {
-                return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-StreamViews-StreamPage?streamTutorUsername=" + streamTutorUsername + "&codeId=" + id);
+                return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-StreamViews-StreamPage?streamTutorUsername=" + streamTutorUsername + "&id=" + id);
             }
            
             var channel = await _homeHelperFunctions.GetUserChannel(storageConfig, QueryHeaders.CurrentUserChannel, streamTutorUsername);
