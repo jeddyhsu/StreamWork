@@ -17,13 +17,14 @@
 .chatName {
     font-family: 'Roboto Slab', serif;
     font-size: 16px;
-    margin-left: 50px;
+    padding-left: 10px;
     margin-top: 10px;
 }
 
 .chatDate {
+    font-family: 'Roboto', serif;
     font-size: 10px;
-    color: black
+    color: #818A96;
 }
 
 .chatMessage {
@@ -31,7 +32,7 @@
     font-size: 14px;
     border: thick;
     color: black;
-    margin-left: 50px;
+    padding-left: 40px;
 }
 
 

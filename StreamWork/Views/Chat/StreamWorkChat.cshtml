@@ -34,12 +34,12 @@
                                             <input align="left" type="image" class="chatProfilePicture rounded" src=@Model.Chats[i].ProfilePicture />
                                             @if (Model.ChatId == Model.Chats[i].Username)
                                             {
-                                                <h5 class="text-truncate mb-0 chatName" style='color:@Model.Chats[i].ChatColor'>@Model.Chats[i].Name.Replace('|', ' ')<span><img id="tutortip-@i" class="p-1" src="/images/ChatAssets/Tutor.png" data-toggle="tooltip" data-placement="top" title="StreamTutor" /></span><span class='chatDate'>@Model.Chats[i].Date.ToShortTimeString()</span></h5>
+                                                <h5 class="text-truncate mb-0 chatName" style='color:@Model.Chats[i].ChatColor'>@Model.Chats[i].Name.Replace('|', ' ')<span><img id="tutortip-@i" class="pl-1 pr-1" src="/images/ChatAssets/Tutor.png" data-toggle="tooltip" data-placement="top" title="StreamTutor" /></span><span class='chatDate'>@Model.Chats[i].Date.ToShortTimeString()</span></h5>
                                                 <script>$('#tutortip-@i').tooltip()</script>
                                             }
                                             else if(Model.UserProfile.Username == Model.Chats[i].Username)
                                             {
-                                                <h5 class="text-truncate mb-0 chatName" style="color:@Model.Chats[i].ChatColor">@Model.Chats[i].Name.Replace('|', ' ') (you) <span class="chatDate">@Model.Chats[i].Date.ToShortTimeString()</span></h5>
+                                                <h5 class="mb-0 chatName" style="color:@Model.Chats[i].ChatColor">@Model.Chats[i].Name.Replace('|', ' ') (you) <span class="chatDate">@Model.Chats[i].Date.ToShortTimeString()</span></h5>
                                             }
                                             else
                                             {

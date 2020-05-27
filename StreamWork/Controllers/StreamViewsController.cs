@@ -5,7 +5,6 @@ using StreamWork.HelperClasses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using StreamWork.Config;
-using System.Security.Claims;
 
 namespace StreamWork.Controllers
 {
@@ -13,11 +12,6 @@ namespace StreamWork.Controllers
     {
         readonly HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
         readonly StreamHelperFunctions _streamHelperFunctions = new StreamHelperFunctions();
-
-        public IActionResult Index()
-        {
-            return View();
-        }
 
         public async Task<IActionResult> StreamPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamTutorUsername)
         {
