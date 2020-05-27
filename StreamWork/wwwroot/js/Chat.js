@@ -2,6 +2,7 @@
 var initialUserName = "";
 var initialChatId = "";
 var toolTipCount = 0;
+var chatCount = 0;
 
 connection.on("ReceiveMessage", function (name, message, profilePicture, questionNumber, date, userName, chatColor) {
     var listName = "";
@@ -9,9 +10,15 @@ connection.on("ReceiveMessage", function (name, message, profilePicture, questio
     if (initialChatId == userName) listName = "<h5 class='mb-0 chatName' style='color:" + chatColor + "'>" + name + "<span><img id='tutortip" + toolTipCount + "' class='pl-1 pr-1' src='/images/ChatAssets/Tutor.png' data-toggle='tooltip' data-placement='top' title='StreamTutor'/></span><span class='chatDate'> " + date + "</span></h5>";
     else if (initialUserName == userName) listName = "<h5 class='mb-0 chatName' style='color:" + chatColor + "'>" + name + " (you)" + "<span class='chatDate'> " + date + "</span></h5>";
     else listName = "<h5 class='mb-0 chatName' style='color:" + chatColor + "'>" + name + "<span class='chatDate'> " + date + "</span></h5>";
-       
-    var listItem = "<li class='list-group-item chatList border-top-0 border-left-0 border-right-0 border-bottom'><div class='row'><div class='col-12'><input align='left' type='image' class='chatProfilePicture rounded' src=" + profilePicture + "/>" + listName + "<p id='question-" + questionNumber + "'class='chatMessage'>" + message + "</p> </div></div></li>"
 
+    if ((chatCount + 1) % 2 == 0) {
+        var listItem = "<li class='list-group-item chatList border-right-0 border-left-0'><div class='row'><div class='col-12'><input align='left' type='image' class='chatProfilePicture rounded' src=" + profilePicture + "/>" + listName + "<p id='question-" + questionNumber + "'class='chatMessage'>" + message + "</p> </div></div></li>"
+    }
+    else {
+        var listItem = "<li class='list-group-item chatListAlternate border-right-0 border-left-0'><div class='row'><div class='col-12'><input align='left' type='image' class='chatProfilePicture rounded' src=" + profilePicture + "/>" + listName + "<p id='question-" + questionNumber + "'class='chatMessage'>" + message + "</p> </div></div></li>"
+    }
+
+    chatCount++;
     $('#chatField').append(listItem);
     $("#tutortip" + toolTipCount).tooltip();
     toolTipCount++;
@@ -41,47 +48,11 @@ function JoinChatRoom(chatId, userName) {
 
 function SendMessageToChatRoom(chatId, userName, name, profilePicture, chatColor) {
     var message = document.getElementById("chatInput").value;
-    FormatMessage(message);
     connection.invoke("SendMessageToChatRoom", chatId, userName, name, message, profilePicture, chatColor).catch(function (err) {
         return console.error(err.toString());
     });
     document.getElementById("chatInput").value = "";
     event.preventDefault();
-}
-
-function Alert(count) {
-    var MQ = MathQuill.getInterface(2);
-    for (i = 0; i < count; i++) {
-        var problemSpan = document.getElementById("chat-" + i);
-        MQ.StaticMath(problemSpan);
-    }
-}
-
-function WriteCommmand(command) {
-    var mathFieldSpan = document.getElementById('math-field');
-    var mathField = MQ.MathField(mathFieldSpan);
-    mathField.cmd(command);
-}
-
-function WriteExpression(expression) {
-    var mathFieldSpan = document.getElementById('math-field');
-    var mathField = MQ.MathField(mathFieldSpan);
-    mathField.write(expression);
-}
-
-function FormatMessage() {
-    var mathFieldSpan = document.getElementById('math-field')
-    var latexSpan = document.getElementById('latex');
-    var MQ = MathQuill.getInterface(2);
-    var mathField = MQ.MathField(mathFieldSpan, {
-        spaceBehavesLikeTab: false,
-        autoCommands: 'pi theta sqrt sum integral delta gamma infinity isin pm',
-        handlers: {
-            edit: function () {
-                latexSpan.textContent = mathField.latex();
-            }
-        }
-    });
 }
 
 function PopoutChat(chatId) {
@@ -90,3 +61,39 @@ function PopoutChat(chatId) {
     windowObjectRef = window.open('http://localhost:58539/chat/streamworkchat?chatId=' + chatId, 'StreamWork Chat', windowFeatures);
 
 }
+
+//function Alert(count) {
+//    var MQ = MathQuill.getInterface(2);
+//    for (i = 0; i < count; i++) {
+//        var problemSpan = document.getElementById("chat-" + i);
+//        MQ.StaticMath(problemSpan);
+//    }
+//}
+
+//function WriteCommmand(command) {
+//    var mathFieldSpan = document.getElementById('math-field');
+//    var mathField = MQ.MathField(mathFieldSpan);
+//    mathField.cmd(command);
+//}
+
+//function WriteExpression(expression) {
+//    var mathFieldSpan = document.getElementById('math-field');
+//    var mathField = MQ.MathField(mathFieldSpan);
+//    mathField.write(expression);
+//}
+
+//function FormatMessage() {
+//    var mathFieldSpan = document.getElementById('math-field')
+//    var latexSpan = document.getElementById('latex');
+//    var MQ = MathQuill.getInterface(2);
+//    var mathField = MQ.MathField(mathFieldSpan, {
+//        spaceBehavesLikeTab: false,
+//        autoCommands: 'pi theta sqrt sum integral delta gamma infinity isin pm',
+//        handlers: {
+//            edit: function () {
+//                latexSpan.textContent = mathField.latex();
+//            }
+//        }
+//    });
+//}
+

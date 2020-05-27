@@ -4,7 +4,13 @@
 }
 
 .chatList {
-    background-color: transparent;
+    background: none;
+    background-color: white;
+}
+
+.chatListAlternate {
+    background: none;
+    background-color: #FBFBFB;
 }
 
 .chatProfilePicture {
