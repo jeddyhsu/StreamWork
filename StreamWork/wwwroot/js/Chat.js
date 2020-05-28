@@ -3,6 +3,7 @@ var initialUserName = "";
 var initialChatId = "";
 var toolTipCount = 0;
 var chatCount = 0;
+var muted = true;
 
 connection.on("ReceiveMessage", function (name, message, profilePicture, questionNumber, date, userName, chatColor) {
     var listName = "";
@@ -23,7 +24,7 @@ connection.on("ReceiveMessage", function (name, message, profilePicture, questio
     $("#tutortip" + toolTipCount).tooltip();
     toolTipCount++;
     window.scroll(0, document.documentElement.offsetHeight);
-    PlayAudio();
+    if (!muted && initialUserName != userName) PlayAudio();
     //var problemSpan = document.getElementById("question-" + questionNumber);
     //MQ.StaticMath(problemSpan);
 });
@@ -31,7 +32,19 @@ connection.on("ReceiveMessage", function (name, message, profilePicture, questio
 function PlayAudio() {
     var audioElement = document.createElement('audio');
     audioElement.setAttribute('src', '/media/juntos.mp3')
-    audioElement.play();
+    var promise = audioElement.play();
+}
+
+function ToggleMuteAndUnmute() {
+    if (!muted) {
+        document.getElementById("sound").src = '/images/ChatAssets/Mute.png';
+        muted = true;
+    }
+    else {
+        document.getElementById("sound").src = '/images/ChatAssets/Unmute.png';
+        PlayAudio();
+        muted = false;
+    }
 }
 
 function JoinChatRoom(chatId, userName) {
