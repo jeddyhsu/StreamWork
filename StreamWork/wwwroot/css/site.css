@@ -309,5 +309,11 @@ lds-dual-ring {
     color: gray;
 }
 
-
-
+.navBarHeight {
+    height: 100px;
+}
+@media screen and (max-width: 1200px){
+    .navBarHeight {
+        height: auto;
+    }
+}
