@@ -33,6 +33,13 @@ function PlayAudio() {
     var audioElement = document.createElement('audio');
     audioElement.setAttribute('src', '/media/juntos.mp3')
     var promise = audioElement.play();
+    promise.then(function () {
+        document.getElementById("sound").src = '/images/ChatAssets/Unmute.png';
+        muted = false;
+
+    }).catch(function () {
+        return document.getElementById("sound").src = '/images/ChatAssets/Mute.png';
+    })
 }
 
 function ToggleMuteAndUnmute() {

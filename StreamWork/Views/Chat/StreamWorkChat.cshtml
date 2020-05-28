@@ -4,6 +4,7 @@
 
 <script>
     JoinChatRoom('@Model.ChatId', '@Model.UserProfile.Username')
+    
 </script>
 
 <section>
@@ -20,6 +21,7 @@
                             <img id="sound" src="~/images/ChatAssets/Mute.png" style="cursor:pointer" onclick="ToggleMuteAndUnmute()" />
                             <img src="~/images/ChatAssets/Popout.png" style="cursor:pointer" onclick="PopoutChat('@Model.ChatId')" />
                         </div>
+                        <script>PlayAudio();</script>
                     </div>
                 </div>
                 <div class="card" style="border:none;">
