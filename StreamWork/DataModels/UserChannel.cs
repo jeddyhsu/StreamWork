@@ -2,7 +2,6 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using StreamWork.Framework;
-using StreamWork.TutorObjects;
 
 namespace StreamWork.DataModels
 {
@@ -21,6 +20,7 @@ namespace StreamWork.DataModels
 
         public string ProfilePicture { get; set; }
         public string StreamTasks { get; set; }
+        public string ChatColor { get; set; }
 
         public DateTime StartTime { get; set; }
         public int Views { get; set; }

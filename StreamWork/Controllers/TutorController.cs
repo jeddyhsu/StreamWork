@@ -9,6 +9,7 @@ using StreamWork.ViewModels;
 using StreamWork.Threads;
 using StreamWork.HelperClasses;
 using System;
+using System.Security.Claims;
 
 namespace StreamWork.Controllers
 {
@@ -43,6 +44,11 @@ namespace StreamWork.Controllers
             var user = HttpContext.User.Identity.Name;
             var userChannel = await _homeHelperFunctions.GetUserChannel(storageConfig, QueryHeaders.CurrentUserChannel, user);
             var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
+            var chatColor = "";
+            foreach (var claims in HttpContext.User.Claims)
+            {
+                if (claims.Type == ClaimTypes.UserData) chatColor = claims.Value;
+            }
 
             //Saves streamTitle, URl, and subject into sql database with custom thumbnail
             if (Request.Form.Files.Count != 0)
@@ -54,8 +60,9 @@ namespace StreamWork.Controllers
                 var notifyStudents = streamInfo[3];
                 var archivedStreamId = Guid.NewGuid().ToString();
                 var streamThumbnail =  _homeHelperFunctions.SaveIntoBlobContainer(Request.Form.Files[0],archivedStreamId, 1280, 720);
+                
 
-                ThreadClass handleStreams = new ThreadClass(storageConfig, userChannel, userProfile, streamTitle, streamSubject, streamDescription, streamThumbnail, archivedStreamId);
+                ThreadClass handleStreams = new ThreadClass(storageConfig, userChannel, userProfile, streamTitle, streamSubject, streamDescription, streamThumbnail, archivedStreamId, chatColor);
                 handleStreams.RunLiveThread();
                 if(notifyStudents.Equals("yes")) handleStreams.RunEmailThread();
 
@@ -75,7 +82,7 @@ namespace StreamWork.Controllers
                 var notifyStudents = streamInfo[3];
                 var archivedStreamId = Guid.NewGuid().ToString();
 
-                ThreadClass handleStreams = new ThreadClass(storageConfig, userChannel, userProfile, streamTitle, streamSubject, streamDescription, _tutorHelperFunctions.GetCorrespondingDefaultThumbnail(streamSubject), archivedStreamId);
+                ThreadClass handleStreams = new ThreadClass(storageConfig, userChannel, userProfile, streamTitle, streamSubject, streamDescription, _tutorHelperFunctions.GetCorrespondingDefaultThumbnail(streamSubject), archivedStreamId, chatColor);
                 handleStreams.RunLiveThread();
                 if(notifyStudents.Equals("yes")) handleStreams.RunEmailThread();
 

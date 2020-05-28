@@ -1,0 +1,45 @@
+﻿.profilePictureSetting{
+    width:30px;
+    border-radius:5px;
+}
+
+.chatList {
+    background: none;
+    background-color: white;
+}
+
+.chatListAlternate {
+    background: none;
+    background-color: #FBFBFB;
+}
+
+.chatProfilePicture {
+    border-radius: 5%;
+    width: 30px;
+    margin-top: 10px;
+    height: 40px;
+}
+
+.chatName {
+    font-family: 'Roboto Slab', serif;
+    font-size: 16px;
+    padding-left: 40px;
+    margin-top: 10px;
+}
+
+.chatDate {
+    font-family: 'Roboto', serif;
+    font-size: 10px;
+    color: #818A96;
+}
+
+.chatMessage {
+    font-family: 'Roboto';
+    font-size: 14px;
+    border: thick;
+    color: black;
+    padding-left: 40px;
+}
+
+
+

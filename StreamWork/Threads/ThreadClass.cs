@@ -25,12 +25,13 @@ namespace StreamWork.Threads
         readonly string _streamDescription;
         readonly string _streamThumbnail;
         readonly string _archivedVideoId;
+        readonly string _chatColor;
 
         private int initialCount = 0;
         private static int threadCount = 0;
         private static Hashtable hashTable = new Hashtable();
 
-        public ThreadClass(IOptionsSnapshot<StorageConfig> storageConfig, UserChannel userChannel, UserLogin userLogin, string streamTitle, string streamSubject, string streamDescription, string streamThumbnail, string archivedVideoId)
+        public ThreadClass(IOptionsSnapshot<StorageConfig> storageConfig, UserChannel userChannel, UserLogin userLogin, string streamTitle, string streamSubject, string streamDescription, string streamThumbnail, string archivedVideoId, string chatColor)
         {
             _homeHelperFunctions = new HomeHelperFunctions();
             _emailHelperFunctions = new EmailHelperFunctions();
@@ -43,6 +44,7 @@ namespace StreamWork.Threads
             _streamDescription = streamDescription;
             _streamThumbnail = streamThumbnail;
             _archivedVideoId = archivedVideoId;
+            _chatColor = chatColor;
         }
 
         public bool RunEmailThread()
@@ -79,6 +81,7 @@ namespace StreamWork.Threads
                     _userChannel.StreamDescription = _streamDescription;
                     _userChannel.StreamThumbnail = _streamThumbnail;
                     _userChannel.Views = 0;
+                    _userChannel.ChatColor = _chatColor;
                     await DataStore.SaveAsync(_homeHelperFunctions._connectionString, _storageConfig.Value, new Dictionary<string, object> { { "Id", _userChannel.Id } }, _userChannel);
                 }
                 catch (Microsoft.EntityFrameworkCore.DbUpdateException e)

@@ -284,8 +284,6 @@ function Login() {
 
                 if (modifiedURL.includes("Home") || modifiedURL.includes("StreamViews")) {
                     window.location.href = modifiedURL.split('-').join('/');
-                    return;
-                }
 
                 if (data.message === "Tutor") {
                     window.location.href = '/Tutor/ProfileTutor'

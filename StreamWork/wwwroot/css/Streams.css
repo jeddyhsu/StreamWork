@@ -2,3 +2,14 @@
     text-decoration:underline;
 }
 
+.chatBoxHeight {
+    border:none;
+    min-height: 100%
+}
+@media screen and (max-width: 700px) {
+    .chatBoxHeight {
+        border: none;
+        height: 100%;
+        min-height:500px
+    }
+}
