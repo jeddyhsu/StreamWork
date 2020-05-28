@@ -169,6 +169,23 @@ namespace StreamWork.HelperClasses
         public async Task<IndexViewModel> PopulateHomePage ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string currentUser) {
             var streamingUserChannels = await GetUserChannel(storageConfig, QueryHeaders.AllUserChannelsThatAreStreaming, "N|A");
             IndexViewModel model = new IndexViewModel();
+
+            // List of streams for the carousel
+            List<string> streamsWithPriority = new List<string> { }; // List of the IDs of the streams to hardcode in
+            List<UserArchivedStreams> streamsByViews = await GetArchivedStreams(storageConfig, QueryHeaders.ArchivedStreamsByViews, null);
+            List<UserArchivedStreams> userArchivedStreams = new List<UserArchivedStreams>();
+            foreach (string streamWithPriority in streamsWithPriority) // Add hardcoded streams
+            {
+                int streamIndex = streamsByViews.FindIndex(x => x.Id.Equals(streamWithPriority));
+                userArchivedStreams.Add(streamsByViews[streamIndex]);
+                streamsByViews.RemoveAt(streamIndex);
+            }
+            int toAdd = 12 - userArchivedStreams.Count; // Since Count changes while the loop is running
+            for (int i = 0; i < toAdd; i++) // Fill the rest in with streams in order of view count
+            {
+                userArchivedStreams.Add(streamsByViews[i]);
+            }
+
             if (streamingUserChannels == null)
             {
                 var userProfile= await GetUserProfile(storageConfig, QueryHeaders.CurrentUser, "juliamkim");
@@ -180,7 +197,7 @@ namespace StreamWork.HelperClasses
                     UserLogin = userProfile,
                     UserChannel = userChannel,
                     UserArchivedStream = getArchivedStreams[0],
-                    UserArchivedStreams = new List<UserArchivedStreams>(),
+                    UserArchivedStreams = userArchivedStreams,
                     ChatBox = await GetChatSecretKey(storageConfig, userChannel.ChatId, currentUser)
                 };
             }
@@ -191,12 +208,10 @@ namespace StreamWork.HelperClasses
                 {
                     UserLogin = userProfileForChannel,
                     UserChannel = streamingUserChannels,
-                    UserArchivedStreams = new List<UserArchivedStreams>(),
+                    UserArchivedStreams = userArchivedStreams,
                     ChatBox = await GetChatSecretKey(storageConfig, streamingUserChannels.ChatId, currentUser)
                 };
             }
-
-            model.UserArchivedStreams = await GetArchivedStreams(storageConfig, QueryHeaders.ArchivedStreamsByViews, null);
 
             return model;
         }
