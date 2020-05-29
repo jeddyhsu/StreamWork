@@ -171,12 +171,21 @@ namespace StreamWork.HelperClasses
             IndexViewModel model = new IndexViewModel();
 
             // List of streams for the carousel
-            List<string> streamsWithPriority = new List<string> { }; // List of the IDs of the streams to hardcode in
+            List<string> streamsWithPriority = new List<string> {
+                "F8U3mEscyNB_1",
+                "EBRNrFsAqZZ_1",
+                "E1OKuVsAi9U_1",
+                "EdowSgsAqJV_1",
+                "EYd2jUscrUz_1",
+                "Fr40wrscyQF_1",
+                "ETWYvVscngb_1",
+                "F5pYLrscQ5Q_1"
+            }; // List of the IDs of the streams to hardcode in
             List<UserArchivedStreams> streamsByViews = await GetArchivedStreams(storageConfig, QueryHeaders.ArchivedStreamsByViews, null);
             List<UserArchivedStreams> userArchivedStreams = new List<UserArchivedStreams>();
             foreach (string streamWithPriority in streamsWithPriority) // Add hardcoded streams
             {
-                int streamIndex = streamsByViews.FindIndex(x => x.Id.Equals(streamWithPriority));
+                int streamIndex = streamsByViews.FindIndex(x => x.StreamID.Equals(streamWithPriority));
                 userArchivedStreams.Add(streamsByViews[streamIndex]);
                 streamsByViews.RemoveAt(streamIndex);
             }
