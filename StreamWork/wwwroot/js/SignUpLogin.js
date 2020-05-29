@@ -30,11 +30,11 @@ function SignUpStudent() {
             'college': college,
             'role': role,
         },
-        success: function(data) {
+        success: function (data) {
             if (data.message === "Success") {
                 window.location.href = '/Home/Login?dest=-Home-Profile';
                 $('#loaderStudent').hide()
-            } 
+            }
         }
     });
 }
@@ -186,7 +186,7 @@ function RunTutorChecks() {
         success: function (data) {
             if (data.message === "Success") {
                 SignUpTutor();
-            }else if (data.message === "UsernameExists") {
+            } else if (data.message === "UsernameExists") {
                 OpenNotificationModal("Username is taken")
             }
             else if (data.message === "EmailExists") {
@@ -199,7 +199,7 @@ function RunTutorChecks() {
     });
 }
 
-function ValidatePassword(password){
+function ValidatePassword(password) {
     var UpperCase = false;
     var LowerCase = false;
     var Number = false;
@@ -232,7 +232,7 @@ function ValidatePassword(password){
 }
 
 function ValidateEmail(email) {
-    if (email.includes("@") && email.includes(".")){
+    if (email.includes("@") && email.includes(".")) {
         return true;
     }
 
@@ -284,13 +284,14 @@ function Login() {
 
                 if (modifiedURL.includes("Home") || modifiedURL.includes("StreamViews")) {
                     window.location.href = modifiedURL.split('-').join('/');
+                    return;
                 }
 
                 if (data.message === "Tutor") {
                     window.location.href = '/Tutor/ProfileTutor'
                     return;
                 }
-              
+
                 if (data.message === "Student") {
                     window.location.href = '/Student/ProfileStudent'
                     return;
@@ -300,12 +301,12 @@ function Login() {
     });
 }
 
-function NavigateToPage (url) {
+function NavigateToPage(url) {
     window.location.href = '/Home/Login?dest=' + url.split('/').join('-');
     return
 }
 
-function redirect () {
+function redirect() {
     window.location.href = '/Home/Subscribe';
     return;
 }
@@ -393,7 +394,7 @@ function ChangePassword() {
             else if (data.message === 'Failed') {
                 OpenNotificationModal('Passwords do not match. Please try again.')
             }
-            else if (data.message === 'QueryFailed'){
+            else if (data.message === 'QueryFailed') {
                 OpenNotificationModal('')
             }
             else {
