@@ -68,6 +68,7 @@ function JoinChatRoom(chatId, userName) {
 
 function GetMessage(chatId, userName, name, profilePicture, chatColor) {
     var message = document.getElementById("chatInput").value;
+    if (message == "") return;
     CleanAndSendMessage(message, chatId, userName, name, profilePicture, chatColor);
 }
 
