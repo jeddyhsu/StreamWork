@@ -16,8 +16,9 @@ namespace StreamWork.Controllers
         [HttpGet]
         public async Task<IActionResult> StreamWorkChat([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string chatId)
         {
-            if(HttpContext.User.Identity.Name == null)
-                return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-Chat-StreamWorkChat?chatId=" + chatId);
+            bool isLoggedIn = true;
+            if (HttpContext.User.Identity.Name == null)
+                isLoggedIn = false;
 
             string chatColor = "";
             foreach(var claims in HttpContext.User.Claims)
@@ -27,10 +28,11 @@ namespace StreamWork.Controllers
 
             ChatViewModel chatViewModel = new ChatViewModel
             {
-                UserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name),
+                UserProfile = isLoggedIn == false ? null : await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name),
                 ChatId = chatId,
                 Chats = await _chatHelperFunctions.GetAllChatsWithChatId(storageConfig, chatId),
                 ChatColor = chatColor,
+                IsLoggedIn = isLoggedIn
             };
 
             return View(chatViewModel);

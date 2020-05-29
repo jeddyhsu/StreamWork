@@ -2,10 +2,12 @@
 @{ViewData["Title"] = "StreamWorkChat";}
 @model StreamWork.ViewModels.ChatViewModel
 
-<script>
+@if (Model.IsLoggedIn)
+{
+    <script>
     JoinChatRoom('@Model.ChatId', '@Model.UserProfile.Username')
-    
-</script>
+    </script>
+}
 
 <section>
     <div class="container-fluid  p-0">
@@ -13,7 +15,7 @@
             <div class="col-lg-12">
                 <div class="card fixed-top" style="border-radius:0px; background-color:#FBFBFB">
                     <div class="row">
-                        <div class="col-3">
+                        <div class="col-5">
                             <div class="card-tite mt-3 mb-3 ml-3" style="font-family:'Roboto Slab', serif; font-size:20px">Chat</div>
                         </div>
                         <div class="inline-block m-2 mr-4 ml-auto">
@@ -24,7 +26,7 @@
                         <script>PlayAudio();</script>
                     </div>
                 </div>
-                <div class="card" style="border:none;">
+                <div class="card" style="border:none; background-color:whitesmoke">
                     <div class="card-body pl-0 pr-0" style="padding-top:69px; padding-bottom:85px;">
                         <ul style="overflow-x:hidden" id="chatField" class="list-group p-0">
                             @for (int i = 0; i < Model.Chats.Count; i++)
@@ -40,7 +42,7 @@
                                                     <h5 class="mb-0 chatName" style='color:@Model.Chats[i].ChatColor'>@Model.Chats[i].Name.Replace('|', ' ')<span><img id="tutortip-@i" class="pl-1 pr-1" src="/images/ChatAssets/Tutor.png" data-toggle="tooltip" data-placement="top" title="StreamTutor" /></span><span class='chatDate'>@Model.Chats[i].Date.ToShortTimeString()</span></h5>
                                                     <script>$('#tutortip-@i').tooltip()</script>
                                                 }
-                                                else if (Model.UserProfile.Username == Model.Chats[i].Username)
+                                                else if (Model.UserProfile != null && Model.UserProfile.Username == Model.Chats[i].Username)
                                                 {
                                                     <h5 class="mb-0 chatName" style="color:@Model.Chats[i].ChatColor">@Model.Chats[i].Name.Replace('|', ' ') (you) <span class="chatDate">@Model.Chats[i].Date.ToShortTimeString()</span></h5>
                                                 }
@@ -56,26 +58,26 @@
                                 else
                                 {
                                     <li id="message-@i" class='list-group-item chatList border-left-0 border-right-0'>
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <input align="left" type="image" class="chatProfilePicture rounded" src=@Model.Chats[i].ProfilePicture />
-                                            @if (Model.ChatId == Model.Chats[i].Username)
-                                            {
-                                                <h5 class="mb-0 chatName" style='color:@Model.Chats[i].ChatColor'>@Model.Chats[i].Name.Replace('|', ' ')<span><img id="tutortip-@i" class="pl-1 pr-1" src="/images/ChatAssets/Tutor.png" data-toggle="tooltip" data-placement="top" title="StreamTutor" /></span><span class='chatDate'>@Model.Chats[i].Date.ToShortTimeString()</span></h5>
-                                                <script>$('#tutortip-@i').tooltip()</script>
-                                            }
-                                            else if (Model.UserProfile.Username == Model.Chats[i].Username)
-                                            {
-                                                <h5 class="mb-0 chatName" style="color:@Model.Chats[i].ChatColor">@Model.Chats[i].Name.Replace('|', ' ') (you) <span class="chatDate">@Model.Chats[i].Date.ToShortTimeString()</span></h5>
-                                            }
-                                            else
-                                            {
-                                                <h5 class="mb-0 chatName" style="color:@Model.Chats[i].ChatColor">@Model.Chats[i].Name.Replace('|', ' ') <span class="chatDate">@Model.Chats[i].Date.ToShortTimeString()</span></h5>
-                                            }
-                                            <p id="chat-@i" class="chatMessage">@Model.Chats[i].Message</p>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <input align="left" type="image" class="chatProfilePicture rounded" src=@Model.Chats[i].ProfilePicture />
+                                                @if (Model.ChatId == Model.Chats[i].Username)
+                                                {
+                                                    <h5 class="mb-0 chatName" style='color:@Model.Chats[i].ChatColor'>@Model.Chats[i].Name.Replace('|', ' ')<span><img id="tutortip-@i" class="pl-1 pr-1" src="/images/ChatAssets/Tutor.png" data-toggle="tooltip" data-placement="top" title="StreamTutor" /></span><span class='chatDate'>@Model.Chats[i].Date.ToShortTimeString()</span></h5>
+                                                    <script>$('#tutortip-@i').tooltip()</script>
+                                                }
+                                                else if (Model.UserProfile != null && Model.UserProfile.Username == Model.Chats[i].Username)
+                                                {
+                                                    <h5 class="mb-0 chatName" style="color:@Model.Chats[i].ChatColor">@Model.Chats[i].Name.Replace('|', ' ') (you) <span class="chatDate">@Model.Chats[i].Date.ToShortTimeString()</span></h5>
+                                                }
+                                                else
+                                                {
+                                                    <h5 class="mb-0 chatName" style="color:@Model.Chats[i].ChatColor">@Model.Chats[i].Name.Replace('|', ' ') <span class="chatDate">@Model.Chats[i].Date.ToShortTimeString()</span></h5>
+                                                }
+                                                <p id="chat-@i" class="chatMessage">@Model.Chats[i].Message</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </li>
+                                    </li>
                                 }
 
                             }
@@ -85,19 +87,30 @@
                         </script>
                     </div>
                 </div>
-                <div class="card" style="border:none">
+                <div class="card" style="border:none;">
                     <div class="card-footer fixed-bottom p-0">
                         <div id="questionBox">
-                            <div class="card border-left" style=" background-color:#FBFBFB; border:none; height:100%">
-                                <div class="card-body">
+                            <div class="card border-top-0" style=" background-color:whitesmoke; height:100%; border-radius:0px">
+                                @if (!Model.IsLoggedIn)
+                                {
+                                    <p class="text-center m-0 p-2" style="color:white; background-color:#0A605F; font-size:12px">You must be logged in to post. <a href="https://www.streamwork.live/Home/Login?dest=-Home-Profile" target="_blank" style="color:white"><u>Login or Sign Up here</u></a></p>
+                                }
+                                <div class="card-body" style="padding:12px">
                                     <div class="row">
                                         <div class="col-lg-11 col-md-10 col-sm-10 col-9">
                                             <div>
-                                               <textarea id="chatInput" class="form-control" style="height:50px" placeholder="Send question or message..."></textarea>
+                                                <textarea id="chatInput" class="form-control" style="height:50px" placeholder="Send question or message..."></textarea>
                                             </div>
                                         </div>
                                         <div class="col-lg-1 col-md-2 col-sm-2 col-3">
-                                            <button type="button" id="sendQuestionButton" class="streamWorkPrimary" style="font-size:12px; height:100%; display:block; margin-left:auto; margin-right:auto" onclick="SendMessageToChatRoom('@Model.ChatId','@Model.UserProfile.Username','@Model.UserProfile.Name', '@Model.UserProfile.ProfilePicture', '@Model.ChatColor')">Send</button>
+                                            @if (!Model.IsLoggedIn)
+                                            {
+                                                <button type="button" id="sendQuestionButton" class="streamWorkGrey" style="font-size:12px; height:100%; display:block; margin-left:auto; margin-right:auto;" onclick="window.open('https://www.streamwork.live/Home/Login?dest=-Home-Profile')">Send</button>
+                                            }
+                                            else
+                                            {
+                                                <button type="button" id="sendQuestionButton" class="streamWorkPrimary" style="font-size:12px; height:100%; display:block; margin-left:auto; margin-right:auto" onclick="SendMessageToChatRoom('@Model.ChatId','@Model.UserProfile.Username','@Model.UserProfile.Name', '@Model.UserProfile.ProfilePicture', '@Model.ChatColor')">Send</button>
+                                            }
                                         </div>
                                     </div>
                                 </div>
