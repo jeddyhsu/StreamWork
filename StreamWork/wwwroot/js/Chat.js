@@ -8,7 +8,7 @@ var muted = true;
 connection.on("ReceiveMessage", function (name, message, profilePicture, questionNumber, date, userName, chatColor) {
     var listName = "";
 
-    if (initialChatId == userName) listName = "<h5 class='mb-0 chatName' style='color:" + chatColor + "'>" + name + "<span><img id='tutortip" + toolTipCount + "' class='pl-1 pr-1' src='/images/ChatAssets/Tutor.png' data-toggle='tooltip' data-placement='top' title='StreamTutor'/></span><span class='chatDate'> " + date + "</span></h5>";
+    if (initialChatId == userName) listName = "<h5 class='mb-0 chatName' style='color:" + chatColor + "'>" + name + "<span><img id='tutortip" + toolTipCount + "' class='pl-1' src='/images/ChatAssets/Tutor.png' data-toggle='tooltip' data-placement='top' title='StreamTutor'/></span><span class='chatDate'> " + date + "</span></h5>";
     else if (initialUserName == userName) listName = "<h5 class='mb-0 chatName' style='color:" + chatColor + "'>" + name + " (you)" + "<span class='chatDate'> " + date + "</span></h5>";
     else listName = "<h5 class='mb-0 chatName' style='color:" + chatColor + "'>" + name + "<span class='chatDate'> " + date + "</span></h5>";
 
@@ -85,7 +85,7 @@ function CleanAndSendMessage(message, chatId, userName, name, profilePicture, ch
 function PopoutChat(chatId) {
     var windowObjectRef;
     var windowFeatures = "menubar=no, toolbar=no,location=yes,resizable=yes,scrollbars=yes,status=yes, width=500, height=600";
-    windowObjectRef = window.open('http://localhost:58539/chat/streamworkchat?chatId=' + chatId, 'StreamWork Chat', windowFeatures);
+    windowObjectRef = window.open('https://www.streamwork.live/chat/streamworkchat?chatId=' + chatId, 'StreamWork Chat', windowFeatures);
 }
 
 //function Alert(count) {
