@@ -66,20 +66,25 @@ function JoinChatRoom(chatId, userName) {
     });
 }
 
-function SendMessageToChatRoom(chatId, userName, name, profilePicture, chatColor) {
+function GetMessage(chatId, userName, name, profilePicture, chatColor) {
     var message = document.getElementById("chatInput").value;
-    connection.invoke("SendMessageToChatRoom", chatId, userName, name, message, profilePicture, chatColor).catch(function (err) {
-        return console.error(err.toString());
+    CleanAndSendMessage(message, chatId, userName, name, profilePicture, chatColor);
+}
+
+function CleanAndSendMessage(message, chatId, userName, name, profilePicture, chatColor) {
+    $.getJSON('https://www.purgomalum.com/service/json?text=' + message, function (data) {
+        connection.invoke("SendMessageToChatRoom", chatId, userName, name, data.result, profilePicture, chatColor).catch(function (err) {
+            return console.error(err.toString());
+        });
+        document.getElementById("chatInput").value = "";
+        event.preventDefault();
     });
-    document.getElementById("chatInput").value = "";
-    event.preventDefault();
 }
 
 function PopoutChat(chatId) {
     var windowObjectRef;
     var windowFeatures = "menubar=no, toolbar=no,location=yes,resizable=yes,scrollbars=yes,status=yes, width=500, height=600";
     windowObjectRef = window.open('http://localhost:58539/chat/streamworkchat?chatId=' + chatId, 'StreamWork Chat', windowFeatures);
-
 }
 
 //function Alert(count) {
