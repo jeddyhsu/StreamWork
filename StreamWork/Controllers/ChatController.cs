@@ -17,7 +17,7 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> StreamWorkChat([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string chatId)
         {
             bool isLoggedIn = true;
-            if (HttpContext.User.Identity.Name == null)
+            if (HttpContext.User.Identity.IsAuthenticated == false)
                 isLoggedIn = false;
 
             string chatColor = "";

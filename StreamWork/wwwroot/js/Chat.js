@@ -73,13 +73,18 @@ function GetMessage(chatId, userName, name, profilePicture, chatColor) {
 }
 
 function CleanAndSendMessage(message, chatId, userName, name, profilePicture, chatColor) {
-    $.getJSON('https://www.purgomalum.com/service/json?text=' + message, function (data) {
-        connection.invoke("SendMessageToChatRoom", chatId, userName, name, data.result, profilePicture, chatColor).catch(function (err) {
-            return console.error(err.toString());
-        });
-        document.getElementById("chatInput").value = "";
-        event.preventDefault();
+    $.getJSON('https://api.dillilabs.com:8084/79c76f03-8337-4430-b6ed-b42787c3e82a/devil/isprofane?text=' + message, function (data) {
+        if (!data) {
+            connection.invoke("SendMessageToChatRoom", chatId, userName, name, message, profilePicture, chatColor).catch(function (err) {
+                return console.error(err.toString());
+                
+            });
+        }
     });
+
+    document.getElementById("chatInput").value = "";
+    event.preventDefault();
+        
 }
 
 function PopoutChat(chatId) {
