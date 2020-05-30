@@ -26,7 +26,7 @@
                         <script>PlayAudio();</script>
                     </div>
                 </div>
-                <div class="card" style="border:none; background-color:whitesmoke">
+                <div class="card" style="border:none; background-color:#FBFBFB">
                     <div class="card-body pl-0 pr-0" style="padding-top:75px">
                         <ul style="overflow-x:hidden" id="chatField" class="list-group p-0">
                             @for (int i = 0; i < Model.Chats.Count; i++)
@@ -87,10 +87,10 @@
                         </script>
                     </div>
                 </div>
-                <div id="bottomCard" class="card" style="border:none; height:50px">
+                <div id="bottomCard" class="card" style="border:none; height:50px; background-color:#FBFBFB">
                     <div class="card-body fixed-bottom p-0">
                         <div id="questionBox">
-                            <div class="card border-top-0" style=" background-color:whitesmoke; height:100%; border-radius:0px">
+                            <div class="card border-bottom-0 border-right-0" style="background-color:#FBFBFB; height:100%; border-radius:0px">
                                 @if (!Model.IsLoggedIn)
                                 {
                                     <p class="text-center m-0 p-2" style="color:white; background-color:#0A605F; font-size:12px">You must be logged in to post. <a href="https://www.streamwork.live/Home/Login?dest=-Home-Profile" target="_blank" style="color:white"><u>Login or Sign Up here</u></a></p>
@@ -100,7 +100,7 @@
                                     <div class="row">
                                         <div class="col-lg-11 col-md-10 col-sm-10 col-8">
                                             <div>
-                                                <textarea id="chatInput" onkeydown="pressed(event)" class="form-control" style="height:50px; resize:none; font-size:14px" placeholder="Send question or message..."></textarea>
+                                                <textarea id="chatInput" onkeydown="pressed(event)" class="form-control" style="height:50px; resize:none; font-size:14px;" placeholder="Send question or message..." ></textarea>
                                                 @if (Model.IsLoggedIn)
                                                 {
                                                     <script>

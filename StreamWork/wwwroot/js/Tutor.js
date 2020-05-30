@@ -1,11 +1,13 @@
 ﻿
 var oDT = "";
 var videoId = "";
-
+var chatId = "";
 var isEdited = false;
+var chatId = "";
 
 //Streaming
-function CheckIfStreamIsLive(channelKey) {
+function CheckIfStreamIsLive(channelKey, username) {
+    chatId = username;
 
     document.getElementById("ExitStream").style.display = 'none';
     document.getElementById("StartStream").style.display = 'none';
@@ -77,6 +79,7 @@ function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail(notifyStudent) {
                 $('#registerStreamModal').modal('hide'),
                 Hide();
                 OpenNotificationModalSuccess("Your broadcast is visible to students!");
+                PopoutChat()
             }
             else {
                 alert("You must wait at least five minutes in between streams");
@@ -337,7 +340,12 @@ function OpenNotificationModalSuccess(body) {
     $('#notifyModalSuccess').modal('show')
 }
 
-
+//Chat
+function PopoutChat() {
+    var windowObjectRef;
+    var windowFeatures = "menubar=no, toolbar=no,location=yes,resizable=yes,scrollbars=yes,status=yes, width=500, height=600";
+    windowObjectRef = window.open('https://www.streamwork.live/chat/streamworkchat?chatId=' + chatId, 'StreamWork Chat', windowFeatures);
+}
 
 
 
