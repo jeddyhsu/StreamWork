@@ -386,27 +386,18 @@ namespace StreamWork.Controllers
         [HttpPost]
         public async Task<IActionResult> PasswordRecovery([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string username)
         {
-            var userLogin = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
-            if (userLogin == null)
+            var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
+            if (userProfile == null)
                 return Json(new { Message = JsonResponse.Failed.ToString() });
 
             Random random = new Random();
             string key = Convert.ToString(random.Next(int.MaxValue), 16);
-            userLogin.ChangePasswordKey = key;
-            await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userLogin.Id } }, userLogin);
+            userProfile.ChangePasswordKey = key;
+            await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
 
-            await _emailHelperFunctions.SendOutPasswordRecoveryEmail(userLogin, _homeHelperFunctions.CreateUri(userLogin.Username, key));
-            await Task.Factory.StartNew(async () => // Change password key is invalid after 30 min
-            {
-                System.Threading.Thread.Sleep(1800000); // 30 min in ms
-                var currentUserLogin = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
-                if (currentUserLogin.ChangePasswordKey.Equals(userLogin.ChangePasswordKey)) // Make sure you don't reset if user has generated another key
-                {
-                    currentUserLogin.ChangePasswordKey = null;
-                    // Save newer version, since it contains more up-to-date information
-                    await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", currentUserLogin.Id } }, currentUserLogin);
-                }
-            });
+            await _emailHelperFunctions.SendOutPasswordRecoveryEmail(userProfile, _homeHelperFunctions.CreateUri(userProfile.Username, key));  //send email out in thread so that delay will be shorter
+            await _emailHelperFunctions.RunRecoveryEmailThread(storageConfig, userProfile, username);
+
             return Json(new { Message = JsonResponse.Success.ToString() });
         }
 

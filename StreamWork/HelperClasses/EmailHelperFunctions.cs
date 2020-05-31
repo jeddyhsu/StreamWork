@@ -8,6 +8,7 @@ using System.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using StreamWork.Config;
+using StreamWork.Core;
 using StreamWork.DataModels;
 
 namespace StreamWork.HelperClasses
@@ -19,17 +20,33 @@ namespace StreamWork.HelperClasses
 
         private HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
 
-        public async Task<bool> SendOutPasswordRecoveryEmail(UserLogin userProfile, string recoveryLink)
+        public async Task SendOutPasswordRecoveryEmail(UserLogin userProfile, string recoveryLink)
         {
-            using (StreamReader streamReader = new StreamReader("EmailTemplates/PasswordRecoveryEmailTemplate.html"))
+            await Task.Factory.StartNew(async () =>
             {
-                string reader = streamReader.ReadToEnd();
-                reader = reader.Replace("{NAMEOFUSER}", userProfile.Name.Split('|')[0]);
-                reader = reader.Replace("{RESETLINK}", recoveryLink);
-                await SendEmailToAnyEmailAsync(_streamworkEmailID, userProfile.EmailAddress, null, "Change Password", reader, null);
-            }
+                using (StreamReader streamReader = new StreamReader("EmailTemplates/PasswordRecoveryEmailTemplate.html"))
+                {
+                    string reader = streamReader.ReadToEnd();
+                    reader = reader.Replace("{NAMEOFUSER}", userProfile.Name.Split('|')[0]);
+                    reader = reader.Replace("{RESETLINK}", recoveryLink);
+                    await SendEmailToAnyEmailAsync(_streamworkEmailID, userProfile.EmailAddress, null, "Change Password", reader, null);
+                }
+            }, TaskCreationOptions.LongRunning);
+        }
 
-            return true;
+        public async Task RunRecoveryEmailThread([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, UserLogin userLogin, string username)
+        {
+            await Task.Factory.StartNew(async () => // Change password key is invalid after 30 min
+            {
+                await Task.Delay(1800000); // 30 min in ms
+                var currentUserLogin = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
+                if (currentUserLogin.ChangePasswordKey.Equals(userLogin.ChangePasswordKey)) // Make sure you don't reset if user has generated another key
+                {
+                    currentUserLogin.ChangePasswordKey = null;
+                    // Save newer version, since it contains more up-to-date information
+                    await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", currentUserLogin.Id } }, currentUserLogin);
+                }
+            }, TaskCreationOptions.LongRunning);
         }
 
         public async Task<bool> SendOutStudentGreetingEmail(UserLogin userProfile, string recoveryLink)
@@ -72,9 +89,9 @@ namespace StreamWork.HelperClasses
             using (StreamReader streamReader = new StreamReader("EmailTemplates/AutomatedEmailTemplate.html"))
             {
                 string reader = streamReader.ReadToEnd();
-                
+
                 var tutorName = userLogin.Name.Split("|");
-                reader = reader.Replace("{INTRODUCTION}", "StreamTutor " + userLogin.Name.Replace('|',' ') + " is live-streaming " + channel.StreamTitle + " in " + channel.StreamSubject + "!");
+                reader = reader.Replace("{INTRODUCTION}", "StreamTutor " + userLogin.Name.Replace('|', ' ') + " is live-streaming " + channel.StreamTitle + " in " + channel.StreamSubject + "!");
                 reader = reader.Replace("{BODY}", "Tune in and study with your classmates and friends " + streamLink);
                 reader = reader.Replace("{CLOSING}", "See you there,");
                 reader = reader.Replace("{CLOSINGNAME}", "Team StreamWork");
@@ -126,7 +143,7 @@ namespace StreamWork.HelperClasses
                 string reader = streamReader.ReadToEnd();
                 reader = reader.Replace("{NAMEOFUSER}", "The StreamWork Team");
                 reader = reader.Replace("{INTRODUCTION}", "It looks like we got a sign up from a tutor!");
-                reader = reader.Replace("{BODY}", "Name: " + firstName + " " + lastName  + " - Email: " + email );
+                reader = reader.Replace("{BODY}", "Name: " + firstName + " " + lastName + " - Email: " + email);
                 reader = reader.Replace("{CLOSING}", "Great job,");
                 reader = reader.Replace("{CLOSINGNAME}", "Team StreamWork");
                 await SendEmailToAnyEmailAsync(_streamworkEmailID, _streamworkEmailID, null, "New Tutor SignUp", reader, attachments);
@@ -174,7 +191,7 @@ namespace StreamWork.HelperClasses
                 await client.SendMailAsync(message);
                 await Task.Delay(3000);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine("Error in SendEmailToAnyEmailAsync: " + e.InnerException);
             }
