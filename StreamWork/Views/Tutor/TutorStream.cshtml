@@ -30,7 +30,7 @@ else if (Model.UserChannel.StreamTitle == null && Model.UserChannel.StreamSubjec
             <iframe style=" width:100%; height:100%;" class="p-0" src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.UserChannel.ChannelKey.Split('|')[0]" frameborder="0" scrolling="no" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
         </div>
         <div id="chatBox" class="d-flex flex-column col-lg-4 col-md-12 col-sm-12 col-12 p-0">
-            <iframe style="height:100%; border:none;" src="https://www.streamwork.live/chat/streamworkchat?chatId=@Model.UserChannel.Username"></iframe>
+            <iframe style="height:100%; border:none;" src="https://www.streamwork.live/chat/streamworkchat?chatId=@Model.UserChannel.Username&chatInfo=@Model.ChatInfo"></iframe>
         </div>
     </div>
 
@@ -86,7 +86,7 @@ else if (Model.UserChannel.StreamTitle == null && Model.UserChannel.StreamSubjec
                 <div class="modal-footer">
                     <div id="loaderStartStream" style="display:none" class="loader mr-auto"></div>
                     <button id="ExitStream" type="button" class="streamWorkGrey" style="cursor:pointer" onclick="window.location.href = '/Tutor/ProfileTutor'">Exit</button>
-                    <button id="StartStream" type="button" class="streamWorkPrimary" style="cursor:pointer;" onclick="CheckIfStreamIsLive('@Model.UserChannel.ChannelKey', '@Model.UserChannel.Username')">Go Live!</button>
+                    <button id="StartStream" type="button" class="streamWorkPrimary" style="cursor:pointer;" onclick="CheckIfStreamIsLive('@Model.UserChannel.ChannelKey', '@Model.UserChannel.Username', '@Model.ChatInfo')">Go Live!</button>
                 </div>
             </div>
         </div>

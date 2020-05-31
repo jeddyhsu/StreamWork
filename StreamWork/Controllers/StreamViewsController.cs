@@ -27,7 +27,6 @@ namespace StreamWork.Controllers
            
             var channel = await _homeHelperFunctions.GetUserChannel(storageConfig, QueryHeaders.CurrentUserChannel, streamTutorUsername);
             var tutorProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, streamTutorUsername);
-            var chatBox = await _homeHelperFunctions.GetChatSecretKey(storageConfig, channel.ChatId, HttpContext.User.Identity.Name);
            
             if(channel.StreamTitle == null && id != null)
             {
@@ -43,8 +42,8 @@ namespace StreamWork.Controllers
             if(student.ProfileType != "tutor") model.StudentUserProfile = student;
             else model.TutorUserProfile = student;
             model.TutorStreamingUserProfile = tutorProfile;
-            model.ChatBox = chatBox;
             model.UserChannel = channel;
+            model.ChatInfo = _homeHelperFunctions.EncryptString(HttpContext.User.Identity.Name);
 
             if (student != null && student.FollowedStudentsAndTutors != null)
                 model.IsUserFollowingThisTutor = student.FollowedStudentsAndTutors.Contains(tutorProfile.Id);

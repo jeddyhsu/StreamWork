@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using StreamWork.Config;
+using StreamWork.DataModels;
 using StreamWork.HelperClasses;
 using StreamWork.ViewModels;
 
@@ -14,11 +15,11 @@ namespace StreamWork.Controllers
         private readonly ChatHelperFunctions _chatHelperFunctions = new ChatHelperFunctions();
 
         [HttpGet]
-        public async Task<IActionResult> StreamWorkChat([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string chatId)
+        public async Task<IActionResult> StreamWorkChat([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string chatId, string chatInfo)
         {
-            bool isLoggedIn = true;
-            if (HttpContext.User.Identity.IsAuthenticated == false)
-                isLoggedIn = false;
+            var decryptchatInfo = _homeHelperFunctions.DecryptString(chatInfo);
+            UserLogin userProfile = null;
+            if(chatInfo != null) userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, decryptchatInfo);
 
             string chatColor = "";
             foreach(var claims in HttpContext.User.Claims)
@@ -28,11 +29,12 @@ namespace StreamWork.Controllers
 
             ChatViewModel chatViewModel = new ChatViewModel
             {
-                UserProfile = isLoggedIn == false ? null : await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name),
+                UserProfile = userProfile,
                 ChatId = chatId,
+                ChatInfo = chatInfo != null ? chatInfo : null,
                 Chats = await _chatHelperFunctions.GetAllChatsWithChatId(storageConfig, chatId),
                 ChatColor = chatColor,
-                IsLoggedIn = isLoggedIn
+                IsLoggedIn = userProfile == null ? false : true,
             };
 
             return View(chatViewModel);

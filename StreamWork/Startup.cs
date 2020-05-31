@@ -42,6 +42,8 @@ namespace StreamWork
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options =>
             {
+                options.Cookie.SameSite = SameSiteMode.None;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.None;
                 options.LoginPath = "/Home/Login";
             });
 

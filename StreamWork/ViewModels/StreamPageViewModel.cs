@@ -7,7 +7,7 @@ namespace StreamWork.ViewModels {
         public UserLogin TutorStreamingUserProfile { get; set; }
         public UserLogin TutorUserProfile { get; set; }
         public UserChannel UserChannel { get; set; }
-        public string ChatBox { get; set; }
+        public string ChatInfo { get; set; }
         public bool IsUserFollowingThisTutor { get; set; }
     }
 }

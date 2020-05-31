@@ -31,11 +31,12 @@ namespace StreamWork.Controllers
         {
             var populatePage = await _homeHelperFunctions.PopulateHomePage(storageConfig, HttpContext.User.Identity.Name);
             populatePage.IsUserFollowingThisTutor = false;
-
+            
             if (HttpContext.User.Identity.IsAuthenticated == true)
             {
                 var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name);
                 populatePage.GenericUserProfile = userProfile;
+                populatePage.ChatInfo = _homeHelperFunctions.EncryptString(HttpContext.User.Identity.Name);
 
                 if (populatePage.GenericUserProfile.FollowedStudentsAndTutors != null && populatePage.UserChannel != null)
                     populatePage.IsUserFollowingThisTutor = populatePage.GenericUserProfile.FollowedStudentsAndTutors.Contains(populatePage.UserChannel.Id);

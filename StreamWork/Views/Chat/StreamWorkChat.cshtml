@@ -21,7 +21,7 @@
                         <div class="inline-block m-2 mr-4 ml-auto">
                             <!--<img src="~/images/ChatAssets/ViewerList.png" style="cursor:pointer" />-->
                             <img id="sound" src="~/images/ChatAssets/Mute.png" style="cursor:pointer" onclick="ToggleMuteAndUnmute()" />
-                            <img src="~/images/ChatAssets/Popout.png" style="cursor:pointer" onclick="PopoutChat('@Model.ChatId')" />
+                            <img src="~/images/ChatAssets/Popout.png" style="cursor:pointer" onclick="PopoutChat('@Model.ChatId', '@Model.ChatInfo')" />
                         </div>
                         <script>PlayAudio();</script>
                     </div>

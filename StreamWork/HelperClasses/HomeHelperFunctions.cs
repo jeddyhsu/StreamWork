@@ -207,7 +207,6 @@ namespace StreamWork.HelperClasses
                     UserChannel = userChannel,
                     UserArchivedStream = getArchivedStreams[0],
                     UserArchivedStreams = userArchivedStreams,
-                    ChatBox = await GetChatSecretKey(storageConfig, userChannel.ChatId, currentUser)
                 };
             }
             else
@@ -218,7 +217,6 @@ namespace StreamWork.HelperClasses
                     UserLogin = userProfileForChannel,
                     UserChannel = streamingUserChannels,
                     UserArchivedStreams = userArchivedStreams,
-                    ChatBox = await GetChatSecretKey(storageConfig, streamingUserChannels.ChatId, currentUser)
                 };
             }
 
@@ -289,31 +287,6 @@ namespace StreamWork.HelperClasses
             return uriBuilder.ToString();
         }
 
-        public async Task<string> GetChatSecretKey([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string chatId, string userName) //Overload for StreamPage
-        {
-            var split = chatId.Split("|");
-            var tid = split[0];
-            var tkey = split[1];
-            if (userName != null)
-            {
-                var userProfile = await GetUserProfile(storageConfig, QueryHeaders.CurrentUser, userName);
-                var _encodedUrl = HttpUtility.UrlEncode(Convert.ToBase64String(hmacSHA256("/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + tid + "&tkey=" + tkey + "&nme=" + userProfile.Name.Replace('|','_') + "&pic=" + userProfile.ProfilePicture, "3O08UU-OtQ_rycx3")));
-                var _finalString = "https://www6.cbox.ws" + "/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + tid + "&tkey=" + tkey + "&nme=" + userProfile.Name.Replace('|', '_') + "&pic=" + userProfile.ProfilePicture + "&sig=" + _encodedUrl;
-                return _finalString;
-            }
-
-            var encodedUrl = HttpUtility.UrlEncode(Convert.ToBase64String(hmacSHA256("/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + tid + "&tkey=" + tkey + "&nme=" + userName, "3O08UU-OtQ_rycx3")));
-            var finalString = "https://www6.cbox.ws" + "/box/?boxid=" + 829647 + "&boxtag=oq4rEn&tid=" + tid + "&tkey=" + tkey + "&nme=" + userName + "&sig=" + encodedUrl;
-            return finalString;
-        }
-
-        public byte[] hmacSHA256 (string data, string key) //Encryption to get ChatSecretKey
-        {
-            using (HMACSHA256 hmac = new HMACSHA256(Encoding.ASCII.GetBytes(key))) {
-                return hmac.ComputeHash(Encoding.ASCII.GetBytes(data));
-            }
-        }
-
         public string EncryptPassword (string password) //Hash for passwords
         {
             byte[] salt = new byte[128 / 8];
@@ -330,6 +303,30 @@ namespace StreamWork.HelperClasses
             var bytesSalt = Convert.FromBase64String(decrypt[1]);
             string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(password, bytesSalt, KeyDerivationPrf.HMACSHA1, 10000, (256 / 8)));
             return hashed + "|" + decrypt[1];
+        }
+
+        public string EncryptString(string s)
+        {
+            if(s != null || s != "")
+            {
+                byte[] bArray = Encoding.ASCII.GetBytes(s);
+                string encrypted = Convert.ToBase64String(bArray);
+                return encrypted;
+            }
+
+            return null;
+        }
+
+        public string DecryptString(string s)
+        {
+            byte[] bArray;
+            if (s != null && s != "")
+            {
+                bArray = Convert.FromBase64String(s);
+                return Encoding.ASCII.GetString(bArray);
+            }
+
+            return null;
         }
 
         public async Task<List<Recommendation>> GetRecommendationsForTutor ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string tutor) {
