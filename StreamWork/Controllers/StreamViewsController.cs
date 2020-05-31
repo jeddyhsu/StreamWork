@@ -44,6 +44,7 @@ namespace StreamWork.Controllers
             model.TutorStreamingUserProfile = tutorProfile;
             model.UserChannel = channel;
             model.ChatInfo = _homeHelperFunctions.EncryptString(HttpContext.User.Identity.Name);
+            model.StreamSubjectPicture = _streamHelperFunctions.GetCorrespondingSubjectThumbnail(model.UserChannel.StreamSubject);
 
             if (student != null && student.FollowedStudentsAndTutors != null)
                 model.IsUserFollowingThisTutor = student.FollowedStudentsAndTutors.Contains(tutorProfile.Id);
