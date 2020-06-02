@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -40,6 +41,17 @@ namespace StreamWork.Hubs
                 Console.WriteLine("Error in SaveMessage: " + e.Message);
                 return false;
             }
+        }
+
+
+        public string URLIFY(string message)
+        {
+            string pattern = "(https://([^ ]+))";
+            string replacement = "<a href=\"$1\">$2</a>";
+            Regex rgx = new Regex(pattern);
+            string result = rgx.Replace(message, replacement);
+
+            return result;
         }
     }
 }

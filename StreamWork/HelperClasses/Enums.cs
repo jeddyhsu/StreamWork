@@ -56,6 +56,7 @@ namespace StreamWork.HelperClasses
         LatestArchivedStreamByUser,
         LatestArchivedStreams,
         ArchivedStreamsByViews,
+        ArchivedStreamsDescendingOrder,
 
         // Payment
         AllPayments,

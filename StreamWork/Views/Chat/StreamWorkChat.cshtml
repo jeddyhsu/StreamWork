@@ -50,7 +50,7 @@
                                                 {
                                                     <h5 class="mb-0 chatName" style="color:@Model.Chats[i].ChatColor">@Model.Chats[i].Name.Replace('|', ' ') <span class="chatDate">@Model.Chats[i].Date.ToShortTimeString()</span></h5>
                                                 }
-                                                <p id="chat-@i" class="chatMessage">@Model.Chats[i].Message</p>
+                                                <p id="chat-@i" class="chatMessage">@Html.Raw(Model.Chats[i].Message)</p>
                                             </div>
                                         </div>
                                     </li>
@@ -74,7 +74,7 @@
                                                 {
                                                     <h5 class="mb-0 chatName" style="color:@Model.Chats[i].ChatColor">@Model.Chats[i].Name.Replace('|', ' ') <span class="chatDate">@Model.Chats[i].Date.ToShortTimeString()</span></h5>
                                                 }
-                                                <p id="chat-@i" class="chatMessage">@Model.Chats[i].Message</p>
+                                                <p id="chat-@i" class="chatMessage">@Html.Raw(Model.Chats[i].Message)</p>
                                             </div>
                                         </div>
                                     </li>

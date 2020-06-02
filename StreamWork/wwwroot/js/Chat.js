@@ -84,7 +84,6 @@ function CleanAndSendMessage(message, chatId, userName, name, profilePicture, ch
 
     document.getElementById("chatInput").value = "";
     event.preventDefault();
-        
 }
 
 function PopoutChat(chatId, chatInfo) {

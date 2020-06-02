@@ -13,7 +13,7 @@ else { Layout = "_LayoutStudentNavbar"; }
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 pl-0" style="background-color:white">
-                        <img class="pr-3" align="left" src="@Model.StreamSubjectPicture" style="width:100%; height:100%; max-width:120px; max-height:115px" />
+                        <img class="pr-3" align="left" src="@Model.StreamSubjectPicture" style="width:100%; height:100%; max-width:120px; max-height:115px; cursor:pointer" onclick="window.open('https://www.streamwork.live/Home/Search?s=@Model.UserChannel.StreamSubject&q=')" />
                         <div class="mt-2" id="StreamInfo">
                             <h3 style="color:black; font-family:'Roboto Slab', serif;">@Model.UserChannel.StreamTitle<span></span></h3>
                             <p class="mb-0" style="padding-left:120px">@Model.UserChannel.StreamDescription</p>

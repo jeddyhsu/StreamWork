@@ -127,7 +127,7 @@
         },
         {
           "Query": "SELECT * FROM [dbo].[UserArchivedStreams] ORDER BY StartTime DESC",
-          "QueryId": "LatestArchivedStreams"
+          "QueryId": "ArchivedStreamsDescendingOrder"
         },
         {
           "Query": "SELECT * FROM [dbo].[UserArchivedStreams] ORDER BY Views DESC",
