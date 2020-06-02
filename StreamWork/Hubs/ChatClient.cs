@@ -46,7 +46,7 @@ namespace StreamWork.Hubs
 
         public string URLIFY(string message)
         {
-            string pattern = "(https?://([^ ]+)";
+            string pattern = "(https?://([^ ]+))";
             string replacement = "<a href=\"$1\">$2</a>";
             Regex rgx = new Regex(pattern);
             string result = rgx.Replace(message, replacement);
