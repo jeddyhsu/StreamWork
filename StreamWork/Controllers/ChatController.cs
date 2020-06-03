@@ -31,10 +31,10 @@ namespace StreamWork.Controllers
             {
                 UserProfile = userProfile,
                 ChatId = chatId,
-                ChatInfo = chatInfo != null ? chatInfo : null,
+                ChatInfo = chatInfo ?? null,
                 Chats = await _chatHelperFunctions.GetAllChatsWithChatId(storageConfig, chatId),
                 ChatColor = chatColor,
-                IsLoggedIn = userProfile == null ? false : true,
+                IsLoggedIn = userProfile != null,
             };
 
             return View(chatViewModel);

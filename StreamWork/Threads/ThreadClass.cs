@@ -17,6 +17,7 @@ namespace StreamWork.Threads
         readonly HomeHelperFunctions _homeHelperFunctions;
         readonly EmailHelperFunctions _emailHelperFunctions;
         readonly ThreadClassHelperFunctions _threadClassHelperFunctions;
+        readonly ChatHelperFunctions _chatHelperFunctions;
         readonly IOptionsSnapshot<StorageConfig> _storageConfig;
         readonly UserChannel _userChannel;
         readonly UserLogin _userLogin;
@@ -36,6 +37,7 @@ namespace StreamWork.Threads
             _homeHelperFunctions = new HomeHelperFunctions();
             _emailHelperFunctions = new EmailHelperFunctions();
             _threadClassHelperFunctions = new ThreadClassHelperFunctions();
+            _chatHelperFunctions = new ChatHelperFunctions();
             _storageConfig = storageConfig;
             _userChannel = userChannel;
             _userLogin = userLogin;
@@ -210,6 +212,7 @@ namespace StreamWork.Threads
                 _userChannel.StreamSubject = null;
                 _userChannel.StreamDescription = null;
                 _userChannel.StreamThumbnail = null;
+                await _chatHelperFunctions.DeleteAllChatsWithChatId(_storageConfig, _userChannel.Username);
                 await DataStore.SaveAsync(_homeHelperFunctions._connectionString, _storageConfig.Value, new Dictionary<string, object> { { "Id", _userChannel.Id } }, _userChannel);
             }
             catch (Exception ex)

@@ -88,6 +88,70 @@ namespace StreamWork.Core
                                                           List<object> selector = null,
                                                           string udfQuery = "") where T : class
         {
+
+            var query = FormatQuery<T>(_connectionString, storageConfig, queryId, parameters);
+
+            using (var sqlServerClient = new SQLServerClient(_connectionString, storageConfig))
+            {
+                return await sqlServerClient.GetDataAsync<T>(_connectionString, query, selector);
+            }
+        }
+
+
+        public async static Task<bool> DeleteDataAsync<T>(string _connectionString,
+                                                          StorageConfig storageConfig,
+                                                          string queryId,
+                                                          List<string> parameters = null,
+                                                          bool deleteAll = false,
+                                                          List<object> selector = null,
+                                                          string udfQuery = "") where T : class
+        {
+
+            var query = FormatQuery<T>(_connectionString, storageConfig, queryId, parameters);
+
+            using (var sqlServerClient = new SQLServerClient(_connectionString, storageConfig))
+            {
+                 if(await sqlServerClient.DeleteDataAsync(query)) return true;
+                 return false;
+            }
+        }
+
+        private static object[] GetKeys<T>(Dictionary<string, object> keyData, DbContext context)
+        {
+            var keyNames = GetKeyNames<T>(context);
+            Type type = typeof(T);
+
+            object[] keys = new object[keyNames.Count];
+            for (int i = 0; i < keyNames.Count; i++)
+            {
+                keys[i] = keyData[keyNames[i]];
+            }
+
+            return keys;
+        }
+
+        private static List<string> GetKeyNames<T>(DbContext context)
+        {
+            Type t = typeof(T);
+
+            //retreive the base type
+            while (t.BaseType != typeof(object))
+            {
+                t = t.BaseType;
+            }
+
+            return context.Model.FindEntityType(typeof(T)).FindPrimaryKey().Properties.Select(x => x.Name).ToList();
+        }
+
+        private static string FormatQuery<T>(string _connectionString,
+                                             StorageConfig storageConfig,
+                                             string queryId,
+                                             List<string> parameters = null,
+                                             bool deleteAll = false,
+                                             List<object> selector = null,
+                                             string udfQuery = "")
+                                                         
+        {
             var query = string.Empty;
             var name = typeof(T).Name;
             if (storageConfig?.EntityModels?.Exists(c => c.Name.Equals(name)) == true)
@@ -117,38 +181,7 @@ namespace StreamWork.Core
                 }
             }
 
-            using (var sqlServerClient = new SQLServerClient(_connectionString, storageConfig))
-            {
-                return await sqlServerClient.GetDataAsync<T>(_connectionString, query, selector);
-            }
-
-        }
-
-        private static object[] GetKeys<T>(Dictionary<string, object> keyData, DbContext context)
-        {
-            var keyNames = GetKeyNames<T>(context);
-            Type type = typeof(T);
-
-            object[] keys = new object[keyNames.Count];
-            for (int i = 0; i < keyNames.Count; i++)
-            {
-                keys[i] = keyData[keyNames[i]];
-            }
-
-            return keys;
-        }
-
-        private static List<string> GetKeyNames<T>(DbContext context)
-        {
-            Type t = typeof(T);
-
-            //retreive the base type
-            while (t.BaseType != typeof(object))
-            {
-                t = t.BaseType;
-            }
-
-            return context.Model.FindEntityType(typeof(T)).FindPrimaryKey().Properties.Select(x => x.Name).ToList();
+            return query;
         }
 
         private static void Copy(object source, object destination)
