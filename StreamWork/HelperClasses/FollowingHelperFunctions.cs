@@ -53,17 +53,27 @@ namespace StreamWork.HelperClasses
         public async Task<List<UserLogin>> GetAllFollowees([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string followerId)
         {
             var listOfFollowees = await DataStore.GetListAsync<Follow>(_homeHelperFunctions._connectionString, storageConfig.Value, QueryHeaders.GetAllFollowersForSpecificId.ToString(), new List<string> { followerId });
-            List<string> idList = new List<string>();
-            foreach (var followee in listOfFollowees) idList.Add(followee.FolloweeId);
-            return await _homeHelperFunctions.GetUserProfiles(storageConfig, QueryHeaders.GetFollowedLogins, _homeHelperFunctions.FormatQueryString(idList));
+            if(listOfFollowees.Count != 0)
+            {
+                List<string> idList = new List<string>();
+                foreach (var followee in listOfFollowees) idList.Add(followee.FolloweeId);
+                return await _homeHelperFunctions.GetUserProfiles(storageConfig, QueryHeaders.GetFollowedLogins, _homeHelperFunctions.FormatQueryString(idList));
+            }
+
+            return null;
         }
 
         public async Task<List<UserLogin>> GetAllNonFollowees([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string followerId) //all users that arent follwing the followee
         {
             var listOfFollowees = await DataStore.GetListAsync<Follow>(_homeHelperFunctions._connectionString, storageConfig.Value, QueryHeaders.GetAllFollowersForSpecificId.ToString(), new List<string> { followerId });
-            List<string> idList = new List<string>();
-            foreach (var followee in listOfFollowees) idList.Add(followee.FolloweeId);
-            return await _homeHelperFunctions.GetUserProfiles(storageConfig, QueryHeaders.GetNotFollowedLogins, _homeHelperFunctions.FormatQueryString(idList));
+            if (listOfFollowees.Count != 0)
+            {
+                List<string> idList = new List<string>();
+                foreach (var followee in listOfFollowees) idList.Add(followee.FolloweeId);
+                return await _homeHelperFunctions.GetUserProfiles(storageConfig, QueryHeaders.GetNotFollowedLogins, _homeHelperFunctions.FormatQueryString(idList));
+            }
+
+            return await _homeHelperFunctions.GetUserProfiles(storageConfig, QueryHeaders.AllApprovedTutors, null);
         }
     }
 }

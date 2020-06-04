@@ -14,8 +14,8 @@
         $('#UnfollowButton').show();
     }
     else {
-        $('#UnfollowButton-' + i).show();
-        $('#FollowButton-' + i).hide();
+        $('#FollowButtonUnfollowed-' + i).hide();
+        $('#UnfollowButtonUnfollowed-' + i).show();
     }
 }
 
@@ -35,7 +35,7 @@ function UnfollowStreamTutor(followerId, followeeId, i) {
         $('#UnfollowButton').hide();
     }
     else {
-        $('#FollowButton-' + i).show();
-        $('#UnfollowButton-' + i).hide();
+        $('#FollowButtonFollowed-' + i).show();
+        $('#UnfollowButtonFollowed-' + i).hide();
     }
 }
