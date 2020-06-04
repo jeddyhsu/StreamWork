@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -74,6 +73,28 @@ namespace StreamWork.HelperClasses
             }
 
             return await _homeHelperFunctions.GetUserProfiles(storageConfig, QueryHeaders.AllApprovedTutors, null);
+        }
+
+        public async Task<bool> IsFollowingFollowee([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string followerId, string followeeId)
+        {
+            if(followerId != null && followeeId != null)
+            {
+                var followerAndfollowee = await DataStore.GetListAsync<Follow>(_homeHelperFunctions._connectionString, storageConfig.Value, QueryHeaders.GetFollowerAndFollowee.ToString(), new List<string> { followerId, followeeId });
+                if (followerAndfollowee.Count > 0) return true;
+            }
+
+            return false;
+        }
+
+        public async Task<int> GetNumberOfFollowers([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string followeeId)
+        {
+            if(followeeId != null)
+            {
+                var listOfFollowers = await DataStore.GetListAsync<Follow>(_homeHelperFunctions._connectionString, storageConfig.Value, QueryHeaders.GetNumberOfFollowers.ToString(), new List<string> { followeeId });
+                return listOfFollowers.Count;
+            }
+
+            return 0;
         }
     }
 }

@@ -81,6 +81,8 @@ namespace StreamWork.HelperClasses
         GetAllFollowersForSpecificId,
         GetAllFollowersForSpecificUsername,
         GetAllFollowersForSpecificEmail,
+        GetFollowerAndFollowee,
+        GetNumberOfFollowers,
         RemoveFollower,
 
         // Misc

@@ -226,6 +226,14 @@
           "QueryId": "GetAllFollowersForSpecificEmail"
         },
         {
+          "Query": "SELECT * FROM [dbo].[Follow] WHERE FollowerId = '@x0' AND FolloweeId = '@x1'",
+          "QueryId": "GetFollowerAndFollowee"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Follow] WHERE FolloweeId = '@x0'",
+          "QueryId": "GetNumberOfFollowers"
+        },
+        {
           "Query": "DELETE FROM [dbo].[Follow] WHERE FollowerId = '@x0' AND FolloweeId = '@x1'",
           "QueryId": "RemoveFollower"
         }

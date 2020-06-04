@@ -134,26 +134,15 @@ namespace StreamWork.Controllers
         {
             ProfileTutorViewModel profile = new ProfileTutorViewModel
             {
+                GenericUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name),
                 TutorUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, tutor),
                 UserChannel = await _homeHelperFunctions.GetUserChannel(storageConfig, QueryHeaders.CurrentUserChannel, tutor),
                 UserArchivedVideos = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, tutor),
                 NumberOfStreams = (await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, tutor)).Count
             };
 
-            profile.NumberOfFollowers = _tutorHelperFunctions.GetNumberOfFollowers(profile.TutorUserProfile);
-
-            if (HttpContext.User.Identity.IsAuthenticated)
-            {
-                profile.GenericUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name);
-
-                if (profile.GenericUserProfile.FollowedStudentsAndTutors != null)
-                    profile.IsUserFollowingThisTutor = profile.GenericUserProfile.FollowedStudentsAndTutors.Contains(profile.TutorUserProfile.Id);
-            }
-            else
-            {
-                profile.IsUserFollowingThisTutor = false;
-            }
-
+            profile.NumberOfFollowers = await _followingHelperFunctions.GetNumberOfFollowers(storageConfig,profile.TutorUserProfile.Id);
+            if (HttpContext.User.Identity.IsAuthenticated) profile.IsFollowing = await _followingHelperFunctions.IsFollowingFollowee(storageConfig, profile.GenericUserProfile.Id, profile.TutorUserProfile.Id);
             profile.Schedule = _tutorHelperFunctions.GetTutorStreamSchedule(profile.UserChannel);
 
             return View(profile);
