@@ -1,13 +1,14 @@
-﻿function FollowStreamTutor(tutor, i) {
+﻿function FollowStreamTutor(followerId, followeeId, i) {
     $.ajax({
-        url: '/Home/ProfileView',
+        url: '/Home/AddFollower',
         type: 'post',
         datatype: 'json',
         data: {
-            'followRequest': 'follow',
-            'tutorId': tutor
+            'followerId': followerId,
+            'followeeId': followeeId,
         }
     });
+
     if (i == null) {
         $('#FollowButton').hide();
         $('#UnfollowButton').show();
@@ -18,16 +19,17 @@
     }
 }
 
-function UnfollowStreamTutor(tutor, i) {
+function UnfollowStreamTutor(followerId, followeeId, i) {
     $.ajax({
-        url: '/Home/ProfileView',
+        url: '/Home/RemoveFollower',
         type: 'post',
         datatype: 'json',
         data: {
-            'unFollowRequest': 'Unfollow',
-            'tutorId': tutor
+            'followerId': followerId,
+            'followeeId': followeeId,
         }
     });
+
     if (i == null) {
         $('#FollowButton').show();
         $('#UnfollowButton').hide();

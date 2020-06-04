@@ -77,6 +77,12 @@ namespace StreamWork.HelperClasses
         GetAllChatsFromSpecificId,
         DeleteAllChatsFromSpecificId,
 
+        //Follow
+        GetAllFollowersForSpecificId,
+        GetAllFollowersForSpecificUsername,
+        GetAllFollowersForSpecificEmail,
+        RemoveFollower,
+
         // Misc
         UserProfile,       //Use For Session
     }

@@ -60,7 +60,6 @@ namespace StreamWork.Controllers
                 var archivedStreamId = Guid.NewGuid().ToString();
                 var streamThumbnail =  _homeHelperFunctions.SaveIntoBlobContainer(Request.Form.Files[0],archivedStreamId, 1280, 720);
                 
-
                 ThreadClass handleStreams = new ThreadClass(storageConfig, userChannel, userProfile, streamTitle, streamSubject, streamDescription, streamThumbnail, archivedStreamId, chatColor);
                 handleStreams.RunLiveThread();
                 if(notifyStudents.Equals("yes")) handleStreams.RunEmailThread();

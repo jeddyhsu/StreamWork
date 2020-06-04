@@ -160,46 +160,22 @@ namespace StreamWork.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ProfileView([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string tutorId, string followRequest, string unFollowRequest)
+        public async Task<IActionResult> AddFollower([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string followerId, string followeeId)
         {
-            //handles follow requests
-            if (followRequest != null && tutorId != null)
+            if(followerId != null && followeeId != null)
             {
-                var user = HttpContext.User.Identity.Name;
-                var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user); //tutor can follow tutors as well as students can follow tutors
-
-                var tutorProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUserUsingId, tutorId);
-
-                var updatedUserList = _followingHelperFunctions.AddToListOfFollowedTutors(tutorId, userProfile.FollowedStudentsAndTutors);
-                var updatedTutorList = _followingHelperFunctions.AddToListOfFollowedStudents(userProfile.EmailAddress, tutorProfile.FollowedStudentsAndTutors);
-
-                userProfile.FollowedStudentsAndTutors = updatedUserList;
-                tutorProfile.FollowedStudentsAndTutors = updatedTutorList;
-
-                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
-                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", tutorProfile.Id } }, tutorProfile);
-
-                return Json(new { Message = JsonResponse.Success.ToString() });
+                if(await _followingHelperFunctions.AddFollower(storageConfig, followerId, followeeId)) return Json(new { Message = JsonResponse.Success.ToString() });
             }
 
-            //handles unfollow requests
-            if (unFollowRequest != null && tutorId != null)
+            return Json(new { Message = JsonResponse.Failed.ToString() });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveFollower([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string followerId, string followeeId)
+        {
+            if (followerId != null && followeeId != null)
             {
-                var user = HttpContext.User.Identity.Name;
-                var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
-
-                var tutorProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUserUsingId, tutorId);
-
-                var updatedUserList = _followingHelperFunctions.RemoveFromListOfFollowedTutors(tutorId, userProfile.FollowedStudentsAndTutors);
-                var updatedTutorList = _followingHelperFunctions.RemoveFromListOfFollowedStudents(userProfile.EmailAddress, tutorProfile.FollowedStudentsAndTutors);
-
-                userProfile.FollowedStudentsAndTutors = updatedUserList;
-                tutorProfile.FollowedStudentsAndTutors = updatedTutorList;
-
-                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
-                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", tutorProfile.Id } }, tutorProfile);
-
-                return Json(new { Message = JsonResponse.Success.ToString() });
+                if (await _followingHelperFunctions.RemoveFollower(storageConfig, followerId, followeeId)) return Json(new { Message = JsonResponse.Success.ToString() });
             }
 
             return Json(new { Message = JsonResponse.Failed.ToString() });

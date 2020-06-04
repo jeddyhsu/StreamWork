@@ -109,8 +109,8 @@
                                             <div class="col-lg-5 col-md-3 col-sm-3 col-5">
                                                 @if (Model.StudentUserProfile != null && Model.StudentUserProfile.ProfileType == "student")
                                                 {
-                                                    <input id="FollowButton-@i" type="button" value="Follow" style="font-size:12px; display:none;" class="streamWorkSecondary" onclick="FollowStreamTutor('@Model.FollowedTutors[i].Id', @i)" />
-                                                    <input id="UnfollowButton-@i" type="button" value="Unfollow" style="font-size:12px;" class="streamWorkGrey" onclick="UnfollowStreamTutor('@Model.FollowedTutors[i].Id', @i)" />
+                                                    <input id="FollowButton-@i" type="button" value="Follow" style="font-size:12px; display:none;" class="streamWorkSecondary" onclick="FollowStreamTutor('@Model.StudentUserProfile.Id','@Model.FollowedTutors[i].Id', @i)" />
+                                                    <input id="UnfollowButton-@i" type="button" value="Unfollow" style="font-size:12px;" class="streamWorkGrey" onclick="UnfollowStreamTutor('@Model.StudentUserProfile.Id', '@Model.FollowedTutors[i].Id', @i)" />
                                                 }
                                             </div>
                                         </div>
@@ -128,19 +128,19 @@
                     @for (int i = 0; i < 5; i++)
                     {
                         <div class="col-lg-12">
-                            <div class="card m-1" style="display:block;background-color:white;border:none; cursor:pointer" href="/Home/ProfileView?Tutor=@Model.AllTutors[i].Username">
+                            <div class="card m-1" style="display:block;background-color:white;border:none; cursor:pointer" href="/Home/ProfileView?Tutor=@Model.NonFollowedTutors[i].Username">
                                 <div class="card-title" style="display:block; margin-left:auto; margin-right:auto" onclick="">
                                     <div class="row">
-                                        <a class="col-lg-7 col-md-9 col-sm-9 col-7" href="/Home/ProfileView?Tutor=@Model.AllTutors[i].Username">
-                                            <input type="image" style="border-radius:5%; width:50px; margin-left:10px; margin-bottom:10px; height:60px; float:left" src=@Model.AllTutors[i].ProfilePicture />
-                                            <h5 class="text-truncate" style="font-family: 'Roboto'; font-size:15px; color:black; margin-left:80px; margin-top:10px;">@Model.AllTutors[i].Name.Replace('|', ' ')</h5>
-                                            <h6 class="text-truncate" style="font-family: 'Roboto'; font-size:14px; color:black; margin-left:80px;">@Model.AllTutors[i].Username</h6>
+                                        <a class="col-lg-7 col-md-9 col-sm-9 col-7" href="/Home/ProfileView?Tutor=@Model.NonFollowedTutors[i].Username">
+                                            <input type="image" style="border-radius:5%; width:50px; margin-left:10px; margin-bottom:10px; height:60px; float:left" src=@Model.NonFollowedTutors[i].ProfilePicture />
+                                            <h5 class="text-truncate" style="font-family: 'Roboto'; font-size:15px; color:black; margin-left:80px; margin-top:10px;">@Model.NonFollowedTutors[i].Name.Replace('|', ' ')</h5>
+                                            <h6 class="text-truncate" style="font-family: 'Roboto'; font-size:14px; color:black; margin-left:80px;">@Model.NonFollowedTutors[i].Username</h6>
                                         </a>
                                         <div class="col-lg-5 col-md-3 col-sm-3 col-5">
                                             @if (Model.StudentUserProfile != null && Model.StudentUserProfile.ProfileType == "student")
                                             {
-                                                <input id="FollowButton-@i" type="button" value="Follow" style="font-size:12px;" class="streamWorkSecondary" onclick="FollowStreamTutor('@Model.AllTutors[i].Id', @i)" />
-                                                <input id="UnfollowButton-@i" type="button" value="Unfollow" style="font-size:12px; display:none;" class="streamWorkGrey" onclick="UnfollowStreamTutor('@Model.AllTutors[i].Id', @i)" />
+                                                <input id="FollowButton-@i" type="button" value="Follow" style="font-size:12px;" class="streamWorkSecondary" onclick="FollowStreamTutor('@Model.StudentUserProfile.Id', '@Model.NonFollowedTutors[i].Id', @i)" />
+                                                <input id="UnfollowButton-@i" type="button" value="Unfollow" style="font-size:12px; display:none;" class="streamWorkGrey" onclick="UnfollowStreamTutor('@Model.StudentUserProfile.Id', '@Model.NonFollowedTutors[i].Id', @i)" />
                                             }
                                         </div>
                                     </div>

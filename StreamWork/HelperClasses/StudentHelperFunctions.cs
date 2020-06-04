@@ -24,8 +24,8 @@ namespace StreamWork.HelperClasses
                 LiveChannels = await _homeHelperFunctions.GetAllUserChannels(storageConfig)
             };
 
-            model.FollowedTutors = await _followingHelperFunctions.GetFollowedTutors(storageConfig, model.StudentUserProfile);
-            model.AllTutors = await _followingHelperFunctions.GetNotFollowedTutors(storageConfig, model.FollowedTutors);
+            model.FollowedTutors = await _followingHelperFunctions.GetAllFollowees(storageConfig, model.StudentUserProfile.Id);
+            model.NonFollowedTutors = await _followingHelperFunctions.GetAllNonFollowees(storageConfig, model.StudentUserProfile.Id);
             return model;
         }
 
