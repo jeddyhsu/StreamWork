@@ -66,6 +66,20 @@ namespace StreamWork.Base
                 return await Set<T>().FromSql<T>(sb.ToString()).AsNoTracking().ToListAsync<T>();
         }
 
+        public async Task<bool> DeleteDataAsync(string query)
+        {
+            using (var context = Database.GetDbConnection())
+            {
+                await context.OpenAsync();
+                using (var command = context.CreateCommand())
+                {
+                    command.CommandText = query;
+                    var result = await command.ExecuteNonQueryAsync();
+                    return true;
+                }
+            }
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

@@ -9,6 +9,6 @@ namespace StreamWork.ViewModels {
         public UserChannel UserChannel { get; set; }
         public string ChatInfo { get; set; }
         public string StreamSubjectPicture { get; set; }
-        public bool IsUserFollowingThisTutor { get; set; }
+        public bool IsFollowing { get; set; }
     }
 }

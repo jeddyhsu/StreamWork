@@ -12,6 +12,7 @@ namespace StreamWork.Controllers
     {
         readonly HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
         readonly StreamHelperFunctions _streamHelperFunctions = new StreamHelperFunctions();
+        readonly FollowingHelperFunctions _followingHelperFunctions = new FollowingHelperFunctions();
 
         [HttpGet]
         public async Task<IActionResult> StreamPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamTutorUsername, string id) //id is archivedVideo id
@@ -46,8 +47,8 @@ namespace StreamWork.Controllers
             model.ChatInfo = _homeHelperFunctions.EncryptString(HttpContext.User.Identity.Name);
             model.StreamSubjectPicture = _streamHelperFunctions.GetCorrespondingSubjectThumbnail(model.UserChannel.StreamSubject);
 
-            if (student != null && student.FollowedStudentsAndTutors != null)
-                model.IsUserFollowingThisTutor = student.FollowedStudentsAndTutors.Contains(tutorProfile.Id);
+            if (student != null)
+                model.IsFollowing = await _followingHelperFunctions.IsFollowingFollowee(storageConfig, student.Id, tutorProfile.Id);
 
             await _streamHelperFunctions.IncrementChannelViews(storageConfig, HttpContext.User.Identity.Name, streamTutorUsername);
 
@@ -73,8 +74,8 @@ namespace StreamWork.Controllers
                 NumberOfStreams = (await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, channel.Username)).Count
             };
 
-            if (model.GenericUserProfile != null && model.GenericUserProfile.FollowedStudentsAndTutors != null)
-                model.IsUserFollowingThisTutor = model.GenericUserProfile.FollowedStudentsAndTutors.Contains(tutorProfile.Id);
+            if (model.GenericUserProfile != null)
+                model.IsFollowing = await _followingHelperFunctions.IsFollowingFollowee(storageConfig, model.GenericUserProfile.Id, model.TutorUserProfile.Id);
 
             await _streamHelperFunctions.IncrementArchivedVideoViews(storageConfig, HttpContext.User.Identity.Name, streamId);
 

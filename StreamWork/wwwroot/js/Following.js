@@ -1,39 +1,41 @@
-﻿function FollowStreamTutor(tutor, i) {
+﻿function FollowStreamTutor(followerId, followeeId, i) {
     $.ajax({
-        url: '/Home/ProfileView',
+        url: '/Home/AddFollower',
         type: 'post',
         datatype: 'json',
         data: {
-            'followRequest': 'follow',
-            'tutorId': tutor
+            'followerId': followerId,
+            'followeeId': followeeId,
         }
     });
+
     if (i == null) {
         $('#FollowButton').hide();
         $('#UnfollowButton').show();
     }
     else {
-        $('#UnfollowButton-' + i).show();
-        $('#FollowButton-' + i).hide();
+        $('#FollowButtonUnfollowed-' + i).hide();
+        $('#UnfollowButtonUnfollowed-' + i).show();
     }
 }
 
-function UnfollowStreamTutor(tutor, i) {
+function UnfollowStreamTutor(followerId, followeeId, i) {
     $.ajax({
-        url: '/Home/ProfileView',
+        url: '/Home/RemoveFollower',
         type: 'post',
         datatype: 'json',
         data: {
-            'unFollowRequest': 'Unfollow',
-            'tutorId': tutor
+            'followerId': followerId,
+            'followeeId': followeeId,
         }
     });
+
     if (i == null) {
         $('#FollowButton').show();
         $('#UnfollowButton').hide();
     }
     else {
-        $('#FollowButton-' + i).show();
-        $('#UnfollowButton-' + i).hide();
+        $('#FollowButtonFollowed-' + i).show();
+        $('#UnfollowButtonFollowed-' + i).hide();
     }
 }

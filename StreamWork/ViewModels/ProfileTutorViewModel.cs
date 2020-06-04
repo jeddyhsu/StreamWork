@@ -19,7 +19,7 @@ namespace StreamWork.ViewModels {
         public int NumberOfViews { get; set; }
         
         public string ChatInfo { get; set; }
-        public bool IsUserFollowingThisTutor { get; set; }
+        public bool IsFollowing { get; set; }
 
         public List<Recommendation> Recommendations { get; set; }
         public List<Day> Schedule = new List<Day>();

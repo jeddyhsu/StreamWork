@@ -13,11 +13,11 @@ else { Layout = "_LayoutStudentNavbar"; }
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 pl-0" style="background-color:white">
-                        <img class="pr-3" align="left" src="@Model.StreamSubjectPicture" style="width:100%; height:100%; max-width:120px; max-height:115px; cursor:pointer" onclick="window.open('https://www.streamwork.live/Home/Search?s=@Model.UserChannel.StreamSubject&q=')" />
+                        <img class="pr-3" align="left" src="@Model.StreamSubjectPicture" style="width:100%; height:100%; max-width:120px; max-height:110px; cursor:pointer" onclick="window.open('https://www.streamwork.live/Home/Search?s=@Model.UserChannel.StreamSubject&q=')" />
                         <div class="mt-2" id="StreamInfo">
                             <h3 style="color:black; font-family:'Roboto Slab', serif;">@Model.UserChannel.StreamTitle<span></span></h3>
                             <p class="mb-0" style="padding-left:120px">@Model.UserChannel.StreamDescription</p>
-                            <p style="font-size:12px; padding-left:122px">Tutoring @Model.UserChannel.StreamSubject</p>
+                            <p style="font-size:12px; padding-left:120px">Tutoring @Model.UserChannel.StreamSubject</p>
                         </div>
                     </div>
                 </div>
@@ -30,15 +30,15 @@ else { Layout = "_LayoutStudentNavbar"; }
                     <div class="inline-block m-2 ml-auto">
                         @if (Model.StudentUserProfile != null || Model.TutorUserProfile != null)
                         {
-                            @if ((Model.IsUserFollowingThisTutor == false && Model.StudentUserProfile != null && Model.StudentUserProfile.Username != Model.TutorStreamingUserProfile.Username) || (Model.IsUserFollowingThisTutor == false && Model.TutorUserProfile != null && Model.TutorUserProfile.Username != Model.TutorStreamingUserProfile.Username))
+                            @if ((Model.IsFollowing == false && Model.StudentUserProfile != null && Model.StudentUserProfile.Username != Model.TutorStreamingUserProfile.Username) || (Model.IsFollowing == false && Model.TutorUserProfile != null && Model.TutorUserProfile.Username != Model.TutorStreamingUserProfile.Username))
                             {
-                                <button id="FollowButton" type="button" style="width:100%; font-family:'Roboto Slab', serif; font-size:16px; width:100px" class="streamWorkSecondary mb-2 mr-1" onclick="FollowStreamTutor('@Model.TutorStreamingUserProfile.Id')">Follow</button>
-                                <button id="UnfollowButton" type="button" style="width:100%; display:none; font-family:'Roboto Slab', serif; font-size:16px; width:110px" class="streamWorkGrey mb-2 mr-1" onclick="UnfollowStreamTutor('@Model.TutorStreamingUserProfile.Id')">Followed</button>
+                                <button id="FollowButton" type="button" style="width:100%; font-family:'Roboto Slab', serif; font-size:16px; width:100px" class="streamWorkSecondary mb-2 mr-1" onclick="FollowStreamTutor('@Model.StudentUserProfile.Id', '@Model.TutorStreamingUserProfile.Id')">Follow</button>
+                                <button id="UnfollowButton" type="button" style="width:100%; display:none; font-family:'Roboto Slab', serif; font-size:16px; width:110px" class="streamWorkGrey mb-2 mr-1" onclick="UnfollowStreamTutor('@Model.StudentUserProfile.Id', '@Model.TutorStreamingUserProfile.Id')">Followed</button>
                             }
-                            else if ((Model.IsUserFollowingThisTutor == true && Model.StudentUserProfile != null) || (Model.IsUserFollowingThisTutor == true && Model.TutorUserProfile != null))
+                            else if ((Model.IsFollowing == true && Model.StudentUserProfile != null) || (Model.IsFollowing == true && Model.TutorUserProfile != null))
                             {
-                                <button id="FollowButton" type="button" style="width:100%; display:none;font-family:'Roboto Slab', serif; font-size:16px; width:100px" class="streamWorkSecondary mb-2 mr-1" onclick="FollowStreamTutor('@Model.TutorStreamingUserProfile.Id')">Follow</button>
-                                <button id="UnfollowButton" type="button" style="width:100%; font-family:'Roboto Slab', serif; font-size:16px; width:110px" class="streamWorkGrey mb-2 mr-1" onclick="UnfollowStreamTutor('@Model.TutorStreamingUserProfile.Id')">Followed</button>
+                                <button id="FollowButton" type="button" style="width:100%; display:none;font-family:'Roboto Slab', serif; font-size:16px; width:100px" class="streamWorkSecondary mb-2 mr-1" onclick="FollowStreamTutor('@Model.StudentUserProfile.Id', '@Model.TutorStreamingUserProfile.Id')">Follow</button>
+                                <button id="UnfollowButton" type="button" style="width:100%; font-family:'Roboto Slab', serif; font-size:16px; width:110px" class="streamWorkGrey mb-2 mr-1" onclick="UnfollowStreamTutor('@Model.StudentUserProfile.Id', '@Model.TutorStreamingUserProfile.Id')">Followed</button>
                             }
                         }
                         <button class="streamWorkGold mb-2 mr-1" style="font-family:'Roboto Slab', serif; cursor: pointer; font-size:16px; width:100px" onclick="window.open('https://www.streamwork.live/Home/Donate?tutor=@Model.UserChannel.Username')">Donate</button>
