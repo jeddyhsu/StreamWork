@@ -14,7 +14,7 @@
                         <button id="FollowButton" type="button" style="font-size:12px;" class="streamWorkSecondary mt-3" onclick="FollowStreamTutor('@Model.GenericUserProfile.Id','@Model.TutorUserProfile.Id')">Follow</button>
                         <button id="UnfollowButton" type="button" style="font-size:12px; display:none;" class="streamWorkGrey mt-3" onclick="UnfollowStreamTutor('@Model.GenericUserProfile.Id','@Model.TutorUserProfile.Id')">Followed</button>
                     }
-                    else if (Model.IsFollowing == true && Model.GenericUserProfile != null && Model.GenericUserProfile.ProfileType == "student")
+                    else if (Model.IsFollowing == true && Model.GenericUserProfile != null)
                     {
                         <button id="FollowButton" type="button" style="font-size:12px;display:none;" class="streamWorkSecondary mt-3" onclick="FollowStreamTutor('@Model.GenericUserProfile.Id','@Model.TutorUserProfile.Id')">Follow</button>
                         <button id="UnfollowButton" type="button" style="font-size:12px;" class="streamWorkGrey mt-3" onclick="UnfollowStreamTutor('@Model.GenericUserProfile.Id','@Model.TutorUserProfile.Id')">Followed</button>

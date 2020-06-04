@@ -215,15 +215,11 @@
       "Queries": [
         {
           "Query": "SELECT * FROM [dbo].[Follow] WHERE FollowerId = '@x0'",
-          "QueryId": "GetAllFollowersForSpecificId"
+          "QueryId": "GetAllFolloweesWithSpecificId"
         },
         {
-          "Query": "SELECT * FROM [dbo].[Follow] WHERE FolloweeUsername = '@x0'",
-          "QueryId": "GetAllFollowersForSpecificUsername"
-        },
-        {
-          "Query": "SELECT * FROM [dbo].[Follow] WHERE FolloweeEmail = '@x0'",
-          "QueryId": "GetAllFollowersForSpecificEmail"
+          "Query": "SELECT * FROM [dbo].[Follow] WHERE FolloweeId = '@x0'",
+          "QueryId": "GetAllFollowersWithSpecificId"
         },
         {
           "Query": "SELECT * FROM [dbo].[Follow] WHERE FollowerId = '@x0' AND FolloweeId = '@x1'",

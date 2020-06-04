@@ -19,6 +19,7 @@ namespace StreamWork.HelperClasses
         private readonly string _streamworkEmailPassword = "STREAMW0RK3R!";
 
         private HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
+        private FollowingHelperFunctions _followingHelperFunctions = new FollowingHelperFunctions();
 
         public async Task SendOutPasswordRecoveryEmail(UserLogin userProfile, string recoveryLink)
         {
@@ -49,32 +50,6 @@ namespace StreamWork.HelperClasses
             }, TaskCreationOptions.LongRunning);
         }
 
-        public async Task<bool> SendOutStudentGreetingEmail(UserLogin userProfile, string recoveryLink)
-        {
-            using (StreamReader streamReader = new StreamReader("EmailTemplates/AutomatedEmailTemplate.html"))
-            {
-                string reader = streamReader.ReadToEnd();
-                reader = reader.Replace("{NAMEOFUSER}", userProfile.Name.Split('|')[0]);
-                reader = reader.Replace("{RESETLINK}", recoveryLink);
-                await SendEmailToAnyEmailAsync(_streamworkEmailID, userProfile.EmailAddress, null, "Change Password", reader, null);
-            }
-
-            return true;
-        }
-
-        public async Task<bool> SendOutTutorGreetingEmail(UserLogin userProfile, string recoveryLink)
-        {
-            using (StreamReader streamReader = new StreamReader("EmailTemplates/AutomatedEmailTemplate.html"))
-            {
-                string reader = streamReader.ReadToEnd();
-                reader = reader.Replace("{NAMEOFUSER}", userProfile.Name.Split('|')[0]);
-                reader = reader.Replace("{RESETLINK}", recoveryLink);
-                await SendEmailToAnyEmailAsync(_streamworkEmailID, userProfile.EmailAddress, null, "Change Password", reader, null);
-            }
-
-            return true;
-        }
-
         private string ReplaceFirstOccurrence(string Source, string Find, string Replace)
         {
             int Place = Source.IndexOf(Find);
@@ -82,21 +57,21 @@ namespace StreamWork.HelperClasses
             return result;
         }
 
-        public async Task<bool> SendOutMassEmail([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, UserLogin userLogin, UserChannel channel, string archivedVideoId)
+        public async Task<bool> SendOutMassEmail([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, UserLogin userProfile, UserChannel channel, string archivedVideoId)
         {
-            var allUsers = await _homeHelperFunctions.GetAllUserProfiles(storageConfig);
+            var allFollowers = await _followingHelperFunctions.GetAllFollowers(storageConfig, userProfile.Id);
             string streamLink = string.Format("<a href=\"{0}\">here.</a>", HttpUtility.HtmlEncode("https://www.streamwork.live/StreamViews/StreamPage?streamTutorUsername=" + channel.Username + "&id=" + archivedVideoId));
             using (StreamReader streamReader = new StreamReader("EmailTemplates/AutomatedEmailTemplate.html"))
             {
                 string reader = streamReader.ReadToEnd();
 
-                var tutorName = userLogin.Name.Split("|");
-                reader = reader.Replace("{INTRODUCTION}", "StreamTutor " + userLogin.Name.Replace('|', ' ') + " is live-streaming " + channel.StreamTitle + " in " + channel.StreamSubject + "!");
+                var tutorName = userProfile.Name.Split("|");
+                reader = reader.Replace("{INTRODUCTION}", "StreamTutor " + userProfile.Name.Replace('|', ' ') + " is live-streaming " + channel.StreamTitle + " in " + channel.StreamSubject + "!");
                 reader = reader.Replace("{BODY}", "Tune in and study with your classmates and friends " + streamLink);
                 reader = reader.Replace("{CLOSING}", "See you there,");
                 reader = reader.Replace("{CLOSINGNAME}", "Team StreamWork");
 
-                foreach (var user in allUsers)
+                foreach (var user in allFollowers)
                 {
                     var email = HomeHelperFunctions.devEnvironment ? "rithvikarun24@gmail.com" : user.EmailAddress;
                     if (user.Name.Split('|')[0].Length > 1 && user.Username != channel.Username && user.NotificationSubscribe == DatabaseValues.True.ToString())
