@@ -12,7 +12,7 @@ namespace StreamWork.ViewModels
         public UserChannel UserChannel { get; set; }
         public List<UserArchivedStreams> ArchivedStreams { get; set; }
         public int NumberOfStreams { get; set; }
-        public bool IsUserFollowingThisTutor { get; set; }
+        public bool IsFollowing { get; set; }
 
         //public bool IsSubscribed()
         //{
