@@ -44,8 +44,8 @@ else { Layout = "_LayoutStudentNavbar"; }
                                 }
                                 else
                                 {
-                                    <button id="FollowButton" type="button" style="width:100%; display:none;font-family:'Roboto Slab', serif; font-size:16px; width:100px" class="streamWorkSecondary mb-2 mr-1" onclick="FollowStreamTutor('@Model.StudentUserProfile.Id', '@Model.TutorStreamingUserProfile.Id')">Follow</button>
-                                    <button id="UnfollowButton" type="button" style="width:100%; font-family:'Roboto Slab', serif; font-size:16px; width:110px" class="streamWorkGrey mb-2 mr-1" onclick="UnfollowStreamTutor('@Model.StudentUserProfile.Id', '@Model.TutorStreamingUserProfile.Id')">Followed</button>
+                                    <button id="FollowButton" type="button" style="width:100%; display:none;font-family:'Roboto Slab', serif; font-size:16px; width:100px" class="streamWorkSecondary mb-2 mr-1" onclick="FollowStreamTutor('@Model.TutorUserProfile.Id', '@Model.TutorStreamingUserProfile.Id')">Follow</button>
+                                    <button id="UnfollowButton" type="button" style="width:100%; font-family:'Roboto Slab', serif; font-size:16px; width:110px" class="streamWorkGrey mb-2 mr-1" onclick="UnfollowStreamTutor('@Model.TutorUserProfile.Id', '@Model.TutorStreamingUserProfile.Id')">Followed</button>
                                 }
                             }
                         }
