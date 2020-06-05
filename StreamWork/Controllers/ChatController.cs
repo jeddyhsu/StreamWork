@@ -18,8 +18,11 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> StreamWorkChat([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string chatId, string chatInfo)
         {
             var decryptchatInfo = _homeHelperFunctions.DecryptString(chatInfo);
+            var info = decryptchatInfo.Split("|");
             UserLogin userProfile = null;
-            if(chatInfo != null) userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, decryptchatInfo);
+            if(chatInfo != null) userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, info[0]);
+
+            if (!(userProfile.Id == info[1] && userProfile.EmailAddress == info[2])) userProfile = null;
 
             string chatColor = "";
             foreach(var claims in HttpContext.User.Claims)

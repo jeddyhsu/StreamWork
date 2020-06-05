@@ -17,7 +17,6 @@ namespace StreamWork.Controllers
     {
         readonly HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
         readonly TutorHelperFunctions _tutorHelperFunctions = new TutorHelperFunctions();
-        readonly EditProfileHelperFunctions _editProfileHelperFunctions = new EditProfileHelperFunctions();
         readonly ThreadClassHelperFunctions _threadClassHelperFunctions = new ThreadClassHelperFunctions();
        
         [HttpGet]
@@ -26,12 +25,14 @@ namespace StreamWork.Controllers
             if (HttpContext.User.Identity.IsAuthenticated == false)
                 return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-Tutor-TutorStream");
 
+            var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name);
+
             ProfileTutorViewModel viewModel = new ProfileTutorViewModel
             {
                 TutorUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
                 UserChannel = await _homeHelperFunctions.GetUserChannel(storageConfig, QueryHeaders.CurrentUserChannel, User.Identity.Name),
                 UserArchivedVideos = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, User.Identity.Name),
-                ChatInfo = _homeHelperFunctions.EncryptString(User.Identity.Name),
+                ChatInfo = _homeHelperFunctions.EncryptString(userProfile.Username + "|" + userProfile.Id + "|" + userProfile.EmailAddress),
             };
 
             return View(viewModel);

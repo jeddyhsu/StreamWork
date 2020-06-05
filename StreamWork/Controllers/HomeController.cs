@@ -36,7 +36,7 @@ namespace StreamWork.Controllers
             {
                 var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name);
                 populatePage.GenericUserProfile = userProfile;
-                populatePage.ChatInfo = _homeHelperFunctions.EncryptString(HttpContext.User.Identity.Name);
+                populatePage.ChatInfo = _homeHelperFunctions.EncryptString(userProfile.Username + "|" + userProfile.Id + "|" + userProfile.EmailAddress);
 
                 if (populatePage.GenericUserProfile.FollowedStudentsAndTutors != null && populatePage.UserChannel != null)
                     populatePage.IsUserFollowingThisTutor = populatePage.GenericUserProfile.FollowedStudentsAndTutors.Contains(populatePage.UserChannel.Id);

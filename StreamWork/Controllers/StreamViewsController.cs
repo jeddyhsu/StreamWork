@@ -44,7 +44,7 @@ namespace StreamWork.Controllers
             else model.TutorUserProfile = student;
             model.TutorStreamingUserProfile = tutorProfile;
             model.UserChannel = channel;
-            model.ChatInfo = _homeHelperFunctions.EncryptString(HttpContext.User.Identity.Name);
+            model.ChatInfo = _homeHelperFunctions.EncryptString(student.Username + "|" + student.Id + "|" + student.EmailAddress);
             model.StreamSubjectPicture = _streamHelperFunctions.GetCorrespondingSubjectThumbnail(model.UserChannel.StreamSubject);
 
             if (student != null)
