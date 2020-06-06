@@ -2,11 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Storage;
@@ -166,7 +163,8 @@ namespace StreamWork.HelperClasses
             return defaultURL;
         }
 
-        public async Task<IndexViewModel> PopulateHomePage ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string currentUser) {
+        public async Task<IndexViewModel> PopulateHomePage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string userName, bool isAutheticated)
+        {
             var streamingUserChannels = await GetUserChannel(storageConfig, SQLQueries.GetAllUserChannelsThatAreStreaming, "N|A");
             IndexViewModel model = new IndexViewModel();
 
@@ -180,15 +178,19 @@ namespace StreamWork.HelperClasses
                 "Fr40wrscyQF_1",
                 "ETWYvVscngb_1",
                 "F5pYLrscQ5Q_1"
-            }; // List of the IDs of the streams to hardcode in
+            };
+
+            // List of the IDs of the streams to hardcode in
             List<UserArchivedStreams> streamsByViews = await GetArchivedStreams(storageConfig, SQLQueries.GetArchivedStreamsInDescendingOrderByViews, null);
             List<UserArchivedStreams> userArchivedStreams = new List<UserArchivedStreams>();
+
             foreach (string streamWithPriority in streamsWithPriority) // Add hardcoded streams
             {
                 int streamIndex = streamsByViews.FindIndex(x => x.StreamID.Equals(streamWithPriority));
                 userArchivedStreams.Add(streamsByViews[streamIndex]);
                 streamsByViews.RemoveAt(streamIndex);
             }
+
             int toAdd = 12 - userArchivedStreams.Count; // Since Count changes while the loop is running
             for (int i = 0; i < toAdd; i++) // Fill the rest in with streams in order of view count
             {
@@ -197,7 +199,7 @@ namespace StreamWork.HelperClasses
 
             if (streamingUserChannels == null)
             {
-                var userProfile= await GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, "juliamkim");
+                var userProfile = await GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, "juliamkim");
                 var userChannel = await GetUserChannel(storageConfig, SQLQueries.GetUserChannelWithUsername, "juliamkim");
                 var getArchivedStreams = await GetArchivedStreams(storageConfig, SQLQueries.GetArchivedStreamsWithUsername, "juliamkim");
 
@@ -212,7 +214,7 @@ namespace StreamWork.HelperClasses
             else
             {
                 var userProfileForChannel = await GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, streamingUserChannels.Username);
-                 model = new IndexViewModel
+                model = new IndexViewModel
                 {
                     UserLogin = userProfileForChannel,
                     UserChannel = streamingUserChannels,
@@ -220,13 +222,14 @@ namespace StreamWork.HelperClasses
                 };
             }
 
-            return model;
-        }
+            if (isAutheticated)
+            {
+                var userProfile = await GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, userName);
+                model.GenericUserProfile = userProfile;
+                model.ChatInfo = EncryptString(userProfile.Username + "|" + userProfile.Id + "|" + userProfile.EmailAddress);
+            }
 
-        public string FormatChatId (string chatID) {
-            var formattedphrase = chatID.Split(new char[] { '\t' });
-            var formattedChatID = formattedphrase[2].Split(new char[] { '\n' });
-            return formattedphrase[1] + "|" + formattedChatID[0];
+            return model;
         }
 
         //Saves picture into container on Azure - replaces old one if there is one

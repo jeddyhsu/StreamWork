@@ -11,27 +11,27 @@ namespace StreamWork.HelperClasses
 {
     public class StudentMethods ////For functions involved with student code only
     {
-        readonly HomeMethods _homeHelperFunctions = new HomeMethods();
-        readonly FollowingMethods _followingHelperFunctions = new FollowingMethods();
+        readonly HomeMethods _homeMethods = new HomeMethods();
+        readonly FollowingMethods _followingMethods = new FollowingMethods();
 
         public async Task<ProfileStudentViewModel> PopulateProfileStudentPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string user)
         {
             ProfileStudentViewModel model = new ProfileStudentViewModel
             {
-                StudentUserProfile = user == null ? null : await _homeHelperFunctions.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, user),
-                ArchivedStreams = await _homeHelperFunctions.GetAllArchivedStreams(storageConfig),
-                PreviouslyWatchedStreams = await _homeHelperFunctions.GetPreviouslyWatchedStreams(storageConfig, user),
-                LiveChannels = await _homeHelperFunctions.GetAllUserChannels(storageConfig)
+                StudentUserProfile = user == null ? null : await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, user),
+                ArchivedStreams = await _homeMethods.GetAllArchivedStreams(storageConfig),
+                PreviouslyWatchedStreams = await _homeMethods.GetPreviouslyWatchedStreams(storageConfig, user),
+                LiveChannels = await _homeMethods.GetAllUserChannels(storageConfig)
             };
 
-            model.FollowedTutors = await _followingHelperFunctions.GetAllFollowees(storageConfig, model.StudentUserProfile.Id);
-            model.NonFollowedTutors = await _followingHelperFunctions.GetAllNonFollowees(storageConfig, model.StudentUserProfile.Id);
+            model.FollowedTutors = await _followingMethods.GetAllFollowees(storageConfig, model.StudentUserProfile.Id);
+            model.NonFollowedTutors = await _followingMethods.GetAllNonFollowees(storageConfig, model.StudentUserProfile.Id);
             return model;
         }
 
         public async Task DeleteUser([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, UserLogin user)
         {
-            await DataStore.DeleteAsync<UserLogin>(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", user.Id } });
+            await DataStore.DeleteAsync<UserLogin>(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", user.Id } });
         }
     }
 }

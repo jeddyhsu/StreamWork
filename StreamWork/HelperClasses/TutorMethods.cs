@@ -16,7 +16,7 @@ namespace StreamWork.HelperClasses
 {
     public class TutorMethods //For functions involved with tutor code only
     {
-        readonly HomeMethods _homeHelperFunctions = new HomeMethods();
+        readonly HomeMethods _homeMethods = new HomeMethods();
 
         //Uses a hashtable to add default thumbnails based on subject
         public string GetCorrespondingDefaultThumbnail(string subject)
@@ -50,15 +50,15 @@ namespace StreamWork.HelperClasses
 
         public async Task ChangeAllArchivedStreamAndUserChannelProfilePhotos([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string user, string profilePicture) //changes all profile photos on streams if user has changed it
         {
-            var allArchivedStreamsByUser = await _homeHelperFunctions.GetArchivedStreams(storageConfig, SQLQueries.GetArchivedStreamsWithUsername, user);
-            var userChannel = await _homeHelperFunctions.GetUserChannel(storageConfig, SQLQueries.GetUserChannelWithUsername, user);
+            var allArchivedStreamsByUser = await _homeMethods.GetArchivedStreams(storageConfig, SQLQueries.GetArchivedStreamsWithUsername, user);
+            var userChannel = await _homeMethods.GetUserChannel(storageConfig, SQLQueries.GetUserChannelWithUsername, user);
             foreach (var stream in allArchivedStreamsByUser)
             {
                 stream.ProfilePicture = profilePicture;
-                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", stream.Id } }, stream);
+                await DataStore.SaveAsync(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", stream.Id } }, stream);
             }
             userChannel.ProfilePicture = profilePicture;
-            await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
+            await DataStore.SaveAsync(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
         }
 
         public List<Day> GetTutorStreamSchedule(UserChannel channel)
@@ -124,7 +124,7 @@ namespace StreamWork.HelperClasses
 
                     var serialize = JsonConvert.SerializeObject(streamTasksList);
                     channel.StreamTasks = serialize;
-                    await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", channel.Id } }, channel);
+                    await DataStore.SaveAsync(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", channel.Id } }, channel);
 
                     return true;
                 }
@@ -136,7 +136,7 @@ namespace StreamWork.HelperClasses
 
                     var serialize = JsonConvert.SerializeObject(streamTasks);
                     channel.StreamTasks = serialize;
-                    await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", channel.Id } }, channel);
+                    await DataStore.SaveAsync(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", channel.Id } }, channel);
 
                     return true;
                 }
@@ -168,7 +168,7 @@ namespace StreamWork.HelperClasses
                 streamTasksList = SortStreamTasksList(streamTasksList);
 
                 channel.StreamTasks = JsonConvert.SerializeObject(streamTasksList);
-                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", channel.Id } }, channel);
+                await DataStore.SaveAsync(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", channel.Id } }, channel);
 
                 return true;
             }
@@ -195,7 +195,7 @@ namespace StreamWork.HelperClasses
                 }
 
                 channel.StreamTasks = JsonConvert.SerializeObject(streamTasksList);
-                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", channel.Id } }, channel);
+                await DataStore.SaveAsync(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", channel.Id } }, channel);
 
                 return true;
             }
@@ -262,12 +262,12 @@ namespace StreamWork.HelperClasses
 
         public async Task ClearRecommendation ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string id)
         {
-            await DataStore.DeleteAsync<Recommendation>(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", id } });
+            await DataStore.DeleteAsync<Recommendation>(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", id } });
         }
 
         public async Task DeleteStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string id)
         {
-            await DataStore.DeleteAsync<UserArchivedStreams>(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", id } });
+            await DataStore.DeleteAsync<UserArchivedStreams>(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", id } });
         }
 
         private int GetHoursAheadBasedOnTimeZone()

@@ -30,29 +30,14 @@ namespace StreamWork.Controllers
         [HttpGet]
         public async Task<IActionResult> Index([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
-            var populatePage = await _homeMethods.PopulateHomePage(storageConfig, HttpContext.User.Identity.Name);
-            populatePage.IsUserFollowingThisTutor = false;
-
-            if (HttpContext.User.Identity.IsAuthenticated == true)
-            {
-                var userProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, HttpContext.User.Identity.Name);
-                populatePage.GenericUserProfile = userProfile;
-                populatePage.ChatInfo = _encryptionMethods.EncryptString(userProfile.Username + "|" + userProfile.Id + "|" + userProfile.EmailAddress);
-
-                if (populatePage.GenericUserProfile.FollowedStudentsAndTutors != null && populatePage.UserChannel != null)
-                    populatePage.IsUserFollowingThisTutor = populatePage.GenericUserProfile.FollowedStudentsAndTutors.Contains(populatePage.UserChannel.Id);
-
-                return View(populatePage);
-            }
-
-            return View(populatePage);
+            return View(await _homeMethods.PopulateHomePage(storageConfig, HttpContext.User.Identity.Name, HttpContext.User.Identity.IsAuthenticated));
         }
 
         public async Task<IActionResult> Search([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, [FromQuery(Name = "s")] string s, [FromQuery(Name = "q")] string q)
         {
             // s is subject, q is search query
             string user = HttpContext.User.Identity.Name;
-            return View(new SearchViewModel
+            SearchViewModel model = new SearchViewModel
             {
                 PopularStreamTutors = await _homeMethods.GetPopularStreamTutor(storageConfig),
                 StreamResults = await _homeMethods.SearchUserChannels(storageConfig, s, q),
@@ -61,7 +46,9 @@ namespace StreamWork.Controllers
                 Subject = string.IsNullOrEmpty(s) ? "All Subjects" : s,
                 SearchQuery = q,
                 SubjectIcon = _homeMethods.GetSubjectIcon(s)
-            });
+            };
+
+            return View(model);
         }
 
         public async Task<IActionResult> BecomeTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
@@ -185,15 +172,7 @@ namespace StreamWork.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SignUp([FromServices] IOptionsSnapshot<StorageConfig> storageConfig,
-                                                                                               string nameFirst,
-                                                                                               string nameLast,
-                                                                                               string email,
-                                                                                               string payPalAddress,
-                                                                                               string username,
-                                                                                               string password,
-                                                                                               string college,
-                                                                                               string role)
+        public async Task<IActionResult> SignUp([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string nameFirst, string nameLast, string email, string payPalAddress, string password, string college, string role)
         {
 
             if (password == null && email != null) //initial checks!
@@ -247,7 +226,6 @@ namespace StreamWork.Controllers
                     StreamThumbnail = null,
                     StreamTitle = null,
                     ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/default-profile.png",
-                    ChatId = _homeMethods.FormatChatId(DataStore.GetChatID("https://www.cbox.ws/apis/threads.php?id=6-829647-oq4rEn&key=ae1682707f17dbc2c473d946d2d1d7c3&act=mkthread"))
                 };
                 await DataStore.SaveAsync(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
 
