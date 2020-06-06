@@ -13,7 +13,7 @@ namespace StreamWork.Hubs
 {
     public class ChatClient
     {
-        private readonly HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
+        private readonly HomeMethods _homeHelperFunctions = new HomeMethods();
 
         public async Task<bool> SaveMessage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string chatId, string userName, string name, string message, string profilePicture, DateTime dateTime, string chatColor)
         {

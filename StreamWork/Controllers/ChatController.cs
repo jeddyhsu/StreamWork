@@ -11,8 +11,8 @@ namespace StreamWork.Controllers
 {
     public class ChatController : Controller
     {
-        private readonly HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
-        private readonly ChatHelperFunctions _chatHelperFunctions = new ChatHelperFunctions();
+        private readonly HomeMethods _homeHelperFunctions = new HomeMethods();
+        private readonly ChatMethods _chatHelperFunctions = new ChatMethods();
 
         [HttpGet]
         public async Task<IActionResult> StreamWorkChat([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string chatId, string chatInfo)

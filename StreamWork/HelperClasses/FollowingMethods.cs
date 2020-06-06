@@ -9,9 +9,9 @@ using StreamWork.DataModels;
 
 namespace StreamWork.HelperClasses
 {
-    public class FollowingHelperFunctions //All helper functions that have to with students following tutors
+    public class FollowingMethods //All helper functions that have to with students following tutors
     {
-        readonly HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
+        readonly HomeMethods _homeHelperFunctions = new HomeMethods();
 
         public async Task<bool> AddFollower([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string followerId, string followeeId)
         {

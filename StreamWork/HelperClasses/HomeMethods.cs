@@ -23,7 +23,7 @@ using SixLabors.ImageSharp.Formats.Png;
 
 namespace StreamWork.HelperClasses
 {
-    public class HomeHelperFunctions {
+    public class HomeMethods {
         public static bool devEnvironment;
         public readonly string _host = devEnvironment ? "http://localhost:58539" : "https://www.streamwork.live";
         public readonly string _connectionString = "Server=tcp:streamwork.database.windows.net,1433;Initial Catalog=StreamWork;Persist Security Info=False;User ID=streamwork;Password=arizonastate1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";

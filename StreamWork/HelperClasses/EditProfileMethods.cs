@@ -10,10 +10,10 @@ using StreamWork.DataModels;
 
 namespace StreamWork.HelperClasses
 {
-    public class EditProfileHelperFunctions
+    public class EditProfileMethods
     {
-        readonly HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
-        readonly TutorHelperFunctions _tutorHelperFunctions = new TutorHelperFunctions();
+        readonly HomeMethods _homeHelperFunctions = new HomeMethods();
+        readonly TutorMethods _tutorHelperFunctions = new TutorMethods();
 
         public async Task<string[]> EditProfileWithProfilePicture(HttpRequest Request, [FromServices] IOptionsSnapshot<StorageConfig> storageConfig, UserLogin userProfile, string user)
         {

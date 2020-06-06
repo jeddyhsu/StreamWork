@@ -14,10 +14,10 @@ namespace StreamWork.Threads
 {
     public class ThreadClass
     {
-        readonly HomeHelperFunctions _homeHelperFunctions;
-        readonly EmailHelperFunctions _emailHelperFunctions;
+        readonly HomeMethods _homeHelperFunctions;
+        readonly EmailMethods _emailHelperFunctions;
         readonly ThreadClassHelperFunctions _threadClassHelperFunctions;
-        readonly ChatHelperFunctions _chatHelperFunctions;
+        readonly ChatMethods _chatHelperFunctions;
         readonly IOptionsSnapshot<StorageConfig> _storageConfig;
         readonly UserChannel _userChannel;
         readonly UserLogin _userLogin;
@@ -34,10 +34,10 @@ namespace StreamWork.Threads
 
         public ThreadClass(IOptionsSnapshot<StorageConfig> storageConfig, UserChannel userChannel, UserLogin userLogin, string streamTitle, string streamSubject, string streamDescription, string streamThumbnail, string archivedVideoId, string chatColor)
         {
-            _homeHelperFunctions = new HomeHelperFunctions();
-            _emailHelperFunctions = new EmailHelperFunctions();
+            _homeHelperFunctions = new HomeMethods();
+            _emailHelperFunctions = new EmailMethods();
             _threadClassHelperFunctions = new ThreadClassHelperFunctions();
-            _chatHelperFunctions = new ChatHelperFunctions();
+            _chatHelperFunctions = new ChatMethods();
             _storageConfig = storageConfig;
             _userChannel = userChannel;
             _userLogin = userLogin;
@@ -55,7 +55,7 @@ namespace StreamWork.Threads
             {
                 try
                 {
-                    await _emailHelperFunctions.SendOutMassEmail(_storageConfig,_userLogin,_userChannel, _archivedVideoId);
+                    await _emailHelperFunctions.SendOutMassEmail(_storageConfig, _userLogin, _userChannel, _archivedVideoId);
                 }
                 catch (Microsoft.EntityFrameworkCore.DbUpdateException e)
                 {
@@ -115,8 +115,8 @@ namespace StreamWork.Threads
                     }
                 }
             }, TaskCreationOptions.LongRunning);
-         
-             return tryAPI;
+
+            return tryAPI;
         }
 
         public void RunVideoThread() //This thread handles checking if the stream is still live
@@ -134,7 +134,7 @@ namespace StreamWork.Threads
             if (initialResponse.Channel.Item != null)
                 initialCount = initialResponse.Channel.Item.Length;
 
-            if(threadCount <= 1)
+            if (threadCount <= 1)
             {
                 Task.Factory.StartNew(async () =>
                 {
@@ -174,13 +174,13 @@ namespace StreamWork.Threads
                 StreamThumbnail = _streamThumbnail,
                 ProfilePicture = _userLogin.ProfilePicture
             };
-          
+
             return archivedStream;
         }
 
         private async Task<bool> ArchiveStreams(StreamHosterRSSFeed response) // HI SELF DO THIS
         {
-            for(int i = 1; i < hashTable.Count + 1; i++)
+            for (int i = 1; i < hashTable.Count + 1; i++)
             {
                 var archivedStream = (UserArchivedStreams)hashTable[i];
                 archivedStream.StreamID = response.Channel.Item[threadCount - i].Mediaid;

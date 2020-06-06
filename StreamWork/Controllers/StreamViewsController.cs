@@ -10,9 +10,9 @@ namespace StreamWork.Controllers
 {
     public class StreamViewsController : Controller
     {
-        readonly HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
-        readonly StreamHelperFunctions _streamHelperFunctions = new StreamHelperFunctions();
-        readonly FollowingHelperFunctions _followingHelperFunctions = new FollowingHelperFunctions();
+        readonly HomeMethods _homeHelperFunctions = new HomeMethods();
+        readonly StreamMethods _streamHelperFunctions = new StreamMethods();
+        readonly FollowingMethods _followingHelperFunctions = new FollowingMethods();
 
         [HttpGet]
         public async Task<IActionResult> StreamPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamTutorUsername, string id) //id is archivedVideo id
@@ -25,22 +25,22 @@ namespace StreamWork.Controllers
             {
                 return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-StreamViews-StreamPage?streamTutorUsername=" + streamTutorUsername + "&id=" + id);
             }
-           
+
             var channel = await _homeHelperFunctions.GetUserChannel(storageConfig, QueryHeaders.CurrentUserChannel, streamTutorUsername);
             var tutorProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, streamTutorUsername);
-           
-            if(channel.StreamTitle == null && id != null)
+
+            if (channel.StreamTitle == null && id != null)
             {
                 id = id.Replace('/', '-');
                 var archivedStream = await _homeHelperFunctions.GetArchivedStream(storageConfig, QueryHeaders.ArchivedVideosById, id);
-                if(archivedStream == null) return Redirect(_homeHelperFunctions._host + "/Home/ProfileView?Tutor=" + channel.Username);
+                if (archivedStream == null) return Redirect(_homeHelperFunctions._host + "/Home/ProfileView?Tutor=" + channel.Username);
                 else return Redirect(_homeHelperFunctions._host + "/StreamViews/StreamPlaybackPage?streamId=" + archivedStream.StreamID);
             }
 
             var student = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name);
 
             StreamPageViewModel model = new StreamPageViewModel();
-            if(student.ProfileType != "tutor") model.StudentUserProfile = student;
+            if (student.ProfileType != "tutor") model.StudentUserProfile = student;
             else model.TutorUserProfile = student;
             model.TutorStreamingUserProfile = tutorProfile;
             model.UserChannel = channel;
@@ -52,7 +52,7 @@ namespace StreamWork.Controllers
 
             await _streamHelperFunctions.IncrementChannelViews(storageConfig, HttpContext.User.Identity.Name, streamTutorUsername);
 
-            return View ("StreamPage", model);
+            return View("StreamPage", model);
         }
 
         public async Task<IActionResult> StreamPlaybackPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamId)
@@ -79,7 +79,7 @@ namespace StreamWork.Controllers
 
             await _streamHelperFunctions.IncrementArchivedVideoViews(storageConfig, HttpContext.User.Identity.Name, streamId);
 
-            return View("StreamPlaybackPage", model) ;
+            return View("StreamPlaybackPage", model);
         }
     }
 }

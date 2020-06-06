@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -15,9 +14,9 @@ using StreamWork.TutorObjects;
 
 namespace StreamWork.HelperClasses
 {
-    public class TutorHelperFunctions //For functions involved with tutor code only
+    public class TutorMethods //For functions involved with tutor code only
     {
-        readonly HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
+        readonly HomeMethods _homeHelperFunctions = new HomeMethods();
 
         //Uses a hashtable to add default thumbnails based on subject
         public string GetCorrespondingDefaultThumbnail(string subject)

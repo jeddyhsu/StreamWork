@@ -9,10 +9,10 @@ using StreamWork.ViewModels;
 
 namespace StreamWork.HelperClasses
 {
-    public class StudentHelperFunctions ////For functions involved with student code only
+    public class StudentMethods ////For functions involved with student code only
     {
-        readonly HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
-        readonly FollowingHelperFunctions _followingHelperFunctions = new FollowingHelperFunctions();
+        readonly HomeMethods _homeHelperFunctions = new HomeMethods();
+        readonly FollowingMethods _followingHelperFunctions = new FollowingMethods();
 
         public async Task<ProfileStudentViewModel> PopulateProfileStudentPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string user)
         {

@@ -10,9 +10,9 @@ using StreamWork.DataModels;
 
 namespace StreamWork.HelperClasses
 {
-    public class ChatHelperFunctions
+    public class ChatMethods
     {
-        HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
+        HomeMethods _homeHelperFunctions = new HomeMethods();
 
         public async Task<List<Chats>> GetAllChatsWithChatId([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string chatId)
         {

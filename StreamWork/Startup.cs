@@ -22,7 +22,7 @@ namespace StreamWork
                 .AddEnvironmentVariables();
 
             Configuration = builder.Build();
-            HomeHelperFunctions.devEnvironment = env.IsDevelopment();
+            HomeMethods.devEnvironment = env.IsDevelopment();
         }
 
         public IConfiguration Configuration { get; }

@@ -20,18 +20,18 @@ namespace StreamWork.Controllers
 {
     public class HomeController : Controller
     {
-        readonly HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
-        readonly TutorHelperFunctions _tutorHelperFunctions = new TutorHelperFunctions();
-        readonly FollowingHelperFunctions _followingHelperFunctions = new FollowingHelperFunctions();
-        readonly EmailHelperFunctions _emailHelperFunctions = new EmailHelperFunctions();
-        readonly EditProfileHelperFunctions _editProfileHelperFunctions = new EditProfileHelperFunctions();
+        readonly HomeMethods _homeHelperFunctions = new HomeMethods();
+        readonly TutorMethods _tutorHelperFunctions = new TutorMethods();
+        readonly FollowingMethods _followingHelperFunctions = new FollowingMethods();
+        readonly EmailMethods _emailHelperFunctions = new EmailMethods();
+        readonly EditProfileMethods _editProfileHelperFunctions = new EditProfileMethods();
 
         [HttpGet]
         public async Task<IActionResult> Index([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
             var populatePage = await _homeHelperFunctions.PopulateHomePage(storageConfig, HttpContext.User.Identity.Name);
             populatePage.IsUserFollowingThisTutor = false;
-            
+
             if (HttpContext.User.Identity.IsAuthenticated == true)
             {
                 var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name);
@@ -47,7 +47,8 @@ namespace StreamWork.Controllers
             return View(populatePage);
         }
 
-        public async Task<IActionResult> Search([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, [FromQuery(Name = "s")] string s, [FromQuery(Name = "q")] string q) {
+        public async Task<IActionResult> Search([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, [FromQuery(Name = "s")] string s, [FromQuery(Name = "q")] string q)
+        {
             // s is subject, q is search query
             string user = HttpContext.User.Identity.Name;
             return View(new SearchViewModel
@@ -141,7 +142,7 @@ namespace StreamWork.Controllers
                 NumberOfStreams = (await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, tutor)).Count
             };
 
-            profile.NumberOfFollowers = await _followingHelperFunctions.GetNumberOfFollowers(storageConfig,profile.TutorUserProfile.Id);
+            profile.NumberOfFollowers = await _followingHelperFunctions.GetNumberOfFollowers(storageConfig, profile.TutorUserProfile.Id);
             if (HttpContext.User.Identity.IsAuthenticated) profile.IsFollowing = await _followingHelperFunctions.IsFollowingFollowee(storageConfig, profile.GenericUserProfile.Id, profile.TutorUserProfile.Id);
             profile.Schedule = _tutorHelperFunctions.GetTutorStreamSchedule(profile.UserChannel);
 
@@ -151,9 +152,9 @@ namespace StreamWork.Controllers
         [HttpPost]
         public async Task<IActionResult> AddFollower([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string followerId, string followeeId)
         {
-            if(followerId != null && followeeId != null)
+            if (followerId != null && followeeId != null)
             {
-                if(await _followingHelperFunctions.AddFollower(storageConfig, followerId, followeeId)) return Json(new { Message = JsonResponse.Success.ToString() });
+                if (await _followingHelperFunctions.AddFollower(storageConfig, followerId, followeeId)) return Json(new { Message = JsonResponse.Success.ToString() });
             }
 
             return Json(new { Message = JsonResponse.Failed.ToString() });
@@ -171,7 +172,8 @@ namespace StreamWork.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateRecommendation([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string student, string tutor, string recommendation) {
+        public async Task<IActionResult> CreateRecommendation([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string student, string tutor, string recommendation)
+        {
             await _homeHelperFunctions.SaveRecommendation(storageConfig, student, tutor, recommendation);
             return Json(new { Message = JsonResponse.Success.ToString() });
         }
@@ -208,7 +210,7 @@ namespace StreamWork.Controllers
                     if (checkPayPalEmailUsingRegularEmail.Count != 0 || checkPayPalEmail.Count != 0) return Json(new { Message = JsonResponse.PayPalEmailExists.ToString() });
                 }
 
-                return Json(new { Message = JsonResponse.Success.ToString()});
+                return Json(new { Message = JsonResponse.Success.ToString() });
             }
 
             UserLogin userProfile = new UserLogin
@@ -322,7 +324,7 @@ namespace StreamWork.Controllers
             {
                 var success = await _editProfileHelperFunctions.EditProfileWithProfilePicture(Request, storageConfig, userProfile, user);
                 if (success != null)
-                    return Json(new { Message = JsonResponse.Success.ToString(), caption = success[0], paragraph = success[1], picture = success[2]});
+                    return Json(new { Message = JsonResponse.Success.ToString(), caption = success[0], paragraph = success[1], picture = success[2] });
             }
 
             //Handles if there is not a profile picture with the caption or about paragraph
@@ -376,13 +378,15 @@ namespace StreamWork.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ChangePassword([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string newPassword, string confirmNewPassword, string username, string key) {
+        public async Task<IActionResult> ChangePassword([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string newPassword, string confirmNewPassword, string username, string key)
+        {
             var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
 
             if (!key.Equals(userProfile.ChangePasswordKey))
                 return Json(new { Message = JsonResponse.QueryFailed.ToString() });
 
-            if (newPassword == confirmNewPassword) {
+            if (newPassword == confirmNewPassword)
+            {
                 userProfile.Password = _homeHelperFunctions.EncryptPassword(newPassword);
                 userProfile.ChangePasswordKey = null;
                 await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
@@ -409,7 +413,8 @@ namespace StreamWork.Controllers
 
             var user = HttpContext.User.Identity.Name;
 
-            DefaultViewModel model = new DefaultViewModel {
+            DefaultViewModel model = new DefaultViewModel
+            {
                 GenericUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user)
             };
 
@@ -469,10 +474,10 @@ namespace StreamWork.Controllers
                 var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUserUsingEmail, email);
                 userProfile.NotificationSubscribe = DatabaseValues.False.ToString();
                 await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
-                return Json(new { Message = JsonResponse.Success.ToString()});
+                return Json(new { Message = JsonResponse.Success.ToString() });
             }
 
-            return Json(new { Message = JsonResponse.Failed.ToString()});
+            return Json(new { Message = JsonResponse.Failed.ToString() });
         }
     }
 }

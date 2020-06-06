@@ -10,9 +10,9 @@ using StreamWork.DataModels;
 
 namespace StreamWork.HelperClasses
 {
-    public class StreamHelperFunctions
+    public class StreamMethods
     {
-        readonly HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
+        readonly HomeMethods _homeHelperFunctions = new HomeMethods();
 
         public async Task<bool> UserHasViewedStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string username, string tutorName)
         {
