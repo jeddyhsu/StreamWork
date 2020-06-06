@@ -63,7 +63,7 @@
             var reader = new FileReader();
             if (pictureType == 'Thumbnail') {
                 reader.onload = function (e) {
-                    $('#previewThumbnail')
+                    $('#previewStreamThumbnail')
                         .attr('src', e.target.result);
                 }
             }
