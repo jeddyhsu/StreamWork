@@ -37,7 +37,7 @@ namespace StreamWork.Controllers
         {
             // s is subject, q is search query
             string user = HttpContext.User.Identity.Name;
-            SearchViewModel model = new SearchViewModel
+            SearchViewModel viewModel = new SearchViewModel
             {
                 PopularStreamTutors = await _homeMethods.GetPopularStreamTutor(storageConfig),
                 StreamResults = await _homeMethods.SearchUserChannels(storageConfig, s, q),
@@ -48,7 +48,7 @@ namespace StreamWork.Controllers
                 SubjectIcon = _homeMethods.GetSubjectIcon(s)
             };
 
-            return View(model);
+            return View(viewModel);
         }
 
         public async Task<IActionResult> BecomeTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
@@ -121,7 +121,7 @@ namespace StreamWork.Controllers
         [HttpGet]
         public async Task<IActionResult> ProfileView([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string tutor)
         {
-            ProfileTutorViewModel profile = new ProfileTutorViewModel
+            ProfileTutorViewModel viewModel = new ProfileTutorViewModel
             {
                 GenericUserProfile = HttpContext.User.Identity.Name != null ? await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, HttpContext.User.Identity.Name) : null,
                 TutorUserProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, tutor),
@@ -130,11 +130,11 @@ namespace StreamWork.Controllers
                 NumberOfStreams = (await _homeMethods.GetArchivedStreams(storageConfig, SQLQueries.GetArchivedStreamsWithUsername, tutor)).Count
             };
 
-            profile.NumberOfFollowers = await _followingMethods.GetNumberOfFollowers(storageConfig, profile.TutorUserProfile.Id);
-            if (HttpContext.User.Identity.IsAuthenticated) profile.IsFollowing = await _followingMethods.IsFollowingFollowee(storageConfig, profile.GenericUserProfile.Id, profile.TutorUserProfile.Id);
-            profile.Schedule = _tutorMethods.GetTutorStreamSchedule(profile.UserChannel);
+            viewModel.NumberOfFollowers = await _followingMethods.GetNumberOfFollowers(storageConfig, viewModel.TutorUserProfile.Id);
+            if (HttpContext.User.Identity.IsAuthenticated) viewModel.IsFollowing = await _followingMethods.IsFollowingFollowee(storageConfig, viewModel.GenericUserProfile.Id, viewModel.TutorUserProfile.Id);
+            viewModel.Schedule = _tutorMethods.GetTutorStreamSchedule(viewModel.UserChannel);
 
-            return View(profile);
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -377,12 +377,12 @@ namespace StreamWork.Controllers
 
             var user = HttpContext.User.Identity.Name;
 
-            DefaultViewModel model = new DefaultViewModel
+            DefaultViewModel viewModel = new DefaultViewModel
             {
                 GenericUserProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, user)
             };
 
-            return View(model);
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -393,13 +393,13 @@ namespace StreamWork.Controllers
 
             var user = HttpContext.User.Identity.Name;
 
-            ProfileTutorViewModel model = new ProfileTutorViewModel
+            ProfileTutorViewModel viewModel = new ProfileTutorViewModel
             {
                 TutorUserProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, tutor),
                 GenericUserProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, user)
             };
 
-            return View(model);
+            return View(viewModel);
         }
 
 

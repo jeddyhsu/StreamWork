@@ -22,15 +22,10 @@ namespace StreamWork.Controllers
         [HttpGet]
         public async Task<IActionResult> ProfileStudent([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
-            var model = new UserProfile();
-
             if (HttpContext.User.Identity.IsAuthenticated == false)
                 return Redirect(_homeMethods._host + "/Home/Login?dest=-Student-ProfileStudent");
 
             var studentProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, User.Identity.Name);
-            var splitName = studentProfile.Name.Split(new char[] { '|' });
-            model.FirstName = splitName[0];
-            model.LastName = splitName[1];
 
             ProfileStudentViewModel viewModel = await _studentMethods.PopulateProfileStudentPage(storageConfig, HttpContext.User.Identity.Name);
             viewModel.StudentUserProfile = studentProfile;
@@ -41,22 +36,19 @@ namespace StreamWork.Controllers
         [HttpGet]
         public async Task<IActionResult> LiveStreams([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, [FromQuery(Name = "s")] string s, [FromQuery(Name = "q")] string q)
         {
-            var model = new UserProfile();
-
             if (HttpContext.User.Identity.IsAuthenticated == false)
                 return Redirect(_homeMethods._host + "/Home/Login?dest=-Student-ProfileStudent");
 
             var studentProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, User.Identity.Name);
-            var splitName = studentProfile.Name.Split(new char[] { '|' });
-            model.FirstName = splitName[0];
-            model.LastName = splitName[1];
 
-            return View(new ProfileStudentViewModel
+            ProfileStudentViewModel viewModel = new ProfileStudentViewModel
             {
                 LiveChannels = await _homeMethods.SearchUserChannels(storageConfig, s, q),
                 StudentUserProfile = studentProfile,
                 ArchivedStreams = await _homeMethods.GetAllArchivedStreams(storageConfig),
-            });
+            };
+
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -67,11 +59,14 @@ namespace StreamWork.Controllers
                 return Redirect(_homeMethods._host + "/Home/Login?dest=-Student-ArchivedStreams");
 
             string user = HttpContext.User.Identity.Name;
-            return View(new ProfileStudentViewModel
+
+            ProfileStudentViewModel viewModel = new ProfileStudentViewModel
             {
                 ArchivedStreams = await _homeMethods.SearchArchivedStreams(storageConfig, s, q),
                 StudentUserProfile = user == null ? null : await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, user),
-            });
+            };
+
+            return View(viewModel);
         }
 
         [HttpPost]

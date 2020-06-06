@@ -18,14 +18,8 @@ namespace StreamWork.Controllers
         [HttpGet]
         public async Task<IActionResult> StreamPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamTutorUsername, string id) //id is archivedVideo id
         {
-            if (HttpContext.User.Identity.IsAuthenticated == false && id == null)
-            {
-                return Redirect(_homeMethods._host + "/Home/Login?dest=-StreamViews-StreamPage?streamTutorUsername=" + streamTutorUsername);
-            }
-            else if (HttpContext.User.Identity.IsAuthenticated == false && id != null)
-            {
-                return Redirect(_homeMethods._host + "/Home/Login?dest=-StreamViews-StreamPage?streamTutorUsername=" + streamTutorUsername + "&id=" + id);
-            }
+            if (HttpContext.User.Identity.IsAuthenticated == false && id == null) return Redirect(_homeMethods._host + "/Home/Login?dest=-StreamViews-StreamPage?streamTutorUsername=" + streamTutorUsername);
+            else if (HttpContext.User.Identity.IsAuthenticated == false && id != null) return Redirect(_homeMethods._host + "/Home/Login?dest=-StreamViews-StreamPage?streamTutorUsername=" + streamTutorUsername + "&id=" + id);
 
             var channel = await _homeMethods.GetUserChannel(storageConfig, SQLQueries.GetUserChannelWithUsername, streamTutorUsername);
             var tutorProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, streamTutorUsername);
