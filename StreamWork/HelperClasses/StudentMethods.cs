@@ -18,7 +18,7 @@ namespace StreamWork.HelperClasses
         {
             ProfileStudentViewModel model = new ProfileStudentViewModel
             {
-                StudentUserProfile = user == null ? null : await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, user),
+                StudentUserProfile = user == null ? null : await _homeHelperFunctions.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, user),
                 ArchivedStreams = await _homeHelperFunctions.GetAllArchivedStreams(storageConfig),
                 PreviouslyWatchedStreams = await _homeHelperFunctions.GetPreviouslyWatchedStreams(storageConfig, user),
                 LiveChannels = await _homeHelperFunctions.GetAllUserChannels(storageConfig)

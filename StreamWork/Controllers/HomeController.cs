@@ -20,23 +20,24 @@ namespace StreamWork.Controllers
 {
     public class HomeController : Controller
     {
-        readonly HomeMethods _homeHelperFunctions = new HomeMethods();
-        readonly TutorMethods _tutorHelperFunctions = new TutorMethods();
-        readonly FollowingMethods _followingHelperFunctions = new FollowingMethods();
-        readonly EmailMethods _emailHelperFunctions = new EmailMethods();
-        readonly EditProfileMethods _editProfileHelperFunctions = new EditProfileMethods();
+        readonly HomeMethods _homeMethods = new HomeMethods();
+        readonly TutorMethods _tutorMethods = new TutorMethods();
+        readonly FollowingMethods _followingMethods = new FollowingMethods();
+        readonly EmailMethods _emailMethods = new EmailMethods();
+        readonly EncryptionMethods _encryptionMethods = new EncryptionMethods();
+        readonly EditProfileMethods _editProfileMethods = new EditProfileMethods();
 
         [HttpGet]
         public async Task<IActionResult> Index([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
-            var populatePage = await _homeHelperFunctions.PopulateHomePage(storageConfig, HttpContext.User.Identity.Name);
+            var populatePage = await _homeMethods.PopulateHomePage(storageConfig, HttpContext.User.Identity.Name);
             populatePage.IsUserFollowingThisTutor = false;
 
             if (HttpContext.User.Identity.IsAuthenticated == true)
             {
-                var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, HttpContext.User.Identity.Name);
+                var userProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, HttpContext.User.Identity.Name);
                 populatePage.GenericUserProfile = userProfile;
-                populatePage.ChatInfo = _homeHelperFunctions.EncryptString(userProfile.Username + "|" + userProfile.Id + "|" + userProfile.EmailAddress);
+                populatePage.ChatInfo = _encryptionMethods.EncryptString(userProfile.Username + "|" + userProfile.Id + "|" + userProfile.EmailAddress);
 
                 if (populatePage.GenericUserProfile.FollowedStudentsAndTutors != null && populatePage.UserChannel != null)
                     populatePage.IsUserFollowingThisTutor = populatePage.GenericUserProfile.FollowedStudentsAndTutors.Contains(populatePage.UserChannel.Id);
@@ -53,13 +54,13 @@ namespace StreamWork.Controllers
             string user = HttpContext.User.Identity.Name;
             return View(new SearchViewModel
             {
-                PopularStreamTutors = await _homeHelperFunctions.GetPopularStreamTutor(storageConfig),
-                StreamResults = await _homeHelperFunctions.SearchUserChannels(storageConfig, s, q),
-                ArchiveResults = await _homeHelperFunctions.SearchArchivedStreams(storageConfig, s, q),
-                UserProfile = user == null ? null : await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, user),
+                PopularStreamTutors = await _homeMethods.GetPopularStreamTutor(storageConfig),
+                StreamResults = await _homeMethods.SearchUserChannels(storageConfig, s, q),
+                ArchiveResults = await _homeMethods.SearchArchivedStreams(storageConfig, s, q),
+                UserProfile = user == null ? null : await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, user),
                 Subject = string.IsNullOrEmpty(s) ? "All Subjects" : s,
                 SearchQuery = q,
-                SubjectIcon = _homeHelperFunctions.GetSubjectIcon(s)
+                SubjectIcon = _homeMethods.GetSubjectIcon(s)
             });
         }
 
@@ -70,12 +71,12 @@ namespace StreamWork.Controllers
             {
                 viewModel = new PopularStreamTutorsViewModel
                 {
-                    GenericUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, HttpContext.User.Identity.Name)
+                    GenericUserProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, HttpContext.User.Identity.Name)
                 };
             }
             else viewModel = new PopularStreamTutorsViewModel { };
 
-            viewModel.PopularStreamTutors = await _homeHelperFunctions.GetPopularStreamTutor(storageConfig);
+            viewModel.PopularStreamTutors = await _homeMethods.GetPopularStreamTutor(storageConfig);
 
             return View(viewModel);
         }
@@ -87,7 +88,7 @@ namespace StreamWork.Controllers
             {
                 viewModel = new DefaultViewModel
                 {
-                    GenericUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, HttpContext.User.Identity.Name)
+                    GenericUserProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, HttpContext.User.Identity.Name)
                 };
             }
             else viewModel = new DefaultViewModel { };
@@ -102,7 +103,7 @@ namespace StreamWork.Controllers
             {
                 viewModel = new DefaultViewModel
                 {
-                    GenericUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, HttpContext.User.Identity.Name)
+                    GenericUserProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, HttpContext.User.Identity.Name)
                 };
             }
             else viewModel = new DefaultViewModel { };
@@ -117,7 +118,7 @@ namespace StreamWork.Controllers
             {
                 viewModel = new DefaultViewModel
                 {
-                    GenericUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, HttpContext.User.Identity.Name)
+                    GenericUserProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, HttpContext.User.Identity.Name)
                 };
             }
             else viewModel = new DefaultViewModel { };
@@ -135,16 +136,16 @@ namespace StreamWork.Controllers
         {
             ProfileTutorViewModel profile = new ProfileTutorViewModel
             {
-                GenericUserProfile = HttpContext.User.Identity.Name != null ? await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, HttpContext.User.Identity.Name) : null,
-                TutorUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, tutor),
-                UserChannel = await _homeHelperFunctions.GetUserChannel(storageConfig, QueryHeaders.GetUserChannelWithUsername, tutor),
-                UserArchivedVideos = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.GetArchivedStreamsWithUsername, tutor),
-                NumberOfStreams = (await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.GetArchivedStreamsWithUsername, tutor)).Count
+                GenericUserProfile = HttpContext.User.Identity.Name != null ? await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, HttpContext.User.Identity.Name) : null,
+                TutorUserProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, tutor),
+                UserChannel = await _homeMethods.GetUserChannel(storageConfig, SQLQueries.GetUserChannelWithUsername, tutor),
+                UserArchivedVideos = await _homeMethods.GetArchivedStreams(storageConfig, SQLQueries.GetArchivedStreamsWithUsername, tutor),
+                NumberOfStreams = (await _homeMethods.GetArchivedStreams(storageConfig, SQLQueries.GetArchivedStreamsWithUsername, tutor)).Count
             };
 
-            profile.NumberOfFollowers = await _followingHelperFunctions.GetNumberOfFollowers(storageConfig, profile.TutorUserProfile.Id);
-            if (HttpContext.User.Identity.IsAuthenticated) profile.IsFollowing = await _followingHelperFunctions.IsFollowingFollowee(storageConfig, profile.GenericUserProfile.Id, profile.TutorUserProfile.Id);
-            profile.Schedule = _tutorHelperFunctions.GetTutorStreamSchedule(profile.UserChannel);
+            profile.NumberOfFollowers = await _followingMethods.GetNumberOfFollowers(storageConfig, profile.TutorUserProfile.Id);
+            if (HttpContext.User.Identity.IsAuthenticated) profile.IsFollowing = await _followingMethods.IsFollowingFollowee(storageConfig, profile.GenericUserProfile.Id, profile.TutorUserProfile.Id);
+            profile.Schedule = _tutorMethods.GetTutorStreamSchedule(profile.UserChannel);
 
             return View(profile);
         }
@@ -154,7 +155,7 @@ namespace StreamWork.Controllers
         {
             if (followerId != null && followeeId != null)
             {
-                if (await _followingHelperFunctions.AddFollower(storageConfig, followerId, followeeId)) return Json(new { Message = JsonResponse.Success.ToString() });
+                if (await _followingMethods.AddFollower(storageConfig, followerId, followeeId)) return Json(new { Message = JsonResponse.Success.ToString() });
             }
 
             return Json(new { Message = JsonResponse.Failed.ToString() });
@@ -165,7 +166,7 @@ namespace StreamWork.Controllers
         {
             if (followerId != null && followeeId != null)
             {
-                if (await _followingHelperFunctions.RemoveFollower(storageConfig, followerId, followeeId)) return Json(new { Message = JsonResponse.Success.ToString() });
+                if (await _followingMethods.RemoveFollower(storageConfig, followerId, followeeId)) return Json(new { Message = JsonResponse.Success.ToString() });
             }
 
             return Json(new { Message = JsonResponse.Failed.ToString() });
@@ -174,7 +175,7 @@ namespace StreamWork.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateRecommendation([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string student, string tutor, string recommendation)
         {
-            await _homeHelperFunctions.SaveRecommendation(storageConfig, student, tutor, recommendation);
+            await _homeMethods.SaveRecommendation(storageConfig, student, tutor, recommendation);
             return Json(new { Message = JsonResponse.Success.ToString() });
         }
 
@@ -197,16 +198,16 @@ namespace StreamWork.Controllers
 
             if (password == null && email != null) //initial checks!
             {
-                var checkUsername = await _homeHelperFunctions.GetUserProfiles(storageConfig, QueryHeaders.GetUserWithUsername, username);
+                var checkUsername = await _homeMethods.GetUserProfiles(storageConfig, SQLQueries.GetUserWithUsername, username);
                 if (checkUsername.Count != 0) return Json(new { Message = JsonResponse.UsernameExists.ToString() });
 
-                var checkEmail = await _homeHelperFunctions.GetUserProfiles(storageConfig, QueryHeaders.GetUserWithEmailAddress, email);
+                var checkEmail = await _homeMethods.GetUserProfiles(storageConfig, SQLQueries.GetUserWithEmailAddress, email);
                 if (checkEmail.Count != 0) return Json(new { Message = JsonResponse.EmailExists.ToString() });
 
                 if (payPalAddress != null) //only for tutors
                 {
-                    var checkPayPalEmailUsingRegularEmail = await _homeHelperFunctions.GetUserProfiles(storageConfig, QueryHeaders.GetUserWithEmailAddress, payPalAddress); //payPal email can't be someone elses regular email
-                    var checkPayPalEmail = await _homeHelperFunctions.GetUserProfiles(storageConfig, QueryHeaders.GetUserWithPayPalAddress, payPalAddress);
+                    var checkPayPalEmailUsingRegularEmail = await _homeMethods.GetUserProfiles(storageConfig, SQLQueries.GetUserWithEmailAddress, payPalAddress); //payPal email can't be someone elses regular email
+                    var checkPayPalEmail = await _homeMethods.GetUserProfiles(storageConfig, SQLQueries.GetUserWithPayPalAddress, payPalAddress);
                     if (checkPayPalEmailUsingRegularEmail.Count != 0 || checkPayPalEmail.Count != 0) return Json(new { Message = JsonResponse.PayPalEmailExists.ToString() });
                 }
 
@@ -219,7 +220,7 @@ namespace StreamWork.Controllers
                 Name = nameFirst + "|" + nameLast,
                 EmailAddress = email,
                 Username = username,
-                Password = _homeHelperFunctions.EncryptPassword(password),
+                Password = _encryptionMethods.EncryptPassword(password),
                 ProfileType = role,
                 AcceptedTutor = false,
                 College = college,
@@ -231,8 +232,8 @@ namespace StreamWork.Controllers
                 NotificationSubscribe = DatabaseValues.True.ToString()
             };
 
-            if (userProfile.ProfileType == "student") await _emailHelperFunctions.SendOutEmailToStreamWorkTeam(userProfile);
-            await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
+            if (userProfile.ProfileType == "student") await _emailMethods.SendOutEmailToStreamWorkTeam(userProfile);
+            await DataStore.SaveAsync(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
 
             if (role == "tutor")
             {
@@ -241,14 +242,14 @@ namespace StreamWork.Controllers
                 {
                     Id = Guid.NewGuid().ToString(),
                     Username = username,
-                    ChannelKey = _homeHelperFunctions._defaultStreamHosterChannelKey,
+                    ChannelKey = _homeMethods._defaultStreamHosterChannelKey,
                     StreamSubject = null,
                     StreamThumbnail = null,
                     StreamTitle = null,
                     ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/default-profile.png",
-                    ChatId = _homeHelperFunctions.FormatChatId(DataStore.GetChatID("https://www.cbox.ws/apis/threads.php?id=6-829647-oq4rEn&key=ae1682707f17dbc2c473d946d2d1d7c3&act=mkthread"))
+                    ChatId = _homeMethods.FormatChatId(DataStore.GetChatID("https://www.cbox.ws/apis/threads.php?id=6-829647-oq4rEn&key=ae1682707f17dbc2c473d946d2d1d7c3&act=mkthread"))
                 };
-                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
+                await DataStore.SaveAsync(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
 
                 //Checks for the attachments that tutors provide and sends them to streamwork for verification
                 if (Request.Form.Files.Count != 0)
@@ -264,7 +265,7 @@ namespace StreamWork.Controllers
                     List<Attachment> attachments = new List<Attachment>();
                     foreach (var file in files)
                         attachments.Add(new Attachment(file.OpenReadStream(), file.FileName));
-                    await _emailHelperFunctions.SendOutEmailToStreamWorkTeam(nameFirst, nameLast, email, attachments);
+                    await _emailMethods.SendOutEmailToStreamWorkTeam(nameFirst, nameLast, email, attachments);
                 }
             }
 
@@ -280,20 +281,20 @@ namespace StreamWork.Controllers
         [HttpPost]
         public async Task<IActionResult> Login([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string username, string password)
         {
-            var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, username);
+            var userProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, username);
             if (userProfile == null)
                 return Json(new { Message = JsonResponse.Failed.ToString() });
 
-            var checkforUser = await DataStore.GetListAsync<UserLogin>(_homeHelperFunctions._connectionString, storageConfig.Value, QueryHeaders.GetUserWithUsernameAndPassword.ToString(), new List<string> { username, _homeHelperFunctions.DecryptPassword(userProfile.Password, password) });
+            var checkforUser = await DataStore.GetListAsync<UserLogin>(_homeMethods._connectionString, storageConfig.Value, SQLQueries.GetUserWithUsernameAndPassword.ToString(), new List<string> { username, _encryptionMethods.DecryptPassword(userProfile.Password, password) });
             if (checkforUser.Count == 1)
             {
-                HttpContext.Session.SetString(QueryHeaders.UserProfile.ToString(), username);
+                HttpContext.Session.SetString(SQLQueries.UserProfile.ToString(), username);
 
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, username),
                     new Claim(ClaimTypes.Email, userProfile.EmailAddress),
-                    new Claim(ClaimTypes.UserData, _homeHelperFunctions.GetRandomChatColor())
+                    new Claim(ClaimTypes.UserData, _homeMethods.GetRandomChatColor())
                 };
 
                 var userIdentity = new ClaimsIdentity(claims, "cookie");
@@ -302,7 +303,7 @@ namespace StreamWork.Controllers
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
                 userProfile.LastLogin = DateTime.UtcNow;
-                await _homeHelperFunctions.UpdateUser(storageConfig, userProfile);
+                await _homeMethods.UpdateUser(storageConfig, userProfile);
 
                 if (userProfile.ProfileType == "tutor")
                     return Json(new { Message = JsonResponse.Tutor.ToString() });
@@ -317,12 +318,12 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> EditProfileInformation([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
             var user = HttpContext.User.Identity.Name;
-            var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, user);
+            var userProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, user);
 
             //Handles if there is a profile picture with the caption or about paragraph
             if (Request.Form.Files.Count > 0)
             {
-                var success = await _editProfileHelperFunctions.EditProfileWithProfilePicture(Request, storageConfig, userProfile, user);
+                var success = await _editProfileMethods.EditProfileWithProfilePicture(Request, storageConfig, userProfile, user);
                 if (success != null)
                     return Json(new { Message = JsonResponse.Success.ToString(), caption = success[0], paragraph = success[1], picture = success[2] });
             }
@@ -330,7 +331,7 @@ namespace StreamWork.Controllers
             //Handles if there is not a profile picture with the caption or about paragraph
             if (Request.Form.Keys.Count == 1)
             {
-                var success = await _editProfileHelperFunctions.EditProfileWithNoProfilePicture(Request, storageConfig, user);
+                var success = await _editProfileMethods.EditProfileWithNoProfilePicture(Request, storageConfig, user);
                 if (success != null)
                     return Json(new { Message = JsonResponse.Success.ToString(), caption = success[0], paragraph = success[1] });
             }
@@ -353,17 +354,17 @@ namespace StreamWork.Controllers
         [HttpPost]
         public async Task<IActionResult> PasswordRecovery([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string username)
         {
-            var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, username);
+            var userProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, username);
             if (userProfile == null)
                 return Json(new { Message = JsonResponse.Failed.ToString() });
 
             Random random = new Random();
             string key = Convert.ToString(random.Next(int.MaxValue), 16);
             userProfile.ChangePasswordKey = key;
-            await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
+            await DataStore.SaveAsync(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
 
-            await _emailHelperFunctions.SendOutPasswordRecoveryEmail(userProfile, _homeHelperFunctions.CreateUri(userProfile.Username, key));  //send email out in thread so that delay will be shorter
-            await _emailHelperFunctions.RunRecoveryEmailThread(storageConfig, userProfile, username);
+            await _emailMethods.SendOutPasswordRecoveryEmail(userProfile, _homeMethods.CreateUri(userProfile.Username, key));  //send email out in thread so that delay will be shorter
+            await _emailMethods.RunRecoveryEmailThread(storageConfig, userProfile, username);
 
             return Json(new { Message = JsonResponse.Success.ToString() });
         }
@@ -371,7 +372,7 @@ namespace StreamWork.Controllers
         [HttpGet]
         public async Task<IActionResult> ChangePassword([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string username, string key)
         {
-            var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, username);
+            var userProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, username);
             if (!key.Equals(userProfile.ChangePasswordKey))
                 return Json(new { Message = "Link Expired" });
             return View();
@@ -380,16 +381,16 @@ namespace StreamWork.Controllers
         [HttpPost]
         public async Task<IActionResult> ChangePassword([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string newPassword, string confirmNewPassword, string username, string key)
         {
-            var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, username);
+            var userProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, username);
 
             if (!key.Equals(userProfile.ChangePasswordKey))
                 return Json(new { Message = JsonResponse.QueryFailed.ToString() });
 
             if (newPassword == confirmNewPassword)
             {
-                userProfile.Password = _homeHelperFunctions.EncryptPassword(newPassword);
+                userProfile.Password = _encryptionMethods.EncryptPassword(newPassword);
                 userProfile.ChangePasswordKey = null;
-                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
+                await DataStore.SaveAsync(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
 
                 return Json(new { Message = JsonResponse.Success.ToString() });
             }
@@ -409,13 +410,13 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> Subscribe([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
             if (HttpContext.User.Identity.IsAuthenticated == false)
-                return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-Home-Subscribe");
+                return Redirect(_homeMethods._host + "/Home/Login?dest=-Home-Subscribe");
 
             var user = HttpContext.User.Identity.Name;
 
             DefaultViewModel model = new DefaultViewModel
             {
-                GenericUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, user)
+                GenericUserProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, user)
             };
 
             return View(model);
@@ -425,14 +426,14 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> Donate(string tutor, [FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
             if (HttpContext.User.Identity.IsAuthenticated == false)
-                return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-Home-Donate?tutor=" + tutor);
+                return Redirect(_homeMethods._host + "/Home/Login?dest=-Home-Donate?tutor=" + tutor);
 
             var user = HttpContext.User.Identity.Name;
 
             ProfileTutorViewModel model = new ProfileTutorViewModel
             {
-                TutorUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, tutor),
-                GenericUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, user)
+                TutorUserProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, tutor),
+                GenericUserProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, user)
             };
 
             return View(model);
@@ -444,9 +445,9 @@ namespace StreamWork.Controllers
         {
             if (email != null)
             {
-                var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithEmailAddress, email);
+                var userProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithEmailAddress, email);
                 userProfile.NotificationSubscribe = DatabaseValues.True.ToString();
-                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
+                await DataStore.SaveAsync(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
                 return Json(new { Message = JsonResponse.Success.ToString() });
             }
 
@@ -458,9 +459,9 @@ namespace StreamWork.Controllers
         {
             if (email != null)
             {
-                var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithEmailAddress, email);
+                var userProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithEmailAddress, email);
                 userProfile.NotificationSubscribe = DatabaseValues.False.ToString();
-                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
+                await DataStore.SaveAsync(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
             }
 
             return View();
@@ -471,9 +472,9 @@ namespace StreamWork.Controllers
         {
             if (email != null)
             {
-                var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithEmailAddress, email);
+                var userProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithEmailAddress, email);
                 userProfile.NotificationSubscribe = DatabaseValues.False.ToString();
-                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
+                await DataStore.SaveAsync(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
                 return Json(new { Message = JsonResponse.Success.ToString() });
             }
 

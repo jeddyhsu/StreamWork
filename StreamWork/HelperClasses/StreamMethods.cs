@@ -16,13 +16,13 @@ namespace StreamWork.HelperClasses
 
         public async Task<bool> UserHasViewedStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string username, string tutorName)
         {
-            return (await DataStore.GetListAsync<View>(_homeHelperFunctions._connectionString, storageConfig.Value, QueryHeaders.GetViewsWithViewerAndChannelSince.ToString(),
+            return (await DataStore.GetListAsync<View>(_homeHelperFunctions._connectionString, storageConfig.Value, SQLQueries.GetViewsWithViewerAndChannelSince.ToString(),
                 new List<string> { username, tutorName, DateTime.UtcNow.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffK") })).Count > 0;
         }
 
         public async Task<bool> UserHasViewedArchivedStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string username, string streamId)
         {
-            return (await DataStore.GetListAsync<View>(_homeHelperFunctions._connectionString, storageConfig.Value, QueryHeaders.GetViewsWithViewerAndStreamId.ToString(),
+            return (await DataStore.GetListAsync<View>(_homeHelperFunctions._connectionString, storageConfig.Value, SQLQueries.GetViewsWithViewerAndStreamId.ToString(),
                 new List<string> { username, streamId })).Count > 0;
         }
 
@@ -31,7 +31,7 @@ namespace StreamWork.HelperClasses
             if (await UserHasViewedStream(storageConfig, viewer, username))
                 return;
 
-            UserChannel channel = (await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.GetUserChannelWithUsername, username))[0];
+            UserChannel channel = (await _homeHelperFunctions.GetUserChannels(storageConfig, SQLQueries.GetUserChannelWithUsername, username))[0];
             channel.Views++;
             await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", channel.Id } }, channel);
 
@@ -50,7 +50,7 @@ namespace StreamWork.HelperClasses
             if (await UserHasViewedArchivedStream(storageConfig, viewer, id))
                 return;
 
-            UserArchivedStreams archivedStream = (await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.GetArchivedStreamsWithStreamId, id))[0];
+            UserArchivedStreams archivedStream = (await _homeHelperFunctions.GetArchivedStreams(storageConfig, SQLQueries.GetArchivedStreamsWithStreamId, id))[0];
             archivedStream.Views++;
             await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", archivedStream.Id } }, archivedStream);
 

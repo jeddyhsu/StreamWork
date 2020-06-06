@@ -90,7 +90,7 @@ namespace StreamWork.Controllers
                     // If you are debugging this code in the future, note that errors may occur when subscribed accounts no longer exist
                     subscription = true;
 
-                    student = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, notification.Custom);
+                    student = await _homeHelperFunctions.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, notification.Custom);
                     if (student == null)
                         error += " INVALID_STUDENT";
                 }
@@ -101,11 +101,11 @@ namespace StreamWork.Controllers
                         error += " NO_TUTOR";
                     else
                     {
-                        student = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, users[0]);
+                        student = await _homeHelperFunctions.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, users[0]);
                         if (student == null)
                             error += " INVALID_STUDENT";
 
-                        tutor = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, users[1]);
+                        tutor = await _homeHelperFunctions.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, users[1]);
                         if (tutor == null)
                             error += " INVALID_TUTOR";
                     }

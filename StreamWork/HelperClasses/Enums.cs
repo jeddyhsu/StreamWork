@@ -21,7 +21,7 @@ namespace StreamWork.HelperClasses
         False,
     }
 
-    public enum QueryHeaders
+    public enum SQLQueries
     {
         // UserLogin
         GetAllUsers,

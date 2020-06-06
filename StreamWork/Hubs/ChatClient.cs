@@ -19,7 +19,7 @@ namespace StreamWork.Hubs
         {
             try
             {
-                var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, userName);
+                var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, userName);
                 Chats chat = new Chats
                 {
                     Id = Guid.NewGuid().ToString(),

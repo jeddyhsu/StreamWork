@@ -16,13 +16,13 @@ namespace StreamWork.HelperClasses
 
         public async Task<List<Chats>> GetAllChatsWithChatId([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string chatId)
         {
-            var chats = await DataStore.GetListAsync<Chats>(_homeHelperFunctions._connectionString, storageConfig.Value, QueryHeaders.GetAllChatsWithId.ToString(), new List<string> { chatId });
+            var chats = await DataStore.GetListAsync<Chats>(_homeHelperFunctions._connectionString, storageConfig.Value, SQLQueries.GetAllChatsWithId.ToString(), new List<string> { chatId });
             return chats;
         }
 
         public async Task DeleteAllChatsWithChatId([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string chatId)
         {
-            await DataStore.DeleteDataAsync<Chats>(_homeHelperFunctions._connectionString, storageConfig.Value, QueryHeaders.DeleteAllChatsWithId.ToString(), new List<string> { chatId });
+            await DataStore.DeleteDataAsync<Chats>(_homeHelperFunctions._connectionString, storageConfig.Value, SQLQueries.DeleteAllChatsWithId.ToString(), new List<string> { chatId });
         }
     }
 }

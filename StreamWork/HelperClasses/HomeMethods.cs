@@ -34,19 +34,19 @@ namespace StreamWork.HelperClasses
         //Gets all user channels that are streaming
         public async Task<List<UserChannel>> GetAllUserChannels([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
-            var channels = await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, QueryHeaders.GetAllUserChannelsThatAreStreaming.ToString());
+            var channels = await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, SQLQueries.GetAllUserChannelsThatAreStreaming.ToString());
             return channels;
         }
 
         //Gets set of user channels with the query that you specify
-        public async Task<List<UserChannel>> GetUserChannels([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, QueryHeaders query, string user)
+        public async Task<List<UserChannel>> GetUserChannels([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, SQLQueries query, string user)
         {
             var channels = await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, query.ToString(), new List<string> { user });
             return channels;
         }
 
         //Gets a single user channel with the query that you specify
-        public async Task<UserChannel> GetUserChannel([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, QueryHeaders query, string user)
+        public async Task<UserChannel> GetUserChannel([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, SQLQueries query, string user)
         {
             var channels = await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, query.ToString(), new List<string> { user });
             if (channels.Count > 0) return channels[0];
@@ -56,18 +56,18 @@ namespace StreamWork.HelperClasses
         //Gets all archived streams
         public async Task<List<UserArchivedStreams>> GetAllArchivedStreams([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
-            var archivedStreams = await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, QueryHeaders.GetAllArchivedStreams.ToString());
+            var archivedStreams = await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, SQLQueries.GetAllArchivedStreams.ToString());
             return archivedStreams;
         }
 
         //Gets a set of archived streams with the query that you specify
-        public async Task<List<UserArchivedStreams>> GetArchivedStreams ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, QueryHeaders query, string user) {
+        public async Task<List<UserArchivedStreams>> GetArchivedStreams ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, SQLQueries query, string user) {
             var archivedStreams = await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, query.ToString(), new List<string> { user });
             return archivedStreams;
         }
 
         //Gets a single archived stream with the query that you specify
-        public async Task<UserArchivedStreams> GetArchivedStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, QueryHeaders query, string user)
+        public async Task<UserArchivedStreams> GetArchivedStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, SQLQueries query, string user)
         {
             var archivedStreams = await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, query.ToString(), new List<string> { user });
             if (archivedStreams.Count > 0) return archivedStreams[0];
@@ -77,18 +77,18 @@ namespace StreamWork.HelperClasses
         //Gets all user logins
         public async Task<List<UserLogin>> GetAllUserProfiles([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
-            var logins = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, QueryHeaders.GetAllUsers.ToString());
+            var logins = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, SQLQueries.GetAllUsers.ToString());
             return logins;
         }
 
         //Gets a set of user logins with the query that you specify
-        public async Task<List<UserLogin>> GetUserProfiles ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, QueryHeaders query, string user) {
+        public async Task<List<UserLogin>> GetUserProfiles ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, SQLQueries query, string user) {
             var logins = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, query.ToString(), new List<string> { user });
             return logins;
         }
 
         //Gets a single user logins with the query that you specify
-        public async Task<UserLogin> GetUserProfile ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, QueryHeaders query, string user) { //one user login information
+        public async Task<UserLogin> GetUserProfile ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, SQLQueries query, string user) { //one user login information
             var logins = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, query.ToString(), new List<string> { user });
             if (logins.Count > 0) return logins[0];
             return null;
@@ -96,11 +96,11 @@ namespace StreamWork.HelperClasses
 
         public async Task<List<UserArchivedStreams>> GetPreviouslyWatchedStreams([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string studentName)
         {
-            var previousViews = await DataStore.GetListAsync<View>(_connectionString, storageConfig.Value, QueryHeaders.GetViewsWithViewer.ToString(), new List<string> { studentName });
+            var previousViews = await DataStore.GetListAsync<View>(_connectionString, storageConfig.Value, SQLQueries.GetViewsWithViewer.ToString(), new List<string> { studentName });
             if (previousViews.Count == 0) return null;
             List<string> idList = new List<string>();
             foreach (var view in previousViews) idList.Add(view.StreamId);
-            return await GetArchivedStreams(storageConfig, QueryHeaders.GetArchivedStreamsByStreamIdInTheList, FormatQueryString(idList));
+            return await GetArchivedStreams(storageConfig, SQLQueries.GetArchivedStreamsByStreamIdInTheList, FormatQueryString(idList));
         }
 
         public async Task UpdateUser ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, UserLogin user) {
@@ -109,20 +109,20 @@ namespace StreamWork.HelperClasses
 
         public async Task<List<UserLogin>> GetPopularStreamTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
-            return await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, QueryHeaders.GetApprovedTutorsByFollowers.ToString());
+            return await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, SQLQueries.GetApprovedTutorsByFollowers.ToString());
         }
 
         public async Task<List<UserChannel>> SearchUserChannels([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject, string searchQuery)
         {
             if (string.IsNullOrEmpty(subject))
             {
-                if (string.IsNullOrWhiteSpace(searchQuery)) return await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, QueryHeaders.GetAllUserChannelsThatAreStreaming.ToString(), new List<string> { "" });
-                return await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, QueryHeaders.GetUserChannelsBySearchTerm.ToString(), new List<string> { searchQuery.ToLower() });
+                if (string.IsNullOrWhiteSpace(searchQuery)) return await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, SQLQueries.GetAllUserChannelsThatAreStreaming.ToString(), new List<string> { "" });
+                return await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, SQLQueries.GetUserChannelsBySearchTerm.ToString(), new List<string> { searchQuery.ToLower() });
             }
             else
             {
-                if (string.IsNullOrWhiteSpace(searchQuery)) return await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, QueryHeaders.GetUserChannelWithSubject.ToString(), new List<string> { subject });
-                return await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, QueryHeaders.GetUserChannelsBySubjectAndSearchTerm.ToString(), new List<string> { subject, searchQuery.ToLower() });
+                if (string.IsNullOrWhiteSpace(searchQuery)) return await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, SQLQueries.GetUserChannelWithSubject.ToString(), new List<string> { subject });
+                return await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, SQLQueries.GetUserChannelsBySubjectAndSearchTerm.ToString(), new List<string> { subject, searchQuery.ToLower() });
             }
         }
 
@@ -130,13 +130,13 @@ namespace StreamWork.HelperClasses
         {
             if (string.IsNullOrEmpty(subject))
             {
-                if (string.IsNullOrWhiteSpace(searchQuery)) return await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, QueryHeaders.GetAllArchivedStreams.ToString());
-                return await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, QueryHeaders.GetArchivedStreamsWithSearchTerm.ToString(), new List<string> { searchQuery.ToLower() });
+                if (string.IsNullOrWhiteSpace(searchQuery)) return await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, SQLQueries.GetAllArchivedStreams.ToString());
+                return await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, SQLQueries.GetArchivedStreamsWithSearchTerm.ToString(), new List<string> { searchQuery.ToLower() });
             }
             else
             {
-                if (string.IsNullOrWhiteSpace(searchQuery)) return await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, QueryHeaders.GetArchivedStreamsWithSubject.ToString(), new List<string> { subject });
-                return await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, QueryHeaders.GetArchivedStreamsWithSubjectAndSearchTerm.ToString(), new List<string> { subject, searchQuery.ToLower() });
+                if (string.IsNullOrWhiteSpace(searchQuery)) return await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, SQLQueries.GetArchivedStreamsWithSubject.ToString(), new List<string> { subject });
+                return await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, SQLQueries.GetArchivedStreamsWithSubjectAndSearchTerm.ToString(), new List<string> { subject, searchQuery.ToLower() });
             }
         }
        
@@ -167,7 +167,7 @@ namespace StreamWork.HelperClasses
         }
 
         public async Task<IndexViewModel> PopulateHomePage ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string currentUser) {
-            var streamingUserChannels = await GetUserChannel(storageConfig, QueryHeaders.GetAllUserChannelsThatAreStreaming, "N|A");
+            var streamingUserChannels = await GetUserChannel(storageConfig, SQLQueries.GetAllUserChannelsThatAreStreaming, "N|A");
             IndexViewModel model = new IndexViewModel();
 
             // List of streams for the carousel
@@ -181,7 +181,7 @@ namespace StreamWork.HelperClasses
                 "ETWYvVscngb_1",
                 "F5pYLrscQ5Q_1"
             }; // List of the IDs of the streams to hardcode in
-            List<UserArchivedStreams> streamsByViews = await GetArchivedStreams(storageConfig, QueryHeaders.GetArchivedStreamsInDescendingOrderByViews, null);
+            List<UserArchivedStreams> streamsByViews = await GetArchivedStreams(storageConfig, SQLQueries.GetArchivedStreamsInDescendingOrderByViews, null);
             List<UserArchivedStreams> userArchivedStreams = new List<UserArchivedStreams>();
             foreach (string streamWithPriority in streamsWithPriority) // Add hardcoded streams
             {
@@ -197,9 +197,9 @@ namespace StreamWork.HelperClasses
 
             if (streamingUserChannels == null)
             {
-                var userProfile= await GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, "juliamkim");
-                var userChannel = await GetUserChannel(storageConfig, QueryHeaders.GetUserChannelWithUsername, "juliamkim");
-                var getArchivedStreams = await GetArchivedStreams(storageConfig, QueryHeaders.GetArchivedStreamsWithUsername, "juliamkim");
+                var userProfile= await GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, "juliamkim");
+                var userChannel = await GetUserChannel(storageConfig, SQLQueries.GetUserChannelWithUsername, "juliamkim");
+                var getArchivedStreams = await GetArchivedStreams(storageConfig, SQLQueries.GetArchivedStreamsWithUsername, "juliamkim");
 
                 model = new IndexViewModel
                 {
@@ -211,7 +211,7 @@ namespace StreamWork.HelperClasses
             }
             else
             {
-                var userProfileForChannel = await GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, streamingUserChannels.Username);
+                var userProfileForChannel = await GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, streamingUserChannels.Username);
                  model = new IndexViewModel
                 {
                     UserLogin = userProfileForChannel,
@@ -287,50 +287,9 @@ namespace StreamWork.HelperClasses
             return uriBuilder.ToString();
         }
 
-        public string EncryptPassword (string password) //Hash for passwords
-        {
-            byte[] salt = new byte[128 / 8];
-            using (var randomNumber = RandomNumberGenerator.Create()) {
-                randomNumber.GetBytes(salt);
-            }
-            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(password, salt, KeyDerivationPrf.HMACSHA1, 10000, (256 / 8)));
-            return hashed + "|" + Convert.ToBase64String(salt);
-        }
-
-        public string DecryptPassword (string salt, string password) //Compare Hash
-        {
-            var decrypt = salt.Split('|');
-            var bytesSalt = Convert.FromBase64String(decrypt[1]);
-            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(password, bytesSalt, KeyDerivationPrf.HMACSHA1, 10000, (256 / 8)));
-            return hashed + "|" + decrypt[1];
-        }
-
-        public string EncryptString(string s)
-        {
-            if(s != null || s != "")
-            {
-                byte[] bArray = Encoding.ASCII.GetBytes(s);
-                string encrypted = Convert.ToBase64String(bArray);
-                return encrypted;
-            }
-
-            return null;
-        }
-
-        public string DecryptString(string s)
-        {
-            byte[] bArray;
-            if (s != null && s != "")
-            {
-                bArray = Convert.FromBase64String(s);
-                return Encoding.ASCII.GetString(bArray);
-            }
-
-            return null;
-        }
 
         public async Task<List<Recommendation>> GetRecommendationsForTutor ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string tutor) {
-            return await DataStore.GetListAsync<Recommendation>(_connectionString, storageConfig.Value, QueryHeaders.GetRecommendationsWithTutorUsername.ToString(), new List<string> {tutor});
+            return await DataStore.GetListAsync<Recommendation>(_connectionString, storageConfig.Value, SQLQueries.GetRecommendationsWithTutorUsername.ToString(), new List<string> {tutor});
         }
 
         public async Task SaveRecommendation ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string student, string tutor, string text) {
