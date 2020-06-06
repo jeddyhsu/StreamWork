@@ -50,8 +50,8 @@ namespace StreamWork.HelperClasses
 
         public async Task ChangeAllArchivedStreamAndUserChannelProfilePhotos([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string user, string profilePicture) //changes all profile photos on streams if user has changed it
         {
-            var allArchivedStreamsByUser = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, user);
-            var userChannel = await _homeHelperFunctions.GetUserChannel(storageConfig, QueryHeaders.CurrentUserChannel, user);
+            var allArchivedStreamsByUser = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.GetArchivedStreamsWithUsername, user);
+            var userChannel = await _homeHelperFunctions.GetUserChannel(storageConfig, QueryHeaders.GetUserChannelWithUsername, user);
             foreach (var stream in allArchivedStreamsByUser)
             {
                 stream.ProfilePicture = profilePicture;

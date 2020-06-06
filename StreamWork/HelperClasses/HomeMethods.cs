@@ -34,7 +34,7 @@ namespace StreamWork.HelperClasses
         //Gets all user channels that are streaming
         public async Task<List<UserChannel>> GetAllUserChannels([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
-            var channels = await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, QueryHeaders.AllUserChannelsThatAreStreaming.ToString());
+            var channels = await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, QueryHeaders.GetAllUserChannelsThatAreStreaming.ToString());
             return channels;
         }
 
@@ -56,7 +56,7 @@ namespace StreamWork.HelperClasses
         //Gets all archived streams
         public async Task<List<UserArchivedStreams>> GetAllArchivedStreams([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
-            var archivedStreams = await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, QueryHeaders.AllArchivedVideos.ToString());
+            var archivedStreams = await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, QueryHeaders.GetAllArchivedStreams.ToString());
             return archivedStreams;
         }
 
@@ -77,7 +77,7 @@ namespace StreamWork.HelperClasses
         //Gets all user logins
         public async Task<List<UserLogin>> GetAllUserProfiles([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
-            var logins = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, QueryHeaders.AllSignedUpUsers.ToString());
+            var logins = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, QueryHeaders.GetAllUsers.ToString());
             return logins;
         }
 
@@ -96,11 +96,11 @@ namespace StreamWork.HelperClasses
 
         public async Task<List<UserArchivedStreams>> GetPreviouslyWatchedStreams([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string studentName)
         {
-            var previousViews = await DataStore.GetListAsync<View>(_connectionString, storageConfig.Value, QueryHeaders.ViewsByViewer.ToString(), new List<string> { studentName });
+            var previousViews = await DataStore.GetListAsync<View>(_connectionString, storageConfig.Value, QueryHeaders.GetViewsWithViewer.ToString(), new List<string> { studentName });
             if (previousViews.Count == 0) return null;
             List<string> idList = new List<string>();
             foreach (var view in previousViews) idList.Add(view.StreamId);
-            return await GetArchivedStreams(storageConfig, QueryHeaders.MultipleArchivedVideosByStreamId, FormatQueryString(idList));
+            return await GetArchivedStreams(storageConfig, QueryHeaders.GetArchivedStreamsByStreamIdInTheList, FormatQueryString(idList));
         }
 
         public async Task UpdateUser ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, UserLogin user) {
@@ -109,20 +109,20 @@ namespace StreamWork.HelperClasses
 
         public async Task<List<UserLogin>> GetPopularStreamTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
-            return await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, QueryHeaders.ApprovedTutorsByFollowers.ToString());
+            return await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, QueryHeaders.GetApprovedTutorsByFollowers.ToString());
         }
 
         public async Task<List<UserChannel>> SearchUserChannels([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject, string searchQuery)
         {
             if (string.IsNullOrEmpty(subject))
             {
-                if (string.IsNullOrWhiteSpace(searchQuery)) return await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, QueryHeaders.AllUserChannelsThatAreStreaming.ToString(), new List<string> { "" });
-                return await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, QueryHeaders.UserChannelsBySearchTerm.ToString(), new List<string> { searchQuery.ToLower() });
+                if (string.IsNullOrWhiteSpace(searchQuery)) return await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, QueryHeaders.GetAllUserChannelsThatAreStreaming.ToString(), new List<string> { "" });
+                return await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, QueryHeaders.GetUserChannelsBySearchTerm.ToString(), new List<string> { searchQuery.ToLower() });
             }
             else
             {
-                if (string.IsNullOrWhiteSpace(searchQuery)) return await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, QueryHeaders.AllUserChannelsThatAreStreamingWithSpecifiedSubject.ToString(), new List<string> { subject });
-                return await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, QueryHeaders.UserChannelsBySubjectAndSearchTerm.ToString(), new List<string> { subject, searchQuery.ToLower() });
+                if (string.IsNullOrWhiteSpace(searchQuery)) return await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, QueryHeaders.GetUserChannelWithSubject.ToString(), new List<string> { subject });
+                return await DataStore.GetListAsync<UserChannel>(_connectionString, storageConfig.Value, QueryHeaders.GetUserChannelsBySubjectAndSearchTerm.ToString(), new List<string> { subject, searchQuery.ToLower() });
             }
         }
 
@@ -130,13 +130,13 @@ namespace StreamWork.HelperClasses
         {
             if (string.IsNullOrEmpty(subject))
             {
-                if (string.IsNullOrWhiteSpace(searchQuery)) return await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, QueryHeaders.AllArchivedVideos.ToString());
-                return await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, QueryHeaders.ArchivedVideosBySearchTerm.ToString(), new List<string> { searchQuery.ToLower() });
+                if (string.IsNullOrWhiteSpace(searchQuery)) return await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, QueryHeaders.GetAllArchivedStreams.ToString());
+                return await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, QueryHeaders.GetArchivedStreamsWithSearchTerm.ToString(), new List<string> { searchQuery.ToLower() });
             }
             else
             {
-                if (string.IsNullOrWhiteSpace(searchQuery)) return await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, QueryHeaders.UserArchivedVideosBasedOnSubject.ToString(), new List<string> { subject });
-                return await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, QueryHeaders.ArchivedVideosBySubjectAndSearchTerm.ToString(), new List<string> { subject, searchQuery.ToLower() });
+                if (string.IsNullOrWhiteSpace(searchQuery)) return await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, QueryHeaders.GetArchivedStreamsWithSubject.ToString(), new List<string> { subject });
+                return await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, QueryHeaders.GetArchivedStreamsWithSubjectAndSearchTerm.ToString(), new List<string> { subject, searchQuery.ToLower() });
             }
         }
        
@@ -167,7 +167,7 @@ namespace StreamWork.HelperClasses
         }
 
         public async Task<IndexViewModel> PopulateHomePage ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string currentUser) {
-            var streamingUserChannels = await GetUserChannel(storageConfig, QueryHeaders.AllUserChannelsThatAreStreaming, "N|A");
+            var streamingUserChannels = await GetUserChannel(storageConfig, QueryHeaders.GetAllUserChannelsThatAreStreaming, "N|A");
             IndexViewModel model = new IndexViewModel();
 
             // List of streams for the carousel
@@ -181,7 +181,7 @@ namespace StreamWork.HelperClasses
                 "ETWYvVscngb_1",
                 "F5pYLrscQ5Q_1"
             }; // List of the IDs of the streams to hardcode in
-            List<UserArchivedStreams> streamsByViews = await GetArchivedStreams(storageConfig, QueryHeaders.ArchivedStreamsByViews, null);
+            List<UserArchivedStreams> streamsByViews = await GetArchivedStreams(storageConfig, QueryHeaders.GetArchivedStreamsInDescendingOrderByViews, null);
             List<UserArchivedStreams> userArchivedStreams = new List<UserArchivedStreams>();
             foreach (string streamWithPriority in streamsWithPriority) // Add hardcoded streams
             {
@@ -197,9 +197,9 @@ namespace StreamWork.HelperClasses
 
             if (streamingUserChannels == null)
             {
-                var userProfile= await GetUserProfile(storageConfig, QueryHeaders.CurrentUser, "juliamkim");
-                var userChannel = await GetUserChannel(storageConfig, QueryHeaders.CurrentUserChannel, "juliamkim");
-                var getArchivedStreams = await GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, "juliamkim");
+                var userProfile= await GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, "juliamkim");
+                var userChannel = await GetUserChannel(storageConfig, QueryHeaders.GetUserChannelWithUsername, "juliamkim");
+                var getArchivedStreams = await GetArchivedStreams(storageConfig, QueryHeaders.GetArchivedStreamsWithUsername, "juliamkim");
 
                 model = new IndexViewModel
                 {
@@ -211,7 +211,7 @@ namespace StreamWork.HelperClasses
             }
             else
             {
-                var userProfileForChannel = await GetUserProfile(storageConfig, QueryHeaders.CurrentUser, streamingUserChannels.Username);
+                var userProfileForChannel = await GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, streamingUserChannels.Username);
                  model = new IndexViewModel
                 {
                     UserLogin = userProfileForChannel,
@@ -330,7 +330,7 @@ namespace StreamWork.HelperClasses
         }
 
         public async Task<List<Recommendation>> GetRecommendationsForTutor ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string tutor) {
-            return await DataStore.GetListAsync<Recommendation>(_connectionString, storageConfig.Value, QueryHeaders.RecommendationsByTutor.ToString(), new List<string> {tutor});
+            return await DataStore.GetListAsync<Recommendation>(_connectionString, storageConfig.Value, QueryHeaders.GetRecommendationsWithTutorUsername.ToString(), new List<string> {tutor});
         }
 
         public async Task SaveRecommendation ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string student, string tutor, string text) {

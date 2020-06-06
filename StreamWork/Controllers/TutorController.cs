@@ -17,7 +17,7 @@ namespace StreamWork.Controllers
     {
         readonly HomeMethods _homeHelperFunctions = new HomeMethods();
         readonly TutorMethods _tutorHelperFunctions = new TutorMethods();
-        readonly ThreadClassHelperFunctions _threadClassHelperFunctions = new ThreadClassHelperFunctions();
+        readonly StreamClientMethods _threadClassHelperFunctions = new StreamClientMethods();
 
         [HttpGet]
         public async Task<IActionResult> TutorStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
@@ -25,13 +25,13 @@ namespace StreamWork.Controllers
             if (HttpContext.User.Identity.IsAuthenticated == false)
                 return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-Tutor-TutorStream");
 
-            var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name);
+            var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, User.Identity.Name);
 
             ProfileTutorViewModel viewModel = new ProfileTutorViewModel
             {
-                TutorUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
-                UserChannel = await _homeHelperFunctions.GetUserChannel(storageConfig, QueryHeaders.CurrentUserChannel, User.Identity.Name),
-                UserArchivedVideos = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, User.Identity.Name),
+                TutorUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, User.Identity.Name),
+                UserChannel = await _homeHelperFunctions.GetUserChannel(storageConfig, QueryHeaders.GetUserChannelWithUsername, User.Identity.Name),
+                UserArchivedVideos = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.GetArchivedStreamsWithUsername, User.Identity.Name),
                 ChatInfo = _homeHelperFunctions.EncryptString(userProfile.Username + "|" + userProfile.Id + "|" + userProfile.EmailAddress),
             };
 
@@ -42,8 +42,8 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> TutorStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string change)
         {
             var user = HttpContext.User.Identity.Name;
-            var userChannel = await _homeHelperFunctions.GetUserChannel(storageConfig, QueryHeaders.CurrentUserChannel, user);
-            var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
+            var userChannel = await _homeHelperFunctions.GetUserChannel(storageConfig, QueryHeaders.GetUserChannelWithUsername, user);
+            var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, user);
             var chatColor = "";
             foreach (var claims in HttpContext.User.Claims)
             {
@@ -61,7 +61,7 @@ namespace StreamWork.Controllers
                 var archivedStreamId = Guid.NewGuid().ToString();
                 var streamThumbnail = _homeHelperFunctions.SaveIntoBlobContainer(Request.Form.Files[0], archivedStreamId, 1280, 720);
 
-                ThreadClass handleStreams = new ThreadClass(storageConfig, userChannel, userProfile, streamTitle, streamSubject, streamDescription, streamThumbnail, archivedStreamId, chatColor);
+                StreamClient handleStreams = new StreamClient(storageConfig, userChannel, userProfile, streamTitle, streamSubject, streamDescription, streamThumbnail, archivedStreamId, chatColor);
                 handleStreams.RunLiveThread();
                 if (notifyStudents.Equals("yes")) handleStreams.RunEmailThread();
 
@@ -81,7 +81,7 @@ namespace StreamWork.Controllers
                 var notifyStudents = streamInfo[3];
                 var archivedStreamId = Guid.NewGuid().ToString();
 
-                ThreadClass handleStreams = new ThreadClass(storageConfig, userChannel, userProfile, streamTitle, streamSubject, streamDescription, _tutorHelperFunctions.GetCorrespondingDefaultThumbnail(streamSubject), archivedStreamId, chatColor);
+                StreamClient handleStreams = new StreamClient(storageConfig, userChannel, userProfile, streamTitle, streamSubject, streamDescription, _tutorHelperFunctions.GetCorrespondingDefaultThumbnail(streamSubject), archivedStreamId, chatColor);
                 handleStreams.RunLiveThread();
                 if (notifyStudents.Equals("yes")) handleStreams.RunEmailThread();
 
@@ -107,10 +107,10 @@ namespace StreamWork.Controllers
 
             ProfileTutorViewModel viewModel = new ProfileTutorViewModel
             {
-                TutorUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
-                UserChannels = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, User.Identity.Name),
-                UserArchivedVideos = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, User.Identity.Name),
-                NumberOfStreams = (await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, User.Identity.Name)).Count,
+                TutorUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, User.Identity.Name),
+                UserChannels = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.GetUserChannelWithUsername, User.Identity.Name),
+                UserArchivedVideos = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.GetArchivedStreamsWithUsername, User.Identity.Name),
+                NumberOfStreams = (await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.GetArchivedStreamsWithUsername, User.Identity.Name)).Count,
                 Recommendations = await _homeHelperFunctions.GetRecommendationsForTutor(storageConfig, User.Identity.Name),
             };
 
@@ -131,7 +131,7 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> StreamCalendarUtil([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamName, DateTime dateTime, DateTime originalDateTime, bool remove) //StreamTask
         {
             var user = HttpContext.User.Identity.Name;
-            var userChannel = await _homeHelperFunctions.GetUserChannel(storageConfig, QueryHeaders.CurrentUserChannel, user);
+            var userChannel = await _homeHelperFunctions.GetUserChannel(storageConfig, QueryHeaders.GetUserChannelWithUsername, user);
 
             //Adds streams to schedule
             if (originalDateTime.Year == 1 && remove == false)
@@ -181,9 +181,9 @@ namespace StreamWork.Controllers
 
             ProfileTutorViewModel viewModel = new ProfileTutorViewModel
             {
-                TutorUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
-                UserChannels = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.CurrentUserChannel, User.Identity.Name),
-                UserArchivedVideos = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, User.Identity.Name)
+                TutorUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, User.Identity.Name),
+                UserChannels = await _homeHelperFunctions.GetUserChannels(storageConfig, QueryHeaders.GetUserChannelWithUsername, User.Identity.Name),
+                UserArchivedVideos = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.GetArchivedStreamsWithUsername, User.Identity.Name)
             };
 
             return View(viewModel);
@@ -208,7 +208,7 @@ namespace StreamWork.Controllers
                 var streamDescription = streamInfo[2];
                 var streamThumbnail = _homeHelperFunctions.SaveIntoBlobContainer(Request.Form.Files[0], videoId, 1280, 720);
 
-                var archivedVideo = await _homeHelperFunctions.GetArchivedStream(storageConfig, QueryHeaders.ArchivedVideosById, videoId);
+                var archivedVideo = await _homeHelperFunctions.GetArchivedStream(storageConfig, QueryHeaders.GetArchivedStreamsWithId, videoId);
                 archivedVideo.StreamTitle = streamTitle;
                 archivedVideo.StreamDescription = streamDescription;
                 archivedVideo.StreamThumbnail = streamThumbnail;
@@ -228,7 +228,7 @@ namespace StreamWork.Controllers
                 var streamTitle = streamInfo[1];
                 var streamDescription = streamInfo[2];
 
-                var archivedVideo = await _homeHelperFunctions.GetArchivedStream(storageConfig, QueryHeaders.ArchivedVideosById, videoId);
+                var archivedVideo = await _homeHelperFunctions.GetArchivedStream(storageConfig, QueryHeaders.GetArchivedStreamsWithId, videoId);
                 archivedVideo.StreamTitle = streamTitle;
                 archivedVideo.StreamDescription = streamDescription;
 
@@ -246,14 +246,14 @@ namespace StreamWork.Controllers
 
             ProfileTutorViewModel viewModel = new ProfileTutorViewModel
             {
-                TutorUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
+                TutorUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, User.Identity.Name),
 
                 SearchViewModel = new SearchViewModel
                 {
                     PopularStreamTutors = await _homeHelperFunctions.GetPopularStreamTutor(storageConfig),
                     StreamResults = await _homeHelperFunctions.SearchUserChannels(storageConfig, s, q),
                     ArchiveResults = await _homeHelperFunctions.SearchArchivedStreams(storageConfig, s, q),
-                    UserProfile = User.Identity.Name == null ? null : await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
+                    UserProfile = User.Identity.Name == null ? null : await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, User.Identity.Name),
                     Subject = string.IsNullOrEmpty(s) ? "All Subjects" : s,
                     SearchQuery = q,
                     SubjectIcon = _homeHelperFunctions.GetSubjectIcon(s)
@@ -270,7 +270,7 @@ namespace StreamWork.Controllers
 
             if (currentPassword != null && newPassword != null && confirmPassword != null)
             {
-                var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
+                var userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, user);
                 if (_homeHelperFunctions.DecryptPassword(userProfile.Password, currentPassword) == userProfile.Password)
                 {
                     userProfile.Password = _homeHelperFunctions.EncryptPassword(newPassword);

@@ -39,7 +39,7 @@ namespace StreamWork.HelperClasses
             await Task.Factory.StartNew(async () => // Change password key is invalid after 30 min
             {
                 await Task.Delay(1800000); // 30 min in ms
-                var currentUserLogin = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
+                var currentUserLogin = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, username);
                 if (currentUserLogin.ChangePasswordKey.Equals(userLogin.ChangePasswordKey)) // Make sure you don't reset if user has generated another key
                 {
                     currentUserLogin.ChangePasswordKey = null;

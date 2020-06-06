@@ -4,7 +4,7 @@ using StreamWork.StreamHoster;
 
 namespace StreamWork.Threads
 {
-    public class ThreadClassHelperFunctions
+    public class StreamClientMethods
     {
         public bool CheckIfUserChannelIsLive(string channelKey) //channel keys is [0] and rss id is [1]
         {

@@ -27,7 +27,7 @@ namespace StreamWork.Controllers
             if (HttpContext.User.Identity.IsAuthenticated == false)
                 return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-Student-ProfileStudent");
 
-            var studentProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name);
+            var studentProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, User.Identity.Name);
             var splitName = studentProfile.Name.Split(new char[] { '|' });
             model.FirstName = splitName[0];
             model.LastName = splitName[1];
@@ -46,7 +46,7 @@ namespace StreamWork.Controllers
             if (HttpContext.User.Identity.IsAuthenticated == false)
                 return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-Student-ProfileStudent");
 
-            var studentProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name);
+            var studentProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, User.Identity.Name);
             var splitName = studentProfile.Name.Split(new char[] { '|' });
             model.FirstName = splitName[0];
             model.LastName = splitName[1];
@@ -70,7 +70,7 @@ namespace StreamWork.Controllers
             return View(new ProfileStudentViewModel
             {
                 ArchivedStreams = await _homeHelperFunctions.SearchArchivedStreams(storageConfig, s, q),
-                StudentUserProfile = user == null ? null : await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user),
+                StudentUserProfile = user == null ? null : await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, user),
             });
         }
 
@@ -79,8 +79,8 @@ namespace StreamWork.Controllers
         {
             ProfileStudentViewModel viewModel = new ProfileStudentViewModel
             {
-                StudentUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
-                ArchivedStreams = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideosBasedOnSubject, subject)
+                StudentUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, User.Identity.Name),
+                ArchivedStreams = await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.GetArchivedStreamsWithSubject, subject)
             };
 
             return View(viewModel);
@@ -94,7 +94,7 @@ namespace StreamWork.Controllers
 
             ProfileStudentViewModel viewModel = new ProfileStudentViewModel
             {
-                StudentUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, User.Identity.Name),
+                StudentUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, User.Identity.Name),
             };
 
             return View(viewModel);
@@ -108,7 +108,7 @@ namespace StreamWork.Controllers
             if (currentPassword != null && newPassword != null && confirmPassword != null)
             {
                 var user = HttpContext.User.Identity.Name;
-                var studentProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, user);
+                var studentProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, user);
 
                 if (_homeHelperFunctions.DecryptPassword(studentProfile.Password, currentPassword) == studentProfile.Password)
                 {
@@ -124,7 +124,7 @@ namespace StreamWork.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteCurrentAccount([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
-            UserLogin user = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name);
+            UserLogin user = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, HttpContext.User.Identity.Name);
             if (user == null || user.ProfileType.Equals("Tutor"))
             {
                 return Json(new { Message = JsonResponse.Failed.ToString() });

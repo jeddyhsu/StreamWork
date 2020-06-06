@@ -24,65 +24,64 @@ namespace StreamWork.HelperClasses
     public enum QueryHeaders
     {
         // UserLogin
-        AllSignedUpUsers,
-        CurrentUser,
-        CurrentUserUsingEmail,
-        CheckUserUsingPayPalAddress,
-        AllSignedUpUsersWithPassword,
-        AllApprovedTutors,
-        ApprovedTutorsByFollowers,
-        AllStudents,
-        GetFollowedLogins,
-        GetNotFollowedLogins,
-        CurrentUserUsingId,
-
+        GetAllUsers,
+        GetUserWithUsername,
+        GetUserWithEmailAddress,
+        GetUserWithPayPalAddress,
+        GetUserUsingId,
+        GetUserWithUsernameAndPassword,
+        GetAllApprovedTutors,
+        GetApprovedTutorsByFollowers,
+        GetAllStudents,
+        GetAllUsersInTheList,
+        GetAllTutorsNotInTheList,
+        
         // UserChannel
-        AllUserChannelsThatAreStreamingWithSpecifiedSubject,
-        AllUserChannelsThatAreStreaming,
-        CurrentUserChannel,
-        CurrentUserChannelFromId,
-        UserChannelsBySearchTerm,
-        UserChannelsBySubjectAndSearchTerm,
+        GetUserChannelWithSubject,
+        GetAllUserChannelsThatAreStreaming,
+        GetUserChannelWithUsername,
+        GetUserChannelWithId,
+        GetUserChannelsBySearchTerm,
+        GetUserChannelsBySubjectAndSearchTerm,
 
         // UserArchivedStream
-        AllArchivedVideos,
-        ArchivedVideosById,
-        UserArchivedVideos,
-        UserArchivedVideosBasedOnSubject,
-        ArchivedVideosByStreamId,
-        ArchivedVideosBySearchTerm,
-        ArchivedVideosBySubjectAndSearchTerm,
-        MultipleArchivedVideosByStreamId,
-        LatestArchivedStreamByUser,
-        LatestArchivedStreams,
-        ArchivedStreamsByViews,
-        ArchivedStreamsDescendingOrder,
+        GetAllArchivedStreams,
+        GetArchivedStreamsWithId,
+        GetArchivedStreamsWithUsername,
+        GetArchivedStreamsWithSubject,
+        GetArchivedStreamsWithStreamId,
+        GetArchivedStreamsWithSearchTerm,
+        GetArchivedStreamsWithSubjectAndSearchTerm,
+        GetArchivedStreamsByStreamIdInTheList,
+        GetLatestArchivedStreamByUser,
+        GetArchivedStreamsInDescendingOrderByDate,
+        GetArchivedStreamsInDescendingOrderByViews,
 
         // Payment
-        AllPayments,
-        PaymentsById,
+        GetAllPayments,
+        GetPaymentsById,
 
         // Recommendation
-        RecommendationsByTutor,
+        GetRecommendationsWithTutorUsername,
 
         // View
-        ViewsByViewer,
-        ViewsByStreamId,
-        ViewsByViewerAndStreamId,
-        ViewsByChannelSince,
-        ViewsByViewerAndChannelSince,
+        GetViewsWithViewer,
+        GetViewsWithStreamId,
+        GetViewsWithViewerAndStreamId,
+        GetViewsWithChannelSince,
+        GetViewsWithViewerAndChannelSince,
 
         //Chats
         GetAllChats,
-        GetAllChatsFromSpecificId,
-        DeleteAllChatsFromSpecificId,
+        GetAllChatsWithId,
+        DeleteAllChatsWithId,
 
         //Follow
-        GetAllFollowersWithSpecificId,
-        GetAllFolloweesWithSpecificId,
+        GetAllFolloweesWithId,
+        GetAllFollowersWithId,
         GetFollowerAndFollowee,
         GetNumberOfFollowers,
-        RemoveFollower,
+        DeleteFollower,
 
         // Misc
         UserProfile,       //Use For Session

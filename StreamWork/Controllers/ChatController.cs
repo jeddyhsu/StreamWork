@@ -24,7 +24,7 @@ namespace StreamWork.Controllers
             {
                 var decryptchatInfo = _homeHelperFunctions.DecryptString(chatInfo);
                 info = decryptchatInfo.Split("|");
-                userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, info[0]);
+                userProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, info[0]);
             }
 
             if(info != null)

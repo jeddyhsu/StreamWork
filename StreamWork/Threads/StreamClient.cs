@@ -12,11 +12,11 @@ using StreamWork.HelperClasses;
 
 namespace StreamWork.Threads
 {
-    public class ThreadClass
+    public class StreamClient
     {
         readonly HomeMethods _homeHelperFunctions;
         readonly EmailMethods _emailHelperFunctions;
-        readonly ThreadClassHelperFunctions _threadClassHelperFunctions;
+        readonly StreamClientMethods _threadClassHelperFunctions;
         readonly ChatMethods _chatHelperFunctions;
         readonly IOptionsSnapshot<StorageConfig> _storageConfig;
         readonly UserChannel _userChannel;
@@ -32,11 +32,11 @@ namespace StreamWork.Threads
         private static int threadCount = 0;
         private static Hashtable hashTable = new Hashtable();
 
-        public ThreadClass(IOptionsSnapshot<StorageConfig> storageConfig, UserChannel userChannel, UserLogin userLogin, string streamTitle, string streamSubject, string streamDescription, string streamThumbnail, string archivedVideoId, string chatColor)
+        public StreamClient(IOptionsSnapshot<StorageConfig> storageConfig, UserChannel userChannel, UserLogin userLogin, string streamTitle, string streamSubject, string streamDescription, string streamThumbnail, string archivedVideoId, string chatColor)
         {
             _homeHelperFunctions = new HomeMethods();
             _emailHelperFunctions = new EmailMethods();
-            _threadClassHelperFunctions = new ThreadClassHelperFunctions();
+            _threadClassHelperFunctions = new StreamClientMethods();
             _chatHelperFunctions = new ChatMethods();
             _storageConfig = storageConfig;
             _userChannel = userChannel;

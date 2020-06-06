@@ -26,18 +26,18 @@ namespace StreamWork.Controllers
                 return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-StreamViews-StreamPage?streamTutorUsername=" + streamTutorUsername + "&id=" + id);
             }
 
-            var channel = await _homeHelperFunctions.GetUserChannel(storageConfig, QueryHeaders.CurrentUserChannel, streamTutorUsername);
-            var tutorProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, streamTutorUsername);
+            var channel = await _homeHelperFunctions.GetUserChannel(storageConfig, QueryHeaders.GetUserChannelWithUsername, streamTutorUsername);
+            var tutorProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, streamTutorUsername);
 
             if (channel.StreamTitle == null && id != null)
             {
                 id = id.Replace('/', '-');
-                var archivedStream = await _homeHelperFunctions.GetArchivedStream(storageConfig, QueryHeaders.ArchivedVideosById, id);
+                var archivedStream = await _homeHelperFunctions.GetArchivedStream(storageConfig, QueryHeaders.GetArchivedStreamsWithId, id);
                 if (archivedStream == null) return Redirect(_homeHelperFunctions._host + "/Home/ProfileView?Tutor=" + channel.Username);
                 else return Redirect(_homeHelperFunctions._host + "/StreamViews/StreamPlaybackPage?streamId=" + archivedStream.StreamID);
             }
 
-            var student = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name);
+            var student = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, HttpContext.User.Identity.Name);
 
             StreamPageViewModel model = new StreamPageViewModel();
             if (student.ProfileType != "tutor") model.StudentUserProfile = student;
@@ -60,18 +60,18 @@ namespace StreamWork.Controllers
             if (HttpContext.User.Identity.IsAuthenticated == false)
                 return Redirect(_homeHelperFunctions._host + "/Home/Login?dest=-StreamViews-StreamPlaybackPage?streamId=" + streamId);
 
-            var archivedStream = await _homeHelperFunctions.GetArchivedStream(storageConfig, QueryHeaders.ArchivedVideosByStreamId, streamId);
-            var channel = await _homeHelperFunctions.GetUserChannel(storageConfig, QueryHeaders.CurrentUserChannel, archivedStream.Username);
-            var tutorProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, archivedStream.Username);
+            var archivedStream = await _homeHelperFunctions.GetArchivedStream(storageConfig, QueryHeaders.GetArchivedStreamsWithStreamId, streamId);
+            var channel = await _homeHelperFunctions.GetUserChannel(storageConfig, QueryHeaders.GetUserChannelWithUsername, archivedStream.Username);
+            var tutorProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, archivedStream.Username);
 
             StreamPlayBackPageViewModel model = new StreamPlayBackPageViewModel
             {
-                GenericUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, HttpContext.User.Identity.Name), //just a viewer
+                GenericUserProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.GetUserWithUsername, HttpContext.User.Identity.Name), //just a viewer
                 TutorUserProfile = tutorProfile,
                 ArchivedStream = archivedStream,
                 UserChannel = channel,
                 ArchivedStreams = await _homeHelperFunctions.GetAllArchivedStreams(storageConfig),
-                NumberOfStreams = (await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.UserArchivedVideos, channel.Username)).Count
+                NumberOfStreams = (await _homeHelperFunctions.GetArchivedStreams(storageConfig, QueryHeaders.GetArchivedStreamsWithUsername, channel.Username)).Count
             };
 
             if (model.GenericUserProfile != null)
