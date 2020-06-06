@@ -67,7 +67,7 @@ namespace StreamWork.Controllers
             ProfileTutorViewModel viewModel = new ProfileTutorViewModel
             {
                 TutorUserProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, User.Identity.Name),
-                UserChannels = await _homeMethods.GetUserChannels(storageConfig, SQLQueries.GetUserChannelWithUsername, User.Identity.Name),
+                UserChannel = await _homeMethods.GetUserChannel(storageConfig, SQLQueries.GetUserChannelWithUsername, User.Identity.Name),
                 UserArchivedVideos = await _homeMethods.GetArchivedStreams(storageConfig, SQLQueries.GetArchivedStreamsWithUsername, User.Identity.Name),
                 NumberOfStreams = (await _homeMethods.GetArchivedStreams(storageConfig, SQLQueries.GetArchivedStreamsWithUsername, User.Identity.Name)).Count,
                 Recommendations = await _homeMethods.GetRecommendationsForTutor(storageConfig, User.Identity.Name),
@@ -81,7 +81,7 @@ namespace StreamWork.Controllers
 
             viewModel.NumberOfViews = viewCount;
             viewModel.NumberOfFollowers = await _followingMethods.GetNumberOfFollowers(storageConfig, viewModel.TutorUserProfile.Id);
-            viewModel.Schedule = _tutorMethods.GetTutorStreamSchedule(viewModel.UserChannels[0]);
+            viewModel.Schedule = _tutorMethods.GetTutorStreamSchedule(viewModel.UserChannel);
 
             return View(viewModel);
         }
@@ -158,44 +158,8 @@ namespace StreamWork.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveEditedStreamInfo([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
-            if (Request.Form.Files.Count != 0) //Edited info with new thumbnail
-            {
-                var streamInfo = Request.Form.Files[0].Name.Split(new char[] { '|' });
-
-                var videoId = streamInfo[0];
-                var streamTitle = streamInfo[1];
-                var streamDescription = streamInfo[2];
-                var streamThumbnail = _homeMethods.SaveIntoBlobContainer(Request.Form.Files[0], videoId, 1280, 720);
-
-                var archivedVideo = await _homeMethods.GetArchivedStream(storageConfig, SQLQueries.GetArchivedStreamsWithId, videoId);
-                archivedVideo.StreamTitle = streamTitle;
-                archivedVideo.StreamDescription = streamDescription;
-                archivedVideo.StreamThumbnail = streamThumbnail;
-
-                await DataStore.SaveAsync(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", archivedVideo.Id } }, archivedVideo);
-
-                return Json(new { Message = JsonResponse.Success.ToString(), title = streamTitle, description = streamDescription, thumbnail = streamThumbnail });
-            }
-
-            if (Request.Form.Count != 0) //Edited info without new thumbnail
-            {
-                var streamInfo = new string[3];
-                foreach (var key in Request.Form.Keys)
-                    streamInfo = key.Split(new char[] { '|' });
-
-                var videoId = streamInfo[0];
-                var streamTitle = streamInfo[1];
-                var streamDescription = streamInfo[2];
-
-                var archivedVideo = await _homeMethods.GetArchivedStream(storageConfig, SQLQueries.GetArchivedStreamsWithId, videoId);
-                archivedVideo.StreamTitle = streamTitle;
-                archivedVideo.StreamDescription = streamDescription;
-
-                await DataStore.SaveAsync(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", archivedVideo.Id } }, archivedVideo);
-
-                return Json(new { Message = JsonResponse.Success.ToString(), title = streamTitle, description = streamDescription, thumbnail = archivedVideo.StreamThumbnail });
-            }
-            return Json(new { Message = JsonResponse.Success.ToString() });
+            var saved = await _tutorMethods.EditArchivedStream(storageConfig, Request);
+            return Json(new { Message = JsonResponse.Success.ToString(), title = saved[0], description = saved[1], thumbnail = saved[2] });
         }
 
         public async Task<IActionResult> TutorWatch([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, [FromQuery(Name = "s")] string s, [FromQuery(Name = "q")] string q)

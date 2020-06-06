@@ -38,7 +38,7 @@ namespace StreamWork.HelperClasses
 
                 StreamClient streamClient = new StreamClient(storageConfig, userChannel, userProfile, streamTitle, streamSubject, streamDescription, streamThumbnail, archivedStreamId, chatColor);
                 if (notifyStudent.Equals("yes")) streamClient.RunEmailThread();
-                //streamClient.RunLiveThread();
+                streamClient.RunLiveThread();
 
                 return true;
             }
@@ -47,6 +47,26 @@ namespace StreamWork.HelperClasses
                 Console.WriteLine("Error in TutorMethods: StartStream " + e.Message);
                 return false;
             }
+        }
+
+        public async Task<string[]> EditArchivedStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, HttpRequest request)
+        {
+            string streamThumbnail = null;
+            var videoId = request.Form["StreamId"];
+            var streamTitle = request.Form["StreamTitle"];
+            var streamDescription = request.Form["StreamDescription"];
+            if(request.Form.Files.Count > 0)
+                streamThumbnail = _homeMethods.SaveIntoBlobContainer(request.Form.Files[0], videoId, 1280, 720);
+
+            var archivedStream = await _homeMethods.GetArchivedStream(storageConfig, SQLQueries.GetArchivedStreamsWithId, videoId);
+            archivedStream.StreamTitle = streamTitle;
+            archivedStream.StreamDescription = streamDescription;
+            if(streamThumbnail != null)
+                archivedStream.StreamThumbnail = streamThumbnail;
+
+            await DataStore.SaveAsync(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", archivedStream.Id } }, archivedStream);
+
+            return new string[] { streamTitle, streamDescription, archivedStream.StreamThumbnail };
         }
 
         //Uses a hashtable to add default thumbnails based on subject

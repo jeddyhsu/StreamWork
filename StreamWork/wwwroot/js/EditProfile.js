@@ -50,6 +50,12 @@
                         .attr('src', e.target.result);
                 }
             }
+            else if (pictureType == 'ThumbnailEdit') {
+                reader.onload = function (e) {
+                    $('#previewStreamThumbnailEdit')
+                        .attr('src', e.target.result);
+                }
+            }
             else {
             reader.onload = function (e) {
                     $('#previewProfilePic')
