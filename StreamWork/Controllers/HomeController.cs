@@ -172,7 +172,7 @@ namespace StreamWork.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SignUp([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string nameFirst, string nameLast, string email, string payPalAddress, string password, string college, string role)
+        public async Task<IActionResult> SignUp([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string nameFirst, string nameLast, string email, string payPalAddress, string username, string password, string college, string role)
         {
 
             if (password == null && email != null) //initial checks!
@@ -297,23 +297,8 @@ namespace StreamWork.Controllers
         {
             var user = HttpContext.User.Identity.Name;
             var userProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, user);
-
-            //Handles if there is a profile picture with the caption or about paragraph
-            if (Request.Form.Files.Count > 0)
-            {
-                var success = await _editProfileMethods.EditProfileWithProfilePicture(Request, storageConfig, userProfile, user);
-                if (success != null)
-                    return Json(new { Message = JsonResponse.Success.ToString(), caption = success[0], paragraph = success[1], picture = success[2] });
-            }
-
-            //Handles if there is not a profile picture with the caption or about paragraph
-            if (Request.Form.Keys.Count == 1)
-            {
-                var success = await _editProfileMethods.EditProfileWithNoProfilePicture(Request, storageConfig, user);
-                if (success != null)
-                    return Json(new { Message = JsonResponse.Success.ToString(), caption = success[0], paragraph = success[1] });
-            }
-
+            var success = await _editProfileMethods.EditProfile(Request, storageConfig, userProfile);
+            if (success != null) return Json(new { Message = JsonResponse.Success.ToString(), caption = success[0], paragraph = success[1], picture = success[2] });
             return Json(new { Message = JsonResponse.Failed.ToString() });
         }
 

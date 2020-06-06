@@ -4,29 +4,12 @@
         var formData = new FormData();
         var profileCaption = $("#ProfileCaption").val()
         var profileParagraph = $("#ProfileParagraph").val()
-        var userInfo = "";
+        var totalFiles = document.getElementById("uploadProfilePic");
 
-         if (profileCaption != "" && profileParagraph == "") {
-                    userInfo = profileCaption + "|" + "NA";
-                }
-                else if (profileCaption == "" && profileParagraph != "") {
-                    userInfo = "NA" + "|" + profileParagraph;
-                }
-                else if (profileCaption != "" && profileParagraph != "") {
-                    userInfo = profileCaption + "|" + profileParagraph;
-                }
-                else {
-                    userInfo = "NA|NA"
-                }
-              
-
-        var totalFiles = document.getElementById("uploadProfilePic").files.length;
-        if(totalFiles != 0){
-             formData.append(userInfo, document.getElementById("uploadProfilePic").files[0]);
-        }
-        else {
-            formData.append(userInfo, "No Profile Pic");
-        }
+        formData.append("ProfileCaption", profileCaption);
+        formData.append("ProfileParagraph", profileParagraph);
+        if (totalFiles.files.length > 0)
+            formData.append("ProfilePicture", totalFiles.files[0]);
        
         $.ajax({
             type: "POST",

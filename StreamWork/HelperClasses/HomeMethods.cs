@@ -27,6 +27,7 @@ namespace StreamWork.HelperClasses
         public readonly string _blobconnectionString = "DefaultEndpointsProtocol=https;AccountName=streamworkblob;AccountKey=//JfVlcPLOyzT3vRHxlY1lJ4NUpduVfiTmuHJHK1u/0vWzP8V5YHPLkPPGD2PVxEwTdNirqHzWYSk7c2vZ80Vg==;EndpointSuffix=core.windows.net";
         public readonly string _dacastAPIKey = "135034_9245336a05f4d4bdb6fa";
         public readonly string _defaultStreamHosterChannelKey = "Ec9jbSsc880_5";
+        public readonly EncryptionMethods _encryptionMethods = new EncryptionMethods();
 
         //Gets all user channels that are streaming
         public async Task<List<UserChannel>> GetAllUserChannels([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
@@ -226,7 +227,7 @@ namespace StreamWork.HelperClasses
             {
                 var userProfile = await GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, userName);
                 model.GenericUserProfile = userProfile;
-                model.ChatInfo = EncryptString(userProfile.Username + "|" + userProfile.Id + "|" + userProfile.EmailAddress);
+                model.ChatInfo = _encryptionMethods.EncryptString(userProfile.Username + "|" + userProfile.Id + "|" + userProfile.EmailAddress);
             }
 
             return model;
