@@ -50,11 +50,11 @@ function NotifyStudentsDecline() {
 }
 
 function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail(notifyStudent) {
+    var formData = new FormData()
     var streamTitle = $('#streamTitle').val();
     var streamSubject = $('#streamSubject').val();
     var streamDescription = $('#streamDescription').val();
-        
-    var formData = new FormData()
+    var totalFile = document.getElementById("uploadThumbnail");
 
     if (streamTitle == "" || streamSubject == 'Select Subject' || streamDescription == "") {
         Hide();
@@ -62,11 +62,12 @@ function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail(notifyStudent) {
         return;
     }
 
-    var streamInfo = streamTitle + '|' + streamSubject + '|' + streamDescription + '|' + notifyStudent;
-
-    var totalFile = document.getElementById("uploadThumbnail").files.length;
-    if (totalFile != 0) formData.append(streamInfo, document.getElementById("uploadThumbnail").files[0])
-    else formData.append(streamInfo, 'No Thumbnail');
+    formData.append("StreamTitle", streamTitle);
+    formData.append("StreamSubject", streamSubject);
+    formData.append("StreamDescription", streamDescription);
+    formData.append("NotifiyStudent", notifyStudent);
+    if (totalFile.files.length > 0)
+        formData.append("StreamThumbnail", totalFile.files[0]);
 
     $.ajax({
         url: '/Tutor/TutorStream',
@@ -89,6 +90,7 @@ function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail(notifyStudent) {
     });   
 
 }
+
 function Hide() {
     document.getElementById("ExitStream").style.display = 'block';
     document.getElementById("StartStream").style.display = 'block';

@@ -297,7 +297,7 @@ namespace StreamWork.Controllers
         {
             var user = HttpContext.User.Identity.Name;
             var userProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, user);
-            var success = await _editProfileMethods.EditProfile(Request, storageConfig, userProfile);
+            var success = await _editProfileMethods.EditProfile(storageConfig, Request, userProfile);
             if (success != null) return Json(new { Message = JsonResponse.Success.ToString(), caption = success[0], paragraph = success[1], picture = success[2] });
             return Json(new { Message = JsonResponse.Failed.ToString() });
         }

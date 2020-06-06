@@ -14,13 +14,13 @@ namespace StreamWork.HelperClasses
         readonly HomeMethods _homeHelperFunctions = new HomeMethods();
         readonly TutorMethods _tutorHelperFunctions = new TutorMethods();
 
-        public async Task<string[]> EditProfile(HttpRequest Request, [FromServices] IOptionsSnapshot<StorageConfig> storageConfig, UserLogin userProfile)
+        public async Task<string[]> EditProfile([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, HttpRequest request, UserLogin userProfile)
         {
             IFormFile profilePicture = null; 
-            var profileCaption = Request.Form["ProfileCaption"];
-            var profileParagraph = Request.Form["ProfileParagraph"];
-            if(Request.Form.Files.Count > 0)
-                profilePicture = Request.Form.Files[0];
+            var profileCaption = request.Form["ProfileCaption"];
+            var profileParagraph = request.Form["ProfileParagraph"];
+            if(request.Form.Files.Count > 0)
+                profilePicture = request.Form.Files[0];
 
             userProfile.ProfileCaption = profileCaption;
             userProfile.ProfileParagraph = profileParagraph;

@@ -67,7 +67,7 @@ else if (Model.UserChannel.StreamTitle == null && Model.UserChannel.StreamSubjec
                             <div class="col-lg-7 col-md-7 col-sm-7 col-6">
                                 <div class="upload-uploadbtn-wrapper">
                                     <button class="form-control"><span><img src="/images/Upload16.png"></span> Upload Thumbnail</button>
-                                    <input id="uploadThumbnail" type="file" value="~/images/MathDefault.png" onchange="readURL(this,'Thumbnail');">
+                                    <input id="uploadThumbnail" type="file" onchange="readURL(this,'Thumbnail');">
                                 </div>
                             </div>
                             <div class="col-lg-5 col-md-5 col-sm-5 col-6">
@@ -80,7 +80,7 @@ else if (Model.UserChannel.StreamTitle == null && Model.UserChannel.StreamSubjec
                             </div>
                         </div>
                         <br>
-                        <img id="previewThumbnail" src="/images/MathDefault.png" alt="your image" style="width:100%; border-radius:10px">
+                        <img id="previewStreamThumbnail" src="~/images/MathDefault.png" alt="your image" style="width:100%; border-radius:10px">
                     </form>
                 </div>
                 <div class="modal-footer">

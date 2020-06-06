@@ -18,6 +18,7 @@ namespace StreamWork.Controllers
         readonly HomeMethods _homeMethods = new HomeMethods();
         readonly TutorMethods _tutorMethods = new TutorMethods();
         readonly EncryptionMethods _encryptionMethods = new EncryptionMethods();
+        readonly FollowingMethods _followingMethods = new FollowingMethods();
         readonly StreamClientMethods _streamClientMethods = new StreamClientMethods();
 
         [HttpGet]
@@ -46,57 +47,14 @@ namespace StreamWork.Controllers
             var userChannel = await _homeMethods.GetUserChannel(storageConfig, SQLQueries.GetUserChannelWithUsername, user);
             var userProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, user);
             var chatColor = "";
+
             foreach (var claims in HttpContext.User.Claims)
             {
                 if (claims.Type == ClaimTypes.UserData) chatColor = claims.Value;
             }
 
-            //Saves streamTitle, URl, and subject into sql database with custom thumbnail
-            if (Request.Form.Files.Count != 0)
-            {
-                var streamInfo = Request.Form.Files[0].Name.Split(new char[] { '|' });
-                var streamTitle = streamInfo[0];
-                var streamSubject = streamInfo[1];
-                var streamDescription = streamInfo[2];
-                var notifyStudents = streamInfo[3];
-                var archivedStreamId = Guid.NewGuid().ToString();
-                var streamThumbnail = _homeMethods.SaveIntoBlobContainer(Request.Form.Files[0], archivedStreamId, 1280, 720);
-
-                StreamClient handleStreams = new StreamClient(storageConfig, userChannel, userProfile, streamTitle, streamSubject, streamDescription, streamThumbnail, archivedStreamId, chatColor);
-                handleStreams.RunLiveThread();
-                if (notifyStudents.Equals("yes")) handleStreams.RunEmailThread();
-
-                return Json(new { Message = JsonResponse.Success.ToString() });
-            }
-
-            //Saves streamTitle, URl, and subject into sql database without custom thumbnail
-            if (Request.Form.Count != 0)
-            {
-                var streamInfo = new string[4];
-                foreach (var key in Request.Form.Keys)
-                    streamInfo = key.Split(new char[] { '|' });
-
-                var streamTitle = streamInfo[0];
-                var streamSubject = streamInfo[1];
-                var streamDescription = streamInfo[2];
-                var notifyStudents = streamInfo[3];
-                var archivedStreamId = Guid.NewGuid().ToString();
-
-                StreamClient handleStreams = new StreamClient(storageConfig, userChannel, userProfile, streamTitle, streamSubject, streamDescription, _tutorMethods.GetCorrespondingDefaultThumbnail(streamSubject), archivedStreamId, chatColor);
-                handleStreams.RunLiveThread();
-                if (notifyStudents.Equals("yes")) handleStreams.RunEmailThread();
-
-                return Json(new { Message = JsonResponse.Success.ToString() });
-            }
-
-            //change stream subject
-            if (change != null)
-            {
-                userChannel.StreamSubject = change;
-                await DataStore.SaveAsync(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
-                return Json(new { Message = JsonResponse.Success.ToString() });
-            }
-
+            var startStream = _tutorMethods.StartStream(storageConfig, Request, userChannel, userProfile, chatColor);
+            if(startStream) return Json(new { Message = JsonResponse.Success.ToString() });
             return Json(new { Message = JsonResponse.Failed.ToString() });
         }
 
@@ -122,7 +80,7 @@ namespace StreamWork.Controllers
             }
 
             viewModel.NumberOfViews = viewCount;
-            viewModel.NumberOfFollowers = _tutorMethods.GetNumberOfFollowers(viewModel.TutorUserProfile);
+            viewModel.NumberOfFollowers = await _followingMethods.GetNumberOfFollowers(storageConfig, viewModel.TutorUserProfile.Id);
             viewModel.Schedule = _tutorMethods.GetTutorStreamSchedule(viewModel.UserChannels[0]);
 
             return View(viewModel);

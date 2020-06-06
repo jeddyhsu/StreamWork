@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using StreamWork.Config;
 using StreamWork.Core;
 using StreamWork.DataModels;
+using StreamWork.Threads;
 using StreamWork.TutorObjects;
 
 namespace StreamWork.HelperClasses
@@ -18,11 +20,38 @@ namespace StreamWork.HelperClasses
     {
         readonly HomeMethods _homeMethods = new HomeMethods();
 
+
+        public bool StartStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, HttpRequest request, UserChannel userChannel, UserLogin userProfile, string chatColor)
+        {
+            try
+            {
+                string streamThumbnail;
+                var streamTitle = request.Form["StreamTitle"];
+                var streamSubject = request.Form["StreamSubject"];
+                var streamDescription = request.Form["StreamDescription"];
+                var notifyStudent = request.Form["NotifiyStudent"];
+                var archivedStreamId = Guid.NewGuid().ToString();
+                if (request.Form.Files.Count > 0)
+                    streamThumbnail = _homeMethods.SaveIntoBlobContainer(request.Form.Files[0], archivedStreamId, 1280, 720);
+                else
+                    streamThumbnail = GetCorrespondingDefaultThumbnail(streamSubject);
+
+                StreamClient streamClient = new StreamClient(storageConfig, userChannel, userProfile, streamTitle, streamSubject, streamDescription, streamThumbnail, archivedStreamId, chatColor);
+                if (notifyStudent.Equals("yes")) streamClient.RunEmailThread();
+                //streamClient.RunLiveThread();
+
+                return true;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Error in TutorMethods: StartStream " + e.Message);
+                return false;
+            }
+        }
+
         //Uses a hashtable to add default thumbnails based on subject
         public string GetCorrespondingDefaultThumbnail(string subject)
         {
-            string defaultURL = "";
-
             Hashtable defaultPic = new Hashtable
             {
                 { "Mathematics", "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/MathDefault.png" },
@@ -35,17 +64,7 @@ namespace StreamWork.HelperClasses
                 { "Other", "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/OtherDefualt.png" }
             };
 
-            ICollection key = defaultPic.Keys;
-
-            foreach (string pic in key)
-            {
-                if (pic == subject)
-                {
-                    defaultURL = ((string)defaultPic[pic]);
-                }
-            }
-
-            return defaultURL;
+            return (string)defaultPic[subject];
         }
 
         public async Task ChangeAllArchivedStreamAndUserChannelProfilePhotos([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string user, string profilePicture) //changes all profile photos on streams if user has changed it
@@ -248,16 +267,6 @@ namespace StreamWork.HelperClasses
 
             SortUtil(tasksArray, leftBound, counter - 1);
             SortUtil(tasksArray, counter + 1, rightBound);
-        }
-
-        public int GetNumberOfFollowers(UserLogin userProfile)
-        {
-            if (userProfile.FollowedStudentsAndTutors == null) return 0;
-
-            if (!userProfile.FollowedStudentsAndTutors.Contains('|')) return 1;
-
-            var list = userProfile.FollowedStudentsAndTutors.Split('|');
-            return list.Length;
         }
 
         public async Task ClearRecommendation ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string id)
