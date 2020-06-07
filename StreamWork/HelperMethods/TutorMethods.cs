@@ -14,7 +14,7 @@ using StreamWork.DataModels;
 using StreamWork.Threads;
 using StreamWork.TutorObjects;
 
-namespace StreamWork.HelperClasses
+namespace StreamWork.HelperMethods
 {
     public class TutorMethods //For functions involved with tutor code only
     {
@@ -42,7 +42,7 @@ namespace StreamWork.HelperClasses
 
                 return true;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine("Error in TutorMethods: StartStream " + e.Message);
                 return false;
@@ -55,13 +55,13 @@ namespace StreamWork.HelperClasses
             var videoId = request.Form["StreamId"];
             var streamTitle = request.Form["StreamTitle"];
             var streamDescription = request.Form["StreamDescription"];
-            if(request.Form.Files.Count > 0)
+            if (request.Form.Files.Count > 0)
                 streamThumbnail = _homeMethods.SaveIntoBlobContainer(request.Form.Files[0], videoId, 1280, 720);
 
             var archivedStream = await _homeMethods.GetArchivedStream(storageConfig, SQLQueries.GetArchivedStreamsWithId, videoId);
             archivedStream.StreamTitle = streamTitle;
             archivedStream.StreamDescription = streamDescription;
-            if(streamThumbnail != null)
+            if (streamThumbnail != null)
                 archivedStream.StreamThumbnail = streamThumbnail;
 
             await DataStore.SaveAsync(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", archivedStream.Id } }, archivedStream);
@@ -156,7 +156,7 @@ namespace StreamWork.HelperClasses
                 if (channel.StreamTasks != null)
                 {
                     var streamTasksList = JsonConvert.DeserializeObject<List<StreamTask>>(channel.StreamTasks);
-                    
+
                     streamTasksList.Add(new StreamTask(streamName, dateTime.ToString("h:mm tt"), dateTime.ToString("MM/dd/yyyy")));
 
                     streamTasksList = SortStreamTasksList(streamTasksList);
@@ -253,7 +253,7 @@ namespace StreamWork.HelperClasses
                 SortUtil(tasks, 0, tasks.Length - 1);
                 return tasks.ToList();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine("Error in SortStreamTasksList: " + e.Message);
                 return null;
@@ -289,7 +289,7 @@ namespace StreamWork.HelperClasses
             SortUtil(tasksArray, counter + 1, rightBound);
         }
 
-        public async Task ClearRecommendation ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string id)
+        public async Task ClearRecommendation([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string id)
         {
             await DataStore.DeleteAsync<Recommendation>(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", id } });
         }

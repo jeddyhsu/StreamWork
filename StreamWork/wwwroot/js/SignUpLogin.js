@@ -1,71 +1,23 @@
-﻿$(function () {
-    $('#loaderTutor').hide()
-    $('#loaderStudent').hide()
-});
-
-//Handles signing up
+﻿//Student SignUp
 function SignUpStudent() {
-    var nameFirst = $("#nameFirstS").val();
-    var nameLast = $("#nameLastS").val();
-    var email = $("#emailS").val();
-    var username = $("#usernameS").val();
-    var password = $('#passwordS').val();
-    var confirmPassword = $('#passwordConfirmS').val();
-    var college = $('#collegeS').val();
-    var role = 'student';
+    var form = $('#formSignUpS');
+    if (!form[0].checkValidity()) {
+        form[0].reportValidity();
+        return;
+    }
 
-    $('#loaderStudent').show();
+    if ($('#passwordS').val() != $('#confirmPasswordS').val()) {
+        OpenNotificationModal("Passwords do not match");
+        return;
+    }
 
-    $.ajax({
-        url: '/Home/SignUp',
-        type: 'post',
-        dataType: 'json',
-        data: {
-            'nameFirst': nameFirst,
-            'nameLast': nameLast,
-            'email': email,
-            'username': username,
-            'password': password,
-            'passwordConfirm': confirmPassword,
-            'college': college,
-            'role': role,
-        },
-        success: function (data) {
-            if (data.message === "Success") {
-                window.location.href = '/Home/Login?dest=-Home-Profile';
-                $('#loaderStudent').hide()
-            }
-        }
-    });
-}
-
-function SignUpTutor() {
     var formData = new FormData();
-    var transcript = document.getElementById("uploadTranscript").files;
-    var resume = document.getElementById("uploadResume").files;
-    var nameFirst = $("#nameFirstT").val();
-    var nameLast = $("#nameLastT").val();
-    var email = $("#emailT").val();
-    var payPalAddress = $("#payPalAddressT").val();
-    var username = $("#usernameT").val();
-    var password = $('#passwordT').val();
-    var confirmPassword = $('#passwordConfirmT').val();
-    var college = $('#collegeT').val();
-    var role = 'tutor';
-
-    formData.append("Transcript", transcript[0]);
-    formData.append("Resume", resume[0]);
-    formData.append("nameFirst", nameFirst);
-    formData.append("nameLast", nameLast);
-    formData.append("email", email);
-    formData.append("payPalAddress", payPalAddress);
-    formData.append("username", username);
-    formData.append("password", password);
-    formData.append("confirmPassword", confirmPassword);
-    formData.append("college", college);
-    formData.append("role", role);
-
-    $('#loaderTutor').show();
+    formData.append("FirstName", $('#firstNameS').val());
+    formData.append("LastName", $('#lastNameS').val());
+    formData.append("EmailAddress", $('#emailAddressS').val());
+    formData.append("Username", $('#usernameS').val());
+    formData.append("Password", $('#passwordS').val());
+    formData.append("Role", 'student');
 
     $.ajax({
         url: '/Home/SignUp',
@@ -75,172 +27,67 @@ function SignUpTutor() {
         contentType: false,
         processData: false,
         success: function (data) {
-            if (data.message === "Success") {
-                window.location.href = '/Home/Login?dest=-Home-Profile';
-                $('#loaderTutor').hide()
-            }
-        }
-    });
-}
-
-function RunStudentChecks() {
-    var nameFirst = $("#nameFirstS").val();
-    var nameLast = $("#nameLastS").val();
-    var email = $("#emailS").val();
-    var username = $("#usernameS").val();
-    var password = $('#passwordS').val();
-    var confirmPassword = $('#passwordConfirmS').val();
-
-    if (nameFirst == "" || nameLast == "" || email == "" || username == "" || password == "" || confirmPassword == "") {
-        OpenNotificationModal("Fill out all required fields (College is optional)")
-        return;
-    }
-
-    if (password != confirmPassword) {
-        OpenNotificationModal("Passwords do not match")
-        return;
-    }
-
-    if (ValidateEmail(email) == false) {
-        OpenNotificationModal("Invalid email")
-        return
-    }
-
-    if (ValidatePassword(password) == false) {
-        return;
-    }
-
-    $.ajax({
-        url: '/Home/SignUp',
-        type: 'post',
-        dataType: 'json',
-        data: {
-            'username': username,
-            'email': email,
-        },
-        success: function (data) {
-            if (data.message === "Success") {
-                OpenCheckStudentModal();
-            }
-            else if (data.message === "UsernameExists") {
+            if (data.message === "UsernameExists") {
                 OpenNotificationModal("Username is taken")
             }
             else if (data.message === "EmailExists") {
                 OpenNotificationModal("The email that you have provided is already being used with another account")
             }
+            else {
+                window.location.href = '/Home/Login?dest=-Home-Profile';
+            }
         }
     });
 }
 
-function RunTutorChecks() {
-    var nameFirst = $("#nameFirstT").val();
-    var nameLast = $("#nameLastT").val();
-    var email = $("#emailT").val();
-    var payPalAddress = $("#payPalAddressT").val();
-    var username = $("#usernameT").val();
-    var password = $('#passwordT').val();
-    var confirmPassword = $('#passwordConfirmT').val();
-    var college = $('#collegeT').val();
-    var transcript = document.getElementById("uploadTranscript").files;
-    var resume = document.getElementById("uploadResume").files;
-
-    if (nameFirst == "" || nameLast == "" || email == "" || payPalAddress == "" || username == "" || password == "" || confirmPassword == "" || college == "") {
-        OpenNotificationModal("Fill out all fields");
+//Tutor SignUp
+function SignUpTutor() {
+    var form = $('#formSignUpT');
+    if (!form[0].checkValidity()) {
+        form[0].reportValidity();
         return;
     }
 
-    if (password != confirmPassword) {
+    if ($('#passwordT').val() != $('#confirmPasswordT').val()) {
         OpenNotificationModal("Passwords do not match");
         return;
     }
 
-    if (ValidateEmail(email) == false) {
-        OpenNotificationModal("Invalid email");
-        return;
-    }
-
-    if (ValidateEmail(payPalAddress) == false) {
-        OpenNotificationModal("Invalid PayPal email");
-        return;
-    }
-
-    if (ValidatePassword(password) == false) {
-        return;
-    }
-
-    if (transcript.length != 1 || resume.length != 1) {
-        OpenNotificationModal("Please provide both a transcript and resume");
-        return;
-    }
+    var formData = new FormData();
+    formData.append("Transcript", document.getElementById("uploadTranscript").files[0]);
+    formData.append("Resume", document.getElementById("uploadResume").files[0]);
+    formData.append("FirstName", $('#firstNameT').val());
+    formData.append("LastName", $('#lastNameT').val());
+    formData.append("EmailAddress", $('#emailAddressT').val());
+    formData.append("PayPalAddress", $('#payPalAddressT').val());
+    formData.append("Username", $('#usernameT').val());
+    formData.append("Password", $('#passwordT').val());
+    formData.append("College", $('#collegeT').val());
+    formData.append("ProfileType", 'tutor');
 
     $.ajax({
         url: '/Home/SignUp',
         type: 'post',
         dataType: 'json',
-        data: {
-            'username': username,
-            'email': email,
-            'payPalAddress': payPalAddress
-
-        },
+        data: formData,
+        contentType: false,
+        processData: false,
         success: function (data) {
-            if (data.message === "Success") {
-                SignUpTutor();
-            } else if (data.message === "UsernameExists") {
+            if (data.message === "UsernameExists") {
                 OpenNotificationModal("Username is taken")
             }
-            else if (data.message === "EmailExists") {
+            else if (data.message === "EmailExists" || data.message == "PayPalEmailExists") {
                 OpenNotificationModal("The email that you have provided is already being used with another account")
             }
-            else if (data.message === "PayPalEmailExists") {
-                OpenNotificationModal("The PayPal email that you have provided is already being used with another account")
+            else {
+                window.location.href = '/Home/Login?dest=-Home-Profile';
             }
         }
     });
 }
 
-function ValidatePassword(password) {
-    var UpperCase = false;
-    var LowerCase = false;
-    var Number = false;
-    var passArray = Array.from(password);
-
-    if (passArray.length >= 8) {
-        for (i = 0; i < passArray.length; i++) {
-            if (passArray[i] >= '0' && passArray[i] <= '9') {
-                Number = true;
-            }
-            else if (passArray[i] == passArray[i].toLowerCase()) {
-                LowerCase = true;
-            }
-            else if (passArray[i] == passArray[i].toUpperCase()) {
-                UpperCase = true;
-            }
-        }
-
-        if (UpperCase == false || LowerCase == false || Number == false) {
-            OpenNotificationModal("Password must contain one lowercase letter, one uppercase letter, and one number");
-            return false;
-        }
-    }
-    else {
-        OpenNotificationModal("Password must be at least 8 characters long");
-        return false;
-    }
-
-    return true;
-}
-
-function ValidateEmail(email) {
-    if (email.includes("@") && email.includes(".")) {
-        return true;
-    }
-
-    return false
-}
 
 //Handles logging in
-
 function Login() {
     var username = $("#username").val();
     var password = $('#password').val();

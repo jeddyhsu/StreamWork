@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StreamWork.ViewModels;
-using StreamWork.HelperClasses;
+using StreamWork.HelperMethods;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using StreamWork.Config;

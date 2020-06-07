@@ -7,7 +7,7 @@ using Microsoft.Extensions.Options;
 using StreamWork.Config;
 using StreamWork.Core;
 using StreamWork.DataModels;
-using StreamWork.HelperClasses;
+using StreamWork.HelperMethods;
 
 namespace StreamWork.Hubs
 {

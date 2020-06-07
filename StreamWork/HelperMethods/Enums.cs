@@ -1,5 +1,5 @@
 ﻿
-namespace StreamWork.HelperClasses
+namespace StreamWork.HelperMethods
 {
     public class Enums { }
 

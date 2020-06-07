@@ -18,9 +18,10 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.ImageSharp.Formats.Png;
 
-namespace StreamWork.HelperClasses
+namespace StreamWork.HelperMethods
 {
-    public class HomeMethods {
+    public class HomeMethods
+    {
         public static bool devEnvironment;
         public readonly string _host = devEnvironment ? "http://localhost:58539" : "https://www.streamwork.live";
         public readonly string _connectionString = "Server=tcp:streamwork.database.windows.net,1433;Initial Catalog=StreamWork;Persist Security Info=False;User ID=streamwork;Password=arizonastate1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
@@ -59,7 +60,8 @@ namespace StreamWork.HelperClasses
         }
 
         //Gets a set of archived streams with the query that you specify
-        public async Task<List<UserArchivedStreams>> GetArchivedStreams ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, SQLQueries query, string user) {
+        public async Task<List<UserArchivedStreams>> GetArchivedStreams([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, SQLQueries query, string user)
+        {
             var archivedStreams = await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, query.ToString(), new List<string> { user });
             return archivedStreams;
         }
@@ -80,13 +82,15 @@ namespace StreamWork.HelperClasses
         }
 
         //Gets a set of user logins with the query that you specify
-        public async Task<List<UserLogin>> GetUserProfiles ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, SQLQueries query, string user) {
+        public async Task<List<UserLogin>> GetUserProfiles([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, SQLQueries query, string user)
+        {
             var logins = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, query.ToString(), new List<string> { user });
             return logins;
         }
 
         //Gets a single user logins with the query that you specify
-        public async Task<UserLogin> GetUserProfile ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, SQLQueries query, string user) { //one user login information
+        public async Task<UserLogin> GetUserProfile([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, SQLQueries query, string user)
+        { //one user login information
             var logins = await DataStore.GetListAsync<UserLogin>(_connectionString, storageConfig.Value, query.ToString(), new List<string> { user });
             if (logins.Count > 0) return logins[0];
             return null;
@@ -101,7 +105,8 @@ namespace StreamWork.HelperClasses
             return await GetArchivedStreams(storageConfig, SQLQueries.GetArchivedStreamsByStreamIdInTheList, FormatQueryString(idList));
         }
 
-        public async Task UpdateUser ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, UserLogin user) {
+        public async Task UpdateUser([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, UserLogin user)
+        {
             await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", user.Id } }, user);
         }
 
@@ -124,7 +129,7 @@ namespace StreamWork.HelperClasses
             }
         }
 
-        public async Task<List<UserArchivedStreams>> SearchArchivedStreams ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject, string searchQuery)
+        public async Task<List<UserArchivedStreams>> SearchArchivedStreams([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string subject, string searchQuery)
         {
             if (string.IsNullOrEmpty(subject))
             {
@@ -137,8 +142,9 @@ namespace StreamWork.HelperClasses
                 return await DataStore.GetListAsync<UserArchivedStreams>(_connectionString, storageConfig.Value, SQLQueries.GetArchivedStreamsWithSubjectAndSearchTerm.ToString(), new List<string> { subject, searchQuery.ToLower() });
             }
         }
-       
-        public string GetSubjectIcon (string subject) {
+
+        public string GetSubjectIcon(string subject)
+        {
             string defaultURL = "";
 
             Hashtable defaultPic = new Hashtable
@@ -155,8 +161,10 @@ namespace StreamWork.HelperClasses
 
             ICollection key = defaultPic.Keys;
 
-            foreach (string pic in key) {
-                if (pic == subject) {
+            foreach (string pic in key)
+            {
+                if (pic == subject)
+                {
                     defaultURL = ((string)defaultPic[pic]);
                 }
             }
@@ -234,7 +242,8 @@ namespace StreamWork.HelperClasses
         }
 
         //Saves picture into container on Azure - replaces old one if there is one
-        public string SaveIntoBlobContainer(IFormFile file, string reference, int width, int height) {
+        public string SaveIntoBlobContainer(IFormFile file, string reference, int width, int height)
+        {
 
             //Connects to blob storage and saves picture
             CloudStorageAccount cloudStorage = CloudStorageAccount.Parse(_blobconnectionString);
@@ -252,14 +261,14 @@ namespace StreamWork.HelperClasses
                 {
                     int currWidth = image.Width;
                     int currHeight = image.Height;
-                    if ((float) width / height > (float) currWidth / currHeight) // image is too tall relative to its width
+                    if ((float)width / height > (float)currWidth / currHeight) // image is too tall relative to its width
                     {
-                        int resizeHeight = (int) ((float) currHeight / currWidth * width);
+                        int resizeHeight = (int)((float)currHeight / currWidth * width);
                         image.Mutate(i => i.Resize(width, resizeHeight).Crop(new Rectangle(0, Math.Abs(resizeHeight - height) / 2, width - 1, height - 1)));
                     }
                     else // image is too wide relative to its height, or perfect
                     {
-                        int resizeWidth = (int) ((float) currWidth / currHeight * height);
+                        int resizeWidth = (int)((float)currWidth / currHeight * height);
                         image.Mutate(i => i.Resize(resizeWidth, height).Crop(new Rectangle(Math.Abs(resizeWidth - width) / 2, 0, width - 1, height - 1)));
                     }
                     image.Save(output, encoder);
@@ -271,18 +280,21 @@ namespace StreamWork.HelperClasses
             return blockBlob.Uri.AbsoluteUri;
         }
 
-        public async Task<bool> SavePayment ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, Payment payment) {
+        public async Task<bool> SavePayment([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, Payment payment)
+        {
             await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", payment.Id } }, payment);
             return true;
         }
 
-        public async Task<Payment> GetPayment ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string query, string txnID) {
+        public async Task<Payment> GetPayment([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string query, string txnID)
+        {
             var payments = await DataStore.GetListAsync<Payment>(_connectionString, storageConfig.Value, query, new List<string> { txnID });
             if (payments.Count > 0) return payments[0];
             return null;
         }
 
-        public string CreateUri (string username, string key) {
+        public string CreateUri(string username, string key)
+        {
             var uriBuilder = new UriBuilder(_host + "/Home/ChangePassword");
             var query = HttpUtility.ParseQueryString(uriBuilder.Query);
             query["username"] = username;
@@ -292,12 +304,15 @@ namespace StreamWork.HelperClasses
         }
 
 
-        public async Task<List<Recommendation>> GetRecommendationsForTutor ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string tutor) {
-            return await DataStore.GetListAsync<Recommendation>(_connectionString, storageConfig.Value, SQLQueries.GetRecommendationsWithTutorUsername.ToString(), new List<string> {tutor});
+        public async Task<List<Recommendation>> GetRecommendationsForTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string tutor)
+        {
+            return await DataStore.GetListAsync<Recommendation>(_connectionString, storageConfig.Value, SQLQueries.GetRecommendationsWithTutorUsername.ToString(), new List<string> { tutor });
         }
 
-        public async Task SaveRecommendation ([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string student, string tutor, string text) {
-            Recommendation recommendation = new Recommendation {
+        public async Task SaveRecommendation([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string student, string tutor, string text)
+        {
+            Recommendation recommendation = new Recommendation
+            {
                 Id = Guid.NewGuid().ToString(),
                 Student = student,
                 Tutor = tutor,
@@ -320,7 +335,7 @@ namespace StreamWork.HelperClasses
         public string GetRandomChatColor()
         {
             var random = new Random();
-            var list = new List<string> { "#D9534F", "#F0AD4E", "#56C0E0", "#5CB85C", "#1C7CD5", "#8B4FD9"};
+            var list = new List<string> { "#D9534F", "#F0AD4E", "#56C0E0", "#5CB85C", "#1C7CD5", "#8B4FD9" };
             int index = random.Next(list.Count);
             return list[index];
         }

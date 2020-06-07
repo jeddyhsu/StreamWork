@@ -28,7 +28,7 @@
     <Folder Include="Views\Tutor\" />
     <Folder Include="Views\Student\" />
     <Folder Include="Threads\" />
-    <Folder Include="HelperClasses\" />
+    <Folder Include="HelperMethods\" />
     <Folder Include="TutorObjects\" />
     <Folder Include="StreamHoster\" />
     <Folder Include="EmailTemplates\" />
@@ -36,6 +36,7 @@
     <Folder Include="Hubs\" />
     <Folder Include="wwwroot\images\ChatAssets\" />
     <Folder Include="wwwroot\media\" />
+    <Folder Include="HelperClasses\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="EmailTemplates\PasswordRecoveryEmailTemplate.html">

@@ -7,7 +7,7 @@ using StreamWork.Config;
 using StreamWork.Core;
 using StreamWork.DataModels;
 
-namespace StreamWork.HelperClasses
+namespace StreamWork.HelperMethods
 {
     public class EditProfileMethods
     {

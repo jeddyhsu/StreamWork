@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using StreamWork.Config;
 using StreamWork.DataModels;
-using StreamWork.HelperClasses;
+using StreamWork.HelperMethods;
 using StreamWork.ViewModels;
 
 namespace StreamWork.Controllers

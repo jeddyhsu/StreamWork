@@ -7,7 +7,7 @@ using StreamWork.Core;
 using StreamWork.DataModels;
 using StreamWork.ViewModels;
 
-namespace StreamWork.HelperClasses
+namespace StreamWork.HelperMethods
 {
     public class StudentMethods ////For functions involved with student code only
     {

@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
-namespace StreamWork.HelperClasses
+namespace StreamWork.HelperMethods
 {
     public class EncryptionMethods
     {

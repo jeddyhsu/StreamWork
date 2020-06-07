@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using StreamWork.Config;
 using StreamWork.Models;
-using StreamWork.HelperClasses;
+using StreamWork.HelperMethods;
 using StreamWork.DataModels;
 using System.Collections.Generic;
 

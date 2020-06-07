@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StreamWork.Config;
-using StreamWork.HelperClasses;
+using StreamWork.HelperMethods;
 using StreamWork.Hubs;
 
 namespace StreamWork

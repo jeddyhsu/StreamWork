@@ -8,13 +8,12 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Options;
 using StreamWork.ViewModels;
 using StreamWork.DataModels;
-using StreamWork.HelperClasses;
-using Microsoft.Extensions.Primitives;
-using System.Net.Mail;
+using StreamWork.HelperMethods;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System;
+using StreamWork.HelperClasses;
 
 namespace StreamWork.Controllers
 {
@@ -172,82 +171,10 @@ namespace StreamWork.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SignUp([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string nameFirst, string nameLast, string email, string payPalAddress, string username, string password, string college, string role)
+        public async Task<IActionResult> SignUp([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
-
-            if (password == null && email != null) //initial checks!
-            {
-                var checkUsername = await _homeMethods.GetUserProfiles(storageConfig, SQLQueries.GetUserWithUsername, username);
-                if (checkUsername.Count != 0) return Json(new { Message = JsonResponse.UsernameExists.ToString() });
-
-                var checkEmail = await _homeMethods.GetUserProfiles(storageConfig, SQLQueries.GetUserWithEmailAddress, email);
-                if (checkEmail.Count != 0) return Json(new { Message = JsonResponse.EmailExists.ToString() });
-
-                if (payPalAddress != null) //only for tutors
-                {
-                    var checkPayPalEmailUsingRegularEmail = await _homeMethods.GetUserProfiles(storageConfig, SQLQueries.GetUserWithEmailAddress, payPalAddress); //payPal email can't be someone elses regular email
-                    var checkPayPalEmail = await _homeMethods.GetUserProfiles(storageConfig, SQLQueries.GetUserWithPayPalAddress, payPalAddress);
-                    if (checkPayPalEmailUsingRegularEmail.Count != 0 || checkPayPalEmail.Count != 0) return Json(new { Message = JsonResponse.PayPalEmailExists.ToString() });
-                }
-
-                return Json(new { Message = JsonResponse.Success.ToString() });
-            }
-
-            UserLogin userProfile = new UserLogin
-            {
-                Id = Guid.NewGuid().ToString(),
-                Name = nameFirst + "|" + nameLast,
-                EmailAddress = email,
-                Username = username,
-                Password = _encryptionMethods.EncryptPassword(password),
-                ProfileType = role,
-                AcceptedTutor = false,
-                College = college,
-                ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/default-profile.png",
-                Balance = (decimal)0f,
-                Expiration = DateTime.UtcNow,
-                TrialAccepted = false,
-                PayPalAddress = payPalAddress,
-                NotificationSubscribe = DatabaseValues.True.ToString()
-            };
-
-            if (userProfile.ProfileType == "student") await _emailMethods.SendOutEmailToStreamWorkTeam(userProfile);
-            await DataStore.SaveAsync(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
-
-            if (role == "tutor")
-            {
-                //Create User Channel For Tutor
-                UserChannel userChannel = new UserChannel
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    Username = username,
-                    ChannelKey = _homeMethods._defaultStreamHosterChannelKey,
-                    StreamSubject = null,
-                    StreamThumbnail = null,
-                    StreamTitle = null,
-                    ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/default-profile.png",
-                };
-                await DataStore.SaveAsync(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
-
-                //Checks for the attachments that tutors provide and sends them to streamwork for verification
-                if (Request.Form.Files.Count != 0)
-                {
-                    List<string> values = new List<string>();
-                    foreach (var key in Request.Form.Keys)
-                    {
-                        Request.Form.TryGetValue(key, out StringValues value);
-                        values.Add(value);
-                    }
-
-                    var files = Request.Form.Files;
-                    List<Attachment> attachments = new List<Attachment>();
-                    foreach (var file in files)
-                        attachments.Add(new Attachment(file.OpenReadStream(), file.FileName));
-                    await _emailMethods.SendOutEmailToStreamWorkTeam(nameFirst, nameLast, email, attachments);
-                }
-            }
-
-            return Json(new { Message = JsonResponse.Success.ToString() });
+            SignUpClient _signUpAndLoginClient = new SignUpClient(storageConfig, Request);
+            return Json(new { Message = await _signUpAndLoginClient.HandleSignUp() }); 
         }
 
         [HttpGet]

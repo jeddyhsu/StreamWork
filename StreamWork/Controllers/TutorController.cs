@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Options;
 using StreamWork.ViewModels;
 using StreamWork.Threads;
-using StreamWork.HelperClasses;
+using StreamWork.HelperMethods;
 using System;
 using System.Security.Claims;
 
@@ -95,7 +95,6 @@ namespace StreamWork.Controllers
             //Adds streams to schedule
             if (originalDateTime.Year == 1 && remove == false)
             {
-
                 if (await _tutorMethods.AddStreamTask(storageConfig, streamName, dateTime, userChannel))
                     return Json(new { Message = JsonResponse.Success.ToString() });
             }
