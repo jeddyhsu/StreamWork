@@ -186,37 +186,8 @@ namespace StreamWork.Controllers
         [HttpPost]
         public async Task<IActionResult> Login([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string username, string password)
         {
-            var userProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, username);
-            if (userProfile == null)
-                return Json(new { Message = JsonResponse.Failed.ToString() });
-
-            var checkforUser = await DataStore.GetListAsync<UserLogin>(_homeMethods._connectionString, storageConfig.Value, SQLQueries.GetUserWithUsernameAndPassword.ToString(), new List<string> { username, _encryptionMethods.DecryptPassword(userProfile.Password, password) });
-            if (checkforUser.Count == 1)
-            {
-                HttpContext.Session.SetString(SQLQueries.UserProfile.ToString(), username);
-
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, username),
-                    new Claim(ClaimTypes.Email, userProfile.EmailAddress),
-                    new Claim(ClaimTypes.UserData, _homeMethods.GetRandomChatColor())
-                };
-
-                var userIdentity = new ClaimsIdentity(claims, "cookie");
-
-                ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-
-                userProfile.LastLogin = DateTime.UtcNow;
-                await _homeMethods.UpdateUser(storageConfig, userProfile);
-
-                if (userProfile.ProfileType == "tutor")
-                    return Json(new { Message = JsonResponse.Tutor.ToString() });
-                else
-                    return Json(new { Message = JsonResponse.Student.ToString() });
-            }
-
-            return Json(new { Message = JsonResponse.Failed.ToString() });
+            LoginClient _loginClient = new LoginClient(storageConfig, HttpContext ,username, password);
+            return Json(new { Message = await _loginClient.Login() });
         }
 
         [HttpPost]

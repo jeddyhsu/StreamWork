@@ -106,7 +106,7 @@ function Login() {
             'password': $('#password').val()
         },
         success: function (data) {
-            if (data.message === "Failed") {
+            if (data.message === "WrongUsernameOrPassword") {
                 OpenNotificationModal("Wrong username or password")
                 return;
             }

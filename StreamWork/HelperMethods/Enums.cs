@@ -12,7 +12,8 @@ namespace StreamWork.HelperMethods
         Student,
         UsernameExists,
         EmailExists,
-        PayPalEmailExists
+        PayPalEmailExists,
+        WrongUsernameOrPassword
     }
 
     public enum DatabaseValues
