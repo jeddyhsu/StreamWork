@@ -52,18 +52,18 @@
             <div class="col-lg-6">
                 <div class="card" style="background-color:whitesmoke">
                     <div class="card-body">
-                        <form id="formSignUpS" class="form-sign">
+                        <form id="formSignUpT" class="form-sign">
                             <a href="/"><img src="~/images/streamworklogo.png" width="250" height="70" /></a>
                             <h4 style="font-family: 'Roboto Slab', serif"><b>Sign Up</b></h4>
                             <br>
-                            <input type="text" class="form-control" id="firstNameT" placeholder="First Name">
-                            <input type="text" class="form-control mt-2" id="lastNameT" placeholder="Last Name">
+                            <input type="text" class="form-control" id="firstNameT" placeholder="First Name" required>
+                            <input type="text" class="form-control mt-2" id="lastNameT" placeholder="Last Name" required>
                             <hr style="border-width: medium; margin-left: 10px; margin-right: 10px;" />
-                            <input type="text" class="form-control" id="emailAddressT" placeholder="Email" size="45">
+                            <input type="text" class="form-control" id="emailAddressT" placeholder="Email" size="45" required>
                             <table>
                                 <tr>
                                     <th style="padding-right: 10px">
-                                        <input type="text" class="form-control mt-2" id="payPalAddressT" size="45" placeholder="PayPal Email" />
+                                        <input type="text" class="form-control mt-2" id="payPalAddressT" size="45" placeholder="PayPal Email" required/>
                                     </th>
                                     <th>
                                         <img id="info" src="~/images/info_icon.png" style="width: 24px; height: 24px; margin-top: 8px;" data-toggle="tooltip" data-placement="right" title="Your email address associated with your PayPal account will be used to securely send you the money you earn through donations." />
@@ -71,10 +71,10 @@
                                 </tr>
                             </table>
                             <hr style="border-width: medium; margin-left: 10px; margin-right: 10px;" />
-                            <input type="text" class="form-control" id="usernameT" placeholder="Username" size="45">
+                            <input type="text" class="form-control" id="usernameT" placeholder="Username" size="45" required>
                             <hr style="border-width: medium; margin-left: 10px; margin-right: 10px;" />
-                            <input type="password" class="form-control" id="passwordT" placeholder="Password" size="45">
-                            <input type="password" class="form-control mt-2" id="confirmPasswordT" placeholder="Re-enter Password" size="45">
+                            <input type="password" class="form-control" id="passwordT" placeholder="Password" size="45" required>
+                            <input type="password" class="form-control mt-2" id="confirmPasswordT" placeholder="Re-enter Password" size="45" required>
                             <hr style="border-width: medium; margin-left: 10px; margin-right: 10px;" />
                             <input type="text" class="form-control" id="collegeT" placeholder="Current School / University">
                             <hr style="border-width: medium; margin-left: 10px; margin-right: 10px;" />
@@ -83,7 +83,7 @@
                                     <th style="padding-right: 10px">
                                         <div class="upload-uploadbtn-wrapper">
                                             <button class="uploadbtn" style="font-size:14px; width:245px; cursor:pointer">Transcript</button>
-                                            <input id="uploadTranscript" type='file' accept="application/pdf" onchange="ReadFile(this, 'transcript')" />
+                                            <input id="uploadTranscript" type='file' accept="application/pdf" onchange="ReadFile(this, 'transcript')" required/>
                                         </div>
                                     </th>
                                     <th>
@@ -97,7 +97,7 @@
                                     <th style="padding-right: 10px">
                                         <div class="upload-uploadbtn-wrapper" style="float:left">
                                             <button class="uploadbtn" style="font-size:14px; width:245px; cursor:pointer">Resume</button>
-                                            <input id="uploadResume" type='file' accept="application/pdf" onchange="ReadFile(this, 'resume')" />
+                                            <input id="uploadResume" type='file' accept="application/pdf" onchange="ReadFile(this, 'resume')" required/>
                                         </div>
                                     </th>
                                     <th>
@@ -111,8 +111,8 @@
                             <strong>Login Type: Tutor</strong> &nbsp; &nbsp; &nbsp;
                             <br />
                             <br />
-                            <input type="button" class="streamWorkPrimary" value="Start Tutoring!" onclick="RunTutorChecks()" style="cursor:pointer;">
-                            <span id="loaderTutor" class="loaderTutor mt-3" style="display:block; margin-left:auto; margin-right:auto"></span>
+                            <input type="button" class="streamWorkPrimary" value="Start Tutoring!" onclick="SignUpTutor()" style="cursor:pointer;">
+                            
                         </form>
                     </div>
                 </div>
@@ -120,7 +120,6 @@
         </div>
     </section>
 </div>
-
 
 <script>CheckIfStudentOrTutorIsSigningUp()</script>
 

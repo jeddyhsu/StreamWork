@@ -63,7 +63,7 @@ function SignUpTutor() {
     formData.append("Username", $('#usernameT').val());
     formData.append("Password", $('#passwordT').val());
     formData.append("College", $('#collegeT').val());
-    formData.append("ProfileType", 'tutor');
+    formData.append("Role", 'tutor');
 
     $.ajax({
         url: '/Home/SignUp',
