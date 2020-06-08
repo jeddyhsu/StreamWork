@@ -18,7 +18,8 @@ namespace StreamWork.Controllers
         readonly HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
         readonly TutorHelperFunctions _tutorHelperFunctions = new TutorHelperFunctions();
         readonly ThreadClassHelperFunctions _threadClassHelperFunctions = new ThreadClassHelperFunctions();
-       
+        readonly FollowingHelperFunctions _followingHelperFunctions = new FollowingHelperFunctions();
+
         [HttpGet]
         public async Task<IActionResult> TutorStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
@@ -121,7 +122,7 @@ namespace StreamWork.Controllers
             }
 
             viewModel.NumberOfViews = viewCount;
-            viewModel.NumberOfFollowers = _tutorHelperFunctions.GetNumberOfFollowers(viewModel.TutorUserProfile);
+            viewModel.NumberOfFollowers = await _followingHelperFunctions.GetNumberOfFollowers(storageConfig, viewModel.TutorUserProfile.Id);
             viewModel.Schedule = _tutorHelperFunctions.GetTutorStreamSchedule(viewModel.UserChannels[0]);
 
             return View(viewModel);
