@@ -9,7 +9,6 @@ using Microsoft.Extensions.Options;
 using StreamWork.ViewModels;
 using StreamWork.DataModels;
 using StreamWork.HelperMethods;
-using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System;
@@ -19,12 +18,12 @@ namespace StreamWork.Controllers
 {
     public class HomeController : Controller
     {
-        readonly HomeMethods _homeMethods = new HomeMethods();
-        readonly TutorMethods _tutorMethods = new TutorMethods();
-        readonly FollowingMethods _followingMethods = new FollowingMethods();
-        readonly EmailMethods _emailMethods = new EmailMethods();
-        readonly EncryptionMethods _encryptionMethods = new EncryptionMethods();
-        readonly EditProfileMethods _editProfileMethods = new EditProfileMethods();
+        private readonly HomeMethods _homeMethods = new HomeMethods();
+        private readonly TutorMethods _tutorMethods = new TutorMethods();
+        private readonly FollowingMethods _followingMethods = new FollowingMethods();
+        private readonly EmailMethods _emailMethods = new EmailMethods();
+        private readonly EncryptionMethods _encryptionMethods = new EncryptionMethods();
+        private readonly EditProfileMethods _editProfileMethods = new EditProfileMethods();
 
         [HttpGet]
         public async Task<IActionResult> Index([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)

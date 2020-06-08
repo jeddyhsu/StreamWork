@@ -14,7 +14,7 @@
                             <a href="/"><img src="~/images/streamworklogo.png" width="250" height="70" /></a>
                             <h4 style="font-family: 'Roboto Slab', serif"><b>Sign Up</b></h4>
                             <br>
-                            <input type="text" class="form-control" id="firstNameS"  placeholder="First Name" required>
+                            <input type="text" class="form-control" id="firstNameS" placeholder="First Name" required>
                             <input type="text" class="form-control mt-2" id="lastNameS" placeholder="Last Name" required>
                             <hr style="border-width: medium; margin-left: 10px; margin-right: 10px;" />
                             <input type="email" class="form-control" id="emailAddressS" placeholder="Email" size="45" required>
@@ -35,10 +35,11 @@
                                 </tr>
                             </table>
                             <br />
-                            <strong>Login Type: Student /></strong> &nbsp; &nbsp; &nbsp;
+                            <strong>Login Type: Student</strong> &nbsp; &nbsp; &nbsp;
                             <br />
                             <br />
                             <input type="button" class="streamWorkPrimary" value="Watch Livestreams!" onclick="SignUpStudent()" style="cursor:pointer">
+                            <span id="loaderStudent" class="loaderStudent mt-3" style="display:none; margin-left:auto; margin-right:auto"></span>
                         </form>
                     </div>
                 </div>
@@ -82,7 +83,7 @@
                                 <tr>
                                     <th style="padding-right: 10px">
                                         <div class="upload-uploadbtn-wrapper">
-                                            <button class="uploadbtn" style="font-size:14px; width:245px; cursor:pointer">Transcript</button>
+                                            <button class="uploadbtn" style="font-size:14px; width:265px; cursor:pointer">Transcript</button>
                                             <input id="uploadTranscript" type='file' accept="application/pdf" onchange="ReadFile(this, 'transcript')" required/>
                                         </div>
                                     </th>
@@ -96,7 +97,7 @@
                                 <tr>
                                     <th style="padding-right: 10px">
                                         <div class="upload-uploadbtn-wrapper" style="float:left">
-                                            <button class="uploadbtn" style="font-size:14px; width:245px; cursor:pointer">Resume</button>
+                                            <button class="uploadbtn" style="font-size:14px; width:265px; cursor:pointer">Resume</button>
                                             <input id="uploadResume" type='file' accept="application/pdf" onchange="ReadFile(this, 'resume')" required/>
                                         </div>
                                     </th>
@@ -112,7 +113,7 @@
                             <br />
                             <br />
                             <input type="button" class="streamWorkPrimary" value="Start Tutoring!" onclick="SignUpTutor()" style="cursor:pointer;">
-                            
+                            <span id="loaderTutor" class="loaderTutor mt-3" style="display:none; margin-left:auto; margin-right:auto"></span>
                         </form>
                     </div>
                 </div>

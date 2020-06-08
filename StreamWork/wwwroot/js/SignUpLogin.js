@@ -11,6 +11,8 @@ function SignUpStudent() {
         return;
     }
 
+    document.getElementById("loaderStudent").style.display = 'block';
+
     var formData = new FormData();
     formData.append("FirstName", $('#firstNameS').val());
     formData.append("LastName", $('#lastNameS').val());
@@ -52,6 +54,8 @@ function SignUpTutor() {
         OpenNotificationModal("Passwords do not match");
         return;
     }
+
+    document.getElementById("loaderTutor").style.display = 'block';
 
     var formData = new FormData();
     formData.append("Transcript", document.getElementById("uploadTranscript").files[0]);

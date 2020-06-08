@@ -15,9 +15,9 @@ namespace StreamWork.Controllers
 {
     public class StudentController : Controller
     {
-        readonly HomeMethods _homeMethods = new HomeMethods();
-        readonly StudentMethods _studentMethods = new StudentMethods();
-        readonly EncryptionMethods _encryptionMethods = new EncryptionMethods();
+        private readonly HomeMethods _homeMethods = new HomeMethods();
+        private readonly StudentMethods _studentMethods = new StudentMethods();
+        private readonly EncryptionMethods _encryptionMethods = new EncryptionMethods();
 
         [HttpGet]
         public async Task<IActionResult> ProfileStudent([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)

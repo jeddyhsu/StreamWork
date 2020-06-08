@@ -15,11 +15,11 @@ namespace StreamWork.Controllers
 {
     public class TutorController : Controller
     {
-        readonly HomeMethods _homeMethods = new HomeMethods();
-        readonly TutorMethods _tutorMethods = new TutorMethods();
-        readonly EncryptionMethods _encryptionMethods = new EncryptionMethods();
-        readonly FollowingMethods _followingMethods = new FollowingMethods();
-        readonly StreamClientMethods _streamClientMethods = new StreamClientMethods();
+        private readonly HomeMethods _homeMethods = new HomeMethods();
+        private readonly TutorMethods _tutorMethods = new TutorMethods();
+        private readonly EncryptionMethods _encryptionMethods = new EncryptionMethods();
+        private readonly FollowingMethods _followingMethods = new FollowingMethods();
+        private readonly StreamClientMethods _streamClientMethods = new StreamClientMethods();
 
         [HttpGet]
         public async Task<IActionResult> TutorStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)

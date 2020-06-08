@@ -10,10 +10,10 @@ namespace StreamWork.Controllers
 {
     public class StreamViewsController : Controller
     {
-        readonly HomeMethods _homeMethods = new HomeMethods();
-        readonly StreamMethods _streamMethods = new StreamMethods();
-        readonly FollowingMethods _followingMethods = new FollowingMethods();
-        readonly EncryptionMethods _encryptionMethods = new EncryptionMethods();
+        private readonly HomeMethods _homeMethods = new HomeMethods();
+        private readonly StreamMethods _streamMethods = new StreamMethods();
+        private readonly FollowingMethods _followingMethods = new FollowingMethods();
+        private readonly EncryptionMethods _encryptionMethods = new EncryptionMethods();
 
         [HttpGet]
         public async Task<IActionResult> StreamPage([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamTutorUsername, string id) //id is archivedVideo id
