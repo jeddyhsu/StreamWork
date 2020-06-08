@@ -50,11 +50,11 @@ function NotifyStudentsDecline() {
 }
 
 function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail(notifyStudent) {
+    var formData = new FormData()
     var streamTitle = $('#streamTitle').val();
     var streamSubject = $('#streamSubject').val();
     var streamDescription = $('#streamDescription').val();
-        
-    var formData = new FormData()
+    var totalFile = document.getElementById("uploadThumbnail");
 
     if (streamTitle == "" || streamSubject == 'Select Subject' || streamDescription == "") {
         Hide();
@@ -62,11 +62,12 @@ function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail(notifyStudent) {
         return;
     }
 
-    var streamInfo = streamTitle + '|' + streamSubject + '|' + streamDescription + '|' + notifyStudent;
-
-    var totalFile = document.getElementById("uploadThumbnail").files.length;
-    if (totalFile != 0) formData.append(streamInfo, document.getElementById("uploadThumbnail").files[0])
-    else formData.append(streamInfo, 'No Thumbnail');
+    formData.append("StreamTitle", streamTitle);
+    formData.append("StreamSubject", streamSubject);
+    formData.append("StreamDescription", streamDescription);
+    formData.append("NotifiyStudent", notifyStudent);
+    if (totalFile.files.length > 0)
+        formData.append("StreamThumbnail", totalFile.files[0]);
 
     $.ajax({
         url: '/Tutor/TutorStream',
@@ -89,6 +90,7 @@ function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail(notifyStudent) {
     });   
 
 }
+
 function Hide() {
     document.getElementById("ExitStream").style.display = 'block';
     document.getElementById("StartStream").style.display = 'block';
@@ -289,7 +291,7 @@ function OpenEditDeleteStreamModal(id, title, description, thumbnail) {
     if (!isEdited) {
         document.getElementById("streamTitleEdit").value = title;
         document.getElementById("streamDescriptionEdit").value = description;
-        document.getElementById("previewThumbnail").src = thumbnail;
+        document.getElementById("previewStreamThumbnailEdit").src = thumbnail;
     }
 }
 
@@ -298,13 +300,15 @@ function OpenDeleteStreamConfirmModal() {
 }
 
 function SaveEditedStreamInfo() {
+    var formData = new FormData()
     var streamTitle = $('#streamTitleEdit').val();
     var streamDescription = $('#streamDescriptionEdit').val();
-    var streamInfo = videoId + "|" + streamTitle + '|' + streamDescription;
-    var formData = new FormData()
-    var totalFile = document.getElementById("uploadThumbnailEdit").files.length;
-    if (totalFile != 0) formData.append(streamInfo, document.getElementById("uploadThumbnailEdit").files[0])
-    else formData.append(streamInfo, 'No Thumbnail');
+    var totalFile = document.getElementById("uploadThumbnailEdit")
+
+    formData.append("StreamId", videoId);
+    formData.append("StreamTitle", streamTitle);
+    formData.append("StreamDescription", streamDescription);
+    if (totalFile.files.length > 0) formData.append("StreamThumbnail", totalFile.files[0]);
 
     $.ajax({
         url: '/Tutor/SaveEditedStreamInfo',
@@ -320,7 +324,7 @@ function SaveEditedStreamInfo() {
                 document.getElementById("streamThumbnail-" + videoId).src = data.thumbnail;
                 document.getElementById("streamTitleEdit").value = data.title;
                 document.getElementById("streamDescriptionEdit").value = data.description;
-                document.getElementById("previewThumbnail").src = data.thumbnail;
+                document.getElementById("previewStreamThumbnailEdit").src = data.thumbnail;
                 OpenNotificationModalSuccess("Changes have been saved");
             }
         }

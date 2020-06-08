@@ -6,47 +6,47 @@
       "Queries": [
         {
           "Query": "SELECT * FROM [dbo].[UserLogin]",
-          "QueryId": "AllSignedUpUsers"
+          "QueryId": "GetAllUsers"
         },
         {
           "Query": "SELECT * FROM [dbo].[UserLogin] WHERE Username = '@x0'",
-          "QueryId": "CurrentUser"
+          "QueryId": "GetUserWithUsername"
         },
         {
           "Query": "SELECT * FROM [dbo].[UserLogin] WHERE EmailAddress = '@x0'",
-          "QueryId": "CurrentUserUsingEmail"
+          "QueryId": "GetUserWithEmailAddress"
         },
         {
           "Query": "SELECT * FROM [dbo].[UserLogin] WHERE PayPalAddress = '@x0'",
-          "QueryId": "CheckUserUsingPayPalAddress"
+          "QueryId": "GetUserWithPayPalAddress"
         },
         {
           "Query": "SELECT * FROM [dbo].[UserLogin] WHERE Id = '@x0'",
-          "QueryId": "CurrentUserUsingId"
+          "QueryId": "GetUserUsingId"
         },
         {
           "Query": "SELECT * FROM [dbo].[UserLogin] WHERE Username = '@x0' AND Password = '@x1'",
-          "QueryId": "AllSignedUpUsersWithPassword"
+          "QueryId": "GetUserWithUsernameAndPassword"
         },
         {
           "Query": "SELECT * FROM [dbo].[UserLogin] WHERE ProfileType = 'tutor' AND AcceptedTutor = '1'",
-          "QueryId": "AllApprovedTutors"
+          "QueryId": "GetAllApprovedTutors"
         },
         {
           "Query": "SELECT * FROM [dbo].[UserLogin] WHERE ProfileType = 'tutor' AND AcceptedTutor = '1' ORDER BY LEN(FollowedStudentsAndTutors) - LEN(REPLACE(FollowedStudentsAndTutors, '|', '')) DESC",
-          "QueryId": "ApprovedTutorsByFollowers"
+          "QueryId": "GetApprovedTutorsByFollowers"
         },
         {
           "Query": "SELECT * FROM [dbo].[UserLogin] WHERE ProfileType = 'student'",
-          "QueryId": "AllStudents"
+          "QueryId": "GetAllStudents"
         },
         {
           "Query": "SELECT * FROM [dbo].[UserLogin] WHERE Id in ('@x0')",
-          "QueryId": "GetFollowedLogins"
+          "QueryId": "GetAllUsersInTheList"
         },
         {
           "Query": "SELECT * FROM [dbo].[UserLogin] WHERE Id not in ('@x0') AND ProfileType = 'tutor' AND AcceptedTutor = '1'",
-          "QueryId": "GetNotFollowedLogins"
+          "QueryId": "GetAllTutorsNotInTheList"
         }
       ]
     },
@@ -56,32 +56,28 @@
       "Queries": [
         {
           "Query": "SELECT * FROM [dbo].[UserChannel] WHERE StreamSubject = '@x0'",
-          "QueryId": "AllUserChannelsThatAreStreamingWithSpecifiedSubject"
+          "QueryId": "GetUserChannelWithSubject"
         },
         {
           "Query": "SELECT * FROM [dbo].[UserChannel] WHERE StreamSubject != '@x0'",
-          "QueryId": "AllUserChannelsThatAreStreaming"
+          "QueryId": "GetAllUserChannelsThatAreStreaming"
         },
         {
           "Query": "SELECT * FROM [dbo].[UserChannel] WHERE Username = '@x0'",
-          "QueryId": "CurrentUserChannel"
+          "QueryId": "GetUserChannelWithUsername"
         },
         {
           "Query": "SELECT * FROM [dbo].[UserChannel] WHERE Id = '@x0'",
-          "QueryId": "CurrentUserChannelFromId"
+          "QueryId": "GetUserChannelWithId"
         },
         {
           "Query": "SELECT * FROM [dbo].[UserChannel] WHERE LOWER(StreamTitle) LIKE '%@x0%'",
-          "QueryId": "UserChannelsBySearchTerm"
+          "QueryId": "GetUserChannelsBySearchTerm"
         },
         {
           "Query": "SELECT * FROM [dbo].[UserChannel] WHERE StreamSubject = '@x0' AND LOWER(StreamTitle) LIKE '%@x1%'",
-          "QueryId": "UserChannelsBySubjectAndSearchTerm"
+          "QueryId": "GetUserChannelsBySubjectAndSearchTerm"
         },
-        {
-          "Query": "SELECT * FROM [dbo].[UserChannel] WHERE StreamSubject = '@x0' AND LOWER(StreamTitle) LIKE '%@x1%'",
-          "QueryId": "UserChannelsBySubjectAndSearchTerm"
-        }
       ]
     },
 
@@ -91,47 +87,47 @@
       "Queries": [
         {
           "Query": "SELECT * FROM [dbo].[UserArchivedStreams]",
-          "QueryId": "AllArchivedVideos"
+          "QueryId": "GetAllArchivedStreams"
         },
         {
           "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE Id = '@x0'",
-          "QueryId": "ArchivedVideosById"
+          "QueryId": "GetArchivedStreamsWithId"
         },
         {
           "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE Username = '@x0'",
-          "QueryId": "UserArchivedVideos"
+          "QueryId": "GetArchivedStreamsWithUsername"
         },
         {
           "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE StreamSubject = '@x0'",
-          "QueryId": "UserArchivedVideosBasedOnSubject"
+          "QueryId": "GetArchivedStreamsWithSubject"
         },
         {
           "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE StreamId = '@x0'",
-          "QueryId": "ArchivedVideosByStreamId"
+          "QueryId": "GetArchivedStreamsWithStreamId"
         },
         {
           "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE LOWER(StreamTitle) LIKE '%@x0%'",
-          "QueryId": "ArchivedVideosBySearchTerm"
+          "QueryId": "GetArchivedStreamsWithSearchTerm"
         },
         {
           "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE StreamSubject = '@x0' AND LOWER(StreamTitle) LIKE '%@x1%'",
-          "QueryId": "ArchivedVideosBySubjectAndSearchTerm"
+          "QueryId": "GetArchivedStreamsWithSubjectAndSearchTerm"
         },
         {
           "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE StreamId in ('@x0')",
-          "QueryId": "MultipleArchivedVideosByStreamId"
+          "QueryId": "GetArchivedStreamsByStreamIdInTheList"
         },
         {
           "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE Username = ('@x0') ORDER BY StartTime DESC",
-          "QueryId": "LatestArchivedStreamByUser"
+          "QueryId": "GetLatestArchivedStreamByUser"
         },
         {
           "Query": "SELECT * FROM [dbo].[UserArchivedStreams] ORDER BY StartTime DESC",
-          "QueryId": "ArchivedStreamsDescendingOrder"
+          "QueryId": "GetArchivedStreamsInDescendingOrderByDate"
         },
         {
           "Query": "SELECT * FROM [dbo].[UserArchivedStreams] ORDER BY Views DESC",
-          "QueryId": "ArchivedStreamsByViews"
+          "QueryId": "GetArchivedStreamsInDescendingOrderByViews"
         }
       ]
     },
@@ -142,12 +138,12 @@
         "Queries": [
             {
                 "Query": "SELECT * FROM [dbo].[Payment]",
-                "QueryId": "AllPayments"
+                "QueryId": "GetAllPayments"
             },
 
             {
                 "Query": "SELECT * FROM [dbo].[Payment] WHERE TransactionId = '@x0'",
-                "QueryId": "PaymentsById"
+                "QueryId": "GetPaymentsById"
             }
         ]
     },
@@ -158,7 +154,7 @@
       "Queries": [
         {
           "Query": "SELECT * FROM [dbo].[Recommendation] WHERE Tutor = '@x0'",
-          "QueryId": "RecommendationsByTutor"
+          "QueryId": "GetRecommendationsWithTutorUsername"
         }
       ]
     },
@@ -169,23 +165,23 @@
       "Queries": [
         {
           "Query": "SELECT * FROM [dbo].[View] WHERE Viewer = '@x0'",
-          "QueryId": "ViewsByViewer"
+          "QueryId": "GetViewsWithViewer"
         },
         {
           "Query": "SELECT * FROM [dbo].[View] WHERE StreamId = '@x0'",
-          "QueryId": "ViewsByStreamId"
+          "QueryId": "GetViewsWithStreamId"
         },
         {
           "Query": "SELECT * FROM [dbo].[View] WHERE Viewer = '@x0' AND StreamId = '@x1'",
-          "QueryId": "ViewsByViewerAndStreamId"
+          "QueryId": "GetViewsWithViewerAndStreamId"
         },
         {
           "Query": "SELECT * FROM [dbo].[View] WHERE Channel = '@x0' AND Date <= '@x1'",
-          "QueryId": "ViewsByChannelSince"
+          "QueryId": "GetViewsWithChannelSince"
         },
         {
           "Query": "SELECT * FROM [dbo].[View] WHERE Viewer = '@x0' AND Channel = '@x1' AND Date <= '@x2'",
-          "QueryId": "ViewsByViewerAndChannelSince"
+          "QueryId": "GetViewsWithViewerAndChannelSince"
         }
       ]
     },
@@ -200,11 +196,11 @@
         },
         {
           "Query": "SELECT * FROM [dbo].[Chats] WHERE ChatId = '@x0' ORDER BY DATE ASC",
-          "QueryId": "GetAllChatsFromSpecificId"
+          "QueryId": "GetAllChatsWithId"
         },
         {
           "Query": "DELETE FROM [dbo].[Chats] WHERE ChatId = '@x0'",
-          "QueryId": "DeleteAllChatsFromSpecificId"
+          "QueryId": "DeleteAllChatsWithId"
         }
       ]
     },
@@ -215,11 +211,11 @@
       "Queries": [
         {
           "Query": "SELECT * FROM [dbo].[Follow] WHERE FollowerId = '@x0'",
-          "QueryId": "GetAllFolloweesWithSpecificId"
+          "QueryId": "GetAllFolloweesWithId"
         },
         {
           "Query": "SELECT * FROM [dbo].[Follow] WHERE FolloweeId = '@x0'",
-          "QueryId": "GetAllFollowersWithSpecificId"
+          "QueryId": "GetAllFollowersWithId"
         },
         {
           "Query": "SELECT * FROM [dbo].[Follow] WHERE FollowerId = '@x0' AND FolloweeId = '@x1'",
@@ -231,7 +227,7 @@
         },
         {
           "Query": "DELETE FROM [dbo].[Follow] WHERE FollowerId = '@x0' AND FolloweeId = '@x1'",
-          "QueryId": "RemoveFollower"
+          "QueryId": "DeleteFollower"
         }
       ]
     }

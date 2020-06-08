@@ -7,16 +7,16 @@ using StreamWork.Config;
 using StreamWork.Core;
 using StreamWork.DataModels;
 
-namespace StreamWork.HelperClasses
+namespace StreamWork.HelperMethods
 {
-    public class FollowingHelperFunctions //All helper functions that have to with students following tutors
+    public class FollowingMethods //All helper functions that have to with students following tutors
     {
-        readonly HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
+        readonly HomeMethods _homeMethods = new HomeMethods();
 
         public async Task<bool> AddFollower([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string followerId, string followeeId)
         {
-            var followerProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUserUsingId, followerId);
-            var followeeProfile = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUserUsingId, followeeId);
+            var followerProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserUsingId, followerId);
+            var followeeProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserUsingId, followeeId);
 
             if (followerProfile != null && followeeProfile != null)
             {
@@ -31,7 +31,7 @@ namespace StreamWork.HelperClasses
                     FolloweeEmail = followeeProfile.EmailAddress,
                 };
 
-                await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", followRequest.Id } }, followRequest);
+                await DataStore.SaveAsync(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", followRequest.Id } }, followRequest);
 
                 return true;
             }
@@ -43,7 +43,7 @@ namespace StreamWork.HelperClasses
         {
             if (followerId != null && followeeId != null)
             {
-                if(await DataStore.DeleteDataAsync<Follow>(_homeHelperFunctions._connectionString, storageConfig.Value, QueryHeaders.RemoveFollower.ToString(), new List<string> { followerId , followeeId })) return true;
+                if (await DataStore.DeleteDataAsync<Follow>(_homeMethods._connectionString, storageConfig.Value, SQLQueries.DeleteFollower.ToString(), new List<string> { followerId, followeeId })) return true;
             }
 
             return false;
@@ -51,12 +51,12 @@ namespace StreamWork.HelperClasses
 
         public async Task<List<UserLogin>> GetAllFollowees([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string followerId)
         {
-            var listOfFollowees = await DataStore.GetListAsync<Follow>(_homeHelperFunctions._connectionString, storageConfig.Value, QueryHeaders.GetAllFolloweesWithSpecificId.ToString(), new List<string> { followerId });
-            if(listOfFollowees.Count != 0)
+            var listOfFollowees = await DataStore.GetListAsync<Follow>(_homeMethods._connectionString, storageConfig.Value, SQLQueries.GetAllFollowersWithId.ToString(), new List<string> { followerId });
+            if (listOfFollowees.Count != 0)
             {
                 List<string> idList = new List<string>();
                 foreach (var followee in listOfFollowees) idList.Add(followee.FolloweeId);
-                return await _homeHelperFunctions.GetUserProfiles(storageConfig, QueryHeaders.GetFollowedLogins, _homeHelperFunctions.FormatQueryString(idList));
+                return await _homeMethods.GetUserProfiles(storageConfig, SQLQueries.GetAllUsersInTheList, _homeMethods.FormatQueryString(idList));
             }
 
             return null;
@@ -64,25 +64,25 @@ namespace StreamWork.HelperClasses
 
         public async Task<List<UserLogin>> GetAllNonFollowees([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string followerId) //all users that arent follwing the followee
         {
-            var listOfFollowees = await DataStore.GetListAsync<Follow>(_homeHelperFunctions._connectionString, storageConfig.Value, QueryHeaders.GetAllFolloweesWithSpecificId.ToString(), new List<string> { followerId });
+            var listOfFollowees = await DataStore.GetListAsync<Follow>(_homeMethods._connectionString, storageConfig.Value, SQLQueries.GetAllFollowersWithId.ToString(), new List<string> { followerId });
             if (listOfFollowees.Count != 0)
             {
                 List<string> idList = new List<string>();
                 foreach (var followee in listOfFollowees) idList.Add(followee.FolloweeId);
-                return await _homeHelperFunctions.GetUserProfiles(storageConfig, QueryHeaders.GetNotFollowedLogins, _homeHelperFunctions.FormatQueryString(idList));
+                return await _homeMethods.GetUserProfiles(storageConfig, SQLQueries.GetAllTutorsNotInTheList, _homeMethods.FormatQueryString(idList));
             }
 
-            return await _homeHelperFunctions.GetUserProfiles(storageConfig, QueryHeaders.AllApprovedTutors, null);
+            return await _homeMethods.GetUserProfiles(storageConfig, SQLQueries.GetAllApprovedTutors, null);
         }
 
         public async Task<List<UserLogin>> GetAllFollowers([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string followeeId) //all users that arent follwing the followee
         {
-            var listOfFollowers = await DataStore.GetListAsync<Follow>(_homeHelperFunctions._connectionString, storageConfig.Value, QueryHeaders.GetAllFollowersWithSpecificId.ToString(), new List<string> { followeeId });
+            var listOfFollowers = await DataStore.GetListAsync<Follow>(_homeMethods._connectionString, storageConfig.Value, SQLQueries.GetAllFolloweesWithId.ToString(), new List<string> { followeeId });
             if (listOfFollowers.Count != 0)
             {
                 List<string> idList = new List<string>();
                 foreach (var follower in listOfFollowers) idList.Add(follower.FollowerId);
-                return await _homeHelperFunctions.GetUserProfiles(storageConfig, QueryHeaders.GetFollowedLogins, _homeHelperFunctions.FormatQueryString(idList));
+                return await _homeMethods.GetUserProfiles(storageConfig, SQLQueries.GetAllUsersInTheList, _homeMethods.FormatQueryString(idList));
             }
 
             return null;
@@ -90,9 +90,9 @@ namespace StreamWork.HelperClasses
 
         public async Task<bool> IsFollowingFollowee([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string followerId, string followeeId)
         {
-            if(followerId != null && followeeId != null)
+            if (followerId != null && followeeId != null)
             {
-                var followerAndfollowee = await DataStore.GetListAsync<Follow>(_homeHelperFunctions._connectionString, storageConfig.Value, QueryHeaders.GetFollowerAndFollowee.ToString(), new List<string> { followerId, followeeId });
+                var followerAndfollowee = await DataStore.GetListAsync<Follow>(_homeMethods._connectionString, storageConfig.Value, SQLQueries.GetFollowerAndFollowee.ToString(), new List<string> { followerId, followeeId });
                 if (followerAndfollowee.Count > 0) return true;
             }
 
@@ -101,9 +101,9 @@ namespace StreamWork.HelperClasses
 
         public async Task<int> GetNumberOfFollowers([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string followeeId)
         {
-            if(followeeId != null)
+            if (followeeId != null)
             {
-                var listOfFollowers = await DataStore.GetListAsync<Follow>(_homeHelperFunctions._connectionString, storageConfig.Value, QueryHeaders.GetNumberOfFollowers.ToString(), new List<string> { followeeId });
+                var listOfFollowers = await DataStore.GetListAsync<Follow>(_homeMethods._connectionString, storageConfig.Value, SQLQueries.GetNumberOfFollowers.ToString(), new List<string> { followeeId });
                 return listOfFollowers.Count;
             }
 

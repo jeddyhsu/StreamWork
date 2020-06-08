@@ -3,42 +3,43 @@
 
 <script src="~/js/SignUpLogin.js"></script>
 <div class="text-center">
+
     <section id="Student" class="container" style="margin-top:7%">
         <div class="row">
             <div class="col-lg-3"></div>
             <div class="col-lg-6">
                 <div class="card" style="background-color:whitesmoke">
                     <div class="card-body">
-                        <form class="form-sign">
+                        <form id="formSignUpS" class="form-sign">
                             <a href="/"><img src="~/images/streamworklogo.png" width="250" height="70" /></a>
                             <h4 style="font-family: 'Roboto Slab', serif"><b>Sign Up</b></h4>
                             <br>
-                            <input type="text" class="form-control" id="nameFirstS" placeholder="First Name">
-                            <input type="text" class="form-control mt-2" id="nameLastS" placeholder="Last Name">
+                            <input type="text" class="form-control" id="firstNameS" placeholder="First Name" required>
+                            <input type="text" class="form-control mt-2" id="lastNameS" placeholder="Last Name" required>
                             <hr style="border-width: medium; margin-left: 10px; margin-right: 10px;" />
-                            <input type="text" class="form-control" id="emailS" placeholder="Email" size="45">
+                            <input type="email" class="form-control" id="emailAddressS" placeholder="Email" size="45" required>
                             <hr style="border-width: medium; margin-left: 10px; margin-right: 10px;" />
-                            <input type="text" class="form-control" id="usernameS" placeholder="Username" size="45">
+                            <input type="text" class="form-control" id="usernameS" placeholder="Username" size="45" required>
                             <hr style="border-width: medium; margin-left: 10px; margin-right: 10px;" />
-                            <input type="password" class="form-control" id="passwordS" placeholder="Password" size="45">
-                            <input type="password" class="form-control mt-2" id="passwordConfirmS" placeholder="Re-enter Password" size="45">
+                            <input type="password" class="form-control" id="passwordS" placeholder="Password" minlength="8" size="45" required>
+                            <input type="password" class="form-control mt-2" id="confirmPasswordS" placeholder="Re-enter Password" size="45" required>
                             <hr style="border-width: medium; margin-left: 10px; margin-right: 10px;" />
                             <table>
                                 <tr>
                                     <th style="padding-right: 10px">
-                                        <input type="text" class="form-control" id="collegeS" size="45" placeholder="Current School / University">
+                                        <input type="text" class="form-control" name="collegeS" size="45" placeholder="Current School / University">
                                     </th>
                                     <th>
                                         <img id="collegeInfo" src="~/images/info_icon.png" style="width: 24px; height: 24px; margin-top: 8px;" data-toggle="tooltip" data-placement="right" title="Not enrolled? Not a problem. Our vision is to make higher education learning accessible to everyone." />
                                     </th>
                                 </tr>
                             </table>
-                           
                             <br />
                             <strong>Login Type: Student</strong> &nbsp; &nbsp; &nbsp;
                             <br />
                             <br />
-                            <input type="button" class="streamWorkPrimary" value="Watch Livestreams!" onclick="RunStudentChecks()" style="cursor:pointer">
+                            <input type="button" class="streamWorkPrimary" value="Watch Livestreams!" onclick="SignUpStudent()" style="cursor:pointer">
+                            <span id="loaderStudent" class="loaderStudent mt-3" style="display:none; margin-left:auto; margin-right:auto"></span>
                         </form>
                     </div>
                 </div>
@@ -52,18 +53,18 @@
             <div class="col-lg-6">
                 <div class="card" style="background-color:whitesmoke">
                     <div class="card-body">
-                        <form class="form-sign">
+                        <form id="formSignUpT" class="form-sign">
                             <a href="/"><img src="~/images/streamworklogo.png" width="250" height="70" /></a>
                             <h4 style="font-family: 'Roboto Slab', serif"><b>Sign Up</b></h4>
                             <br>
-                            <input type="text" class="form-control" id="nameFirstT" placeholder="First Name">
-                            <input type="text" class="form-control mt-2" id="nameLastT" placeholder="Last Name">
+                            <input type="text" class="form-control" id="firstNameT" placeholder="First Name" required>
+                            <input type="text" class="form-control mt-2" id="lastNameT" placeholder="Last Name" required>
                             <hr style="border-width: medium; margin-left: 10px; margin-right: 10px;" />
-                            <input type="text" class="form-control" id="emailT" placeholder="Email" size="45">
+                            <input type="text" class="form-control" id="emailAddressT" placeholder="Email" size="45" required>
                             <table>
                                 <tr>
                                     <th style="padding-right: 10px">
-                                        <input type="text" class="form-control mt-2" id="payPalAddressT" size="45" placeholder="PayPal Email" />
+                                        <input type="text" class="form-control mt-2" id="payPalAddressT" size="45" placeholder="PayPal Email" required/>
                                     </th>
                                     <th>
                                         <img id="info" src="~/images/info_icon.png" style="width: 24px; height: 24px; margin-top: 8px;" data-toggle="tooltip" data-placement="right" title="Your email address associated with your PayPal account will be used to securely send you the money you earn through donations." />
@@ -71,37 +72,19 @@
                                 </tr>
                             </table>
                             <hr style="border-width: medium; margin-left: 10px; margin-right: 10px;" />
-                            <input type="text" class="form-control" id="usernameT" placeholder="Username" size="45">
+                            <input type="text" class="form-control" id="usernameT" placeholder="Username" size="45" required>
                             <hr style="border-width: medium; margin-left: 10px; margin-right: 10px;" />
-                            <input type="password" class="form-control" id="passwordT" placeholder="Password" size="45">
-                            <input type="password" class="form-control mt-2" id="passwordConfirmT" placeholder="Re-enter Password" size="45">
+                            <input type="password" class="form-control" id="passwordT" placeholder="Password" size="45" required>
+                            <input type="password" class="form-control mt-2" id="confirmPasswordT" placeholder="Re-enter Password" size="45" required>
                             <hr style="border-width: medium; margin-left: 10px; margin-right: 10px;" />
                             <input type="text" class="form-control" id="collegeT" placeholder="Current School / University">
-                            <!--
-                                <div class="row">
-                                    <div class="col-6">
-                                        <b>Referred?</b>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="referred" id="yes" value="yes">
-                                            <label class="form-check-label" for="yes">Yes</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="referred" id="no" value="no">
-                                            <label class="form-check-label" for="no">No</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <input type="text" class="form-control mt-2" id="referrerName" style="display: none;" placeholder="Referrer Name">
-                                -->
                             <hr style="border-width: medium; margin-left: 10px; margin-right: 10px;" />
                             <table>
                                 <tr>
                                     <th style="padding-right: 10px">
                                         <div class="upload-uploadbtn-wrapper">
-                                            <button class="uploadbtn" style="font-size:14px; width:245px; cursor:pointer">Transcript</button>
-                                            <input id="uploadTranscript" type='file' accept="application/pdf" onchange="ReadFile(this, 'transcript')" />
+                                            <button class="uploadbtn" style="font-size:14px; width:265px; cursor:pointer">Transcript</button>
+                                            <input id="uploadTranscript" type='file' accept="application/pdf" onchange="ReadFile(this, 'transcript')" required/>
                                         </div>
                                     </th>
                                     <th>
@@ -110,13 +93,12 @@
                                 </tr>
                             </table>
                             <h6 class="text-center mt-2" style="color:black" id="Transcript"></h6>
-
                             <table>
                                 <tr>
                                     <th style="padding-right: 10px">
                                         <div class="upload-uploadbtn-wrapper" style="float:left">
-                                            <button class="uploadbtn" style="font-size:14px; width:245px; cursor:pointer">Resume</button>
-                                            <input id="uploadResume" type='file' accept="application/pdf" onchange="ReadFile(this, 'resume')" />
+                                            <button class="uploadbtn" style="font-size:14px; width:265px; cursor:pointer">Resume</button>
+                                            <input id="uploadResume" type='file' accept="application/pdf" onchange="ReadFile(this, 'resume')" required/>
                                         </div>
                                     </th>
                                     <th>
@@ -130,8 +112,8 @@
                             <strong>Login Type: Tutor</strong> &nbsp; &nbsp; &nbsp;
                             <br />
                             <br />
-                            <input type="button" class="streamWorkPrimary" value="Start Tutoring!" onclick="RunTutorChecks()" style="cursor:pointer;">
-                            <span id="loaderTutor" class="loaderTutor mt-3" style="display:block; margin-left:auto; margin-right:auto"></span>
+                            <input type="button" class="streamWorkPrimary" value="Start Tutoring!" onclick="SignUpTutor()" style="cursor:pointer;">
+                            <span id="loaderTutor" class="loaderTutor mt-3" style="display:none; margin-left:auto; margin-right:auto"></span>
                         </form>
                     </div>
                 </div>
@@ -139,7 +121,6 @@
         </div>
     </section>
 </div>
-
 
 <script>CheckIfStudentOrTutorIsSigningUp()</script>
 

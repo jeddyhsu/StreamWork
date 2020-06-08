@@ -10,23 +10,27 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using StreamWork.Config;
 using StreamWork.Models;
-using StreamWork.HelperClasses;
+using StreamWork.HelperMethods;
 using StreamWork.DataModels;
 using System.Collections.Generic;
 
-namespace StreamWork.Controllers {
-    public class IPNController : Controller {
+namespace StreamWork.Controllers
+{
+    public class IPNController : Controller
+    {
         private IOptionsSnapshot<StorageConfig> storageConfig;
-        private readonly HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
-        private readonly EmailHelperFunctions _emailHelperFunctions = new EmailHelperFunctions();
+        private readonly HomeMethods _homeHelperFunctions = new HomeMethods();
+        private readonly EmailMethods _emailHelperFunctions = new EmailMethods();
 
         [HttpPost]
-        public IActionResult WebhookB1A0139C65AC29499733B (PayPalNotification notification, [FromServices] IOptionsSnapshot<StorageConfig> _storageConfig) {
+        public IActionResult WebhookB1A0139C65AC29499733B(PayPalNotification notification, [FromServices] IOptionsSnapshot<StorageConfig> _storageConfig)
+        {
             storageConfig = _storageConfig;
             return VerifyPayPalNotification(notification).Result;
         }
 
-        private async Task<IActionResult> VerifyPayPalNotification (PayPalNotification notification) {
+        private async Task<IActionResult> VerifyPayPalNotification(PayPalNotification notification)
+        {
             // https://ipnpb.paypal.com/cgi-bin/webscr
             // https://ipnpb.sandbox.paypal.com/cgi-bin/webscr
             var verificationRequest = WebRequest.Create("https://ipnpb.paypal.com/cgi-bin/webscr");
@@ -37,13 +41,15 @@ namespace StreamWork.Controllers {
             string strRequest = "cmd=_notify-validate&";
             verificationRequest.ContentLength = strRequest.Length;
 
-            using (StreamWriter writer = new StreamWriter(verificationRequest.GetRequestStream(), Encoding.ASCII)) {
+            using (StreamWriter writer = new StreamWriter(verificationRequest.GetRequestStream(), Encoding.ASCII))
+            {
                 writer.Write(strRequest);
                 writer.Close();
             }
 
             string verification = "";
-            using (StreamReader reader = new StreamReader(verificationRequest.GetResponse().GetResponseStream())) {
+            using (StreamReader reader = new StreamReader(verificationRequest.GetResponse().GetResponseStream()))
+            {
                 verification = reader.ReadToEnd();
                 reader.Close();
             }
@@ -53,9 +59,11 @@ namespace StreamWork.Controllers {
             return Ok();
         }
 
-        private async Task<IActionResult> ProcessPayPalNotification (PayPalNotification notification, string verification) {
+        private async Task<IActionResult> ProcessPayPalNotification(PayPalNotification notification, string verification)
+        {
 
-            try {
+            try
+            {
                 string error = "";
                 bool subscription = false;
                 UserLogin student = null;
@@ -76,24 +84,28 @@ namespace StreamWork.Controllers {
                 if (notification.Txn_Type == null || (!notification.Txn_Type.Equals("subscr_signup") && !notification.Txn_Type.Equals("web_accept")))
                     error += " INVALID_TXN_TYPE=" + notification.Txn_Type;
 
-                if (notification.Item_Name.Equals("SUBSCRIPTION")) {
+                if (notification.Item_Name.Equals("SUBSCRIPTION"))
+                {
                     // THIS CODE IS CURRENTLY OUT OF USE, BUT MIGHT BE USED IN THE FUTURE!
                     // If you are debugging this code in the future, note that errors may occur when subscribed accounts no longer exist
                     subscription = true;
 
-                    student = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, notification.Custom);
+                    student = await _homeHelperFunctions.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, notification.Custom);
                     if (student == null)
                         error += " INVALID_STUDENT";
-                } else {
+                }
+                else
+                {
                     string[] users = notification.Custom.Split('+');
                     if (users.Length < 2)
                         error += " NO_TUTOR";
-                    else {
-                        student = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, users[0]);
+                    else
+                    {
+                        student = await _homeHelperFunctions.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, users[0]);
                         if (student == null)
                             error += " INVALID_STUDENT";
 
-                        tutor = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, users[1]);
+                        tutor = await _homeHelperFunctions.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, users[1]);
                         if (tutor == null)
                             error += " INVALID_TUTOR";
                     }
@@ -111,20 +123,26 @@ namespace StreamWork.Controllers {
                 if (notification.Test_Ipn)
                     error += " TEST";
 
-                if (error.Equals("")) {
-                    if (subscription) {
+                if (error.Equals(""))
+                {
+                    if (subscription)
+                    {
                         student.Expiration = DateTime.UtcNow.AddMonths(1);
 
                         student.TrialAccepted = true;
                         await _homeHelperFunctions.UpdateUser(storageConfig, student);
-                    } else {
+                    }
+                    else
+                    {
                         tutor.Balance += notification.Payment_Gross * 0.9m;
                         await _homeHelperFunctions.UpdateUser(storageConfig, tutor);
                     }
-                } else
+                }
+                else
                     await _emailHelperFunctions.SendEmailToAnyEmailAsync("streamworktutor@gmail.com", "thansenaz@icloud.com", null, "StreamWork IPN Error", error, null);
 
-                await _homeHelperFunctions.SavePayment(storageConfig, new Payment {
+                await _homeHelperFunctions.SavePayment(storageConfig, new Payment
+                {
                     Id = Guid.NewGuid().ToString(),
                     TransactionId = notification.Txn_Id ?? Guid.NewGuid().ToString(),
                     PayerEmail = notification.Payer_Email,
@@ -137,9 +155,11 @@ namespace StreamWork.Controllers {
                     Error = error
                 });
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 await _emailHelperFunctions.SendEmailToAnyEmailAsync("streamworktutor@gmail.com", "thansenaz@icloud.com", null, "StreamWork IPN Crash", "error: " + e.ToString(), null);
-                await _homeHelperFunctions.SavePayment(storageConfig, new Payment {
+                await _homeHelperFunctions.SavePayment(storageConfig, new Payment
+                {
                     Id = Guid.NewGuid().ToString(),
                     TransactionId = notification == null ? "NONE" : (notification.Txn_Id ?? "NONE"),
                     PayerEmail = notification == null ? "NONE" : (notification.Payer_Email ?? "NONE"),

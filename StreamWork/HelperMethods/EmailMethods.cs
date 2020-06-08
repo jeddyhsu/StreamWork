@@ -11,15 +11,14 @@ using StreamWork.Config;
 using StreamWork.Core;
 using StreamWork.DataModels;
 
-namespace StreamWork.HelperClasses
+namespace StreamWork.HelperMethods
 {
-    public class EmailHelperFunctions
+    public class EmailMethods
     {
         readonly string _streamworkEmailID = "streamworktutor@gmail.com";
         private readonly string _streamworkEmailPassword = "STREAMW0RK3R!";
-
-        private HomeHelperFunctions _homeHelperFunctions = new HomeHelperFunctions();
-        private FollowingHelperFunctions _followingHelperFunctions = new FollowingHelperFunctions();
+        private readonly HomeMethods _homeHelperFunctions = new HomeMethods();
+        private readonly FollowingMethods _followingHelperFunctions = new FollowingMethods();
 
         public async Task SendOutPasswordRecoveryEmail(UserLogin userProfile, string recoveryLink)
         {
@@ -40,7 +39,7 @@ namespace StreamWork.HelperClasses
             await Task.Factory.StartNew(async () => // Change password key is invalid after 30 min
             {
                 await Task.Delay(1800000); // 30 min in ms
-                var currentUserLogin = await _homeHelperFunctions.GetUserProfile(storageConfig, QueryHeaders.CurrentUser, username);
+                var currentUserLogin = await _homeHelperFunctions.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, username);
                 if (currentUserLogin.ChangePasswordKey.Equals(userLogin.ChangePasswordKey)) // Make sure you don't reset if user has generated another key
                 {
                     currentUserLogin.ChangePasswordKey = null;
@@ -73,7 +72,7 @@ namespace StreamWork.HelperClasses
 
                 foreach (var user in allFollowers)
                 {
-                    var email = HomeHelperFunctions.devEnvironment ? "rithvikarun24@gmail.com" : user.EmailAddress;
+                    var email = HomeMethods.devEnvironment ? "rithvikarun24@gmail.com" : user.EmailAddress;
                     if (user.Name.Split('|')[0].Length > 1 && user.Username != channel.Username && user.NotificationSubscribe == DatabaseValues.True.ToString())
                     {
                         try
