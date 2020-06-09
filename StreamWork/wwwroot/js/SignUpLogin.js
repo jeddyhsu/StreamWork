@@ -38,6 +38,8 @@ function SignUpStudent() {
             else {
                 window.location.href = '/Home/Login?dest=-Home-Profile';
             }
+
+            document.getElementById("loaderStudent").style.display = 'none';
         }
     });
 }
@@ -86,6 +88,8 @@ function SignUpTutor() {
             else {
                 window.location.href = '/Home/Login?dest=-Home-Profile';
             }
+
+            document.getElementById("loaderTutor").style.display = 'none';
         }
     });
 }

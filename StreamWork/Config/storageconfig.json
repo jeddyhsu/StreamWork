@@ -33,7 +33,7 @@
           "QueryId": "GetAllApprovedTutors"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE ProfileType = 'tutor' AND AcceptedTutor = '1' ORDER BY LEN(FollowedStudentsAndTutors) - LEN(REPLACE(FollowedStudentsAndTutors, '|', '')) DESC",
+          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE ProfileType = 'tutor' AND AcceptedTutor = '1'",
           "QueryId": "GetApprovedTutorsByFollowers"
         },
         {

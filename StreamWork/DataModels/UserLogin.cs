@@ -31,9 +31,6 @@ namespace StreamWork.DataModels
         //Tutors
         public bool AcceptedTutor { get; set; }
 
-        //Both Tutors And Students
-        public string FollowedStudentsAndTutors { get; set; }
-
         public DateTime LastLogin { get; set; }
 
         [Timestamp]

@@ -20,7 +20,6 @@ namespace StreamWork.HelperMethods
     {
         readonly HomeMethods _homeMethods = new HomeMethods();
 
-
         public bool StartStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, HttpRequest request, UserChannel userChannel, UserLogin userProfile, string chatColor)
         {
             try

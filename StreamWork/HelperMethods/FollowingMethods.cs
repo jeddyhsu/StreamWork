@@ -99,6 +99,19 @@ namespace StreamWork.HelperMethods
             return false;
         }
 
+        //public async Task<List<UserLogin>> GetFolloweesWithMostFollowers([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        //{
+        //    var listOfFollowers = await DataStore.GetListAsync<Follow>(_homeMethods._connectionString, storageConfig.Value, SQLQueries.GetFolloweesBasedOnMostFollowers.ToString());
+        //    if (listOfFollowers.Count != 0)
+        //    {
+        //        List<string> idList = new List<string>();
+        //        foreach (var follower in listOfFollowers) idList.Add(follower.FollowerId);
+        //        return await _homeMethods.GetUserProfiles(storageConfig, SQLQueries.GetAllUsersInTheList, _homeMethods.FormatQueryString(idList));
+        //    }
+
+        //    return null;
+        //}
+
         public async Task<int> GetNumberOfFollowers([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string followeeId)
         {
             if (followeeId != null)

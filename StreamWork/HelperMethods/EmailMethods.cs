@@ -17,8 +17,8 @@ namespace StreamWork.HelperMethods
     {
         readonly string _streamworkEmailID = "streamworktutor@gmail.com";
         private readonly string _streamworkEmailPassword = "STREAMW0RK3R!";
-        private readonly HomeMethods _homeHelperFunctions = new HomeMethods();
-        private readonly FollowingMethods _followingHelperFunctions = new FollowingMethods();
+        private readonly HomeMethods _homeMethods = new HomeMethods();
+        private readonly FollowingMethods _followingMethods = new FollowingMethods();
 
         public async Task SendOutPasswordRecoveryEmail(UserLogin userProfile, string recoveryLink)
         {
@@ -39,12 +39,12 @@ namespace StreamWork.HelperMethods
             await Task.Factory.StartNew(async () => // Change password key is invalid after 30 min
             {
                 await Task.Delay(1800000); // 30 min in ms
-                var currentUserLogin = await _homeHelperFunctions.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, username);
+                var currentUserLogin = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, username);
                 if (currentUserLogin.ChangePasswordKey.Equals(userLogin.ChangePasswordKey)) // Make sure you don't reset if user has generated another key
                 {
                     currentUserLogin.ChangePasswordKey = null;
                     // Save newer version, since it contains more up-to-date information
-                    await DataStore.SaveAsync(_homeHelperFunctions._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", currentUserLogin.Id } }, currentUserLogin);
+                    await DataStore.SaveAsync(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", currentUserLogin.Id } }, currentUserLogin);
                 }
             }, TaskCreationOptions.LongRunning);
         }
@@ -58,7 +58,7 @@ namespace StreamWork.HelperMethods
 
         public async Task<bool> SendOutMassEmail([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, UserLogin userProfile, UserChannel channel, string archivedVideoId)
         {
-            var allFollowers = await _followingHelperFunctions.GetAllFollowers(storageConfig, userProfile.Id);
+            var allFollowers = await _followingMethods.GetAllFollowers(storageConfig, userProfile.Id);
             string streamLink = string.Format("<a href=\"{0}\">here.</a>", HttpUtility.HtmlEncode("https://www.streamwork.live/StreamViews/StreamPage?streamTutorUsername=" + channel.Username + "&id=" + archivedVideoId));
             using (StreamReader streamReader = new StreamReader("EmailTemplates/AutomatedEmailTemplate.html"))
             {
@@ -77,11 +77,11 @@ namespace StreamWork.HelperMethods
                     {
                         try
                         {
-                            reader = reader.Replace("{UNSUBSCRIBELINK}", _homeHelperFunctions._host + "/Home/Unsubscribe?email=" + user.EmailAddress);
+                            reader = reader.Replace("{UNSUBSCRIBELINK}", _homeMethods._host + "/Home/Unsubscribe?email=" + user.EmailAddress);
                             reader = ReplaceFirstOccurrence(reader, "{NAMEOFUSER}", user.Name.Split("|")[0]);
                             await SendEmailToAnyEmailAsync(_streamworkEmailID, email, null, "A tutor has started a live-stream on StreamWork!", reader, null);
                             reader = ReplaceFirstOccurrence(reader, user.Name.Split("|")[0], "{NAMEOFUSER}");
-                            reader = reader.Replace(_homeHelperFunctions._host + "/Home/Unsubscribe?email=" + user.EmailAddress, "{UNSUBSCRIBELINK}");
+                            reader = reader.Replace(_homeMethods._host + "/Home/Unsubscribe?email=" + user.EmailAddress, "{UNSUBSCRIBELINK}");
                         }
                         catch (Exception ex)
                         {
