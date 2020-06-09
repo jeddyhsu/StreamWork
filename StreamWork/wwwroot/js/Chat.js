@@ -4,13 +4,14 @@ var initialChatId = "";
 var toolTipCount = 0;
 var chatCount = 0;
 var muted = true;
+var date = null;
 
-connection.on("ReceiveMessage", function (name, message, profilePicture, questionNumber, date, userName, chatColor) {
+connection.on("ReceiveMessage", function (name, message, profilePicture, questionNumber, userName, chatColor) {
     var listName = "";
 
-    if (initialChatId == userName) listName = "<h5 class='mb-0 chatName' style='color:" + chatColor + "'>" + name + "<span><img id='tutortip" + toolTipCount + "' class='pl-1' src='/images/ChatAssets/Tutor.png' data-toggle='tooltip' data-placement='top' title='StreamTutor'/></span><span class='chatDate'> " + date + "</span></h5>";
-    else if (initialUserName == userName) listName = "<h5 class='mb-0 chatName' style='color:" + chatColor + "'>" + name + " (you)" + "<span class='chatDate'> " + date + "</span></h5>";
-    else listName = "<h5 class='mb-0 chatName' style='color:" + chatColor + "'>" + name + "<span class='chatDate'> " + date + "</span></h5>";
+    if (initialChatId == userName) listName = "<h5 class='mb-0 chatName' style='color:" + chatColor + "'>" + name + "<span><img id='tutortip" + toolTipCount + "' class='pl-1' src='/images/ChatAssets/Tutor.png' data-toggle='tooltip' data-placement='top' title='StreamTutor'/></span><span class='chatDate'>" + date.getHours() + ":" + date.getMinutes() + "</span></h5>";
+    else if (initialUserName == userName) listName = "<h5 class='mb-0 chatName' style='color:" + chatColor + "'>" + name + " (you)" + "<span class='chatDate'> " + date.getHours() + ":" + date.getMinutes() + "</span></h5>";
+    else listName = "<h5 class='mb-0 chatName' style='color:" + chatColor + "'>" + name + "<span class='chatDate'> " + date.getHours() + ":" + date.getMinutes() + "</span></h5>";
 
     if ((chatCount + 1) % 2 != 0) {
         var listItem = "<li class='list-group-item chatList border-right-0 border-left-0'><div class='row'><div class='col-12'><input align='left' type='image' class='chatProfilePicture rounded' src=" + profilePicture + "/>" + listName + "<p id='question-" + questionNumber + "'class='chatMessage'>" + message + "</p> </div></div></li>"
@@ -77,7 +78,9 @@ function GetMessage(chatId, userName, name, profilePicture, chatColor) {
 function CleanAndSendMessage(message, chatId, userName, name, profilePicture, chatColor) {
     $.getJSON('https://api.dillilabs.com:8084/79c76f03-8337-4430-b6ed-b42787c3e82a/devil/isprofane?text=' + message, function (data) {
         if (!data) {
-            connection.invoke("SendMessageToChatRoom", chatId, userName, name, message, profilePicture, chatColor).catch(function (err) {
+            date = new Date();
+            var offset = date.getTimezoneOffset();
+            connection.invoke("SendMessageToChatRoom", chatId, userName, name, message, profilePicture, chatColor, date, offset).catch(function (err) {
                 return console.error(err.toString());
                 
             });

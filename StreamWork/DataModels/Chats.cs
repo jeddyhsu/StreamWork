@@ -16,6 +16,7 @@ namespace StreamWork.DataModels
         public string ProfilePicture { get; set; }
         public DateTime Date { get; set; }
         public string ChatColor { get; set; }
+        public int TimeOffset { get; set; }
 
         [Timestamp]
         public byte[] RowVersion { get; set; }
