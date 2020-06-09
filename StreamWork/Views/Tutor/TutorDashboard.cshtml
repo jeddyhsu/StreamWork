@@ -2,11 +2,35 @@
 
 @{Layout = "_LayoutNoNavbar";}
 @{ViewData["Title"] = "TutorDashboard";}
-    <link rel="stylesheet" href="~/css/Tutor.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Tutor/TutorDashboard.css" asp-append-version="true" />
+
+    <div class="container-fluid mr-0 containerFluid">
+        <div class="row">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light navBar">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="navItem nav-link pl-3 pr-3" href="#">Tutor</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="navItem nav-link pl-3 pr-3" href="#">Browse</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="navItem nav-link pl-3 pr-3" href="#">About</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+
 
 <div class="wrapper">
     <nav id="sidebar">
-        <img class="logoSize" src="~/images/WhiteStreamWork.png" />
+        <img class="logoSize" onclick="window.location.href ='/Home/Index" src="~/images/WhiteStreamWork.png" />
         <ul class="p-0">
             <li class="navList" onclick="window.location.href ='/Tutor/TutorStream'">Start Stream</li>
             <li class="navList" onclick="window.location.href ='/Tutor/HowToStream'">How To Stream</li>
