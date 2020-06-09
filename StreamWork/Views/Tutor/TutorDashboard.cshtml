@@ -2,30 +2,47 @@
 
 @{Layout = "_LayoutNoNavbar";}
 @{ViewData["Title"] = "TutorDashboard";}
-    <link rel="stylesheet" href="~/css/Tutor/TutorDashboard.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/Tutor/TutorDashboard.css" asp-append-version="true" />
 
-    <div class="container-fluid mr-0 containerFluid">
-        <div class="row">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light navBar">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="navItem nav-link pl-3 pr-3" href="#">Tutor</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="navItem nav-link pl-3 pr-3" href="#">Browse</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="navItem nav-link pl-3 pr-3" href="#">About</a>
-                        </li>
-                    </ul>
+<div class="container-fluid mr-0 containerFluid">
+    <div class="row">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light navBar">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="navItem nav-link pl-3 pr-3" href="#">Tutor</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="navItem nav-link pl-3 pr-3" href="#">Browse</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="navItem nav-link pl-3 pr-3" href="#">About</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <div class="container pt-4">
+        <div class="card">
+            <div class="row">
+                <div class="col-lg-5 col-md-5 col-sm-12 col-12 order-lg-1 order-md-1 order-sm-2 order-2">
+                    <div class="p-4 mb-4">
+                        <input align="left" class="rounded" type="image" src="~/images/GenericAssets/DefaultProfilePicture.png" style="width:80px;" />
+                        <h5 style="padding-left:100px; padding-top:10px; font-family:'Roboto Slab', serif;">First Last</h5>
+                        <p class="pt-0" style="padding-left:100px; font-family:'Roboto Slab', serif; font-size:12px">Major / Concentration</p>
+                    </div>
                 </div>
-            </nav>
+                <div class="col-lg-7 col-md-7 col-sm-12 col-12 order-lg-2 order-md-2 order-sm-1 order-1">
+                    <img src="~/images/TutorAssets/TutorDashboard/PlaceHolderBanner.png" style="width:100%; height:100%" />
+                </div>
+            </div>
         </div>
     </div>
+</div>
 
 
 <div class="wrapper">
