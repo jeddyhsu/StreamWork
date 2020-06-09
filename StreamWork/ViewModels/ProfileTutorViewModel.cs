@@ -4,7 +4,7 @@ using StreamWork.TutorObjects;
 
 namespace StreamWork.ViewModels {
 
-    public class ProfileTutorViewModel {
+    public class TutorDashboardViewModel {
 
         public UserLogin TutorUserProfile { get; set; }
         public UserLogin GenericUserProfile { get; set; }

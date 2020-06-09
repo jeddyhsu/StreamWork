@@ -81,21 +81,6 @@ namespace StreamWork.Controllers
             return View(viewModel);
         }
 
-        public async Task<IActionResult> HowToStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
-        {
-            DefaultViewModel viewModel;
-            if (HttpContext.User.Identity.IsAuthenticated == true)
-            {
-                viewModel = new DefaultViewModel
-                {
-                    GenericUserProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, HttpContext.User.Identity.Name)
-                };
-            }
-            else viewModel = new DefaultViewModel { };
-
-            return View(viewModel);
-        }
-
         public async Task<IActionResult> PickStudentOrTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
             DefaultViewModel viewModel;
@@ -119,7 +104,7 @@ namespace StreamWork.Controllers
         [HttpGet]
         public async Task<IActionResult> ProfileView([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string tutor)
         {
-            ProfileTutorViewModel viewModel = new ProfileTutorViewModel
+            TutorDashboardViewModel viewModel = new TutorDashboardViewModel
             {
                 GenericUserProfile = HttpContext.User.Identity.Name != null ? await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, HttpContext.User.Identity.Name) : null,
                 TutorUserProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, tutor),
@@ -288,7 +273,7 @@ namespace StreamWork.Controllers
 
             var user = HttpContext.User.Identity.Name;
 
-            ProfileTutorViewModel viewModel = new ProfileTutorViewModel
+            TutorDashboardViewModel viewModel = new TutorDashboardViewModel
             {
                 TutorUserProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, tutor),
                 GenericUserProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, user)

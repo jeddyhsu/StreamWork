@@ -128,7 +128,7 @@ function Login() {
             if (modifiedURL != null) {
                 if (modifiedURL.includes("-Home-Profile")) {
                     if (data.message === "Tutor") {
-                        window.location.href = '/Tutor/ProfileTutor'
+                        window.location.href = '/Tutor/TutorDashboard'
                         return;
                     }
                     else {
@@ -143,7 +143,7 @@ function Login() {
                 }
 
                 if (data.message === "Tutor") {
-                    window.location.href = '/Tutor/ProfileTutor'
+                    window.location.href = '/Tutor/TutorDashboard'
                     return;
                 }
 

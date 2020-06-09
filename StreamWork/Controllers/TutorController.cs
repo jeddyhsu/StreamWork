@@ -29,7 +29,7 @@ namespace StreamWork.Controllers
 
             var userProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, User.Identity.Name);
 
-            ProfileTutorViewModel viewModel = new ProfileTutorViewModel
+            TutorDashboardViewModel viewModel = new TutorDashboardViewModel
             {
                 TutorUserProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, User.Identity.Name),
                 UserChannel = await _homeMethods.GetUserChannel(storageConfig, SQLQueries.GetUserChannelWithUsername, User.Identity.Name),
@@ -59,12 +59,12 @@ namespace StreamWork.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ProfileTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        public async Task<IActionResult> TutorDashboard([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
             if (HttpContext.User.Identity.IsAuthenticated == false)
-                return Redirect(_homeMethods._host + "/Home/Login?dest=-Tutor-ProfileTutor");
+                return Redirect(_homeMethods._host + "/Home/Login?dest=-Tutor-TutorDashboard");
 
-            ProfileTutorViewModel viewModel = new ProfileTutorViewModel
+            TutorDashboardViewModel viewModel = new TutorDashboardViewModel
             {
                 TutorUserProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, User.Identity.Name),
                 UserChannel = await _homeMethods.GetUserChannel(storageConfig, SQLQueries.GetUserChannelWithUsername, User.Identity.Name),
@@ -137,7 +137,7 @@ namespace StreamWork.Controllers
             if (HttpContext.User.Identity.IsAuthenticated == false)
                 return Redirect(_homeMethods._host + "/Home/Login?dest=-Tutor-TutorSettings");
 
-            ProfileTutorViewModel viewModel = new ProfileTutorViewModel
+            TutorDashboardViewModel viewModel = new TutorDashboardViewModel
             {
                 TutorUserProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, User.Identity.Name),
                 UserChannels = await _homeMethods.GetUserChannels(storageConfig, SQLQueries.GetUserChannelWithUsername, User.Identity.Name),
@@ -166,7 +166,7 @@ namespace StreamWork.Controllers
             if (HttpContext.User.Identity.IsAuthenticated == false)
                 return Redirect(_homeMethods._host + "/Home/Login?dest=-Tutor-TutorStream");
 
-            ProfileTutorViewModel viewModel = new ProfileTutorViewModel
+            TutorDashboardViewModel viewModel = new TutorDashboardViewModel
             {
                 TutorUserProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, User.Identity.Name),
 
@@ -203,6 +203,22 @@ namespace StreamWork.Controllers
             }
 
             return Json(new { Message = JsonResponse.Failed.ToString() });
+        }
+
+
+        public async Task<IActionResult> HowToStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
+            DefaultViewModel viewModel;
+            if (HttpContext.User.Identity.IsAuthenticated == true)
+            {
+                viewModel = new DefaultViewModel
+                {
+                    GenericUserProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, HttpContext.User.Identity.Name)
+                };
+            }
+            else viewModel = new DefaultViewModel { };
+
+            return View(viewModel);
         }
     }
 }

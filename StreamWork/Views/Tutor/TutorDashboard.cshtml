@@ -1,0 +1,19 @@
+﻿@model StreamWork.ViewModels.TutorDashboardViewModel
+
+@{Layout = "_LayoutNoNavbar";}
+@{ViewData["Title"] = "TutorDashboard";}
+    <link rel="stylesheet" href="~/css/Tutor.css" asp-append-version="true" />
+
+<div class="wrapper">
+    <nav id="sidebar">
+        <img class="logoSize" src="~/images/WhiteStreamWork.png" />
+        <ul class="p-0">
+            <li class="navList" onclick="window.location.href ='/Tutor/TutorStream'">Start Stream</li>
+            <li class="navList" onclick="window.location.href ='/Tutor/HowToStream'">How To Stream</li>
+            <li class="navList" onclick="window.location.href ='/Tutor/TutorWatch'">Watch Streams</li>
+            <li class="navList">Following List</li>
+            <li class="navList">Follower List</li>
+        </ul>
+    </nav>
+</div>
+

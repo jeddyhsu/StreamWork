@@ -68,7 +68,7 @@
 
 function Dashboard(profileType) {
     if (profileType == "tutor") {
-        window.location.href = "/Tutor/ProfileTutor"
+        window.location.href = "/Tutor/TutorDashboard"
     }
     else {
          window.location.href = "/Student/ProfileStudent"

@@ -1,4 +1,4 @@
-﻿@model StreamWork.ViewModels.ProfileTutorViewModel
+﻿@model StreamWork.ViewModels.TutorDashboardViewModel
 
 @{Layout = "_LayoutTutorNavbar";}
 @{ViewData["Title"] = "TutorStream";}
@@ -85,7 +85,7 @@ else if (Model.UserChannel.StreamTitle == null && Model.UserChannel.StreamSubjec
                 </div>
                 <div class="modal-footer">
                     <div id="loaderStartStream" style="display:none" class="loader mr-auto"></div>
-                    <button id="ExitStream" type="button" class="streamWorkGrey" style="cursor:pointer" onclick="window.location.href = '/Tutor/ProfileTutor'">Exit</button>
+                    <button id="ExitStream" type="button" class="streamWorkGrey" style="cursor:pointer" onclick="window.location.href = '/Tutor/TutorDashboard'">Exit</button>
                     <button id="StartStream" type="button" class="streamWorkPrimary" style="cursor:pointer;" onclick="CheckIfStreamIsLive('@Model.UserChannel.ChannelKey', '@Model.UserChannel.Username', '@Model.ChatInfo')">Go Live!</button>
                 </div>
             </div>
@@ -126,7 +126,7 @@ else if (Model.UserChannel.StreamTitle == null && Model.UserChannel.StreamSubjec
                     <p style="color: black;">It appears you are not a verified StreamTutor! If you are a student, create a separate student account. If you are a StreamTutor, please wait 1-2 business days to be approved. In the meantime feel free to edit your profile and watch some streams. </p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="streamWorkGrey" style="cursor:pointer" onclick="window.location.href = '/Tutor/ProfileTutor'">Exit</button>
+                    <button type="button" class="streamWorkGrey" style="cursor:pointer" onclick="window.location.href = '/Tutor/TutorDashboard'">Exit</button>
                 </div>
             </div>
         </div>
