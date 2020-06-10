@@ -2,6 +2,7 @@
 
 @{Layout = "_LayoutNoNavbar";}
 @{ViewData["Title"] = "TutorDashboard";}
+    <script src="~/js/TutorJS/TutorDashboard.js" asp-append-version="true"></script>
 <link rel="stylesheet" href="~/css/Tutor/TutorDashboard.css" asp-append-version="true" />
 
 <div class="container-fluid mr-0 containerFluid">
@@ -60,6 +61,32 @@
             </div>
         </div>
     </div>
+    <div class="container pt-4">
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="profileTab" data-toggle="pill" href="#profile" role="tab" aria-controls="pills-home" aria-selected="true" onclick="SliderProfile()">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="scheduleTab" data-toggle="pill" href="#schedule" role="tab" aria-controls="pills-profile" aria-selected="false" onclick="SliderSchedule()">Schedule</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="streamTab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false" onclick="SliderStream()">Streams</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="commentTab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false" onclick="SliderComment()">Comments</a>
+            </li>
+        </ul>
+        <div class="slider">
+            <div id="sliderObject" class="sliderObject"></div>
+        </div>
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">...</div>
+            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
+            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
+        </div>
+
+    </div>
+    
 </div>
 
 
