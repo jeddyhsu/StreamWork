@@ -24,13 +24,13 @@
                     <br />
                     @if (Model.IsFollowing == false && Model.GenericUserProfile != null && Model.GenericUserProfile.Username != Model.TutorUserProfile.Username)
                     {
-                        <button id="FollowButton" type="button" style="font-size:12px;" class="streamWorkSecondary mt-3" onclick="FollowStreamTutor('@Model.TutorUserProfile.Id')">Follow</button>
-                        <button id="UnfollowButton" type="button" style="font-size:12px; display:none;" class="streamWorkGrey mt-3" onclick="UnfollowStreamTutor('@Model.TutorUserProfile.Id')">Unfollow</button>
+                        <button id="FollowButton" type="button" style="font-size:12px;" class="streamWorkSecondary mt-3" onclick="FollowStreamTutor('@Model.GenericUserProfile.Id','@Model.TutorUserProfile.Id')">Follow</button>
+                        <button id="UnfollowButton" type="button" style="font-size:12px; display:none;" class="streamWorkGrey mt-3" onclick="UnfollowStreamTutor('@Model.GenericUserProfile.Id','@Model.TutorUserProfile.Id')">Unfollow</button>
                     }
                     else if (Model.IsFollowing == true && Model.GenericUserProfile != null)
                     {
-                        <button id="FollowButton" type="button" style="font-size:12px;display:none;" class="streamWorkSecondary mt-3" onclick="FollowStreamTutor('@Model.TutorUserProfile.Id')">Follow</button>
-                        <button id="UnfollowButton" type="button" style="font-size:12px;" class="streamWorkGrey mt-3" onclick="UnfollowStreamTutor('@Model.TutorUserProfile.Id')">Unfollow</button>
+                        <button id="FollowButton" type="button" style="font-size:12px;display:none;" class="streamWorkSecondary mt-3" onclick="FollowStreamTutor('@Model.GenericUserProfile.Id','@Model.TutorUserProfile.Id')">Follow</button>
+                        <button id="UnfollowButton" type="button" style="font-size:12px;" class="streamWorkGrey mt-3" onclick="UnfollowStreamTutor('@Model.GenericUserProfile.Id','@Model.TutorUserProfile.Id')">Unfollow</button>
                     }
                     <h1 class="card-title mt-4" style="font-size: 24px; color: black; font-family: 'Roboto Slab', serif;"><b>@Model.TutorUserProfile.Name.Replace('|', ' ')</b></h1>
                     <p class="card-text" style="font-size:16px; color:black">@Model.TutorUserProfile.ProfileCaption</p>
