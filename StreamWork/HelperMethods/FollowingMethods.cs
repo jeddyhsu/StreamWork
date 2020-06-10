@@ -75,7 +75,7 @@ namespace StreamWork.HelperMethods
             return await _homeMethods.GetUserProfiles(storageConfig, SQLQueries.GetAllApprovedTutors, null);
         }
 
-        public async Task<List<UserLogin>> GetAllFollowers([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string followeeId) //all users that arent follwing the followee
+        public async Task<List<UserLogin>> GetAllFollowers([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string followeeId) //all users that arent following the followee
         {
             var listOfFollowers = await DataStore.GetListAsync<Follow>(_homeMethods._connectionString, storageConfig.Value, SQLQueries.GetAllFolloweesWithId.ToString(), new List<string> { followeeId });
             if (listOfFollowers.Count != 0)

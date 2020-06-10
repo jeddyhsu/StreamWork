@@ -210,11 +210,11 @@
       "StorageType": "SqlServer",
       "Queries": [
         {
-          "Query": "SELECT * FROM [dbo].[Follow] WHERE FollowerId = '@x0'",
+          "Query": "SELECT * FROM [dbo].[Follow] WHERE FolloweeId = '@x0'",
           "QueryId": "GetAllFolloweesWithId"
         },
         {
-          "Query": "SELECT * FROM [dbo].[Follow] WHERE FolloweeId = '@x0'",
+          "Query": "SELECT * FROM [dbo].[Follow] WHERE FollowerId = '@x0'",
           "QueryId": "GetAllFollowersWithId"
         },
         {
