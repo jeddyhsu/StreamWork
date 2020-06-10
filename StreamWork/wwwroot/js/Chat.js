@@ -68,6 +68,10 @@ function JoinChatRoom(chatId, userName) {
     });
 }
 
+function ConnectToChat(){
+    connection.start().catch(err => console.error(err));
+}
+
 function GetMessage(chatId, userName, name, profilePicture, chatColor) {
     var message = document.getElementById("chatInput").value;
     if (message == "") return;
