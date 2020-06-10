@@ -26,7 +26,7 @@ namespace StreamWork.Hubs
         public async Task SendMessageToChatRoom(string chatId, string userName, string name, string message, string profilePicture, string chatColor, DateTime date, int offset)
         {
             message = _chatClient.URLIFY(message);
-            await Clients.Group(chatId).SendAsync("ReceiveMessage", name.Replace('|',' '), message, profilePicture, _questionCount, userName, chatColor);
+            await Clients.Group(chatId).SendAsync("ReceiveMessage", name.Replace('|',' '), message, profilePicture, _questionCount, userName, chatColor, date.AddMinutes(offset * -1).ToString("HH:mm"));
             using (var scope = _sp.CreateScope())
             {
                 _questionCount++;
