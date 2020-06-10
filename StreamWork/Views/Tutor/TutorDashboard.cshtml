@@ -7,7 +7,7 @@
 
 <div class="container-fluid mr-0 containerFluid">
     <div class="row">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light navBar">
+        <nav class="navbar navbar-expand-lg navBar" style="background-color:white">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -23,37 +23,54 @@
                         <a class="navItem nav-link pl-3 pr-3" href="#">About</a>
                     </li>
                 </ul>
+
+                <div class="btn-group navbarDropDown">
+                    <input class="navBarProfilePicture" type="image" data-toggle="dropdown" src=@Model.TutorUserProfile.ProfilePicture />
+                    <button type="button" class="btn btn-info dropdown-toggle navbarDropDownButton" data-toggle="dropdown"></button>
+                    <div class="dropdown-menu" style="font-size:12px; min-width:0px !important">
+                        <a class="dropdown-item" onclick="Dashboard('@Model.TutorUserProfile.ProfileType')">Dashboard</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" id="Settings" href="/Tutor/TutorSettings">Settings</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
+                    </div>
+                </div>
             </div>
         </nav>
     </div>
 
-    <div class="container-fluid pt-4">
+    <div class="container-fluid pt-4" style="max-width:1800px">
         <div class="card">
             <div class="row">
                 <div class="col-lg-6 col-md-12 col-sm-12 col-12 order-lg-1 order-md-2 order-sm-2 order-2 pr-2">
-                    <div class="p-4 mb-4">
-                        <input align="left" class="rounded" type="image" src="~/images/GenericAssets/DefaultProfilePicture.png" style="width:80px;" />
-                        <h5 style="padding-left:100px; padding-top:10px; font-family:'Roboto Slab', serif; color: #707070">First Last</h5>
-                        <p class="pt-0" style="padding-left:100px; font-family:'Roboto Slab', serif; font-size:12px; color: #9F9F9F">Major / Concentration</p>
+                    <div class="row">
+                        <div class="p-4 mb-4 ml-3">
+                            <input align="left" class="rounded" type="image" src="~/images/GenericAssets/DefaultProfilePicture.png" style="width:80px;" />
+                            <h5 class="d-inline-block" style="padding-left:20px; padding-top:10px; font-family:'Roboto Slab', serif; color: #707070;">@Model.TutorUserProfile.Name.Replace('|', ' ')</h5>
+                            <p class="pt-0" style="padding-left:100px; font-family:'Roboto Slab', serif; font-size:12px; color: #9F9F9F">Major / Concentration</p>
+                        </div>
+                        <div class="ml-auto mr-5">
+                            <button class="streamWorkPrimary mr-2" style="font-size:10px; height:35px; margin-top:30px">Edit Profile</button>
+                            <button class="streamWorkSecondary" style="font-size:10px; height:35px; margin-top:30px">View Profile</button>
+                        </div>
                     </div>
                     <div class="pl-4 mb-4">
                         <div class="d-inline-block mr-2">
                             <div class="card pr-2" style="background-color:#004643; color:white">
-                                <h6 class="m-0 pt-2 pb-2" style="font-size:9px; word-spacing:8px"><span style="background-color:#003936; font-size:14px" class="p-2 rounded">1000</span> Streams</h6>
+                                <h6 class="m-0 pt-2 pb-2" style="font-size:9px; word-spacing:8px"><span style="background-color:#003936; font-size:14px" class="p-2 rounded">@Model.NumberOfStreams</span> Streams</h6>
                             </div>
                         </div>
                         <div class="d-inline-block mr-2">
                             <div class="card pr-2" style="background-color:#FFC627; color:white">
-                                <h6 class="m-0 pt-2 pb-2" style="font-size:9px; word-spacing:8px"><span style="background-color:#E6B62F; font-size:14px" class="p-2 rounded">1000</span> Followers</h6>
+                                <h6 class="m-0 pt-2 pb-2" style="font-size:9px; word-spacing:8px"><span style="background-color:#E6B62F; font-size:14px" class="p-2 rounded">@{Random rand = new Random(1247635134); int mult = rand.Next(10, 16); int views = Model.NumberOfViews * mult + rand.Next(mult);}@views</span> Followers</h6>
                             </div>
                         </div>
                         <div class="d-inline-block mr-2">
                             <div class="card pr-2" style="background-color:#7266BA; color:white">
-                                <h6 class="m-0 pt-2 pb-2" style="font-size:9px; word-spacing:8px"><span style="background-color:#5C50A7; font-size:14px" class="p-2 rounded">1000</span> Views</h6>
+                                <h6 class="m-0 pt-2 pb-2" style="font-size:9px; word-spacing:8px"><span style="background-color:#5C50A7; font-size:14px" class="p-2 rounded">@Model.NumberOfFollowers</span> Views</h6>
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div class="col-lg-6 col-md-12 col-sm-12 col-12 order-lg-2 order-md-1 order-sm-1 order-1">
                     <img src="~/images/TutorAssets/TutorDashboard/PlaceHolderBanner.png" style="width:100%; height:100%" />
@@ -61,19 +78,19 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid pt-4">
+    <div class="container-fluid pt-4" style="max-width:1800px">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true" onclick="SliderProfile()">Profile</a>
+                <a class="nav-link active" style="font-family:'Roboto Slab', serif" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true" onclick="SliderProfile()">Profile</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="schedule-tab" data-toggle="tab" href="#schedule" role="tab" aria-controls="schedule" aria-selected="false" onclick="SliderSchedule()">Schedule</a>
+                <a class="nav-link" style="font-family:'Roboto Slab', serif" id="schedule-tab" data-toggle="tab" href="#schedule" role="tab" aria-controls="schedule" aria-selected="false" onclick="SliderSchedule()">Schedule</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="stream-tab" data-toggle="tab" href="#stream" role="tab" aria-controls="stream" aria-selected="false" onclick="SliderStream()">Stream</a>
+                <a class="nav-link" style="font-family:'Roboto Slab', serif" id="stream-tab" data-toggle="tab" href="#stream" role="tab" aria-controls="stream" aria-selected="false" onclick="SliderStream()">Streams</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="comment-tab" data-toggle="tab" href="#comment" role="tab" aria-controls="comment" aria-selected="false" onclick="SliderComment()">Comment</a>
+                <a class="nav-link" style="font-family:'Roboto Slab', serif" id="comment-tab" data-toggle="tab" href="#comment" role="tab" aria-controls="comment" aria-selected="false" onclick="SliderComment()">Comments</a>
             </li>
         </ul>
         <div class="slider">
@@ -93,11 +110,11 @@
     <nav id="sidebar">
         <img class="logoSize" onclick="window.location.href ='/Home/Index" src="~/images/WhiteStreamWork.png" />
         <ul class="p-0">
-            <li class="navList" onclick="window.location.href ='/Tutor/TutorStream'">Start Stream</li>
-            <li class="navList" onclick="window.location.href ='/Tutor/HowToStream'">How To Stream</li>
-            <li class="navList" onclick="window.location.href ='/Tutor/TutorWatch'">Watch Streams</li>
-            <li class="navList">Following List</li>
-            <li class="navList">Follower List</li>
+            <li class="navList" onclick="window.location.href ='/Tutor/TutorStream'"><span><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/StartStream.png"/></span>Start Stream</li>
+            <li class="navList" onclick="window.location.href ='/Tutor/HowToStream'"><span><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/HowToStream.png" /></span>How To Stream</li>
+            <li class="navList" onclick="window.location.href ='/Tutor/TutorWatch'"><span><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/WatchStream.png" /></span>Watch Streams</li>
+            <li class="navList"><span><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/FollowingList.png" /></span>Following List</li>
+            <li class="navList"><span><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/FollowerList.png" /></span>Follower List</li>
         </ul>
     </nav>
 </div>

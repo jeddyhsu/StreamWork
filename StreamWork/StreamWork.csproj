@@ -51,4 +51,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\images\TutorAssets\TutorDashboard\StartStream_Icon%402x.png" />
+  </ItemGroup>
 </Project>
