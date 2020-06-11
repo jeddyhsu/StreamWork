@@ -20,15 +20,33 @@ function SliderComment() {
 
 function AddSection(event) {
     event.preventDefault();
-    var section = "<div class='divider'></div><div id='formfrom' class='form-group col-lg-12'><label class='formHeaders'>Section 2 Title</label> <input class='form-control border rounded-0 formInput' placeholder='Title of section two!'><label class='formHeaders pt-3'>Description</label><textarea class='form-control border rounded - 0 formTextArea' placeholder='Tell us what you're studying, concentrations, passions, and other extra curricular activities here!'></textarea></div>"
-    document.getElementById("formRow").innerHTML += section
-    var e = document.getElementById("formfrom");
+    var section = "<div class='divider'></div><div id='formSection' class='form-group col-lg-12'><label class='formHeaders'>Section 2 Title</label> <input class='form-control border rounded-0 formInput' placeholder='Title of section two!'><label class='formHeaders pt-3'>Description</label><textarea class='form-control border rounded - 0 formTextArea' placeholder='Tell us what you're studying, concentrations, passions, and other extra curricular activities here!'></textarea></div>"
+    document.getElementById("formRowSection").innerHTML += section
+    var e = document.getElementById("formSection");
+    e.scrollIntoView();
+}
+
+function AddTopic(event) {
+    event.preventDefault();
+    var topic = "<div class='divider'></div><div id='formTopic' class='form-group col-lg-12 border p-2'><label class='formHeaders'>Topic</label ><select class='form-control border formInput'><option>-Select-Topic-</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select><label class='formHeaders pt-3'>List Of Subject</label><textarea class='form-control border rounded-0 formTextArea' placeholder='Enter list of topics here!'></textarea></div>"
+    document.getElementById("formRowTopic").innerHTML += topic
+    var e = document.getElementById("formTopic");
     e.scrollIntoView();
 }
 
 
     
+
+        
+
    
+    
         
         
-                                       
+        
+        
+        
+       
+    
+    
+    

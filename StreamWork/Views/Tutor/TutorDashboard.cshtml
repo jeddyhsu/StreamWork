@@ -104,7 +104,7 @@
                             <div class="card">
                                 <div class="card-title p-3" style="font-family:'Roboto Slab', serif; color:#9F9F9F; font-size:18px">Basic Information</div>
                                 <form class="pl-4 pr-4 pb-4">
-                                    <div class="form-row" id="formRow">
+                                    <div class="form-row" id="formRowSection">
                                         <div class="form-group col-lg-12">
                                             <label class="formHeaders">Section 1 Title</label>
                                             <input class="form-control border rounded-0 formInput" placeholder="Title of section one!">
@@ -119,7 +119,30 @@
                                             <textarea class="form-control border rounded-0 formTextArea" placeholder="Tell us what you're studying, concentrations, passions, and other extra curricular activities here!"></textarea>
                                         </div>
                                     </div>
-                                    <button class="streamWorkPrimary" onclick="AddSection(event)">Add Section</button>
+                                    <a style="cursor:pointer; color:#004643" onclick="AddSection(event)"> + Add Section</a>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+                            <div class="card">
+                                <div class="card-title p-3" style="font-family:'Roboto Slab', serif; color:#9F9F9F; font-size:18px">Academic Experience</div>
+                                <form class="pl-4 pr-4 pb-4">
+                                    <div class="form-row" id="formRowTopic">
+                                        <div class="form-group col-lg-12 border p-2">
+                                            <label class="formHeaders">Topic</label>
+                                            <select class="form-control border formInput">
+                                                <option>-Select-Topic-</option>
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                            </select>
+                                            <label class="formHeaders pt-3">List Of Subject</label>
+                                            <textarea class="form-control border rounded-0 formTextArea" placeholder="Enter list of topics here!"></textarea>
+                                        </div>
+                                    </div>
+                                    <a style="cursor:pointer; color:#004643" onclick="AddTopic(event)"> + Add Topic</a>
                                 </form>
                             </div>
                         </div>
