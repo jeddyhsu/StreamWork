@@ -151,41 +151,7 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
         </nav>
     </div>
 
-    @*Edit Modal for editing profile*@
-    <div id="editModal" class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="background-color: whitesmoke">
-                <div class="modal-header">
-                    <h5 class="modal-title" style="color:black">Edit Profile</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <input align="middle" type="text" class="form-control" id="ProfileCaption" maxlength="50" placeholder="Field Of Study" value="@Model.TutorUserProfile.ProfileCaption" />
-                        <br />
-                        <textarea align="middle" type="text" class="form-control" id="ProfileParagraph" maxlength="189" placeholder="About Me" style="height:100px">@Model.TutorUserProfile.ProfileParagraph</textarea>
-                        <div class="row mt-4">
-                            <div class="col-lg-8 col-md-8 col-sm-8 col-6">
-                                <div class="upload-uploadbtn-wrapper">
-                                    <button class="form-control"><span><img src="/images/Upload16.png"></span> Upload Profile Picture</button>
-                                    <input id="uploadProfilePic" style="cursor:pointer" type='file' onchange="readURL(this,'ProfilePic')" />
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-6">
-                                <img id="previewProfilePic" src=@Model.TutorUserProfile.ProfilePicture alt="your image" style="border-radius: 5%; width:115px; display:block;margin-left:auto;margin-right:auto" />
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button class="streamWorkGrey" data-dismiss="modal">Close</button>
-                    <button class="streamWorkPrimary" style="background-color:black; color:white" onclick="RegisterProfilePhotoAndCaption()">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
+   
 
     @*Add Stream for scheduling system*@
     <div id="addScheduleModal" class="modal" tabindex="-1" role="dialog">

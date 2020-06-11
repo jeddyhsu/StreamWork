@@ -34,6 +34,11 @@ function AddTopic(event) {
     e.scrollIntoView();
 }
 
+function OpenModal() {
+    var modal = document.getElementById("profileInformationModal");
+    modal.style.display = "block";
+}
+
 
     
 
