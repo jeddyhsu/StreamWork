@@ -39,15 +39,17 @@
         </nav>
     </div>
 
-    <div class="container-fluid pt-4" style="max-width:1800px">
+    <div class="container-fluid pt-4 containerFluid" style="max-width:1800px; width:100%">
         <div class="card">
             <div class="row">
                 <div class="col-lg-6 col-md-12 col-sm-12 col-12 order-lg-1 order-md-2 order-sm-2 order-2 pr-2">
                     <div class="row">
                         <div class="p-4 mb-2 ml-3">
                             <input align="left" class="rounded" type="image" src="~/images/GenericAssets/DefaultProfilePicture.png" style="width:80px;" />
-                            <h5 class="d-inline-block" style="padding-left:20px; padding-top:10px; font-family:'Roboto Slab', serif; color: #707070;">@Model.TutorUserProfile.Name.Replace('|', ' ')</h5>
-                            <p class="pt-0" style="padding-left:100px; font-family:'Roboto Slab', serif; font-size:12px; color: #9F9F9F">Major / Concentration</p>
+                            <h5 class="d-inline-block mb-0" style="padding-left:20px; padding-top:10px; font-family:'Roboto Slab', serif; color: #707070;">@Model.TutorUserProfile.Name.Replace('|', ' ')</h5>
+                            <p class="pt-0 mt-0 mb-2" style="padding-left:100px; font-family:'Roboto Slab', serif; font-size:12px; color: #9F9F9F">Major / Concentration</p>
+                            <p class="mb-0"style="padding-left:95px; font-family:'Roboto Slab', serif; font-size:8px; color: #9F9F9F"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
+                            <p style="padding-left:95px; font-family:'Roboto Slab', serif; font-size:8px; color: #9F9F9F"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span>City, State</p>
                         </div>
                         <div class="ml-auto mr-5">
                             <button class="streamWorkPrimary mr-2" style="font-size:10px; height:35px; margin-top:30px" onclick="OpenModal()">Edit Profile</button>
@@ -97,7 +99,7 @@
             <div id="sliderObject" class="sliderObject"></div>
         </div>
         <div class="tab-content">
-            <div class="tab-pane active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <div class="container-fluid pt-4">
                     <div class="row">
                         <div class="col-lg-8 col-md-12 col-sm-12 col-12 p-2">
@@ -167,41 +169,49 @@
                 </div>
             </div>
             <div class="tab-pane" id="schedule" role="tabpanel" aria-labelledby="schedule-tab">Schedule</div>
-            <div class="tab-pane" id="stream" role="tabpanel" aria-labelledby="stream-tab">
-                <!--
+            <div class="tab-pane active" id="stream" role="tabpanel" aria-labelledby="stream-tab">
+                <div class="container-fluid pt-4">
                     <div class="row">
-                    @if (Model.UserArchivedVideos.Count != 0)
-                    {
-                        @foreach (var videoInfo in Model.UserArchivedVideos)
+                        <div class="col-12">
+                            <form class="p-2 border" onsubmit="return searchArchives();" style="background-color: white; border-radius: 20px;">
+                                <input id="searchQuery" class="form-control form-control-lg" type="search" placeholder="🔎 Search Past Streams" style="border: none;">
+                            </form>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="row">
+                        @if (Model.UserArchivedVideos.Count != 0)
                         {
-                            <div id="videoInfo-@videoInfo.Id" class="col-lg-3 col-md-6 col-sm-6">
-                                <div class="card mt-3" style="border:none;background-color:transparent">
-                                    <a href="../StreamViews/StreamPlaybackPage?streamId=@videoInfo.StreamID"><img id="streamThumbnail-@videoInfo.Id" style="width:100%; height:100%; border-top-left-radius:10px; border-top-right-radius:10px; border-bottom-left-radius:0px; border-bottom-right-radius:0px;" src=@videoInfo.StreamThumbnail></a>
-                                    <div class="card-body pt-3 pb-1" style="background-color:black; background-color:black; border-bottom-left-radius:10px; border-bottom-right-radius:10px;">
-                                        <div class="row">
-                                            <div class="col-lg-9 col-md-10 col-sm-10 col-10 col-xl-10">
-                                                <input type="image" style="border-radius:5%; width:50px; margin-bottom:10px; height:60px; float:left" src=@videoInfo.ProfilePicture />
-                                                <h5 id="streamTitle-@videoInfo.Id" class="text-truncate" style="font-family: 'Roboto'; font-size:15px; color:white; margin-left:80px; margin-top:10px;">@videoInfo.StreamTitle</h5>
-                                                <h6 class="text-truncate" style="font-family: 'Roboto'; font-size:14px; color:white; margin-left:80px;">@{Random rand1 = new Random(1247635134); int mult1 = rand1.Next(10, 16); int views1 = videoInfo.Views * mult1 + rand1.Next(mult1);} @views1 views</h6>
-                                            </div>
-                                            <i class="far fa-edit" style="font-size:28px;color:whitesmoke; margin-left:auto; margin-right:auto; display:block; cursor:pointer" onclick="OpenEditDeleteStreamModal('@videoInfo.Id', '@videoInfo.StreamTitle', '@videoInfo.StreamDescription', '@videoInfo.StreamThumbnail')"></i>
+                            @foreach (var videoInfo in Model.UserArchivedVideos)
+                            {
+                                <div id="videoInfo-@videoInfo.Id" class="col-lg-3 col-md-6 col-sm-6">
+                                    <div class="card mt-3 border-0" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px;">
+                                        <div class="card-title">
+                                            <a href="../StreamViews/StreamPlaybackPage?streamId=@videoInfo.StreamID"><img id="streamThumbnail-@videoInfo.Id" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src=@videoInfo.StreamThumbnail></a>
+                                        </div>
+                                        <div class="card-body pt-0 pb-1">
+                                            <h5 id="streamTitle-@videoInfo.Id" class="text-truncate formHeaders">@videoInfo.StreamTitle</h5>
+                                            <p class="text-truncate formHeaders" style="font-size:10px">@Model.TutorUserProfile.Name.Replace('|', ' ')</p>
+                                        </div>
+                                        <div class="card-footer" style="background-color:orange; border-bottom-left-radius:20px; border-bottom-right-radius:20px;">
+
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            }
                         }
-                    }
+                    </div>
                 </div>
-
-                 -->
-
+               
             </div>
             <div class="tab-pane" id="comment" role="tabpanel" aria-labelledby="comment-tab">Comment</div>
         </div>
     </div>
 </div>
 
-
+<!--
+   
+-->
 <div class="wrapper">
     <nav id="sidebar">
         <img class="logoSize" onclick="window.location.href ='/Home/Index" src="~/images/WhiteStreamWork.png" />
@@ -211,6 +221,19 @@
             <li class="navList" onclick="window.location.href ='/Tutor/TutorWatch'"><span><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/WatchStream.png" /></span>Watch Streams</li>
             <li class="navList"><span><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/FollowingList.png" /></span>Following List</li>
             <li class="navList"><span><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/FollowerList.png" /></span>Follower List</li>
+        </ul>
+    </nav>
+</div>
+
+<div class="wrapper">
+    <nav id="sidebarTablet">
+        <img class="logoTabletSize" onclick="window.location.href ='/Home/Index" src="~/images/streamWorkPencilWhite.png" />
+        <ul class="p-0">
+            <li class="navListTablet" onclick="window.location.href ='/Tutor/TutorStream'"><img src="~/images/TutorAssets/TutorDashboard/StartStream2x.png" /></li>
+            <li class="navListTablet" onclick="window.location.href ='/Tutor/HowToStream'"><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/HowToStream2x.png" /></li>
+            <li class="navListTablet" onclick="window.location.href ='/Tutor/TutorWatch'"><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/WatchStream2x.png" /></li>
+            <li class="navListTablet"><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/FollowingList2x.png" /></li>
+            <li class="navListTablet"><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/FollowerList2x.png" /></li>
         </ul>
     </nav>
 </div>
@@ -226,49 +249,49 @@
         <div class="row pt-4">
             <div class="col-lg-3 col-md-3 col-sm-3 col-12">
                 <label class="formHeaders d-block">Profile Picture</label>
-                <input class="rounded pl-0 pb-3 d-block ml-auto mr-auto"  type="image" src="~/images/GenericAssets/DefaultProfilePicture.png" style="width:120px" />
+                <input class="rounded pl-0 pb-3 d-block ml-auto mr-auto" type="image" src="~/images/GenericAssets/DefaultProfilePicture.png" style="width:120px" />
             </div>
             <div class="col-lg-9 col-md-9 col-sm-9 col-12">
-               <form>
-                   <div class="form-group">
-                       <div class="form-row">
-                           <div class="col-lg-6 col-md-6 col-sm-6">
-                               <label class="formHeaders">First Name</label>
-                               <input class="form-control border rounded-0 formInput" placeholder="First Name">
-                           </div>
-                           <div class="col-lg-6 col-md-6 col-sm-6">
-                               <label class="formHeaders">Last Name</label>
-                               <input class="form-control border rounded-0 formInput" placeholder="Last Name">
-                           </div>
-                       </div>
-                       <label class="formHeaders pt-3">Occupation / Major</label>
-                       <input class="form-control border rounded-0 formInput" placeholder="Occupation / Major">
-                       <div class="form-row pt-3">
-                           <div class="col-lg-6 col-md-6 col-sm-6">
-                               <label class="formHeaders">Location</label>
-                               <select class="form-control border formInput rounded-0">
-                                   <option>United States</option>
-                                   <option>1</option>
-                                   <option>2</option>
-                                   <option>3</option>
-                                   <option>4</option>
-                                   <option>5</option>
-                               </select>
-                           </div>
-                           <div class="col-lg-6 col-md-6 col-sm-6" style="margin-top:30px">
-                               <select class="form-control border formInput rounded-0">
-                                   <option>Arizona</option>
-                                   <option>1</option>
-                                   <option>2</option>
-                                   <option>3</option>
-                                   <option>4</option>
-                                   <option>5</option>
-                               </select>
-                           </div>
-                       </div>
-                       <div class="divider"></div>
-                   </div>
-               </form>
+                <form>
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <label class="formHeaders">First Name</label>
+                                <input class="form-control border rounded-0 formInput" placeholder="First Name">
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <label class="formHeaders">Last Name</label>
+                                <input class="form-control border rounded-0 formInput" placeholder="Last Name">
+                            </div>
+                        </div>
+                        <label class="formHeaders pt-3">Occupation / Major</label>
+                        <input class="form-control border rounded-0 formInput" placeholder="Occupation / Major">
+                        <div class="form-row pt-3">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <label class="formHeaders">Location</label>
+                                <select class="form-control border formInput rounded-0">
+                                    <option>United States</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6" style="margin-top:30px">
+                                <select class="form-control border formInput rounded-0">
+                                    <option>Arizona</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
