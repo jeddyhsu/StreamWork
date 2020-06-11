@@ -44,7 +44,7 @@
             <div class="row">
                 <div class="col-lg-6 col-md-12 col-sm-12 col-12 order-lg-1 order-md-2 order-sm-2 order-2 pr-2">
                     <div class="row">
-                        <div class="p-4 mb-4 ml-3">
+                        <div class="p-4 mb-2 ml-3">
                             <input align="left" class="rounded" type="image" src="~/images/GenericAssets/DefaultProfilePicture.png" style="width:80px;" />
                             <h5 class="d-inline-block" style="padding-left:20px; padding-top:10px; font-family:'Roboto Slab', serif; color: #707070;">@Model.TutorUserProfile.Name.Replace('|', ' ')</h5>
                             <p class="pt-0" style="padding-left:100px; font-family:'Roboto Slab', serif; font-size:12px; color: #9F9F9F">Major / Concentration</p>
@@ -62,12 +62,12 @@
                         </div>
                         <div class="d-inline-block mr-2">
                             <div class="card pr-2" style="background-color:#FFC627; color:white">
-                                <h6 class="m-0 pt-2 pb-2" style="font-size:9px; word-spacing:8px"><span style="background-color:#E6B62F; font-size:14px" class="p-2 rounded">@{Random rand = new Random(1247635134); int mult = rand.Next(10, 16); int views = Model.NumberOfViews * mult + rand.Next(mult);}@views</span> Followers</h6>
+                                <h6 class="m-0 pt-2 pb-2" style="font-size:9px; word-spacing:8px"><span style="background-color:#E6B62F; font-size:14px" class="p-2 rounded">@Model.NumberOfFollowers</span> Followers</h6>
                             </div>
                         </div>
                         <div class="d-inline-block mr-2">
                             <div class="card pr-2" style="background-color:#7266BA; color:white">
-                                <h6 class="m-0 pt-2 pb-2" style="font-size:9px; word-spacing:8px"><span style="background-color:#5C50A7; font-size:14px" class="p-2 rounded">@Model.NumberOfFollowers</span> Views</h6>
+                                <h6 class="m-0 pt-2 pb-2" style="font-size:9px; word-spacing:8px"><span style="background-color:#5C50A7; font-size:14px" class="p-2 rounded">@{Random rand = new Random(1247635134); int mult = rand.Next(10, 16); int views = Model.NumberOfViews * mult + rand.Next(mult);}@views</span> Views</h6>
                             </div>
                         </div>
                     </div>
@@ -97,7 +97,35 @@
             <div id="sliderObject" class="sliderObject"></div>
         </div>
         <div class="tab-content">
-            <div class="tab-pane active" id="profile" role="tabpanel" aria-labelledby="profile-tab">Profile</div>
+            <div class="tab-pane active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="container-fluid pt-4">
+                    <div class="row">
+                        <div class="col-lg-9 col-md-12 col-sm-12 col-12">
+                            <div class="card">
+                                <div class="card-title p-3" style="font-family:'Roboto Slab', serif; color:#9F9F9F; font-size:18px">Basic Information</div>
+                                <form class="pl-4 pr-4 pb-4">
+                                    <div class="form-row" id="formRow">
+                                        <div class="form-group col-lg-12">
+                                            <label class="formHeaders">Section 1 Title</label>
+                                            <input class="form-control border rounded-0 formInput" placeholder="Title of section one!">
+                                            <label class="formHeaders pt-3">Description</label>
+                                            <textarea class="form-control border rounded-0 formTextArea" placeholder="Tell us what you're studying, concentrations, passions, and other extra curricular activities here!"></textarea>
+                                        </div>
+                                        <div class="divider"></div>
+                                        <div class="form-group col-lg-12">
+                                            <label class="formHeaders">Section 2 Title</label>
+                                            <input class="form-control border rounded-0 formInput" placeholder="Title of section two!">
+                                            <label class="formHeaders pt-3">Description</label>
+                                            <textarea class="form-control border rounded-0 formTextArea" placeholder="Tell us what you're studying, concentrations, passions, and other extra curricular activities here!"></textarea>
+                                        </div>
+                                    </div>
+                                    <button class="streamWorkPrimary" onclick="AddSection(event)">Add Section</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="tab-pane" id="schedule" role="tabpanel" aria-labelledby="schedule-tab">Schedule</div>
             <div class="tab-pane" id="stream" role="tabpanel" aria-labelledby="stream-tab">Stream</div>
             <div class="tab-pane" id="comment" role="tabpanel" aria-labelledby="comment-tab">Comment</div>
