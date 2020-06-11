@@ -100,12 +100,30 @@
             <div class="tab-pane active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <div class="container-fluid pt-4">
                     <div class="row">
-                        <div class="col-lg-9 col-md-12 col-sm-12 col-12">
+                        <div class="col-lg-8 col-md-12 col-sm-12 col-12 p-2">
                             <div class="card">
                                 <div class="card-title p-3" style="font-family:'Roboto Slab', serif; color:#9F9F9F; font-size:18px">Basic Information</div>
                                 <form class="pl-4 pr-4 pb-4">
                                     <div class="form-row" id="formRowSection">
-                                        <div class="form-group col-lg-12">
+                                        <div class="form-group col-lg-3">
+                                            <label class="formHeaders">University</label>
+                                            <div class="card rounded-0">
+                                                <div class="card-body">
+                                                    <input type="image" src="~/images/TutorAssets/TutorDashboard/DefaultUniversity.png" class="form-control rounded-0;" style="width:100px; display:block; margin-left:auto; margin-right:auto" placeholder="Title of section one!">
+                                                </div>
+                                            </div>
+
+                                            <label class="formHeaders pt-3">Year/Class</label>
+                                            <select class="form-control border formInput rounded-0">
+                                                <option>-Select-Year/Class-</option>
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-lg-9">
                                             <label class="formHeaders">Section 1 Title</label>
                                             <input class="form-control border rounded-0 formInput" placeholder="Title of section one!">
                                             <label class="formHeaders pt-3">Description</label>
@@ -123,14 +141,14 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+                        <div class="col-lg-4 col-md-12 col-sm-12 col-12 p-2">
                             <div class="card">
                                 <div class="card-title p-3" style="font-family:'Roboto Slab', serif; color:#9F9F9F; font-size:18px">Academic Experience</div>
                                 <form class="pl-4 pr-4 pb-4">
                                     <div class="form-row" id="formRowTopic">
                                         <div class="form-group col-lg-12 border p-2">
                                             <label class="formHeaders">Topic</label>
-                                            <select class="form-control border formInput">
+                                            <select class="form-control border formInput rounded-0">
                                                 <option>-Select-Topic-</option>
                                                 <option>1</option>
                                                 <option>2</option>

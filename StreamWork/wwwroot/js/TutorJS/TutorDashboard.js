@@ -28,7 +28,7 @@ function AddSection(event) {
 
 function AddTopic(event) {
     event.preventDefault();
-    var topic = "<div class='divider'></div><div id='formTopic' class='form-group col-lg-12 border p-2'><label class='formHeaders'>Topic</label ><select class='form-control border formInput'><option>-Select-Topic-</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select><label class='formHeaders pt-3'>List Of Subject</label><textarea class='form-control border rounded-0 formTextArea' placeholder='Enter list of topics here!'></textarea></div>"
+    var topic = "<div class='divider'></div><div id='formTopic' class='form-group col-lg-12 border p-2'><label class='formHeaders'>Topic</label ><select class='form-control border formInput rounded-0'><option>-Select-Topic-</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select><label class='formHeaders pt-3'>List Of Subject</label><textarea class='form-control border rounded-0 formTextArea' placeholder='Enter list of topics here!'></textarea></div>"
     document.getElementById("formRowTopic").innerHTML += topic
     var e = document.getElementById("formTopic");
     e.scrollIntoView();
