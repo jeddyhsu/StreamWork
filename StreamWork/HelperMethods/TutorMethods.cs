@@ -31,10 +31,7 @@ namespace StreamWork.HelperMethods
                 var keys = form.Keys;
 
                 string formatString = "";
-                foreach (var key in keys)
-                {
-                    formatString += key.ToString() + "|" + form[key] + Environment.NewLine;
-                }
+                foreach (var key in keys) formatString += key.ToString() + "|" + form[key] + Environment.NewLine;
 
                 var url = _blobMethods.SaveFileIntoBlobContainer(userProfile.Username + "-" + userProfile.Id + ".txt", formatString);
                 return true;
@@ -48,15 +45,23 @@ namespace StreamWork.HelperMethods
 
         public List<Section> GetSections(UserLogin userProfile)
         {
-            List<Section> sectionsList = new List<Section>();
-            var blob = _blobMethods.GetBlockBlob(userProfile);
-            string sections = blob.DownloadText();
-            var sectionsSplit = sections.Split(Environment.NewLine);
-            for(int i = 0; i < sectionsSplit.Length - 1; i+=2)
+            try
             {
-                sectionsList.Add(new Section(sectionsSplit[i].Split("|")[1], sectionsSplit[i + 1].Split("|")[1]));
+                List<Section> sectionsList = new List<Section>();
+
+                var blob = _blobMethods.GetBlockBlob(userProfile);
+                var sections = blob.DownloadText();
+                var sectionsSplit = sections.Split(Environment.NewLine);
+
+                for (int i = 0; i < sectionsSplit.Length - 1; i += 2) sectionsList.Add(new Section(sectionsSplit[i].Split("|")[1], sectionsSplit[i + 1].Split("|")[1]));
+                return sectionsList;
             }
-            return sectionsList;
+            catch(Exception e)
+            {
+                Console.WriteLine("Error in TutorMethods: GetSections " + e.Message);
+                return null;
+            }
+           
         }
 
         public bool StartStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, HttpRequest request, UserChannel userChannel, UserLogin userProfile, string chatColor)
