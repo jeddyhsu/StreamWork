@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using StreamWork.ViewModels;
+using StreamWork.ViewModels.Stream;
 using StreamWork.HelperMethods;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;

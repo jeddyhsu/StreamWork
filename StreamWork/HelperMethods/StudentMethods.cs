@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 using StreamWork.Config;
 using StreamWork.Core;
 using StreamWork.DataModels;
-using StreamWork.ViewModels;
+using StreamWork.ViewModels.Student;
 
 namespace StreamWork.HelperMethods
 {

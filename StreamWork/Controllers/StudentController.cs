@@ -9,7 +9,7 @@ using StreamWork.Config;
 using StreamWork.Core;
 using StreamWork.DataModels;
 using StreamWork.HelperMethods;
-using StreamWork.ViewModels;
+using StreamWork.ViewModels.Student;
 
 namespace StreamWork.Controllers
 {

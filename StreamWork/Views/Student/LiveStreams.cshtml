@@ -1,4 +1,4 @@
-﻿@model StreamWork.ViewModels.ProfileStudentViewModel
+﻿@model StreamWork.ViewModels.Student.ProfileStudentViewModel
 
 @{Layout = "_LayoutStudentNavbar";}
 @{ViewData["Title"] = "LiveStreams  ";}
@@ -71,10 +71,8 @@
     </div>
 </div>
 
-<script>
-    $("#info").tooltip();
-    $("#info2").tooltip()
-</script>
+<script>$("#info").tooltip();
+    $("#info2").tooltip()</script>
 
 <style>
     .underline:hover {
@@ -82,13 +80,11 @@
     }
 </style>
 
-<script>
-    $(document).ready(function () {
+<script>$(document).ready(function () {
 
         $("#nav").click(function () {
 
             $("#navbarText").slideToggle();
 
         });
-    });
-</script>
+    });</script>

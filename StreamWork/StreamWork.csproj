@@ -43,6 +43,9 @@
     <Folder Include="wwwroot\images\GenericAssets\" />
     <Folder Include="wwwroot\js\TutorJS\" />
     <Folder Include="ViewModels\Tutor\" />
+    <Folder Include="ViewModels\Student\" />
+    <Folder Include="ViewModels\Stream\" />
+    <Folder Include="ViewModels\Chat\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="EmailTemplates\PasswordRecoveryEmailTemplate.html">

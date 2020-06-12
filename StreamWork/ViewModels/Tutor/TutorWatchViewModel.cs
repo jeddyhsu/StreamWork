@@ -1,6 +1,6 @@
 ﻿using StreamWork.DataModels;
 
-namespace StreamWork.ViewModels
+namespace StreamWork.ViewModels.Tutor
 {
     public class TutorWatchViewModel
     {

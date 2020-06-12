@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using StreamWork.DataModels;
 
-namespace StreamWork.ViewModels
+namespace StreamWork.ViewModels.Stream
 {
     public class StreamPlayBackPageViewModel
     {

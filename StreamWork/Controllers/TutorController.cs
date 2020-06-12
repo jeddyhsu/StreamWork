@@ -6,6 +6,7 @@ using StreamWork.Config;
 using System.Collections.Generic;
 using Microsoft.Extensions.Options;
 using StreamWork.ViewModels;
+using StreamWork.ViewModels.Tutor;
 using StreamWork.Threads;
 using StreamWork.HelperMethods;
 using System;

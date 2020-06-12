@@ -1,27 +1,22 @@
-﻿@model StreamWork.ViewModels.TutorStreamViewModel
+﻿@model StreamWork.ViewModels.Tutor.TutorStreamViewModel
 
-@{Layout = "_LayoutTutorNavbar";}
+@{Layout = "_LayoutNoNavBar";}
 @{ViewData["Title"] = "TutorStream";}
 
 @if (!Model.UserProfile.ProfileType.Equals("tutor") || !Model.UserProfile.AcceptedTutor)
 {
-    <script>
-        $(document).ready(function () {
+    <script>$(document).ready(function () {
             $('#unapprovedTutorModal').modal({
                 backdrop: 'static',
                 keyboard: false
             })
-        })
-        
-    </script>
+        })</script>
 }
 else if (Model.UserChannel.StreamTitle == null && Model.UserChannel.StreamSubject == null)
 {
-    <script>
-        $(document).ready(function () {
+    <script>$(document).ready(function () {
             OpenRegisterStreamModal();
-        })
-    </script>
+        })</script>
 }
 
 <div class="container-fluid">
@@ -134,18 +129,14 @@ else if (Model.UserChannel.StreamTitle == null && Model.UserChannel.StreamSubjec
 
 </div>
 
-<script>
-    $(document).ready(function () {
+<script>$(document).ready(function () {
 
         $("#nav").click(function () {
 
             $("#navbarText").slideToggle();
 
         });
-    });
-</script>
+    });</script>
 
-<script>
-    $("#info").tooltip();
-    $("#info2").tooltip();
-</script>
+<script>$("#info").tooltip();
+    $("#info2").tooltip();</script>

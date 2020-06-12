@@ -2,7 +2,7 @@
 using StreamWork.DataModels;
 using StreamWork.TutorObjects;
 
-namespace StreamWork.ViewModels {
+namespace StreamWork.ViewModels.Tutor {
 
     public class TutorDashboardViewModel {
 

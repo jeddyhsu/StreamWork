@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 using StreamWork.Config;
 using StreamWork.DataModels;
 using StreamWork.HelperMethods;
-using StreamWork.ViewModels;
+using StreamWork.ViewModels.Chat;
 
 namespace StreamWork.Controllers
 {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using StreamWork.DataModels;
 
-namespace StreamWork.ViewModels
+namespace StreamWork.ViewModels.Student
 {
     public class ProfileStudentViewModel
     {

@@ -1,8 +1,9 @@
 ﻿using StreamWork.DataModels;
 
-namespace StreamWork.ViewModels {
-    public class StreamPageViewModel {
-
+namespace StreamWork.ViewModels.Stream
+{
+    public class StreamPageViewModel
+    {
         public UserLogin StudentUserProfile { get; set; }
         public UserLogin TutorStreamingUserProfile { get; set; }
         public UserLogin TutorUserProfile { get; set; }
