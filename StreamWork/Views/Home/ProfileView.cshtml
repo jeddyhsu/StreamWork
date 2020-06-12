@@ -1,4 +1,4 @@
-﻿@model StreamWork.ViewModels.TutorDashboardViewModel
+﻿@model StreamWork.ViewModels.ProfileViewModel
 
 @{ViewData["Title"] = "ProfileView";}
 
@@ -90,9 +90,9 @@
 <div class="container-fluid" style="width:100%;">
     <h2 class="text-center" style="font-family:'Roboto Slab', serif"><b>Past Streams</b><span> <img id="info2" src="~/images/info_icon.png" style="width: 24px; height: 24px; margin-top: -5px;" data-toggle="tooltip" data-placement="right" title="Previously streamed recordings are located here" /></span></h2>
     <div class="row">
-        @if (Model.UserArchivedVideos.Count != 0)
+        @if (Model.UserArchivedStreams.Count != 0)
         {
-            @foreach (var videoInfo in Model.UserArchivedVideos)
+            @foreach (var videoInfo in Model.UserArchivedStreams)
             {
                 <div id="videoInfo-@videoInfo.Id" class="col-lg-3 col-md-6 col-sm-6">
                     <div class="card mt-3" style="border:none;background-color:transparent">

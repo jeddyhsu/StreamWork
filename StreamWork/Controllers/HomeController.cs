@@ -104,20 +104,20 @@ namespace StreamWork.Controllers
         [HttpGet]
         public async Task<IActionResult> ProfileView([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string tutor)
         {
-            TutorDashboardViewModel viewModel = new TutorDashboardViewModel
+            ProfileViewModel viewModel = new ProfileViewModel
             {
                 GenericUserProfile = HttpContext.User.Identity.Name != null ? await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, HttpContext.User.Identity.Name) : null,
                 TutorUserProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, tutor),
-                UserChannel = await _homeMethods.GetUserChannel(storageConfig, SQLQueries.GetUserChannelWithUsername, tutor),
-                UserArchivedVideos = await _homeMethods.GetArchivedStreams(storageConfig, SQLQueries.GetArchivedStreamsWithUsername, tutor),
+                UserArchivedStreams = await _homeMethods.GetArchivedStreams(storageConfig, SQLQueries.GetArchivedStreamsWithUsername, tutor),
                 NumberOfStreams = (await _homeMethods.GetArchivedStreams(storageConfig, SQLQueries.GetArchivedStreamsWithUsername, tutor)).Count
             };
 
             viewModel.NumberOfFollowers = await _followingMethods.GetNumberOfFollowers(storageConfig, viewModel.TutorUserProfile.Id);
             if (HttpContext.User.Identity.IsAuthenticated) viewModel.IsFollowing = await _followingMethods.IsFollowingFollowee(storageConfig, viewModel.GenericUserProfile.Id, viewModel.TutorUserProfile.Id);
-            viewModel.Schedule = _tutorMethods.GetTutorStreamSchedule(viewModel.UserChannel);
+            var userChannel = await _homeMethods.GetUserChannel(storageConfig, SQLQueries.GetUserChannelWithUsername, tutor);
+            viewModel.Schedule = _tutorMethods.GetTutorStreamSchedule(userChannel);
 
-            return View(viewModel);
+            return View();
         }
 
         [HttpPost]
@@ -273,7 +273,7 @@ namespace StreamWork.Controllers
 
             var user = HttpContext.User.Identity.Name;
 
-            TutorDashboardViewModel viewModel = new TutorDashboardViewModel
+            DonateViewModel viewModel = new DonateViewModel
             {
                 TutorUserProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, tutor),
                 GenericUserProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, user)

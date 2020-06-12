@@ -6,20 +6,14 @@ namespace StreamWork.ViewModels {
 
     public class TutorDashboardViewModel {
 
-        public UserLogin TutorUserProfile { get; set; }
-        public UserLogin GenericUserProfile { get; set; }
+        public UserLogin UserProfile { get; set; }
         public UserChannel UserChannel { get; set; }
 
-        public List<UserChannel> UserChannels { get; set; }
-        public List<UserArchivedStreams> UserArchivedVideos { get; set; }
-        public List<UserLogin> UserProfiles { get; set; }
+        public List<UserArchivedStreams> UserArchivedStreams { get; set; }
 
         public int NumberOfStreams { get; set; }
         public int NumberOfFollowers { get; set; }
         public int NumberOfViews { get; set; }
-        
-        public string ChatInfo { get; set; }
-        public bool IsFollowing { get; set; }
 
         public List<Recommendation> Recommendations { get; set; }
         public List<Day> Schedule = new List<Day>();

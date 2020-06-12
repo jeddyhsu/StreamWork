@@ -25,10 +25,10 @@
                     </li>
                 </ul>
                 <div class="btn-group navbarDropDown">
-                    <input class="navBarProfilePicture" type="image" data-toggle="dropdown" src=@Model.TutorUserProfile.ProfilePicture />
+                    <input class="navBarProfilePicture" type="image" data-toggle="dropdown" src=@Model.UserProfile.ProfilePicture />
                     <button type="button" class="btn btn-info dropdown-toggle navbarDropDownButton" data-toggle="dropdown"></button>
                     <div class="dropdown-menu" style="font-size:12px; min-width:0px !important">
-                        <a class="dropdown-item" onclick="Dashboard('@Model.TutorUserProfile.ProfileType')">Dashboard</a>
+                        <a class="dropdown-item" onclick="Dashboard('@Model.UserProfile.ProfileType')">Dashboard</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" id="Settings" href="/Tutor/TutorSettings">Settings</a>
                         <div class="dropdown-divider"></div>
@@ -45,8 +45,8 @@
                 <div class="col-lg-6 col-md-12 col-sm-12 col-12 order-lg-1 order-md-2 order-sm-2 order-2 pr-2">
                     <div class="row">
                         <div class="p-4 mb-2 ml-3">
-                            <input align="left" class="rounded" type="image" src="@Model.TutorUserProfile.ProfilePicture" style="width:80px;" />
-                            <h5 class="d-inline-block mb-0" style="padding-left:20px; padding-top:10px; font-family:'Roboto Slab', serif; color: #707070;">@Model.TutorUserProfile.Name.Replace('|', ' ')</h5>
+                            <input align="left" class="rounded" type="image" src="@Model.UserProfile.ProfilePicture" style="width:80px;" />
+                            <h5 class="d-inline-block mb-0" style="padding-left:20px; padding-top:10px; font-family:'Roboto Slab', serif; color: #707070;">@Model.UserProfile.Name.Replace('|', ' ')</h5>
                             <p class="pt-0 mt-0 mb-2" style="padding-left:100px; font-family:'Roboto Slab', serif; font-size:12px; color: #9F9F9F">Occupation / Major</p>
                             <p class="mb-0"style="padding-left:95px; font-family:'Roboto Slab', serif; font-size:8px; color: #9F9F9F"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
                             <p style="padding-left:95px; font-family:'Roboto Slab', serif; font-size:8px; color: #9F9F9F"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span>State</p>
@@ -181,9 +181,9 @@
                     </div>
                     <div class="divider"></div>
                     <div class="row">
-                        @if (Model.UserArchivedVideos.Count != 0)
+                        @if (Model.UserArchivedStreams.Count != 0)
                         {
-                            @foreach (var videoInfo in Model.UserArchivedVideos)
+                            @foreach (var videoInfo in Model.UserArchivedStreams)
                             {
                                 <div id="videoInfo-@videoInfo.Id" class="col-lg-3 col-md-6 col-sm-6">
                                     <div class="card mt-3 border-0" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px;">
@@ -192,7 +192,7 @@
                                         </div>
                                         <div class="card-body pt-0 pb-1">
                                             <h5 id="streamTitle-@videoInfo.Id" class="text-truncate formHeaders">@videoInfo.StreamTitle</h5>
-                                            <p class="text-truncate formHeaders" style="font-size:10px">@Model.TutorUserProfile.Name.Replace('|', ' ')</p>
+                                            <p class="text-truncate formHeaders" style="font-size:10px">@Model.UserProfile.Name.Replace('|', ' ')</p>
                                         </div>
                                         <div class="card-footer" style="background-color:orange; border-bottom-left-radius:20px; border-bottom-right-radius:20px;"></div>
                                     </div>
@@ -244,7 +244,7 @@
         <div class="row p-3">
             <div class="col-lg-3 col-md-3 col-sm-3 col-12">
                 <label class="formHeaders d-block pl-3">Profile Picture</label>
-                <input id="previewProfilePicture" class="rounded pl-0 pb-3 d-block ml-auto mr-auto" type="image" src="@Model.TutorUserProfile.ProfilePicture" style="width:120px" />
+                <input id="previewProfilePicture" class="rounded pl-0 pb-3 d-block ml-auto mr-auto" type="image" src="@Model.UserProfile.ProfilePicture" style="width:120px" />
                 <div class="d-block upload-uploadbtn-wrapper">
                     <button class="btn streamWorkPrimary  d-block ml-auto mr-auto" style="font-size:10px; width:125px">Upload a picture</button>
                     <input id="uploadProfilePicture" style="cursor:pointer" type='file' onchange="readURL(this,'ProfilePicture')" />
@@ -258,15 +258,15 @@
                         <div class="form-row">
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <label class="formHeaders">First Name</label>
-                                <input class="form-control border rounded-0 formInput" value="@Model.TutorUserProfile.Name.Split('|')[0]" placeholder="First Name">
+                                <input class="form-control border rounded-0 formInput" value="@Model.UserProfile.Name.Split('|')[0]" placeholder="First Name">
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6 pt-2 pt-lg-0 pt-md-0 pt-sm-0">
                                 <label class="formHeaders">Last Name</label>
-                                <input class="form-control border rounded-0 formInput" value="@Model.TutorUserProfile.Name.Split('|')[1]" placeholder="Last Name">
+                                <input class="form-control border rounded-0 formInput" value="@Model.UserProfile.Name.Split('|')[1]" placeholder="Last Name">
                             </div>
                         </div>
                         <label class="formHeaders pt-3">Occupation / Major</label>
-                        <input class="form-control border rounded-0 formInput" value="@Model.TutorUserProfile.ProfileCaption" placeholder="Occupation / Major">
+                        <input class="form-control border rounded-0 formInput" value="@Model.UserProfile.ProfileCaption" placeholder="Occupation / Major">
                         <div class="form-row pt-3">
                             <label class="formHeaders pl-1">Location</label>
                             <select class="form-control border formInput rounded-0">

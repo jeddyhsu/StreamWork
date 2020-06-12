@@ -1,9 +1,9 @@
-﻿@model StreamWork.ViewModels.TutorDashboardViewModel
+﻿@model StreamWork.ViewModels.TutorStreamViewModel
 
 @{Layout = "_LayoutTutorNavbar";}
 @{ViewData["Title"] = "TutorStream";}
 
-@if (!Model.TutorUserProfile.ProfileType.Equals("tutor") || !Model.TutorUserProfile.AcceptedTutor)
+@if (!Model.UserProfile.ProfileType.Equals("tutor") || !Model.UserProfile.AcceptedTutor)
 {
     <script>
         $(document).ready(function () {

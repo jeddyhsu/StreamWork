@@ -29,11 +29,10 @@ namespace StreamWork.Controllers
 
             var userProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, User.Identity.Name);
 
-            TutorDashboardViewModel viewModel = new TutorDashboardViewModel
+            TutorStreamViewModel viewModel = new TutorStreamViewModel
             {
-                TutorUserProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, User.Identity.Name),
+                UserProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, User.Identity.Name),
                 UserChannel = await _homeMethods.GetUserChannel(storageConfig, SQLQueries.GetUserChannelWithUsername, User.Identity.Name),
-                UserArchivedVideos = await _homeMethods.GetArchivedStreams(storageConfig, SQLQueries.GetArchivedStreamsWithUsername, User.Identity.Name),
                 ChatInfo = _encryptionMethods.EncryptString(userProfile.Username + "|" + userProfile.Id + "|" + userProfile.EmailAddress),
             };
 
@@ -66,21 +65,21 @@ namespace StreamWork.Controllers
 
             TutorDashboardViewModel viewModel = new TutorDashboardViewModel
             {
-                TutorUserProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, User.Identity.Name),
+                UserProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, User.Identity.Name),
                 UserChannel = await _homeMethods.GetUserChannel(storageConfig, SQLQueries.GetUserChannelWithUsername, User.Identity.Name),
-                UserArchivedVideos = await _homeMethods.GetArchivedStreams(storageConfig, SQLQueries.GetArchivedStreamsWithUsername, User.Identity.Name),
+                UserArchivedStreams = await _homeMethods.GetArchivedStreams(storageConfig, SQLQueries.GetArchivedStreamsWithUsername, User.Identity.Name),
                 NumberOfStreams = (await _homeMethods.GetArchivedStreams(storageConfig, SQLQueries.GetArchivedStreamsWithUsername, User.Identity.Name)).Count,
                 Recommendations = await _homeMethods.GetRecommendationsForTutor(storageConfig, User.Identity.Name),
             };
 
             int viewCount = 0;
-            foreach (var archivedStream in viewModel.UserArchivedVideos)
+            foreach (var archivedStream in viewModel.UserArchivedStreams)
             {
                 viewCount += archivedStream.Views;
             }
 
             viewModel.NumberOfViews = viewCount;
-            viewModel.NumberOfFollowers = await _followingMethods.GetNumberOfFollowers(storageConfig, viewModel.TutorUserProfile.Id);
+            viewModel.NumberOfFollowers = await _followingMethods.GetNumberOfFollowers(storageConfig, viewModel.UserProfile.Id);
             viewModel.Schedule = _tutorMethods.GetTutorStreamSchedule(viewModel.UserChannel);
 
             return View(viewModel);
@@ -139,9 +138,7 @@ namespace StreamWork.Controllers
 
             TutorDashboardViewModel viewModel = new TutorDashboardViewModel
             {
-                TutorUserProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, User.Identity.Name),
-                UserChannels = await _homeMethods.GetUserChannels(storageConfig, SQLQueries.GetUserChannelWithUsername, User.Identity.Name),
-                UserArchivedVideos = await _homeMethods.GetArchivedStreams(storageConfig, SQLQueries.GetArchivedStreamsWithUsername, User.Identity.Name)
+                UserProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, User.Identity.Name),
             };
 
             return View(viewModel);
@@ -166,9 +163,9 @@ namespace StreamWork.Controllers
             if (HttpContext.User.Identity.IsAuthenticated == false)
                 return Redirect(_homeMethods._host + "/Home/Login?dest=-Tutor-TutorStream");
 
-            TutorDashboardViewModel viewModel = new TutorDashboardViewModel
+            TutorWatchViewModel viewModel = new TutorWatchViewModel
             {
-                TutorUserProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, User.Identity.Name),
+                UserProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, User.Identity.Name),
 
                 SearchViewModel = new SearchViewModel
                 {
