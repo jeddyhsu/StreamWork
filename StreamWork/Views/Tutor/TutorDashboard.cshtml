@@ -127,16 +127,16 @@
                                         </div>
                                         <div class="form-group col-lg-9 pl-3">
                                             <label class="formHeaders">Section 1 Title</label>
-                                            <input name="SectionTitle-1" id="SectionTitle-1" class="form-control border rounded-0 formInput" placeholder="Title of section one!">
+                                            <input name="SectionTitle-1" id="SectionTitle-1" class="form-control border rounded-0 formInput" placeholder="Title of section one!" value="@Model.Sections[0].SectionTitle">
                                             <label class="formHeaders pt-3">Description</label>
-                                            <textarea name="SectionDescription-1" id="SectionDescription-1" class="form-control border rounded-0 formTextArea" placeholder="Tell us what you're studying, concentrations, passions, and other extra curricular activities here!"></textarea>
+                                            <textarea name="SectionDescription-1" id="SectionDescription-1" class="form-control border rounded-0 formTextArea" placeholder="Tell us what you're studying, concentrations, passions, and other extra curricular activities here!">@Model.Sections[0].SectionDescription</textarea>
                                         </div>
                                         <div class="divider"></div>
                                         <div class="form-group col-lg-12">
                                             <label class="formHeaders">Section 2 Title</label>
-                                            <input id="SectionTitle-2" class="form-control border rounded-0 formInput" placeholder="Title of section two!">
+                                            <input name="SectionTitle-2" id="SectionTitle-2" class="form-control border rounded-0 formInput" placeholder="Title of section two!" value="@Model.Sections[1].SectionTitle">
                                             <label class="formHeaders pt-3">Description</label>
-                                            <textarea id="SectionDescription-2" class="form-control border rounded-0 formTextArea" placeholder="Tell us what you're studying, concentrations, passions, and other extra curricular activities here!"></textarea>
+                                            <textarea name="SectionDescription-2" id="SectionDescription-2" class="form-control border rounded-0 formTextArea" placeholder="Tell us what you're studying, concentrations, passions, and other extra curricular activities here!">@Model.Sections[1].SectionDescription</textarea>
                                         </div>
                                     </div>
                                     <script>sectionCount = 2;</script>

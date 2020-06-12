@@ -56,7 +56,12 @@ function SaveBasicInformation(event) {
         type: "POST",
         url: "/Tutor/SaveSection",
         dataType: 'json',
-        data: seriallize
+        data: seriallize,
+        success(data) {
+            if (data === "Failed") {
+                location.reload;
+            }
+        }
     })
 }
 

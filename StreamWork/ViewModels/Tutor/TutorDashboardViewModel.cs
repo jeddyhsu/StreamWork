@@ -15,6 +15,7 @@ namespace StreamWork.ViewModels.Tutor {
         public int NumberOfFollowers { get; set; }
         public int NumberOfViews { get; set; }
 
+        public List<Section> Sections { get; set; }
         public List<Recommendation> Recommendations { get; set; }
         public List<Day> Schedule = new List<Day>();
 

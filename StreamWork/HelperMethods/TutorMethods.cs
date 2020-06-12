@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +22,42 @@ namespace StreamWork.HelperMethods
     {
         private readonly HomeMethods _homeMethods = new HomeMethods();
         private readonly BlobMethods _blobMethods = new BlobMethods();
+
+        public bool SaveSection(HttpRequest request, UserLogin userProfile)
+        {
+            try
+            {
+                var form = request.Form;
+                var keys = form.Keys;
+
+                string formatString = "";
+                foreach (var key in keys)
+                {
+                    formatString += key.ToString() + "|" + form[key] + Environment.NewLine;
+                }
+
+                var url = _blobMethods.SaveFileIntoBlobContainer(userProfile.Username + "-" + userProfile.Id + ".txt", formatString);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error in TutorMethods: SaveSection " + e.Message);
+                return false;
+            }
+        }
+
+        public List<Section> GetSections(UserLogin userProfile)
+        {
+            List<Section> sectionsList = new List<Section>();
+            var blob = _blobMethods.GetBlockBlob(userProfile);
+            string sections = blob.DownloadText();
+            var sectionsSplit = sections.Split(Environment.NewLine);
+            for(int i = 0; i < sectionsSplit.Length - 1; i+=2)
+            {
+                sectionsList.Add(new Section(sectionsSplit[i].Split("|")[1], sectionsSplit[i + 1].Split("|")[1]));
+            }
+            return sectionsList;
+        }
 
         public bool StartStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, HttpRequest request, UserChannel userChannel, UserLogin userProfile, string chatColor)
         {
@@ -312,5 +350,6 @@ namespace StreamWork.HelperMethods
 
             return 0;
         }
+
     }
 }

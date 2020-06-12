@@ -65,12 +65,16 @@ namespace StreamWork.Controllers
             if (HttpContext.User.Identity.IsAuthenticated == false)
                 return Redirect(_homeMethods._host + "/Home/Login?dest=-Tutor-TutorDashboard");
 
+            var user = HttpContext.User.Identity.Name;
+            var userProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, user);
+
             TutorDashboardViewModel viewModel = new TutorDashboardViewModel
             {
                 UserProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, User.Identity.Name),
                 UserChannel = await _homeMethods.GetUserChannel(storageConfig, SQLQueries.GetUserChannelWithUsername, User.Identity.Name),
                 UserArchivedStreams = await _homeMethods.GetArchivedStreams(storageConfig, SQLQueries.GetArchivedStreamsWithUsername, User.Identity.Name),
                 NumberOfStreams = (await _homeMethods.GetArchivedStreams(storageConfig, SQLQueries.GetArchivedStreamsWithUsername, User.Identity.Name)).Count,
+                Sections = _tutorMethods.GetSections(userProfile),
                 Recommendations = await _homeMethods.GetRecommendationsForTutor(storageConfig, User.Identity.Name),
             };
 
@@ -223,21 +227,14 @@ namespace StreamWork.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveSection([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
+            var user = HttpContext.User.Identity.Name;
+            var userProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, user);
 
-            var form = HttpContext.Request.Form;
-            var keys = form.Keys;
-
-            string formatString = "";
-            foreach(var key in keys)
+            if (_tutorMethods.SaveSection(Request, userProfile))
             {
-                formatString += key.ToString() + "!--||--!" + form[key] + System.Environment.NewLine;
+                return Json(new { Message = JsonResponse.Success.ToString() });
             }
-
-            var url = _blobMethods.SaveFileIntoBlobContainer("Test.txt",formatString);
-
-            DefaultViewModel viewModel = new DefaultViewModel();
-
-            return View(viewModel);
+            return Json(new { Message = JsonResponse.Failed.ToString() });
         }
     }
 }

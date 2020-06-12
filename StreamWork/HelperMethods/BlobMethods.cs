@@ -6,6 +6,7 @@ using Microsoft.Azure.Storage.Blob;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.Processing;
+using StreamWork.DataModels;
 
 namespace StreamWork.HelperMethods
 {
@@ -15,7 +16,6 @@ namespace StreamWork.HelperMethods
 
         public string SaveImageIntoBlobContainer(IFormFile file, string reference, int width, int height) //Saves Images
         {
-            
             CloudStorageAccount cloudStorage = CloudStorageAccount.Parse(_blobconnectionString);
             CloudBlobClient blobClient = cloudStorage.CreateCloudBlobClient();
             CloudBlobContainer blobContainer = blobClient.GetContainerReference("streamworkblobcontainer");
@@ -41,6 +41,7 @@ namespace StreamWork.HelperMethods
                         int resizeWidth = (int)((float)currWidth / currHeight * height);
                         image.Mutate(i => i.Resize(resizeWidth, height).Crop(new Rectangle(Math.Abs(resizeWidth - width) / 2, 0, width - 1, height - 1)));
                     }
+                     
                     image.Save(output, encoder);
                     output.Position = 0;
                     blockBlob.UploadFromStream(output);
@@ -61,6 +62,15 @@ namespace StreamWork.HelperMethods
             blob.UploadText(content);
 
             return blob.Uri.AbsoluteUri;
+        }
+
+        public CloudBlockBlob GetBlockBlob(UserLogin userProfile)
+        {
+            CloudStorageAccount cloudStorage = CloudStorageAccount.Parse(_blobconnectionString);
+            CloudBlobClient blobClient = cloudStorage.CreateCloudBlobClient();
+            CloudBlobContainer blobContainer = blobClient.GetContainerReference("streamworktutorsectionscontainer");
+            CloudBlockBlob blob = blobContainer.GetBlockBlobReference(userProfile.Username + "-" + userProfile.Id + ".txt");
+            return blob;
         }
     }
 }
