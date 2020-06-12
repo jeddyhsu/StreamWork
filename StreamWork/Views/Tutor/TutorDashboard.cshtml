@@ -23,7 +23,6 @@
                         <a class="navItem nav-link pl-3 pr-3" href="#">About</a>
                     </li>
                 </ul>
-
                 <div class="btn-group navbarDropDown">
                     <input class="navBarProfilePicture" type="image" data-toggle="dropdown" src=@Model.TutorUserProfile.ProfilePicture />
                     <button type="button" class="btn btn-info dropdown-toggle navbarDropDownButton" data-toggle="dropdown"></button>
@@ -80,6 +79,7 @@
             </div>
         </div>
     </div>
+
     <div class="container-fluid pt-4" style="max-width:1800px">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
@@ -207,9 +207,6 @@
     </div>
 </div>
 
-<!--
-   
--->
 <div class="wrapper">
     <nav id="sidebar">
         <img class="logoSize" onclick="window.location.href ='/Home/Index" src="~/images/WhiteStreamWork.png" />
@@ -236,18 +233,20 @@
     </nav>
 </div>
 
-
 <div id="profileInformationModal" class="modal">
     <div class="modal-content">
-        <div class="close ml-auto">&times;</div>
+        <div class="close ml-auto" onclick="CloseModal()">&times;</div>
         <h5 style="padding-left:20px; padding-top:10px; font-family:'Roboto Slab', serif; font-size:16px; color: #707070;">Profile Information</h5>
         <div class="slider">
             <div class="sliderObject" style="width:155px"></div>
         </div>
         <div class="row p-3">
             <div class="col-lg-3 col-md-3 col-sm-3 col-12">
-                <label class="formHeaders d-block">Profile Picture</label>
+                <label class="formHeaders d-block pl-3">Profile Picture</label>
                 <input class="rounded pl-0 pb-3 d-block ml-auto mr-auto" type="image" src="~/images/GenericAssets/DefaultProfilePicture.png" style="width:120px" />
+                <button class="btn streamWorkPrimary d-block ml-auto mr-auto" style="font-size:10px; width:125px">Upload a Picture</button>
+                <button class="btn streamWorkSecondary d-block ml-auto mr-auto mt-1" style="font-size:10px; width:125px">Remove Picture</button>
+                <p class="text-center mt-3" style="font-size:8px">Upload must be either in png or jpg and must be less than 1mb</p>
             </div>
             <div class="col-lg-9 col-md-9 col-sm-9 col-12">
                 <form>
@@ -257,7 +256,7 @@
                                 <label class="formHeaders">First Name</label>
                                 <input class="form-control border rounded-0 formInput" placeholder="First Name">
                             </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="col-lg-6 col-md-6 col-sm-6 pt-2 pt-lg-0 pt-md-0 pt-sm-0">
                                 <label class="formHeaders">Last Name</label>
                                 <input class="form-control border rounded-0 formInput" placeholder="Last Name">
                             </div>

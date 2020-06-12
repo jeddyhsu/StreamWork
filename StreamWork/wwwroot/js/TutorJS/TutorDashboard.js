@@ -39,6 +39,11 @@ function OpenModal() {
     modal.style.display = "block";
 }
 
+function CloseModal() {
+    var modal = document.getElementById("profileInformationModal");
+    modal.style.display = "none";
+}
+
 
     
 
