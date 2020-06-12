@@ -1,4 +1,6 @@
-﻿function SliderProfile() {
+﻿var sectionCount = 0;
+
+function SliderProfile() {
     $('#profile-tab').tab('show');
     $('#sliderObject').css("transform", "translate3d(15px, 0px, 0px)")
 }
@@ -19,10 +21,11 @@ function SliderComment() {
 }
 
 function AddSection(event) {
+    sectionCount++;
     event.preventDefault();
-    var section = "<div class='divider'></div><div id='formSection' class='form-group col-lg-12'><label class='formHeaders'>Section 2 Title</label> <input class='form-control border rounded-0 formInput' placeholder='Title of section two!'><label class='formHeaders pt-3'>Description</label><textarea class='form-control border rounded - 0 formTextArea' placeholder='Tell us what you're studying, concentrations, passions, and other extra curricular activities here!'></textarea></div>"
+    var section = "<div class='divider'></div><div id='formSection-" + sectionCount + "' class='form-group col-lg-12'><label class='formHeaders'>Section " + sectionCount + " Title</label> <input class='form-control border rounded-0 formInput' placeholder='Title of section two!'><label class='formHeaders pt-3'>Description</label><textarea class='form-control border rounded - 0 formTextArea' placeholder='Tell us what you' re studying, concentrations, passions, and other extra curricular activities here!'></textarea></div > "
     document.getElementById("formRowSection").innerHTML += section
-    var e = document.getElementById("formSection");
+    var e = document.getElementById("formSection-" + sectionCount);
     e.scrollIntoView();
 }
 
@@ -42,6 +45,19 @@ function OpenModal() {
 function CloseModal() {
     var modal = document.getElementById("profileInformationModal");
     modal.style.display = "none";
+}
+
+function SaveBasicInformation(event) {
+
+    var form = $('#SectionForm');
+    var seriallize = form.serialize();
+
+    $.ajax({
+        type: "POST",
+        url: "/Tutor/SaveSection",
+        dataType: 'json',
+        data: seriallize
+    })
 }
 
 

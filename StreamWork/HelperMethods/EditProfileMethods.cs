@@ -10,8 +10,9 @@ namespace StreamWork.HelperMethods
 {
     public class EditProfileMethods
     {
-        readonly HomeMethods _homeMethods = new HomeMethods();
-        readonly TutorMethods _tutorMethods = new TutorMethods();
+        private readonly HomeMethods _homeMethods = new HomeMethods();
+        private readonly TutorMethods _tutorMethods = new TutorMethods();
+        private readonly BlobMethods _blobMethods = new BlobMethods();
 
         public async Task<string[]> EditProfile([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, HttpRequest request, string user)
         {
@@ -26,7 +27,7 @@ namespace StreamWork.HelperMethods
             userProfile.ProfileParagraph = profileParagraph;
             if (profilePicture != null)
             {
-                userProfile.ProfilePicture = _homeMethods.SaveIntoBlobContainer(profilePicture, userProfile.Id, 240, 320);
+                userProfile.ProfilePicture = _blobMethods.SaveImageIntoBlobContainer(profilePicture, userProfile.Id, 240, 320);
                 if (userProfile.ProfileType == "tutor")
                     await _tutorMethods.ChangeAllArchivedStreamAndUserChannelProfilePhotos(storageConfig, userProfile.Username, userProfile.ProfilePicture); //only if tutor
             }

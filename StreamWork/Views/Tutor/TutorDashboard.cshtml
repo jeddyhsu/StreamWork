@@ -48,7 +48,7 @@
                             <input align="left" class="rounded" type="image" src="@Model.UserProfile.ProfilePicture" style="width:80px;" />
                             <h5 class="d-inline-block mb-0" style="padding-left:20px; padding-top:10px; font-family:'Roboto Slab', serif; color: #707070;">@Model.UserProfile.Name.Replace('|', ' ')</h5>
                             <p class="pt-0 mt-0 mb-2" style="padding-left:100px; font-family:'Roboto Slab', serif; font-size:12px; color: #9F9F9F">Occupation / Major</p>
-                            <p class="mb-0"style="padding-left:95px; font-family:'Roboto Slab', serif; font-size:8px; color: #9F9F9F"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
+                            <p class="mb-0" style="padding-left:95px; font-family:'Roboto Slab', serif; font-size:8px; color: #9F9F9F"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
                             <p style="padding-left:95px; font-family:'Roboto Slab', serif; font-size:8px; color: #9F9F9F"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span>State</p>
                         </div>
                         <div class="ml-auto mr-5">
@@ -100,19 +100,19 @@
             <div id="sliderObject" class="sliderObject"></div>
         </div>
         <div class="tab-content">
-            <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <div class="tab-pane active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <div class="container-fluid pt-4">
                     <div class="row">
                         <div class="col-lg-8 col-md-12 col-sm-12 col-12 p-2">
                             <div class="card">
                                 <div class="card-title p-3" style="font-family:'Roboto Slab', serif; color:#9F9F9F; font-size:18px">Basic Information</div>
-                                <form class="pl-4 pr-4 pb-4">
+                                <form class="pl-4 pr-4 pb-4" id="SectionForm">
                                     <div class="form-row" id="formRowSection">
                                         <div class="form-group col-lg-3">
                                             <label class="formHeaders">University</label>
                                             <div class="card rounded-0">
                                                 <div class="card-body">
-                                                    <input type="image" src="~/images/TutorAssets/TutorDashboard/DefaultUniversity.png" class="form-control rounded-0;" style="width:100px; display:block; margin-left:auto; margin-right:auto" placeholder="Title of section one!">
+                                                    <input type="image" src="~/images/TutorAssets/TutorDashboard/DefaultUniversity.png" class="form-control rounded-0;" style="width:100px; display:block; margin-left:auto; margin-right:auto">
                                                 </div>
                                             </div>
                                             <label class="formHeaders pt-3">Year/Class</label>
@@ -127,19 +127,21 @@
                                         </div>
                                         <div class="form-group col-lg-9 pl-3">
                                             <label class="formHeaders">Section 1 Title</label>
-                                            <input class="form-control border rounded-0 formInput" placeholder="Title of section one!">
+                                            <input name="SectionTitle-1" id="SectionTitle-1" class="form-control border rounded-0 formInput" placeholder="Title of section one!">
                                             <label class="formHeaders pt-3">Description</label>
-                                            <textarea class="form-control border rounded-0 formTextArea" placeholder="Tell us what you're studying, concentrations, passions, and other extra curricular activities here!"></textarea>
+                                            <textarea name="SectionDescription-1" id="SectionDescription-1" class="form-control border rounded-0 formTextArea" placeholder="Tell us what you're studying, concentrations, passions, and other extra curricular activities here!"></textarea>
                                         </div>
                                         <div class="divider"></div>
                                         <div class="form-group col-lg-12">
                                             <label class="formHeaders">Section 2 Title</label>
-                                            <input class="form-control border rounded-0 formInput" placeholder="Title of section two!">
+                                            <input id="SectionTitle-2" class="form-control border rounded-0 formInput" placeholder="Title of section two!">
                                             <label class="formHeaders pt-3">Description</label>
-                                            <textarea class="form-control border rounded-0 formTextArea" placeholder="Tell us what you're studying, concentrations, passions, and other extra curricular activities here!"></textarea>
+                                            <textarea id="SectionDescription-2" class="form-control border rounded-0 formTextArea" placeholder="Tell us what you're studying, concentrations, passions, and other extra curricular activities here!"></textarea>
                                         </div>
                                     </div>
+                                    <script>sectionCount = 2;</script>
                                     <a style="cursor:pointer; color:#004643" onclick="AddSection(event)"> + Add Section</a>
+                                    <a style="cursor:pointer; color:#004643" onclick="SaveBasicInformation(event)">Save</a>
                                 </form>
                             </div>
                         </div>
@@ -163,6 +165,7 @@
                                         </div>
                                     </div>
                                     <a style="cursor:pointer; color:#004643" onclick="AddTopic(event)"> + Add Topic</a>
+                                    <a style="cursor:pointer; color:#004643" onclick="SaveBasicInformation(event)">Save</a>
                                 </form>
                             </div>
                         </div>
@@ -170,7 +173,7 @@
                 </div>
             </div>
             <div class="tab-pane" id="schedule" role="tabpanel" aria-labelledby="schedule-tab">Schedule</div>
-            <div class="tab-pane active" id="stream" role="tabpanel" aria-labelledby="stream-tab">
+            <div class="tab-pane" id="stream" role="tabpanel" aria-labelledby="stream-tab">
                 <div class="container-fluid pt-4">
                     <div class="row">
                         <div class="col-12">
@@ -201,7 +204,7 @@
                         }
                     </div>
                 </div>
-               
+
             </div>
             <div class="tab-pane" id="comment" role="tabpanel" aria-labelledby="comment-tab">Comment</div>
         </div>
@@ -242,17 +245,17 @@
             <div class="sliderObject" style="width:155px"></div>
         </div>
         <div class="row p-3">
-            <div class="col-lg-3 col-md-3 col-sm-3 col-12">
+            <div class="col-lg-3 col-md-3 col-sm-12 col-12">
                 <label class="formHeaders d-block pl-3">Profile Picture</label>
                 <input id="previewProfilePicture" class="rounded pl-0 pb-3 d-block ml-auto mr-auto" type="image" src="@Model.UserProfile.ProfilePicture" style="width:120px" />
                 <div class="d-block upload-uploadbtn-wrapper">
                     <button class="btn streamWorkPrimary  d-block ml-auto mr-auto" style="font-size:10px; width:125px">Upload a picture</button>
                     <input id="uploadProfilePicture" style="cursor:pointer" type='file' onchange="readURL(this,'ProfilePicture')" />
                 </div>
-                <button class="btn streamWorkSecondary d-block ml-auto mr-auto mt-1" style="font-size:10px; width:125px" onclick="RemoveProfilePicture()s">Remove Picture</button>
+                <button class="btn streamWorkSecondary d-block ml-auto mr-auto mt-1" style="font-size:10px; width:125px" onclick="RemoveProfilePicture()">Remove Picture</button>
                 <p class="text-center mt-3" style="font-size:8px">Upload must be either in png or jpg and must be less than 1 MB</p>
             </div>
-            <div class="col-lg-9 col-md-9 col-sm-9 col-12">
+            <div class="col-lg-9 col-md-9 col-sm-12 col-12">
                 <form>
                     <div class="form-group p-3">
                         <div class="form-row">
@@ -269,7 +272,7 @@
                         <input class="form-control border rounded-0 formInput" value="@Model.UserProfile.ProfileCaption" placeholder="Occupation / Major">
                         <div class="form-row pt-3">
                             <label class="formHeaders pl-1">Location</label>
-                            <select class="form-control border formInput rounded-0">
+                            <select class="form-control border-0 formInput rounded-0">
                                 <option value="AL">Alabama</option>
                                 <option value="AK">Alaska</option>
                                 <option value="AZ">Arizona</option>
@@ -325,7 +328,7 @@
                         </div>
                         <div class="divider"></div>
                         <label class="formHeaders">Timezone</label>
-                        <select class="form-control border formInput rounded-0">
+                        <select class="form-control border-0 formInput rounded-0">
                             <option value="-08:00">(GMT -8:00) Pacific Time</option>
                             <option value="-07:00">(GMT -7:00) Mountain Time</option>
                             <option value="-06:00">(GMT -6:00) Central Time</option>
@@ -337,6 +340,6 @@
                 </form>
             </div>
         </div>
-        <button class="btn border-0 rounded-0 p-3" style="background-color:#004643; color:white">Save Changes</button>
+        <button class="btn border-0 rounded-0 p-3" style="background-color:#008080; color:white">Save Changes</button>
     </div>
 </div>

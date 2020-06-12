@@ -18,7 +18,8 @@ namespace StreamWork.HelperMethods
 {
     public class TutorMethods //For functions involved with tutor code only
     {
-        readonly HomeMethods _homeMethods = new HomeMethods();
+        private readonly HomeMethods _homeMethods = new HomeMethods();
+        private readonly BlobMethods _blobMethods = new BlobMethods();
 
         public bool StartStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, HttpRequest request, UserChannel userChannel, UserLogin userProfile, string chatColor)
         {
@@ -31,7 +32,7 @@ namespace StreamWork.HelperMethods
                 var notifyStudent = request.Form["NotifiyStudent"];
                 var archivedStreamId = Guid.NewGuid().ToString();
                 if (request.Form.Files.Count > 0)
-                    streamThumbnail = _homeMethods.SaveIntoBlobContainer(request.Form.Files[0], archivedStreamId, 1280, 720);
+                    streamThumbnail = _blobMethods.SaveImageIntoBlobContainer(request.Form.Files[0], archivedStreamId, 1280, 720);
                 else
                     streamThumbnail = GetCorrespondingDefaultThumbnail(streamSubject);
 
@@ -55,7 +56,7 @@ namespace StreamWork.HelperMethods
             var streamTitle = request.Form["StreamTitle"];
             var streamDescription = request.Form["StreamDescription"];
             if (request.Form.Files.Count > 0)
-                streamThumbnail = _homeMethods.SaveIntoBlobContainer(request.Form.Files[0], videoId, 1280, 720);
+                streamThumbnail = _blobMethods.SaveImageIntoBlobContainer(request.Form.Files[0], videoId, 1280, 720);
 
             var archivedStream = await _homeMethods.GetArchivedStream(storageConfig, SQLQueries.GetArchivedStreamsWithId, videoId);
             archivedStream.StreamTitle = streamTitle;

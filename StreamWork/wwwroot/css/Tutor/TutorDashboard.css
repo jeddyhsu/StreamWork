@@ -258,10 +258,22 @@
     margin: auto;
     padding-top: 5px;
     border-radius: 0px;
-    width: 700px;
+    width: 950px;
+}
+
+@media (max-width: 950px) {
+    .modal-content {
+        width: 800px;
+    }
 }
 
 @media (max-width: 800px) {
+    .modal-content {
+        width: 650px;
+    }
+}
+
+@media (max-width: 650px) {
     .modal-content {
         width: 600px;
     }
@@ -269,13 +281,13 @@
 
 @media (max-width: 600px) {
     .modal-content {
-        width: 575px;
+        width: 500px;
     }
 }
 
-@media (max-width: 550px) {
+@media (max-width: 500px) {
     .modal-content {
-        width: 450px;
+        width: 350px;
     }
 }
 

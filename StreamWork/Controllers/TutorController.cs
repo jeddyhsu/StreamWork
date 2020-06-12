@@ -21,6 +21,7 @@ namespace StreamWork.Controllers
         private readonly EncryptionMethods _encryptionMethods = new EncryptionMethods();
         private readonly FollowingMethods _followingMethods = new FollowingMethods();
         private readonly StreamClientMethods _streamClientMethods = new StreamClientMethods();
+        private readonly BlobMethods _blobMethods = new BlobMethods();
 
         [HttpGet]
         public async Task<IActionResult> TutorStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
@@ -215,6 +216,26 @@ namespace StreamWork.Controllers
                 };
             }
             else viewModel = new DefaultViewModel { };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SaveSection([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
+
+            var form = HttpContext.Request.Form;
+            var keys = form.Keys;
+
+            string formatString = "";
+            foreach(var key in keys)
+            {
+                formatString += key.ToString() + "!--||--!" + form[key] + System.Environment.NewLine;
+            }
+
+            var url = _blobMethods.SaveFileIntoBlobContainer("Test.txt",formatString);
+
+            DefaultViewModel viewModel = new DefaultViewModel();
 
             return View(viewModel);
         }
