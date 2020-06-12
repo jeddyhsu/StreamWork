@@ -58,13 +58,17 @@
             }
             else {
             reader.onload = function (e) {
-                    $('#previewProfilePic')
+                    $('#previewProfilePicture')
                         .attr('src', e.target.result);
                 }
             }
             reader.readAsDataURL(input.files[0]);
         }
-    }
+ }
+
+function RemoveProfilePicture() {
+    document.getElementById("previewProfilePicture").src = "/images/GenericAssets/DefaultProfilePicture.png"
+}
 
 function Dashboard(profileType) {
     if (profileType == "tutor") {
