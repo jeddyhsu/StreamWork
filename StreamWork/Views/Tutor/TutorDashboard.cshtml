@@ -14,7 +14,7 @@
 
 <div class="container-fluid mr-0">
     <div class="row">
-        <nav class="navbar navbar-expand-lg navBar" style="background-color:white">
+        <nav class="navbar navbar-expand-lg p-1 w-100" style="background-color:white">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -30,8 +30,8 @@
                         <a class="navItem nav-link pl-3 pr-3" href="#">About</a>
                     </li>
                 </ul>
-                <div class="btn-group navbarDropDown">
-                    <input class="navBarProfilePicture" type="image" data-toggle="dropdown" src=@Model.UserProfile.ProfilePicture />
+                <div class="btn-group">
+                    <input class="navbar-profile-picture" type="image" data-toggle="dropdown" src=@Model.UserProfile.ProfilePicture />
                     <button type="button" class="btn btn-info dropdown-toggle navbarDropDownButton" data-toggle="dropdown"></button>
                     <div class="dropdown-menu" style="font-size:12px; min-width:0px !important">
                         <a class="dropdown-item" onclick="Dashboard('@Model.UserProfile.ProfileType')">Dashboard</a>
@@ -121,8 +121,8 @@
                                                     <input type="image" src="~/images/TutorAssets/TutorDashboard/DefaultUniversity.png" class="form-control border-0 rounded-0;" style="width:100px; height:100%; display:block; margin-left:auto; margin-right:auto">
                                                 </div>
                                             </div>
-                                            <label class="form-header pt-3">Year/Class</label>
-                                            <select class="form-control border formInput rounded-0">
+                                            <label class="form-header pt-4">Year/Class</label>
+                                            <select class="form-control border form-input rounded-0">
                                                 <option>-Select-Year/Class-</option>
                                                 <option>1</option>
                                                 <option>2</option>
@@ -136,14 +136,14 @@
                                             <div class="form-group col-lg-9 pl-3">
                                                 <label class="form-header">Section 1 Title</label>
                                                 <input name="SectionTitle-1" id="SectionTitle-1" class="form-control border rounded-0 form-input" placeholder="Title of section one!" value="@Model.Sections[0].SectionTitle">
-                                                <label class="formHeaders pt-3">Description</label>
+                                                <label class="form-header pt-3">Description</label>
                                                 <textarea name="SectionDescription-1" id="SectionDescription-1" class="form-control border rounded-0 form-textarea" placeholder="Tell us what you're studying, concentrations, passions, and other extra curricular activities here!">@Model.Sections[0].SectionDescription</textarea>
                                             </div>
                                             <div class="divider"></div>
                                             <div class="form-group col-lg-12">
                                                 <label class="form-header">Section 2 Title</label>
                                                 <input name="SectionTitle-2" id="SectionTitle-2" class="form-control border rounded-0 form-input" placeholder="Title of section two!" value="@Model.Sections[1].SectionTitle">
-                                                <label class="formHeaders pt-3">Description</label>
+                                                <label class="form-header pt-3">Description</label>
                                                 <textarea name="SectionDescription-2" id="SectionDescription-2" class="form-control border rounded-0 form-textarea" placeholder="Tell us what you're studying, concentrations, passions, and other extra curricular activities here!">@Model.Sections[1].SectionDescription</textarea>
                                             </div>
                                             if (Model.Sections.Count > 2)
@@ -166,29 +166,23 @@
                                         else
                                         {
                                             <div class="form-group col-lg-9 pl-3">
-                                                <label class="formHeaders">Section 1 Title</label>
-                                                <input name="SectionTitle-1" id="SectionTitle-1" class="form-control border rounded-0 formInput" placeholder="Title of section one!">
-                                                <label class="formHeaders pt-3">Description</label>
-                                                <textarea name="SectionDescription-1" id="SectionDescription-1" class="form-control border rounded-0 formTextArea" placeholder="Tell us what you're studying, concentrations, passions, and other extra curricular activities here!"></textarea>
+                                                <label class="form-header">Section 1 Title</label>
+                                                <input name="SectionTitle-1" id="SectionTitle-1" class="form-control border rounded-0 form-input" placeholder="Title of section one!">
+                                                <label class="form-header pt-3">Description</label>
+                                                <textarea name="SectionDescription-1" id="SectionDescription-1" class="form-control border rounded-0 form-textarea" placeholder="Tell us what you're studying, concentrations, passions, and other extra curricular activities here!"></textarea>
                                             </div>
                                             <div class="divider"></div>
                                             <div class="form-group col-lg-12">
-                                                <label class="formHeaders">Section 2 Title</label>
-                                                <input name="SectionTitle-2" id="SectionTitle-2" class="form-control border rounded-0 formInput" placeholder="Title of section two!">
-                                                <label class="formHeaders pt-3">Description</label>
-                                                <textarea name="SectionDescription-2" id="SectionDescription-2" class="form-control border rounded-0 formTextArea" placeholder="Tell us what you're studying, concentrations, passions, and other extra curricular activities here!"></textarea>
+                                                <label class="form-header">Section 2 Title</label>
+                                                <input name="SectionTitle-2" id="SectionTitle-2" class="form-control border rounded-0 form-input" placeholder="Title of section two!">
+                                                <label class="form-header pt-3">Description</label>
+                                                <textarea name="SectionDescription-2" id="SectionDescription-2" class="form-control border rounded-0 form-textarea" placeholder="Tell us what you're studying, concentrations, passions, and other extra curricular activities here!"></textarea>
                                             </div>
                                             <script>sectionCount = 2</script>
                                         }
                                     </div>
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <a class="" style="cursor:pointer; color:#004643" onclick="AddSection(event)"> + Add Section</a>
-                                        </div>
-                                        <div class="col-4">
-                                            <a style="cursor:pointer; color:#004643" onclick="SaveBasicInformation(event)">Save</a>
-                                        </div>
-                                    </div>
+                                    <a class="d-inline-block" style="cursor:pointer; color:#004643" onclick="AddSection(event)"> + Add Section</a>
+                                    <a class="d-inline-block" style="cursor:pointer; float:right; color:#004643" onclick="SaveBasicInformation(event)"><span><img src="~/images/TutorAssets/TutorDashboard/Save.png" /></span>Save</a>
                                 </form>
                             </div>
                         </div>
@@ -212,7 +206,7 @@
                                         </div>
                                     </div>
                                     <a style="cursor:pointer; color:#004643" onclick="AddTopic(event)"> + Add Topic</a>
-                                    <a style="cursor:pointer; color:#004643" onclick="SaveBasicInformation(event)">Save</a>
+                                    <a style="cursor:pointer; float:right; color:#004643" onclick="SaveBasicInformation(event)"><span><img src="~/images/TutorAssets/TutorDashboard/Save.png" /></span>Save</a>
                                 </form>
                             </div>
                         </div>
@@ -289,7 +283,7 @@
         <div class="close ml-auto" onclick="CloseModal()">&times;</div>
         <h5 style="padding-left:20px; padding-top:10px; font-family:'Roboto Slab', serif; font-size:16px; color: #707070;">Profile Information</h5>
         <div class="slider">
-            <div class="sliderObject" style="width:155px"></div>
+            <div class="slider-object" style="width:155px"></div>
         </div>
         <div class="row p-3">
             <div class="col-lg-3 col-md-3 col-sm-12 col-12">
@@ -307,19 +301,19 @@
                     <div class="form-group p-3">
                         <div class="form-row">
                             <div class="col-lg-6 col-md-6 col-sm-6">
-                                <label class="formHeaders">First Name</label>
-                                <input class="form-control border rounded-0 formInput" value="@Model.UserProfile.Name.Split('|')[0]" placeholder="First Name">
+                                <label class="form-header">First Name</label>
+                                <input class="form-control border rounded-0 form-input" value="@Model.UserProfile.Name.Split('|')[0]" placeholder="First Name">
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6 pt-2 pt-lg-0 pt-md-0 pt-sm-0">
                                 <label class="formHeaders">Last Name</label>
-                                <input class="form-control border rounded-0 formInput" value="@Model.UserProfile.Name.Split('|')[1]" placeholder="Last Name">
+                                <input class="form-control border rounded-0 form-input" value="@Model.UserProfile.Name.Split('|')[1]" placeholder="Last Name">
                             </div>
                         </div>
-                        <label class="formHeaders pt-3">Occupation / Major</label>
-                        <input class="form-control border rounded-0 formInput" value="@Model.UserProfile.ProfileCaption" placeholder="Occupation / Major">
+                        <label class="form-header pt-3">Occupation / Major</label>
+                        <input class="form-control border rounded-0 form-input" value="@Model.UserProfile.ProfileCaption" placeholder="Occupation / Major">
                         <div class="form-row pt-3">
-                            <label class="formHeaders pl-1">Location</label>
-                            <select class="form-control border-0 formInput rounded-0">
+                            <label class="form-header pl-1">Location</label>
+                            <select class="form-control border-0 form-input rounded-0">
                                 <option value="AL">Alabama</option>
                                 <option value="AK">Alaska</option>
                                 <option value="AZ">Arizona</option>
@@ -374,8 +368,8 @@
                             </select>
                         </div>
                         <div class="divider"></div>
-                        <label class="formHeaders">Timezone</label>
-                        <select class="form-control border-0 formInput rounded-0">
+                        <label class="form-header">Timezone</label>
+                        <select class="form-control border-0 form-input rounded-0">
                             <option value="-08:00">(GMT -8:00) Pacific Time</option>
                             <option value="-07:00">(GMT -7:00) Mountain Time</option>
                             <option value="-06:00">(GMT -6:00) Central Time</option>
