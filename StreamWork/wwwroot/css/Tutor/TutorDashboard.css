@@ -1,5 +1,5 @@
 ﻿body {
-    background-color:rebeccapurple;
+    background-color: #F3F3F3;
 }
 
 .containerFluid {
@@ -82,35 +82,6 @@
     }
 }
 
-.navBar {
-    width: 100%;
-    background-color:white
-}
-
-.navbarDropDown {
-
-}
-
-.navbarDropDownButton {
-    background-color: #006060;
-    border: none;
-}
-
-.navBarProfilePicture {
-    width: 40px;
-    height: 50px;
-    border-top-left-radius: 5%;
-    border-bottom-left-radius: 5%;
-    border-top-right-radius: 0%;
-    border-bottom-right-radius: 0%;
-}
-
-@media screen and (max-width: 600px) {
-    .navBar {
-        width: 100%
-    }
-}
-
 .logoSize {
     width: 150px;
     display: block;
@@ -149,11 +120,6 @@
     display:block;
     margin-right:auto;
     margin-left:auto;
-}
-
-.navItem {
-    color: #004643;
-    font-family: 'Roboto Slab', serif;
 }
 
 .slider {

@@ -72,7 +72,7 @@ function RemoveSection(sectionNumber) {
     section.remove();
     divider.remove();
 
-    //shift all other sections down one
+    //shift all other sections down one 
     var sectionAbove = sectionNumber + 1; 
     for (var i = sectionAbove; i <= sectionCount; i++) {
         document.getElementById("divider-" + i).id = "divider-" + (i - 1);

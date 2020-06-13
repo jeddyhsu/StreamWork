@@ -26,7 +26,6 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
     <script src="~/js/EditProfile.js" asp-append-version="true"></script>
@@ -58,273 +57,37 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
     </noscript>
 </head>
 
-<body style="font-family:'Roboto'; background-color:whitesmoke; height:100%;">
-
-    <div class="container-fluid navBarHeight">
-        <nav class="navbar navbar-expand-lg pl-0 pr-0 navbar-light" style="background-color:white;">
-            <div class="navbar-header">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" id="nav" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon" style="width:15px"></span>
-                </button>
-            </div>
-
-            <a href="/"><img class="d-lg-none d-sm-block p-0" src="~/images/streamworkPencil.png" style="height:60px; margin-left:auto; margin-right:auto;" /></a>
-
-            @if (@Model.TutorUserProfile == null)
-            {
-                <img class="d-lg-none d-sm-block p-0" onclick="OpenLoginSignUpModal()" src="https://img.icons8.com/ios-glyphs/100/000000/person-male.png" style="margin-right:0px; height:30px; cursor:pointer; " />
-            }
-            else
-            {
-                <ul class="navbar-nav d-lg-none d-sm-block" style="float: none; margin:0px; display: block; text-align: right;">
-                    <li>
-                        <div class="btn-group">
-                            <input type="image" onclick="OpenLogoutModal()" src=@Model.TutorUserProfile.ProfilePicture style="width:32px; height:43px; border-radius:10px" />
-                        </div>
+<body>
+    <div class="row">
+        <nav class="navbar navbar-expand-lg navBar" style="background-color:white">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="navItem nav-link pl-3 pr-3" href="#">Tutor</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="navItem nav-link pl-3 pr-3" href="#">Browse</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="navItem nav-link pl-3 pr-3" href="#">About</a>
                     </li>
                 </ul>
-            }
-
-            <div class="collapse navbar-collapse" id="navbarText">
-                <div class="col-lg-5">
-                    <ul class="navbar-nav text-center">
-                        <li class="nav-item ml-md-0 mt-1" style="font-size:17px;">
-                            <a class="nav-link underline" href="/Tutor/TutorDashboard" style="color:#008080;"><b>Dashboard</b></a>
-                        </li>
-                        <li class="nav-item ml-md-0 ml-lg-3 mt-1" style="font-size:17px; ">
-                            <a class="nav-link underline" href="/Tutor/TutorWatch" style="color:#008080;"><b>Watch</b></a>
-                        </li>
-                        <li class="nav-item ml-md-0 ml-lg-3 mt-1" style="font-size:17px; ">
-                            <a class="nav-link underline" href="/Tutor/TutorStream" style="color:#008080;"><b>Stream</b></a>
-                        </li>
-                        <li class="nav-item ml-md-0 ml-lg-3 mt-1" style="font-size:17px; ">
-                            <a class="nav-link underline" href="/Home/HowToStream" style="color:#008080;"><b>Guide</b></a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="col-lg-2">
-                    <ul class="nav navbar-nav d-lg-none text-center" style="font-size:17px;">
-                        <li>
-                            <a class="nav-link underline" href="/" style="color:#008080"><b>Home</b></a>
-                        </li>
-                    </ul>
-                    <ul class="nav navbar-nav d-none d-lg-block" style="float: none; margin: 0 auto; display: block; text-align: center;">
-                        <li style="display: inline-block; float: none;">
-                            <a href="/"><img src="~/images/streamworklogo.png" height="50" /></a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="col-lg-5">
-                    @if (@Model.TutorUserProfile == null)
-                    {
-                        <ul class="nav navbar-nav d-none d-lg-block" style="float: none; margin: 0 auto; display: block; text-align: right;">
-                            <li class="nav-item mt-1" style="display: inline-block; float: none;">
-                                <a class="btn ml-4" style="color:#008080; font-size:17px; background-color:whitesmoke" href="/Home/PickStudentOrTutor"><b>Sign Up</b></a>
-                            </li>
-                            <li class="nav-item mt-1" style="display: inline-block; float: none;">
-                                <a class="btn" style="background-color:#006565; font-size:17px; color:white" ; href="/Home/Login?dest=-Home-Profile"><b>Login</b></a>
-                            </li>
-                        </ul>
-                    }
-                    else if (Model.TutorUserProfile != null)
-                    {
-                        <ul class="navbar-nav d-none d-lg-block" style="float: none; margin: 0 auto; display: block; text-align: right;">
-                            <li>
-                                <div class="btn-group" style="position:relative; left:2%;">
-                                    <input type="image" data-toggle="dropdown" src=@Model.TutorUserProfile.ProfilePicture style="width:60px; height:76px; border-top-left-radius:5%; border-bottom-left-radius:5%; border-top-right-radius:0%; border-bottom-right-radius:0%" />
-                                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:#006060; border:none;"></button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#" id="EditProfile" onclick="Dashboard('@Model.TutorUserProfile.ProfileType')">Dashboard</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" id="Settings" href="/Tutor/TutorSettings">Settings</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    }
+                <div class="btn-group navbarDropDown">
+                    <input class="navBarProfilePicture" type="image" data-toggle="dropdown" src=@Model.UserProfile.ProfilePicture />
+                    <button type="button" class="btn btn-info dropdown-toggle navbarDropDownButton" data-toggle="dropdown"></button>
+                    <div class="dropdown-menu" style="font-size:12px; min-width:0px !important">
+                        <a class="dropdown-item" onclick="Dashboard('@Model.UserProfile.ProfileType')">Dashboard</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" id="Settings" href="/Tutor/TutorSettings">Settings</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
+                    </div>
                 </div>
             </div>
         </nav>
-    </div>
-
-   
-
-    @*Add Stream for scheduling system*@
-    <div id="addScheduleModal" class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="background-color: whitesmoke">
-                <div class="modal-header">
-                    <h5 class="modal-title" style="color:black">Schedule Stream</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <input id="streamNameAdd" class="form-control" type="text" placeholder="Title" style="display:block; margin-right:auto; margin-left:auto; border-radius:5px" />
-                    <br />
-                    <div class="input-group date" id="datetimepickerAdd" data-target-input="nearest">
-                        <input id="dateTimeAdd" type="text" class="form-control datetimepicker-input" placeholder="Date & Time" data-target="#datetimepickerAdd" />
-                        <div class="input-group-append" data-target="#datetimepickerAdd" data-toggle="datetimepicker">
-                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="streamWorkPrimary" style="display:block; margin-left:auto; margin-right:auto; border-radius:5px; cursor:pointer" onclick="AddStreamToSchedule()">Add Stream</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    @*Edit Stream for scheduling system*@
-    <div id="editScheduleModal" class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="background-color: whitesmoke">
-                <div class="modal-header">
-                    <h5 id="Title" class="modal-title" style="color:black">Reschedule or Remove Stream</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <input class="form-control" id="streamNameEdit" value="" type="text" style="display:block; margin-right:auto; margin-left:auto; border-radius:5px" />
-                    <br />
-                    <div class="input-group date" id="datetimepickerEdit" data-target-input="nearest">
-                        <input id="dateTimeEdit" type="text" class="form-control datetimepicker-input" data-target="#datetimepickerEdit" />
-                        <div class="input-group-append" data-target="#datetimepickerEdit" data-toggle="datetimepicker">
-                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="streamWorkPrimary" style="display:block; margin-left:auto; margin-right:auto; border-radius:5px; cursor:pointer" onclick="UpdateStreamSchedule()">Reschedule Stream</button>
-                    <button class="streamWorkGrey" style="display:block; margin-left:auto; margin-right:auto; border-radius:5px; cursor:pointer;" onclick="RemoveStreamOnSchedule()">Remove Stream</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    @*Notifiy Viewers Modal*@
-    <div id="letViewersKnow" class="modal" tabindex="-2" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="background-color: whitesmoke;">
-                <div class="modal-header">
-                    <h5 class="modal-title" style="color: black;">Let Viewers Know You're Streaming</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <h5>Do you want to let students know that you are streaming? They will get a notification that you have gone live.</h5>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" style="background-color: #008080; color: white;" class="btn" data-dismiss="modal" onclick="RegisterStreamTitleAndStreamSubjectAndCustomThumbanail('yes');">Let Viewers Know!</button>
-                    <button type="button" style="background-color: black; color: white;" class="btn" data-dismiss="modal" onclick="RegisterStreamTitleAndStreamSubjectAndCustomThumbanail('no');">Just Testing</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    @*DeleteStreamConfirm Modal*@
-    <div id="deleteStreamConfirmModal" class="modal" tabindex="-2" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="background-color: whitesmoke;">
-                <div class="modal-header">
-                    <h5 class="modal-title" style="color: black;">Delete Stream</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <h5>Are you sure you want to delete this stream? It will not be recoverable.</h5>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="streamWorkGrey" data-dismiss="modal">Close</button>
-                    <button type="button" class="streamWorkRed" data-dismiss="modal" onclick="DeleteStream()">Delete</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    @*Edit/Delete Stream Modal*@
-    <div id="editDeleteStreamModal" class="modal" tabindex="-2" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="background-color: whitesmoke;">
-                <div class="modal-header">
-                    <h5 class="modal-title" style="color: black;">Edit/Delete Stream</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <input align="middle" type="text" class="form-control" id="streamTitleEdit" value="">
-                            <textarea align="middle" class="form-control mt-4" id="streamDescriptionEdit" placeholder="Description" value=""></textarea>
-                            <div class="upload-uploadbtn-wrapper">
-                                <button class="form-control"><span><img src="/images/Upload16.png"></span> Upload New Thumbnail</button>
-                                <input id="uploadThumbnailEdit" type="file" value="~/images/MathDefault.png" onchange="readURL(this,'ThumbnailEdit');">
-                            </div>
-                            <img class="mt-2" id="previewStreamThumbnailEdit" src="~/images/MathDefault.png" alt="your image" style="width:100%; border-radius:10px">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="streamWorkRed" data-dismiss="modal" onclick="OpenDeleteStreamConfirmModal()">Delete Stream</button>
-                    <button type="button" class="streamWorkPrimary" data-dismiss="modal" onclick="SaveEditedStreamInfo()">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    @*NotifyStudentsConfirm Modal*@
-    <div id="notifyStudentsConfirmModal" class="modal" tabindex="-2" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="background-color: whitesmoke;">
-                <div class="modal-header">
-                    <h5 class="modal-title" style="color: black;">Notify followers that you have gone live?</h5>
-                    <button type="button" class="close" aria-label="Close" onclick="OpenRegisterStreamModal()">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <h5>This will send out notifications to all your followers saying that you are streaming.</h5>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="streamWorkGrey" data-dismiss="modal" onclick="NotifyStudentsDecline()">No, don't notify</button>
-                    <button type="button" class="streamWorkPrimary" data-dismiss="modal" onclick="NotifyStudentsConfirm()">Yes, notify</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    @*Login/Sign Up Modal For Mobile View*@
-    <div id="loginSignUpModal" class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="background-color: whitesmoke">
-                <div class="modal-body">
-                    <a class="btn ml-4" style="color:#008080; font-size:17px; background-color:whitesmoke; display:block; margin-left:auto; margin-right:auto" href="/Home/PickStudentOrTutor"><b>Sign Up</b></a>
-                    <a class="btn " style="background-color:#006565; font-size:17px; color:white; display:block; margin-left:auto; margin-right:auto" ; href="/Home/Login?dest=-Home-Profile"><b>Login</b></a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    @*Logout Modal For Mobile View*@
-    <div id="logoutModal" class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="background-color: whitesmoke">
-                <div class="modal-body">
-                    <a class="btn ml-3" style="color:#008080; font-size:17px; background-color:whitesmoke; display:block; margin-left:auto; margin-right:auto" onclick="Dashboard('@Model.TutorUserProfile.ProfileType')"><b>Dashboard</b></a>
-                    <a class="btn ml-3" style="color:#008080; font-size:17px; background-color:whitesmoke; display:block; margin-left:auto; margin-right:auto" href="/Tutor/TutorSettings"><b>Settings</b></a>
-                    <a class="btn ml-3" style="color:#008080; font-size:17px; background-color:whitesmoke; display:block; margin-left:auto; margin-right:auto" onclick="Logout()"><b>Logout</b></a>
-                </div>
-            </div>
-        </div>
     </div>
 
     <div class="page-body">
