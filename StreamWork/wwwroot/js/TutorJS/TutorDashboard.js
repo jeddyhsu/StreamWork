@@ -2,30 +2,30 @@
 
 function SliderProfile() {
     $('#profile-tab').tab('show');
-    $('#sliderObject').css("transform", "translate3d(15px, 0px, 0px)")
+    $('#slider-object').css("transform", "translate3d(15px, 0px, 0px)")
 }
 
 function SliderSchedule() {
     $('#schedule-tab').tab('show');
-    $('#sliderObject').css("transform", "translate3d(110px, 0px, 0px)")
+    $('#slider-object').css("transform", "translate3d(110px, 0px, 0px)")
 }
 
 function SliderStream() {
     $('#stream-tab').tab('show');
-    $('#sliderObject').css("transform", "translate3d(210px, 0px, 0px)")
+    $('#slider-object').css("transform", "translate3d(210px, 0px, 0px)")
 }
 
 function SliderComment() {
     $('#comment-tab').tab('show');
-    $('#sliderObject').css("transform", "translate3d(315px, 0px, 0px)")
+    $('#slider-object').css("transform", "translate3d(315px, 0px, 0px)")
 }
 
 function AddSection(event) {
     sectionCount++;
     event.preventDefault();
-    var section = "<div class='divider'></div><div id='formSection-" + sectionCount + "' class='form-group col-lg-12'><label class='formHeaders' > Section " + sectionCount + " Title</label><input id='SectionTitle-" + sectionCount + "' name='SectionTitle-" + sectionCount + "' class='form-control border rounded-0 formInput' placeholder='Title of section " + sectionCount + "!'><label class='formHeaders pt-3'>Description</label><textarea id='SectionDescription-" + sectionCount + "' name='SectionDescription-" + sectionCount + "' class='form-control border rounded - 0 formTextArea' placeholder='Tell us what you' re studying, concentrations, passions, and other extra curricular activities here!'></textarea></div > "
-    document.getElementById("formRowSection").innerHTML += section
-    var e = document.getElementById("formSection-" + sectionCount);
+    var section = "<div class='divider'></div><div id='form-section-" + sectionCount + "' class='form-group col-lg-12'><label class='form-header'>Section " + sectionCount + " Title</label><input id='SectionTitle-" + sectionCount + "' name='SectionTitle-" + sectionCount + "' class='form-control border rounded-0 form-input' placeholder='Title of section " + sectionCount + "!'><label class='form-header pt-3'>Description</label><textarea id='SectionDescription-" + sectionCount + "' name='SectionDescription-" + sectionCount + "' class='form-control border rounded - 0 form-textarea' placeholder='Tell us what you' re studying, concentrations, passions, and other extra curricular activities here!'></textarea></div > "
+    document.getElementById("form-row-section").innerHTML += section
+    var e = document.getElementById("form-section-" + sectionCount);
     e.scrollIntoView();
 }
 
@@ -67,7 +67,7 @@ function SaveBasicInformation(event) {
 
 function RemoveSection(sectionNumber) {
     event.preventDefault();
-    var section = document.getElementById("formSection-" + sectionNumber);
+    var section = document.getElementById("form-section-" + sectionNumber);
     var divider = document.getElementById("divider-" + sectionNumber);
     section.remove();
     divider.remove();
@@ -76,7 +76,7 @@ function RemoveSection(sectionNumber) {
     var sectionAbove = sectionNumber + 1; 
     for (var i = sectionAbove; i <= sectionCount; i++) {
         document.getElementById("divider-" + i).id = "divider-" + (i - 1);
-        document.getElementById("formSection-" + i).id = "formSection-" + (i - 1);
+        document.getElementById("form-section-" + i).id = "form-section-" + (i - 1);
         var label = document.getElementById("SectionLabelTitle-" + i);
         label.id = "SectionLabelTitle-" + (i - 1);
         label.textContent = "Section " + (i - 1) + " Title"
