@@ -23,7 +23,7 @@ function SliderComment() {
 function AddSection(event) {
     sectionCount++;
     event.preventDefault();
-    var section = "<div class='divider'></div><div id='formSection-" + sectionCount + "' class='form-group col-lg-12'><label class='formHeaders'>Section " + sectionCount + " Title</label> <input class='form-control border rounded-0 formInput' placeholder='Title of section two!'><label class='formHeaders pt-3'>Description</label><textarea class='form-control border rounded - 0 formTextArea' placeholder='Tell us what you' re studying, concentrations, passions, and other extra curricular activities here!'></textarea></div > "
+    var section = "<div class='divider'></div><div id='formSection-" + sectionCount + "' class='form-group col-lg-12'><label class='formHeaders' > Section " + sectionCount + " Title</label><input id='SectionTitle-" + sectionCount + "' name='SectionTitle-" + sectionCount + "' class='form-control border rounded-0 formInput' placeholder='Title of section " + sectionCount + "!'><label class='formHeaders pt-3'>Description</label><textarea id='SectionDescription-" + sectionCount + "' name='SectionDescription-" + sectionCount + "' class='form-control border rounded - 0 formTextArea' placeholder='Tell us what you' re studying, concentrations, passions, and other extra curricular activities here!'></textarea></div > "
     document.getElementById("formRowSection").innerHTML += section
     var e = document.getElementById("formSection-" + sectionCount);
     e.scrollIntoView();
@@ -59,12 +59,39 @@ function SaveBasicInformation(event) {
         data: seriallize,
         success(data) {
             if (data === "Failed") {
-                location.reload;
+                location.reload();
             }
         }
     })
 }
 
+function RemoveSection(sectionNumber) {
+    event.preventDefault();
+    var section = document.getElementById("formSection-" + sectionNumber);
+    var divider = document.getElementById("divider-" + sectionNumber);
+    section.remove();
+    divider.remove();
+
+    //shift all other sections down one
+    var sectionAbove = sectionNumber + 1; 
+    for (var i = sectionAbove; i <= sectionCount; i++) {
+        document.getElementById("divider-" + i).id = "divider-" + (i - 1);
+        document.getElementById("formSection-" + i).id = "formSection-" + (i - 1);
+        var label = document.getElementById("SectionLabelTitle-" + i);
+        label.id = "SectionLabelTitle-" + (i - 1);
+        label.textContent = "Section " + (i - 1) + " Title"
+        document.getElementById("RemoveSectionIcon-" + (i - 1)).setAttribute("onclick", "RemoveSection(" + (i - 1) + ")");
+        var sectionTitle = document.getElementById("SectionTitle-" + i);
+        sectionTitle.id = "SectionTitle-" + (i - 1);
+        sectionTitle.name = "SectionTitle-" + (i - 1);
+        sectionTitle.setAttribute("placeholder", "Title of section " + (i - 1) + "!");
+        var sectionDescription = document.getElementById("SectionDescription-" + i);
+        sectionTitle.id = "SectionDescription-" + (i - 1);
+        sectionDescription.name = "SectionDescription-" + (i - 1);
+    }
+
+    sectionCount--;
+}
 
     
 

@@ -5,6 +5,7 @@
 <script src="~/js/TutorJS/TutorDashboard.js" asp-append-version="true"></script>
 <script src="~/js/EditProfile.js" asp-append-version="true"></script>
 <link rel="stylesheet" href="~/css/Tutor/TutorDashboard.css" asp-append-version="true" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <div class="container-fluid mr-0 containerFluid">
     <div class="row">
@@ -125,23 +126,64 @@
                                                 <option>5</option>
                                             </select>
                                         </div>
-                                        <div class="form-group col-lg-9 pl-3">
-                                            <label class="formHeaders">Section 1 Title</label>
-                                            <input name="SectionTitle-1" id="SectionTitle-1" class="form-control border rounded-0 formInput" placeholder="Title of section one!" value="@Model.Sections[0].SectionTitle">
-                                            <label class="formHeaders pt-3">Description</label>
-                                            <textarea name="SectionDescription-1" id="SectionDescription-1" class="form-control border rounded-0 formTextArea" placeholder="Tell us what you're studying, concentrations, passions, and other extra curricular activities here!">@Model.Sections[0].SectionDescription</textarea>
+                                        @if (Model.Sections != null)
+                                        {
+                                            <div class="form-group col-lg-9 pl-3">
+                                                <label class="formHeaders">Section 1 Title</label>
+                                                <input name="SectionTitle-1" id="SectionTitle-1" class="form-control border rounded-0 formInput" placeholder="Title of section one!" value="@Model.Sections[0].SectionTitle">
+                                                <label class="formHeaders pt-3">Description</label>
+                                                <textarea name="SectionDescription-1" id="SectionDescription-1" class="form-control border rounded-0 formTextArea" placeholder="Tell us what you're studying, concentrations, passions, and other extra curricular activities here!">@Model.Sections[0].SectionDescription</textarea>
+                                            </div>
+                                            <div class="divider"></div>
+                                            <div class="form-group col-lg-12">
+                                                <label class="formHeaders">Section 2 Title</label>
+                                                <input name="SectionTitle-2" id="SectionTitle-2" class="form-control border rounded-0 formInput" placeholder="Title of section two!" value="@Model.Sections[1].SectionTitle">
+                                                <label class="formHeaders pt-3">Description</label>
+                                                <textarea name="SectionDescription-2" id="SectionDescription-2" class="form-control border rounded-0 formTextArea" placeholder="Tell us what you're studying, concentrations, passions, and other extra curricular activities here!">@Model.Sections[1].SectionDescription</textarea>
+                                            </div>
+                                            if (Model.Sections.Count > 2)
+                                            {
+                                                for (int i = 2; i < Model.Sections.Count; i++)
+                                                {
+                                                    var t = i + 1;
+                                                    <div id="divider-@t" class="divider"></div>
+                                                    <div id="formSection-@t" class="form-group col-lg-12">
+                                                        <label id="SectionLabelTitle-@t" class="formHeaders d-inline-block">Section @t Title</label>
+                                                        <label class="formHeaders d-inline-block" style="float:right"><i id="RemoveSectionIcon-@i" class="fa fa-minus" style="font-size:14px;color:red" onclick="RemoveSection(@t)"></i></label>
+                                                        <input name="SectionTitle-@t" id="SectionTitle-@t" class="form-control border rounded-0 formInput" placeholder="Title of section @t!" value="@Model.Sections[i].SectionTitle">
+                                                        <label class="formHeaders pt-3">Description</label>
+                                                        <textarea name="SectionDescription-@t" id="SectionDescription-@t" class="form-control border rounded-0 formTextArea" placeholder="Tell us what you're studying, concentrations, passions, and other extra curricular activities here!">@Model.Sections[i].SectionDescription</textarea>
+                                                    </div>
+                                                }
+                                            }
+                                            <script>sectionCount = @Model.Sections.Count;</script>
+                                        }
+                                        else
+                                        {
+                                            <div class="form-group col-lg-9 pl-3">
+                                                <label class="formHeaders">Section 1 Title</label>
+                                                <input name="SectionTitle-1" id="SectionTitle-1" class="form-control border rounded-0 formInput" placeholder="Title of section one!">
+                                                <label class="formHeaders pt-3">Description</label>
+                                                <textarea name="SectionDescription-1" id="SectionDescription-1" class="form-control border rounded-0 formTextArea" placeholder="Tell us what you're studying, concentrations, passions, and other extra curricular activities here!"></textarea>
+                                            </div>
+                                            <div class="divider"></div>
+                                            <div class="form-group col-lg-12">
+                                                <label class="formHeaders">Section 2 Title</label>
+                                                <input name="SectionTitle-2" id="SectionTitle-2" class="form-control border rounded-0 formInput" placeholder="Title of section two!">
+                                                <label class="formHeaders pt-3">Description</label>
+                                                <textarea name="SectionDescription-2" id="SectionDescription-2" class="form-control border rounded-0 formTextArea" placeholder="Tell us what you're studying, concentrations, passions, and other extra curricular activities here!"></textarea>
+                                            </div>
+                                            <script>sectionCount = 2</script>
+                                        }
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <a class="" style="cursor:pointer; color:#004643" onclick="AddSection(event)"> + Add Section</a>
                                         </div>
-                                        <div class="divider"></div>
-                                        <div class="form-group col-lg-12">
-                                            <label class="formHeaders">Section 2 Title</label>
-                                            <input name="SectionTitle-2" id="SectionTitle-2" class="form-control border rounded-0 formInput" placeholder="Title of section two!" value="@Model.Sections[1].SectionTitle">
-                                            <label class="formHeaders pt-3">Description</label>
-                                            <textarea name="SectionDescription-2" id="SectionDescription-2" class="form-control border rounded-0 formTextArea" placeholder="Tell us what you're studying, concentrations, passions, and other extra curricular activities here!">@Model.Sections[1].SectionDescription</textarea>
+                                        <div class="col-4">
+                                            <a style="cursor:pointer; color:#004643" onclick="SaveBasicInformation(event)">Save</a>
                                         </div>
                                     </div>
-                                    <script>sectionCount = 2;</script>
-                                    <a style="cursor:pointer; color:#004643" onclick="AddSection(event)"> + Add Section</a>
-                                    <a style="cursor:pointer; color:#004643" onclick="SaveBasicInformation(event)">Save</a>
                                 </form>
                             </div>
                         </div>
