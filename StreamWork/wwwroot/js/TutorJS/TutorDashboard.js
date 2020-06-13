@@ -23,7 +23,7 @@ function SliderComment() {
 function AddSection(event) {
     sectionCount++;
     event.preventDefault();
-    var section = "<div id='divider-" + sectionCount + "' class='divider'></div><div id='form-section-" + sectionCount + "' class='form-group col-lg-12'><label id='SectionLabelTitle-" + sectionCount + "' class='form-header'>Section " + sectionCount + " Title</label><i id='RemoveSectionIcon-" + sectionCount + "' class='fa fa-minus d-inline-block form-section-topic-remove-icon' onclick='RemoveSection(" + sectionCount + ")'></i><input id='SectionTitle-" + sectionCount + "' name='SectionTitle-" + sectionCount + "' class='form-control border rounded-0 form-input' placeholder='Title of section " + sectionCount + "!'><label class='form-header pt-3'>Description</label><textarea id='SectionDescription-" + sectionCount + "' name='SectionDescription-" + sectionCount + "' class='form-control border rounded-0 form-textarea' placeholder='Tell us what you' re studying, concentrations, passions, and other extra curricular activities here!' ></textarea></div>"
+    var section = "<div id='divider-" + sectionCount + "' class='divider'></div><div id='form-section-" + sectionCount + "' class='form-group col-lg-12'><label id='SectionLabelTitle-" + sectionCount + "' class='form-header'>Section " + sectionCount + " Title</label><i id='RemoveSectionIcon-" + sectionCount + "' class='fa fa-minus d-inline-block form-section-topic-remove-icon' onclick='RemoveSection(" + sectionCount + ")'></i><input id='SectionTitle-" + sectionCount + "' name='SectionTitle-" + sectionCount + "' class='form-control border rounded-0 form-input' placeholder='Title of section " + sectionCount + "!'><label class='form-header pt-3'>Description</label><textarea id='SectionDescription-" + sectionCount + "' name='SectionDescription-" + sectionCount + "' class='form-control border rounded-0 form-textarea' placeholder='Tell us what you are studying, concentrations, passions, and other extra curricular activities here!' ></textarea></div>"
     document.getElementById("form-row-section").innerHTML += section
     var e = document.getElementById("form-section-" + sectionCount);
     e.scrollIntoView();
@@ -79,16 +79,20 @@ function RemoveSection(sectionNumber) {
     for (var i = sectionAbove; i <= sectionCount; i++) {
         document.getElementById("divider-" + i).id = "divider-" + (i - 1);
         document.getElementById("form-section-" + i).id = "form-section-" + (i - 1);
+
         var label = document.getElementById("SectionLabelTitle-" + i);
         label.id = "SectionLabelTitle-" + (i - 1);
         label.textContent = "Section " + (i - 1) + " Title"
+
         var removeIcon = document.getElementById("RemoveSectionIcon-" + i)
         removeIcon.id = "RemoveSectionIcon-" + (i - 1); 
         removeIcon.setAttribute("onclick", "RemoveSection(" + (i - 1) + ")");
+
         var sectionTitle = document.getElementById("SectionTitle-" + i);
         sectionTitle.id = "SectionTitle-" + (i - 1);
         sectionTitle.name = "SectionTitle-" + (i - 1);
         sectionTitle.setAttribute("placeholder", "Title of section " + (i - 1) + "!");
+
         var sectionDescription = document.getElementById("SectionDescription-" + i);
         sectionDescription.id = "SectionDescription-" + (i - 1);
         sectionDescription.name = "SectionDescription-" + (i - 1);
