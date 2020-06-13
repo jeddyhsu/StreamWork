@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <link rel="stylesheet" href="~/css/Tutor/TutorDashboard.css" asp-append-version="true" />
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
@@ -18,31 +19,33 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse pl-3" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item active d-block mr-auto ml-auto">
                         <a class="navItem nav-link pl-3 pr-3" href="#">Tutor</a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item active d-block mr-auto ml-auto">
                         <a class="navItem nav-link pl-3 pr-3" href="#">Browse</a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item active d-block mr-auto ml-auto">
                         <a class="navItem nav-link pl-3 pr-3" href="#">About</a>
                     </li>
                 </ul>
-                <div class="btn-group">
-                    <input class="navbar-profile-picture" type="image" data-toggle="dropdown" src=@Model.UserProfile.ProfilePicture />
-                    <button type="button" class="btn btn-info dropdown-toggle navbarDropDownButton" data-toggle="dropdown"></button>
-                    <div class="dropdown-menu" style="font-size:12px; min-width:0px !important">
-                        <a class="dropdown-item" onclick="Dashboard('@Model.UserProfile.ProfileType')">Dashboard</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" id="Settings" href="/Tutor/TutorSettings">Settings</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#" onclick="Logout()">Logout</a>
-                    </div>
+            </div>
+            <div class="btn-group">
+                <input class="navbar-profile-picture" type="image" data-toggle="dropdown" src=@Model.UserProfile.ProfilePicture />
+                <button type="button" id="dropdown" class="btn btn-info dropdown-toggle border-0 navbar-dropdown-button" data-toggle="dropdown"></button>
+                <div class="dropdown-menu dropdown-menu-right" style="font-size:12px; min-width:0px !important">
+                    <a class="dropdown-item" href="/Tutor/TutorDashboard">Dashboard</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" id="Settings" href="/Tutor/TutorSettings">Settings</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" onclick="Logout()">Logout</a>
                 </div>
             </div>
+            <script>$('#dropdown').dropdown()</script>
         </nav>
+
     </div>
 
     <div class="container-fluid inner-container-fluid pt-4">
@@ -58,8 +61,8 @@
                             <p style="padding-left:95px; font-family:'Roboto Slab', serif; font-size:8px; color: #9F9F9F"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span>State</p>
                         </div>
                         <div class="ml-auto mr-5">
-                            <button class="streamWorkPrimary mr-2" style="font-size:10px; height:35px; margin-top:30px" onclick="OpenModal()">Edit Profile</button>
-                            <button class="streamWorkSecondary" style="font-size:10px; height:35px; margin-top:30px">View Profile</button>
+                            <button class="streamWork-secondary mr-2" style="font-size:10px; height:35px; margin-top:30px" onclick="OpenModal()">Edit Profile</button>
+                            <button class="streamWork-primary" style="font-size:10px; height:35px; margin-top:30px">View Profile</button>
                         </div>
                     </div>
                     <div class="pl-4 mb-4">
@@ -154,7 +157,7 @@
                                                     <div id="divider-@t" class="divider"></div>
                                                     <div id="form-section-@t" class="form-group col-lg-12">
                                                         <label id="SectionLabelTitle-@t" class="form-header d-inline-block">Section @t Title</label>
-                                                        <label class="form-header d-inline-block" style="float:right"><i id="RemoveSectionIcon-@i" class="fa fa-minus" style="font-size:14px;color:red" onclick="RemoveSection(@t)"></i></label>
+                                                        <i id="RemoveSectionIcon-@t" class="fa fa-minus d-inline-block form-section-topic-remove-icon" onclick="RemoveSection(@t)"></i>
                                                         <input name="SectionTitle-@t" id="SectionTitle-@t" class="form-control border rounded-0 form-input" placeholder="Title of section @t!" value="@Model.Sections[i].SectionTitle">
                                                         <label class="formHeaders pt-3">Description</label>
                                                         <textarea name="SectionDescription-@t" id="SectionDescription-@t" class="form-control border rounded-0 form-textarea" placeholder="Tell us what you're studying, concentrations, passions, and other extra curricular activities here!">@Model.Sections[i].SectionDescription</textarea>
@@ -254,7 +257,7 @@
 
 <div class="wrapper">
     <nav id="sidebar">
-        <img class="logo-desktop" onclick="window.location.href ='/Home/Index" src="~/images/WhiteStreamWork.png" />
+        <img class="logo-desktop" onclick="window.location.href ='/'" src="~/images/WhiteStreamWork.png" />
         <ul class="p-0">
             <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Tutor/TutorStream'"><span><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/StartStream.png" /></span>Start Stream</li>
             <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Tutor/HowToStream'"><span><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/HowToStream.png" /></span>How To Stream</li>
@@ -267,7 +270,7 @@
 
 <div class="wrapper">
     <nav id="sidebar-tablet">
-        <img class="logo-tablet" onclick="window.location.href ='/Home/Index" src="~/images/streamWorkPencilWhite.png" />
+        <img class="logo-tablet" onclick="window.location.href ='/'" src="~/images/streamWorkPencilWhite.png" />
         <ul class="p-0">
             <li class="sidebar-list-item-tablet" onclick="window.location.href ='/Tutor/TutorStream'"><img src="~/images/TutorAssets/TutorDashboard/StartStream2x.png" /></li>
             <li class="sidebar-list-item-tablet" onclick="window.location.href ='/Tutor/HowToStream'"><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/HowToStream2x.png" /></li>

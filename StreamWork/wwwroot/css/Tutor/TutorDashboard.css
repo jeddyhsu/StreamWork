@@ -210,6 +210,13 @@
     height: 125px !important;
 }
 
+.form-section-topic-remove-icon {
+    font-size: 14px;
+    color: red;
+    cursor: pointer;
+    float:right
+}
+
 .modal {
     display: none;
     position: fixed;
