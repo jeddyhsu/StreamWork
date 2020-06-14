@@ -21,7 +21,7 @@ namespace StreamWork.Controllers
         private readonly EncryptionMethods _encryptionMethods = new EncryptionMethods();
         private readonly FollowingMethods _followingMethods = new FollowingMethods();
         private readonly StreamClientMethods _streamClientMethods = new StreamClientMethods();
-        private readonly BlobMethods _blobMethods = new BlobMethods();
+        private readonly EditProfileMethods _editProfileMethods = new EditProfileMethods();
 
         [HttpGet]
         public async Task<IActionResult> TutorStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
@@ -222,6 +222,16 @@ namespace StreamWork.Controllers
             else viewModel = new DefaultViewModel { };
 
             return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SaveProfile([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
+            var user = HttpContext.User.Identity.Name;
+            
+            var saved = await _editProfileMethods.EditProfile(storageConfig, Request, user);
+            if(saved != null) return Json(new { Message = JsonResponse.Success.ToString(), firstName = saved[0], lastName = saved[1], occupation = saved[2], location = saved[3], timezone = saved[4], linkedInUrl = saved[5], profilePicture = saved[6] });
+            return Json(new { Message = JsonResponse.Failed.ToString() });
         }
 
         [HttpPost]

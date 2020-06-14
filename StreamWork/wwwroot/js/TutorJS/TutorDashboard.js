@@ -23,7 +23,7 @@ function SliderComment() {
 function AddSection(event) {
     sectionCount++;
     event.preventDefault();
-    var section = "<div id='divider-" + sectionCount + "' class='divider'></div><div id='form-section-" + sectionCount + "' class='form-group col-lg-12'><label id='SectionLabelTitle-" + sectionCount + "' class='form-header'>Section " + sectionCount + " Title</label><i id='RemoveSectionIcon-" + sectionCount + "' class='fa fa-minus d-inline-block form-section-topic-remove-icon' onclick='RemoveSection(" + sectionCount + ")'></i><input id='SectionTitle-" + sectionCount + "' name='SectionTitle-" + sectionCount + "' class='form-control border rounded-0 form-input' placeholder='Title of section " + sectionCount + "!'><label class='form-header pt-3'>Description</label><textarea id='SectionDescription-" + sectionCount + "' name='SectionDescription-" + sectionCount + "' class='form-control border rounded-0 form-textarea' placeholder='Tell us what you are studying, concentrations, passions, and other extra curricular activities here!' ></textarea></div>"
+    var section = "<div id='divider-" + sectionCount + "' class='divider'></div><div id='form-section-" + sectionCount + "' class='form-group col-lg-12'><label id='SectionLabelTitle-" + sectionCount + "' class='form-header'>Section " + sectionCount + " Title</label><img id='RemoveSectionIcon-" + sectionCount + "' src='/images/TutorAssets/TutorDashboard/Remove.png' class='d-inline-block form-section-topic-remove-icon' onclick='RemoveSection(" + sectionCount + ")'></i><input id='SectionTitle-" + sectionCount + "' name='SectionTitle-" + sectionCount + "' class='form-control border rounded-0 form-input' placeholder='Title of section " + sectionCount + "!'><label class='form-header pt-3'>Description</label><textarea id='SectionDescription-" + sectionCount + "' name='SectionDescription-" + sectionCount + "' class='form-control border rounded-0 form-textarea' placeholder='Tell us what you are studying, concentrations, passions, and other extra curricular activities here!' ></textarea></div>"
     document.getElementById("form-row-section").innerHTML += section
     var e = document.getElementById("form-section-" + sectionCount);
     e.scrollIntoView();
@@ -102,8 +102,33 @@ function RemoveSection(sectionNumber) {
 }
 
     
-function SaveProfile(){
+function SaveProfile() {
+    var formData = new FormData();
+    var totalFiles = document.getElementById("uploadProfilePicture");
+    formData.append("FirstName", $('#first-name').val());
+    formData.append("LastName", $('#last-name').val());
+    formData.append("Occupation", $('#occupation-major').val());
+    formData.append("Location", $('#location').val());
+    formData.append("Timezone", $('#timezone').val());
+    formData.append("LinkedInUrl", $('#linkedin-url').val());
+    if (totalFiles.files.length > 0)
+        formData.append("ProfilePicture", totalFiles.files[0]);
 
+    $.ajax({
+        url: '/Tutor/SaveProfile',
+        type: 'POST',
+        dataType: 'json',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (data) {
+            if (data.message === "Success") {
+                document.getElementById("header-name").innerHTML = data.firstName + " " + data.lastName
+                document.getElementById("header-occupation").innerHTML = data.occupation
+                CloseModal();
+            }
+        }
+    })
 }
         
 

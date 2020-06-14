@@ -55,8 +55,8 @@
                     <div class="row">
                         <div class="p-4 mb-2 ml-3">
                             <input align="left" class="rounded" type="image" src="@Model.UserProfile.ProfilePicture" style="width:80px;" />
-                            <h5 class="d-inline-block mb-0" style="padding-left:20px; padding-top:10px; font-family:'Roboto Slab', serif; color: #707070;">@Model.UserProfile.Name.Replace('|', ' ')</h5>
-                            <p class="pt-0 mt-0 mb-2" style="padding-left:100px; font-family:'Roboto Slab', serif; font-size:12px; color: #9F9F9F">Occupation / Major</p>
+                            <p id="header-name" class="d-inline-block mb-0" style="padding-left:20px; padding-top:10px; font-family:'Roboto Slab', serif; color: #707070; font-size:20px">@Model.UserProfile.Name.Replace('|', ' ')</p>
+                            <p id="header-occupation" class="pt-0 mt-0 mb-2" style="padding-left:100px; font-family:'Roboto Slab', serif; font-size:12px; color: #9F9F9F">@Model.UserProfile.ProfileCaption</p>
                             <p class="mb-0" style="padding-left:95px; font-family:'Roboto Slab', serif; font-size:8px; color: #9F9F9F"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
                             <p style="padding-left:95px; font-family:'Roboto Slab', serif; font-size:8px; color: #9F9F9F"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span>State</p>
                         </div>
@@ -157,7 +157,7 @@
                                                     <div id="divider-@t" class="divider"></div>
                                                     <div id="form-section-@t" class="form-group col-lg-12">
                                                         <label id="SectionLabelTitle-@t" class="form-header d-inline-block">Section @t Title</label>
-                                                        <i id="RemoveSectionIcon-@t" class="fa fa-minus d-inline-block form-section-topic-remove-icon" onclick="RemoveSection(@t)"></i>
+                                                        <img id="RemoveSectionIcon-@t" src="~/images/TutorAssets/TutorDashboard/Remove.png" class="d-inline-block form-section-topic-remove-icon" onclick="RemoveSection(@t)"/>
                                                         <input name="SectionTitle-@t" id="SectionTitle-@t" class="form-control border rounded-0 form-input" placeholder="Title of section @t!" value="@Model.Sections[i].SectionTitle">
                                                         <label class="form-header pt-3">Description</label>
                                                         <textarea name="SectionDescription-@t" id="SectionDescription-@t" class="form-control border rounded-0 form-textarea" placeholder="Tell us what you are studying, concentrations, passions, and other extra curricular activities here!">@Model.Sections[i].SectionDescription</textarea>
@@ -204,7 +204,7 @@
                                                 <option>4</option>
                                                 <option>5</option>
                                             </select>
-                                            <label class="formHeaders pt-3">List Of Subject</label>
+                                            <label class="form-header pt-3">List Of Subject</label>
                                             <textarea class="form-control border rounded-0 form-textarea" placeholder="Enter list of topics here!"></textarea>
                                         </div>
                                     </div>
@@ -289,7 +289,7 @@
             <div class="slider-object" style="width:155px"></div>
         </div>
         <div class="row p-4">
-            <div class="col-lg-3 col-md-3 col-sm-12 col-12">
+            <div class="col-lg-3 col-md-3 col-sm-12 col-12 pl-0">
                 <label class="form-header d-block mt-2" style="margin-left:40px">Profile Picture</label>
                 <div class="image-container">
                     <input id="previewProfilePicture" class="rounded pl-0 pb-3 d-block ml-auto mr-auto" type="image" src="@Model.UserProfile.ProfilePicture" style="width:120px" />
@@ -302,9 +302,9 @@
                     </script>
                 </div>
             </div>
-            <div class="col-lg-9 col-md-9 col-sm-12 col-12">
+            <div class="col-lg-9 col-md-9 col-sm-12 col-12 p-3">
                 <form>
-                    <div class="form-group p-2">
+                    <div class="form-group pr-lg-4">
                         <div class="form-row">
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <label class="form-header">First Name</label>
@@ -331,7 +331,7 @@
                         </select>
                         <div class="divider"></div>
                         <label class="form-header">LinkedIn URL</label>
-                        <input id="location" class="form-control border rounded-0 form-input" value="@Model.UserProfile.LinkedInUrl" placeholder="LinkedIn Url">
+                        <input id="linkedin-url" class="form-control border rounded-0 form-input" value="@Model.UserProfile.LinkedInUrl" placeholder="LinkedIn Url">
                     </div>
                 </form>
             </div>
