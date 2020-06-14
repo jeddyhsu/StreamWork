@@ -292,3 +292,12 @@
   text-decoration: none;
   cursor: pointer;
 }
+.image-container{
+    position:relative;
+}
+
+.bottom-right {
+    position: absolute;
+    bottom: 8px;
+    right: 30px;
+}

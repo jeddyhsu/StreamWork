@@ -102,7 +102,9 @@ function RemoveSection(sectionNumber) {
 }
 
     
+function SaveProfile(){
 
+}
         
 
    

@@ -21,6 +21,9 @@ namespace StreamWork.DataModels
         public string ProfileParagraph { get; set; }
         public string College { get; set; }
         public string NotificationSubscribe { get; set; }
+        public string Location { get; set; }
+        public string LinkedInUrl { get; set; }
+        public string TimeZone { get; set; }
 
         //Students
         public decimal Balance { get; set; }
