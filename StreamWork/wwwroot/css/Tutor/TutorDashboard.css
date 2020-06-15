@@ -162,7 +162,7 @@
 }
 
 /*Bootstrap Column Resposive Widths*/
-@media (max-width: 1275px) {
+@media (max-width: 1250px) {
     .col-md-12 {
         -webkit-box-flex: 0;
         -ms-flex: 0 0 100%;
@@ -292,12 +292,14 @@
   text-decoration: none;
   cursor: pointer;
 }
+
 .image-container{
     position:relative;
 }
 
 .bottom-right {
     position: absolute;
-    bottom: 8px;
-    right: 30px;
+    bottom:12px;
+    right: -7px;
 }
+

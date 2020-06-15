@@ -1,5 +1,7 @@
 ﻿var sectionCount = 0;
 var topicCount = 0;
+var streamId = "";
+var isStreamEdited = false;
 
 function SliderProfile() {
     $('#profile-tab').tab('show');
@@ -123,13 +125,13 @@ function SaveTopic() {
     })
 }
 
-function OpenModal() {
-    var modal = document.getElementById("profileInformationModal");
+function OpenModal(modalId) {
+    var modal = document.getElementById(modalId);
     modal.style.display = "block";
 }
 
-function CloseModal() {
-    var modal = document.getElementById("profileInformationModal");
+function CloseModal(modalId) {
+    var modal = document.getElementById(modalId);
     modal.style.display = "none";
 }
 
@@ -160,6 +162,68 @@ function SaveProfile() {
             }
         }
     })
+}
+
+
+//Edit/Delete Streams
+function DeleteStream() {
+    $.ajax({
+        url: '/Tutor/DeleteStream',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            'id': videoId,
+        },
+        success: function (data) {
+            $('#videoInfo-' + videoId).hide();
+        }
+    });
+}
+
+function OpenEditStreamModal(id, title, description, thumbnail, modalId) {
+    OpenModal(modalId)
+    streamId = id
+    if (!isStreamEdited) {
+        document.getElementById("streamTitleEdit").value = title;
+        document.getElementById("streamDescriptionEdit").value = description;
+        document.getElementById("previewStreamThumbnailEdit").src = thumbnail;
+    }
+}
+
+function OpenDeleteStreamConfirmModal() {
+    $('#deleteStreamConfirmModal').modal('show');
+}
+
+function SaveEditedStreamInfo() {
+    var formData = new FormData()
+    var streamTitle = $('#streamTitleEdit').val();
+    var streamDescription = $('#streamDescriptionEdit').val();
+    var totalFile = document.getElementById("uploadThumbnailEdit")
+
+    formData.append("StreamId", streamId);
+    formData.append("StreamTitle", streamTitle);
+    formData.append("StreamDescription", streamDescription);
+    if (totalFile.files.length > 0) formData.append("StreamThumbnail", totalFile.files[0]);
+
+    $.ajax({
+        url: '/Tutor/SaveEditedStreamInfo',
+        type: 'POST',
+        dataType: 'json',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (data) {
+            if (data.message === "Success") {
+                isStreamEdited = true;
+                document.getElementById("streamTitle-" + streamId).innerHTML = data.title;
+                document.getElementById("streamThumbnail-" + streamId).src = data.thumbnail;
+                document.getElementById("streamTitleEdit").value = data.title;
+                document.getElementById("streamDescriptionEdit").value = data.description;
+                document.getElementById("previewStreamThumbnailEdit").src = data.thumbnail;
+                CloseModal("streamEditModal")
+            }
+        }
+    });
 }
         
 

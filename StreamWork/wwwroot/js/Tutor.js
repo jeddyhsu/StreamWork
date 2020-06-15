@@ -1,6 +1,5 @@
 ﻿
 var oDT = "";
-var videoId = "";
 var isEdited = false;
 var chatId = "";
 var chatInfo = ""
@@ -265,68 +264,6 @@ function ClearRecommendation(index, id) {
         },
         success: function (data) {
             $('#recommendation-' + index).hide();
-        }
-    });
-}
-
-
-//Edit/Delete Streams
-function DeleteStream() {
-    $.ajax({
-        url: '/Tutor/DeleteStream',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            'id': videoId,
-        },
-        success: function (data) {
-            $('#videoInfo-' + videoId).hide();
-        }
-    });
-}
-
-function OpenEditDeleteStreamModal(id, title, description, thumbnail) {
-    $('#editDeleteStreamModal').modal('show');
-    videoId = id
-    if (!isEdited) {
-        document.getElementById("streamTitleEdit").value = title;
-        document.getElementById("streamDescriptionEdit").value = description;
-        document.getElementById("previewStreamThumbnailEdit").src = thumbnail;
-    }
-}
-
-function OpenDeleteStreamConfirmModal() {
-    $('#deleteStreamConfirmModal').modal('show');
-}
-
-function SaveEditedStreamInfo() {
-    var formData = new FormData()
-    var streamTitle = $('#streamTitleEdit').val();
-    var streamDescription = $('#streamDescriptionEdit').val();
-    var totalFile = document.getElementById("uploadThumbnailEdit")
-
-    formData.append("StreamId", videoId);
-    formData.append("StreamTitle", streamTitle);
-    formData.append("StreamDescription", streamDescription);
-    if (totalFile.files.length > 0) formData.append("StreamThumbnail", totalFile.files[0]);
-
-    $.ajax({
-        url: '/Tutor/SaveEditedStreamInfo',
-        type: 'POST',
-        dataType: 'json',
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function (data) {
-            if (data.message === "Success") {
-                isEdited = true;
-                document.getElementById("streamTitle-" + videoId).innerHTML = data.title;
-                document.getElementById("streamThumbnail-" + videoId).src = data.thumbnail;
-                document.getElementById("streamTitleEdit").value = data.title;
-                document.getElementById("streamDescriptionEdit").value = data.description;
-                document.getElementById("previewStreamThumbnailEdit").src = data.thumbnail;
-                OpenNotificationModalSuccess("Changes have been saved");
-            }
         }
     });
 }
