@@ -19,6 +19,7 @@ function SignUpStudent() {
     formData.append("EmailAddress", $('#emailAddressS').val());
     formData.append("Username", $('#usernameS').val());
     formData.append("Password", $('#passwordS').val());
+    formData.append("College", $('#collegeS').val());
     formData.append("Role", 'student');
 
     $.ajax({
