@@ -111,7 +111,7 @@
             <div id="slider-object" class="slider-object"></div>
         </div>
         <div class="tab-content">
-            <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <div class="tab-pane active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <div class="container-fluid pt-4" style="width:100%">
                     <div class="row">
                         <div class="col-lg-8 col-md-12 col-sm-12 col-12 p-2">
@@ -207,8 +207,7 @@
                                                     <label class="form-header">Topic</label>
                                                     @if (i > 0)
                                                     {<img id="RemoveTopicIcon-@t" src="~/images/TutorAssets/TutorDashboard/Remove.png" class="d-inline-block form-section-topic-remove-icon" onclick="RemoveTopic(@t)" />}
-                                                    <select id="Topic-@t" name="Topic-@t" class="form-control border form-input rounded-0">
-                                                        <option>@Model.Topics[i].TopicName</option>
+                                                    <select asp-for="@Model.Topics[i].TopicName" id="Topic-@t" name="Topic-@t" class="form-control border form-input rounded-0">
                                                         <option>-Select-Topic-</option>
                                                         <option>Mathematics</option>
                                                         <option>Science</option>
@@ -260,7 +259,7 @@
                 </div>
             </div>
             <div class="tab-pane" id="schedule" role="tabpanel" aria-labelledby="schedule-tab">Schedule</div>
-            <div class="tab-pane active" id="stream" role="tabpanel" aria-labelledby="stream-tab">
+            <div class="tab-pane" id="stream" role="tabpanel" aria-labelledby="stream-tab">
                 <div class="container-fluid pt-4" style="width:100%">
                     <div class="row">
                         <div class="col-12">
@@ -325,7 +324,7 @@
 
 <div id="profileInformationModal" class="modal">
     <div class="modal-content">
-        <div class="close ml-auto" onclick="CloseModal('profileInformationModal')">&times;</div>
+        <div class="close ml-auto" onclick="DiscardChangesAndCloseModal('profileForm','profileInformationModal')">&times;</div>
         <h5 style="padding-left:20px; padding-top:10px; font-family:'Roboto Slab', serif; font-size:16px; color: #707070;">Profile Information</h5>
         <div class="slider">
             <div class="slider-object" style="width:155px"></div>
@@ -346,7 +345,7 @@
                 </div>
             </div>
             <div class="col-lg-9 col-md-12 col-sm-12 col-12 p-3">
-                <form>
+                <form id="profileForm">
                     <div class="form-group pr-lg-4">
                         <div class="form-row">
                             <div class="col-lg-6 col-md-6 col-sm-6">
@@ -364,13 +363,13 @@
                         <input id="location" class="form-control border rounded-0 form-input" value="@Model.UserProfile.Location" placeholder="Location">
                         <div class="divider"></div>
                         <label class="form-header">Timezone</label>
-                        <select id="timezone" class="form-control border-0 form-input rounded-0">
-                            <option value="-08:00">(GMT -8:00) Pacific Time</option>
-                            <option value="-07:00">(GMT -7:00) Mountain Time</option>
-                            <option value="-06:00">(GMT -6:00) Central Time</option>
-                            <option value="-05:00">(GMT -5:00) Eastern Time</option>
-                            <option value="-10:00">(GMT -10:00) Hawaii</option>
-                            <option value="-09:00">(GMT -9:00) Alaska</option>
+                        <select asp-for="@Model.UserProfile.TimeZone" id="timezone" class="form-control border-0 form-input rounded-0">
+                            <option value="(GMT -8:00) Pacific Time">(GMT -8:00) Pacific Time</option>
+                            <option value="(GMT -7:00) Mountain Time">(GMT -7:00) Mountain Time</option>
+                            <option value="(GMT -6:00) Central Time">(GMT -6:00) Central Time</option>
+                            <option value="(GMT -5:00) Eastern Time">(GMT -5:00) Eastern Time</option>
+                            <option value="(GMT -10:00) Hawaii">(GMT -10:00) Hawaii</option>
+                            <option value="(GMT -9:00) Alaska">(GMT -9:00) Alaska</option>
                         </select>
                         <div class="divider"></div>
                         <label class="form-header">LinkedIn URL</label>
@@ -382,19 +381,16 @@
         <button class="btn border-0 rounded-0 p-3" style="background-color:#004643; color:white" onclick="SaveProfile(this)">Save Changes</button>
     </div>
 </div>
-
-
-
 <div id="streamEditModal" class="modal">
     <div class="modal-content" >
-        <div class="close ml-auto" onclick="CloseModal('streamEditModal')">&times;</div>
+        <div class="close ml-auto" onclick="DiscardChangesAndCloseModal('streamEditForm','streamEditModal')">&times;</div>
         <h5 class="form-header" style="padding-left:20px; padding-top:10px; font-size:16px;">Edit Stream</h5>
         <div class="slider">
             <div class="slider-object" style="width:155px"></div>
         </div>
         <div class="row">
             <div class="col-12">
-                <form class="p-4">
+                <form id="streamEditForm" class="pt-4 pb-4 pl-5 pr-5">
                     <div class="form-group">
                         <div class="row">
                             <div class="col-lg-7 col-md-12 col-sm-12 col-12 mt-2">

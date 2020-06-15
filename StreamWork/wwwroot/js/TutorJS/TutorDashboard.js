@@ -125,16 +125,6 @@ function SaveTopic() {
     })
 }
 
-function OpenModal(modalId) {
-    var modal = document.getElementById(modalId);
-    modal.style.display = "block";
-}
-
-function CloseModal(modalId) {
-    var modal = document.getElementById(modalId);
-    modal.style.display = "none";
-}
-
 function SaveProfile() {
     var formData = new FormData();
     var totalFiles = document.getElementById("uploadProfilePicture");
@@ -158,14 +148,12 @@ function SaveProfile() {
             if (data.message === "Success") {
                 document.getElementById("header-name").innerHTML = data.firstName + " " + data.lastName
                 document.getElementById("header-occupation").innerHTML = data.occupation
-                CloseModal();
+                CloseModal('profileInformationModal');
             }
         }
     })
 }
 
-
-//Edit/Delete Streams
 function DeleteStream() {
     $.ajax({
         url: '/Tutor/DeleteStream',
@@ -225,9 +213,21 @@ function SaveEditedStreamInfo() {
         }
     });
 }
-        
 
-   
+function DiscardChangesAndCloseModal(formId, modalId) {
+    $('#' + formId).trigger("reset");
+    CloseModal(modalId);
+}
+
+function OpenModal(modalId) {
+    var modal = document.getElementById(modalId);
+    modal.style.display = "block";
+}
+
+function CloseModal(modalId) {
+    var modal = document.getElementById(modalId);
+    modal.style.display = "none";
+}
     
         
         
