@@ -39,7 +39,7 @@ function SaveSection(event) { //saves all sections
         type: "POST",
         url: "/Tutor/SaveSection",
         dataType: 'json',
-        data: seriallize,
+        data: serialize,
         success(data) {
             if (data === "Failed") {
                 location.reload();
