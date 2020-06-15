@@ -75,6 +75,7 @@ namespace StreamWork.Controllers
                 UserArchivedStreams = await _homeMethods.GetArchivedStreams(storageConfig, SQLQueries.GetArchivedStreamsWithUsername, User.Identity.Name),
                 NumberOfStreams = (await _homeMethods.GetArchivedStreams(storageConfig, SQLQueries.GetArchivedStreamsWithUsername, User.Identity.Name)).Count,
                 Sections = _tutorMethods.GetSections(userProfile),
+                Topics = _tutorMethods.GetTopics(userProfile),
                 Recommendations = await _homeMethods.GetRecommendationsForTutor(storageConfig, User.Identity.Name),
             };
 
@@ -241,6 +242,19 @@ namespace StreamWork.Controllers
             var userProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, user);
 
             if (_tutorMethods.SaveSection(Request, userProfile))
+            {
+                return Json(new { Message = JsonResponse.Success.ToString() });
+            }
+            return Json(new { Message = JsonResponse.Failed.ToString() });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SaveTopic([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
+            var user = HttpContext.User.Identity.Name;
+            var userProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, user);
+
+            if (_tutorMethods.SaveTopic(Request, userProfile))
             {
                 return Json(new { Message = JsonResponse.Success.ToString() });
             }

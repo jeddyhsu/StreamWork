@@ -1,4 +1,5 @@
 ﻿var sectionCount = 0;
+var topicCount = 0;
 
 function SliderProfile() {
     $('#profile-tab').tab('show');
@@ -23,34 +24,16 @@ function SliderComment() {
 function AddSection(event) {
     sectionCount++;
     event.preventDefault();
-    var section = "<div id='divider-" + sectionCount + "' class='divider'></div><div id='form-section-" + sectionCount + "' class='form-group col-lg-12'><label id='SectionLabelTitle-" + sectionCount + "' class='form-header'>Section " + sectionCount + " Title</label><img id='RemoveSectionIcon-" + sectionCount + "' src='/images/TutorAssets/TutorDashboard/Remove.png' class='d-inline-block form-section-topic-remove-icon' onclick='RemoveSection(" + sectionCount + ")'></i><input id='SectionTitle-" + sectionCount + "' name='SectionTitle-" + sectionCount + "' class='form-control border rounded-0 form-input' placeholder='Title of section " + sectionCount + "!'><label class='form-header pt-3'>Description</label><textarea id='SectionDescription-" + sectionCount + "' name='SectionDescription-" + sectionCount + "' class='form-control border rounded-0 form-textarea' placeholder='Tell us what you are studying, concentrations, passions, and other extra curricular activities here!' ></textarea></div>"
-    document.getElementById("form-row-section").innerHTML += section
+    var section = "<div id='divider-" + sectionCount + "' class='divider'></div><div id='form-section-" + sectionCount + "' class='form-group col-lg-12'><label id='SectionLabelTitle-" + sectionCount + "' class='form-header'>Section " + sectionCount + " Title</label><img id='RemoveSectionIcon-" + sectionCount + "' src='/images/TutorAssets/TutorDashboard/Remove.png' class='d-inline-block form-section-topic-remove-icon' onclick='RemoveSection(" + sectionCount + ")'/><input id='SectionTitle-" + sectionCount + "' name='SectionTitle-" + sectionCount + "' class='form-control border rounded-0 form-input' placeholder='Title of section " + sectionCount + "!'><label class='form-header pt-3'>Description</label><textarea id='SectionDescription-" + sectionCount + "' name='SectionDescription-" + sectionCount + "' class='form-control border rounded-0 form-textarea' placeholder='Tell us what you are studying, concentrations, passions, and other extra curricular activities here!' ></textarea></div>"
+    $("#form-row-section").append(section);
     var e = document.getElementById("form-section-" + sectionCount);
     e.scrollIntoView();
 }
 
-function AddTopic(event) {
-    event.preventDefault();
-    var topic = "<div class='divider'></div><div id='formTopic' class='form-group col-lg-12 border p-2'><label class='formHeaders'>Topic</label ><select class='form-control border formInput rounded-0'><option>-Select-Topic-</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select><label class='formHeaders pt-3'>List Of Subject</label><textarea class='form-control border rounded-0 formTextArea' placeholder='Enter list of topics here!'></textarea></div>"
-    document.getElementById("formRowTopic").innerHTML += topic
-    var e = document.getElementById("formTopic");
-    e.scrollIntoView();
-}
-
-function OpenModal() {
-    var modal = document.getElementById("profileInformationModal");
-    modal.style.display = "block";
-}
-
-function CloseModal() {
-    var modal = document.getElementById("profileInformationModal");
-    modal.style.display = "none";
-}
-
-function SaveBasicInformation(event) {
-
+function SaveSection(event) { //saves all sections
     var form = $('#form-section-tutor');
-    var seriallize = form.serialize();
+    var serialize = form.serialize();
+    serialize = serialize.replace(/%0D%0A/g, '*--*');
 
     $.ajax({
         type: "POST",
@@ -68,14 +51,12 @@ function SaveBasicInformation(event) {
 function RemoveSection(sectionNumber) {
     var section = document.getElementById("form-section-" + sectionNumber);
     var divider = document.getElementById("divider-" + sectionNumber);
-    
+
     section.remove();
     divider.remove();
 
-    SaveBasicInformation(event);
-
     //shift all other sections down one 
-    var sectionAbove = sectionNumber + 1; 
+    var sectionAbove = sectionNumber + 1;
     for (var i = sectionAbove; i <= sectionCount; i++) {
         document.getElementById("divider-" + i).id = "divider-" + (i - 1);
         document.getElementById("form-section-" + i).id = "form-section-" + (i - 1);
@@ -85,7 +66,7 @@ function RemoveSection(sectionNumber) {
         label.textContent = "Section " + (i - 1) + " Title"
 
         var removeIcon = document.getElementById("RemoveSectionIcon-" + i)
-        removeIcon.id = "RemoveSectionIcon-" + (i - 1); 
+        removeIcon.id = "RemoveSectionIcon-" + (i - 1);
         removeIcon.setAttribute("onclick", "RemoveSection(" + (i - 1) + ")");
 
         var sectionTitle = document.getElementById("SectionTitle-" + i);
@@ -97,11 +78,61 @@ function RemoveSection(sectionNumber) {
         sectionDescription.id = "SectionDescription-" + (i - 1);
         sectionDescription.name = "SectionDescription-" + (i - 1);
     }
-    
+
+    SaveSection(event);
+
     sectionCount--;
 }
 
-    
+function AddTopic(event) {
+    topicCount++;
+    event.preventDefault();
+    var topic = "<div id='divider-topic-" + topicCount + "' class='divider'></div><div id='form-topic-" + topicCount + "' name='form-topic-" + topicCount + "' class='form-group col-lg-12 border p-2'><label class='form-header'>Topic</label ><img id='RemoveSectionIcon-" + topicCount + "' src='/images/TutorAssets/TutorDashboard/Remove.png' class='d-inline-block form-section-topic-remove-icon' onclick='RemoveTopic(" + topicCount + ")'/><select id='Topic-" + topicCount + "' name='Topic-" + topicCount + "' class='form-control border form-input rounded-0'><option>-Select-Topic-</option><option>Mathematics</option><option>Science</option><option>Engineering</option><option>Business</option><option>Law</option><option>Art</option><option>Humanities</option><option>Others</option></select><label class='form-header pt-3'>List Of Subjects</label><textarea id='ListOfSubjects-" + topicCount + "' name='ListOfSubjects-" + topicCount + "' class='form-control border rounded-0 form-textarea' placeholder='Enter list of topics here!'></textarea></div>"
+    $("#form-row-topic").append(topic);
+    var e = document.getElementById("form-topic-" + topicCount);
+    e.scrollIntoView();
+}
+
+function RemoveTopic(topicNumber) {
+    var topic = document.getElementById("form-topic-" + topicNumber);
+    var divider = document.getElementById("divider-topic-" + topicNumber);
+
+    topic.remove();
+    divider.remove();
+
+    SaveTopic();
+
+    topicCount--;
+}
+
+function SaveTopic() {
+    var form = $('#form-topic-tutor');
+    var serialize = form.serialize();
+    serialize = serialize.replace(/%0D%0A/g, '*--*');
+
+    $.ajax({
+        url: '/Tutor/SaveTopic',
+        type: 'post',
+        dataType: 'json',
+        data: serialize,
+        success(data) {
+            if (data === "Failed") {
+                location.reload();
+            }
+        }
+    })
+}
+
+function OpenModal() {
+    var modal = document.getElementById("profileInformationModal");
+    modal.style.display = "block";
+}
+
+function CloseModal() {
+    var modal = document.getElementById("profileInformationModal");
+    modal.style.display = "none";
+}
+
 function SaveProfile() {
     var formData = new FormData();
     var totalFiles = document.getElementById("uploadProfilePicture");

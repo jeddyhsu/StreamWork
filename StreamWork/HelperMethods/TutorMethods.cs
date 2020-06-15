@@ -33,7 +33,7 @@ namespace StreamWork.HelperMethods
                 string formatString = "";
                 foreach (var key in keys) formatString += key.ToString() + "|" + form[key] + Environment.NewLine;
 
-                var url = _blobMethods.SaveFileIntoBlobContainer(userProfile.Username + "-" + userProfile.Id + ".txt", formatString);
+                var url = _blobMethods.SaveFileIntoBlobContainer(userProfile.Username + "-" + userProfile.Id + "-sections" + ".txt", formatString);
                 return true;
             }
             catch (Exception e)
@@ -49,7 +49,7 @@ namespace StreamWork.HelperMethods
             {
                 List<Section> sectionsList = new List<Section>();
 
-                var blob = _blobMethods.GetBlockBlob(userProfile);
+                var blob = _blobMethods.GetBlockBlob(userProfile.Username + "-" + userProfile.Id + "-sections" + ".txt");
                 var sections = blob.DownloadText();
                 var sectionsSplit = sections.Split(Environment.NewLine);
 
@@ -58,8 +58,9 @@ namespace StreamWork.HelperMethods
                     var title = sectionsSplit[i].Split("|")[1];
                     var description = sectionsSplit[i + 1].Split("|")[1];
 
-                    if(!title.Equals("") || !description.Equals(""))
+                    if(!title.Equals("") || !description.Equals("") || i <= 2)
                     {
+                        description = description.Replace("*--*", Environment.NewLine);
                         sectionsList.Add(new Section(title,description));
                     }
                 }
@@ -71,6 +72,57 @@ namespace StreamWork.HelperMethods
                 return null;
             }
            
+        }
+
+        public bool SaveTopic(HttpRequest request, UserLogin userProfile)
+        {
+            try
+            {
+                var form = request.Form;
+                var keys = form.Keys;
+
+                string formatString = "";
+                foreach (var key in keys) formatString += key.ToString() + "|" + form[key] + Environment.NewLine;
+
+                var url = _blobMethods.SaveFileIntoBlobContainer(userProfile.Username + "-" + userProfile.Id + "-topics" + ".txt", formatString);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error in TutorMethods: SaveTopic " + e.Message);
+                return false;
+            }
+        }
+
+        public List<Topic> GetTopics(UserLogin userProfile)
+        {
+            try
+            {
+                List<Topic> topicsList = new List<Topic>();
+
+                var blob = _blobMethods.GetBlockBlob(userProfile.Username + "-" + userProfile.Id + "-topics" + ".txt");
+                var opics = blob.DownloadText();
+                var topicSplit = opics.Split(Environment.NewLine);
+
+                for (int i = 0; i < topicSplit.Length - 1; i += 2)
+                {
+                    var topic = topicSplit[i].Split("|")[1];
+                    var listOfSubjects = topicSplit[i + 1].Split("|")[1];
+
+                    if (!topic.Equals("") || !listOfSubjects.Equals(""))
+                    {
+                        listOfSubjects = listOfSubjects.Replace("*--*", Environment.NewLine);
+                        topicsList.Add(new Topic(topic, listOfSubjects));
+                    }
+                }
+                return topicsList;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error in TutorMethods: GetTopics " + e.Message);
+                return null;
+            }
+
         }
 
         public bool StartStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, HttpRequest request, UserChannel userChannel, UserLogin userProfile, string chatColor)
