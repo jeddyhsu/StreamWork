@@ -148,6 +148,7 @@ function SaveProfile() {
             if (data.message === "Success") {
                 document.getElementById("header-name").innerHTML = data.firstName + " " + data.lastName
                 document.getElementById("header-occupation").innerHTML = data.occupation
+                document.getElementById("header-location").innerHTML = data.location
                 CloseModal('profileInformationModal');
             }
         }
