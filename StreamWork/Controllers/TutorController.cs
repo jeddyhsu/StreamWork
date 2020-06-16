@@ -260,5 +260,18 @@ namespace StreamWork.Controllers
             }
             return Json(new { Message = JsonResponse.Failed.ToString() });
         }
+
+        [HttpPost]
+        public async Task<IActionResult> SaveBanner([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
+            var user = HttpContext.User.Identity.Name;
+
+            if (await _editProfileMethods.SaveBanner(storageConfig, Request, user))
+            {
+                return Json(new { Message = JsonResponse.Success.ToString() });
+            }
+            return Json(new { Message = JsonResponse.Failed.ToString() });
+        }
+
     }
 }

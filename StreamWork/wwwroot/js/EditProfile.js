@@ -60,6 +60,7 @@
                 reader.onload = function (e) {
                     $('#previewProfileBanner')
                         .attr('src', e.target.result);
+
                 }
             }
             else {

@@ -230,7 +230,37 @@ function CloseModal(modalId) {
     modal.style.display = "none";
 }
     
-        
+function ReadUploadedImage(image) {
+    var w = document.getElementById("previewProfileBanner").width
+    var h = document.getElementById("previewProfileBanner").height
+    if (image.files && image.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#previewProfileBanner').attr('src', e.target.result)
+            document.getElementById("previewProfileBanner").width = w;
+            document.getElementById("previewProfileBanner").height = h;
+        }
+
+        reader.readAsDataURL(image.files[0]);
+
+        var formData = new FormData();
+        formData.append("ProfileBanner", image.files[0]);
+        $.ajax({
+            url: '/Tutor/SaveBanner',
+            type: 'POST',
+            dataType: 'json',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                if (data.message === "Success") {
+                  
+                }
+            }
+        });
+
+    }
+}
         
         
         

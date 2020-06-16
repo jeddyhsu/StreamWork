@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -44,6 +45,24 @@ namespace StreamWork.HelperMethods
             await DataStore.SaveAsync(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
 
             return new string[] { firstName, lastName, occupation, location, timezone, linkedInUrl, userProfile.ProfilePicture };
+        }
+
+        public async Task<bool> SaveBanner([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, HttpRequest request, string user)
+        {
+            try
+            {
+                var userProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, user);
+                IFormFile profileBanner = request.Form.Files[0];
+                var banner = _blobMethods.SaveImageIntoBlobContainer(profileBanner, userProfile.Username + "-" + userProfile.Id + "-profilebanner", 870, 254);
+                userProfile.ProfileBanner = banner;
+                await DataStore.SaveAsync(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
+                return true;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Error in EditProfileMethods-SaveBanner " + e.Message);
+                return false;
+            }
         }
     }
 }
