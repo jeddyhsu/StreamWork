@@ -95,7 +95,21 @@
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12 col-sm-12 col-12 order-lg-2 order-md-1 order-sm-1 order-1">
-                        <img src="~/images/TutorAssets/TutorDashboard/PlaceHolderBanner.png" style="width:100%; height:100%" />
+                        <div class="image-container"style="width:100%; height:100%; background-color:red" >
+                            <img id="previewProfileBanner" src="~/images/TutorAssets/TutorDashboard/PlaceHolderBanner.png" style="width:100%; height:100%" />
+                            <div class="bottom-right mr-2" style="left:0px; bottom:0px;">
+                                <div class="card rounded-0" style="width:100%; height:40px; background-color:black; opacity:0.2">
+                                    <i id="addProfileBannerIcon" class="fa fa-camera d-block ml-auto mr-auto mt-2" style="font-size:24px;color:white"></i>
+                                    <input name="uploadProfileBanner" id="uploadProfileBanner" style="cursor:pointer; display:none" type='file' onchange="readURL(this,'ProfileBanner')" />
+                                    <script>
+                                        $('#addProfileBannerIcon').click(function () {
+                                            $('#uploadProfileBanner').click();
+                                        })
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
             </div>

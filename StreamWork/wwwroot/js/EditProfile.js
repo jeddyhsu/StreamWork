@@ -56,6 +56,12 @@
                         .attr('src', e.target.result);
                 }
             }
+            else if (pictureType == 'ProfileBanner') {
+                reader.onload = function (e) {
+                    $('#previewProfileBanner')
+                        .attr('src', e.target.result);
+                }
+            }
             else {
             reader.onload = function (e) {
                     $('#previewProfilePicture')
