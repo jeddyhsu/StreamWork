@@ -32,7 +32,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="btn-group">
+            <div class="btn-group pr-3">
                 <input class="navbar-profile-picture" type="image" data-toggle="dropdown" src=@Model.UserProfile.ProfilePicture />
                 <button type="button" id="dropdown" class="btn btn-info dropdown-toggle border-0 navbar-dropdown-button" data-toggle="dropdown"></button>
                 <div class="dropdown-menu dropdown-menu-right" style="font-size:12px; min-width:0px !important">
@@ -95,16 +95,16 @@
     <div class="container-fluid inner-container-fluid pt-4">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" style="font-family:'Roboto Slab', serif" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true" onclick="SliderProfile()">Profile</a>
+                <a class="nav-link active form-header" id="profile-tab" data-toggle="tab" href="#profile" onclick="SliderProfile()">Profile</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" style="font-family:'Roboto Slab', serif" id="schedule-tab" data-toggle="tab" href="#schedule" role="tab" aria-controls="schedule" aria-selected="false" onclick="SliderSchedule()">Schedule</a>
+                <a class="nav-link form-header" id="schedule-tab" data-toggle="tab" href="#schedule"  onclick="SliderSchedule()">Schedule</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" style="font-family:'Roboto Slab', serif" id="stream-tab" data-toggle="tab" href="#stream" role="tab" aria-controls="stream" aria-selected="false" onclick="SliderStream()">Streams</a>
+                <a class="nav-link form-header" id="stream-tab" data-toggle="tab" href="#stream" onclick="SliderStream()">Streams</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" style="font-family:'Roboto Slab', serif" id="comment-tab" data-toggle="tab" href="#comment" role="tab" aria-controls="comment" aria-selected="false" onclick="SliderComment()">Comments</a>
+                <a class="nav-link form-header" id="comment-tab" data-toggle="tab" href="#comment" onclick="SliderComment()">Comments</a>
             </li>
         </ul>
         <div class="slider">
@@ -261,7 +261,7 @@
             <div class="tab-pane" id="schedule" role="tabpanel" aria-labelledby="schedule-tab">Schedule</div>
             <div class="tab-pane" id="stream" role="tabpanel" aria-labelledby="stream-tab">
                 <div class="container-fluid pt-4" style="width:100%">
-                    <div class="row">
+                    <div class="row p-3">
                         <div class="col-12">
                             <form class="p-2 border" onsubmit="return searchArchives();" style="background-color: white; border-radius: 20px;">
                                 <input id="searchQuery" class="form-control form-control-lg" type="search" placeholder="🔎 Search Past Streams" style="border: none;">
@@ -269,7 +269,7 @@
                         </div>
                     </div>
                     <div class="divider"></div>
-                    <div class="row">
+                    <div class="row p-3">
                         @if (Model.UserArchivedStreams.Count != 0)
                         {
                             @foreach (var streamInfo in Model.UserArchivedStreams)

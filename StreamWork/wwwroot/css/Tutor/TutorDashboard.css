@@ -5,6 +5,7 @@
 /*Container*/
 .container-fluid {
     width: calc(100% - 200px);
+    overflow-x:hidden;
 }
 
 @media screen and (max-width: 800px) {
@@ -152,13 +153,15 @@
 .nav-tabs > li > a.active {
     color: #707070 !important;
     background-color: transparent !important;
-    border:none;
+    border: none;
+    font-family: 'Roboto Slab', serif;
 }
 
 .nav-tabs > li > a {
     color: #9F9F9F !important;
     background-color: transparent !important;
     border: none;
+    font-family: 'Roboto Slab', serif;
 }
 
 /*Bootstrap Column Resposive Widths*/

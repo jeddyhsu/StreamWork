@@ -10,17 +10,17 @@ function SliderProfile() {
 
 function SliderSchedule() {
     $('#schedule-tab').tab('show');
-    $('#slider-object').css("transform", "translate3d(110px, 0px, 0px)")
+    $('#slider-object').css("transform", "translate3d(100px, 0px, 0px)")
 }
 
 function SliderStream() {
     $('#stream-tab').tab('show');
-    $('#slider-object').css("transform", "translate3d(210px, 0px, 0px)")
+    $('#slider-object').css("transform", "translate3d(193px, 0px, 0px)")
 }
 
 function SliderComment() {
     $('#comment-tab').tab('show');
-    $('#slider-object').css("transform", "translate3d(315px, 0px, 0px)")
+    $('#slider-object').css("transform", "translate3d(290px, 0px, 0px)")
 }
 
 function AddSection(event) {
