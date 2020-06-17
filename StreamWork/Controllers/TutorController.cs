@@ -273,5 +273,16 @@ namespace StreamWork.Controllers
             return Json(new { Message = JsonResponse.Failed.ToString() });
         }
 
+        [HttpPost]
+        public async Task<IActionResult> SaveUniversity([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string abbr, string name)
+        {
+            var user = HttpContext.User.Identity.Name;
+
+            if (await _editProfileMethods.SaveUniversity(storageConfig, user, abbr, name))
+            {
+                return Json(new { Message = JsonResponse.Success.ToString() });
+            }
+            return Json(new { Message = JsonResponse.Failed.ToString() });
+        }
     }
 }

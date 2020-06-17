@@ -6,7 +6,6 @@ using Microsoft.Azure.Storage.Blob;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.Processing;
-using StreamWork.DataModels;
 
 namespace StreamWork.HelperMethods
 {

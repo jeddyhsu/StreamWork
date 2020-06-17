@@ -64,5 +64,21 @@ namespace StreamWork.HelperMethods
                 return false;
             }
         }
+
+        public async Task<bool> SaveUniversity([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string user, string abbr, string name)
+        {
+            try
+            {
+                var userProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, user);
+                userProfile.College = abbr + "|" + name;
+                await DataStore.SaveAsync(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error in EditProfileMethods-SaveUniversity " + e.Message);
+                return false;
+            }
+        }
     }
 }

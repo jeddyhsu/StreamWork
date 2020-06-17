@@ -215,6 +215,32 @@ function SaveEditedStreamInfo() {
     });
 }
 
+function SaveUniversityInfo() {
+    var form = $('#universityForm');
+    if (!form[0].checkValidity()) {
+        form[0].reportValidity();
+        return;
+    }
+    var abbreviation = $('#universityAbbreviation').val()
+    var name = $('#universityName').val();
+    var container = document.getElementById("universityElement");
+
+    var htmlString = "<div class='p-4'><p class='form-university-header'>" + abbreviation + "</p><p class='form-header'>" + name + "</p></div>"
+    container.innerHTML = htmlString;
+
+    CloseModal('universityModal');
+
+    $.ajax({
+        url: '/Tutor/SaveUniversity',
+        type: 'post',
+        datatype: 'json',
+        data: {
+            'abbr': abbreviation,
+            'name': name
+        }
+    })
+}
+    
 function DiscardChangesAndCloseModal(formId, modalId) {
     $('#' + formId).trigger("reset");
     CloseModal(modalId);

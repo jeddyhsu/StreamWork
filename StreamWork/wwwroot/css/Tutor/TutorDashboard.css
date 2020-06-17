@@ -220,6 +220,12 @@
     float:right
 }
 
+.form-university-header { /*Created due to appending html string in js*/
+    font-family: 'Roboto Slab', serif;
+    color: #707070;
+    font-size: 20px
+}
+
 .modal {
     display: none;
     position: fixed;
@@ -304,5 +310,11 @@
     position: absolute;
     bottom:12px;
     right: -7px;
+}
+
+.top-right {
+    position: absolute;
+    top: 0px;
+    right: -1px;
 }
 
