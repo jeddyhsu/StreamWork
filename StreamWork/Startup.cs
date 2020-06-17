@@ -34,7 +34,6 @@ namespace StreamWork
             services.AddDistributedMemoryCache();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSignalR();
-
             services.AddSession(options =>
             {
             });
@@ -57,7 +56,7 @@ namespace StreamWork
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
+                //app.UseBrowserLink();
             }
             else
             {
@@ -67,19 +66,14 @@ namespace StreamWork
             app.UseHttpsRedirection();
             app.UseSession();
             app.UseStaticFiles();
+            app.UseRouting();
 
             app.UseAuthentication();
 
-            app.UseSignalR(route =>
+            app.UseEndpoints(endpoint =>
             {
-                route.MapHub<ChatHub>("/chatHub");
-            });
-
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                endpoint.MapHub<ChatHub>("/chatHub");
+                endpoint.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

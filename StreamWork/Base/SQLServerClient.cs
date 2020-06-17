@@ -60,10 +60,10 @@ namespace StreamWork.Base
                     }
                 }
 
-                return await Set<T>().FromSql(sb.ToString(), selector.ToArray()).AsNoTracking().ToListAsync<T>();
+                return await Set<T>().FromSqlRaw(sb.ToString(), selector.ToArray()).AsNoTracking().ToListAsync<T>();
             }
             else
-                return await Set<T>().FromSql<T>(sb.ToString()).AsNoTracking().ToListAsync<T>();
+                return await Set<T>().FromSqlRaw<T>(sb.ToString()).AsNoTracking().ToListAsync<T>();
         }
 
         public async Task<bool> DeleteDataAsync(string query)

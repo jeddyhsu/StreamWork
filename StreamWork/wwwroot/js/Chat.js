@@ -30,6 +30,10 @@ connection.on("ReceiveMessage", function (name, message, profilePicture, questio
     //MQ.StaticMath(problemSpan);
 });
 
+connection.onclose(error => {
+    JoinChatRoom(initialChatId, initialUserName)
+});
+
 function PlayAudio() {
     var audioElement = document.createElement('audio');
     audioElement.setAttribute('src', '/media/juntos.mp3')
