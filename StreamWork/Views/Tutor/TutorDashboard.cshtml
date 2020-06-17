@@ -59,19 +59,19 @@
                     <div class="col-lg-6 col-md-12 col-sm-12 col-12 order-lg-1 order-md-2 order-sm-2 order-2">
                         <div class="p-lg-4 pt-md-4 p-sm-3 p-3">
                             <div class="btn-group d-lg-block d-md-block d-sm-none d-none float-right">
-                                <button type="button" class="streamWork-primary mr-2" style="font-size:8px; height:35px;" onclick="OpenModal()">View Profile</button>
-                                <button type="button" class="streamWork-secondary" style="font-size:8px; height:35px;" onclick="OpenModal('profileInformationModal')">Edit Profile</button>
+                                <button type="button" class="streamWork-secondary mr-2" style="font-size:8px; height:35px;" onclick="OpenModal()">View Profile</button>
+                                <button type="button" class="streamWork-primary" style="font-size:8px; height:35px;" onclick="OpenModal('profileInformationModal')">Edit Profile</button>
                             </div>
                             <input align="left" class="rounded" type="image" src="@Model.UserProfile.ProfilePicture" style="width:70px" />
-                            <p id="header-name" class="d-inline-block mb-0 pt-1" style="padding-left:20px; padding-top:10px; font-family:'Roboto Slab', serif; color: #707070; font-size:16px">@Model.UserProfile.Name.Replace('|', ' ')</p>
-                            <p id="header-occupation" class="mb-2" style="padding-left:90px; font-family:'Roboto Slab', serif; font-size:10px; color: #9F9F9F">@Model.UserProfile.ProfileCaption</p>
-                            <p class="mb-0" style="padding-left:87px; font-family:'Roboto Slab', serif; font-size:8px; color: #9F9F9F"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
-                            <p id="header-location" style="padding-left:87px; font-family:'Roboto Slab', serif; font-size:8px; color: #9F9F9F"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span>@Model.UserProfile.Location</p>
+                            <p id="header-name" class="form-header m-0" style="font-size:16px; padding-left:90px">@Model.UserProfile.Name.Replace('|', ' ')</p>
+                            <p id="header-occupation" class="form-header m-0" style="padding-left:90px; font-size:10px; color: #9F9F9F">@Model.UserProfile.ProfileCaption</p>
+                            <p class="mb-0 mt-2 form-sub-header"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
+                            <p class="form-sub-header"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">@Model.UserProfile.Location</span></p>
                         </div>
 
                         <div class="btn-group d-lg-none d-md-none d-sm-block d-block pl-3 pr-3">
-                            <button type="button" class="streamWork-primary mr-2" style="font-size:8px; height:35px;" onclick="OpenModal()">View Profile</button>
-                            <button type="button" class="streamWork-secondary" style="font-size:8px; height:35px;" onclick="OpenModal('profileInformationModal')">Edit Profile</button>
+                            <button type="button" class="streamWork-secondary mr-2" style="font-size:8px; height:35px;" onclick="OpenModal()">View Profile</button>
+                            <button type="button" class="streamWork-primary" style="font-size:8px; height:35px;" onclick="OpenModal('profileInformationModal')">Edit Profile</button>
                         </div>
 
                         <div class="p-lg-4 pt-md-4 p-sm-3 p-3">
@@ -147,7 +147,7 @@
                                             <div class="card rounded-0">
                                                 <div class="image-container">
                                                     <div class="top-right">
-                                                        <img src="~/images/TutorAssets/TutorDashboard/Upload.png" onclick="OpenModal('universityModal')" />
+                                                        <img src="~/images/TutorAssets/TutorDashboard/Edit.png" onclick="OpenModal('universityModal')" style=" cursor:pointer" />
                                                     </div>
                                                     <div id="universityElement" class="card-body text-center p-0" style="height:135px">
                                                         @if (Model.UserProfile.College == null)
@@ -165,7 +165,7 @@
                                                 </div>
                                             </div>
                                             <label class="form-header pt-4">Year/Class</label>
-                                            <select class="form-control border form-input rounded-0">
+                                            <select asp-for="@Model.UserProfile.Year" id="yearSelect" class="form-control border form-input rounded-0" onchange="SaveYear()">
                                                 <option>-Select-Year/Class-</option>
                                                 <option>Freshman</option>
                                                 <option>Sophomore</option>
@@ -479,14 +479,29 @@
                 <form id="universityForm" class="pt-4 pb-4 pl-5 pr-5">
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-12 mt-2">
-                                <label class="form-header">University Abbreviation</label>
-                                <input class="form-control form-input mb-2" type="text" id="universityAbbreviation" placeholder="University Abbreviation (ex: ASU)" value="@Model.UserProfile.College.Split('|')[0]" required>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-12 mt-2">
-                                <label class="form-header">University Name</label>
-                                <input class="form-control form-input mb-2" id="universityName" placeholder="University Name (ex: Arizona State University)" value="@Model.UserProfile.College.Split('|')[1]" required/>
-                            </div>
+                            @if (Model.UserProfile.College != null)
+                            {
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-12 mt-2">
+                                    <label class="form-header">University Abbreviation</label>
+                                    <input class="form-control form-input mb-2" type="text" id="universityAbbreviation" placeholder="University Abbreviation (ex: ASU)" value="@Model.UserProfile.College.Split('|')[0]" required>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-12 mt-2">
+                                    <label class="form-header">University Name</label>
+                                    <input class="form-control form-input mb-2" id="universityName" placeholder="University Name (ex: Arizona State University)" value="@Model.UserProfile.College.Split('|')[1]" required />
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-12 mt-2">
+                                    <label class="form-header">University Abbreviation</label>
+                                    <input class="form-control form-input mb-2" type="text" id="universityAbbreviation" placeholder="University Abbreviation (ex: ASU)" required>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-12 mt-2">
+                                    <label class="form-header">University Name</label>
+                                    <input class="form-control form-input mb-2" id="universityName" placeholder="University Name (ex: Arizona State University)" required />
+                                </div>
+                            }
+
                         </div>
                     </div>
                 </form>

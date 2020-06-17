@@ -287,6 +287,23 @@ function ReadUploadedImage(image) {
 
     }
 }
+
+function SaveYear() {
+    var year = $('#yearSelect').val();
+    $.ajax({
+        url: '/Tutor/SaveYear',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            'year': year,
+        },
+        success: function (data) {
+            if (data.message === "Success") {
+
+            }
+        }
+    });
+}
         
         
         
