@@ -5,10 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-rc0001" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-rc0002" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.5" />
     <PackageReference Include="Microsoft.Azure.Storage.Blob" Version="11.1.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,6 +43,7 @@
     <Folder Include="ViewModels\Student\" />
     <Folder Include="ViewModels\Stream\" />
     <Folder Include="ViewModels\Chat\" />
+    <Folder Include="wwwroot\SignalR\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="EmailTemplates\PasswordRecoveryEmailTemplate.html">

@@ -38,6 +38,8 @@ namespace StreamWork
             {
             });
 
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options =>
             {

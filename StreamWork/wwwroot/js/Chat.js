@@ -6,6 +6,7 @@ var chatCount = 0;
 var muted = true;
 var date = null;
 
+
 connection.on("ReceiveMessage", function (name, message, profilePicture, questionNumber, userName, chatColor) {
     var listName = "";
 
@@ -37,16 +38,15 @@ connection.onclose(error => {
 function PlayAudio() {
     var audioElement = document.createElement('audio');
     audioElement.setAttribute('src', '/media/juntos.mp3')
-    if (!muted){
-        var promise = audioElement.play();
-        promise.then(function () {
-            document.getElementById("sound").src = '/images/ChatAssets/Unmute.png';
-            muted = false;
+    var promise = audioElement.play();
+    promise.then(function () {
+        document.getElementById("sound").src = '/images/ChatAssets/Unmute.png';
+        muted = false;
 
-        }).catch(function () {
-            return document.getElementById("sound").src = '/images/ChatAssets/Mute.png';
-        })
-    }
+    }).catch(function () {
+        alert("Audio Muted")
+        return document.getElementById("sound").src = '/images/ChatAssets/Mute.png';
+    })
 }
 
 function ToggleMuteAndUnmute() {

@@ -265,10 +265,11 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> SaveBanner([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
             var user = HttpContext.User.Identity.Name;
+            var banner = await _editProfileMethods.SaveBanner(storageConfig, Request, user);
 
-            if (await _editProfileMethods.SaveBanner(storageConfig, Request, user))
+            if (banner != null)
             {
-                return Json(new { Message = JsonResponse.Success.ToString() });
+                return Json(new { Message = JsonResponse.Success.ToString(), Banner = banner });
             }
             return Json(new { Message = JsonResponse.Failed.ToString() });
         }

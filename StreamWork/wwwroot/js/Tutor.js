@@ -288,3 +288,18 @@ function PopoutChat() {
     var windowFeatures = "menubar=no, toolbar=no,location=yes,resizable=yes,scrollbars=yes,status=yes, width=500, height=600";
     windowObjectRef = window.open('https://www.streamwork.live/chat/streamworkchat?chatId=' + chatId + "&chatInfo=" + chatInfo, 'StreamWork Chat', windowFeatures);
 }
+
+function DiscardChangesAndCloseModal(formId, modalId) {
+    $('#' + formId).trigger("reset");
+    CloseModal(modalId);
+}
+
+function OpenModal(modalId) {
+    var modal = document.getElementById(modalId);
+    modal.style.display = "block";
+}
+
+function CloseModal(modalId) {
+    var modal = document.getElementById(modalId);
+    modal.style.display = "none";
+}

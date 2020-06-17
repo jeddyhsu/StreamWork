@@ -1,6 +1,6 @@
 ﻿@model StreamWork.ViewModels.Tutor.TutorStreamViewModel
 
-@{Layout = "_LayoutTutorNavBar";}
+@{Layout = "_LayoutTutorNavbar";}
 @{ViewData["Title"] = "TutorStream";}
 
 @if (!Model.UserProfile.ProfileType.Equals("tutor") || !Model.UserProfile.AcceptedTutor)
@@ -15,7 +15,7 @@
 else if (Model.UserChannel.StreamTitle == null && Model.UserChannel.StreamSubject == null)
 {
     <script>$(document).ready(function () {
-            OpenRegisterStreamModal();
+    OpenModal('registerStreamModal');
         })</script>
 }
 
@@ -25,67 +25,11 @@ else if (Model.UserChannel.StreamTitle == null && Model.UserChannel.StreamSubjec
             <iframe style=" width:100%; height:100%;" class="p-0" src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.UserChannel.ChannelKey.Split('|')[0]" frameborder="0" scrolling="no" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
         </div>
         <div id="chatBox" class="d-flex flex-column col-lg-4 col-md-12 col-sm-12 col-12 p-0">
-            <iframe style="height:100%; border:none;" src="https://www.streamwork.live/chat/streamworkchat?chatId=@Model.UserChannel.Username&chatInfo=@Model.ChatInfo"></iframe>
+            @RenderBody("http://localhost:58539/chat/streamworkchat?chatId=@Model.UserChannel.Username&chatInfo=@Model.ChatInfo")
         </div>
     </div>
 
-    @*RegisterStream Modal*@
-    <div id="registerStreamModal" class="modal" tabindex="-2" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="background-color:whitesmoke">
-                <div class="modal-header">
-                    <h5 class="modal-title" style="color:black">Stream Information<span><img id="info" src="/images/info_icon.png" style="width: 24px; height: 24px; margin-top: -5px; margin-left:7px" data-toggle="tooltip" data-placement="right" title="This is where you make the connection from your encoder to broadcast to students on StreamWork"></span></h5>
-                    <a class="mt-1" href="/Home/HowToStream" style="color:#008080">How to stream?</a>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="row">
-                            <div class="col-lg-8 col-md-8 col-sm-8 col-6">
-                                <input align="middle" type="text" class="form-control" id="streamTitle" placeholder="Title" value="">
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-6">
-                                <select class="form-control " id="streamSubject">
-                                    <option value="Select Subject">Subject</option>
-                                    <option value="Mathematics">Mathematics</option>
-                                    <option value="Science">Science</option>
-                                    <option value="Engineering">Engineering</option>
-                                    <option value="Business">Business</option>
-                                    <option value="Law">Law</option>
-                                    <option value="Art">Art</option>
-                                    <option value="Humanities">Humanities</option>
-                                    <option value="Other">Other</option>
-                                </select>
-                            </div>
-                        </div>
-                        <textarea align="middle" class="form-control mt-3" id="streamDescription" placeholder="Description"></textarea>
-                        <div class="row">
-                            <div class="col-lg-7 col-md-7 col-sm-7 col-6">
-                                <div class="upload-uploadbtn-wrapper">
-                                    <button class="form-control"><span><img src="/images/Upload16.png"></span> Upload Thumbnail</button>
-                                    <input id="uploadThumbnail" type="file" onchange="readURL(this,'Thumbnail');">
-                                </div>
-                            </div>
-                            <div class="col-lg-5 col-md-5 col-sm-5 col-6">
-                                <div class="form-control ml-2">
-                                    <input class="form-check-input" type="checkbox" value="" id="notifyStudents">
-                                    <label class="form-check-label" for="notifyStudents">
-                                        Notify Followers <span><img id="info2" src="/images/info_icon.png" style="width: 24px; height: 24px; margin-top: -5px; margin-left:7px" data-toggle="tooltip" data-placement="right" title="This will send a notification to your followers saying that you are streaming."></span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                        <img id="previewStreamThumbnail" src="~/images/MathDefault.png" alt="your image" style="width:100%; border-radius:10px">
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <div id="loaderStartStream" style="display:none" class="loader mr-auto"></div>
-                    <button id="ExitStream" type="button" class="streamWorkGrey" style="cursor:pointer" onclick="window.location.href = '/Tutor/TutorDashboard'">Exit</button>
-                    <button id="StartStream" type="button" class="streamWorkPrimary" style="cursor:pointer;" onclick="CheckIfStreamIsLive('@Model.UserChannel.ChannelKey', '@Model.UserChannel.Username', '@Model.ChatInfo')">Go Live!</button>
-                </div>
-            </div>
-        </div>
-    </div>
+   
 
     @*Notify Modal Fail*@
     <div class="modal fade" id="notifyModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -127,6 +71,62 @@ else if (Model.UserChannel.StreamTitle == null && Model.UserChannel.StreamSubjec
         </div>
     </div>
 
+</div>
+
+<div id="registerStreamModal" class="custom-modal">
+    <div class="custom-modal-content">
+        <h5 class="form-header" style="padding-left:20px; padding-top:10px; font-size:16px;">Stream Information</h5>
+        <div class="slider">
+            <div class="slider-object" style="width:160px"></div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <form id="registerStreamForm" class="pt-4 pb-4 pl-5 pr-5">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-12 mt-2">
+                                <label class="form-header">Stream Title</label>
+                                <input class="form-control form-input mb-2" type="text" id="streamTitle" placeholder="ex: Calculus 2: Integrals" required>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-12 mt-2">
+                                <label class="form-header">Stream Subject</label>
+                                <select class="form-control form-input" id="streamSubject">
+                                    <option value="Select Subject">-Select-Subject-</option>
+                                    <option value="Mathematics">Mathematics</option>
+                                    <option value="Science">Science</option>
+                                    <option value="Engineering">Engineering</option>
+                                    <option value="Business">Business</option>
+                                    <option value="Law">Law</option>
+                                    <option value="Art">Art</option>
+                                    <option value="Humanities">Humanities</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="col-12 pt-3">
+                                <label class="form-header">Stream Description</label>
+                                <textarea class="form-control form-textarea " type="text" id="streamTitle" placeholder="ex: Today we are going to be learning about how to do integrals using U-Substitution" required></textarea>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-12 col-12 pt-3">
+                                <label class="form-header">Stream Thumbnail</label>
+                                <div class="image-container mr-auto ml-auto">
+                                    <img class="mt-1" id="previewStreamThumbnail" src="~/images/MathDefault.png" alt="your image" style="width:100%; border-radius:10px">
+                                    <input id="addStreamThumbnail" type="image" class="bottom-right" src="~/images/TutorAssets/TutorDashboard/Upload.png" style="bottom:-5px"/>
+                                    <input name="uploadThumbnail" id="uploadThumbnail" class="d-none" type="file" value="~/images/MathDefault.png" onchange="readURL(this,'ThumbnailEdit');">
+                                    <script>
+                                        $("#addStreamThumbnail").click(function (e) {
+                                            e.preventDefault()
+                                            $("input[id='uploadThumbnail']").click();
+                                        })
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="SaveUniversityInfo()">Save Changes</button>
+    </div>
 </div>
 
 <script>$(document).ready(function () {
