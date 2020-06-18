@@ -46,6 +46,9 @@ function SaveSection(event) { //saves all sections
             if (data === "Failed") {
                 location.reload();
             }
+            else {
+                OpenNotificationModal("Changes have been saved!", 'notificationModal', 'Success')
+            }
         }
     })
 }
@@ -121,6 +124,9 @@ function SaveTopic() {
             if (data === "Failed") {
                 location.reload();
             }
+            else {
+                OpenNotificationModal("Changes have been saved!", 'notificationModal', 'Success')
+            }
         }
     })
 }
@@ -150,6 +156,7 @@ function SaveProfile() {
                 document.getElementById("header-occupation").innerHTML = data.occupation
                 document.getElementById("header-location").innerHTML = data.location
                 CloseModal('profileInformationModal');
+                OpenNotificationModal("Changes have been saved!", 'notificationModal', 'Success')
             }
         }
     })

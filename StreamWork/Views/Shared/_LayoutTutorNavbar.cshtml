@@ -31,9 +31,11 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
     <script src="~/js/EditProfile.js" asp-append-version="true"></script>
     <script src="~/js/SignUpLogin.js" asp-append-version="true"></script>
     <script src="~/js/Search.js" asp-append-version="true"></script>
-    <script src="~/js/Tutor.js" asp-append-version="true"></script>
+    <script src="~/js/TutorJS/Tutor.js" asp-append-version="true"></script>
+    <script src="~/js/TutorJS/TutorStream.js" asp-append-version="true"></script>
     <script src="~/js/Settings.js" asp-append-version="true"></script>
     <script src="~/js/Following.js" asp-append-version="true"></script>
+    <script src="~/js/NotificationAndModals.js" asp-append-version="true"></script>
 
     <script>!function (f, b, e, v, n, t, s) {
             if (f.fbq) return; n = f.fbq = function () {
@@ -95,5 +97,14 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
     </div>
 
     @RenderSection("Scripts", required: false)
+
+
+<div id="notificationModal" class="custom-modal">
+    <div class="custom-modal-content" style="width:300px; height:225px">
+        <div class="close ml-auto" onclick="CloseModal('notificationModal')">&times;</div>
+        <h5 id="notificationMessage" class="form-header text-center" style="padding-top:50px; padding-left:10px; padding-right:10px; font-size:16px;">Notification</h5>
+        <img id="notificationImage" class="d-block mr-auto ml-auto" src="~/images/NotificationAssets/Success.png" style="padding-top:20px" />
+    </div>
+</div>
 </body>
 </html>

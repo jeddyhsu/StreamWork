@@ -4,33 +4,7 @@ var isEdited = false;
 var chatId = "";
 var chatInfo = ""
 
-//Streaming
-function CheckIfStreamIsLive(channelKey, chatid, chatinfo) {
-    chatId = chatid;
-    chatInfo = chatinfo;
 
-    document.getElementById("ExitStream").style.display = 'none';
-    document.getElementById("StartStream").style.display = 'none';
-    document.getElementById('loaderStartStream').style.display = 'block'
-
-    $.ajax({
-        url: '/Tutor/CheckIfStreamIsLive',
-        type: 'post',
-        dataType: 'json',
-        data: {
-            'channelKey': channelKey
-        },
-        success: function (data) {
-            if (data.message === "Success") {
-                OpenNotifyStudentsConfirmModal();
-            }
-            else {
-                Hide();
-                OpenNotificationModal("Stream is not live, make sure you have started on your encoder!")
-            }
-        }
-    });
-}
 
 function OpenNotifyStudentsConfirmModal() {
     if ($('#notifyStudents').is(':checked')) {
@@ -48,47 +22,7 @@ function NotifyStudentsDecline() {
     RegisterStreamTitleAndStreamSubjectAndCustomThumbanail("no");
 }
 
-function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail(notifyStudent) {
-    var formData = new FormData()
-    var streamTitle = $('#streamTitle').val();
-    var streamSubject = $('#streamSubject').val();
-    var streamDescription = $('#streamDescription').val();
-    var totalFile = document.getElementById("uploadThumbnail");
 
-    if (streamTitle == "" || streamSubject == 'Select Subject' || streamDescription == "") {
-        Hide();
-        OpenNotificationModal("Please give a title, subject and description")
-        return;
-    }
-
-    formData.append("StreamTitle", streamTitle);
-    formData.append("StreamSubject", streamSubject);
-    formData.append("StreamDescription", streamDescription);
-    formData.append("NotifiyStudent", notifyStudent);
-    if (totalFile.files.length > 0)
-        formData.append("StreamThumbnail", totalFile.files[0]);
-
-    $.ajax({
-        url: '/Tutor/TutorStream',
-        type: 'post',
-        dataType: 'json',
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function (data) {
-            if (data.message === "Success") {
-                $('#registerStreamModal').modal('hide'),
-                Hide();
-                OpenNotificationModalSuccess("Your broadcast is visible to students!");
-                PopoutChat()
-            }
-            else {
-                alert("You must wait at least five minutes in between streams");
-            }
-        }
-    });   
-
-}
 
 function Hide() {
     document.getElementById("ExitStream").style.display = 'block';
@@ -268,38 +202,3 @@ function ClearRecommendation(index, id) {
     });
 }
 
-
-//Notifications
-function OpenNotificationModal(body) {
-    var notification = document.getElementById('notifyBody');
-    notification.textContent = body;
-    $('#notifyModal').modal('show')
-}
-
-function OpenNotificationModalSuccess(body) {
-    var notification = document.getElementById('notifyBodySuccess');
-    notification.textContent = body;
-    $('#notifyModalSuccess').modal('show')
-}
-
-//Chat
-function PopoutChat() {
-    var windowObjectRef;
-    var windowFeatures = "menubar=no, toolbar=no,location=yes,resizable=yes,scrollbars=yes,status=yes, width=500, height=600";
-    windowObjectRef = window.open('https://www.streamwork.live/chat/streamworkchat?chatId=' + chatId + "&chatInfo=" + chatInfo, 'StreamWork Chat', windowFeatures);
-}
-
-function DiscardChangesAndCloseModal(formId, modalId) {
-    $('#' + formId).trigger("reset");
-    CloseModal(modalId);
-}
-
-function OpenModal(modalId) {
-    var modal = document.getElementById(modalId);
-    modal.style.display = "block";
-}
-
-function CloseModal(modalId) {
-    var modal = document.getElementById(modalId);
-    modal.style.display = "none";
-}

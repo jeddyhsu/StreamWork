@@ -55,50 +55,7 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
     <div class="page-body">
         @RenderBody()
     </div>
-
     @RenderSection("Scripts", required: false)
-
-    @*Notification Modal Fail*@
-    <div class="modal fade" id="notifyModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-body" style="background-color:red;">
-                    <p id="notifyBody" class="text-center p-0 m-0" style="color:white; font-size:16px"></p>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    @*Notification Modal Success*@
-    <div class="modal fade" id="notifyModalSuccess" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-body" style="background-color:green;">
-                    <p id="notifyBodySuccess" class="text-center p-0 m-0" style="color:white; font-size:16px"></p>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    @*Student Greeting Modal*@
-    <div id="checkStudentModal" class="modal" tabindex="2" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="background-color: #008080">
-                <div class="modal-header">
-                    <h5 class="modal-title text-center" style="color:white">One more thing!</h5>
-                </div>
-                <div class="modal-body">
-                    <p id="notificationBody" class=" text-center" style="color: white;">Although donations aren't required to use StreamWork, we do encourage donating to our StreamTutors to show appreciation for their hard work. We hope that StreamWork will give you the tutoring necessary for you to excel in the classroom. Happy learning!</p>
-                    <a href="/"><img src="~/images/streamworkPencilWhite.png" style="display:block; margin-left:auto; margin-right:auto;" height="70" /></a>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" style="background-color:#006565; color:white" class="btn" onclick="SignUpStudent()">Watch Livestreams!<span id="loaderStudent" class="loaderStudent mt-1" style="display:block; margin-left:auto; margin-right:auto"></span></button>
-                </div>
-            </div>
-        </div>
-    </div>
 </body>
 </html>
 

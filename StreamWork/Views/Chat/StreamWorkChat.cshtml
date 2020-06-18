@@ -92,7 +92,7 @@ else
                     <div id="bottomCard" class="card fixed-bottom border-0" style="background-color:#FBFBFB;">
                         <div class="card-body">
                             <div id="questionBox" class="row">
-                                <div class="col-lg-10 col-md-10 col-sm-10 col-8">
+                                <div class="col-xl-9 col-lg-10 col-md-10 col-sm-9 col-8">
                                     <div>
                                         <textarea id="chatInput" onkeydown="pressed(event)" class="form-control form-textarea" style="height:50px !important; resize:none;" placeholder="Send question or message..."></textarea>
                                         <script>
@@ -104,7 +104,7 @@ else
                                         </script>
                                     </div>
                                 </div>
-                                <div class="col-lg-2 col-md-2 col-sm-2 col-4">
+                                <div class="col-xl-3 col-lg-2 col-md-2 col-sm-3 col-4">
                                     <button type="button" id="sendQuestionButton" class="streamWork-primary w-100" style="font-size:12px; height:100%; display:block; margin-left:auto; margin-right:auto" onclick="GetMessage('@Model.ChatId','@Model.UserProfile.Username','@Model.UserProfile.Name', '@Model.UserProfile.ProfilePicture', '@Model.ChatColor')">Send</button>
                                 </div>
                             </div>

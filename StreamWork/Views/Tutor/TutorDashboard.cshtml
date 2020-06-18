@@ -5,6 +5,7 @@
 <script src="~/js/TutorJS/TutorDashboard.js" asp-append-version="true"></script>
 <script src="~/js/EditProfile.js" asp-append-version="true"></script>
 <script src="~/js/Tutor.js" asp-append-version="true"></script>
+<script src="~/js/NotificationAndModals.js" asp-append-version="true"></script>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -515,5 +516,13 @@
             </div>
         </div>
         <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="SaveUniversityInfo()">Save Changes</button>
+    </div>
+</div>
+
+<div id="notificationModal" class="custom-modal">
+    <div class="custom-modal-content" style="width:300px; height:200px">
+        <div class="close ml-auto" onclick="CloseModal('notificationModal')">&times;</div>
+        <h5 id="notificationMessage" class="form-header text-center" style="padding-top:50px; font-size:16px;">Notification</h5>
+       <img id="notificationImage" class="d-block mr-auto ml-auto" src="~/images/NotificationAssets/Success.png" style="padding-top:20px" />
     </div>
 </div>

@@ -14,7 +14,11 @@
 }
 else if (Model.UserChannel.StreamTitle == null && Model.UserChannel.StreamSubject == null)
 {
-    <script>OpenModal('registerStreamModal')</script>
+    <script>
+        $(document).ready(function () {
+            OpenModal('registerStreamModal');
+          })
+    </script>
 }
 
 <div class="container-fluid">
@@ -41,11 +45,11 @@ else if (Model.UserChannel.StreamTitle == null && Model.UserChannel.StreamSubjec
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-12 col-12 mt-2">
                                 <label class="form-header">Stream Title</label>
-                                <input class="form-control form-input mb-2" type="text" id="streamTitle" placeholder="ex: Calculus 2: Integrals" required>
+                                <input class="form-control form-input mb-2 border" type="text" id="streamTitle" placeholder="ex: Calculus 2: Integrals" required>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12 col-12 mt-2">
                                 <label class="form-header">Stream Subject</label>
-                                <select class="form-control form-input" id="streamSubject">
+                                <select class="form-control form-input border" id="streamSubject">
                                     <option value="Select Subject">-Select-Subject-</option>
                                     <option value="Mathematics">Mathematics</option>
                                     <option value="Science">Science</option>
@@ -59,20 +63,18 @@ else if (Model.UserChannel.StreamTitle == null && Model.UserChannel.StreamSubjec
                             </div>
                             <div class="col-12 pt-3">
                                 <label class="form-header">Stream Description</label>
-                                <textarea class="form-control form-textarea " type="text" id="streamTitle" placeholder="ex: Today we are going to be learning about how to do integrals using U-Substitution" required></textarea>
+                                <textarea class="form-control form-textarea border" type="text" id="streamTitle" placeholder="ex: Today we are going to be learning about how to do integrals using U-Substitution" required></textarea>
                             </div>
-                            <div class="col-lg-9 col-md-9 col-sm-12 col-12 pt-3">
+                            <div class="col-lg-7 col-md-7 col-sm-12 col-12 pt-3">
                                 <label class="form-header">Stream Thumbnail</label>
                                 <div class="image-container mr-auto ml-auto">
                                     <img class="mt-1" id="previewStreamThumbnail" src="~/images/MathDefault.png" alt="your image" style="width:100%; border-radius:10px">
-                                    <input id="addStreamThumbnail" type="image" class="bottom-right" src="~/images/TutorAssets/TutorDashboard/Upload.png" style="bottom:-5px"/>
+                                    <input id="addStreamThumbnail" type="image" class="bottom-right" src="~/images/TutorAssets/TutorDashboard/Upload.png" style="bottom:-5px" />
                                     <input name="uploadThumbnail" id="uploadThumbnail" class="d-none" type="file" value="~/images/MathDefault.png" onchange="readURL(this,'ThumbnailEdit');">
-                                    <script>
-                                        $("#addStreamThumbnail").click(function (e) {
+                                    <script>$("#addStreamThumbnail").click(function (e) {
                                             e.preventDefault()
                                             $("input[id='uploadThumbnail']").click();
-                                        })
-                                    </script>
+                                        })</script>
                                 </div>
                             </div>
                         </div>
@@ -80,18 +82,6 @@ else if (Model.UserChannel.StreamTitle == null && Model.UserChannel.StreamSubjec
                 </form>
             </div>
         </div>
-        <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="SaveUniversityInfo()">Save Changes</button>
+        <button id="GoLive" class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="CheckIfStreamIsLive('@Model.UserChannel.ChannelKey', '@Model.UserChannel.Username', '@Model.ChatInfo')">Go Live!</button>
     </div>
 </div>
-
-<script>$(document).ready(function () {
-
-        $("#nav").click(function () {
-
-            $("#navbarText").slideToggle();
-
-        });
-    });</script>
-
-<script>$("#info").tooltip();
-    $("#info2").tooltip();</script>
