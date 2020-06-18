@@ -51,16 +51,12 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
     </noscript>
 </head>
 
-<body style="font-family:'Roboto'; background-color:#FBFBFB; overflow-x:hidden;">
-    <div>
-        <div class="full-page" >
-                <div class="page-body">
-                    @RenderBody()
-                </div>
-               
-                @RenderSection("Scripts", required: false)
-        </div>
+<body style="overflow-x:hidden;">
+    <div class="page-body">
+        @RenderBody()
     </div>
+
+    @RenderSection("Scripts", required: false)
 
     @*Notification Modal Fail*@
     <div class="modal fade" id="notifyModal" tabindex="-1" role="dialog" aria-hidden="true">

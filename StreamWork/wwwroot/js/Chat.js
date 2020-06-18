@@ -1,11 +1,15 @@
-﻿var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").withAutomaticReconnect().build();
+﻿const connection = new signalR.HubConnectionBuilder()
+    .withUrl("/chathub")
+    .withAutomaticReconnect([0, 1000, 5000, 10000, 15000, 20000, 30000, 45000, 60000, null])
+    .configureLogging(signalR.LogLevel.Information)
+    .build();
+
 var initialUserName = "";
 var initialChatId = "";
 var toolTipCount = 0;
 var chatCount = 0;
 var muted = true;
 var date = null;
-
 
 connection.on("ReceiveMessage", function (name, message, profilePicture, questionNumber, userName, chatColor) {
     var listName = "";
@@ -27,12 +31,6 @@ connection.on("ReceiveMessage", function (name, message, profilePicture, questio
     toolTipCount++;
     window.scroll(0, document.documentElement.offsetHeight);
     if (!muted && initialUserName != userName) PlayAudio();
-    //var problemSpan = document.getElementById("question-" + questionNumber);
-    //MQ.StaticMath(problemSpan);
-});
-
-connection.onclose(error => {
-    JoinChatRoom(initialChatId, initialUserName)
 });
 
 function PlayAudio() {
@@ -44,7 +42,6 @@ function PlayAudio() {
         muted = false;
 
     }).catch(function () {
-        alert("Audio Muted")
         return document.getElementById("sound").src = '/images/ChatAssets/Mute.png';
     })
 }
@@ -100,39 +97,3 @@ function PopoutChat(chatId, chatInfo) {
     var windowFeatures = "menubar=no, toolbar=no,location=yes,resizable=yes,scrollbars=yes,status=yes, width=500, height=600";
     windowObjectRef = window.open('https://www.streamwork.live/chat/streamworkchat?chatId=' + chatId + "&chatInfo=" + chatInfo, 'StreamWork Chat', windowFeatures);
 }
-
-//function Alert(count) {
-//    var MQ = MathQuill.getInterface(2);
-//    for (i = 0; i < count; i++) {
-//        var problemSpan = document.getElementById("chat-" + i);
-//        MQ.StaticMath(problemSpan);
-//    }
-//}
-
-//function WriteCommmand(command) {
-//    var mathFieldSpan = document.getElementById('math-field');
-//    var mathField = MQ.MathField(mathFieldSpan);
-//    mathField.cmd(command);
-//}
-
-//function WriteExpression(expression) {
-//    var mathFieldSpan = document.getElementById('math-field');
-//    var mathField = MQ.MathField(mathFieldSpan);
-//    mathField.write(expression);
-//}
-
-//function FormatMessage() {
-//    var mathFieldSpan = document.getElementById('math-field')
-//    var latexSpan = document.getElementById('latex');
-//    var MQ = MathQuill.getInterface(2);
-//    var mathField = MQ.MathField(mathFieldSpan, {
-//        spaceBehavesLikeTab: false,
-//        autoCommands: 'pi theta sqrt sum integral delta gamma infinity isin pm',
-//        handlers: {
-//            edit: function () {
-//                latexSpan.textContent = mathField.latex();
-//            }
-//        }
-//    });
-//}
-
