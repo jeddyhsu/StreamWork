@@ -142,7 +142,7 @@
         </div>
         <script> $('#sectionTopicNotification').hide()</script>
         <div class="tab-content">
-            <div class="tab-pane active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <div class="container-fluid pt-2" style="width:100%">
                     <div class="row">
                         <div class="col-lg-8 col-md-12 col-sm-12 col-12 p-2">
@@ -151,7 +151,6 @@
                                     <p class="form-header d-inline-block" style="font-size:18px">Basic Information</p>
                                     <a class="d-inline-block pr-3" style="cursor:pointer; float:right; color:#004643" onclick="SaveSection(event)"><span><img src="~/images/TutorAssets/TutorDashboard/Save.png" /></span>Save</a>
                                 </div>
-
                                 <form class="pl-4 pr-4 pb-4" id="form-section-tutor">
                                     <div class="form-row" id="form-row-section">
                                         <div class="form-group col-lg-3">
@@ -209,7 +208,7 @@
                                                     </div>
                                                 }
                                             }
-                                            <script>sectionCount = @Model.Sections.Count;</script>
+                                            <script>sectionCount = @Model.Sections.Count - 1;</script>
                                         }
                                         else
                                         {
@@ -219,7 +218,7 @@
                                                 <label class="form-header pt-3">Description</label>
                                                 <textarea name="SectionDescription-1" id="SectionDescription-1" class="form-control border rounded-0 form-textarea" placeholder="Tell us what you're studying, concentrations, passions, and other extra curricular activities here!"></textarea>
                                             </div>
-                                            <script>sectionCount = 1</script>
+                                            <script>sectionCount = 2</script>
                                         }
                                     </div>
                                     <a class="d-inline-block" style="cursor:pointer; color:#004643" onclick="AddSection(event)"> + Add Section</a>
@@ -294,7 +293,20 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane" id="schedule" role="tabpanel" aria-labelledby="schedule-tab">Schedule</div>
+            <div class="tab-pane active" id="schedule" role="tabpanel" aria-labelledby="schedule-tab">
+                <div class="container-fluid pt-2" style="width:100%">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <p class="form-header" style="font-size:18px">Stream Schedule</p>
+                                    <a style="cursor:pointer; color:#004643" onclick="OpenModal('addStreamToScheduleModal')"> + Add Stream</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="tab-pane" id="stream" role="tabpanel" aria-labelledby="stream-tab">
                 <div class="container-fluid pt-4" style="width:100%">
                     <div class="row p-3">
@@ -522,10 +534,72 @@
     </div>
 </div>
 
-<div id="notificationModal" class="custom-modal">
-    <div class="custom-modal-content" style="width:300px; height:200px">
-        <div class="close ml-auto" onclick="CloseModal('notificationModal')">&times;</div>
-        <h5 id="notificationMessage" class="form-header text-center" style="padding-top:50px; font-size:16px;">Notification</h5>
-       <img id="notificationImage" class="d-block mr-auto ml-auto" src="~/images/NotificationAssets/Success.png" style="padding-top:20px" />
+<div id="addStreamToScheduleModal" class="custom-modal">
+    <div class="custom-modal-content">
+        <div class="close ml-auto" onclick="DiscardChangesAndCloseModal('addStreamToScheduleModal','addStreamToScheduleModal')">&times;</div>
+        <h5 class="form-header" style="padding-left:20px; padding-top:10px; font-size:16px;">Schedule Stream Time</h5>
+        <div class="slider">
+            <div class="slider-object" style="width:190px"></div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <form id="addStreamToForm" class="pt-4 pb-4 pl-5 pr-5">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-12">
+                            <label class="form-header">Select Date</label>
+                        </div>
+                        <div class="col-lg-9 col-md-12">
+                            <label class="form-header">Stream Title</label>
+                            <input id="stream-title" class="form-control border rounded-0 form-input" maxlength="50" placeholder="Add Title">
+                            <label class="form-header pt-3">Select Topic</label>
+                            <select asp-for="@Model.UserProfile.TimeZone" id="timezone" class="form-control border-0 form-input rounded-0">
+                                <option>-Select-Topic-</option>
+                                <option>Mathematics</option>
+                                <option>Science</option>
+                                <option>Engineering</option>
+                                <option>Business</option>
+                                <option>Law</option>
+                                <option>Art</option>
+                                <option>Humanities</option>
+                                <option>Others</option>
+                            </select>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <label class="form-header pt-3">Time Start</label>
+                                    <select asp-for="@Model.UserProfile.TimeZone" id="timezone" class="form-control border-0 form-input rounded-0">
+                                        <option>-Select-Topic-</option>
+                                        <option>Mathematics</option>
+                                        <option>Science</option>
+                                        <option>Engineering</option>
+                                        <option>Business</option>
+                                        <option>Law</option>
+                                        <option>Art</option>
+                                        <option>Humanities</option>
+                                        <option>Others</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="form-header pt-3">Time Stop</label>
+                                    <select asp-for="@Model.UserProfile.TimeZone" id="timezone" class="form-control border-0 form-input rounded-0">
+                                        <option>-Select-Topic-</option>
+                                        <option>Mathematics</option>
+                                        <option>Science</option>
+                                        <option>Engineering</option>
+                                        <option>Business</option>
+                                        <option>Law</option>
+                                        <option>Art</option>
+                                        <option>Humanities</option>
+                                        <option>Others</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    
+                </form>
+            </div>
+        </div>
+        <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="SaveUniversityInfo()">Save Changes</button>
     </div>
 </div>

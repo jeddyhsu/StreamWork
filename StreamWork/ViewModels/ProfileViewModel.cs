@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using StreamWork.DataModels;
-using StreamWork.TutorObjects;
 
 namespace StreamWork.ViewModels
 {
@@ -13,6 +11,6 @@ namespace StreamWork.ViewModels
         public int NumberOfFollowers { get; set; }
         public bool IsFollowing { get; set; }
         public List<UserArchivedStreams> UserArchivedStreams { get; set; }
-        public List<Day> Schedule { get; set; }
+        public List<Schedule> Schedule { get; set; }
     }
 }

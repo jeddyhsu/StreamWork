@@ -59,32 +59,7 @@
 </div>
 <br />
 <br />
-<div class="container-fluid" style="max-width:2400px">
-    <div class="row">
-        <div class="col-12">
-            <div class="card" style="background-color:whitesmoke">
-                <br />
-                <h2 class="text-center" ; style="color:black; font-family: 'Roboto Slab', serif;"><b>Stream Schedule</b><span> <img id="info1" src="~/images/info_icon.png" style="width: 24px; height: 24px; margin-top: -5px;" data-toggle="tooltip" data-placement="right" title="This calendar allows Stream Tutors to schedule streams in advance. Make sure to tune in at the time scheduled!" /></span></h2>
-                <hr />
-                <div class="row">
-                    @foreach (var day in Model.Schedule)
-                    {
-                        <div class="col-lg-3 col-md-6 text-center mt-5 mb-5">
-                            <h1 class="mt-2" style="font-size:20px; color:black"><b>@day.DayOfWeek.DayOfWeek</b></h1>
-                            <h6 style="color: black">@day.DayOfWeek.ToShortDateString()</h6>
-                            <div class="list-group ml-3">
-                                @foreach (var task in day.StreamTaskList)
-                                {
-                                    <button class="list-group-item ml-3 mr-3 zoom" style="border-color:#008080" onclick="OpenEditScheduleModal('@task.Name', '@task.TimeOfDay', '@day.DayOfWeek.ToShortDateString()')"><b>@task.Name</b> <br /> @task.TimeOfDay</button>
-                                }
-                            </div>
-                        </div>
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 <br />
 <br />
 <div class="container-fluid" style="width:100%;">

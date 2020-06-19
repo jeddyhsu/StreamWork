@@ -273,10 +273,7 @@ function SaveProfileBanner(image) {
             }
         }
     });
-}
-
-        
-        
+}       
         
        
     

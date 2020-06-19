@@ -84,6 +84,9 @@ namespace StreamWork.HelperMethods
         GetNumberOfFollowers,
         DeleteFollower,
 
+        //Schedule
+        GetScheduleWithUserUsername,
+
         // Misc
         UserProfile,       //Use For Session
     }

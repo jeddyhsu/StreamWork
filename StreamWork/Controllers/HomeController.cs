@@ -24,6 +24,7 @@ namespace StreamWork.Controllers
         private readonly EmailMethods _emailMethods = new EmailMethods();
         private readonly EncryptionMethods _encryptionMethods = new EncryptionMethods();
         private readonly EditProfileMethods _editProfileMethods = new EditProfileMethods();
+        private readonly ScheduleMethods _scheduleMethods = new ScheduleMethods();
 
         [HttpGet]
         public async Task<IActionResult> Index([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
@@ -115,7 +116,7 @@ namespace StreamWork.Controllers
             viewModel.NumberOfFollowers = await _followingMethods.GetNumberOfFollowers(storageConfig, viewModel.TutorUserProfile.Id);
             if (HttpContext.User.Identity.IsAuthenticated) viewModel.IsFollowing = await _followingMethods.IsFollowingFollowee(storageConfig, viewModel.GenericUserProfile.Id, viewModel.TutorUserProfile.Id);
             var userChannel = await _homeMethods.GetUserChannel(storageConfig, SQLQueries.GetUserChannelWithUsername, tutor);
-            viewModel.Schedule = _tutorMethods.GetTutorStreamSchedule(userChannel);
+            viewModel.Schedule = await _scheduleMethods.GetSchedule(storageConfig, tutor);
 
             return View();
         }

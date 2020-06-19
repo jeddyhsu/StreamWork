@@ -230,6 +230,17 @@
           "QueryId": "DeleteFollower"
         }
       ]
+    },
+
+    {
+      "Name": "Schedule",
+      "StorageType": "SqlServer",
+      "Queries": [
+        {
+          "Query": "SELECT * FROM [dbo].[Schedule] WHERE Username = '@x0' ORDER BY DATE ASC",
+          "QueryId": "GetScheduleWithUserUsername"
+        }
+      ]
     }
 
   ]

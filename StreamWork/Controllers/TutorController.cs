@@ -22,6 +22,7 @@ namespace StreamWork.Controllers
         private readonly FollowingMethods _followingMethods = new FollowingMethods();
         private readonly StreamClientMethods _streamClientMethods = new StreamClientMethods();
         private readonly EditProfileMethods _editProfileMethods = new EditProfileMethods();
+        private readonly ScheduleMethods _scheduleMethods = new ScheduleMethods();
 
         [HttpGet]
         public async Task<IActionResult> TutorStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
@@ -87,39 +88,9 @@ namespace StreamWork.Controllers
 
             viewModel.NumberOfViews = viewCount;
             viewModel.NumberOfFollowers = await _followingMethods.GetNumberOfFollowers(storageConfig, viewModel.UserProfile.Id);
-            viewModel.Schedule = _tutorMethods.GetTutorStreamSchedule(viewModel.UserChannel);
+            viewModel.Schedule = await _scheduleMethods.GetSchedule(storageConfig, user);
 
             return View(viewModel);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> StreamCalendarUtil([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string streamName, DateTime dateTime, DateTime originalDateTime, bool remove) //StreamTask
-        {
-            var user = HttpContext.User.Identity.Name;
-            var userChannel = await _homeMethods.GetUserChannel(storageConfig, SQLQueries.GetUserChannelWithUsername, user);
-
-            //Adds streams to schedule
-            if (originalDateTime.Year == 1 && remove == false)
-            {
-                if (await _tutorMethods.AddStreamTask(storageConfig, streamName, dateTime, userChannel))
-                    return Json(new { Message = JsonResponse.Success.ToString() });
-            }
-
-            //Updates streams in schedule
-            if (originalDateTime.Year != 1 && remove == false)
-            {
-                if (await _tutorMethods.UpdateStreamTask(storageConfig, streamName, dateTime, originalDateTime, userChannel))
-                    return Json(new { Message = JsonResponse.Success.ToString() });
-            }
-
-            //Removes streams in schedule
-            if (originalDateTime.Year != 1 && remove)
-            {
-                if (await _tutorMethods.RemoveStreamTask(storageConfig, streamName, originalDateTime, userChannel))
-                    return Json(new { Message = JsonResponse.Success.ToString() });
-            }
-
-            return Json(new { Message = JsonResponse.Failed.ToString() });
         }
 
         [HttpPost]
