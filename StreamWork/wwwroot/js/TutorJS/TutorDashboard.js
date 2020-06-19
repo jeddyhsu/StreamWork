@@ -26,7 +26,15 @@ function SliderComment() {
 function AddSection(event) {
     sectionCount++;
     event.preventDefault();
-    var section = "<div id='divider-" + sectionCount + "' class='divider'></div><div id='form-section-" + sectionCount + "' class='form-group col-lg-12'><label id='SectionLabelTitle-" + sectionCount + "' class='form-header'>Section " + sectionCount + " Title</label><img id='RemoveSectionIcon-" + sectionCount + "' src='/images/TutorAssets/TutorDashboard/Remove.png' class='d-inline-block form-section-topic-remove-icon' onclick='RemoveSection(" + sectionCount + ")'/><input id='SectionTitle-" + sectionCount + "' name='SectionTitle-" + sectionCount + "' class='form-control border rounded-0 form-input' placeholder='Title of section " + sectionCount + "!'><label class='form-header pt-3'>Description</label><textarea id='SectionDescription-" + sectionCount + "' name='SectionDescription-" + sectionCount + "' class='form-control border rounded-0 form-textarea' placeholder='Tell us what you are studying, concentrations, passions, and other extra curricular activities here!' ></textarea></div>"
+    var section = ` <div id="divider-${sectionCount}" class="divider"></div>
+                    <div id="form-section-${sectionCount}" class="form-group col-lg-12">
+                        <label id="SectionLabelTitle-${sectionCount}" class="form-header d-inline-block">Section ${sectionCount} Title</label>
+                        <img id="RemoveSectionIcon-${sectionCount}" src="/images/TutorAssets/TutorDashboard/Remove.png" class="d-inline-block form-section-topic-remove-icon" onclick="RemoveSection(${sectionCount})" />
+                        <input name="SectionTitle-${sectionCount}" id="SectionTitle-${sectionCount}" class="form-control border rounded-0 form-input" placeholder="Title of section ${sectionCount}!">
+                        <label class="form-header pt-3">Description</label>
+                        <textarea name="SectionDescription-${sectionCount}" id="SectionDescription-${sectionCount}" class="form-control border rounded-0 form-textarea" placeholder="Tell us what you are studying, concentrations, passions, and other extra curricular activities here!"></textarea>
+                    </div>`
+
     $("#form-row-section").append(section);
     var e = document.getElementById("form-section-" + sectionCount);
     e.scrollIntoView();
@@ -96,7 +104,25 @@ function RemoveSection(sectionNumber) {
 function AddTopic(event) {
     topicCount++;
     event.preventDefault();
-    var topic = "<div id='divider-topic-" + topicCount + "' class='divider'></div><div id='form-topic-" + topicCount + "' name='form-topic-" + topicCount + "' class='form-group col-lg-12 border p-2'><label class='form-header'>Topic</label ><img id='RemoveSectionIcon-" + topicCount + "' src='/images/TutorAssets/TutorDashboard/Remove.png' class='d-inline-block form-section-topic-remove-icon' onclick='RemoveTopic(" + topicCount + ")'/><select id='Topic-" + topicCount + "' name='Topic-" + topicCount + "' class='form-control border form-input rounded-0'><option>-Select-Topic-</option><option>Mathematics</option><option>Science</option><option>Engineering</option><option>Business</option><option>Law</option><option>Art</option><option>Humanities</option><option>Others</option></select><label class='form-header pt-3'>List Of Subjects</label><textarea id='ListOfSubjects-" + topicCount + "' name='ListOfSubjects-" + topicCount + "' class='form-control border rounded-0 form-textarea' placeholder='Enter list of topics here!'></textarea></div>"
+    var topic = `<div id="divider-topic-${topicCount}" class="divider"></div>
+                <div id="form-topic-${topicCount}" class="form-group col-lg-12 border p-2">
+                    <label class="form-header">Topic</label>
+                    <img id="RemoveTopicIcon-${topicCount}" src="/images/TutorAssets/TutorDashboard/Remove.png" class="d-inline-block form-section-topic-remove-icon" onclick="RemoveTopic(${topicCount})" />
+                    <select id="Topic-${topicCount}" name="Topic-${topicCount}" class="form-control border form-input rounded-0">
+                        <option>-Select-Topic-</option>
+                        <option>Mathematics</option>
+                        <option>Science</option>
+                        <option>Engineering</option>
+                        <option>Business</option>
+                        <option>Law</option>
+                        <option>Art</option>
+                        <option>Humanities</option>
+                        <option>Others</option>
+                    </select>
+                    <label class="form-header pt-3">List Of Subjects</label>
+                    <textarea id="ListOfSubjects-${topicCount}" name="ListOfSubjects-${topicCount}" class="form-control border rounded-0 form-textarea" placeholder="Enter list of subjects here!"></textarea>
+                </div>`
+
     $("#form-row-topic").append(topic);
     var e = document.getElementById("form-topic-" + topicCount);
     e.scrollIntoView();
