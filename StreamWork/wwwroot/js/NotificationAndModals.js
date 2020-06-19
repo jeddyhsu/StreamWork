@@ -5,6 +5,11 @@
     OpenModal(id);
 }
 
+function DiscardImageAndDiscardFormChangesAndCloseModal(imageURL, imageDestId, formId, modalId) {
+    $('#' + imageDestId).attr('src', imageURL);
+    DiscardChangesAndCloseModal(formId, modalId);
+}
+
 function DiscardChangesAndCloseModal(formId, modalId) {
     $('#' + formId).trigger("reset");
     CloseModal(modalId);

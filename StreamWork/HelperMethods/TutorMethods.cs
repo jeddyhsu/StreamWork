@@ -51,12 +51,14 @@ namespace StreamWork.HelperMethods
                 var sections = blob.DownloadText();
                 var sectionsSplit = sections.Split(Environment.NewLine);
 
-                for (int i = 0; i < sectionsSplit.Length - 1; i += 2)
+                sectionsList.Add(new Section(sectionsSplit[0].Split('|')[1]));
+
+                for (int i = 1; i < sectionsSplit.Length - 1; i += 2)
                 {
                     var title = sectionsSplit[i].Split("|")[1];
                     var description = sectionsSplit[i + 1].Split("|")[1];
 
-                    if(!title.Equals("") || !description.Equals("") || i <= 2)
+                    if(!title.Equals("") || !description.Equals("") || i <= 1)
                     {
                         description = description.Replace("*--*", Environment.NewLine);
                         sectionsList.Add(new Section(title,description));

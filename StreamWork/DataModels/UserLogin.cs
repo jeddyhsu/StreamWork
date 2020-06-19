@@ -25,7 +25,6 @@ namespace StreamWork.DataModels
         public string LinkedInUrl { get; set; }
         public string TimeZone { get; set; }
         public string ProfileBanner { get; set; }
-        public string Year { get; set; }
 
         //Students
         public decimal Balance { get; set; }

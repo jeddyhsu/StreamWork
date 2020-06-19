@@ -179,4 +179,23 @@
     margin-bottom: 25px;
 }
 
+/*Alert Banners*/
+.notification-success {
+    background-color: #E2EED8;
+    color: #4B713D;
+}
 
+.notification-failed {
+    background-color: #EFDFDF;
+    color: #9F4F48;
+}
+
+.notification-warning {
+    background-color: #FCF7E4;
+    color: #876D40;
+}
+
+.notification-info {
+    background-color: #DCEDF6;
+    color: #3D708D;
+}

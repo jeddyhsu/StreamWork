@@ -4,7 +4,7 @@
 @{ViewData["Title"] = "TutorDashboard";}
 <script src="~/js/TutorJS/TutorDashboard.js" asp-append-version="true"></script>
 <script src="~/js/EditProfile.js" asp-append-version="true"></script>
-<script src="~/js/Tutor.js" asp-append-version="true"></script>
+<script src="~/js/TutorJS/Tutor.js" asp-append-version="true"></script>
 <script src="~/js/NotificationAndModals.js" asp-append-version="true"></script>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -124,7 +124,7 @@
                 <a class="nav-link active form-header" id="profile-tab" data-toggle="tab" href="#profile" onclick="SliderProfile()">Profile</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link form-header" id="schedule-tab" data-toggle="tab" href="#schedule"  onclick="SliderSchedule()">Schedule</a>
+                <a class="nav-link form-header" id="schedule-tab" data-toggle="tab" href="#schedule" onclick="SliderSchedule()">Schedule</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link form-header" id="stream-tab" data-toggle="tab" href="#stream" onclick="SliderStream()">Streams</a>
@@ -136,9 +136,14 @@
         <div class="slider">
             <div id="slider-object" class="slider-object"></div>
         </div>
+        <div id="sectionTopicNotification" class="alert notification-success mt-3 mb-0 ml-2 mr-2" role="alert">
+            <b>Changes Saved!</b> Your information has been successfully saved.
+            <div class="close ml-auto" onclick="$('#sectionTopicNotification').hide()">&times;</div>
+        </div>
+        <script> $('#sectionTopicNotification').hide()</script>
         <div class="tab-content">
             <div class="tab-pane active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <div class="container-fluid pt-4" style="width:100%">
+                <div class="container-fluid pt-2" style="width:100%">
                     <div class="row">
                         <div class="col-lg-8 col-md-12 col-sm-12 col-12 p-2">
                             <div class="card">
@@ -146,7 +151,7 @@
                                     <p class="form-header d-inline-block" style="font-size:18px">Basic Information</p>
                                     <a class="d-inline-block pr-3" style="cursor:pointer; float:right; color:#004643" onclick="SaveSection(event)"><span><img src="~/images/TutorAssets/TutorDashboard/Save.png" /></span>Save</a>
                                 </div>
-                                
+
                                 <form class="pl-4 pr-4 pb-4" id="form-section-tutor">
                                     <div class="form-row" id="form-row-section">
                                         <div class="form-group col-lg-3">
@@ -172,8 +177,7 @@
                                                 </div>
                                             </div>
                                             <label class="form-header pt-4">Year/Class</label>
-                                            <select id="yearSelect" class="form-control border form-input rounded-0" onchange="SaveYear()">
-                                                <option>@Model.UserProfile.Year</option>
+                                            <select asp-for="@Model.Sections[0].Year" id="yearSelect" class="form-control border form-input rounded-0">
                                                 <option>-Select-Year/Class-</option>
                                                 <option>Freshman</option>
                                                 <option>Sophomore</option>
@@ -186,16 +190,9 @@
                                         {
                                             <div class="form-group col-lg-9 pl-lg-3 pl-0">
                                                 <label class="form-header">Section 1 Title</label>
-                                                <input name="SectionTitle-1" id="SectionTitle-1" class="form-control border rounded-0 form-input" placeholder="Title of section one!" value="@Model.Sections[0].SectionTitle">
+                                                <input name="SectionTitle-1" id="SectionTitle-1" class="form-control border rounded-0 form-input" placeholder="Title of section one!" value="@Model.Sections[1].SectionTitle">
                                                 <label class="form-header pt-3">Description</label>
-                                                <textarea name="SectionDescription-1" id="SectionDescription-1" class="form-control border rounded-0 form-textarea" style="height:145px !important" placeholder="Tell us what you're studying, concentrations, passions, and other extra curricular activities here!">@Model.Sections[0].SectionDescription</textarea>
-                                            </div>
-                                            <div class="divider"></div>
-                                            <div class="form-group col-lg-12">
-                                                <label class="form-header">Section 2 Title</label>
-                                                <input name="SectionTitle-2" id="SectionTitle-2" class="form-control border rounded-0 form-input" placeholder="Title of section two!" value="@Model.Sections[1].SectionTitle">
-                                                <label class="form-header pt-3">Description</label>
-                                                <textarea name="SectionDescription-2" id="SectionDescription-2" class="form-control border rounded-0 form-textarea" placeholder="Tell us what you're studying, concentrations, passions, and other extra curricular activities here!">@Model.Sections[1].SectionDescription</textarea>
+                                                <textarea name="SectionDescription-1" id="SectionDescription-1" class="form-control border rounded-0 form-textarea" style="height:145px !important" placeholder="Tell us what you're studying, concentrations, passions, and other extra curricular activities here!">@Model.Sections[1].SectionDescription</textarea>
                                             </div>
                                             if (Model.Sections.Count > 2)
                                             {
@@ -222,14 +219,7 @@
                                                 <label class="form-header pt-3">Description</label>
                                                 <textarea name="SectionDescription-1" id="SectionDescription-1" class="form-control border rounded-0 form-textarea" placeholder="Tell us what you're studying, concentrations, passions, and other extra curricular activities here!"></textarea>
                                             </div>
-                                            <div class="divider"></div>
-                                            <div class="form-group col-lg-12">
-                                                <label class="form-header">Section 2 Title</label>
-                                                <input name="SectionTitle-2" id="SectionTitle-2" class="form-control border rounded-0 form-input" placeholder="Title of section two!">
-                                                <label class="form-header pt-3">Description</label>
-                                                <textarea name="SectionDescription-2" id="SectionDescription-2" class="form-control border rounded-0 form-textarea" placeholder="Tell us what you're studying, concentrations, passions, and other extra curricular activities here!"></textarea>
-                                            </div>
-                                            <script>sectionCount = 2</script>
+                                            <script>sectionCount = 1</script>
                                         }
                                     </div>
                                     <a class="d-inline-block" style="cursor:pointer; color:#004643" onclick="AddSection(event)"> + Add Section</a>
@@ -329,7 +319,59 @@
                                             <h5 id="streamTitle-@streamInfo.Id" class="text-truncate form-header">@streamInfo.StreamTitle</h5>
                                             <p class="text-truncate form-header" style="font-size:10px">@Model.UserProfile.Name.Replace('|', ' ')</p>
                                         </div>
-                                        <div class="card-footer p-0" style="background-color:orange; border-bottom-left-radius:20px; border-bottom-right-radius:20px;"><span style="color:white; cursor:pointer; float:right; padding-right:10px" onclick="OpenEditStreamModal('@streamInfo.Id', '@streamInfo.StreamTitle', '@streamInfo.StreamDescription', '@streamInfo.StreamThumbnail', 'streamEditModal')">&#8943;</span></div>
+                                        <div class="card-footer p-0" style="background-color:orange; border-bottom-left-radius:20px; border-bottom-right-radius:20px;"><span style="color:white; cursor:pointer; float:right; padding-right:10px" onclick="OpenEditStreamModal('@streamInfo.Id', 'streamEditModal-@streamInfo.Id')">&#8943;</span></div>
+                                    </div>
+                                </div>
+
+                                <div id="streamEditModal-@streamInfo.Id" class="custom-modal">
+                                    <div class="custom-modal-content">
+                                        <div class="close ml-auto" onclick="DiscardImageAndDiscardFormChangesAndCloseModal('@streamInfo.StreamThumbnail', 'previewStreamThumbnailEdit-@streamInfo.Id', 'streamEditForm', 'streamEditModal-@streamInfo.Id')">&times;</div>
+                                        <h5 class="form-header" style="padding-left:20px; padding-top:10px; font-size:16px;">Stream Information</h5>
+                                        <div class="slider">
+                                            <div class="slider-object" style="width:165px"></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <form id="streamEditForm" class="pt-4 pb-4 pl-5 pr-5">
+                                                    <div id="streamEditModalNotification-@streamInfo.Id" class="alert notification-success" style="padding-left:50px" role="alert">
+                                                        <b>Changes Saved!</b> Your information has been successfully saved.
+                                                        <div class="close ml-auto" onclick="$('#sectionTopicNotification').hide()">&times;</div>
+                                                    </div>
+                                                    <script>$('#streamEditModalNotification-@streamInfo.Id').hide()</script>
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-lg-7 col-md-12 col-sm-12 col-12 mt-2">
+                                                                <label class="form-header">Title</label>
+                                                                <input class="form-control form-input mb-2" type="text" id="streamTitleEdit-@streamInfo.Id" value="@streamInfo.StreamTitle">
+                                                                <label class="form-header">Description</label>
+                                                                <textarea class="form-control form-textarea mt-1 mb-2" id="streamDescriptionEdit-@streamInfo.Id" placeholder="Description" style="height:105px !important">@streamInfo.StreamDescription</textarea>
+                                                            </div>
+                                                            <div class="col-lg-5 col-md-12 col-sm-12 col-12 mt-1">
+                                                                <label class="form-header">Thumbnail</label>
+                                                                <div class="image-container mr-auto ml-auto">
+                                                                    <img class="mt-1" id="previewStreamThumbnailEdit-@streamInfo.Id" src="@streamInfo.StreamThumbnail" style="width:100%; border-radius:10px">
+                                                                    <input id="addStreamThumbnail" type="image" class="bottom-right" src="~/images/TutorAssets/TutorDashboard/Upload.png" style="bottom:-5px" />
+                                                                    <input name="uploadThumbnailEdit" id="uploadThumbnailEdit-@streamInfo.Id" class="d-none" type="file" value="~/images/MathDefault.png" onchange="ReadImageUrl(this,'previewStreamThumbnailEdit-@streamInfo.Id');">
+                                                                    <script>
+                                                                        $("#addStreamThumbnail").click(function (e) {
+                                                                            e.preventDefault()
+                                                                            $("input[id='uploadThumbnailEdit-@streamInfo.Id']").click();
+                                                                        })</script>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6 pr-0">
+                                                <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="SaveEditedStreamInfo()">Save Changes</button>
+                                            </div>
+                                            <div class="col-6 pl-0">
+                                                <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#cc0000; color:white" onclick="OpenDeleteStreamConfirmModal()">Delete Stream</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             }
@@ -370,11 +412,16 @@
 
 <div id="profileInformationModal" class="custom-modal">
     <div class="custom-modal-content">
-        <div class="close ml-auto" onclick="DiscardChangesAndCloseModal('profileForm','profileInformationModal')">&times;</div>
+        <div class="close ml-auto" onclick="DiscardImageAndDiscardFormChangesAndCloseModal('@Model.UserProfile.ProfilePicture', 'previewProfilePicture', 'profileForm', 'profileInformationModal')">&times;</div>
         <h5 style="padding-left:20px; padding-top:10px; font-family:'Roboto Slab', serif; font-size:16px; color: #707070;">Profile Information</h5>
         <div class="slider">
             <div class="slider-object" style="width:155px"></div>
         </div>
+        <div id="profileInformationNotification" class="alert notification-success mt-3 mb-0" style="margin-left:50px; margin-right:50px" role="alert">
+            <b>Changes Saved!</b> Your information has been successfully saved.
+            <div class="close ml-auto" onclick="$('#profileInformationNotification').hide()">&times;</div>
+        </div>
+        <script>$('#profileInformationNotification').hide()</script>
         <div class="row p-4">
             <div class="col-lg-3 col-md-12 col-sm-12 col-12 pl-0">
                 <label class="form-header d-block mt-2" style="margin-left:40px">Profile Picture</label>
@@ -382,12 +429,10 @@
                     <input id="previewProfilePicture" class="rounded pl-0 pb-3" type="image" src="@Model.UserProfile.ProfilePicture" style="width:120px" />
                     <input id="addProfilePicture" type="image" class="bottom-right" src="~/images/TutorAssets/TutorDashboard/Upload.png" />
                     <input name="uploadProfilePicture" id="uploadProfilePicture" style="cursor:pointer; display:none" type='file' onchange="readURL(this,'ProfilePicture')" />
-                    <script>
-                        $("#addProfilePicture").click(function (e) {
+                    <script>$("#addProfilePicture").click(function (e) {
                             e.preventDefault()
                             $("input[id='uploadProfilePicture']").click();
-                        })
-                    </script>
+                        })</script>
                 </div>
             </div>
             <div class="col-lg-9 col-md-12 col-sm-12 col-12 p-3">
@@ -427,53 +472,6 @@
         <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="SaveProfile(this)">Save Changes</button>
     </div>
 </div>
-<div id="streamEditModal" class="custom-modal">
-    <div class="custom-modal-content" >
-        <div class="close ml-auto" onclick="DiscardChangesAndCloseModal('streamEditForm','streamEditModal')">&times;</div>
-        <h5 class="form-header" style="padding-left:20px; padding-top:10px; font-size:16px;">Stream Information</h5>
-        <div class="slider">
-            <div class="slider-object" style="width:165px"></div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <form id="streamEditForm" class="pt-4 pb-4 pl-5 pr-5">
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-lg-7 col-md-12 col-sm-12 col-12 mt-2">
-                                <label class="form-header">Title</label>
-                                <input  class="form-control form-input mb-2"type="text" id="streamTitleEdit">
-                                <label class="form-header">Description</label>
-                                <textarea class="form-control form-textarea mt-1 mb-2" id="streamDescriptionEdit" placeholder="Description" style="height:105px !important"></textarea>
-                            </div>
-                            <div class="col-lg-5 col-md-12 col-sm-12 col-12 mt-1">
-                                <label class="form-header">Thumbnail</label>
-                                <div class="image-container mr-auto ml-auto">
-                                    <img class="mt-1" id="previewStreamThumbnailEdit" src="~/images/MathDefault.png" alt="your image" style="width:100%; border-radius:10px">
-                                    <input id="addStreamThumbnail" type="image" class="bottom-right" src="~/images/TutorAssets/TutorDashboard/Upload.png" style="bottom:-5px" />
-                                    <input name="uploadThumbnailEdit" id="uploadThumbnailEdit" class="d-none" type="file" value="~/images/MathDefault.png" onchange="readURL(this,'ThumbnailEdit');">
-                                    <script>
-                                        $("#addStreamThumbnail").click(function (e) {
-                                             e.preventDefault()
-                                            $("input[id='uploadThumbnailEdit']").click();
-                                        })
-                                    </script>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6 pr-0">
-                <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="SaveEditedStreamInfo()">Save Changes</button>
-            </div>
-            <div class="col-6 pl-0">
-                <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#cc0000; color:white" onclick="OpenDeleteStreamConfirmModal()">Delete Stream</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div id="universityModal" class="custom-modal">
     <div class="custom-modal-content">
@@ -485,6 +483,11 @@
         <div class="row">
             <div class="col-12">
                 <form id="universityForm" class="pt-4 pb-4 pl-5 pr-5">
+                    <div id="universityModalNotification" class="alert notification-success" style="padding-left:50px" role="alert">
+                        <b>Changes Saved!</b> Your information has been successfully saved.
+                        <div class="close ml-auto" onclick="$('#universityModalNotification').hide()">&times;</div>
+                    </div>
+                    <script>$('#universityModalNotification').hide()</script>
                     <div class="form-group">
                         <div class="row">
                             @if (Model.UserProfile.College != null)

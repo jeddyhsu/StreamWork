@@ -32,7 +32,7 @@ function AddSection(event) {
     e.scrollIntoView();
 }
 
-function SaveSection(event) { //saves all sections
+function SaveSection(event, type) { //saves all sections
     var form = $('#form-section-tutor');
     var serialize = form.serialize();
     serialize = serialize.replace(/%0D%0A/g, '*--*');
@@ -47,7 +47,11 @@ function SaveSection(event) { //saves all sections
                 location.reload();
             }
             else {
-                OpenNotificationModal("Changes have been saved!", 'notificationModal', 'Success')
+                if (type != "remove") {
+                    $("#sectionTopicNotification").fadeTo(2000, 500).slideUp(500, function () {
+                        $("#sectionTopicNotification").slideUp(500);
+                    });
+                }
             }
         }
     })
@@ -84,7 +88,7 @@ function RemoveSection(sectionNumber) {
         sectionDescription.name = "SectionDescription-" + (i - 1);
     }
 
-    SaveSection(event);
+    SaveSection(event, "remove");
 
     sectionCount--;
 }
@@ -125,7 +129,9 @@ function SaveTopic() {
                 location.reload();
             }
             else {
-                OpenNotificationModal("Changes have been saved!", 'notificationModal', 'Success')
+                $("#sectionTopicNotification").fadeTo(2000, 500).slideUp(500, function () {
+                    $("#sectionTopicNotification").slideUp(500);
+                });
             }
         }
     })
@@ -155,8 +161,9 @@ function SaveProfile() {
                 document.getElementById("header-name").innerHTML = data.firstName + " " + data.lastName
                 document.getElementById("header-occupation").innerHTML = data.occupation
                 document.getElementById("header-location").innerHTML = data.location
-                CloseModal('profileInformationModal');
-                OpenNotificationModal("Changes have been saved!", 'notificationModal', 'Success')
+                $("#profileInformationNotification").fadeTo(2000, 500).slideUp(500, function () {
+                    $("#profileInformationNotification").slideUp(500);
+                });
             }
         }
     })
@@ -176,14 +183,9 @@ function DeleteStream() {
     });
 }
 
-function OpenEditStreamModal(id, title, description, thumbnail, modalId) {
+function OpenEditStreamModal(id, modalId) {
     OpenModal(modalId)
     streamId = id
-    if (!isStreamEdited) {
-        document.getElementById("streamTitleEdit").value = title;
-        document.getElementById("streamDescriptionEdit").value = description;
-        document.getElementById("previewStreamThumbnailEdit").src = thumbnail;
-    }
 }
 
 function OpenDeleteStreamConfirmModal() {
@@ -192,9 +194,9 @@ function OpenDeleteStreamConfirmModal() {
 
 function SaveEditedStreamInfo() {
     var formData = new FormData()
-    var streamTitle = $('#streamTitleEdit').val();
-    var streamDescription = $('#streamDescriptionEdit').val();
-    var totalFile = document.getElementById("uploadThumbnailEdit")
+    var streamTitle = $('#streamTitleEdit-' + streamId).val();
+    var streamDescription = $('#streamDescriptionEdit-' + streamId).val();
+    var totalFile = document.getElementById("uploadThumbnailEdit-" + streamId)
 
     formData.append("StreamId", streamId);
     formData.append("StreamTitle", streamTitle);
@@ -213,10 +215,12 @@ function SaveEditedStreamInfo() {
                 isStreamEdited = true;
                 document.getElementById("streamTitle-" + streamId).innerHTML = data.title;
                 document.getElementById("streamThumbnail-" + streamId).src = data.thumbnail;
-                document.getElementById("streamTitleEdit").value = data.title;
-                document.getElementById("streamDescriptionEdit").value = data.description;
-                document.getElementById("previewStreamThumbnailEdit").src = data.thumbnail;
-                CloseModal("streamEditModal")
+                document.getElementById("streamTitleEdit-" + streamId).setAttribute("value", data.title)
+                document.getElementById("streamDescriptionEdit-" + streamId).setAttribute("value", data.description)
+                document.getElementById("previewStreamThumbnailEdit-" + streamId).setAttribute("src", data.thumbnail)
+                $("#streamEditModalNotification-" + streamId).fadeTo(2000, 500).slideUp(500, function () {
+                    $("#streamEditModalNotification-" + + streamId).slideUp(500);
+                });
             }
         }
     });
@@ -235,8 +239,6 @@ function SaveUniversityInfo() {
     var htmlString = "<div class='p-4'><p class='form-university-header'>" + abbreviation + "</p><p class='form-header'>" + name + "</p></div>"
     container.innerHTML = htmlString;
 
-    CloseModal('universityModal');
-
     $.ajax({
         url: '/Tutor/SaveUniversity',
         type: 'post',
@@ -244,6 +246,13 @@ function SaveUniversityInfo() {
         data: {
             'abbr': abbreviation,
             'name': name
+        },
+        success: function (data) {
+            if (data.message === "Success") {
+                $("#universityModalNotification" + streamId).fadeTo(2000, 500).slideUp(500, function () {
+                    $("#universityModalNotification" + + streamId).slideUp(500);
+                });
+            }
         }
     })
 }
@@ -260,29 +269,12 @@ function SaveProfileBanner(image) {
         contentType: false,
         success: function (data) {
             if (data.message === "Success") {
-                document.getElementById("previewProfileBanner").src = data.banner
+                $('#previewProfileBanner').attr('src', data.banner)
             }
         }
     });
 }
 
-function SaveYear() {
-    var year = $('#yearSelect').val();
-    $.ajax({
-        url: '/Tutor/SaveYear',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            'year': year,
-        },
-        success: function (data) {
-            if (data.message === "Success") {
-
-            }
-        }
-    });
-}
-        
         
         
         
