@@ -40,7 +40,7 @@ namespace StreamWork.Controllers
             model.TutorStreamingUserProfile = tutorProfile;
             model.UserChannel = channel;
             model.ChatInfo = _encryptionMethods.EncryptString(student.Username + "|" + student.Id + "|" + student.EmailAddress);
-            model.StreamSubjectPicture = _streamMethods.GetCorrespondingSubjectThumbnail(model.UserChannel.StreamSubject);
+            model.StreamSubjectPicture = _homeMethods.GetCorrespondingSubjectThumbnail(model.UserChannel.StreamSubject);
 
             if (student != null)
                 model.IsFollowing = await _followingMethods.IsFollowingFollowee(storageConfig, student.Id, tutorProfile.Id);

@@ -256,5 +256,17 @@ namespace StreamWork.Controllers
             }
             return Json(new { Message = JsonResponse.Failed.ToString() });
         }
+
+        [HttpPost]
+        public async Task<IActionResult> SaveScheduleTask([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
+        {
+            var user = HttpContext.User.Identity.Name;
+            var sortedList = await _scheduleMethods.SaveToSchedule(storageConfig, Request, user);
+            if (sortedList != null)
+            {
+                return Json(new { Message = JsonResponse.Success.ToString(), Sorted = sortedList });
+            }
+            return Json(new { Message = JsonResponse.Failed.ToString() });
+        }
     }
 }

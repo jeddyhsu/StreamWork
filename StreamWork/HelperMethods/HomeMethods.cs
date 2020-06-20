@@ -294,5 +294,21 @@ namespace StreamWork.HelperMethods
             int index = random.Next(list.Count);
             return list[index];
         }
+
+        public string GetCorrespondingSubjectThumbnail(string subject)
+        {
+            Hashtable table = new Hashtable();
+            table.Add("Mathematics", "/images/ChatAssets/Math.png");
+            table.Add("Science", "/images/ChatAssets/Science.png");
+            table.Add("Business", "/images/ChatAssets/Business.png");
+            table.Add("Engineering", "/images/ChatAssets/Engineering.png");
+            table.Add("Law", "/images/ChatAssets/Law.png");
+            table.Add("Art", "/images/ChatAssets/Art.png");
+            table.Add("Humanities", "/images/ChatAssets/Humanities.png");
+            table.Add("Other", "/images/ChatAssets/Other.png");
+
+
+            return (string)table[subject];
+        }
     }
 }

@@ -299,9 +299,108 @@ function SaveProfileBanner(image) {
             }
         }
     });
-}       
-        
-       
-    
+}
+
+$(function () {
+    $('#schedule-date-picker').datetimepicker({
+        format: 'L'
+    });
+});
+
+$(document).ready(function () {
+    $('#schedule-date-picker').on('change.datetimepicker', function (e) {
+        AddDateToModal(e.date)
+    })
+})
+
+$(function () {
+    $('#schedule-time-stop-picker').datetimepicker({
+        format: 'LT'
+    });
+})
+
+$(function () {
+    $('#schedule-time-start-picker').datetimepicker({
+        format: 'LT'
+    });
+})
+
+function AddDateToModal(date) {
+    var stringD = String(date);
+    var dateSplit = stringD.split(" ");
+    var dow = dateSplit[0];
+    var month = dateSplit[1];
+    var day = dateSplit[2];
+
+    var dateHTML = ` <div class="text-center" data-target="#schedule-date-picker" data-toggle="datetimepicker">
+                        <p id="schedule-dow" class="form-header m-0" style="font-size:18px">${month}</p>
+                        <p id="schedule-day" class="form-header m-0" style="font-size:30px">${day}</p>
+                        <p id="schedule-dow" class="form-header m-0" style="font-size:18px">${dow}</p>
+                    </div>`
+
+    document.getElementById("schedule-date-mask").innerHTML = dateHTML
+}
+
+function SaveScheduleTask() {
+    var formData = new FormData();
+    formData.append("StreamTitle", $('#schedule-title').val());
+    formData.append("StreamSubject", $('#schedule-subject').val());
+
+    var stringT = String($('#schedule-time-start-picker').datetimepicker('viewDate')).split(" ");
+    var stringS = String($('#schedule-time-stop-picker').datetimepicker('viewDate')).split(" ")
+    var stringD = String($('#schedule-date-picker').datetimepicker('viewDate')).split(" ");
+   
+    formData.append("TimeStart", stringT[0] + " " + stringT[1] + " " + stringT[2] + " " + stringT[3] + " " + stringT[4]);
+    formData.append("TimeStop", stringS[0] + " " + stringS[1] + " " + stringS[2] + " " + stringS[3] + " " + stringS[4]);
+    formData.append("Date", stringD[0] + " " + stringD[1] + " " + stringD[2] + " " + stringD[3] + " " + stringD[4])
+
+    formData.append("TimeZone", stringD[5]);
+
+    $.ajax({
+        url: '/Tutor/SaveScheduleTask',
+        type: 'POST',
+        datatype: 'json',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (data) {
+            if (data.message === "Success") {
+                document.getElementById("taskRow").innerHTML = "";
+                for (var i = 0; i < data.sorted.length; i++){
+
+                    var month = moment(String(data.sorted[i].date).replace("T", " ")).format("MMM");
+                    var day = moment(String(data.sorted[i].date).replace("T", " ")).format("D");
+                    var dow = moment(String(data.sorted[i].date).replace("T", " ")).format("ddd");
+
+                    var element = ` <div class="col-lg-6 col-md-12">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <div class="d-inline-flex">
+                                                                <img class="rounded m-1" src="${data.sorted[i].subjectThumbnail}" style="width:75px; height:75px" />
+                                                                <div class="text-center m-1" style="width:75px; height:75px; border:dashed">
+                                                                    <p id="schedule-month" class="form-header mt-4" style="font-size:18px">${month}</p>
+                                                                </div>
+                                                                <div class="text-center m-1" style="width:75px; height:75px; border:dashed">
+                                                                    <p id="schedule-day" class="form-header mb-0 mt-2" style="font-size:22px">${day}</p>
+                                                                    <p id="schedule-dow" class="form-header" style="font-size:14px">${dow}</p>
+                                                                </div>
+                                                                <div class="m-1" style="height:75px;">
+                                                                    <p id="schedule-stream-title" class="form-header m-0">${data.sorted[i].streamTitle}</p>
+                                                                    <p id="schedule-stream-subject" class="form-header mt-1 mb-0" style="font-size:10px">${data.sorted[i].streamSubject}</p>
+                                                                    <p id="schedule-stream-time" class="form-header mt-1">${data.sorted[i].timeStart} - ${data.sorted[i].timeStop} [${data.sorted[i].timeZone}]</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>`
+
+                    document.getElementById("taskRow").innerHTML += element;
+                    CloseModal("addStreamToScheduleModal")
+                }
+            }
+        }
+    })
+}
+
     
     

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,38 +14,46 @@ namespace StreamWork.HelperMethods
     public class ScheduleMethods
     {
         private readonly HomeMethods _homeMethods = new HomeMethods();
+        private readonly TutorMethods _tutorMethods = new TutorMethods();
 
-        public async Task<bool> AddToSchedule([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, HttpRequest request)
+        public async Task<List<Schedule>> SaveToSchedule([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, HttpRequest request, string user)
         {
             try
             {
-                var name = request.Form["Name"];
-                var username = request.Form["Username"];
+                var userProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, user);
+
                 var streamTitle = request.Form["StreamTitle"];
                 var streamSubject = request.Form["StreamSubject"];
-                var timeStart = request.Form["TimeStart"];
-                var timeStop = request.Form["TimeStop"];
                 var timeZone = request.Form["TimeZone"];
+
+                var format = "ddd MMM dd yyyy HH:mm:ss";
+                var timeStart = DateTime.ParseExact(request.Form["TimeStart"], format, CultureInfo.InvariantCulture);
+                var timeStop = DateTime.ParseExact(request.Form["TimeStop"], format, CultureInfo.InvariantCulture);
+                var date = DateTime.ParseExact(request.Form["Date"], format, CultureInfo.InvariantCulture);
+
+                DateTime newDate = new DateTime(date.Year, date.Month, date.Day, timeStart.Hour, timeStart.Minute, timeStart.Second);
 
                 Schedule schedule = new Schedule
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Name = name,
-                    Username = username,
+                    Name = userProfile.Name,
+                    Username = userProfile.Username,
                     StreamTitle = streamTitle,
                     StreamSubject = streamSubject,
-                    TimeStart = timeStart,
-                    TimeStop = timeStop,
-                    TimeZone = timeZone
+                    TimeStart = timeStart.ToString("h:mm tt"),
+                    TimeStop = timeStop.ToString("h:mm tt"),
+                    TimeZone = timeZone,
+                    Date = newDate,
+                    SubjectThumbnail = _homeMethods.GetCorrespondingSubjectThumbnail(streamSubject)
                 };
 
                 await DataStore.SaveAsync(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", schedule.Id } }, schedule);
-                return true;
+                return await GetSchedule(storageConfig, user);
             }
             catch (Exception e)
             {
                 Console.WriteLine("Error in ScheduleMethods:AddToSchedule " + e.Message);
-                return false;
+                return null;
             }
         }
 

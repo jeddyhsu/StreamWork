@@ -17,6 +17,7 @@ namespace StreamWork.DataModels
         public string TimeStop { get; set; }
         public string TimeZone { get; set; }
         public DateTime Date { get; set; }
+        public string SubjectThumbnail { get; set; }
 
         [Timestamp]
         public byte[] RowVersion { get; set; }
