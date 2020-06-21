@@ -268,5 +268,17 @@ namespace StreamWork.Controllers
             }
             return Json(new { Message = JsonResponse.Failed.ToString() });
         }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteScheduleTask([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string taskId)
+        {
+            var user = HttpContext.User.Identity.Name;
+            var sortedList = await _scheduleMethods.DeleteFromSchedule(storageConfig, taskId, user);
+            if (sortedList != null)
+            {
+                return Json(new { Message = JsonResponse.Success.ToString(), Sorted = sortedList });
+            }
+            return Json(new { Message = JsonResponse.Failed.ToString() });
+        }
     }
 }

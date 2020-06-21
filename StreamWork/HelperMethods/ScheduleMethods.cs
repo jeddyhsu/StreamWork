@@ -33,7 +33,7 @@ namespace StreamWork.HelperMethods
 
                 DateTime newDate = new DateTime(date.Year, date.Month, date.Day, timeStart.Hour, timeStart.Minute, timeStart.Second);
 
-                if(string.IsNullOrEmpty(id))
+                if(id.Equals("undefined"))
                 {
                     schedule = new Schedule
                     {
@@ -73,6 +73,13 @@ namespace StreamWork.HelperMethods
         public async Task<List<Schedule>> GetSchedule([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string user)
         {
             return await DataStore.GetListAsync<Schedule>(_homeMethods._connectionString, storageConfig.Value, SQLQueries.GetScheduleWithUserUsername.ToString(), new List<string> { user });
+        }
+
+        public async Task<List<Schedule>> DeleteFromSchedule([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string id, string user)
+        {
+            var saved = await DataStore.DeleteDataAsync<Schedule>(_homeMethods._connectionString, storageConfig.Value, SQLQueries.DeleteScheduleWithId.ToString(), new List<string>{ id });
+            if (saved) return await GetSchedule(storageConfig, user);
+            return null;
         }
     }
 }

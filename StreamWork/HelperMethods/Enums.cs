@@ -87,6 +87,7 @@ namespace StreamWork.HelperMethods
         //Schedule
         GetScheduleWithUserUsername,
         GetScheduleWithId,
+        DeleteScheduleWithId,
 
         // Misc
         UserProfile,       //Use For Session

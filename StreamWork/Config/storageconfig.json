@@ -243,6 +243,10 @@
         {
           "Query": "SELECT * FROM [dbo].[Schedule] WHERE Id = '@x0'",
           "QueryId": "GetScheduleWithId"
+        },
+        {
+          "Query": "DELETE FROM [dbo].[Schedule] WHERE Id = '@x0'",
+          "QueryId": "DeleteScheduleWithId"
         }
       ]
     }

@@ -377,14 +377,22 @@ function SaveScheduleTask(id) {
         contentType: false,
         success: function (data) {
             if (data.message === "Success") {
-                document.getElementById("taskRow").innerHTML = "";
-                for (var i = 0; i < data.sorted.length; i++){
+                SortTasks(data);
+            }
+        }
+    })
+}
 
-                    var month = moment(String(data.sorted[i].date).replace("T", " ")).format("MMM");
-                    var day = moment(String(data.sorted[i].date).replace("T", " ")).format("D");
-                    var dow = moment(String(data.sorted[i].date).replace("T", " ")).format("ddd");
+function SortTasks(data) {
+    document.getElementById("taskRow").innerHTML = "";
+    var element = "";
+    if (data.sorted.length > 0) {
+        for (var i = 0; i < data.sorted.length; i++) {
+            var month = moment(String(data.sorted[i].date).replace("T", " ")).format("MMM");
+            var day = moment(String(data.sorted[i].date).replace("T", " ")).format("D");
+            var dow = moment(String(data.sorted[i].date).replace("T", " ")).format("ddd");
 
-                    var element = ` <div class="col-lg-6 col-md-12 mt-2">
+            element = ` <div class="col-lg-6 col-md-12 mt-2">
                                                     <div class="card card-border" onclick="EditScheduleTask('${data.sorted[i].id}')">
                                                         <div class="card-body">
                                                             <input type="hidden" id="schedule-date-${data.sorted[i].id}" value="${data.sorted[i].date}" />
@@ -408,13 +416,29 @@ function SaveScheduleTask(id) {
                                                         </div>
                                                     </div>
                                                 </div>`
-
-                    document.getElementById("taskRow").innerHTML += element;
-                    CloseModal("scheduleModal")
-                }
-            }
         }
-    })
+    }
+    else {
+        element = ` <div class="col-lg-6 col-md-12  mt-2">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="d-inline-flex">
+                                                            <img class="rounded m-1" src="/images/ScheduleAssets/CalendarAdd.png" style="width:75px; height:75px" />
+                                                            <div class="m-1" style="height:75px;">
+                                                                <p id="schedule-stream-title" class="form-header m-0">Schedule Stream</p>
+                                                                <p id="schedule-stream-subject" class="form-header mt-1 mb-0" style="font-size:10px">Stream Topic</p>
+                                                                <p id="schedule-stream-time" class="form-header mt-1">Click "Add Stream" or the plus</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>`
+    }
+       
+    
+
+        document.getElementById("taskRow").innerHTML += element;
+        CloseModal("scheduleModal")
 }
 
 function EditScheduleTask(id) {
@@ -430,12 +454,28 @@ function EditScheduleTask(id) {
 
     document.getElementById("schedule-buttons").innerHTML = `<div class="row">
                                                                 <div class="col-6 pr-0">
-                                                                    <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#6B6B6B; color:white" onclick="OpenDeleteStreamConfirmModal()">Delete Scheduled Stream</button>
+                                                                    <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#6B6B6B; color:white" onclick="DeleteScheduleTask('${String(id)}')">Delete Scheduled Stream</button>
                                                                 </div>
                                                                 <div class="col-6 pl-0">
                                                                     <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="SaveScheduleTask('${String(id)}')">Save Changes</button>
                                                                 </div>
                                                            </div>`
+}
+
+function DeleteScheduleTask(id) {
+    $.ajax({
+        url: '/Tutor/DeleteScheduleTask',
+        type: 'POST',
+        datatype: 'json',
+        data: {
+            'taskId': id,
+        },
+        success: function (data) {
+            if (data.message === "Success") {
+                SortTasks(data);
+            }
+        }
+    })
 }
 
     
