@@ -5,6 +5,12 @@
     OpenModal(id);
 }
 
+function DiscardCalendarModalAndCloseModal() {
+    document.getElementById("schedule-date-mask").innerHTML = `<img class="d-block" src="/images/ScheduleAssets/Calendar.png" data-target="#schedule-date-picker" data-toggle="datetimepicker" />`
+    document.getElementById("schedule-buttons").innerHTML = ` <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="SaveScheduleTask()">Save Changes</button>`
+    DiscardChangesAndCloseModal('scheduleModalForm', 'scheduleModal');
+}
+
 function DiscardImageAndDiscardFormChangesAndCloseModal(imageURL, imageDestId, formId, modalId) {
     $('#' + imageDestId).attr('src', imageURL);
     DiscardChangesAndCloseModal(formId, modalId);

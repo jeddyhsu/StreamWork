@@ -239,6 +239,10 @@
         {
           "Query": "SELECT * FROM [dbo].[Schedule] WHERE Username = '@x0' ORDER BY DATE ASC",
           "QueryId": "GetScheduleWithUserUsername"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Schedule] WHERE Id = '@x0'",
+          "QueryId": "GetScheduleWithId"
         }
       ]
     }

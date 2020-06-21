@@ -14,42 +14,55 @@ namespace StreamWork.HelperMethods
     public class ScheduleMethods
     {
         private readonly HomeMethods _homeMethods = new HomeMethods();
-        private readonly TutorMethods _tutorMethods = new TutorMethods();
 
         public async Task<List<Schedule>> SaveToSchedule([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, HttpRequest request, string user)
         {
             try
             {
+                Schedule schedule = null;
                 var userProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, user);
 
+                var id = request.Form["Id"];
                 var streamTitle = request.Form["StreamTitle"];
                 var streamSubject = request.Form["StreamSubject"];
+                var timeStop = request.Form["TimeStop"];
                 var timeZone = request.Form["TimeZone"];
 
-                var format = "ddd MMM dd yyyy HH:mm:ss";
-                var timeStart = DateTime.ParseExact(request.Form["TimeStart"], format, CultureInfo.InvariantCulture);
-                var timeStop = DateTime.ParseExact(request.Form["TimeStop"], format, CultureInfo.InvariantCulture);
-                var date = DateTime.ParseExact(request.Form["Date"], format, CultureInfo.InvariantCulture);
+                var date = DateTime.ParseExact(request.Form["Date"], "ddd MMM dd yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+                var timeStart = DateTime.ParseExact(request.Form["TimeStart"], "h:mm tt", CultureInfo.InvariantCulture);
 
                 DateTime newDate = new DateTime(date.Year, date.Month, date.Day, timeStart.Hour, timeStart.Minute, timeStart.Second);
 
-                Schedule schedule = new Schedule
+                if(string.IsNullOrEmpty(id))
                 {
-                    Id = Guid.NewGuid().ToString(),
-                    Name = userProfile.Name,
-                    Username = userProfile.Username,
-                    StreamTitle = streamTitle,
-                    StreamSubject = streamSubject,
-                    TimeStart = timeStart.ToString("h:mm tt"),
-                    TimeStop = timeStop.ToString("h:mm tt"),
-                    TimeZone = timeZone,
-                    Date = newDate,
-                    SubjectThumbnail = _homeMethods.GetCorrespondingSubjectThumbnail(streamSubject)
-                };
+                    schedule = new Schedule
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        Name = userProfile.Name,
+                        Username = userProfile.Username,
+                        StreamTitle = streamTitle,
+                        StreamSubject = streamSubject,
+                        TimeStart = timeStart.ToString("h:mm tt"),
+                        TimeStop = timeStop,
+                        TimeZone = timeZone,
+                        Date = newDate,
+                        SubjectThumbnail = _homeMethods.GetCorrespondingSubjectThumbnail(streamSubject)
+                    };
+                }
+                else
+                {
+                    schedule = (await DataStore.GetListAsync<Schedule>(_homeMethods._connectionString, storageConfig.Value, SQLQueries.GetScheduleWithId.ToString(), new List<string> { id }))[0];
+                    schedule.StreamTitle = streamTitle;
+                    schedule.StreamSubject = streamSubject;
+                    schedule.TimeStart = timeStart.ToString("h:mm tt");
+                    schedule.TimeStop = timeStop;
+                    schedule.Date = newDate;
+                    schedule.SubjectThumbnail = _homeMethods.GetCorrespondingSubjectThumbnail(streamSubject);
+                }
 
                 await DataStore.SaveAsync(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", schedule.Id } }, schedule);
                 return await GetSchedule(storageConfig, user);
-            }
+            }     
             catch (Exception e)
             {
                 Console.WriteLine("Error in ScheduleMethods:AddToSchedule " + e.Message);

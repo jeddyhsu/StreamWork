@@ -314,23 +314,37 @@ $(document).ready(function () {
 })
 
 $(function () {
+    $('#schedule-time-start-picker').datetimepicker({
+        format: 'LT'
+    });
+})
+
+$(function () {
     $('#schedule-time-stop-picker').datetimepicker({
         format: 'LT'
     });
 })
 
 $(function () {
-    $('#schedule-time-start-picker').datetimepicker({
+    $('#schedule-time-start-edit-picker').datetimepicker({
+        format: 'LT'
+    });
+})
+
+$(function () {
+    $('#schedule-time-stop-edit-picker').datetimepicker({
         format: 'LT'
     });
 })
 
 function AddDateToModal(date) {
-    var stringD = String(date);
-    var dateSplit = stringD.split(" ");
-    var dow = dateSplit[0];
-    var month = dateSplit[1];
-    var day = dateSplit[2];
+    document.getElementById("schedule-date-mask").innerHTML = ReturnMask(date);
+}
+
+function ReturnMask(date) {
+    var month = moment(String(date)).format("MMM");
+    var day = moment(String(date)).format("D");
+    var dow = moment(String(date)).format("ddd");
 
     var dateHTML = ` <div class="text-center" data-target="#schedule-date-picker" data-toggle="datetimepicker">
                         <p id="schedule-dow" class="form-header m-0" style="font-size:18px">${month}</p>
@@ -338,23 +352,21 @@ function AddDateToModal(date) {
                         <p id="schedule-dow" class="form-header m-0" style="font-size:18px">${dow}</p>
                     </div>`
 
-    document.getElementById("schedule-date-mask").innerHTML = dateHTML
+    return dateHTML;
 }
 
-function SaveScheduleTask() {
+function SaveScheduleTask(id) {
     var formData = new FormData();
     formData.append("StreamTitle", $('#schedule-title').val());
     formData.append("StreamSubject", $('#schedule-subject').val());
+    formData.append("TimeStart", $('#schedule-time-start-picker-value').val());
+    formData.append("TimeStop", $('#schedule-time-stop-picker-value').val());
 
-    var stringT = String($('#schedule-time-start-picker').datetimepicker('viewDate')).split(" ");
-    var stringS = String($('#schedule-time-stop-picker').datetimepicker('viewDate')).split(" ")
     var stringD = String($('#schedule-date-picker').datetimepicker('viewDate')).split(" ");
-   
-    formData.append("TimeStart", stringT[0] + " " + stringT[1] + " " + stringT[2] + " " + stringT[3] + " " + stringT[4]);
-    formData.append("TimeStop", stringS[0] + " " + stringS[1] + " " + stringS[2] + " " + stringS[3] + " " + stringS[4]);
     formData.append("Date", stringD[0] + " " + stringD[1] + " " + stringD[2] + " " + stringD[3] + " " + stringD[4])
-
     formData.append("TimeZone", stringD[5]);
+
+    if (id != "") formData.append("Id", id);
 
     $.ajax({
         url: '/Tutor/SaveScheduleTask',
@@ -372,22 +384,25 @@ function SaveScheduleTask() {
                     var day = moment(String(data.sorted[i].date).replace("T", " ")).format("D");
                     var dow = moment(String(data.sorted[i].date).replace("T", " ")).format("ddd");
 
-                    var element = ` <div class="col-lg-6 col-md-12">
-                                                    <div class="card">
+                    var element = ` <div class="col-lg-6 col-md-12 mt-2">
+                                                    <div class="card card-border" onclick="EditScheduleTask('${data.sorted[i].id}')">
                                                         <div class="card-body">
+                                                            <input type="hidden" id="schedule-date-${data.sorted[i].id}" value="${data.sorted[i].date}" />
                                                             <div class="d-inline-flex">
                                                                 <img class="rounded m-1" src="${data.sorted[i].subjectThumbnail}" style="width:75px; height:75px" />
-                                                                <div class="text-center m-1" style="width:75px; height:75px; border:dashed">
-                                                                    <p id="schedule-month" class="form-header mt-4" style="font-size:18px">${month}</p>
+                                                                <div class="text-center m-1 schedule-border" style="width:75px; height:75px;">
+                                                                    <p id="schedule-month-${data.sorted[i].id}" class="form-header mt-4" style="font-size:18px">${month}</p>
                                                                 </div>
-                                                                <div class="text-center m-1" style="width:75px; height:75px; border:dashed">
-                                                                    <p id="schedule-day" class="form-header mb-0 mt-2" style="font-size:22px">${day}</p>
-                                                                    <p id="schedule-dow" class="form-header" style="font-size:14px">${dow}</p>
+                                                                <div class="text-center m-1 schedule-border" style="width:75px; height:75px;">
+                                                                    <p id="schedule-day-${data.sorted[i].id}" class="form-header mb-0 mt-2" style="font-size:22px">${day}</p>
+                                                                    <p id="schedule-dow-${data.sorted[i].id}" class="form-header" style="font-size:14px">${dow}</p>
                                                                 </div>
                                                                 <div class="m-1" style="height:75px;">
-                                                                    <p id="schedule-stream-title" class="form-header m-0">${data.sorted[i].streamTitle}</p>
-                                                                    <p id="schedule-stream-subject" class="form-header mt-1 mb-0" style="font-size:10px">${data.sorted[i].streamSubject}</p>
-                                                                    <p id="schedule-stream-time" class="form-header mt-1">${data.sorted[i].timeStart} - ${data.sorted[i].timeStop} [${data.sorted[i].timeZone}]</p>
+                                                                    <p id="schedule-stream-title-${data.sorted[i].id}" class="form-header m-0">${data.sorted[i].streamTitle}</p>
+                                                                    <p id="schedule-stream-subject-${data.sorted[i].id}" class="form-header mt-1 mb-0" style="font-size:10px">${data.sorted[i].streamSubject}</p>
+                                                                    <p class="form-header mt-1">${data.sorted[i].timeStart} - ${data.sorted[i].timeStop} [${data.sorted[i].timeZone}]</p>
+                                                                     <input type="hidden" id="schedule-time-start-${data.sorted[i].id}" value="${data.sorted[i].timeStart}" />
+                                                                     <input type="hidden" id="schedule-time-stop-${data.sorted[i].id}" value="${data.sorted[i].timeStop}" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -395,11 +410,32 @@ function SaveScheduleTask() {
                                                 </div>`
 
                     document.getElementById("taskRow").innerHTML += element;
-                    CloseModal("addStreamToScheduleModal")
+                    CloseModal("scheduleModal")
                 }
             }
         }
     })
+}
+
+function EditScheduleTask(id) {
+    OpenModal("scheduleModal");
+
+    document.getElementById("schedule-date-mask").innerHTML = ReturnMask($('#schedule-date-' + id).val());
+    $('#schedule-title').val($('#schedule-stream-title-' + id).text());
+    $('#schedule-subject').val($('#schedule-stream-subject-' + id).text());
+    $('#schedule-time-start-picker-value').val($('#schedule-time-start-' + id).val());
+    $('#schedule-time-stop-picker-value').val($('#schedule-time-stop-' + id).val());
+    $('#schedule-time-start-picker').val($('#schedule-time-start-' + id).val());
+    $('#schedule-time-stop-picker').val($('#schedule-time-stop-' + id).val());
+
+    document.getElementById("schedule-buttons").innerHTML = `<div class="row">
+                                                                <div class="col-6 pr-0">
+                                                                    <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#6B6B6B; color:white" onclick="OpenDeleteStreamConfirmModal()">Delete Scheduled Stream</button>
+                                                                </div>
+                                                                <div class="col-6 pl-0">
+                                                                    <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="SaveScheduleTask('${String(id)}')">Save Changes</button>
+                                                                </div>
+                                                           </div>`
 }
 
     

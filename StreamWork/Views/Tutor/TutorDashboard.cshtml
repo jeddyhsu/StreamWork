@@ -312,21 +312,24 @@
                                             @foreach (var task in Model.Schedule)
                                             {
                                                 <div class="col-lg-6 col-md-12 mt-2">
-                                                    <div class="card">
+                                                    <div class="card card-border" onclick="EditScheduleTask('@task.Id')">
                                                         <div class="card-body">
+                                                            <input type="hidden" id="schedule-date-@task.Id" value="@task.Date" />
                                                             <div class="d-inline-flex">
                                                                 <img class="rounded m-1" src="@task.SubjectThumbnail" style="width:75px; height:75px" />
-                                                                <div class="text-center m-1" style="width:75px; height:75px; border:dashed">
-                                                                    <p id="schedule-month" class="form-header mt-4" style="font-size:18px">@task.Date.ToString("MMM")</p>
+                                                                <div class="text-center m-1 schedule-border" style="width:75px; height:75px;">
+                                                                    <p id="schedule-month-@task.Id" class="form-header mt-4" style="font-size:18px">@task.Date.ToString("MMM")</p>
                                                                 </div>
-                                                                <div class="text-center m-1" style="width:75px; height:75px; border:dashed">
-                                                                    <p id="schedule-day" class="form-header mb-0 mt-2" style="font-size:22px">@task.Date.Day</p>
-                                                                    <p id="schedule-dow" class="form-header" style="font-size:14px">@task.Date.ToString("ddd")</p>
+                                                                <div class="text-center m-1 schedule-border" style="width:75px; height:75px;">
+                                                                    <p id="schedule-day-@task.Id" class="form-header mb-0 mt-2" style="font-size:22px">@task.Date.Day</p>
+                                                                    <p id="schedule-dow-@task.Id" class="form-header" style="font-size:14px">@task.Date.ToString("ddd")</p>
                                                                 </div>
                                                                 <div class="m-1" style="height:75px;">
-                                                                    <p id="schedule-stream-title" class="form-header m-0">@task.StreamTitle</p>
-                                                                    <p id="schedule-stream-subject" class="form-header mt-1 mb-0" style="font-size:10px">@task.StreamSubject</p>
-                                                                    <p id="schedule-stream-time" class="form-header mt-1">@task.TimeStart - @task.TimeStop [@task.TimeZone.ToString()]</p>
+                                                                    <p id="schedule-stream-title-@task.Id" class="form-header m-0">@task.StreamTitle</p>
+                                                                    <p id="schedule-stream-subject-@task.Id" class="form-header mt-1 mb-0" style="font-size:10px">@task.StreamSubject</p>
+                                                                    <p class="form-header mt-1">@task.TimeStart - @task.TimeStop [@task.TimeZone.ToString()]</p>
+                                                                     <input type="hidden" id="schedule-time-start-@task.Id" value="@task.TimeStart" />
+                                                                     <input type="hidden" id="schedule-time-stop-@task.Id" value="@task.TimeStop" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -353,7 +356,7 @@
                                         }
                                     </div>
                                     <div class="mt-4">
-                                        <a style="cursor:pointer; color:#004643;" onclick="OpenModal('addStreamToScheduleModal')"> + Add Stream</a>
+                                        <a style="cursor:pointer; color:#004643;" onclick="OpenModal('scheduleModal')"> + Add Stream</a>
                                     </div>
 
                                 </div>
@@ -589,20 +592,20 @@
     </div>
 </div>
 
-<div id="addStreamToScheduleModal" class="custom-modal">
+<div id="scheduleModal" class="custom-modal">
     <div class="custom-modal-content">
-        <div class="close ml-auto" onclick="DiscardChangesAndCloseModal('addStreamToScheduleModal','addStreamToScheduleModal')">&times;</div>
+        <div class="close ml-auto" onclick="DiscardCalendarModalAndCloseModal()">&times;</div>
         <h5 class="form-header" style="padding-left:20px; padding-top:10px; font-size:16px;">Schedule Stream Time</h5>
         <div class="slider">
             <div class="slider-object" style="width:190px"></div>
         </div>
         <div class="row">
             <div class="col-12">
-                <form id="addStreamToForm" class="pt-4 pb-4 pl-5 pr-5">
+                <form id="scheduleModalForm" class="pt-4 pb-4 pl-5 pr-5">
                     <div class="row">
                         <div class="col-lg-2 col-md-12">
                             <label class="form-header">Select Date</label>
-                            <div class="p-4" style="border:dashed">
+                            <div class="p-4 schedule-border">
                                 <div class="datetimepicker-input" id="schedule-date-picker">
                                     <div id="schedule-date-mask">
                                         <img class="d-block" src="~/images/ScheduleAssets/Calendar.png" data-target="#schedule-date-picker" data-toggle="datetimepicker" />
@@ -629,7 +632,7 @@
                                 <div class="col-lg-6">
                                     <label class="form-header pt-3">Time Start</label>
                                     <div class="input-group date" id="schedule-time-start-picker" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" data-target="#schedule-time-start-picker" />
+                                        <input id="schedule-time-start-picker-value" type="text" class="form-control datetimepicker-input" data-target="#schedule-time-start-picker" />
                                         <div class="input-group-append" data-target="#schedule-time-start-picker" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
                                         </div>
@@ -638,7 +641,7 @@
                                 <div class="col-lg-6">
                                     <label class="form-header pt-3">Time Stop</label>
                                     <div class="input-group date" id="schedule-time-stop-picker" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" data-target="#schedule-time-stop-picker" />
+                                        <input id="schedule-time-stop-picker-value" type="text" class="form-control datetimepicker-input" data-target="#schedule-time-stop-picker" />
                                         <div class="input-group-append" data-target="#schedule-time-stop-picker" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
                                         </div>
@@ -650,6 +653,8 @@
                 </form>
             </div>
         </div>
-        <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="SaveScheduleTask()">Save Changes</button>
+        <div id="schedule-buttons">
+            <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="SaveScheduleTask()">Save Changes</button>
+        </div>
     </div>
 </div>

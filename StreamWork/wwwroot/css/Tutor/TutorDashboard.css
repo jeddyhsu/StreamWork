@@ -199,3 +199,22 @@
     background-color: #DCEDF6;
     color: #3D708D;
 }
+
+/*Card Border*/
+.card-border {
+    border-width: 0px !important;
+}
+
+.card-border:hover{
+    border-width:2px !important;
+    cursor:pointer;
+}
+
+.schedule-border {
+    border: dashed;
+    color: #9F9F9F;
+}
+
+.schedule-alternate {
+    background-color: #FBFBFB;
+}
