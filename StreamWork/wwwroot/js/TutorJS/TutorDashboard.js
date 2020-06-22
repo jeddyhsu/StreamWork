@@ -1,7 +1,5 @@
 ﻿var sectionCount = 0;
 var topicCount = 0;
-var streamId = "";
-var isStreamEdited = false;
 
 function SliderProfile() {
     $('#profile-tab').tab('show');
@@ -195,63 +193,6 @@ function SaveProfile() {
     })
 }
 
-function DeleteStream() {
-    $.ajax({
-        url: '/Tutor/DeleteStream',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            'id': videoId,
-        },
-        success: function (data) {
-            $('#videoInfo-' + videoId).hide();
-        }
-    });
-}
-
-function OpenEditStreamModal(id, modalId) {
-    OpenModal(modalId)
-    streamId = id
-}
-
-function OpenDeleteStreamConfirmModal() {
-    $('#deleteStreamConfirmModal').modal('show');
-}
-
-function SaveEditedStreamInfo() {
-    var formData = new FormData()
-    var streamTitle = $('#streamTitleEdit-' + streamId).val();
-    var streamDescription = $('#streamDescriptionEdit-' + streamId).val();
-    var totalFile = document.getElementById("uploadThumbnailEdit-" + streamId)
-
-    formData.append("StreamId", streamId);
-    formData.append("StreamTitle", streamTitle);
-    formData.append("StreamDescription", streamDescription);
-    if (totalFile.files.length > 0) formData.append("StreamThumbnail", totalFile.files[0]);
-
-    $.ajax({
-        url: '/Tutor/SaveEditedStreamInfo',
-        type: 'POST',
-        dataType: 'json',
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function (data) {
-            if (data.message === "Success") {
-                isStreamEdited = true;
-                document.getElementById("streamTitle-" + streamId).innerHTML = data.title;
-                document.getElementById("streamThumbnail-" + streamId).src = data.thumbnail;
-                document.getElementById("streamTitleEdit-" + streamId).setAttribute("value", data.title)
-                document.getElementById("streamDescriptionEdit-" + streamId).setAttribute("value", data.description)
-                document.getElementById("previewStreamThumbnailEdit-" + streamId).setAttribute("src", data.thumbnail)
-                $("#streamEditModalNotification-" + streamId).fadeTo(2000, 500).slideUp(500, function () {
-                    $("#streamEditModalNotification-" + + streamId).slideUp(500);
-                });
-            }
-        }
-    });
-}
-
 function SaveUniversityInfo() {
     var form = $('#universityForm');
     if (!form[0].checkValidity()) {
@@ -303,7 +244,8 @@ function SaveProfileBanner(image) {
 
 $(function () {
     $('#schedule-date-picker').datetimepicker({
-        format: 'L'
+        format: 'L',
+        minDate: new Date()
     });
 });
 
@@ -392,7 +334,7 @@ function SortTasks(data) {
             var day = moment(String(data.sorted[i].date).replace("T", " ")).format("D");
             var dow = moment(String(data.sorted[i].date).replace("T", " ")).format("ddd");
 
-            element = ` <div class="col-lg-6 col-md-12 mt-2">
+            element += ` <div class="col-lg-6 col-md-12 mt-2">
                                                     <div class="card card-border" onclick="EditScheduleTask('${data.sorted[i].id}')">
                                                         <div class="card-body">
                                                             <input type="hidden" id="schedule-date-${data.sorted[i].id}" value="${data.sorted[i].date}" />
@@ -407,8 +349,8 @@ function SortTasks(data) {
                                                                 </div>
                                                                 <div class="m-1" style="height:75px;">
                                                                     <p id="schedule-stream-title-${data.sorted[i].id}" class="form-header m-0">${data.sorted[i].streamTitle}</p>
-                                                                    <p id="schedule-stream-subject-${data.sorted[i].id}" class="form-header mt-1 mb-0" style="font-size:10px">${data.sorted[i].streamSubject}</p>
-                                                                    <p class="form-header mt-1">${data.sorted[i].timeStart} - ${data.sorted[i].timeStop} [${data.sorted[i].timeZone}]</p>
+                                                                    <p id="schedule-stream-subject-${data.sorted[i].id}" class="mt-1 mb-0" style="font-size:10px">${data.sorted[i].streamSubject}</p>
+                                                                    <p class="mt-1" style="font-size:14px">${data.sorted[i].timeStart} - ${data.sorted[i].timeStop} [${data.sorted[i].timeZone}]</p>
                                                                      <input type="hidden" id="schedule-time-start-${data.sorted[i].id}" value="${data.sorted[i].timeStart}" />
                                                                      <input type="hidden" id="schedule-time-stop-${data.sorted[i].id}" value="${data.sorted[i].timeStop}" />
                                                                 </div>
@@ -437,7 +379,7 @@ function SortTasks(data) {
        
     
 
-        document.getElementById("taskRow").innerHTML += element;
+        document.getElementById("taskRow").innerHTML = element;
         CloseModal("scheduleModal")
 }
 
@@ -445,6 +387,7 @@ function EditScheduleTask(id) {
     OpenModal("scheduleModal");
 
     document.getElementById("schedule-date-mask").innerHTML = ReturnMask($('#schedule-date-' + id).val());
+    $('#schedule-date-picker').datetimepicker('viewDate', $('#schedule-date-picker').datetimepicker('viewDate'))
     $('#schedule-title').val($('#schedule-stream-title-' + id).text());
     $('#schedule-subject').val($('#schedule-stream-subject-' + id).text());
     $('#schedule-time-start-picker-value').val($('#schedule-time-start-' + id).val());
@@ -452,12 +395,13 @@ function EditScheduleTask(id) {
     $('#schedule-time-start-picker').val($('#schedule-time-start-' + id).val());
     $('#schedule-time-stop-picker').val($('#schedule-time-stop-' + id).val());
 
+
     document.getElementById("schedule-buttons").innerHTML = `<div class="row">
                                                                 <div class="col-6 pr-0">
-                                                                    <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#6B6B6B; color:white" onclick="DeleteScheduleTask('${String(id)}')">Delete Scheduled Stream</button>
+                                                                    <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#6B6B6B; color:white" onclick="DeleteScheduleTask('${id}')">Delete Scheduled Stream</button>
                                                                 </div>
                                                                 <div class="col-6 pl-0">
-                                                                    <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="SaveScheduleTask('${String(id)}')">Save Changes</button>
+                                                                    <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="SaveScheduleTask('${id}')">Save Changes</button>
                                                                 </div>
                                                            </div>`
 }
@@ -478,5 +422,70 @@ function DeleteScheduleTask(id) {
     })
 }
 
-    
-    
+function EditStream(id) {
+    OpenModal("edit-stream-modal");
+
+    $('#stream-title-edit').val($('#stream-title-' + id).text());
+    $('#stream-description-edit').val($('#stream-description-' + id).val());
+    document.getElementById("preview-stream-thumbnail-edit").src = document.getElementById("stream-thumbnail-" + id).src
+    document.getElementById("preview-stream-thumbnail-edit").src = document.getElementById("stream-thumbnail-" + id).src
+
+    document.getElementById("stream-edit-buttons").innerHTML = ` <div class="row">
+                                                                    <div class="col-6 pr-0">
+                                                                        <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#6B6B6B; color:white" onclick="DeleteScheduleTask('${id}')">Delete Stream</button>
+                                                                    </div>
+                                                                    <div class="col-6 pl-0">
+                                                                        <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="SaveEditedStreamInfo('${id}')">Save Changes</button>
+                                                                    </div>
+                                                                </div>`
+}
+      
+function SaveEditedStreamInfo(id) {
+    var formData = new FormData()
+    var totalFile = document.getElementById("upload-thumbnail-edit")
+
+    formData.append("StreamId", id);
+    formData.append("StreamTitle", $('#stream-title-edit').val());
+    formData.append("StreamDescription", $('#stream-description-edit').val());
+    if (totalFile.files.length > 0) formData.append("StreamThumbnail", totalFile.files[0]);
+
+    $.ajax({
+        url: '/Tutor/SaveEditedStreamInfo',
+        type: 'POST',
+        dataType: 'json',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (data) {
+            if (data.message === "Success") {
+                isStreamEdited = true;
+                document.getElementById("stream-title-" + id).innerHTML = data.title;
+                document.getElementById("stream-description-" + id).src = data.description;
+                document.getElementById("stream-thumbnail-" + id).src = data.thumbnail;
+
+                $("#edit-stream-modal-notification").fadeTo(2000, 500).slideUp(500, function () {
+                    $("#edit-stream-modal-notification").slideUp(500);
+                });
+            }
+        }
+    });
+}
+
+function DeleteStream(id) {
+    $.ajax({
+        url: '/Tutor/DeleteStream',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            'id': id,
+        },
+        success: function (data) {
+            
+        }
+    });
+}
+
+//function OpenDeleteStreamConfirmModal() {
+//    $('#deleteStreamConfirmModal').modal('show');
+//}
+

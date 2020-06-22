@@ -13,16 +13,15 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/locale/af.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
 
 
-<script></script>
 
 <div class="container-fluid mr-0">
     <div class="row">
@@ -56,7 +55,6 @@
             </div>
             <script>$('#dropdown').dropdown()</script>
         </nav>
-
     </div>
 
     <div class="row d-lg-none d-md-none d-sm-none d-block h-100 " style="background-color:#003936">
@@ -74,7 +72,7 @@
                                 <button type="button" class="streamWork-primary" style="font-size:8px; height:35px;" onclick="OpenModal('profileInformationModal')">Edit Profile</button>
                             </div>
                             <input align="left" class="rounded" type="image" src="@Model.UserProfile.ProfilePicture" style="width:70px" />
-                            <p id="header-name" class="form-header m-0" style="font-size:16px; padding-left:90px">@Model.UserProfile.Name.Replace('|', ' ')</p>
+                            <p id="header-name" class="form-header m-0" style="font-size:20px; padding-left:90px">@Model.UserProfile.Name.Replace('|', ' ')</p>
                             <p id="header-occupation" class="form-header m-0" style="padding-left:90px; font-size:10px; color: #9F9F9F">@Model.UserProfile.ProfileCaption</p>
                             <p class="mb-0 mt-2 form-sub-header"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
                             <p class="form-sub-header"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">@Model.UserProfile.Location</span></p>
@@ -116,12 +114,10 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 
     <div class="container-fluid inner-container-fluid pt-4">
@@ -139,23 +135,26 @@
                 <a class="nav-link form-header" id="comment-tab" data-toggle="tab" href="#comment" onclick="SliderComment()">Comments</a>
             </li>
         </ul>
+
         <div class="slider">
             <div id="slider-object" class="slider-object"></div>
         </div>
+
         <div id="sectionTopicNotification" class="alert notification-success mt-3 mb-0 ml-2 mr-2" role="alert">
             <b>Changes Saved!</b> Your information has been successfully saved.
             <div class="close ml-auto" onclick="$('#sectionTopicNotification').hide()">&times;</div>
         </div>
         <script>$('#sectionTopicNotification').hide()</script>
+
         <div class="tab-content">
-            <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <div class="tab-pane active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <div class="container-fluid pt-3" style="width:100%">
                     <div class="row">
                         <div class="col-lg-8 col-md-12 col-sm-12 col-12">
                             <div class="card">
                                 <div class="card-title p-3">
                                     <p class="form-header d-inline-block" style="font-size:18px">Basic Information</p>
-                                    <a class="d-inline-block pr-3" style="cursor:pointer; float:right; color:#004643" onclick="SaveSection(event)"><span><img src="~/images/TutorAssets/TutorDashboard/Save.png" /></span>Save</a>
+                                    <a class="d-inline-block pr-3" style="cursor:pointer; float:right; color:#004643" onclick="SaveSection(event)"><span><img class="p-1" style="width:30px" src="~/images/TutorAssets/TutorDashboard/Save.png" /></span>Save</a>
                                 </div>
                                 <form class="pl-4 pr-4 pb-4" id="form-section-tutor">
                                     <div class="form-row" id="form-row-section">
@@ -164,7 +163,7 @@
                                             <div class="card rounded-0">
                                                 <div class="image-container">
                                                     <div class="top-right">
-                                                        <img src="~/images/TutorAssets/TutorDashboard/Edit.png" onclick="OpenModal('universityModal')" style=" cursor:pointer" />
+                                                        <img class="p-1" style="width:30px; cursor:pointer" src="~/images/TutorAssets/TutorDashboard/Edit.png" onclick="OpenModal('universityModal')" />
                                                     </div>
                                                     <div id="universityElement" class="card-body text-center p-0" style="height:135px">
                                                         @if (Model.UserProfile.College == null)
@@ -227,14 +226,16 @@
                                             <script>sectionCount = 2</script>
                                         }
                                     </div>
-                                    <a class="d-inline-block" style="cursor:pointer; color:#004643" onclick="AddSection(event)"> + Add Section</a>
-                                    <a class="d-inline-block" style="cursor:pointer; float:right; color:#004643" onclick="SaveSection(event)"><span><img src="~/images/TutorAssets/TutorDashboard/Save.png" /></span>Save</a>
+                                    <div class="mt-4">
+                                        <a class="d-inline-block" style="cursor:pointer; color:#004643" onclick="AddSection(event)"> + Add Section</a>
+                                        <a class="d-inline-block" style="cursor:pointer; float:right; color:#004643" onclick="SaveSection(event)"><span><img class="p-1" style="width:30px" src="~/images/TutorAssets/TutorDashboard/Save.png" /></span>Save</a>
+                                    </div>
                                 </form>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-12 col-sm-12 col-12 p-2">
+                        <div class="col-lg-4 col-md-12 col-sm-12 col-12">
                             <div class="card">
-                                <div class="card-title p-3" style="font-family:'Roboto Slab', serif; color:#9F9F9F; font-size:18px">Academic Experience</div>
+                                <div class="card-title p-3 form-header" style="font-size:18px">Academic Experience</div>
                                 @if (Model.Topics != null)
                                 {
                                     <form class="pl-4 pr-4 pb-4" id="form-topic-tutor">
@@ -264,8 +265,10 @@
                                                 </div>
                                             }
                                         </div>
-                                        <a style="cursor:pointer; color:#004643" onclick="AddTopic(event)"> + Add Topic</a>
-                                        <a style="cursor:pointer; float:right; color:#004643" onclick="SaveTopic(event)"><span><img src="~/images/TutorAssets/TutorDashboard/Save.png" /></span>Save</a>
+                                        <div class="mt-4">
+                                            <a style="cursor:pointer; color:#004643" onclick="AddTopic(event)"> + Add Topic</a>
+                                            <a style="cursor:pointer; float:right; color:#004643" onclick="SaveTopic(event)"><span><img class="p-1" style="width:30px" src="~/images/TutorAssets/TutorDashboard/Save.png" /></span>Save</a>
+                                        </div>
                                     </form>
                                     <script>topicCount = @Model.Topics.Count;</script>
                                 }
@@ -291,7 +294,7 @@
                                             </div>
                                         </div>
                                         <a style="cursor:pointer; color:#004643" onclick="AddTopic(event)"> + Add Topic</a>
-                                        <a style="cursor:pointer; float:right; color:#004643" onclick="SaveTopic(event)"><span><img src="~/images/TutorAssets/TutorDashboard/Save.png" /></span>Save</a>
+                                        <a style="cursor:pointer; float:right; color:#004643" onclick="SaveTopic(event)"><span><img class="p-1" src="~/images/TutorAssets/TutorDashboard/Save.png" /></span>Save</a>
                                     </form>
                                 }
                             </div>
@@ -299,12 +302,14 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane active" id="schedule" role="tabpanel" aria-labelledby="schedule-tab">
+
+
+            <div class="tab-pane" id="schedule" role="tabpanel" aria-labelledby="schedule-tab">
                 <div class="container-fluid pt-3" style="width:100%">
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
-                                <div class="card-title p-3 form-header" style="font-size:18px">Stream Schedule</div>
+                                <div class="card-title p-3 m-0 form-header" style="font-size:18px">Stream Schedule</div>
                                 <div class="card-body">
                                     <div class="row" id="taskRow">
                                         @if (Model.Schedule.Count > 0)
@@ -326,10 +331,10 @@
                                                                 </div>
                                                                 <div class="m-1" style="height:75px;">
                                                                     <p id="schedule-stream-title-@task.Id" class="form-header m-0">@task.StreamTitle</p>
-                                                                    <p id="schedule-stream-subject-@task.Id" class="form-header mt-1 mb-0" style="font-size:10px">@task.StreamSubject</p>
-                                                                    <p class="form-header mt-1">@task.TimeStart - @task.TimeStop [@task.TimeZone.ToString()]</p>
-                                                                     <input type="hidden" id="schedule-time-start-@task.Id" value="@task.TimeStart" />
-                                                                     <input type="hidden" id="schedule-time-stop-@task.Id" value="@task.TimeStop" />
+                                                                    <p id="schedule-stream-subject-@task.Id" class="mt-1 mb-0" style="font-size:10px">@task.StreamSubject</p>
+                                                                    <p class="mt-1" style="font-size:14px">@task.TimeStart - @task.TimeStop [@task.TimeZone.ToString()]</p>
+                                                                    <input type="hidden" id="schedule-time-start-@task.Id" value="@task.TimeStart" />
+                                                                    <input type="hidden" id="schedule-time-stop-@task.Id" value="@task.TimeStop" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -343,7 +348,7 @@
                                                 <div class="card">
                                                     <div class="card-body">
                                                         <div class="d-inline-flex">
-                                                            <img class="rounded m-1" src="~/images/ScheduleAssets/CalendarAdd.png" style="width:75px; height:75px" />
+                                                            <img class="rounded m-1" src="~/images/ScheduleAssets/CalendarAdd.png" style="width:75px; height:75px; cursor:pointer" onclick="OpenModal('scheduleModal')" />
                                                             <div class="m-1" style="height:75px;">
                                                                 <p id="schedule-stream-title" class="form-header m-0">Schedule Stream</p>
                                                                 <p id="schedule-stream-subject" class="form-header mt-1 mb-0" style="font-size:10px">Stream Topic</p>
@@ -358,13 +363,14 @@
                                     <div class="mt-4">
                                         <a style="cursor:pointer; color:#004643;" onclick="OpenModal('scheduleModal')"> + Add Stream</a>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+
             <div class="tab-pane" id="stream" role="tabpanel" aria-labelledby="stream-tab">
                 <div class="container-fluid pt-4" style="width:100%">
                     <div class="row p-3">
@@ -383,65 +389,14 @@
                                 <div id="streamInfo-@streamInfo.Id" class="col-lg-3 col-md-6 col-sm-6">
                                     <div class="card mt-3 border-0" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px;">
                                         <div class="card-title">
-                                            <a href="../StreamViews/StreamPlaybackPage?streamId=@streamInfo.StreamID"><img id="streamThumbnail-@streamInfo.Id" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src=@streamInfo.StreamThumbnail></a>
+                                            <a href="../StreamViews/StreamPlaybackPage?streamId=@streamInfo.StreamID"><img id="stream-thumbnail-@streamInfo.Id" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src=@streamInfo.StreamThumbnail></a>
                                         </div>
                                         <div class="card-body pt-0 pb-1">
-                                            <h5 id="streamTitle-@streamInfo.Id" class="text-truncate form-header">@streamInfo.StreamTitle</h5>
+                                            <h5 id="stream-title-@streamInfo.Id" class="text-truncate form-header">@streamInfo.StreamTitle</h5>
+                                            <input id="stream-description-@streamInfo.Id" type="hidden" value="@streamInfo.StreamDescription" />
                                             <p class="text-truncate form-header" style="font-size:10px">@Model.UserProfile.Name.Replace('|', ' ')</p>
                                         </div>
-                                        <div class="card-footer p-0" style="background-color:orange; border-bottom-left-radius:20px; border-bottom-right-radius:20px;"><span style="color:white; cursor:pointer; float:right; padding-right:10px" onclick="OpenEditStreamModal('@streamInfo.Id', 'streamEditModal-@streamInfo.Id')">&#8943;</span></div>
-                                    </div>
-                                </div>
-
-                                <div id="streamEditModal-@streamInfo.Id" class="custom-modal">
-                                    <div class="custom-modal-content">
-                                        <div class="close ml-auto" onclick="DiscardImageAndDiscardFormChangesAndCloseModal('@streamInfo.StreamThumbnail', 'previewStreamThumbnailEdit-@streamInfo.Id', 'streamEditForm', 'streamEditModal-@streamInfo.Id')">&times;</div>
-                                        <h5 class="form-header" style="padding-left:20px; padding-top:10px; font-size:16px;">Stream Information</h5>
-                                        <div class="slider">
-                                            <div class="slider-object" style="width:165px"></div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <form id="streamEditForm" class="pt-4 pb-4 pl-5 pr-5">
-                                                    <div id="streamEditModalNotification-@streamInfo.Id" class="alert notification-success" style="padding-left:50px" role="alert">
-                                                        <b>Changes Saved!</b> Your information has been successfully saved.
-                                                        <div class="close ml-auto" onclick="$('#sectionTopicNotification').hide()">&times;</div>
-                                                    </div>
-                                                    <script>$('#streamEditModalNotification-@streamInfo.Id').hide()</script>
-                                                    <div class="form-group">
-                                                        <div class="row">
-                                                            <div class="col-lg-7 col-md-12 col-sm-12 col-12 mt-2">
-                                                                <label class="form-header">Title</label>
-                                                                <input class="form-control form-input mb-2" type="text" id="streamTitleEdit-@streamInfo.Id" value="@streamInfo.StreamTitle">
-                                                                <label class="form-header">Description</label>
-                                                                <textarea class="form-control form-textarea mt-1 mb-2" id="streamDescriptionEdit-@streamInfo.Id" placeholder="Description" style="height:105px !important">@streamInfo.StreamDescription</textarea>
-                                                            </div>
-                                                            <div class="col-lg-5 col-md-12 col-sm-12 col-12 mt-1">
-                                                                <label class="form-header">Thumbnail</label>
-                                                                <div class="image-container mr-auto ml-auto">
-                                                                    <img class="mt-1" id="previewStreamThumbnailEdit-@streamInfo.Id" src="@streamInfo.StreamThumbnail" style="width:100%; border-radius:10px">
-                                                                    <input id="addStreamThumbnail" type="image" class="bottom-right" src="~/images/TutorAssets/TutorDashboard/Upload.png" style="bottom:-5px" />
-                                                                    <input name="uploadThumbnailEdit" id="uploadThumbnailEdit-@streamInfo.Id" class="d-none" type="file" value="~/images/MathDefault.png" onchange="ReadImageUrl(this,'previewStreamThumbnailEdit-@streamInfo.Id');">
-                                                                    <script>
-                                                                        $("#addStreamThumbnail").click(function (e) {
-                                                                            e.preventDefault()
-                                                                            $("input[id='uploadThumbnailEdit-@streamInfo.Id']").click();
-                                                                        })</script>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-6 pr-0">
-                                                <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="SaveEditedStreamInfo()">Save Changes</button>
-                                            </div>
-                                            <div class="col-6 pl-0">
-                                                <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#cc0000; color:white" onclick="OpenDeleteStreamConfirmModal()">Delete Stream</button>
-                                            </div>
-                                        </div>
+                                        <div class="card-footer p-0" style="background-color:orange; border-bottom-left-radius:20px; border-bottom-right-radius:20px;"><span style="color:white; cursor:pointer; float:right; padding-right:10px" onclick="EditStream('@streamInfo.Id')">&#8943;</span></div>
                                     </div>
                                 </div>
                             }
@@ -449,6 +404,8 @@
                     </div>
                 </div>
             </div>
+
+
             <div class="tab-pane" id="comment" role="tabpanel" aria-labelledby="comment-tab">Comment</div>
         </div>
     </div>
@@ -656,5 +613,49 @@
         <div id="schedule-buttons">
             <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="SaveScheduleTask()">Save Changes</button>
         </div>
+    </div>
+</div>
+
+<div id="edit-stream-modal" class="custom-modal">
+    <div class="custom-modal-content">
+        <div class="close ml-auto" onclick="DiscardChangesAndCloseModal('edit-stream-form', 'edit-stream-modal')">&times;</div>
+        <h5 class="form-header" style="padding-left:20px; padding-top:10px; font-size:16px;">Stream Information</h5>
+        <div class="slider">
+            <div class="slider-object" style="width:165px"></div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <form id="edit-stream-form" class="pt-4 pb-4 pl-5 pr-5">
+                    <div id="edit-stream-modal-notification" class="alert notification-success" style="padding-left:50px" role="alert">
+                        <b>Changes Saved!</b> Your information has been successfully saved.
+                        <div class="close ml-auto" onclick="$('#sectionTopicNotification').hide()">&times;</div>
+                    </div>
+                    <script>$('#edit-stream-modal-notification').hide()</script>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-7 col-md-12 col-sm-12 col-12 mt-2">
+                                <label class="form-header">Title</label>
+                                <input id="stream-title-edit" class="form-control form-input mb-2" type="text">
+                                <label class="form-header">Description</label>
+                                <textarea id="stream-description-edit" class="form-control form-textarea mt-1 mb-2" placeholder="Description" style="height:105px !important"></textarea>
+                            </div>
+                            <div class="col-lg-5 col-md-12 col-sm-12 col-12 mt-1">
+                                <label class="form-header">Thumbnail</label>
+                                <div class="image-container mr-auto ml-auto">
+                                    <img id="preview-stream-thumbnail-edit" class="mt-1" style="width:100%; border-radius:10px">
+                                    <input id="stream-thumbnail-edit" type="image" class="bottom-right" src="~/images/TutorAssets/TutorDashboard/Upload.png" style="bottom:-5px" />
+                                    <input id="upload-thumbnail-edit" name="upload-thumbnail-edit" class="d-none" type="file" value="~/images/MathDefault.png" onchange="ReadImageUrl(this,'preview-stream-thumbnail-edit');">
+                                    <script>$("#stream-thumbnail-edit").click(function (e) {
+                                            e.preventDefault()
+                                            $("input[id='upload-thumbnail-edit']").click();
+                                        })</script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="stream-edit-buttons"></div>
     </div>
 </div>
