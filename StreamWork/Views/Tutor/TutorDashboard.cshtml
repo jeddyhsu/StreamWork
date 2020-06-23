@@ -21,8 +21,6 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
 
-
-
 <div class="container-fluid mr-0">
     <div class="row">
         <nav class="navbar navbar-expand-lg p-1 w-100" style="background-color:white">
@@ -69,18 +67,22 @@
                         <div class="p-lg-4 pt-md-4 p-sm-3 p-3">
                             <div class="btn-group d-lg-block d-md-block d-sm-none d-none float-right">
                                 <button type="button" class="streamWork-secondary mr-2" style="font-size:8px; height:35px;" onclick="OpenModal()">View Profile</button>
-                                <button type="button" class="streamWork-primary" style="font-size:8px; height:35px;" onclick="OpenModal('profileInformationModal')">Edit Profile</button>
+                                <button type="button" class="streamWork-primary" style="font-size:8px; height:35px;" onclick="EditProfile()">Edit Profile</button>
                             </div>
-                            <input align="left" class="rounded" type="image" src="@Model.UserProfile.ProfilePicture" style="width:70px" />
+                            <input id="header-profile-picture" align="left" class="rounded" type="image" src="@Model.UserProfile.ProfilePicture" style="width:70px" />
                             <p id="header-name" class="form-header m-0" style="font-size:20px; padding-left:90px">@Model.UserProfile.Name.Replace('|', ' ')</p>
                             <p id="header-occupation" class="form-header m-0" style="padding-left:90px; font-size:10px; color: #9F9F9F">@Model.UserProfile.ProfileCaption</p>
                             <p class="mb-0 mt-2 form-sub-header"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
                             <p class="form-sub-header"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">@Model.UserProfile.Location</span></p>
+                            <input id="header-first-name" type="hidden" value="@Model.UserProfile.Name.Split('|')[0]" />
+                            <input id="header-last-name" type="hidden" value="@Model.UserProfile.Name.Split('|')[1]" />
+                            <input id="header-timezone" type="hidden" value="@Model.UserProfile.TimeZone" />
+                            <input id="header-linkedin-url" type="hidden" value="@Model.UserProfile.LinkedInUrl" />
                         </div>
 
                         <div class="btn-group d-lg-none d-md-none d-sm-block d-block pl-3 pr-3">
                             <button type="button" class="streamWork-secondary mr-2" style="font-size:8px; height:35px;" onclick="OpenModal()">View Profile</button>
-                            <button type="button" class="streamWork-primary" style="font-size:8px; height:35px;" onclick="OpenModal('profileInformationModal')">Edit Profile</button>
+                            <button type="button" class="streamWork-primary" style="font-size:8px; height:35px;" onclick="EditProfile()">Edit Profile</button>
                         </div>
 
                         <div class="p-lg-4 pt-md-4 p-sm-3 p-3">
@@ -146,6 +148,12 @@
         </div>
         <script>$('#sectionTopicNotification').hide()</script>
 
+        <div id="schedule-timezone-notification" class="alert notification-info mt-3 mb-0 ml-2 mr-2" role="alert">
+            <b>Enter Timezone!</b> You must enter your timezone in "Edit Profile" to use the scheduling feature.
+            <div class="close ml-auto" onclick="$('#sectionTopicNotification').hide()">&times;</div>
+        </div>
+        <script>$('#schedule-timezone-notification').hide()</script>
+
         <div class="tab-content">
             <div class="tab-pane active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <div class="container-fluid pt-3" style="width:100%">
@@ -154,7 +162,7 @@
                             <div class="card">
                                 <div class="card-title p-3">
                                     <p class="form-header d-inline-block" style="font-size:18px">Basic Information</p>
-                                    <a class="d-inline-block pr-3" style="cursor:pointer; float:right; color:#004643" onclick="SaveSection(event)"><span><img class="p-1" style="width:30px" src="~/images/TutorAssets/TutorDashboard/Save.png" /></span>Save</a>
+                                    <a class="d-inline-block pr-3" style="cursor:pointer; float:right; color:#004643" onclick="SaveSection(event)"><span><img class="p-1" style="width:28px" src="~/images/TutorAssets/TutorDashboard/Save.svg" /></span>Save</a>
                                 </div>
                                 <form class="pl-4 pr-4 pb-4" id="form-section-tutor">
                                     <div class="form-row" id="form-row-section">
@@ -227,8 +235,8 @@
                                         }
                                     </div>
                                     <div class="mt-4">
-                                        <a class="d-inline-block" style="cursor:pointer; color:#004643" onclick="AddSection(event)"> + Add Section</a>
-                                        <a class="d-inline-block" style="cursor:pointer; float:right; color:#004643" onclick="SaveSection(event)"><span><img class="p-1" style="width:30px" src="~/images/TutorAssets/TutorDashboard/Save.png" /></span>Save</a>
+                                        <a class="d-inline-block" style="cursor:pointer; color:#004643" onclick="AddSection(event)"><img class="p-1" src="~/images/TutorAssets/TutorDashboard/Add.png" /></span>Add Section</a>
+                                        <a class="d-inline-block" style="cursor:pointer; float:right; color:#004643" onclick="SaveSection(event)"><span><img class="p-1" style="width:28px" src="~/images/TutorAssets/TutorDashboard/Save.svg" /></span>Save</a>
                                     </div>
                                 </form>
                             </div>
@@ -266,8 +274,8 @@
                                             }
                                         </div>
                                         <div class="mt-4">
-                                            <a style="cursor:pointer; color:#004643" onclick="AddTopic(event)"> + Add Topic</a>
-                                            <a style="cursor:pointer; float:right; color:#004643" onclick="SaveTopic(event)"><span><img class="p-1" style="width:30px" src="~/images/TutorAssets/TutorDashboard/Save.png" /></span>Save</a>
+                                            <a style="cursor:pointer; color:#004643" onclick="AddTopic(event)"><span><img class="p-1" src="~/images/TutorAssets/TutorDashboard/Add.png" /></span>Add Topic</a>
+                                            <a style="cursor:pointer; float:right; color:#004643" onclick="SaveTopic(event)"><span><img class="p-1" style="width:30px" src="~/images/TutorAssets/TutorDashboard/Save.svg" /></span>Save</a>
                                         </div>
                                     </form>
                                     <script>topicCount = @Model.Topics.Count;</script>
@@ -293,8 +301,8 @@
                                                 <textarea name="ListOfSubjects" class="form-control border rounded-0 form-textarea" placeholder="Enter list of subjects here!"></textarea>
                                             </div>
                                         </div>
-                                        <a style="cursor:pointer; color:#004643" onclick="AddTopic(event)"> + Add Topic</a>
-                                        <a style="cursor:pointer; float:right; color:#004643" onclick="SaveTopic(event)"><span><img class="p-1" src="~/images/TutorAssets/TutorDashboard/Save.png" /></span>Save</a>
+                                        <a style="cursor:pointer; color:#004643" onclick="AddTopic(event)"><span><img class="p-1" src="~/images/TutorAssets/TutorDashboard/Add.png" /></span>Add Topic</a>
+                                        <a style="cursor:pointer; float:right; color:#004643" onclick="SaveTopic(event)"><span><img class="p-1" src="~/images/TutorAssets/TutorDashboard/Save.svg" /></span>Save</a>
                                     </form>
                                 }
                             </div>
@@ -321,18 +329,18 @@
                                                         <div class="card-body">
                                                             <input type="hidden" id="schedule-date-@task.Id" value="@task.Date" />
                                                             <div class="d-inline-flex">
-                                                                <img class="rounded m-1" src="@task.SubjectThumbnail" style="width:75px; height:75px" />
-                                                                <div class="text-center m-1 schedule-border" style="width:75px; height:75px;">
-                                                                    <p id="schedule-month-@task.Id" class="form-header mt-4" style="font-size:18px">@task.Date.ToString("MMM")</p>
+                                                                <img class="rounded m-1 schedule-image" src="@task.SubjectThumbnail" />
+                                                                <div class="text-center m-1 schedule-image schedule-border">
+                                                                    <p id="schedule-month-@task.Id" class="form-header schedule-month">@task.Date.ToString("MMM")</p>
                                                                 </div>
-                                                                <div class="text-center m-1 schedule-border" style="width:75px; height:75px;">
-                                                                    <p id="schedule-day-@task.Id" class="form-header mb-0 mt-2" style="font-size:22px">@task.Date.Day</p>
-                                                                    <p id="schedule-dow-@task.Id" class="form-header" style="font-size:14px">@task.Date.ToString("ddd")</p>
+                                                                <div class="text-center m-1 schedule-image schedule-border">
+                                                                    <p id="schedule-day-@task.Id" class="form-header schedule-day">@task.Date.Day</p>
+                                                                    <p id="schedule-dow-@task.Id" class="form-header schedule-dow">@task.Date.ToString("ddd")</p>
                                                                 </div>
                                                                 <div class="m-1" style="height:75px;">
                                                                     <p id="schedule-stream-title-@task.Id" class="form-header m-0">@task.StreamTitle</p>
                                                                     <p id="schedule-stream-subject-@task.Id" class="mt-1 mb-0" style="font-size:10px">@task.StreamSubject</p>
-                                                                    <p class="mt-1" style="font-size:14px">@task.TimeStart - @task.TimeStop [@task.TimeZone.ToString()]</p>
+                                                                    <p class="schedule-time">@task.TimeStart - @task.TimeStop [@task.TimeZone.ToString()]</p>
                                                                     <input type="hidden" id="schedule-time-start-@task.Id" value="@task.TimeStart" />
                                                                     <input type="hidden" id="schedule-time-stop-@task.Id" value="@task.TimeStop" />
                                                                 </div>
@@ -348,7 +356,7 @@
                                                 <div class="card">
                                                     <div class="card-body">
                                                         <div class="d-inline-flex">
-                                                            <img class="rounded m-1" src="~/images/ScheduleAssets/CalendarAdd.png" style="width:75px; height:75px; cursor:pointer" onclick="OpenModal('scheduleModal')" />
+                                                            <img class="rounded m-1" src="~/images/ScheduleAssets/CalendarAdd.png" style="width:75px; height:75px; cursor:pointer" onclick="CheckIfTimezoneIsValidForSchedule()" />
                                                             <div class="m-1" style="height:75px;">
                                                                 <p id="schedule-stream-title" class="form-header m-0">Schedule Stream</p>
                                                                 <p id="schedule-stream-subject" class="form-header mt-1 mb-0" style="font-size:10px">Stream Topic</p>
@@ -361,7 +369,7 @@
                                         }
                                     </div>
                                     <div class="mt-4">
-                                        <a style="cursor:pointer; color:#004643;" onclick="OpenModal('scheduleModal')"> + Add Stream</a>
+                                        <a style="cursor:pointer; color:#004643;" onclick="CheckIfTimezoneIsValidForSchedule()"> + Add Stream</a>
                                     </div>
                                 </div>
                             </div>
@@ -404,8 +412,6 @@
                     </div>
                 </div>
             </div>
-
-
             <div class="tab-pane" id="comment" role="tabpanel" aria-labelledby="comment-tab">Comment</div>
         </div>
     </div>
@@ -415,11 +421,11 @@
     <nav id="sidebar">
         <img class="logo-desktop" onclick="window.location.href ='/'" src="~/images/WhiteStreamWork.png" />
         <ul class="p-0">
-            <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Tutor/TutorStream'"><span><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/StartStream.png" /></span>Start Stream</li>
-            <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Tutor/HowToStream'"><span><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/HowToStream.png" /></span>How To Stream</li>
-            <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Tutor/TutorWatch'"><span><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/WatchStream.png" /></span>Watch Streams</li>
-            <li class="sidebar-list-item-desktop"><span><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/FollowingList.png" /></span>Following List</li>
-            <li class="sidebar-list-item-desktop"><span><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/FollowerList.png" /></span>Follower List</li>
+            <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Tutor/TutorStream'"><span><img class="icon pb-1" src="~/images/TutorAssets/TutorDashboard/StartStream.svg" /></span>Start Stream</li>
+            <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Tutor/HowToStream'"><span><img class="icon pb-1" src="~/images/TutorAssets/TutorDashboard/HowToStream.svg" /></span>How To Stream</li>
+            <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Tutor/TutorWatch'"><span><img class="icon pb-1" src="~/images/TutorAssets/TutorDashboard/WatchStream.svg" /></span>Watch Streams</li>
+            <li class="sidebar-list-item-desktop"><span><img class="icon pb-1" src="~/images/TutorAssets/TutorDashboard/FollowingList.svg" /></span>Following List</li>
+            <li class="sidebar-list-item-desktop"><span><img class="icon pb-1" src="~/images/TutorAssets/TutorDashboard/FollowerList.svg" /></span>Follower List</li>
         </ul>
     </nav>
 </div>
@@ -437,61 +443,64 @@
     </nav>
 </div>
 
-<div id="profileInformationModal" class="custom-modal">
+<div id="profile-information-modal" class="custom-modal">
     <div class="custom-modal-content">
-        <div class="close ml-auto" onclick="DiscardImageAndDiscardFormChangesAndCloseModal('@Model.UserProfile.ProfilePicture', 'previewProfilePicture', 'profileForm', 'profileInformationModal')">&times;</div>
+        <div class="close ml-auto" onclick="DiscardChangesAndCloseModal('profile-form', 'profile-information-modal')">&times;</div>
         <h5 style="padding-left:20px; padding-top:10px; font-family:'Roboto Slab', serif; font-size:16px; color: #707070;">Profile Information</h5>
         <div class="slider">
             <div class="slider-object" style="width:155px"></div>
         </div>
-        <div id="profileInformationNotification" class="alert notification-success mt-3 mb-0" style="margin-left:50px; margin-right:50px" role="alert">
+        <div id="profile-information-notification" class="alert notification-success mt-3 mb-0" style="margin-left:50px; margin-right:50px" role="alert">
             <b>Changes Saved!</b> Your information has been successfully saved.
             <div class="close ml-auto" onclick="$('#profileInformationNotification').hide()">&times;</div>
         </div>
-        <script>$('#profileInformationNotification').hide()</script>
+        <script>$('#profile-information-notification').hide()</script>
         <div class="row p-4">
             <div class="col-lg-3 col-md-12 col-sm-12 col-12 pl-0">
                 <label class="form-header d-block mt-2" style="margin-left:40px">Profile Picture</label>
                 <div class="image-container mr-auto ml-auto" style="width:120px">
-                    <input id="previewProfilePicture" class="rounded pl-0 pb-3" type="image" src="@Model.UserProfile.ProfilePicture" style="width:120px" />
-                    <input id="addProfilePicture" type="image" class="bottom-right" src="~/images/TutorAssets/TutorDashboard/Upload.png" />
-                    <input name="uploadProfilePicture" id="uploadProfilePicture" style="cursor:pointer; display:none" type='file' onchange="readURL(this,'ProfilePicture')" />
-                    <script>$("#addProfilePicture").click(function (e) {
+                    <input id="preview-profile-picture" class="rounded pl-0 pb-3" type="image" style="width:120px" />
+                    <input id="add-profile-picture" type="image" class="bottom-right" src="~/images/TutorAssets/TutorDashboard/Upload.png" />
+                    <input id="upload-profile-picture" style="cursor:pointer; display:none" type='file' onchange="ReadImageUrl(this,'preview-profile-picture')" />
+                    <script>
+                        $("#add-profile-picture").click(function (e) {
                             e.preventDefault()
-                            $("input[id='uploadProfilePicture']").click();
-                        })</script>
+                            $("input[id='upload-profile-picture']").click();
+                        })
+                    </script>
                 </div>
             </div>
             <div class="col-lg-9 col-md-12 col-sm-12 col-12 p-3">
-                <form id="profileForm">
+                <form id="profile-form">
                     <div class="form-group pr-lg-4">
                         <div class="form-row">
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <label class="form-header">First Name</label>
-                                <input id="first-name" class="form-control border rounded-0 form-input" value="@Model.UserProfile.Name.Split('|')[0]" placeholder="First Name">
+                                <input id="first-name" class="form-control border rounded-0 form-input" placeholder="First Name">
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6 pt-2 pt-lg-0 pt-md-0 pt-sm-0">
                                 <label class="form-header">Last Name</label>
-                                <input id="last-name" class="form-control border rounded-0 form-input" value="@Model.UserProfile.Name.Split('|')[1]" placeholder="Last Name">
+                                <input id="last-name" class="form-control border rounded-0 form-input"  placeholder="Last Name">
                             </div>
                         </div>
                         <label class="form-header pt-3">Occupation / Major</label>
-                        <input id="occupation-major" class="form-control border rounded-0 form-input" maxlength="50" value="@Model.UserProfile.ProfileCaption" placeholder="Occupation / Major">
+                        <input id="occupation-major" class="form-control border rounded-0 form-input" maxlength="50" placeholder="Occupation / Major">
                         <label class="form-header pt-3">Location</label>
-                        <input id="location" class="form-control border rounded-0 form-input" value="@Model.UserProfile.Location" placeholder="Location">
+                        <input id="location" class="form-control border rounded-0 form-input" placeholder="Location">
                         <div class="divider"></div>
                         <label class="form-header">Timezone</label>
-                        <select asp-for="@Model.UserProfile.TimeZone" id="timezone" class="form-control border-0 form-input rounded-0">
-                            <option value="(GMT -8:00) Pacific Time">(GMT -8:00) Pacific Time</option>
-                            <option value="(GMT -7:00) Mountain Time">(GMT -7:00) Mountain Time</option>
-                            <option value="(GMT -6:00) Central Time">(GMT -6:00) Central Time</option>
-                            <option value="(GMT -5:00) Eastern Time">(GMT -5:00) Eastern Time</option>
-                            <option value="(GMT -10:00) Hawaii">(GMT -10:00) Hawaii</option>
-                            <option value="(GMT -9:00) Alaska">(GMT -9:00) Alaska</option>
+                        <select id="timezone" class="form-control border-0 form-input rounded-0">
+                            <option value="">-Select-Timezone-</option>
+                            <option value="PST">(GMT -8:00) Pacific Time</option>
+                            <option value="MST">(GMT -7:00) Mountain Time</option>
+                            <option value="CST">(GMT -6:00) Central Time</option>
+                            <option value="EST">(GMT -5:00) Eastern Time</option>
+                            <option value="Hawaii">(GMT -10:00) Hawaii</option>
+                            <option value="Alaska">(GMT -9:00) Alaska</option>
                         </select>
                         <div class="divider"></div>
                         <label class="form-header">LinkedIn URL</label>
-                        <input id="linkedin-url" class="form-control border rounded-0 form-input" value="@Model.UserProfile.LinkedInUrl" placeholder="LinkedIn Url">
+                        <input id="linkedin-url" class="form-control border rounded-0 form-input" placeholder="LinkedIn Url">
                     </div>
                 </form>
             </div>
@@ -572,10 +581,10 @@
                         </div>
                         <div class="col-lg-10 col-md-12">
                             <label class="form-header pt-lg-0 pt-3">Stream Title</label>
-                            <input id="schedule-title" class="form-control border rounded-0 form-input" maxlength="50" placeholder="Add Title">
+                            <input id="schedule-title" class="form-control border rounded-0 form-input" maxlength="50" placeholder="Add Title" required>
                             <label class="form-header pt-3">Select Topic</label>
-                            <select id="schedule-subject" class="form-control border-0 form-input rounded-0">
-                                <option>-Select-Topic-</option>
+                            <select id="schedule-subject" class="form-control border-0 form-input rounded-0" required>
+                                <option value="" selected>-Select-Topic-</option>
                                 <option>Mathematics</option>
                                 <option>Science</option>
                                 <option>Engineering</option>
@@ -589,7 +598,7 @@
                                 <div class="col-lg-6">
                                     <label class="form-header pt-3">Time Start</label>
                                     <div class="input-group date" id="schedule-time-start-picker" data-target-input="nearest">
-                                        <input id="schedule-time-start-picker-value" type="text" class="form-control datetimepicker-input" data-target="#schedule-time-start-picker" />
+                                        <input id="schedule-time-start-picker-value" type="text" class="form-control datetimepicker-input" data-target="#schedule-time-start-picker" required/>
                                         <div class="input-group-append" data-target="#schedule-time-start-picker" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
                                         </div>
@@ -598,7 +607,7 @@
                                 <div class="col-lg-6">
                                     <label class="form-header pt-3">Time Stop</label>
                                     <div class="input-group date" id="schedule-time-stop-picker" data-target-input="nearest">
-                                        <input id="schedule-time-stop-picker-value" type="text" class="form-control datetimepicker-input" data-target="#schedule-time-stop-picker" />
+                                        <input id="schedule-time-stop-picker-value" type="text" class="form-control datetimepicker-input" data-target="#schedule-time-stop-picker" required/>
                                         <div class="input-group-append" data-target="#schedule-time-stop-picker" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
                                         </div>

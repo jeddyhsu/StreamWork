@@ -163,7 +163,7 @@ function SaveTopic() {
 
 function SaveProfile() {
     var formData = new FormData();
-    var totalFiles = document.getElementById("uploadProfilePicture");
+    var totalFiles = document.getElementById("upload-profile-picture");
     formData.append("FirstName", $('#first-name').val());
     formData.append("LastName", $('#last-name').val());
     formData.append("Occupation", $('#occupation-major').val());
@@ -182,15 +182,32 @@ function SaveProfile() {
         processData: false,
         success: function (data) {
             if (data.message === "Success") {
-                document.getElementById("header-name").innerHTML = data.firstName + " " + data.lastName
-                document.getElementById("header-occupation").innerHTML = data.occupation
-                document.getElementById("header-location").innerHTML = data.location
-                $("#profileInformationNotification").fadeTo(2000, 500).slideUp(500, function () {
-                    $("#profileInformationNotification").slideUp(500);
+                $('#header-name').text(data.firstName + " " + data.lastName);
+                $('#header-first-name').val(data.firstName);
+                $('#header-last-name').val(data.lastName);
+                $('#header-occupation').text(data.occupation);
+                $('#header-location').text(data.location);
+                $('#header-timezone').val(data.timezone);
+                $('#header-linkedin-url').val(data.linkedInUrl)
+                $("#profile-information-notification").fadeTo(2000, 500).slideUp(500, function () {
+                    $("#profile-information-notification").slideUp(500);
                 });
             }
         }
     })
+}
+
+function EditProfile() {
+    OpenModal('profile-information-modal')
+
+    document.getElementById("preview-profile-picture").src = document.getElementById("header-profile-picture").src;
+    $('#first-name').val($('#header-first-name').val());
+    $('#last-name').val($('#header-last-name').val());
+    $('#occupation-major').val($('#header-occupation').text());
+    $('#location').val($('#header-location').text());
+    $('#timezone').val($('#header-timezone').val());
+    $('#linkedin-url').val($('#header-linkedin-url').val());
+
 }
 
 function SaveUniversityInfo() {
@@ -257,7 +274,7 @@ $(document).ready(function () {
 
 $(function () {
     $('#schedule-time-start-picker').datetimepicker({
-        format: 'LT'
+        format: 'LT',
     });
 })
 
@@ -283,6 +300,18 @@ function AddDateToModal(date) {
     document.getElementById("schedule-date-mask").innerHTML = ReturnMask(date);
 }
 
+function CheckIfTimezoneIsValidForSchedule() {
+    if ($('#header-timezone').val() == "") {
+        $("#schedule-timezone-notification").fadeTo(2000, 500).slideUp(500, function () {
+            $("#schedule-timezone-notification").slideUp(500);
+        });
+
+        return;
+    }
+
+    OpenModal("scheduleModal");
+}
+
 function ReturnMask(date) {
     var month = moment(String(date)).format("MMM");
     var day = moment(String(date)).format("D");
@@ -298,6 +327,12 @@ function ReturnMask(date) {
 }
 
 function SaveScheduleTask(id) {
+
+    var form = $('#scheduleModalForm');
+    if (!form[0].checkValidity()) {
+        return form[0].reportValidity();
+    }
+
     var formData = new FormData();
     formData.append("StreamTitle", $('#schedule-title').val());
     formData.append("StreamSubject", $('#schedule-subject').val());
@@ -306,7 +341,6 @@ function SaveScheduleTask(id) {
 
     var stringD = String($('#schedule-date-picker').datetimepicker('viewDate')).split(" ");
     formData.append("Date", stringD[0] + " " + stringD[1] + " " + stringD[2] + " " + stringD[3] + " " + stringD[4])
-    formData.append("TimeZone", stringD[5]);
 
     if (id != "") formData.append("Id", id);
 
@@ -387,7 +421,7 @@ function EditScheduleTask(id) {
     OpenModal("scheduleModal");
 
     document.getElementById("schedule-date-mask").innerHTML = ReturnMask($('#schedule-date-' + id).val());
-    $('#schedule-date-picker').datetimepicker('viewDate', $('#schedule-date-picker').datetimepicker('viewDate'))
+    $('#schedule-date-picker').datetimepicker('viewDate',moment($('#schedule-date-' + id).val()))
     $('#schedule-title').val($('#schedule-stream-title-' + id).text());
     $('#schedule-subject').val($('#schedule-stream-subject-' + id).text());
     $('#schedule-time-start-picker-value').val($('#schedule-time-start-' + id).val());
@@ -401,7 +435,7 @@ function EditScheduleTask(id) {
                                                                     <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#6B6B6B; color:white" onclick="DeleteScheduleTask('${id}')">Delete Scheduled Stream</button>
                                                                 </div>
                                                                 <div class="col-6 pl-0">
-                                                                    <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="SaveScheduleTask('${id}')">Save Changes</button>
+                                                                    <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white; height:100%" onclick="SaveScheduleTask('${id}')">Save Changes</button>
                                                                 </div>
                                                            </div>`
 }

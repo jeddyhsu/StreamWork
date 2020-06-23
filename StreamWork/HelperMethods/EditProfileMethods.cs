@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -23,7 +24,7 @@ namespace StreamWork.HelperMethods
             var lastName = request.Form["LastName"];
             var occupation = request.Form["Occupation"];
             var location = request.Form["Location"];
-            var timezone = request.Form["Timezone"];
+            var timeZone = request.Form["Timezone"];
             var linkedInUrl = request.Form["LinkedInUrl"];
 
             if (request.Form.Files.Count > 0)
@@ -32,7 +33,7 @@ namespace StreamWork.HelperMethods
             userProfile.Name = firstName + "|" + lastName;
             userProfile.ProfileCaption = occupation;
             userProfile.Location = location;
-            userProfile.TimeZone = timezone;
+            userProfile.TimeZone = timeZone;
             userProfile.LinkedInUrl = linkedInUrl;
 
             if (profilePicture != null)
@@ -44,7 +45,7 @@ namespace StreamWork.HelperMethods
                 
             await DataStore.SaveAsync(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
 
-            return new string[] { firstName, lastName, occupation, location, timezone, linkedInUrl, userProfile.ProfilePicture };
+            return new string[] { firstName, lastName, occupation, location, timeZone, linkedInUrl, userProfile.ProfilePicture };
         }
 
         public async Task<string> SaveBanner([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, HttpRequest request, string user)
@@ -80,5 +81,20 @@ namespace StreamWork.HelperMethods
                 return false;
             }
         }
+
+        //private string GetTimeZoneAbbreviation(string zone)
+        //{
+        //    Hashtable timeZones = new Hashtable
+        //    {
+        //        { "GMT -08:00", "PST" },
+        //        { "GMT -07:00", "MST" },
+        //        { "GMT -06:00", "CST" },
+        //        { "GMT -05:00", "EST" },
+        //        { "GMT -09:00", "Alaska" },
+        //        { "GMT -10:00", "Hawaii" },
+        //    };
+
+        //    return (string)timeZones[zone];
+        //}
     }
 }

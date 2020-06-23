@@ -237,16 +237,20 @@
       "StorageType": "SqlServer",
       "Queries": [
         {
-          "Query": "SELECT * FROM [dbo].[Schedule] WHERE Username = '@x0' ORDER BY DATE ASC",
+          "Query": "SELECT * FROM [dbo].[Schedule] WHERE Username = '@x0' AND Date >= '@x1' ORDER BY DATE ASC",
           "QueryId": "GetScheduleWithUserUsername"
         },
         {
-          "Query": "SELECT * FROM [dbo].[Schedule] WHERE Id = '@x0'",
+          "Query": "SELECT * FROM [dbo].[Schedule] WHERE Id = '@x0' AND Date >= '@x1'",
           "QueryId": "GetScheduleWithId"
         },
         {
           "Query": "DELETE FROM [dbo].[Schedule] WHERE Id = '@x0'",
-          "QueryId": "DeleteScheduleWithId"
+          "QueryId": "DeleteScheduleTaskWithId"
+        },
+        {
+          "Query": "DELETE FROM [dbo].[Schedule] WHERE Date < '@x0'",
+          "QueryId": "DeletePastScheduledTasks"
         }
       ]
     }

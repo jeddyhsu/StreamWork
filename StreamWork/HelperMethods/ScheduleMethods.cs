@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
@@ -26,7 +27,7 @@ namespace StreamWork.HelperMethods
                 var streamTitle = request.Form["StreamTitle"];
                 var streamSubject = request.Form["StreamSubject"];
                 var timeStop = request.Form["TimeStop"];
-                var timeZone = request.Form["TimeZone"];
+                var timeZone = userProfile.TimeZone;
 
                 var date = DateTime.ParseExact(request.Form["Date"], "ddd MMM dd yyyy HH:mm:ss", CultureInfo.InvariantCulture);
                 var timeStart = DateTime.ParseExact(request.Form["TimeStart"], "h:mm tt", CultureInfo.InvariantCulture);
@@ -51,11 +52,12 @@ namespace StreamWork.HelperMethods
                 }
                 else
                 {
-                    schedule = (await DataStore.GetListAsync<Schedule>(_homeMethods._connectionString, storageConfig.Value, SQLQueries.GetScheduleWithId.ToString(), new List<string> { id }))[0];
+                    schedule = (await DataStore.GetListAsync<Schedule>(_homeMethods._connectionString, storageConfig.Value, SQLQueries.GetScheduleWithId.ToString(), new List<string> { id, DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm") }))[0];
                     schedule.StreamTitle = streamTitle;
                     schedule.StreamSubject = streamSubject;
                     schedule.TimeStart = timeStart.ToString("h:mm tt");
                     schedule.TimeStop = timeStop;
+                    schedule.TimeZone = timeZone;
                     schedule.Date = newDate;
                     schedule.SubjectThumbnail = _homeMethods.GetCorrespondingSubjectThumbnail(streamSubject);
                 }
@@ -72,12 +74,13 @@ namespace StreamWork.HelperMethods
 
         public async Task<List<Schedule>> GetSchedule([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string user)
         {
-            return await DataStore.GetListAsync<Schedule>(_homeMethods._connectionString, storageConfig.Value, SQLQueries.GetScheduleWithUserUsername.ToString(), new List<string> { user });
+            await DataStore.DeleteDataAsync<Schedule>(_homeMethods._connectionString, storageConfig.Value, SQLQueries.DeletePastScheduledTasks.ToString(), new List<string> { DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm") });
+            return await DataStore.GetListAsync<Schedule>(_homeMethods._connectionString, storageConfig.Value, SQLQueries.GetScheduleWithUserUsername.ToString(), new List<string> { user, DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm") });
         }
 
         public async Task<List<Schedule>> DeleteFromSchedule([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string id, string user)
         {
-            var saved = await DataStore.DeleteDataAsync<Schedule>(_homeMethods._connectionString, storageConfig.Value, SQLQueries.DeleteScheduleWithId.ToString(), new List<string>{ id });
+            var saved = await DataStore.DeleteDataAsync<Schedule>(_homeMethods._connectionString, storageConfig.Value, SQLQueries.DeleteScheduleTaskWithId.ToString(), new List<string>{ id });
             if (saved) return await GetSchedule(storageConfig, user);
             return null;
         }
