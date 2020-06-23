@@ -1,6 +1,7 @@
 ﻿var sectionCount = 0;
 var topicCount = 0;
 
+//Sliders
 function SliderProfile() {
     $('#profile-tab').tab('show');
     $('#slider-object').css("transform", "translate3d(15px, 0px, 0px)")
@@ -21,6 +22,7 @@ function SliderComment() {
     $('#slider-object').css("transform", "translate3d(290px, 0px, 0px)")
 }
 
+//Sections
 function AddSection(event) {
     sectionCount++;
     event.preventDefault();
@@ -99,6 +101,8 @@ function RemoveSection(sectionNumber) {
     sectionCount--;
 }
 
+
+//Topics
 function AddTopic(event) {
     topicCount++;
     event.preventDefault();
@@ -161,6 +165,7 @@ function SaveTopic() {
     })
 }
 
+//Profile
 function SaveProfile() {
     var formData = new FormData();
     var totalFiles = document.getElementById("upload-profile-picture");
@@ -210,6 +215,7 @@ function EditProfile() {
 
 }
 
+//University
 function SaveUniversityInfo() {
     var form = $('#universityForm');
     if (!form[0].checkValidity()) {
@@ -240,7 +246,8 @@ function SaveUniversityInfo() {
         }
     })
 }
-    
+
+//Banner
 function SaveProfileBanner(image) {
     var formData = new FormData();
     formData.append("ProfileBanner", image.files[0]);
@@ -259,6 +266,7 @@ function SaveProfileBanner(image) {
     });
 }
 
+//Schedule
 $(function () {
     $('#schedule-date-picker').datetimepicker({
         format: 'L',
@@ -399,11 +407,11 @@ function SortTasks(data) {
                                                 <div class="card">
                                                     <div class="card-body">
                                                         <div class="d-inline-flex">
-                                                            <img class="rounded m-1" src="/images/ScheduleAssets/CalendarAdd.png" style="width:75px; height:75px" />
+                                                            <img class="rounded m-1" src="/images/ScheduleAssets/CalendarAdd.png" style="width:75px; height:75px" onclick="CheckIfTimezoneIsValidForSchedule()"/>
                                                             <div class="m-1" style="height:75px;">
                                                                 <p id="schedule-stream-title" class="form-header m-0">Schedule Stream</p>
-                                                                <p id="schedule-stream-subject" class="form-header mt-1 mb-0" style="font-size:10px">Stream Topic</p>
-                                                                <p id="schedule-stream-time" class="form-header mt-1">Click "Add Stream" or the plus</p>
+                                                                <p id="schedule-stream-subject" class="form-header mt-1 mb-0" style="font-size:10px; font-family:'Roboto', serif">Stream Topic</p>
+                                                                <p id="schedule-stream-time" class="form-header mt-1" style="font-size:12px; font-family:'Roboto', serif">Click "Add Stream" or the plus</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -456,6 +464,8 @@ function DeleteScheduleTask(id) {
     })
 }
 
+
+//Streams
 function EditStream(id) {
     OpenModal("edit-stream-modal");
 
