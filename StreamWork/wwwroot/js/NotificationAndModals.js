@@ -8,7 +8,11 @@
 function DiscardCalendarModalAndCloseModal() {
     document.getElementById("schedule-date-mask").innerHTML = `<img class="d-block" src="/images/ScheduleAssets/Calendar.png" data-target="#schedule-date-picker" data-toggle="datetimepicker" />`
     document.getElementById("schedule-buttons").innerHTML = ` <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="SaveScheduleTask()">Save Changes</button>`
-    DiscardChangesAndCloseModal('scheduleModalForm', 'scheduleModal');
+    $('#schedule-date-picker').datetimepicker('hide');
+    $('#schedule-time-start-picker').datetimepicker('hide');
+    $('#schedule-time-stop-picker').datetimepicker('hide');
+    $('#schedule-modal-delete-task-notification').hide()
+    DiscardChangesAndCloseModal('schedule-modal-form', 'schedule-modal');
 }
 
 function DiscardImageAndDiscardFormChangesAndCloseModal(imageURL, imageDestId, formId, modalId) {

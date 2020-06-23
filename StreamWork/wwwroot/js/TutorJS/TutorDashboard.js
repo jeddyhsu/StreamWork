@@ -1,5 +1,5 @@
-﻿var sectionCount = 0;
-var topicCount = 0;
+﻿var sectionCount = 0; //used for sections
+var topicCount = 0; // //used for topics
 
 //Sliders
 function SliderProfile() {
@@ -28,11 +28,11 @@ function AddSection(event) {
     event.preventDefault();
     var section = ` <div id="divider-${sectionCount}" class="divider"></div>
                     <div id="form-section-${sectionCount}" class="form-group col-lg-12">
-                        <label id="SectionLabelTitle-${sectionCount}" class="form-header d-inline-block">Section ${sectionCount} Title</label>
-                        <img id="RemoveSectionIcon-${sectionCount}" src="/images/TutorAssets/TutorDashboard/Remove.png" class="d-inline-block form-section-topic-remove-icon" onclick="RemoveSection(${sectionCount})" />
-                        <input name="SectionTitle-${sectionCount}" id="SectionTitle-${sectionCount}" class="form-control border rounded-0 form-input" placeholder="Title of section ${sectionCount}!">
+                        <label id="section-label-title-${sectionCount}" class="form-header d-inline-block">Section ${sectionCount} Title</label>
+                        <img id="remove-section-icon-${sectionCount}" src="/images/TutorAssets/TutorDashboard/Remove.png" class="d-inline-block form-section-topic-remove-icon" onclick="RemoveSection(${sectionCount})" />
+                        <input name="section-title-${sectionCount}" id="section-title-${sectionCount}" class="form-control border rounded-0 form-input" placeholder="Title of section ${sectionCount}!">
                         <label class="form-header pt-3">Description</label>
-                        <textarea name="SectionDescription-${sectionCount}" id="SectionDescription-${sectionCount}" class="form-control border rounded-0 form-textarea" placeholder="Tell us what you are studying, concentrations, passions, and other extra curricular activities here!"></textarea>
+                        <textarea name="section-description-${sectionCount}" id="section-description-${sectionCount}" class="form-control border rounded-0 form-textarea" placeholder="Tell us what you are studying, concentrations, passions, and other extra curricular activities here!"></textarea>
                     </div>`
 
     $("#form-row-section").append(section);
@@ -40,7 +40,7 @@ function AddSection(event) {
     e.scrollIntoView();
 }
 
-function SaveSection(event, type) { //saves all sections
+function SaveSection(event, type) {
     var form = $('#form-section-tutor');
     var serialize = form.serialize();
     serialize = serialize.replace(/%0D%0A/g, '*--*');
@@ -56,8 +56,8 @@ function SaveSection(event, type) { //saves all sections
             }
             else {
                 if (type != "remove") {
-                    $("#sectionTopicNotification").fadeTo(2000, 500).slideUp(500, function () {
-                        $("#sectionTopicNotification").slideUp(500);
+                    $("#section-topic-notification").fadeTo(2000, 500).slideUp(500, function () {
+                        $("#section-topic-notification").slideUp(500);
                     });
                 }
             }
@@ -72,28 +72,28 @@ function RemoveSection(sectionNumber) {
     section.remove();
     divider.remove();
 
-    //shift all other sections down one 
+    
     var sectionAbove = sectionNumber + 1;
-    for (var i = sectionAbove; i <= sectionCount; i++) {
+    for (var i = sectionAbove; i <= sectionCount; i++) { //shift all other sections down one 
         document.getElementById("divider-" + i).id = "divider-" + (i - 1);
         document.getElementById("form-section-" + i).id = "form-section-" + (i - 1);
 
-        var label = document.getElementById("SectionLabelTitle-" + i);
-        label.id = "SectionLabelTitle-" + (i - 1);
+        var label = document.getElementById("section-label-title-" + i);
+        label.id = "section-label-title-" + (i - 1);
         label.textContent = "Section " + (i - 1) + " Title"
 
-        var removeIcon = document.getElementById("RemoveSectionIcon-" + i)
-        removeIcon.id = "RemoveSectionIcon-" + (i - 1);
+        var removeIcon = document.getElementById("remove-section-icon-" + i)
+        removeIcon.id = "remove-section-icon-" + (i - 1);
         removeIcon.setAttribute("onclick", "RemoveSection(" + (i - 1) + ")");
 
-        var sectionTitle = document.getElementById("SectionTitle-" + i);
-        sectionTitle.id = "SectionTitle-" + (i - 1);
-        sectionTitle.name = "SectionTitle-" + (i - 1);
+        var sectionTitle = document.getElementById("section-title-" + i);
+        sectionTitle.id = "section-title-" + (i - 1);
+        sectionTitle.name = "section-title-" + (i - 1);
         sectionTitle.setAttribute("placeholder", "Title of section " + (i - 1) + "!");
 
-        var sectionDescription = document.getElementById("SectionDescription-" + i);
-        sectionDescription.id = "SectionDescription-" + (i - 1);
-        sectionDescription.name = "SectionDescription-" + (i - 1);
+        var sectionDescription = document.getElementById("section-description-" + i);
+        sectionDescription.id = "section-description-" + (i - 1);
+        sectionDescription.name = "section-description-" + (i - 1);
     }
 
     SaveSection(event, "remove");
@@ -107,23 +107,23 @@ function AddTopic(event) {
     topicCount++;
     event.preventDefault();
     var topic = `<div id="divider-topic-${topicCount}" class="divider"></div>
-                <div id="form-topic-${topicCount}" class="form-group col-lg-12 border p-2">
-                    <label class="form-header">Topic</label>
-                    <img id="RemoveTopicIcon-${topicCount}" src="/images/TutorAssets/TutorDashboard/Remove.png" class="d-inline-block form-section-topic-remove-icon" onclick="RemoveTopic(${topicCount})" />
-                    <select id="Topic-${topicCount}" name="Topic-${topicCount}" class="form-control border form-input rounded-0">
-                        <option>-Select-Topic-</option>
-                        <option>Mathematics</option>
-                        <option>Science</option>
-                        <option>Engineering</option>
-                        <option>Business</option>
-                        <option>Law</option>
-                        <option>Art</option>
-                        <option>Humanities</option>
-                        <option>Others</option>
-                    </select>
-                    <label class="form-header pt-3">List Of Subjects</label>
-                    <textarea id="ListOfSubjects-${topicCount}" name="ListOfSubjects-${topicCount}" class="form-control border rounded-0 form-textarea" placeholder="Enter list of subjects here!"></textarea>
-                </div>`
+                    <div id="form-topic-${topicCount}" class="form-group col-lg-12 border p-2">
+                        <label class="form-header">Topic</label>
+                        <img id="remove-topic-icon-${topicCount}" src="/images/TutorAssets/TutorDashboard/Remove.png" class="d-inline-block form-section-topic-remove-icon" onclick="RemoveTopic(${topicCount})" />
+                        <select id="topic-${topicCount}" name="topic-${topicCount}" class="form-control border form-input rounded-0">
+                            <option>-Select-Topic-</option>
+                            <option>Mathematics</option>
+                            <option>Science</option>
+                            <option>Engineering</option>
+                            <option>Business</option>
+                            <option>Law</option>
+                            <option>Art</option>
+                            <option>Humanities</option>
+                            <option>Others</option>
+                        </select>
+                        <label class="form-header pt-3">List Of Subjects</label>
+                        <textarea id="list-of-subjects-${topicCount}" name="list-of-subjects-${topicCount}" class="form-control border rounded-0 form-textarea" placeholder="Enter list of subjects here!"></textarea>
+                    </div>`
 
     $("#form-row-topic").append(topic);
     var e = document.getElementById("form-topic-" + topicCount);
@@ -157,8 +157,8 @@ function SaveTopic() {
                 location.reload();
             }
             else {
-                $("#sectionTopicNotification").fadeTo(2000, 500).slideUp(500, function () {
-                    $("#sectionTopicNotification").slideUp(500);
+                $("#section-topic-notification").fadeTo(2000, 500).slideUp(500, function () {
+                    $("#section-topic-notification").slideUp(500);
                 });
             }
         }
@@ -212,19 +212,18 @@ function EditProfile() {
     $('#location').val($('#header-location').text());
     $('#timezone').val($('#header-timezone').val());
     $('#linkedin-url').val($('#header-linkedin-url').val());
-
 }
 
 //University
 function SaveUniversityInfo() {
-    var form = $('#universityForm');
+    var form = $('#university-modal-form');
     if (!form[0].checkValidity()) {
         form[0].reportValidity();
         return;
     }
-    var abbreviation = $('#universityAbbreviation').val()
-    var name = $('#universityName').val();
-    var container = document.getElementById("universityElement");
+    var abbreviation = $('#university-abbreviation').val()
+    var name = $('#university-name').val();
+    var container = document.getElementById("university-element");
 
     var htmlString = "<div class='p-4'><p class='form-university-header'>" + abbreviation + "</p><p class='form-header'>" + name + "</p></div>"
     container.innerHTML = htmlString;
@@ -239,8 +238,8 @@ function SaveUniversityInfo() {
         },
         success: function (data) {
             if (data.message === "Success") {
-                $("#universityModalNotification" + streamId).fadeTo(2000, 500).slideUp(500, function () {
-                    $("#universityModalNotification" + + streamId).slideUp(500);
+                $("#university-modal-notification").fadeTo(2000, 500).slideUp(500, function () {
+                    $("#university-modal-notification").slideUp(500);
                 });
             }
         }
@@ -260,7 +259,7 @@ function SaveProfileBanner(image) {
         contentType: false,
         success: function (data) {
             if (data.message === "Success") {
-                $('#previewProfileBanner').attr('src', data.banner)
+                $('#preview-profile-banner').attr('src', data.banner)
             }
         }
     });
@@ -292,18 +291,6 @@ $(function () {
     });
 })
 
-$(function () {
-    $('#schedule-time-start-edit-picker').datetimepicker({
-        format: 'LT'
-    });
-})
-
-$(function () {
-    $('#schedule-time-stop-edit-picker').datetimepicker({
-        format: 'LT'
-    });
-})
-
 function AddDateToModal(date) {
     document.getElementById("schedule-date-mask").innerHTML = ReturnMask(date);
 }
@@ -317,7 +304,7 @@ function CheckIfTimezoneIsValidForSchedule() {
         return;
     }
 
-    OpenModal("scheduleModal");
+    OpenModal("schedule-modal");
 }
 
 function ReturnMask(date) {
@@ -336,7 +323,7 @@ function ReturnMask(date) {
 
 function SaveScheduleTask(id) {
 
-    var form = $('#scheduleModalForm');
+    var form = $('#schedule-modal-form');
     if (!form[0].checkValidity()) {
         return form[0].reportValidity();
     }
@@ -376,57 +363,57 @@ function SortTasks(data) {
             var day = moment(String(data.sorted[i].date).replace("T", " ")).format("D");
             var dow = moment(String(data.sorted[i].date).replace("T", " ")).format("ddd");
 
-            element += ` <div class="col-lg-6 col-md-12 mt-2">
-                                                    <div class="card card-border" onclick="EditScheduleTask('${data.sorted[i].id}')">
-                                                        <div class="card-body">
-                                                            <input type="hidden" id="schedule-date-${data.sorted[i].id}" value="${data.sorted[i].date}" />
-                                                            <div class="d-inline-flex">
-                                                                <img class="rounded m-1" src="${data.sorted[i].subjectThumbnail}" style="width:75px; height:75px" />
-                                                                <div class="text-center m-1 schedule-border" style="width:75px; height:75px;">
-                                                                    <p id="schedule-month-${data.sorted[i].id}" class="form-header mt-4" style="font-size:18px">${month}</p>
-                                                                </div>
-                                                                <div class="text-center m-1 schedule-border" style="width:75px; height:75px;">
-                                                                    <p id="schedule-day-${data.sorted[i].id}" class="form-header mb-0 mt-2" style="font-size:22px">${day}</p>
-                                                                    <p id="schedule-dow-${data.sorted[i].id}" class="form-header" style="font-size:14px">${dow}</p>
-                                                                </div>
-                                                                <div class="m-1" style="height:75px;">
-                                                                    <p id="schedule-stream-title-${data.sorted[i].id}" class="form-header m-0">${data.sorted[i].streamTitle}</p>
-                                                                    <p id="schedule-stream-subject-${data.sorted[i].id}" class="mt-1 mb-0" style="font-size:10px">${data.sorted[i].streamSubject}</p>
-                                                                    <p class="mt-1" style="font-size:14px">${data.sorted[i].timeStart} - ${data.sorted[i].timeStop} [${data.sorted[i].timeZone}]</p>
-                                                                     <input type="hidden" id="schedule-time-start-${data.sorted[i].id}" value="${data.sorted[i].timeStart}" />
-                                                                     <input type="hidden" id="schedule-time-stop-${data.sorted[i].id}" value="${data.sorted[i].timeStop}" />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>`
+            element += `<div class="col-lg-6 col-md-12 mt-2">
+                            <div class="card card-border" onclick="EditScheduleTask('${data.sorted[i].id}')">
+                                <div class="card-body">
+                                    <input type="hidden" id="schedule-date-${data.sorted[i].id}" value="${data.sorted[i].date}" />
+                                    <div class="d-inline-flex">
+                                        <img class="rounded m-1" src="${data.sorted[i].subjectThumbnail}" style="width:75px; height:75px" />
+                                        <div class="text-center m-1 schedule-border" style="width:75px; height:75px;">
+                                            <p id="schedule-month-${data.sorted[i].id}" class="form-header mt-4" style="font-size:18px">${month}</p>
+                                        </div>
+                                        <div class="text-center m-1 schedule-border" style="width:75px; height:75px;">
+                                            <p id="schedule-day-${data.sorted[i].id}" class="form-header mb-0 mt-2" style="font-size:22px">${day}</p>
+                                            <p id="schedule-dow-${data.sorted[i].id}" class="form-header" style="font-size:14px">${dow}</p>
+                                        </div>
+                                        <div class="m-1" style="height:75px;">
+                                            <p id="schedule-stream-title-${data.sorted[i].id}" class="form-header m-0">${data.sorted[i].streamTitle}</p>
+                                            <p id="schedule-stream-subject-${data.sorted[i].id}" class="mt-1 mb-0" style="font-size:10px">${data.sorted[i].streamSubject}</p>
+                                            <p class="mt-1" style="font-size:14px">${data.sorted[i].timeStart} - ${data.sorted[i].timeStop} [${data.sorted[i].timeZone}]</p>
+                                                <input type="hidden" id="schedule-time-start-${data.sorted[i].id}" value="${data.sorted[i].timeStart}" />
+                                                <input type="hidden" id="schedule-time-stop-${data.sorted[i].id}" value="${data.sorted[i].timeStop}" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                           </div>`
         }
     }
     else {
-        element = ` <div class="col-lg-6 col-md-12  mt-2">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <div class="d-inline-flex">
-                                                            <img class="rounded m-1" src="/images/ScheduleAssets/CalendarAdd.png" style="width:75px; height:75px" onclick="CheckIfTimezoneIsValidForSchedule()"/>
-                                                            <div class="m-1" style="height:75px;">
-                                                                <p id="schedule-stream-title" class="form-header m-0">Schedule Stream</p>
-                                                                <p id="schedule-stream-subject" class="form-header mt-1 mb-0" style="font-size:10px; font-family:'Roboto', serif">Stream Topic</p>
-                                                                <p id="schedule-stream-time" class="form-header mt-1" style="font-size:12px; font-family:'Roboto', serif">Click "Add Stream" or the plus</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>`
+        element = `<div class="col-lg-6 col-md-12  mt-2">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-inline-flex">
+                                    <img class="rounded m-1 d-block mr-auto ml-auto" src="/images/ScheduleAssets/CalendarAdd.png" style="width:75px; height:75px" onclick="CheckIfTimezoneIsValidForSchedule()"/>
+                                    <div class="m-1" style="height:75px;">
+                                        <p id="schedule-stream-title" class="form-header m-0">Schedule Stream</p>
+                                        <p id="schedule-stream-subject" class="form-header mt-1 mb-0" style="font-size:10px; font-family:'Roboto', serif">Stream Topic</p>
+                                        <p id="schedule-stream-time" class="form-header mt-1" style="font-size:12px; font-family:'Roboto', serif">Click "Add Stream" or the plus</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                     </div>`
     }
        
     
 
-        document.getElementById("taskRow").innerHTML = element;
-        CloseModal("scheduleModal")
+    document.getElementById("taskRow").innerHTML = element;
+    DiscardCalendarModalAndCloseModal()
 }
 
 function EditScheduleTask(id) {
-    OpenModal("scheduleModal");
+    OpenModal("schedule-modal");
 
     document.getElementById("schedule-date-mask").innerHTML = ReturnMask($('#schedule-date-' + id).val());
     $('#schedule-date-picker').datetimepicker('viewDate',moment($('#schedule-date-' + id).val()))
@@ -437,15 +424,19 @@ function EditScheduleTask(id) {
     $('#schedule-time-start-picker').val($('#schedule-time-start-' + id).val());
     $('#schedule-time-stop-picker').val($('#schedule-time-stop-' + id).val());
 
-
     document.getElementById("schedule-buttons").innerHTML = `<div class="row">
                                                                 <div class="col-6 pr-0">
-                                                                    <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#6B6B6B; color:white" onclick="DeleteScheduleTask('${id}')">Delete Scheduled Stream</button>
+                                                                    <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#6B6B6B; color:white" onclick="ShowDeleteBanner('${id}')">Delete Scheduled Stream</button>
                                                                 </div>
                                                                 <div class="col-6 pl-0">
                                                                     <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white; height:100%" onclick="SaveScheduleTask('${id}')">Save Changes</button>
                                                                 </div>
-                                                           </div>`
+                                                             </div>`
+}
+
+function ShowDeleteBanner(id) {
+    $('#schedule-modal-delete-task-notification').show()
+    document.getElementById("schedule-modal-confirm-delete-mask").innerHTML = `<a id="schedule-modal-confirm-delete-mask" onclick="DeleteScheduleTask('${id}');" style="cursor:pointer"><u>Confirm Delete</u></a>`
 }
 
 function DeleteScheduleTask(id) {
@@ -528,8 +519,4 @@ function DeleteStream(id) {
         }
     });
 }
-
-//function OpenDeleteStreamConfirmModal() {
-//    $('#deleteStreamConfirmModal').modal('show');
-//}
 
