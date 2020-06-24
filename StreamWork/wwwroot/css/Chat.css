@@ -1,21 +1,16 @@
-﻿.profilePictureSetting{
-    width:30px;
-    border-radius:5px;
-}
-
-.chatList {
+﻿.chat-list-primary-color-way {
     background: none;
-    background-color: white;
+    background-color: white !important;
     border-radius:0px;
 }
 
-.chatListAlternate {
+.chat-list-secondary-color-way {
     background: none;
-    background-color: #FBFBFB;
+    background-color: #FBFBFB !important;
     border-radius: 0px;
 }
 
-.chatProfilePicture {
+.chat-profile-picture {
     border-radius: 5%;
     width: 30px;
     margin-top: 10px;
@@ -23,25 +18,31 @@
     cursor:none;
 }
 
-.chatName {
+.chat-name {
     font-family: 'Roboto Slab', serif;
     font-size: 16px;
     padding-left: 40px;
     margin-top: 10px;
+    margin-bottom:0px
 }
 
-.chatDate {
+.chat-date {
     font-family: 'Roboto', serif;
     font-size: 10px;
     color: #818A96;
 }
 
-.chatMessage {
+.chat-message {
     font-family: 'Roboto';
     font-size: 14px;
     border: thick;
     color: black;
     padding-left: 40px;
+}
+
+.chat-list-view {
+    padding-top: 75px !important;
+    padding-bottom: 65px !important;
 }
 
 

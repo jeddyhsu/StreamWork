@@ -4,30 +4,51 @@
     .configureLogging(signalR.LogLevel.Information)
     .build();
 
-var initialUserName = "";
-var initialChatId = "";
+var clientUsername = "";
 var toolTipCount = 0;
 var chatCount = 0;
 var muted = true;
 var date = null;
 
-connection.on("ReceiveMessage", function (name, message, profilePicture, questionNumber, userName, chatColor) {
+connection.on("ReceiveMessage", function (chat) {
+    chat = JSON.parse(chat);
+    var date = moment(chat.Date).format("HH:mm")
     var listName = "";
 
-    if (initialChatId == userName) listName = "<h5 class='mb-0 chatName' style='color:" + chatColor + "'>" + name + "<span><img id='tutortip" + toolTipCount + "' class='pl-1' src='/images/ChatAssets/Tutor.png' data-toggle='tooltip' data-placement='top' title='StreamTutor'/></span><span class='chatDate'>" + date.getHours() + ":" + date.getMinutes() + "</span></h5>";
-    else if (initialUserName == userName) listName = "<h5 class='mb-0 chatName' style='color:" + chatColor + "'>" + name + " (you)" + "<span class='chatDate'> " + date.getHours() + ":" + date.getMinutes() + "</span></h5>";
-    else listName = "<h5 class='mb-0 chatName' style='color:" + chatColor + "'>" + name + "<span class='chatDate'> " + date.getHours() + ":" + date.getMinutes() + "</span></h5>";
-
-    if ((chatCount + 1) % 2 != 0) {
-        var listItem = "<li class='list-group-item chatList border-right-0 border-left-0'><div class='row'><div class='col-12'><input align='left' type='image' class='chatProfilePicture rounded' src=" + profilePicture + "/>" + listName + "<p id='question-" + questionNumber + "'class='chatMessage'>" + message + "</p> </div></div></li>"
+    if (chat.ChatId == chat.Username) {
+        listName = ` <p class="chat-name" style="color:${chat.ChatColor}">${chat.Name.replace('|', ' ')}
+                        <span><img id="tutor-tip-${toolTipCount}" class="pl-1" src="/images/ChatAssets/Tutor.png" data-toggle="tooltip" data-placement="top" title="StreamTutor"></span>
+                        <span class='chat-date'>${date}</span>
+                     </p>`
+    }
+    else if (clientUsername == chat.Username) {
+        listName = `<p class="chat-name" style="color:${chat.ChatColor}">${chat.Name.replace('|', ' ')} (you)
+                         <span class="chat-date">${date}</span>
+                    </p>`
     }
     else {
-        var listItem = "<li class='list-group-item chatListAlternate border-right-0 border-left-0'><div class='row'><div class='col-12'><input align='left' type='image' class='chatProfilePicture rounded' src=" + profilePicture + "/>" + listName + "<p id='question-" + questionNumber + "'class='chatMessage'>" + message + "</p> </div></div></li>"
+        listName = `<p class="chat-name" style="color:${chat.ChatColor}">${chat.Name.replace('|', ' ')}
+                        <span class="chat-date">${date}</span>
+                    </p>`
     }
 
+    var colorWay = "";
+    if ((chatCount + 1) % 2 != 0) colorWay = "chat-list-primary-color-way"
+    else colorWay = "chat-list-secondary-color-way"
+
+    var listItem = `<li id="message-${chatCount}" class='list-group-item ${colorWay} border-left-0 border-right-0'>
+                            <div class="row">
+                                <div class="col-12">
+                                    <input align="left" type="image" class="chat-profile-picture rounded" src=${chat.ProfilePicture} />
+                                    ${listName}
+                                    <p id="chat-${chatCount}" class="chat-message">${chat.Message}</p>
+                                </div>
+                            </div>
+                        </li>`
+
     chatCount++;
-    $('#chatField').append(listItem);
-    $("#tutortip" + toolTipCount).tooltip();
+    $('#chat-field').append(listItem);
+    $("#tutor-tip-" + toolTipCount).tooltip();
     toolTipCount++;
     window.scroll(0, document.documentElement.offsetHeight);
     if (!muted && initialUserName != userName) PlayAudio();
@@ -59,8 +80,7 @@ function ToggleMuteAndUnmute() {
 }
 
 function JoinChatRoom(chatId, userName) {
-    initialChatId = chatId;
-    initialUserName = userName;
+    clientUsername = userName;
     connection.start().then(function () {
         connection.invoke("JoinChatRoom", chatId).catch(function (err) {
             return console.error(err.toString());

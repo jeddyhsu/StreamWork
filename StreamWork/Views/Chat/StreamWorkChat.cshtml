@@ -12,7 +12,7 @@
 else
 {
     <script>
-        JoinChatRoom('@Model.ChatId', 'Anonmyous')
+        JoinChatRoom('@Model.ChatId', 'Anonymous')
     </script>
 }
 
@@ -29,60 +29,44 @@ else
                     </div>
                 </div>
 
-                <ul id="chatField" class="p-0" style="padding-top:75px !important; padding-bottom:65px !important">
+                <ul id="chat-field" class="chat-list-view pl-0 pr-0">
                     @for (int i = 0; i < Model.Chats.Count; i++)
                     {
-                        if (i % 2 != 0)
-                        {
-                            <li id="message-@i" class='list-group-item chatListAlternate border-left-0 border-right-0'>
                                 <div class="row">
-                                    <div class="col-12">
-                                        <input align="left" type="image" class="chatProfilePicture rounded" src=@Model.Chats[i].ProfilePicture />
-                                        @if (Model.ChatId == Model.Chats[i].Username)
-                                        {
-                                            <h5 class="mb-0 chatName" style='color:@Model.Chats[i].ChatColor'>@Model.Chats[i].Name.Replace('|', ' ')<span><img id="tutortip-@i" class="pl-1" src="/images/ChatAssets/Tutor.png" data-toggle="tooltip" data-placement="top" title="StreamTutor" /></span><span class='chatDate'>@Model.Chats[i].Date.AddMinutes(Model.Chats[i].TimeOffset * -1).ToString("HH:mm")</span></h5>
-                                            <script>$('#tutortip-@i').tooltip()</script>
-                                        }
-                                        else if (Model.UserProfile != null && Model.UserProfile.Username == Model.Chats[i].Username)
-                                        {
-                                            <h5 class="mb-0 chatName" style="color:@Model.Chats[i].ChatColor">@Model.Chats[i].Name.Replace('|', ' ') (you) <span class="chatDate">@Model.Chats[i].Date.AddMinutes(Model.Chats[i].TimeOffset * -1).ToString("HH:mm")</span></h5>
-                                        }
-                                        else
-                                        {
-                                            <h5 class="mb-0 chatName" style="color:@Model.Chats[i].ChatColor">@Model.Chats[i].Name.Replace('|', ' ') <span class="chatDate">@Model.Chats[i].Date.AddMinutes(Model.Chats[i].TimeOffset * -1).ToString("HH:mm")</span></h5>
-                                        }
-                                        <p id="chat-@i" class="chatMessage">@Html.Raw(Model.Chats[i].Message)</p>
-                                    </div>
-                                </div>
-                            </li>
-                        }
-                        else
-                        {
-                            <li id="message-@i" class='list-group-item chatList border-left-0 border-right-0'>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <input align="left" type="image" class="chatProfilePicture rounded" src=@Model.Chats[i].ProfilePicture />
-                                        @if (Model.ChatId == Model.Chats[i].Username)
-                                        {
-                                            <h5 class="mb-0 chatName" style='color:@Model.Chats[i].ChatColor'>@Model.Chats[i].Name.Replace('|', ' ')<span><img id="tutortip-@i" class="pl-1" src="/images/ChatAssets/Tutor.png" data-toggle="tooltip" data-placement="top" title="StreamTutor" /></span><span class='chatDate'>@Model.Chats[i].Date.AddMinutes(Model.Chats[i].TimeOffset * -1).ToString("HH:mm")</span></h5>
-                                            <script>$('#tutortip-@i').tooltip()</script>
-                                        }
-                                        else if (Model.UserProfile != null && Model.UserProfile.Username == Model.Chats[i].Username)
-                                        {
-                                            <h5 class="mb-0 chatName" style="color:@Model.Chats[i].ChatColor">@Model.Chats[i].Name.Replace('|', ' ') (you) <span class="chatDate">@Model.Chats[i].Date.AddMinutes(Model.Chats[i].TimeOffset * -1).ToString("HH:mm")</span></h5>
-                                        }
-                                        else
-                                        {
-                                            <h5 class="mb-0 chatName" style="color:@Model.Chats[i].ChatColor">@Model.Chats[i].Name.Replace('|', ' ') <span class="chatDate">@Model.Chats[i].Date.AddMinutes(Model.Chats[i].TimeOffset * -1).ToString("HH:mm")</span></h5>
-                                        }
-                                        <p id="chat-@i" class="chatMessage">@Html.Raw(Model.Chats[i].Message)</p>
-                                    </div>
-                                </div>
-                            </li>
-                        }
+                        var colorWay = "";
+                        @if (i % 2 == 0) colorWay = "chat-list-primary-color-way";
+                         else colorWay = "chat-list-secondary-color-way";
 
-                    }
-                </ul>
+                        <li id="message-@i" class='list-group-item @colorWay border-left-0 border-right-0'>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <input align="left" type="image" class="chat-profile-picture rounded" src=@Model.Chats[i].ProfilePicture />
+                                        @if (Model.ChatId == Model.Chats[i].Username)
+                                        {
+                                            <p class="chat-name" style='color:@Model.Chats[i].ChatColor'>@Model.Chats[i].Name.Replace('|', ' ')
+                                                <span><img id="tutortip-@i" class="pl-1" src="/images/ChatAssets/Tutor.png" data-toggle="tooltip" data-placement="top" title="StreamTutor" /></span>
+                                                <span class='chat-date'>@Model.Chats[i].Date.AddMinutes(Model.Chats[i].TimeOffset * -1).ToString("HH:mm")</span>
+                                            </p>
+                                            <script>$('#tutor-tip-@i').tooltip()</script>
+                                        }
+                                        else if (Model.UserProfile != null && Model.UserProfile.Username == Model.Chats[i].Username)
+                                        {
+                                            <h5 class="chat-name" style="color:@Model.Chats[i].ChatColor">@Model.Chats[i].Name.Replace('|', ' ') (you)
+                                                <span class="chat-date">@Model.Chats[i].Date.AddMinutes(Model.Chats[i].TimeOffset * -1).ToString("HH:mm")</span>
+                                            </h5>
+                                        }
+                                        else
+                                        {
+                                            <h5 class="chat-name" style="color:@Model.Chats[i].ChatColor">@Model.Chats[i].Name.Replace('|', ' ')
+                                                <span class="chat-date">@Model.Chats[i].Date.AddMinutes(Model.Chats[i].TimeOffset * -1).ToString("HH:mm")</span>
+                                            </h5>
+                                        }
+                                        <p id="chat-@i" class="chat-message">@Html.Raw(Model.Chats[i].Message)</p>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    </ul>
                 <script>
                       chatCount = @Model.Chats.Count;
                 </script>

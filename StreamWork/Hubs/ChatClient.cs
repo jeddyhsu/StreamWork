@@ -53,5 +53,22 @@ namespace StreamWork.Hubs
 
             return result;
         }
+
+        public string Serialize(string chatId, string userName, string name, string message, string profilePicture, DateTime dateTime, int offset, string chatColor, long questionCount)
+        {
+            Chats chat = new Chats
+            {
+                ChatId = chatId,
+                Username = userName,
+                Name = name,
+                Message = message,
+                ProfilePicture = profilePicture,
+                Date = dateTime,
+                ChatColor = chatColor.Equals("") ? "#56C0E0" : chatColor,
+                TimeOffset = offset,
+            };
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(chat);
+        }
     }
 }
