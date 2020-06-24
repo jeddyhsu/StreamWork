@@ -15,6 +15,7 @@ namespace StreamWork.HelperMethods
         private readonly HomeMethods _homeMethods = new HomeMethods();
         private readonly TutorMethods _tutorMethods = new TutorMethods();
         private readonly BlobMethods _blobMethods = new BlobMethods();
+        private readonly ScheduleMethods _scheduleMethods = new ScheduleMethods();
 
         public async Task<string[]> EditProfile([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, HttpRequest request, string user)
         {
@@ -35,6 +36,8 @@ namespace StreamWork.HelperMethods
             userProfile.Location = location;
             userProfile.TimeZone = timeZone;
             userProfile.LinkedInUrl = linkedInUrl;
+
+            await _scheduleMethods.UpdateTimezoneForScheduleTask(storageConfig, timeZone, userProfile.Username);
 
             if (profilePicture != null)
             {

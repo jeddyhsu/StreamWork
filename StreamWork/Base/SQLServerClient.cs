@@ -66,7 +66,7 @@ namespace StreamWork.Base
                 return await Set<T>().FromSqlRaw<T>(sb.ToString()).AsNoTracking().ToListAsync<T>();
         }
 
-        public async Task<bool> DeleteDataAsync(string query)
+        public async Task<bool> RunQueryAsync(string query)
         {
             using (var context = Database.GetDbConnection())
             {

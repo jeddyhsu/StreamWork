@@ -43,7 +43,7 @@ namespace StreamWork.HelperMethods
         {
             if (followerId != null && followeeId != null)
             {
-                if (await DataStore.DeleteDataAsync<Follow>(_homeMethods._connectionString, storageConfig.Value, SQLQueries.DeleteFollower.ToString(), new List<string> { followerId, followeeId })) return true;
+                if (await DataStore.RunQueryAsync<Follow>(_homeMethods._connectionString, storageConfig.Value, SQLQueries.DeleteFollower.ToString(), new List<string> { followerId, followeeId })) return true;
             }
 
             return false;

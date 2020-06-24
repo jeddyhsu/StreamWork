@@ -216,17 +216,24 @@ function EditProfile() {
 }
 
 //University
+function EditUniversityInfo() {
+    OpenModal('university-edit-modal')
+
+    $('#university-edit-abbreviation').val($('#university-abbreviation').text());
+    $('#university-edit-name').val($('#university-name').text());
+}
+
 function SaveUniversityInfo() {
-    var form = $('#university-modal-form');
+    var form = $('#university-edit-modal-form');
     if (!form[0].checkValidity()) {
         form[0].reportValidity();
         return;
     }
-    var abbreviation = $('#university-abbreviation').val()
-    var name = $('#university-name').val();
+    var abbreviation = $('#university-edit-abbreviation').val()
+    var name = $('#university-edit-name').val();
     var container = document.getElementById("university-element");
 
-    var htmlString = "<div class='p-4'><p class='form-university-header'>" + abbreviation + "</p><p class='form-header'>" + name + "</p></div>"
+    var htmlString = "<div class='p-4'><p id='university-abbreviation' class='form-university-header'>" + abbreviation + "</p><p id='university-name' class='form-header'>" + name + "</p></div>"
     container.innerHTML = htmlString;
 
     $.ajax({
@@ -239,8 +246,10 @@ function SaveUniversityInfo() {
         },
         success: function (data) {
             if (data.message === "Success") {
-                $("#university-modal-notification").fadeTo(2000, 500).slideUp(500, function () {
-                    $("#university-modal-notification").slideUp(500);
+                $('#university-abbreviation').text(data.abbreviation)
+                $('#university-name').text(data.name)
+                $("#university-edit-modal-notification").fadeTo(2000, 500).slideUp(500, function () {
+                    $("#university-edit-modal-notification").slideUp(500);
                 });
             }
         }
@@ -270,7 +279,7 @@ function SaveProfileBanner(image) {
 $(function () {
     $('#schedule-date-picker').datetimepicker({
         format: 'L',
-        minDate: new Date()
+        minDate: new Date(),
     });
 });
 
@@ -327,6 +336,13 @@ function SaveScheduleTask(id, type) {
     var form = $('#schedule-modal-form');
     if (!form[0].checkValidity()) {
         return form[0].reportValidity();
+    }
+
+    if ($("#schedule-default") != null) {
+        $("#schedule-modal-no-date-notification").fadeTo(2000, 500).slideUp(500, function () {
+            $("#schedule-modal-no-date-notification").slideUp(500);
+        });
+        return;
     }
 
     var formData = new FormData();
