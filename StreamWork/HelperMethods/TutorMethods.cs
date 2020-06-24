@@ -26,7 +26,11 @@ namespace StreamWork.HelperMethods
                 var keys = form.Keys;
 
                 string formatString = "";
-                foreach (var key in keys) formatString += key.ToString() + "|" + form[key] + Environment.NewLine;
+                foreach (var key in keys)
+                {
+                    if(!form[key].Equals(""))
+                        formatString += key.ToString() + "|``~``|" + form[key] + Environment.NewLine;
+                }
 
                 var url = _blobMethods.SaveFileIntoBlobContainer(userProfile.Username + "-" + userProfile.Id + "-sections" + ".txt", formatString);
                 return true;
@@ -48,12 +52,12 @@ namespace StreamWork.HelperMethods
                 var sections = blob.DownloadText();
                 var sectionsSplit = sections.Split(Environment.NewLine);
 
-                sectionsList.Add(new Section(sectionsSplit[0].Split('|')[1]));
+                sectionsList.Add(new Section(sectionsSplit[0].Split("|``~``|")[1]));
 
                 for (int i = 1; i < sectionsSplit.Length - 1; i += 2)
                 {
-                    var title = sectionsSplit[i].Split("|")[1];
-                    var description = sectionsSplit[i + 1].Split("|")[1];
+                    var title = sectionsSplit[i].Split("|``~``|")[1];
+                    var description = sectionsSplit[i + 1].Split("|``~``|")[1];
 
                     if(!title.Equals("") || !description.Equals("") || i <= 1)
                     {
@@ -79,7 +83,11 @@ namespace StreamWork.HelperMethods
                 var keys = form.Keys;
 
                 string formatString = "";
-                foreach (var key in keys) formatString += key.ToString() + "|" + form[key] + Environment.NewLine;
+                foreach (var key in keys)
+                {
+                    if (!form[key].Equals(""))
+                        formatString += key.ToString() + "|``~``|" + form[key] + Environment.NewLine;
+                }
 
                 var url = _blobMethods.SaveFileIntoBlobContainer(userProfile.Username + "-" + userProfile.Id + "-topics" + ".txt", formatString);
                 return true;
@@ -98,13 +106,13 @@ namespace StreamWork.HelperMethods
                 List<Topic> topicsList = new List<Topic>();
 
                 var blob = _blobMethods.GetBlockBlob(userProfile.Username + "-" + userProfile.Id + "-topics" + ".txt");
-                var opics = blob.DownloadText();
-                var topicSplit = opics.Split(Environment.NewLine);
+                var topics = blob.DownloadText();
+                var topicSplit = topics.Split(Environment.NewLine);
 
                 for (int i = 0; i < topicSplit.Length - 1; i += 2)
                 {
-                    var topic = topicSplit[i].Split("|")[1];
-                    var listOfSubjects = topicSplit[i + 1].Split("|")[1];
+                    var topic = topicSplit[i].Split("|``~``|")[1];
+                    var listOfSubjects = topicSplit[i + 1].Split("|``~``|")[1];
 
                     if (!topic.Equals("") || !listOfSubjects.Equals(""))
                     {

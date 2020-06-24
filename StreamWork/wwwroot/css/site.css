@@ -462,7 +462,8 @@ lds-dual-ring {
     font-size: 14px;
     color: red;
     cursor: pointer;
-    float: right
+    width:20px;
+    float: right;
 }
 
 .form-university-header { /*Created due to appending html string in js*/

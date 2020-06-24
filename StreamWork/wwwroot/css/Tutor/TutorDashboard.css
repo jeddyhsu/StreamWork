@@ -200,16 +200,21 @@
     color: #3D708D;
 }
 
-/*Card Border*/
-.card-border {
+ /*Card Border*/
+.hide {
+    display: none;
+}
+
+.card-border{
     border-width: 0px !important;
 }
 
 .card-border:hover{
-    border-width:2px !important;
+    border-width: 2px !important;
     cursor:pointer;
 }
 
+/*Schedule*/
 .schedule-image {
     width: 75px;
     height: 75px;
@@ -221,7 +226,6 @@
 
 }
 
-/*Schedule*/
 .schedule-day {
     font-size: 22px;
     margin-top: 10%;
@@ -266,10 +270,7 @@
     color: #9F9F9F;
 }
 
-.schedule-alternate {
-    background-color: #FBFBFB;
-}
-
 .icon{
     width:28px;
+    padding:3px;
 }

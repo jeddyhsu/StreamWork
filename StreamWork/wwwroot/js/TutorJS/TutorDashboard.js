@@ -29,7 +29,7 @@ function AddSection(event) {
     var section = ` <div id="divider-${sectionCount}" class="divider"></div>
                     <div id="form-section-${sectionCount}" class="form-group col-lg-12">
                         <label id="section-label-title-${sectionCount}" class="form-header d-inline-block">Section ${sectionCount} Title</label>
-                        <img id="remove-section-icon-${sectionCount}" src="/images/TutorAssets/TutorDashboard/Remove.png" class="d-inline-block form-section-topic-remove-icon" onclick="RemoveSection(${sectionCount})" />
+                        <img id="remove-section-icon-${sectionCount}" src="/images/TutorAssets/TutorDashboard/Remove.svg" class="d-inline-block form-section-topic-remove-icon" onclick="RemoveSection(${sectionCount})" />
                         <input name="section-title-${sectionCount}" id="section-title-${sectionCount}" class="form-control border rounded-0 form-input" placeholder="Title of section ${sectionCount}!">
                         <label class="form-header pt-3">Description</label>
                         <textarea name="section-description-${sectionCount}" id="section-description-${sectionCount}" class="form-control border rounded-0 form-textarea" placeholder="Tell us what you are studying, concentrations, passions, and other extra curricular activities here!"></textarea>
@@ -72,7 +72,7 @@ function RemoveSection(sectionNumber) {
     section.remove();
     divider.remove();
 
-    
+
     var sectionAbove = sectionNumber + 1;
     for (var i = sectionAbove; i <= sectionCount; i++) { //shift all other sections down one 
         document.getElementById("divider-" + i).id = "divider-" + (i - 1);
@@ -321,7 +321,7 @@ function ReturnMask(date) {
     return dateHTML;
 }
 
-function SaveScheduleTask(id) {
+function SaveScheduleTask(id, type) {
 
     var form = $('#schedule-modal-form');
     if (!form[0].checkValidity()) {
@@ -349,6 +349,12 @@ function SaveScheduleTask(id) {
         success: function (data) {
             if (data.message === "Success") {
                 SortTasks(data);
+                if (type != 'edit') DiscardCalendarModalAndCloseModal();
+                else {
+                    $("#schedule-modal-notification").fadeTo(2000, 500).slideUp(500, function () {
+                        $("#schedule-modal-notification").slideUp(500);
+                    });
+                }
             }
         }
     })
@@ -364,7 +370,12 @@ function SortTasks(data) {
             var dow = moment(String(data.sorted[i].date).replace("T", " ")).format("ddd");
 
             element += `<div class="col-lg-6 col-md-12 mt-2">
-                            <div class="card card-border" onclick="EditScheduleTask('${data.sorted[i].id}')">
+                            <div class="card card-border" onmouseover=" $('#edit-schedule-icon-${data.sorted[i].id}').css('display','block')" onmouseout="$('#edit-schedule-icon-${data.sorted[i].id}').css('display','none')" onclick="EditScheduleTask('${data.sorted[i].id}')">
+                                <div class="image-container w-100">
+                                    <div class="top-right">
+                                        <img id="edit-schedule-icon-${data.sorted[i].id}" class="p-1" style="width:30px; cursor:pointer; display:none" src="/images/TutorAssets/TutorDashboard/Edit.png" onclick="EditScheduleTask('${data.sorted[i].id}')" />
+                                    </div>
+                                </div>
                                 <div class="card-body">
                                     <input type="hidden" id="schedule-date-${data.sorted[i].id}" value="${data.sorted[i].date}" />
                                     <div class="d-inline-flex">
@@ -380,8 +391,8 @@ function SortTasks(data) {
                                             <p id="schedule-stream-title-${data.sorted[i].id}" class="form-header m-0">${data.sorted[i].streamTitle}</p>
                                             <p id="schedule-stream-subject-${data.sorted[i].id}" class="mt-1 mb-0" style="font-size:10px">${data.sorted[i].streamSubject}</p>
                                             <p class="mt-1" style="font-size:14px">${data.sorted[i].timeStart} - ${data.sorted[i].timeStop} [${data.sorted[i].timeZone}]</p>
-                                                <input type="hidden" id="schedule-time-start-${data.sorted[i].id}" value="${data.sorted[i].timeStart}" />
-                                                <input type="hidden" id="schedule-time-stop-${data.sorted[i].id}" value="${data.sorted[i].timeStop}" />
+                                            <input type="hidden" id="schedule-time-start-${data.sorted[i].id}" value="${data.sorted[i].timeStart}" />
+                                            <input type="hidden" id="schedule-time-stop-${data.sorted[i].id}" value="${data.sorted[i].timeStop}" />
                                         </div>
                                     </div>
                                 </div>
@@ -405,18 +416,17 @@ function SortTasks(data) {
                         </div>
                      </div>`
     }
-       
-    
+
+
 
     document.getElementById("taskRow").innerHTML = element;
-    DiscardCalendarModalAndCloseModal()
 }
 
 function EditScheduleTask(id) {
     OpenModal("schedule-modal");
 
     document.getElementById("schedule-date-mask").innerHTML = ReturnMask($('#schedule-date-' + id).val());
-    $('#schedule-date-picker').datetimepicker('viewDate',moment($('#schedule-date-' + id).val()))
+    $('#schedule-date-picker').datetimepicker('viewDate', moment($('#schedule-date-' + id).val()))
     $('#schedule-title').val($('#schedule-stream-title-' + id).text());
     $('#schedule-subject').val($('#schedule-stream-subject-' + id).text());
     $('#schedule-time-start-picker-value').val($('#schedule-time-start-' + id).val());
@@ -426,17 +436,24 @@ function EditScheduleTask(id) {
 
     document.getElementById("schedule-buttons").innerHTML = `<div class="row">
                                                                 <div class="col-6 pr-0">
-                                                                    <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#6B6B6B; color:white" onclick="ShowDeleteBanner('${id}')">Delete Scheduled Stream</button>
+                                                                    <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#6B6B6B; color:white" onclick="ShowDeleteScheduleTaskBanner('${id}')">Delete Scheduled Stream</button>
                                                                 </div>
                                                                 <div class="col-6 pl-0">
-                                                                    <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white; height:100%" onclick="SaveScheduleTask('${id}')">Save Changes</button>
+                                                                    <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white; height:100%" onclick="SaveScheduleTask('${id}', 'edit')">Save Changes</button>
                                                                 </div>
                                                              </div>`
 }
 
-function ShowDeleteBanner(id) {
+function ShowDeleteScheduleTaskBanner(id) {
     $('#schedule-modal-delete-task-notification').show()
-    document.getElementById("schedule-modal-confirm-delete-mask").innerHTML = `<a id="schedule-modal-confirm-delete-mask" onclick="DeleteScheduleTask('${id}');" style="cursor:pointer"><u>Confirm Delete</u></a>`
+    document.getElementById("schedule-buttons").innerHTML = `<div class="row">
+                                                                <div class="col-6 pr-0">
+                                                                    <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#AC0001; color:white" onclick="DeleteScheduleTask('${id}')">Confirm Delete</button>
+                                                                </div>
+                                                                <div class="col-6 pl-0">
+                                                                    <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white; height:100%" onclick="SaveScheduleTask('${id}', 'edit')">Save Changes</button>
+                                                                </div>
+                                                             </div>`
 }
 
 function DeleteScheduleTask(id) {
@@ -450,6 +467,7 @@ function DeleteScheduleTask(id) {
         success: function (data) {
             if (data.message === "Success") {
                 SortTasks(data);
+                DiscardCalendarModalAndCloseModal()
             }
         }
     })
@@ -467,14 +485,26 @@ function EditStream(id) {
 
     document.getElementById("stream-edit-buttons").innerHTML = ` <div class="row">
                                                                     <div class="col-6 pr-0">
-                                                                        <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#6B6B6B; color:white" onclick="DeleteScheduleTask('${id}')">Delete Stream</button>
+                                                                        <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#6B6B6B; color:white" onclick="ShowDeleteStreamTaskBanner('${id}')">Delete Stream</button>
                                                                     </div>
                                                                     <div class="col-6 pl-0">
                                                                         <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="SaveEditedStreamInfo('${id}')">Save Changes</button>
                                                                     </div>
                                                                 </div>`
 }
-      
+
+function ShowDeleteStreamTaskBanner(id) {
+    $('#edit-stream-modal-delete-stream-notification').show()
+    document.getElementById("stream-edit-buttons").innerHTML = `<div class="row">
+                                                                <div class="col-6 pr-0">
+                                                                    <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#AC0001; color:white" onclick="DeleteStream('${id}')">Confirm Delete</button>
+                                                                </div>
+                                                                <div class="col-6 pl-0">
+                                                                    <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white; height:100%" onclick="SaveEditedStreamInfo('${id}')">Save Changes</button>
+                                                                </div>
+                                                             </div>`
+}
+
 function SaveEditedStreamInfo(id) {
     var formData = new FormData()
     var totalFile = document.getElementById("upload-thumbnail-edit")
@@ -515,7 +545,7 @@ function DeleteStream(id) {
             'id': id,
         },
         success: function (data) {
-            
+
         }
     });
 }
