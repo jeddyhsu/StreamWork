@@ -323,21 +323,23 @@ lds-dual-ring {
 .form-control:focus {
     outline: none;
     box-shadow: none !important;
-    border: 3px solid #008080;
+    border: 3px solid lightgrey !important;
     background-color: transparent
 }
 
-.form-control {
-    background: transparent;
-    border: none;
-    color: gray;
+.form-control-lg {
+    width:100%;
+    outline: none;
+    box-shadow: none !important;
+    border: 3px solid transparent !important;
+    background-color: transparent
 }
 
 /*Navbar*/
 .nav-bar {
     width: 100%;
     height: 50px;
-    padding:30px;
+    padding: 30px;
     background-color: white
 }
 

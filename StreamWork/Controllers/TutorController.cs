@@ -280,5 +280,11 @@ namespace StreamWork.Controllers
             }
             return Json(new { Message = JsonResponse.Failed.ToString() });
         }
+
+        [HttpPost]
+        public async Task<IActionResult> SearchArchivedStreams([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string searchTerm, string filter)
+        {
+            return Json(new { Message = JsonResponse.Success.ToString(), Results = await _homeMethods.SearchArchivedStreams(storageConfig, filter, searchTerm) });
+        }
     }
 }

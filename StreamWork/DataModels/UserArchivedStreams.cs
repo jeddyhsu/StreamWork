@@ -18,6 +18,7 @@ namespace StreamWork.DataModels
         public DateTime StartTime { get; set; }
         public int Views { get; set; }
         public string StreamDescription { get; set; }
+        public string StreamColor { get; set; }
 
         [Timestamp]
         public byte[] RowVersion { get; set; }
