@@ -36,7 +36,7 @@ namespace StreamWork.ViewModels
                 return Redirect(session.Url("/Home/Login?dest=-Tutor-TutorDashboard")); // <-- We should store the page to redirect to in the session, instead of the parameters
             }
 
-            User = session.CurrentUser;
+            //User = session.CurrentUser;
             //Channel = storage.GetChannel(User.Id);
 
             //ArchivedStreams = storage.GetArchivedStreamsByTutor(User.Id);
