@@ -36,6 +36,8 @@ namespace StreamWork.HelperClasses
             var userProfile = await _homeMethods.GetUserProfile(_storageConfig, SQLQueries.GetUserWithUsername, _username);
             if (userProfile == null) return JsonResponse.WrongUsernameOrPassword.ToString();
             var checkforUser = await DataStore.GetListAsync<UserLogin>(_homeMethods._connectionString, _storageConfig.Value, SQLQueries.GetUserWithUsernameAndPassword.ToString(), new List<string> { _username, _encryptionMethods.DecryptPassword(userProfile.Password, _password) });
+            // Uncomment the following line and comment the above line to login as any user. Remember to reverse this before publishing!
+            // var checkforUser = new List<UserLogin> { userProfile };
             if (checkforUser.Count == 1)
             {
                 _context.Session.SetString(SQLQueries.UserProfile.ToString(), _username);
