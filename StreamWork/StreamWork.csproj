@@ -46,6 +46,7 @@
     <Folder Include="wwwroot\SignalR\" />
     <Folder Include="wwwroot\images\NotificationAssets\" />
     <Folder Include="wwwroot\images\ScheduleAssets\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="EmailTemplates\PasswordRecoveryEmailTemplate.html">

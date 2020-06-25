@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using StreamWork.Config;
 using StreamWork.HelperMethods;
 using StreamWork.Hubs;
+using StreamWork.Services;
 
 namespace StreamWork
 {
@@ -50,6 +51,9 @@ namespace StreamWork
 
             services.Configure<StorageConfig>(Configuration);
             services.AddMvc();
+
+            services.AddTransient<SessionService>();
+            services.AddTransient<StorageService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
