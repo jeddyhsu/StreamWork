@@ -29,7 +29,7 @@ function AddSection(event) {
     var section = ` <div id="divider-${sectionCount}" class="divider"></div>
                     <div id="form-section-${sectionCount}" class="form-group col-lg-12">
                         <label id="section-label-title-${sectionCount}" class="form-header d-inline-block">Section ${sectionCount} Title</label>
-                        <img id="remove-section-icon-${sectionCount}" src="/images/TutorAssets/TutorDashboard/Remove.svg" class="d-inline-block form-section-topic-remove-icon" onclick="RemoveSection(${sectionCount})" />
+                        <img id="remove-section-icon-${sectionCount}" src="/images/TutorAssets/TutorDashboard/Remove.svg" class="d-inline-block form-icon float-right" onclick="RemoveSection(${sectionCount})" />
                         <input name="section-title-${sectionCount}" id="section-title-${sectionCount}" class="form-control border rounded-0 form-input" placeholder="Title of section ${sectionCount}!">
                         <label class="form-header pt-3">Description</label>
                         <textarea name="section-description-${sectionCount}" id="section-description-${sectionCount}" class="form-control border rounded-0 form-textarea" placeholder="Tell us what you are studying, concentrations, passions, and other extra curricular activities here!"></textarea>
@@ -110,7 +110,7 @@ function AddTopic(event) {
     var topic = `<div id="divider-topic-${topicCount}" class="divider"></div>
                     <div id="form-topic-${topicCount}" class="form-group col-lg-12 border p-2">
                         <label class="form-header">Topic</label>
-                        <img id="remove-topic-icon-${topicCount}" src="/images/TutorAssets/TutorDashboard/Remove.svg" class="d-inline-block form-section-topic-remove-icon" onclick="RemoveTopic(${topicCount})" />
+                        <img id="remove-topic-icon-${topicCount}" src="/images/TutorAssets/TutorDashboard/Remove.svg" class="d-inline-block form-icon float-right" onclick="RemoveTopic(${topicCount})" />
                         <select id="topic-${topicCount}" name="topic-${topicCount}" class="form-control form-control-sm border rounded-0">
                             <option>-Select-Topic-</option>
                             <option>Mathematics</option>

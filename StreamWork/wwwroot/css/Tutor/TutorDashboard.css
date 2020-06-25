@@ -107,16 +107,21 @@
     padding: 10px
 }
 
+.sidebar-icon-desktop{
+    width:40px;
+    padding:3px;
+}
+
 .sidebar-list-item-desktop {
     list-style-type: none;
-    height: 50px;
+    height: 60px;
     background-color: #003936;
     padding: 10px;
     padding-left:30px;
-    margin-top: 3px;
     cursor: pointer;
     font-size:14px;
     text-align:left;
+    margin-bottom:3px;
 }
 
 .sidebar-list-item-tablet {
@@ -166,6 +171,26 @@
         -ms-flex-order: 2;
         order: 2;
     }
+}
+
+.banner {
+    display: flex;
+    justify-content: center;
+    width: inherit;
+    overflow: hidden;
+}
+
+/*Streams, Followers & Views Objects*/
+.count-outer-object {
+    font-size: 14px;
+    word-spacing: 8px;
+    padding-top:8px
+}
+
+.count-inner-object {
+    font-size: 18px;
+    font-family: 'Roboto Slab', serif;
+    padding:7px;
 }
 
 /*Custonm hr*/
@@ -268,9 +293,4 @@
 .schedule-border {
     border: dashed;
     color: #9F9F9F;
-}
-
-.icon{
-    width:28px;
-    padding:3px;
 }

@@ -42,7 +42,8 @@
                 </ul>
             </div>
             <div class="btn-group pr-3">
-                <input id="navbar-profile-picture" class="navbar-profile-picture" type="image" data-toggle="dropdown" src=@Model.UserProfile.ProfilePicture />
+                @{var cacheRand = new Random().Next();}
+                <input id="navbar-profile-picture" class="navbar-profile-picture" type="image" data-toggle="dropdown" src="@Model.UserProfile.ProfilePicture?@cacheRand" />
                 <button type="button" id="dropdown" class="btn btn-info dropdown-toggle border-0 navbar-dropdown-button" data-toggle="dropdown"></button>
                 <div class="dropdown-menu dropdown-menu-right" style="font-size:12px; min-width:0px !important">
                     <a class="dropdown-item" href="/Tutor/TutorDashboard">Dashboard</a>
@@ -64,16 +65,15 @@
         <div class="card border-0">
             <div class="card-body p-0">
                 <div class="row">
-                    <div class="col-lg-6 col-md-12 col-sm-12 col-12 order-lg-1 order-md-2 order-sm-2 order-2">
+                    <div class="col-lg-7 col-md-12 col-sm-12 col-12 order-lg-1 order-md-2 order-sm-2 order-2">
                         <div class="p-lg-4 pt-md-4 p-sm-3 p-3">
                             <div class="btn-group d-lg-block d-md-block d-sm-none d-none float-right">
                                 <button type="button" class="streamWork-secondary mr-2" style="font-size:8px; height:35px;" onclick="EditProfile()">Edit Profile</button>
                                 <button type="button" class="streamWork-primary" style="font-size:8px; height:35px;" onclick="OpenModal()">View Profile</button>
                             </div>
-                            @{var cacheRand = new Random().Next();}
-                            <input id="header-profile-picture" align="left" class="rounded" type="image" src="@Model.UserProfile.ProfilePicture?@cacheRand" style="width:70px" />
-                            <p id="header-name" class="form-header m-0" style="font-size:20px; padding-left:90px">@Model.UserProfile.Name.Replace('|', ' ')</p>
-                            <p id="header-occupation" class="form-header m-0" style="padding-left:90px; font-size:12px; color: #9F9F9F">@Model.UserProfile.ProfileCaption</p>
+                            <input id="header-profile-picture" align="left" class="rounded" type="image" src="@Model.UserProfile.ProfilePicture?@cacheRand" style="width:90px; cursor:text" />
+                            <p id="header-name" class="form-header m-0" style="font-size:20px; padding-left:110px">@Model.UserProfile.Name.Replace('|', ' ')</p>
+                            <p id="header-occupation" class="form-header m-0" style="padding-left:110px; font-size:12px; color: #9F9F9F">@Model.UserProfile.ProfileCaption</p>
                             <p class="mb-0 mt-2 form-sub-header"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
                             <p class="form-sub-header"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">@Model.UserProfile.Location</span></p>
                             <input id="header-first-name" type="hidden" value="@Model.UserProfile.Name.Split('|')[0]" />
@@ -90,24 +90,24 @@
                         <div class="p-lg-4 pt-md-4 p-sm-3 p-3">
                             <div class="d-inline-block mr-2">
                                 <div class="card pr-2" style="background-color:#004643; color:white">
-                                    <h6 class="m-0 pt-2 pb-2" style="font-size:9px; word-spacing:8px"><span style="background-color:#003936; font-size:14px" class="p-2 rounded">@Model.NumberOfStreams</span> Streams</h6>
+                                    <h6 class="count-outer-object"><span style="background-color:#003936" class="rounded count-inner-object">@Model.NumberOfStreams</span> Streams</h6>
                                 </div>
                             </div>
                             <div class="d-inline-block mr-2">
                                 <div class="card pr-2" style="background-color:#FFC627; color:white">
-                                    <h6 class="m-0 pt-2 pb-2" style="font-size:9px; word-spacing:8px"><span style="background-color:#E6B62F; font-size:14px" class="p-2 rounded">@Model.NumberOfFollowers</span> Followers</h6>
+                                    <h6 class="count-outer-object"><span style="background-color:#E6B62F" class="rounded count-inner-object ">@Model.NumberOfFollowers</span> Followers</h6>
                                 </div>
                             </div>
                             <div class="d-inline-block mr-2">
                                 <div class="card pr-2" style="background-color:#7266BA; color:white">
-                                    <h6 class="m-0 pt-2 pb-2" style="font-size:9px; word-spacing:8px"><span style="background-color:#5C50A7; font-size:14px" class="p-2 rounded">@{Random rand = new Random(1247635134); int mult = rand.Next(10, 16); int views = Model.NumberOfViews * mult + rand.Next(mult);}@views</span> Views</h6>
+                                    <h6 class="count-outer-object"><span style="background-color:#5C50A7;" class="rounded count-inner-object">@{Random rand = new Random(1247635134); int mult = rand.Next(10, 16); int views = Model.NumberOfViews * mult + rand.Next(mult);}@views</span> Views</h6>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-12 col-sm-12 col-12 order-lg-2 order-md-1 order-sm-1 order-1">
+                    <div class="col-lg-5 col-md-12 col-sm-12 col-12 order-lg-2 order-md-1 order-sm-1 order-1">
                         <div  class="image-container" style="width:100%; height:100%;">
-                            <img id="preview-profile-banner" src="@Model.UserProfile.ProfileBanner?@cacheRand" style="width:100%; height:100%; cursor:pointer" />
+                            <img class="banner" id="preview-profile-banner" src="@Model.UserProfile.ProfileBanner?@cacheRand" style="cursor:pointer; height:100%; object-fit:cover" />
                             <div class="bottom-right mr-2" style="left:0px; bottom:0px;">
                                 <div class="card rounded-0" style="width:100%; height:40px; background-color:black; opacity:0.2">
                                     <i id="add-profile-banner" class="fa fa-camera d-block ml-auto mr-auto mt-2" style="font-size:24px;color:white"></i>
@@ -224,7 +224,7 @@
                                                     <div id="divider-@i" class="divider"></div>
                                                     <div id="form-section-@i" class="form-group col-lg-12">
                                                         <label id="section-label-title-@i" class="form-header d-inline-block">Section @i Title</label>
-                                                        <img id="remove-section-icon-@i" src="~/images/TutorAssets/TutorDashboard/Remove.svg" class="d-inline-block form-section-topic-remove-icon" onclick="RemoveSection(@i)" />
+                                                        <img id="remove-section-icon-@i" src="~/images/TutorAssets/TutorDashboard/Remove.svg" class="d-inline-block form-icon float-right" onclick="RemoveSection(@i)" />
                                                         <input name="section-title-@i" id="section-title-@i" class="form-control border rounded-0 form-input" placeholder="Title of section @i!" value="@Model.Sections[i].SectionTitle">
                                                         <label class="form-header pt-3">Description</label>
                                                         <textarea name="section-description-@i" id="section-description-@i" class="form-control border rounded-0 form-textarea" placeholder="Tell us what you are studying, concentrations, passions, and other extra curricular activities here!">@Model.Sections[i].SectionDescription</textarea>
@@ -245,8 +245,8 @@
                                         }
                                     </div>
                                     <div class="mt-4">
-                                        <a class="d-inline-block" style="cursor:pointer; color:#004643" onclick="AddSection(event)"><span><img class="icon" src="~/images/TutorAssets/TutorDashboard/Add.svg" /></span>Add Section</a>
-                                        <a class="d-inline-block" style="cursor:pointer; float:right; color:#004643" onclick="SaveSection(event)"><span><img class="icon" src="~/images/TutorAssets/TutorDashboard/Save.svg" /></span>Save</a>
+                                        <a class="d-inline-block" style="cursor:pointer; color:#004643" onclick="AddSection(event)"><span><img class="form-icon" src="~/images/TutorAssets/TutorDashboard/Add.svg" /></span>Add Section</a>
+                                        <a class="d-inline-block" style="cursor:pointer; float:right; color:#004643" onclick="SaveSection(event)"><span><img class="form-icon" src="~/images/TutorAssets/TutorDashboard/Save.svg" /></span>Save</a>
                                     </div>
                                 </form>
                             </div>
@@ -266,7 +266,7 @@
                                                 <div id="form-topic-@t" class="form-group col-lg-12 border p-2">
                                                     <label class="form-header">Topic</label>
                                                     @if (i > 0)
-                                                    {<img id="remove-topic-icon-@t" src="~/images/TutorAssets/TutorDashboard/Remove.svg" class="d-inline-block form-section-topic-remove-icon" onclick="RemoveTopic(@t)" />}
+                                                    {<img id="remove-topic-icon-@t" src="~/images/TutorAssets/TutorDashboard/Remove.svg" class="d-inline-block form-icon float-right" onclick="RemoveTopic(@t)" />}
                                                     <select id="topic-@t" name="topic-@t" asp-for="@Model.Topics[i].TopicName" class="form-control form-control-sm rounded-0">
                                                         <option>-Select-Topic-</option>
                                                         <option>Mathematics</option>
@@ -284,8 +284,8 @@
                                             }
                                         </div>
                                         <div class="mt-4">
-                                            <a style="cursor:pointer; color:#004643" onclick="AddTopic(event)"><span><img class="icon" src="~/images/TutorAssets/TutorDashboard/Add.svg" /></span>Add Topic</a>
-                                            <a style="cursor:pointer; float:right; color:#004643" onclick="SaveTopic(event)"><span><img class="icon" src="~/images/TutorAssets/TutorDashboard/Save.svg" /></span>Save</a>
+                                            <a style="cursor:pointer; color:#004643" onclick="AddTopic(event)"><span><img class="form-icon" src="~/images/TutorAssets/TutorDashboard/Add.svg" /></span>Add Topic</a>
+                                            <a style="cursor:pointer; float:right; color:#004643" onclick="SaveTopic(event)"><span><img class="form-icon" src="~/images/TutorAssets/TutorDashboard/Save.svg" /></span>Save</a>
                                         </div>
                                     </form>
                                     <script>topicCount = @Model.Topics.Count;</script>
@@ -311,8 +311,8 @@
                                                 <textarea name="list-of-subjects" class="form-control border rounded-0 form-textarea" placeholder="Enter list of subjects here!"></textarea>
                                             </div>
                                         </div>
-                                        <a style="cursor:pointer; color:#004643" onclick="AddTopic(event)"><span><img class="icon" src="~/images/TutorAssets/TutorDashboard/Add.svg" /></span>Add Topic</a>
-                                        <a style="cursor:pointer; float:right; color:#004643" onclick="SaveTopic(event)"><span><img class="icon" src="~/images/TutorAssets/TutorDashboard/Save.svg" /></span>Save</a>
+                                        <a style="cursor:pointer; color:#004643" onclick="AddTopic(event)"><span><img class="form-icon" src="~/images/TutorAssets/TutorDashboard/Add.svg" /></span>Add Topic</a>
+                                        <a style="cursor:pointer; float:right; color:#004643" onclick="SaveTopic(event)"><span><img class="form-icon" src="~/images/TutorAssets/TutorDashboard/Save.svg" /></span>Save</a>
                                     </form>
                                 }
                             </div>
@@ -385,7 +385,7 @@
                                         }
                                     </div>
                                     <div class="mt-4">
-                                        <a style="cursor:pointer; color:#004643;" onclick="CheckIfTimezoneIsValidForSchedule()"><span><img class="icon" src="~/images/TutorAssets/TutorDashboard/Add.svg" /></span>Add Stream</a>
+                                        <a style="cursor:pointer; color:#004643;" onclick="CheckIfTimezoneIsValidForSchedule()"><span><img class="form-icon" src="~/images/TutorAssets/TutorDashboard/Add.svg" /></span>Add Stream</a>
                                     </div>
                                 </div>
                             </div>
@@ -399,7 +399,7 @@
                 <div class="container-fluid pt-2" style="width:100%">
                     <div class="row p-3">
                         <div class="col-12">
-                            <form class="p-1 border" onkeyup="SearchStreams(event, '@Model.UserProfile.Name', '@Model.UserProfile.Username')" onsubmit="SearchStreams(event, '@Model.UserProfile.Name', '@Model.UserProfile.Username')" style="background-color: white; border-radius: 20px;">
+                            <form class="p-1 border rounded" style="background-color:white" onkeyup="SearchStreams(event, '@Model.UserProfile.Name', '@Model.UserProfile.Username')" onsubmit="SearchStreams(event, '@Model.UserProfile.Name', '@Model.UserProfile.Username')">
                                 <input id="searchQuery" class="form-control-lg" type="search" placeholder="🔎 Search Past Streams" style="border: none; font-size:12px;">
                             </form>
                             <select id="filter" name="filter" class="form-control form-control-sm rounded-0 mt-3" onchange="SearchStreams(event, '@Model.UserProfile.Name', '@Model.UserProfile.Username')" style="width:175px">
@@ -458,11 +458,11 @@
     <nav id="sidebar">
         <img class="logo-desktop" onclick="window.location.href ='/'" src="~/images/WhiteStreamWork.png" />
         <ul class="p-0">
-            <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Tutor/TutorStream'"><span><img class="icon pb-1" src="~/images/TutorAssets/TutorDashboard/StartStream.svg" /></span>Start Stream</li>
-            <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Tutor/HowToStream'"><span><img class="icon pb-1" src="~/images/TutorAssets/TutorDashboard/HowToStream.svg" /></span>How To Stream</li>
-            <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Tutor/TutorWatch'"><span><img class="icon pb-1" src="~/images/TutorAssets/TutorDashboard/WatchStream.svg" /></span>Watch Streams</li>
-            <li class="sidebar-list-item-desktop"><span><img class="icon pb-1" src="~/images/TutorAssets/TutorDashboard/FollowingList.svg" /></span>Following List</li>
-            <li class="sidebar-list-item-desktop"><span><img class="icon pb-1" src="~/images/TutorAssets/TutorDashboard/FollowerList.svg" /></span>Follower List</li>
+            <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Tutor/TutorStream'"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/StartStream.svg" /></span>Start Stream</li>
+            <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Tutor/HowToStream'"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/HowToStream.svg" /></span>How To Stream</li>
+            <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Tutor/TutorWatch'"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/WatchStream.svg" /></span>Watch Streams</li>
+            <li class="sidebar-list-item-desktop"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/FollowingList.svg" /></span>Following List</li>
+            <li class="sidebar-list-item-desktop"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/FollowerList.svg" /></span>Follower List</li>
         </ul>
     </nav>
 </div>
