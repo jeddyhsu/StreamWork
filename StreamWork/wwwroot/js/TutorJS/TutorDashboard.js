@@ -44,6 +44,7 @@ function SaveSection(event, type) {
     var form = $('#form-section-tutor');
     var serialize = form.serialize();
     serialize = serialize.replace(/%0D%0A/g, '*--*');
+    serialize = serialize.replace('\r', '');
 
     $.ajax({
         type: "POST",
@@ -194,7 +195,11 @@ function SaveProfile() {
                 $('#header-location').text(data.location);
                 $('#header-timezone').val(data.timezone);
                 $('#header-linkedin-url').val(data.linkedInUrl)
-                $("#header-profile-picture").attr('src', data.profilePicture);
+
+                var c = new Date().valueOf();
+                $("#header-profile-picture").attr('src', data.profilePicture + `?nocache=${c}`);
+                $("#navbar-profile-picture").attr('src', data.profilePicture + `?nocache=${c}`);
+               
                 $("#profile-information-notification").fadeTo(2000, 500).slideUp(500, function () {
                     $("#profile-information-notification").slideUp(500);
                 });
@@ -214,6 +219,7 @@ function EditProfile() {
     $('#timezone').val($('#header-timezone').val());
     $('#linkedin-url').val($('#header-linkedin-url').val());
 }
+
 
 //University
 function EditUniversityInfo() {
@@ -269,7 +275,7 @@ function SaveProfileBanner(image) {
         contentType: false,
         success: function (data) {
             if (data.message === "Success") {
-                $('#preview-profile-banner').attr('src', data.banner)
+                $('#preview-profile-banner').attr('src', data.banner + `?nocache=${new Date().valueOf()}`);
             }
         }
     });
@@ -314,6 +320,7 @@ function CheckIfTimezoneIsValidForSchedule() {
         return;
     }
 
+    document.getElementById("schedule-date-mask").innerHTML = ReturnMask(new Date());
     OpenModal("schedule-modal");
 }
 
@@ -336,13 +343,6 @@ function SaveScheduleTask(id, type) {
     var form = $('#schedule-modal-form');
     if (!form[0].checkValidity()) {
         return form[0].reportValidity();
-    }
-
-    if ($("#schedule-default") != null) {
-        $("#schedule-modal-no-date-notification").fadeTo(2000, 500).slideUp(500, function () {
-            $("#schedule-modal-no-date-notification").slideUp(500);
-        });
-        return;
     }
 
     var formData = new FormData();
@@ -543,7 +543,7 @@ function SaveEditedStreamInfo(id) {
                 isStreamEdited = true;
                 document.getElementById("stream-title-" + id).innerHTML = data.title;
                 document.getElementById("stream-description-" + id).src = data.description;
-                document.getElementById("stream-thumbnail-" + id).src = data.thumbnail;
+                document.getElementById("stream-thumbnail-" + id).src = data.thumbnail + `?nocache=${new Date().valueOf()}`;
 
                 $("#edit-stream-modal-notification").fadeTo(2000, 500).slideUp(500, function () {
                     $("#edit-stream-modal-notification").slideUp(500);
