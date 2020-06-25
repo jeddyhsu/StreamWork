@@ -34,7 +34,7 @@ namespace StreamWork.HelperMethods
 
                 DateTime newDate = new DateTime(date.Year, date.Month, date.Day, timeStart.Hour, timeStart.Minute, timeStart.Second);
 
-                if(id.Equals("undefined"))
+                if (id.Equals("undefined"))
                 {
                     schedule = new Schedule
                     {
@@ -64,7 +64,7 @@ namespace StreamWork.HelperMethods
 
                 await DataStore.SaveAsync(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", schedule.Id } }, schedule);
                 return await GetSchedule(storageConfig, user);
-            }     
+            }
             catch (Exception e)
             {
                 Console.WriteLine("Error in ScheduleMethods:AddToSchedule " + e.Message);
@@ -74,15 +74,20 @@ namespace StreamWork.HelperMethods
 
         public async Task<List<Schedule>> GetSchedule([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string user)
         {
-            await DataStore.DeleteDataAsync<Schedule>(_homeMethods._connectionString, storageConfig.Value, SQLQueries.DeletePastScheduledTasks.ToString(), new List<string> { DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm") });
+            await DataStore.RunQueryAsync<Schedule>(_homeMethods._connectionString, storageConfig.Value, SQLQueries.DeletePastScheduledTasks.ToString(), new List<string> { DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm") });
             return await DataStore.GetListAsync<Schedule>(_homeMethods._connectionString, storageConfig.Value, SQLQueries.GetScheduleWithUserUsername.ToString(), new List<string> { user, DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm") });
         }
 
         public async Task<List<Schedule>> DeleteFromSchedule([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string id, string user)
         {
-            var saved = await DataStore.DeleteDataAsync<Schedule>(_homeMethods._connectionString, storageConfig.Value, SQLQueries.DeleteScheduleTaskWithId.ToString(), new List<string>{ id });
+            var saved = await DataStore.RunQueryAsync<Schedule>(_homeMethods._connectionString, storageConfig.Value, SQLQueries.DeleteScheduleTaskWithId.ToString(), new List<string> { id });
             if (saved) return await GetSchedule(storageConfig, user);
             return null;
+        }
+
+        public async Task<bool> UpdateTimezoneForScheduleTask([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string timezone, string username)
+        {
+            return await DataStore.RunQueryAsync<Schedule>(_homeMethods._connectionString, storageConfig.Value, SQLQueries.UpdateTimezonesOfScheduledTasks.ToString(), new List<string> {timezone, username});
         }
     }
 }

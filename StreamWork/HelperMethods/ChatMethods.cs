@@ -20,7 +20,7 @@ namespace StreamWork.HelperMethods
 
         public async Task DeleteAllChatsWithChatId([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string chatId)
         {
-            await DataStore.DeleteDataAsync<Chats>(_homeMethods._connectionString, storageConfig.Value, SQLQueries.DeleteAllChatsWithId.ToString(), new List<string> { chatId });
+            await DataStore.RunQueryAsync<Chats>(_homeMethods._connectionString, storageConfig.Value, SQLQueries.DeleteAllChatsWithId.ToString(), new List<string> { chatId });
         }
     }
 }

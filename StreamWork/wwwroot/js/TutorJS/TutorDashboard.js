@@ -109,8 +109,8 @@ function AddTopic(event) {
     var topic = `<div id="divider-topic-${topicCount}" class="divider"></div>
                     <div id="form-topic-${topicCount}" class="form-group col-lg-12 border p-2">
                         <label class="form-header">Topic</label>
-                        <img id="remove-topic-icon-${topicCount}" src="/images/TutorAssets/TutorDashboard/Remove.png" class="d-inline-block form-section-topic-remove-icon" onclick="RemoveTopic(${topicCount})" />
-                        <select id="topic-${topicCount}" name="topic-${topicCount}" class="form-control border form-input rounded-0">
+                        <img id="remove-topic-icon-${topicCount}" src="/images/TutorAssets/TutorDashboard/Remove.svg" class="d-inline-block form-section-topic-remove-icon" onclick="RemoveTopic(${topicCount})" />
+                        <select id="topic-${topicCount}" name="topic-${topicCount}" class="form-control form-control-sm border rounded-0">
                             <option>-Select-Topic-</option>
                             <option>Mathematics</option>
                             <option>Science</option>
@@ -194,6 +194,7 @@ function SaveProfile() {
                 $('#header-location').text(data.location);
                 $('#header-timezone').val(data.timezone);
                 $('#header-linkedin-url').val(data.linkedInUrl)
+                $("#header-profile-picture").attr('src', data.profilePicture);
                 $("#profile-information-notification").fadeTo(2000, 500).slideUp(500, function () {
                     $("#profile-information-notification").slideUp(500);
                 });
@@ -215,17 +216,24 @@ function EditProfile() {
 }
 
 //University
+function EditUniversityInfo() {
+    OpenModal('university-edit-modal')
+
+    $('#university-edit-abbreviation').val($('#university-abbreviation').text());
+    $('#university-edit-name').val($('#university-name').text());
+}
+
 function SaveUniversityInfo() {
-    var form = $('#university-modal-form');
+    var form = $('#university-edit-modal-form');
     if (!form[0].checkValidity()) {
         form[0].reportValidity();
         return;
     }
-    var abbreviation = $('#university-abbreviation').val()
-    var name = $('#university-name').val();
+    var abbreviation = $('#university-edit-abbreviation').val()
+    var name = $('#university-edit-name').val();
     var container = document.getElementById("university-element");
 
-    var htmlString = "<div class='p-4'><p class='form-university-header'>" + abbreviation + "</p><p class='form-header'>" + name + "</p></div>"
+    var htmlString = "<div class='p-4'><p id='university-abbreviation' class='form-university-header'>" + abbreviation + "</p><p id='university-name' class='form-header'>" + name + "</p></div>"
     container.innerHTML = htmlString;
 
     $.ajax({
@@ -238,8 +246,10 @@ function SaveUniversityInfo() {
         },
         success: function (data) {
             if (data.message === "Success") {
-                $("#university-modal-notification").fadeTo(2000, 500).slideUp(500, function () {
-                    $("#university-modal-notification").slideUp(500);
+                $('#university-abbreviation').text(data.abbreviation)
+                $('#university-name').text(data.name)
+                $("#university-edit-modal-notification").fadeTo(2000, 500).slideUp(500, function () {
+                    $("#university-edit-modal-notification").slideUp(500);
                 });
             }
         }
@@ -269,7 +279,7 @@ function SaveProfileBanner(image) {
 $(function () {
     $('#schedule-date-picker').datetimepicker({
         format: 'L',
-        minDate: new Date()
+        minDate: new Date(),
     });
 });
 
@@ -326,6 +336,13 @@ function SaveScheduleTask(id, type) {
     var form = $('#schedule-modal-form');
     if (!form[0].checkValidity()) {
         return form[0].reportValidity();
+    }
+
+    if ($("#schedule-default") != null) {
+        $("#schedule-modal-no-date-notification").fadeTo(2000, 500).slideUp(500, function () {
+            $("#schedule-modal-no-date-notification").slideUp(500);
+        });
+        return;
     }
 
     var formData = new FormData();
@@ -550,3 +567,40 @@ function DeleteStream(id) {
     });
 }
 
+function SearchStreams(event, name, username) { //filters by username
+    event.preventDefault();
+    var searchTerm = $('#searchQuery').val();
+    var filter = $('#filter').val();
+    $.ajax({
+        url: '/Tutor/SearchArchivedStreams',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            'searchTerm': searchTerm,
+            'filter': filter,
+        },
+        success: function (data) {
+            document.getElementById("stream-row").innerHTML = "";
+            var element = "";
+            for (var i = 0; i < data.results.length; i++) {
+                if (data.results[i].username == username) {
+                    element += `<div id="streamInfo-${data.results[i].id}" class="col-lg-3 col-md-6 col-sm-6">
+                                <div class="card mt-3 border-0" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px;">
+                                    <div class="card-title">
+                                        <a href="../StreamViews/StreamPlaybackPage?streamId=${data.results[i].streamId}"><img id="stream-thumbnail-${data.results[i].id}" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src=${data.results[i].streamThumbnail}></a>
+                                    </div>
+                                    <div class="card-body pt-0 pb-1">
+                                        <h5 id="stream-title-${data.results[i].id}" class="text-truncate form-header">${data.results[i].streamTitle}</h5>
+                                        <input id="stream-description-${data.results[i].id}" type="hidden" value="${data.results[i].streamDescription}" />
+                                        <p class="text-truncate form-header" style="font-size:10px">${name.replace("|", " ")}</p>
+                                    </div>
+                                    <div class="card-footer p-0" style="background-color:${data.results[i].streamColor}; border-bottom-left-radius:20px; border-bottom-right-radius:20px;"><span style="color:white; cursor:pointer; float:right; padding-right:10px" onclick="EditStream('${data.results[i].id}')">&#8943;</span></div>
+                                </div>
+                            </div>`
+                }
+            }
+
+            document.getElementById("stream-row").innerHTML = element;
+        }
+    });
+}

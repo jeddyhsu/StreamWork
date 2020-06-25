@@ -98,7 +98,7 @@ namespace StreamWork.Core
         }
 
 
-        public async static Task<bool> DeleteDataAsync<T>(string _connectionString,
+        public async static Task<bool> RunQueryAsync<T>(string _connectionString,
                                                           StorageConfig storageConfig,
                                                           string queryId,
                                                           List<string> parameters = null,
@@ -111,7 +111,7 @@ namespace StreamWork.Core
 
             using (var sqlServerClient = new SQLServerClient(_connectionString, storageConfig))
             {
-                 if(await sqlServerClient.DeleteDataAsync(query)) return true;
+                 if(await sqlServerClient.RunQueryAsync(query)) return true;
                  return false;
             }
         }

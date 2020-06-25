@@ -9,7 +9,6 @@ using StreamWork.ViewModels;
 using StreamWork.ViewModels.Tutor;
 using StreamWork.Threads;
 using StreamWork.HelperMethods;
-using System;
 using System.Security.Claims;
 
 namespace StreamWork.Controllers
@@ -252,7 +251,7 @@ namespace StreamWork.Controllers
 
             if (await _editProfileMethods.SaveUniversity(storageConfig, user, abbr, name))
             {
-                return Json(new { Message = JsonResponse.Success.ToString() });
+                return Json(new { Message = JsonResponse.Success.ToString(), Abbreviation = abbr, Name = name });
             }
             return Json(new { Message = JsonResponse.Failed.ToString() });
         }
@@ -279,6 +278,12 @@ namespace StreamWork.Controllers
                 return Json(new { Message = JsonResponse.Success.ToString(), Sorted = sortedList });
             }
             return Json(new { Message = JsonResponse.Failed.ToString() });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SearchArchivedStreams([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string searchTerm, string filter)
+        {
+            return Json(new { Message = JsonResponse.Success.ToString(), Results = await _homeMethods.SearchArchivedStreams(storageConfig, filter, searchTerm) });
         }
     }
 }

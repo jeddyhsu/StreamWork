@@ -251,9 +251,12 @@
         {
           "Query": "DELETE FROM [dbo].[Schedule] WHERE Date < '@x0'",
           "QueryId": "DeletePastScheduledTasks"
+        },
+        {
+          "Query": "UPDATE [dbo].[Schedule] SET TimeZone = '@x0' WHERE Username = '@x1'",
+          "QueryId": "UpdateTimezonesOfScheduledTasks"
         }
       ]
     }
-
   ]
 }
