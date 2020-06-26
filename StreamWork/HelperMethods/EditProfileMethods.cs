@@ -15,73 +15,7 @@ namespace StreamWork.HelperMethods
         private readonly TutorMethods _tutorMethods = new TutorMethods();
         private readonly ScheduleMethods _scheduleMethods = new ScheduleMethods();
 
-        public async Task<string[]> EditProfile([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, HttpRequest request, string user)
-        {
-            IFormFile profilePicture = null;
-            var userProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, user);
-            var firstName = request.Form["FirstName"];
-            var lastName = request.Form["LastName"];
-            var occupation = request.Form["Occupation"];
-            var location = request.Form["Location"];
-            var timeZone = request.Form["Timezone"];
-            var linkedInUrl = request.Form["LinkedInUrl"];
-
-            if (request.Form.Files.Count > 0)
-                profilePicture = request.Form.Files[0];
-
-            userProfile.Name = firstName + "|" + lastName;
-            userProfile.ProfileCaption = occupation;
-            userProfile.Location = location;
-            userProfile.TimeZone = timeZone;
-            userProfile.LinkedInUrl = linkedInUrl;
-
-            //await _scheduleMethods.UpdateTimezoneForScheduleTask(storageConfig, timeZone, userProfile.Username);
-
-            if (profilePicture != null)
-            {
-                userProfile.ProfilePicture = BlobMethods.SaveImageIntoBlobContainer(profilePicture, userProfile.Id, 240, 320);
-                //if (userProfile.ProfileType == "tutor")
-                    //await _tutorMethods.ChangeAllArchivedStreamAndUserChannelProfilePhotos(storageConfig, userProfile.Username, userProfile.ProfilePicture); //only if tutor
-            }
-                
-            await DataStore.SaveAsync(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
-
-            return new string[] { firstName, lastName, occupation, location, timeZone, linkedInUrl, userProfile.ProfilePicture };
-        }
-
-        public async Task<string> SaveBanner([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, HttpRequest request, string user)
-        {
-            try
-            {
-                var userProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, user);
-                IFormFile profileBanner = request.Form.Files[0];
-                var banner = BlobMethods.SaveImageIntoBlobContainer(profileBanner, userProfile.Username + "-" + userProfile.Id + "-profilebanner", 720, 242);
-                userProfile.ProfileBanner = banner;
-                await DataStore.SaveAsync(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
-                return banner;
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine("Error in EditProfileMethods-SaveBanner " + e.Message);
-                return null;
-            }
-        }
-
-        public async Task<bool> SaveUniversity([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string user, string abbr, string name)
-        {
-            try
-            {
-                var userProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, user);
-                userProfile.College = abbr + "|" + name;
-                await DataStore.SaveAsync(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
-                return true;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error in EditProfileMethods-SaveUniversity " + e.Message);
-                return false;
-            }
-        }
+        
 
         //private string GetTimeZoneAbbreviation(string zone)
         //{

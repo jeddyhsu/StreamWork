@@ -14,7 +14,6 @@ namespace StreamWork.Controllers
         private readonly FollowingMethods _followingMethods = new FollowingMethods();
         private readonly ScheduleMethods _scheduleMethods = new ScheduleMethods();
 
-        [Route("Profile/Tutor/{tutor}")]
         public async Task<IActionResult> Tutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string tutor)
         {
             var userProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, tutor);

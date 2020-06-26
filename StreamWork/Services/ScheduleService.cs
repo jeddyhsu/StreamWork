@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using StreamWork.Config;
-using StreamWork.Core;
 using StreamWork.DataModels;
 using StreamWork.HelperMethods;
 

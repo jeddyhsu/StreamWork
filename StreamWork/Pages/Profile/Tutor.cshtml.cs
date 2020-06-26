@@ -7,11 +7,10 @@ using StreamWork.DataModels;
 using StreamWork.HelperMethods;
 using StreamWork.Services;
 using StreamWork.TutorObjects;
-using StreamWork.ViewModels;
 
-namespace StreamWork.Pages.Tutor
+namespace StreamWork.Pages.Profile
 {
-    public class TutorDashboard : PageModel
+    public class Tutor : PageModel
     {
         private readonly SessionService sessionService;
         private readonly StorageService storageService;
@@ -21,18 +20,17 @@ namespace StreamWork.Pages.Tutor
 
         public UserLogin UserProfile { get; set; }
         public UserChannel UserChannel { get; set; }
-        public int NumberOfStreams { get; set; }
-        public int NumberOfFollowers { get; set; }
-        public int NumberOfViews { get; set; }
+        public UserArchivedStreams LatestStream { get; set; }
         public List<UserArchivedStreams> UserArchivedStreams { get; set; }
         public List<Section> Sections { get; set; }
         public List<Topic> Topics { get; set; }
         public List<Comment> Comments { get; set; }
         public List<Schedule> Schedule { get; set; }
+        public int NumberOfStreams { get; set; }
+        public int NumberOfFollowers { get; set; }
+        public int NumberOfViews { get; set; }
 
-        public SearchViewModel SearchViewModel { get; set; }
-
-        public TutorDashboard(StorageService storage, SessionService session, ProfileService profile, ScheduleService schedule, FollowService follow)
+        public Tutor(StorageService storage, SessionService session, ProfileService profile, ScheduleService schedule, FollowService follow)
         {
             storageService = storage;
             sessionService = session;
@@ -41,17 +39,18 @@ namespace StreamWork.Pages.Tutor
             followService = follow;
         }
 
-        public async Task<IActionResult> OnGet()
+        public async Task<IActionResult> OnGet(string tutor)
         {
             if (!sessionService.Authenticated)
             {
                 //return Redirect(session.Url("/Home/Login?dest=-Tutor-TutorDashboard"));
             }
 
-            UserProfile = await sessionService.GetCurrentUser();
+            UserProfile = await storageService.Get<UserLogin>(SQLQueries.GetUserWithUsername, tutor);
             UserChannel = await storageService.Get<UserChannel>(SQLQueries.GetUserChannelWithUsername, new string[] { UserProfile.Username });
 
             UserArchivedStreams = await storageService.GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { UserProfile.Username });
+            LatestStream = await storageService.Get<UserArchivedStreams>(SQLQueries.GetLatestArchivedStreamByUser, new string[] { UserProfile.Username });
             Sections = profileService.GetSections(UserProfile);
             Topics = profileService.GetTopics(UserProfile);
             //Comments = storage.GetCommentsToTutor(UserProfile.Username);
