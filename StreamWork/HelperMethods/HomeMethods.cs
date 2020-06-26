@@ -290,5 +290,10 @@ namespace StreamWork.HelperMethods
 
             return (string)table[subject];
         }
+
+        public async Task<List<Comment>> GetCommentsForTutor(params object[] args) // TEMP
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -211,7 +211,7 @@ namespace StreamWork.HelperMethods
 
         public async Task ClearRecommendation([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string id)
         {
-            await DataStore.DeleteAsync<Recommendation>(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", id } });
+            await DataStore.DeleteAsync<Comment>(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", id } });
         }
 
         public async Task DeleteStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string id)

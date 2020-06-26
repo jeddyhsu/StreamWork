@@ -20,7 +20,7 @@ namespace StreamWork.ViewModels
         public List<UserArchivedStreams> ArchivedStreams { get; private set; }
         public List<Section> Sections { get; private set; }
         public List<Topic> Topics { get; private set; }
-        public List<Recommendation> Recommendations { get; private set; }
+        public List<Comment> Comments { get; private set; }
         public List<Schedule> TutorSchedule { get; private set; }
         public int TotalViews { get; private set; }
         public int FollowerCount { get; private set; }
@@ -44,7 +44,7 @@ namespace StreamWork.ViewModels
             ArchivedStreams = await storage.GetArchivedStreamsByTutor(UserLogin.Username);
             Sections = storage.GetSectionsByTutor(UserLogin.Username);
             Topics = storage.GetTopicsByTutor(UserLogin.Username);
-            Recommendations = storage.GetRecommendationsToTutor(UserLogin.Username);
+            Comments = storage.GetCommentsToTutor(UserLogin.Username);
             TutorSchedule = storage.GetSchedule(UserLogin.Username);
 
             TotalViews = ArchivedStreams.Sum(x => x.Views);

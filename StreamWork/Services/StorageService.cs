@@ -68,9 +68,9 @@ namespace StreamWork.Services
         }
 
         // TODO
-        public List<Recommendation> GetRecommendationsToTutor(string tutorName)
+        public List<Comment> GetCommentsToTutor(string tutorName)
         {
-            return new List<Recommendation>();
+            return new List<Comment>();
         }
 
         // TODO

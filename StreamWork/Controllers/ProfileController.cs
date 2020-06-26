@@ -28,7 +28,7 @@ namespace StreamWork.Controllers
                 NumberOfStreams = (await _homeMethods.GetArchivedStreams(storageConfig, SQLQueries.GetArchivedStreamsWithUsername, User.Identity.Name)).Count,
                 Sections = _tutorMethods.GetSections(userProfile),
                 Topics = _tutorMethods.GetTopics(userProfile),
-                Recommendations = await _homeMethods.GetRecommendationsForTutor(storageConfig, User.Identity.Name),
+                Comments = await _homeMethods.GetCommentsForTutor(storageConfig, User.Identity.Name),
             };
 
             int viewCount = 0;
