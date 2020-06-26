@@ -244,7 +244,9 @@ lds-dual-ring {
 }
 
 .streamWork-primary {
-    border: none !important;
+    border: solid !important;
+    border-width: 2px !important;
+    border-color: #004643 !important;
     background-color: #004643 !important;
     color: white !important;
     border-radius: 5px !important;
@@ -474,7 +476,6 @@ lds-dual-ring {
 }
 
 .form-sub-header {
-    padding-left: 110px;
     font-family: 'Roboto Slab', serif;
     font-size: 8px;
     color: #9F9F9F;

@@ -22,7 +22,7 @@
         },
         {
           "Query": "SELECT * FROM [dbo].[UserLogin] WHERE Id = '@x0'",
-          "QueryId": "GetUserUsingId"
+          "QueryId": "GetUserWithId"
         },
         {
           "Query": "SELECT * FROM [dbo].[UserLogin] WHERE Username = '@x0' AND Password = '@x1'",
@@ -149,12 +149,12 @@
     },
 
     {
-      "Name": "Recommendation",
+      "Name": "Comment",
       "StorageType": "SqlServer",
       "Queries": [
         {
-          "Query": "SELECT * FROM [dbo].[Recommendation] WHERE Tutor = '@x0'",
-          "QueryId": "GetRecommendationsWithTutorUsername"
+          "Query": "SELECT * FROM [dbo].[Coment] WHERE ReceiverUsername = '@x0'",
+          "QueryId": "GetCommentsWithReceiverUsername"
         }
       ]
     },

@@ -69,13 +69,13 @@
                         <div class="p-lg-4 pt-md-4 p-sm-3 p-3">
                             <div class="btn-group d-lg-block d-md-block d-sm-none d-none float-right">
                                 <button type="button" class="streamWork-secondary mr-2" style="font-size:8px; height:35px;" onclick="EditProfile()">Edit Profile</button>
-                                <button type="button" class="streamWork-primary" style="font-size:8px; height:35px;" onclick="OpenModal()">View Profile</button>
+                                <button type="button" class="streamWork-primary" style="font-size:8px; height:35px;" onclick="window.location.href ='/Profile/Tutor/@Model.UserProfile.Username'">View Profile</button>
                             </div>
                             <input id="header-profile-picture" align="left" class="rounded" type="image" src="@Model.UserProfile.ProfilePicture?@cacheRand" style="width:90px; cursor:text" />
                             <p id="header-name" class="form-header m-0" style="font-size:20px; padding-left:110px">@Model.UserProfile.Name.Replace('|', ' ')</p>
                             <p id="header-occupation" class="form-header m-0" style="padding-left:110px; font-size:12px; color: #9F9F9F">@Model.UserProfile.ProfileCaption</p>
-                            <p class="mb-0 mt-2 form-sub-header"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
-                            <p class="form-sub-header"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">@Model.UserProfile.Location</span></p>
+                            <p class="mb-0 mt-2 form-sub-header" style="padding-left:110px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
+                            <p class="form-sub-header" style="padding-left:110px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">@Model.UserProfile.Location</span></p>
                             <input id="header-first-name" type="hidden" value="@Model.UserProfile.Name.Split('|')[0]" />
                             <input id="header-last-name" type="hidden" value="@Model.UserProfile.Name.Split('|')[1]" />
                             <input id="header-timezone" type="hidden" value="@Model.UserProfile.TimeZone" />
@@ -106,15 +106,17 @@
                         </div>
                     </div>
                     <div class="col-lg-5 col-md-12 col-sm-12 col-12 order-lg-2 order-md-1 order-sm-1 order-1">
-                        <div  class="image-container" style="width:100%; height:100%;">
+                        <div id="banner-upload" class="image-container" style="width:100%; height:100%;">
                             <img class="banner" id="preview-profile-banner" src="@Model.UserProfile.ProfileBanner?@cacheRand" style="cursor:pointer; height:100%; object-fit:cover" />
                             <div class="bottom-right mr-2" style="left:0px; bottom:0px;">
                                 <div class="card rounded-0" style="width:100%; height:40px; background-color:black; opacity:0.2">
                                     <i id="add-profile-banner" class="fa fa-camera d-block ml-auto mr-auto mt-2" style="font-size:24px;color:white"></i>
                                     <input id="upload-profile-banner" style="cursor:pointer; display:none" type='file' onchange="SaveProfileBanner(this)" />
-                                    <script>$('#preview-profile-banner').click(function () {
+                                    <script>
+                                        $('#preview-profile-banner').click(function () {
                                             $('#upload-profile-banner').click();
-                                        })</script>
+                                        })
+                                    </script>
                                 </div>
                             </div>
                         </div>
@@ -399,7 +401,7 @@
                 <div class="container-fluid pt-2" style="width:100%">
                     <div class="row p-3">
                         <div class="col-12">
-                            <form class="p-1 border rounded" style="background-color:white" onkeyup="SearchStreams(event, '@Model.UserProfile.Name', '@Model.UserProfile.Username')" onsubmit="SearchStreams(event, '@Model.UserProfile.Name', '@Model.UserProfile.Username')">
+                            <form class="p-1 border rounded" style="background-color:white" onkeyup="SearchStreams(event, '@Model.UserProfile.Name', '@Model.UserProfile.Username', 'col-lg-3')" onsubmit="SearchStreams(event, '@Model.UserProfile.Name', '@Model.UserProfile.Username' 'col-lg-3')">
                                 <input id="searchQuery" class="form-control-lg" type="search" placeholder="🔎 Search Past Streams" style="border: none; font-size:12px;">
                             </form>
                             <select id="filter" name="filter" class="form-control form-control-sm rounded-0 mt-3" onchange="SearchStreams(event, '@Model.UserProfile.Name', '@Model.UserProfile.Username')" style="width:175px">
@@ -448,8 +450,10 @@
                 </div>
             </div>
 
-            <div class="tab-pane" id="comment" role="tabpanel" aria-labelledby="comment-tab">Comment</div>
 
+            <div class="tab-pane" id="comment" role="tabpanel" aria-labelledby="comment-tab">
+
+            </div>
         </div>
     </div>
 </div>

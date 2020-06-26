@@ -567,7 +567,7 @@ function DeleteStream(id) {
     });
 }
 
-function SearchStreams(event, name, username) { //filters by username
+function SearchStreams(event, name, username, columnPreference) { //filters by username
     event.preventDefault();
     var searchTerm = $('#searchQuery').val();
     var filter = $('#filter').val();
@@ -584,7 +584,7 @@ function SearchStreams(event, name, username) { //filters by username
             var element = "";
             for (var i = 0; i < data.results.length; i++) {
                 if (data.results[i].username == username) {
-                    element += `<div id="streamInfo-${data.results[i].id}" class="col-lg-3 col-md-6 col-sm-6">
+                    element += `<div id="streamInfo-${data.results[i].id}" class="${columnPreference} col-md-6 col-sm-6">
                                 <div class="card mt-3 border-0" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px;">
                                     <div class="card-title">
                                         <a href="../StreamViews/StreamPlaybackPage?streamId=${data.results[i].streamId}"><img id="stream-thumbnail-${data.results[i].id}" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src=${data.results[i].streamThumbnail}></a>

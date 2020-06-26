@@ -29,7 +29,7 @@ namespace StreamWork.HelperMethods
         GetUserWithUsername,
         GetUserWithEmailAddress,
         GetUserWithPayPalAddress,
-        GetUserUsingId,
+        GetUserWithId,
         GetUserWithUsernameAndPassword,
         GetAllApprovedTutors,
         GetApprovedTutorsByFollowers,
@@ -62,8 +62,8 @@ namespace StreamWork.HelperMethods
         GetAllPayments,
         GetPaymentsById,
 
-        // Recommendation
-        GetRecommendationsWithTutorUsername,
+        // Comment
+        GetCommentsWithReceiverUsername,
 
         // View
         GetViewsWithViewer,
