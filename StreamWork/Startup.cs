@@ -53,6 +53,8 @@ namespace StreamWork
             services.AddTransient<ScheduleService>();
             services.AddTransient<FollowService>();
             services.AddTransient<ChatService>();
+            services.AddTransient<EditService>();
+            services.AddTransient<CommentService>();
 
             services.AddRazorPages();
         }
