@@ -204,10 +204,10 @@ namespace StreamWork.Services
             foreach (var stream in allArchivedStreamsByUser)
             {
                 stream.ProfilePicture = profilePicture;
-                await DataStore.SaveAsync(connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", stream.Id } }, stream);
+                await Save<UserChannel>(stream.Id, stream);
             }
             userChannel.ProfilePicture = profilePicture;
-            await DataStore.SaveAsync(connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userChannel.Id } }, userChannel);
+            await Save<UserChannel>(userChannel.Id, userChannel);
         }
 
         public async Task DeleteStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string id)

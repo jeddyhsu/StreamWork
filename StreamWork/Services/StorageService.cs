@@ -38,6 +38,16 @@ namespace StreamWork.Services
             return await DataStore.GetListAsync<T>(connectionString, config.Value, query.ToString(), parameters.Cast<string>().ToList());
         }
 
+        public async Task<bool> Run<T>(SQLQueries query, params string[] parameters) where T : class //Tom you probably dont know about this one but I created this so that we can update and delete directly to the database without return elements, such as a mass delete or mass update
+        {
+            return await DataStore.RunQueryAsync<T>(connectionString, config.Value, query.ToString(), parameters.Cast<string>().ToList());
+        }
+
+        public async Task Save<T>(string id, object obj) where T : class
+        {
+            await DataStore.SaveAsync(connectionString, config.Value, new Dictionary<string, object> { { "Id", id} }, obj);
+        }
+
         public async Task<UserLogin> GetUser(SQLQueries query, string[] parameters)
         {
             return await Get<UserLogin>(query, parameters);
