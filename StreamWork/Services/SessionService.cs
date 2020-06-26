@@ -11,6 +11,7 @@ namespace StreamWork.Services
         private readonly StorageService storage;
 
         public string Host { get; private set; }
+        public bool Authenticated { get { return httpContext.HttpContext.User.Identity.IsAuthenticated; } }
 
         public SessionService (IHttpContextAccessor httpContext, StorageService storage)
         {
@@ -26,8 +27,8 @@ namespace StreamWork.Services
 
         public async Task<UserLogin> GetCurrentUser()
         {
-            UserLogin user = await storage.GetUser(httpContext.HttpContext.User.Identity.Name);
-            throw new NotImplementedException();
+            return await storage.GetUser("tomTutor");
+            //return await storage.GetUser(httpContext.HttpContext.User.Identity.Name);
         }
     }
 }

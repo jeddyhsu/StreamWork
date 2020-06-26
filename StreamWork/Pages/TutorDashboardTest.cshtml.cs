@@ -20,8 +20,10 @@ namespace StreamWork.ViewModels
         public List<UserArchivedStreams> ArchivedStreams { get; private set; }
         public List<Section> Sections { get; private set; }
         public List<Topic> Topics { get; private set; }
+        public List<Recommendation> Recommendations { get; private set; }
+        public List<Schedule> TutorSchedule { get; private set; }
         public int TotalViews { get; private set; }
-        public Schedule TutorSchedule { get; private set; }
+        public int FollowerCount { get; private set; }
 
         public TutorDashboardTestModel(StorageService storage, SessionService session)
         {
@@ -29,24 +31,24 @@ namespace StreamWork.ViewModels
             this.session = session;
         }
 
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGet()
         {
-            if (!HttpContext.User.Identity.IsAuthenticated)
+            if (!session.Authenticated)
             {
-                return Redirect(session.Url("/Home/Login?dest=-Tutor-TutorDashboard")); // <-- We should store the page to redirect to in the session, instead of the parameters
+                //return Redirect(session.Url("/Home/Login?dest=-Tutor-TutorDashboard"));
             }
 
-            //User = session.CurrentUser;
-            //Channel = storage.GetChannel(User.Id);
+            UserLogin = await session.GetCurrentUser();
+            Channel = await storage.GetChannel(UserLogin.Username);
 
-            //ArchivedStreams = storage.GetArchivedStreamsByTutor(User.Id);
-            //Sections = storage.GetSectionsByTutor(User.Id);
-            //Topics = storage.GetTopicsByTutor(User.Id);
-            //Recommendations = storage.GetRecommendationsToTutor(User.Id);
-            //TutorSchedule = storage.GetTutorSchedule(User.Id);
+            ArchivedStreams = await storage.GetArchivedStreamsByTutor(UserLogin.Username);
+            Sections = storage.GetSectionsByTutor(UserLogin.Username);
+            Topics = storage.GetTopicsByTutor(UserLogin.Username);
+            Recommendations = storage.GetRecommendationsToTutor(UserLogin.Username);
+            TutorSchedule = storage.GetSchedule(UserLogin.Username);
 
-            //TotalViews = ArchivedStreams.Sum(x => x.Views);
-            //FollowerCount = storage.GetFollowerCountOf(User.Id);
+            TotalViews = ArchivedStreams.Sum(x => x.Views);
+            FollowerCount = storage.GetFollowerCountOf(UserLogin.Username);
 
             return Page();
         }

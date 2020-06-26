@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using StreamWork.Config;
 using StreamWork.HelperMethods;
 using StreamWork.Hubs;
@@ -13,7 +15,7 @@ namespace StreamWork
 {
     public class Startup
     {
-        public Startup(IHostingEnvironment env)
+        public Startup(IWebHostEnvironment env)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
@@ -35,11 +37,7 @@ namespace StreamWork
             services.AddDistributedMemoryCache();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSignalR();
-            services.AddSession(options =>
-            {
-            });
-
-            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddSession();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options =>
@@ -50,14 +48,15 @@ namespace StreamWork
             });
 
             services.Configure<StorageConfig>(Configuration);
-            services.AddMvc();
 
             services.AddTransient<SessionService>();
             services.AddTransient<StorageService>();
+
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -67,6 +66,7 @@ namespace StreamWork
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+                app.UseHsts();
             }
 
             app.UseHttpsRedirection();
@@ -75,11 +75,12 @@ namespace StreamWork
             app.UseRouting();
 
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoint =>
             {
-                endpoint.MapHub<ChatHub>("/chatHub");
-                endpoint.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                endpoint.MapRazorPages();
+                endpoint.MapControllers();
             });
         }
     }
