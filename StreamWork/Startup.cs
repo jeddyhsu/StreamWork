@@ -2,13 +2,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using StreamWork.Config;
 using StreamWork.HelperMethods;
-using StreamWork.Hubs;
 using StreamWork.Services;
 
 namespace StreamWork
@@ -51,6 +49,10 @@ namespace StreamWork
 
             services.AddTransient<SessionService>();
             services.AddTransient<StorageService>();
+            services.AddTransient<ProfileService>();
+            services.AddTransient<ScheduleService>();
+            services.AddTransient<FollowService>();
+            services.AddTransient<ChatService>();
 
             services.AddRazorPages();
         }

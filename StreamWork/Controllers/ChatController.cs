@@ -18,36 +18,36 @@ namespace StreamWork.Controllers
         [HttpGet]
         public async Task<IActionResult> StreamWorkChat([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string chatId, string chatInfo)
         {
-            UserLogin userProfile = null;
-            string[] info = null;
+            //UserLogin userProfile = null;
+            //string[] info = null;
 
-            if (chatInfo != null)
-            {
-                var decryptchatInfo = _encryptionMethods.DecryptString(chatInfo);
-                info = decryptchatInfo.Split("|");
-                userProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, info[0]);
-            }
+            //if (chatInfo != null)
+            //{
+            //    var decryptchatInfo = _encryptionMethods.DecryptString(chatInfo);
+            //    info = decryptchatInfo.Split("|");
+            //    userProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, info[0]);
+            //}
 
-            if(info != null)
-                if (!(userProfile.Id == info[1] && userProfile.EmailAddress == info[2])) userProfile = null;
+            //if(info != null)
+            //    if (!(userProfile.Id == info[1] && userProfile.EmailAddress == info[2])) userProfile = null;
 
-            string chatColor = "";
-            foreach(var claims in HttpContext.User.Claims)
-            {
-                if (claims.Type == ClaimTypes.UserData) chatColor = claims.Value;
-            }
+            //string chatColor = "";
+            //foreach(var claims in HttpContext.User.Claims)
+            //{
+            //    if (claims.Type == ClaimTypes.UserData) chatColor = claims.Value;
+            //}
 
-            ChatViewModel chatViewModel = new ChatViewModel
-            {
-                UserProfile = userProfile,
-                ChatId = chatId,
-                ChatInfo = chatInfo ?? null,
-                Chats = await _chatMethods.GetAllChatsWithChatId(storageConfig, chatId),
-                ChatColor = chatColor,
-                IsLoggedIn = userProfile != null,
-            };
+            //ChatViewModel chatViewModel = new ChatViewModel
+            //{
+            //    UserProfile = userProfile,
+            //    ChatId = chatId,
+            //    ChatInfo = chatInfo ?? null,
+            //    Chats = await _chatMethods.GetAllChatsWithChatId(storageConfig, chatId),
+            //    ChatColor = chatColor,
+            //    IsLoggedIn = userProfile != null,
+            //};
 
-            return View(chatViewModel);
+            return View();
         }
     }
 }

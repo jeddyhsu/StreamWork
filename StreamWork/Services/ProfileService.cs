@@ -131,7 +131,7 @@ namespace StreamWork.Services
 
         }
 
-        public bool StartStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, HttpRequest request, UserChannel userChannel, UserLogin userProfile, string chatColor)
+        public bool StartStream(HttpRequest request, UserChannel userChannel, UserLogin userProfile, string chatColor)
         {
             try
             {
@@ -146,9 +146,9 @@ namespace StreamWork.Services
                 else
                     streamThumbnail = GetCorrespondingDefaultThumbnail(streamSubject);
 
-                StreamClient streamClient = new StreamClient(storageConfig, userChannel, userProfile, streamTitle, streamSubject, streamDescription, streamThumbnail, archivedStreamId, chatColor);
-                if (notifyStudent.Equals("yes")) streamClient.RunEmailThread();
-                streamClient.RunLiveThread();
+                //StreamClient streamClient = new StreamClient(storageConfig, userChannel, userProfile, streamTitle, streamSubject, streamDescription, streamThumbnail, archivedStreamId, chatColor);
+                //if (notifyStudent.Equals("yes")) streamClient.RunEmailThread();
+                //streamClient.RunLiveThread();
 
                 return true;
             }
@@ -159,7 +159,7 @@ namespace StreamWork.Services
             }
         }
 
-        public async Task<string[]> EditArchivedStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, HttpRequest request)
+        public async Task<string[]> EditArchivedStream(HttpRequest request)
         {
             string streamThumbnail = null;
             var videoId = request.Form["StreamId"];
@@ -168,13 +168,13 @@ namespace StreamWork.Services
             if (request.Form.Files.Count > 0)
                 streamThumbnail = BlobMethods.SaveImageIntoBlobContainer(request.Form.Files[0], videoId, 1280, 720);
 
-            var archivedStream = await GetArchivedStream(SQLQueries.GetArchivedStreamsWithId, videoId);
+            var archivedStream = await Get<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithId, videoId);
             archivedStream.StreamTitle = streamTitle;
             archivedStream.StreamDescription = streamDescription;
             if (streamThumbnail != null)
                 archivedStream.StreamThumbnail = streamThumbnail;
 
-            await DataStore.SaveAsync(connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", archivedStream.Id } }, archivedStream);
+            await Save<UserArchivedStreams>(archivedStream.Id, archivedStream);
 
             return new string[] { streamTitle, streamDescription, archivedStream.StreamThumbnail };
         }
@@ -197,10 +197,10 @@ namespace StreamWork.Services
             return (string)defaultPic[subject];
         }
 
-        public async Task ChangeAllArchivedStreamAndUserChannelProfilePhotos([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string user, string profilePicture) //changes all profile photos on streams if user has changed it
+        public async Task ChangeAllArchivedStreamAndUserChannelProfilePhotos(string user, string profilePicture) //changes all profile photos on streams if user has changed it
         {
-            var allArchivedStreamsByUser = await GetArchivedStreams(SQLQueries.GetArchivedStreamsWithUsername, new string[] { user });
-            var userChannel = await GetChannel(SQLQueries.GetUserChannelWithUsername, new string[] { user });
+            var allArchivedStreamsByUser = await GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { user });
+            var userChannel = await Get<UserChannel>(SQLQueries.GetUserChannelWithUsername, new string[] { user });
             foreach (var stream in allArchivedStreamsByUser)
             {
                 stream.ProfilePicture = profilePicture;

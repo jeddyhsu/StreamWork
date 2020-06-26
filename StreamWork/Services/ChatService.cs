@@ -12,12 +12,12 @@ namespace StreamWork.Services
     {
         public ChatService([FromServices] IOptionsSnapshot<StorageConfig> config) : base(config) { }
         
-        public async Task<List<Chats>> GetAllChatsWithChatId([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string chatId)
+        public async Task<List<Chats>> GetAllChatsWithChatId(string chatId)
         {
-            return await GetChats(SQLQueries.GetAllChatsWithId, new string[]{chatId});
+            return await GetList<Chats>(SQLQueries.GetAllChatsWithId, new string[]{chatId});
         }
 
-        public async Task DeleteAllChatsWithChatId([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string chatId)
+        public async Task DeleteAllChatsWithChatId(string chatId)
         {
             await Run<Chats>(SQLQueries.DeleteAllChatsWithId, new string[] { chatId });
         }

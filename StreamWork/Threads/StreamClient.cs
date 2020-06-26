@@ -212,7 +212,7 @@ namespace StreamWork.Threads
                 _userChannel.StreamSubject = null;
                 _userChannel.StreamDescription = null;
                 _userChannel.StreamThumbnail = null;
-                await _chatHelperFunctions.DeleteAllChatsWithChatId(_storageConfig, _userChannel.Username);
+                //await _chatHelperFunctions.DeleteAllChatsWithChatId(_storageConfig, _userChannel.Username);
                 await DataStore.SaveAsync(_homeHelperFunctions._connectionString, _storageConfig.Value, new Dictionary<string, object> { { "Id", _userChannel.Id } }, _userChannel);
             }
             catch (Exception ex)

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using StreamWork.DataModels;
 
@@ -27,7 +26,7 @@ namespace StreamWork.Services
 
         public async Task<UserLogin> GetCurrentUser()
         {
-            return await storage.GetUser("tomTutor");
+            return await storage.Get<UserLogin>(HelperMethods.SQLQueries.GetUserWithUsername, new string[] { "rarunT" });
             //return await storage.GetUser(httpContext.HttpContext.User.Identity.Name);
         }
     }

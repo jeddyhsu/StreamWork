@@ -13,7 +13,6 @@ namespace StreamWork.HelperMethods
     {
         private readonly HomeMethods _homeMethods = new HomeMethods();
         private readonly TutorMethods _tutorMethods = new TutorMethods();
-        private readonly BlobMethods _blobMethods = new BlobMethods();
         private readonly ScheduleMethods _scheduleMethods = new ScheduleMethods();
 
         public async Task<string[]> EditProfile([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, HttpRequest request, string user)
@@ -36,13 +35,13 @@ namespace StreamWork.HelperMethods
             userProfile.TimeZone = timeZone;
             userProfile.LinkedInUrl = linkedInUrl;
 
-            await _scheduleMethods.UpdateTimezoneForScheduleTask(storageConfig, timeZone, userProfile.Username);
+            //await _scheduleMethods.UpdateTimezoneForScheduleTask(storageConfig, timeZone, userProfile.Username);
 
             if (profilePicture != null)
             {
-                userProfile.ProfilePicture = _blobMethods.SaveImageIntoBlobContainer(profilePicture, userProfile.Id, 240, 320);
-                if (userProfile.ProfileType == "tutor")
-                    await _tutorMethods.ChangeAllArchivedStreamAndUserChannelProfilePhotos(storageConfig, userProfile.Username, userProfile.ProfilePicture); //only if tutor
+                userProfile.ProfilePicture = BlobMethods.SaveImageIntoBlobContainer(profilePicture, userProfile.Id, 240, 320);
+                //if (userProfile.ProfileType == "tutor")
+                    //await _tutorMethods.ChangeAllArchivedStreamAndUserChannelProfilePhotos(storageConfig, userProfile.Username, userProfile.ProfilePicture); //only if tutor
             }
                 
             await DataStore.SaveAsync(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
@@ -56,7 +55,7 @@ namespace StreamWork.HelperMethods
             {
                 var userProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithUsername, user);
                 IFormFile profileBanner = request.Form.Files[0];
-                var banner = _blobMethods.SaveImageIntoBlobContainer(profileBanner, userProfile.Username + "-" + userProfile.Id + "-profilebanner", 720, 242);
+                var banner = BlobMethods.SaveImageIntoBlobContainer(profileBanner, userProfile.Username + "-" + userProfile.Id + "-profilebanner", 720, 242);
                 userProfile.ProfileBanner = banner;
                 await DataStore.SaveAsync(_homeMethods._connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", userProfile.Id } }, userProfile);
                 return banner;

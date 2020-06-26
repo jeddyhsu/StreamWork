@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StreamWork.DataModels;
+using StreamWork.HelperMethods;
 using StreamWork.Services;
 using StreamWork.TutorObjects;
 using StreamWork.ViewModels;
@@ -13,8 +14,11 @@ namespace StreamWork.Pages.Tutor
 {
     public class TutorDashboard : PageModel
     {
-        private readonly SessionService session;
-        private readonly StorageService storage;
+        private readonly SessionService sessionService;
+        private readonly StorageService storageService;
+        private readonly ProfileService profileService;
+        private readonly ScheduleService scheduleService;
+        private readonly FollowService followService;
 
         public UserLogin UserProfile { get; set; }
         public UserChannel UserChannel { get; set; }
@@ -29,30 +33,34 @@ namespace StreamWork.Pages.Tutor
 
         public SearchViewModel SearchViewModel { get; set; }
 
-        public TutorDashboard(StorageService storage, SessionService session)
+        public TutorDashboard(StorageService storage, SessionService session, ProfileService profile, ScheduleService schedule, FollowService follow)
         {
-            this.storage = storage;
-            this.session = session;
+            storageService = storage;
+            sessionService = session;
+            profileService = profile;
+            scheduleService = schedule;
+            followService = follow;
         }
 
         public async Task<IActionResult> OnGet()
         {
-            if (!session.Authenticated)
+            if (!sessionService.Authenticated)
             {
                 //return Redirect(session.Url("/Home/Login?dest=-Tutor-TutorDashboard"));
             }
 
-            UserProfile = await session.GetCurrentUser();
-            UserChannel = await storage.GetChannel(UserProfile.Username);
+            UserProfile = await sessionService.GetCurrentUser();
+            UserChannel = await storageService.Get<UserChannel>(SQLQueries.GetUserChannelWithUsername, new string[] { UserProfile.Username });
 
-            UserArchivedStreams = await storage.GetArchivedStreamsByTutor(UserProfile.Username);
-            Sections = storage.GetSectionsByTutor(UserProfile.Username);
-            Topics = storage.GetTopicsByTutor(UserProfile.Username);
-            Comments = storage.GetCommentsToTutor(UserProfile.Username);
-            Schedule = storage.GetSchedule(UserProfile.Username);
+            UserArchivedStreams = await storageService.GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { UserProfile.Username });
+            Sections = profileService.GetSections(UserProfile);
+            Topics = profileService.GetTopics(UserProfile);
+            //Comments = storage.GetCommentsToTutor(UserProfile.Username);
+            Schedule = await scheduleService.GetSchedule(UserProfile.Username);
 
+            NumberOfStreams = UserArchivedStreams.Count;
             NumberOfViews = UserArchivedStreams.Sum(x => x.Views);
-            NumberOfFollowers = storage.GetFollowerCountOf(UserProfile.Username);
+            NumberOfFollowers = await followService.GetNumberOfFollowers(UserProfile.Id);
 
             return Page();
         }
