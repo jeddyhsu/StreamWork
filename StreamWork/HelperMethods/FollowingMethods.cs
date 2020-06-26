@@ -15,8 +15,8 @@ namespace StreamWork.HelperMethods
 
         public async Task<bool> AddFollower([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string followerId, string followeeId)
         {
-            var followerProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserUsingId, followerId);
-            var followeeProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserUsingId, followeeId);
+            var followerProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithId, followerId);
+            var followeeProfile = await _homeMethods.GetUserProfile(storageConfig, SQLQueries.GetUserWithId, followeeId);
 
             if (followerProfile != null && followeeProfile != null)
             {

@@ -256,24 +256,6 @@ namespace StreamWork.HelperMethods
             return uriBuilder.ToString();
         }
 
-
-        public async Task<List<Recommendation>> GetRecommendationsForTutor([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string tutor)
-        {
-            return await DataStore.GetListAsync<Recommendation>(_connectionString, storageConfig.Value, SQLQueries.GetRecommendationsWithTutorUsername.ToString(), new List<string> { tutor });
-        }
-
-        public async Task SaveRecommendation([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string student, string tutor, string text)
-        {
-            Recommendation recommendation = new Recommendation
-            {
-                Id = Guid.NewGuid().ToString(),
-                Student = student,
-                Tutor = tutor,
-                Text = text,
-            };
-            await DataStore.SaveAsync(_connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", recommendation.Id } }, recommendation);
-        }
-
         public string FormatQueryString(List<string> list)
         {
             if (list.Count == 0) return null;

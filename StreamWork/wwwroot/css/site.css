@@ -244,7 +244,9 @@ lds-dual-ring {
 }
 
 .streamWork-primary {
-    border: none !important;
+    border: solid !important;
+    border-width: 2px !important;
+    border-color: #004643 !important;
     background-color: #004643 !important;
     color: white !important;
     border-radius: 5px !important;
@@ -455,18 +457,17 @@ lds-dual-ring {
     font-size: 12px !important;
 }
 
+.form-icon {
+    width: 28px;
+    padding: 3px;
+    cursor:pointer;
+}
+
 .form-textarea {
     font-size: 12px !important;
     height: 125px !important;
 }
 
-.form-section-topic-remove-icon {
-    font-size: 14px;
-    color: red;
-    cursor: pointer;
-    width:20px;
-    float: right;
-}
 
 .form-university-header { /*Created due to appending html string in js*/
     font-family: 'Roboto Slab', serif;
@@ -475,7 +476,6 @@ lds-dual-ring {
 }
 
 .form-sub-header {
-    padding-left: 87px;
     font-family: 'Roboto Slab', serif;
     font-size: 8px;
     color: #9F9F9F;

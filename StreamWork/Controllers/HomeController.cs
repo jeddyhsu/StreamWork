@@ -19,7 +19,6 @@ namespace StreamWork.Controllers
     public class HomeController : Controller
     {
         private readonly HomeMethods _homeMethods = new HomeMethods();
-        private readonly TutorMethods _tutorMethods = new TutorMethods();
         private readonly FollowingMethods _followingMethods = new FollowingMethods();
         private readonly EmailMethods _emailMethods = new EmailMethods();
         private readonly EncryptionMethods _encryptionMethods = new EncryptionMethods();
@@ -141,13 +140,6 @@ namespace StreamWork.Controllers
             }
 
             return Json(new { Message = JsonResponse.Failed.ToString() });
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> CreateRecommendation([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string student, string tutor, string recommendation)
-        {
-            await _homeMethods.SaveRecommendation(storageConfig, student, tutor, recommendation);
-            return Json(new { Message = JsonResponse.Success.ToString() });
         }
 
         public IActionResult Error()

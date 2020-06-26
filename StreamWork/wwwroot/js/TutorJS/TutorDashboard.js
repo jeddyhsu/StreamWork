@@ -29,7 +29,7 @@ function AddSection(event) {
     var section = ` <div id="divider-${sectionCount}" class="divider"></div>
                     <div id="form-section-${sectionCount}" class="form-group col-lg-12">
                         <label id="section-label-title-${sectionCount}" class="form-header d-inline-block">Section ${sectionCount} Title</label>
-                        <img id="remove-section-icon-${sectionCount}" src="/images/TutorAssets/TutorDashboard/Remove.svg" class="d-inline-block form-section-topic-remove-icon" onclick="RemoveSection(${sectionCount})" />
+                        <img id="remove-section-icon-${sectionCount}" src="/images/TutorAssets/TutorDashboard/Remove.svg" class="d-inline-block form-icon float-right" onclick="RemoveSection(${sectionCount})" />
                         <input name="section-title-${sectionCount}" id="section-title-${sectionCount}" class="form-control border rounded-0 form-input" placeholder="Title of section ${sectionCount}!">
                         <label class="form-header pt-3">Description</label>
                         <textarea name="section-description-${sectionCount}" id="section-description-${sectionCount}" class="form-control border rounded-0 form-textarea" placeholder="Tell us what you are studying, concentrations, passions, and other extra curricular activities here!"></textarea>
@@ -44,6 +44,7 @@ function SaveSection(event, type) {
     var form = $('#form-section-tutor');
     var serialize = form.serialize();
     serialize = serialize.replace(/%0D%0A/g, '*--*');
+    serialize = serialize.replace('\r', '');
 
     $.ajax({
         type: "POST",
@@ -109,7 +110,7 @@ function AddTopic(event) {
     var topic = `<div id="divider-topic-${topicCount}" class="divider"></div>
                     <div id="form-topic-${topicCount}" class="form-group col-lg-12 border p-2">
                         <label class="form-header">Topic</label>
-                        <img id="remove-topic-icon-${topicCount}" src="/images/TutorAssets/TutorDashboard/Remove.svg" class="d-inline-block form-section-topic-remove-icon" onclick="RemoveTopic(${topicCount})" />
+                        <img id="remove-topic-icon-${topicCount}" src="/images/TutorAssets/TutorDashboard/Remove.svg" class="d-inline-block form-icon float-right" onclick="RemoveTopic(${topicCount})" />
                         <select id="topic-${topicCount}" name="topic-${topicCount}" class="form-control form-control-sm border rounded-0">
                             <option>-Select-Topic-</option>
                             <option>Mathematics</option>
@@ -194,7 +195,11 @@ function SaveProfile() {
                 $('#header-location').text(data.location);
                 $('#header-timezone').val(data.timezone);
                 $('#header-linkedin-url').val(data.linkedInUrl)
-                $("#header-profile-picture").attr('src', data.profilePicture);
+
+                var c = new Date().valueOf();
+                $("#header-profile-picture").attr('src', data.profilePicture + `?nocache=${c}`);
+                $("#navbar-profile-picture").attr('src', data.profilePicture + `?nocache=${c}`);
+               
                 $("#profile-information-notification").fadeTo(2000, 500).slideUp(500, function () {
                     $("#profile-information-notification").slideUp(500);
                 });
@@ -214,6 +219,7 @@ function EditProfile() {
     $('#timezone').val($('#header-timezone').val());
     $('#linkedin-url').val($('#header-linkedin-url').val());
 }
+
 
 //University
 function EditUniversityInfo() {
@@ -269,7 +275,7 @@ function SaveProfileBanner(image) {
         contentType: false,
         success: function (data) {
             if (data.message === "Success") {
-                $('#preview-profile-banner').attr('src', data.banner)
+                $('#preview-profile-banner').attr('src', data.banner + `?nocache=${new Date().valueOf()}`);
             }
         }
     });
@@ -314,6 +320,7 @@ function CheckIfTimezoneIsValidForSchedule() {
         return;
     }
 
+    document.getElementById("schedule-date-mask").innerHTML = ReturnMask(new Date());
     OpenModal("schedule-modal");
 }
 
@@ -336,13 +343,6 @@ function SaveScheduleTask(id, type) {
     var form = $('#schedule-modal-form');
     if (!form[0].checkValidity()) {
         return form[0].reportValidity();
-    }
-
-    if ($("#schedule-default") != null) {
-        $("#schedule-modal-no-date-notification").fadeTo(2000, 500).slideUp(500, function () {
-            $("#schedule-modal-no-date-notification").slideUp(500);
-        });
-        return;
     }
 
     var formData = new FormData();
@@ -543,7 +543,7 @@ function SaveEditedStreamInfo(id) {
                 isStreamEdited = true;
                 document.getElementById("stream-title-" + id).innerHTML = data.title;
                 document.getElementById("stream-description-" + id).src = data.description;
-                document.getElementById("stream-thumbnail-" + id).src = data.thumbnail;
+                document.getElementById("stream-thumbnail-" + id).src = data.thumbnail + `?nocache=${new Date().valueOf()}`;
 
                 $("#edit-stream-modal-notification").fadeTo(2000, 500).slideUp(500, function () {
                     $("#edit-stream-modal-notification").slideUp(500);
@@ -567,7 +567,7 @@ function DeleteStream(id) {
     });
 }
 
-function SearchStreams(event, name, username) { //filters by username
+function SearchStreams(event, name, username, columnPreference) { //filters by username
     event.preventDefault();
     var searchTerm = $('#searchQuery').val();
     var filter = $('#filter').val();
@@ -584,7 +584,7 @@ function SearchStreams(event, name, username) { //filters by username
             var element = "";
             for (var i = 0; i < data.results.length; i++) {
                 if (data.results[i].username == username) {
-                    element += `<div id="streamInfo-${data.results[i].id}" class="col-lg-3 col-md-6 col-sm-6">
+                    element += `<div id="streamInfo-${data.results[i].id}" class="${columnPreference} col-md-6 col-sm-6">
                                 <div class="card mt-3 border-0" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px;">
                                     <div class="card-title">
                                         <a href="../StreamViews/StreamPlaybackPage?streamId=${data.results[i].streamId}"><img id="stream-thumbnail-${data.results[i].id}" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src=${data.results[i].streamThumbnail}></a>
