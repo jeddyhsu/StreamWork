@@ -12,15 +12,6 @@ namespace StreamWork.HelperMethods
     {
         readonly HomeMethods _homeMethods = new HomeMethods();
 
-        public async Task<List<Chats>> GetAllChatsWithChatId([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string chatId)
-        {
-            var chats = await DataStore.GetListAsync<Chats>(_homeMethods._connectionString, storageConfig.Value, SQLQueries.GetAllChatsWithId.ToString(), new List<string> { chatId });
-            return chats;
-        }
-
-        public async Task DeleteAllChatsWithChatId([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string chatId)
-        {
-            await DataStore.RunQueryAsync<Chats>(_homeMethods._connectionString, storageConfig.Value, SQLQueries.DeleteAllChatsWithId.ToString(), new List<string> { chatId });
-        }
+        
     }
 }

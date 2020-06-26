@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -8,14 +7,13 @@ using StreamWork.Config;
 using StreamWork.Core;
 using StreamWork.DataModels;
 using StreamWork.HelperMethods;
-using StreamWork.TutorObjects;
 
 namespace StreamWork.Services
 {
     public class StorageService
     {
-        private readonly string connectionString = "Server=tcp:streamwork.database.windows.net,1433;Initial Catalog=StreamWork;Persist Security Info=False;User ID=streamwork;Password=arizonastate1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-        private readonly IOptionsSnapshot<StorageConfig> config;
+        protected readonly string connectionString = "Server=tcp:streamwork.database.windows.net,1433;Initial Catalog=StreamWork;Persist Security Info=False;User ID=streamwork;Password=arizonastate1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        protected readonly IOptionsSnapshot<StorageConfig> config;
 
         public StorageService([FromServices] IOptionsSnapshot<StorageConfig> config)
         {
@@ -40,49 +38,39 @@ namespace StreamWork.Services
             return await DataStore.GetListAsync<T>(connectionString, config.Value, query.ToString(), parameters.Cast<string>().ToList());
         }
 
-        public async Task<UserLogin> GetUser(string name)
+        public async Task<UserLogin> GetUser(SQLQueries query, string[] parameters)
         {
-            return await Get<UserLogin>(SQLQueries.GetUserWithUsername, name);
+            return await Get<UserLogin>(query, parameters);
         }
 
-        public async Task<UserChannel> GetChannel(string name)
+        public async Task<List<UserLogin>> GetUsers(SQLQueries query, string[] parameters)
         {
-            return await Get<UserChannel>(SQLQueries.GetUserChannelWithUsername, name);
+            return await GetList<UserLogin>(query, parameters);
         }
 
-        public async Task<List<UserArchivedStreams>> GetArchivedStreamsByTutor(string tutorName)
+        public async Task<UserChannel> GetChannel(SQLQueries query, string[] parameters)
         {
-            return await GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, tutorName);
+            return await Get<UserChannel>(query, parameters);
         }
 
-        // TODO
-        public List<Section> GetSectionsByTutor(string tutorName)
+        public async Task<UserChannel> GetChannels(SQLQueries query, string[] parameters)
         {
-            return new List<Section>();
+            return await Get<UserChannel>(query, parameters);
         }
 
-        // TODO
-        public List<Topic> GetTopicsByTutor(string tutorName)
+        public async Task<UserArchivedStreams> GetArchivedStream(SQLQueries query, string[] parameters)
         {
-            return new List<Topic>();
+            return await Get<UserArchivedStreams>(query, parameters);
         }
 
-        // TODO
-        public List<Comment> GetCommentsToTutor(string tutorName)
+        public async Task<List<UserArchivedStreams>> GetArchivedStreams(SQLQueries query, string[] parameters)
         {
-            return new List<Comment>();
+            return await GetList<UserArchivedStreams>(query, parameters);
         }
 
-        // TODO
-        public List<Schedule> GetSchedule(string tutorName)
+        public async Task<List<Chats>> GetChats(SQLQueries query, string[] parameters)
         {
-            return new List<Schedule>();
-        }
-
-        // TODO
-        public int GetFollowerCountOf(string tutorName)
-        {
-            return 0;
+            return await GetList<Chats>(query, parameters);
         }
     }
 }

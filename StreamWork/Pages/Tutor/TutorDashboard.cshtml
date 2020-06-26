@@ -1,4 +1,5 @@
-﻿@model StreamWork.ViewModels.Tutor.TutorDashboardViewModel
+﻿@page
+@model StreamWork.Pages.Tutor.TutorDashboard
 
 @{Layout = "_LayoutNoNavbar";}
 @{ViewData["Title"] = "TutorDashboard";}
@@ -112,11 +113,9 @@
                                 <div class="card rounded-0" style="width:100%; height:40px; background-color:black; opacity:0.2">
                                     <i id="add-profile-banner" class="fa fa-camera d-block ml-auto mr-auto mt-2" style="font-size:24px;color:white"></i>
                                     <input id="upload-profile-banner" style="cursor:pointer; display:none" type='file' onchange="SaveProfileBanner(this)" />
-                                    <script>
-                                        $('#preview-profile-banner').click(function () {
+                                    <script>$('#preview-profile-banner').click(function () {
                                             $('#upload-profile-banner').click();
-                                        })
-                                    </script>
+                                        })</script>
                                 </div>
                             </div>
                         </div>
@@ -201,7 +200,7 @@
                                                 </div>
                                             </div>
                                             <label class="form-header pt-4">Year/Class</label>
-                                            <select name="year" id="year-select" class="form-control form-control-sm rounded-0" >
+                                            <select name="year" id="year-select" class="form-control form-control-sm rounded-0">
                                                 <option>-Select-Year/Class-</option>
                                                 <option>Freshman</option>
                                                 <option>Sophomore</option>
@@ -209,7 +208,10 @@
                                                 <option>Senior</option>
                                                 <option>Other</option>
                                             </select>
-                                             @if(Model.Sections != null) { <input id="year" type="hidden" value="@Model.Sections[0].Year" /> <script>$('#year-select').val($('#year').val())</script>}
+                                            @if (Model.Sections != null)
+                                            {<input id="year" type="hidden" value="@Model.Sections[0].Year" />
+                                                <script>$('#year-select').val($('#year').val())</script>
+}
                                         </div>
                                         @if (Model.Sections != null && Model.Sections.Count > 1)
                                         {
@@ -365,7 +367,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
+
                                             }
                                         }
                                         else

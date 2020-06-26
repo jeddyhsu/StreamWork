@@ -9,11 +9,11 @@ using SixLabors.ImageSharp.Processing;
 
 namespace StreamWork.HelperMethods
 {
-    public class BlobMethods
+    public static class BlobMethods
     {
-        private readonly string _blobconnectionString = "DefaultEndpointsProtocol=https;AccountName=streamworkblob;AccountKey=//JfVlcPLOyzT3vRHxlY1lJ4NUpduVfiTmuHJHK1u/0vWzP8V5YHPLkPPGD2PVxEwTdNirqHzWYSk7c2vZ80Vg==;EndpointSuffix=core.windows.net";
+        private static readonly string _blobconnectionString = "DefaultEndpointsProtocol=https;AccountName=streamworkblob;AccountKey=//JfVlcPLOyzT3vRHxlY1lJ4NUpduVfiTmuHJHK1u/0vWzP8V5YHPLkPPGD2PVxEwTdNirqHzWYSk7c2vZ80Vg==;EndpointSuffix=core.windows.net";
 
-        public string SaveImageIntoBlobContainer(IFormFile file, string reference, int width, int height) //Saves Images
+        public static string SaveImageIntoBlobContainer(IFormFile file, string reference, int width, int height) //Saves Images
         {
             CloudStorageAccount cloudStorage = CloudStorageAccount.Parse(_blobconnectionString);
             CloudBlobClient blobClient = cloudStorage.CreateCloudBlobClient();
@@ -50,7 +50,7 @@ namespace StreamWork.HelperMethods
             return blockBlob.Uri.AbsoluteUri;
         }
 
-        public string SaveFileIntoBlobContainer(string reference, string content) //Tutor Section TXT Files
+        public static string SaveFileIntoBlobContainer(string reference, string content) //Tutor Section TXT Files
         {
             CloudStorageAccount cloudStorage = CloudStorageAccount.Parse(_blobconnectionString);
             CloudBlobClient blobClient = cloudStorage.CreateCloudBlobClient();
@@ -63,7 +63,7 @@ namespace StreamWork.HelperMethods
             return blob.Uri.AbsoluteUri;
         }
 
-        public CloudBlockBlob GetBlockBlob(string reference)
+        public static CloudBlockBlob GetBlockBlob(string reference)
         {
             CloudStorageAccount cloudStorage = CloudStorageAccount.Parse(_blobconnectionString);
             CloudBlobClient blobClient = cloudStorage.CreateCloudBlobClient();
