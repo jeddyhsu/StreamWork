@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +14,7 @@ namespace StreamWork.Services
     {
         public EditService([FromServices] IOptionsSnapshot<StorageConfig> config) : base(config) { }
 
-        public async Task<string[]> EditProfile(HttpRequest request, string user)
+        public async Task<List<string>> EditProfile(HttpRequest request, string user)
         {
             IFormFile profilePicture = null;
             var userProfile = await Get<UserLogin>(SQLQueries.GetUserWithUsername, user);
@@ -44,7 +45,7 @@ namespace StreamWork.Services
 
             await Save<UserLogin>(userProfile.Id, userProfile);
 
-            return new string[] { firstName, lastName, occupation, location, timeZone, linkedInUrl, userProfile.ProfilePicture };
+            return new List<string> { firstName, lastName, occupation, location, timeZone, linkedInUrl, userProfile.ProfilePicture };
         }
 
         public async Task<string> SaveBanner(HttpRequest request, string user)

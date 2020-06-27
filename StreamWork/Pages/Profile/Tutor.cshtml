@@ -6,7 +6,7 @@
 @{var cacheRand = new Random().Next();}
 
 <div class="container pt-4">
-    <img class="banner" id="preview-profile-banner" src="@Model.UserProfile.ProfileBanner?@cacheRand" style="cursor:pointer; object-fit:cover; max-height:300px" />
+    <img class="banner" id="preview-profile-banner" src="@Model.UserProfile.ProfileBanner?@cacheRand" style="cursor:pointer; object-fit:cover; max-height:300px; object-position:top" />
     <div class="card border-0">
         <div class="card-body p-0 ">
             <div class="row">
@@ -20,16 +20,16 @@
                             <input id="header-profile-picture" align="left" class="rounded" type="image" src="@Model.UserProfile.ProfilePicture?@cacheRand" style="width:90px; cursor:text" />
                         </div>
                         <div class="d-inline-block">
-                            <p id="header-name" class="form-header m-0" style="font-size:20px; padding-left:110px">@Model.UserProfile.Name.Replace('|', ' ')</p>
-                            <p id="header-occupation" class="form-header m-0" style="padding-left:110px; font-size:12px; color: #9F9F9F">@Model.UserProfile.ProfileCaption</p>
+                            <p id="header-name" class="form-header m-0" style="font-size:22px; padding-left:110px">@Model.UserProfile.Name.Replace('|', ' ')</p>
+                            <p id="header-occupation" class="form-header m-0" style="padding-left:110px; font-size:16px; color: #9F9F9F">@Model.UserProfile.ProfileCaption</p>
                             <div class="d-lg-none d-md-none d-sm-none d-block">
-                                <p class="mb-0 mt-2 form-sub-header" style="padding-left:110px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
-                                <p class="form-sub-header" style="padding-left:110px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">@Model.UserProfile.Location</span></p>
+                                <p class="mb-0 mt-2 form-sub-header" style="padding-left:110px; font-size:12px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
+                                <p class="form-sub-header" style="padding-left:110px; font-size:12px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">@Model.UserProfile.Location</span></p>
                             </div>
                         </div>
                         <div class="d-lg-inline-block d-md-inline-block d-sm-inline-block d-none pl-3">
-                            <p class="mb-0 mt-2 form-sub-header d-inline-block"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
-                            <p class="form-sub-header"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">@Model.UserProfile.Location</span></p>
+                            <p class="mb-0 mt-2 form-sub-header d-inline-block" style="font-size:12px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
+                            <p class="form-sub-header" style="font-size:12px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">@Model.UserProfile.Location</span></p>
                         </div>
                     </div>
 
@@ -60,46 +60,52 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-4 pt-3">
-            <div class="card">
-                <div class="card-title">
-                    <p class="form-header p-3 m-0">Social Media Links</p>
-                    <i class="fa fa-linkedin-square p-3" style="font-size:48px; cursor:pointer; color:lightgray" onclick="window.open('@Model.UserProfile.LinkedInUrl')"></i>
+        <div class="col-lg-3 pt-3">
+            <p class="form-header pt-3" style="font-size:16px">Recent Stream</p>
+                @if (Model.LatestStream != null)
+                {
+                    <div class="card mt-3 border-0 d-block mr-auto ml-auto" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px;">
+                        <div class="card-title">
+                            <a href="../StreamViews/StreamPlaybackPage?streamId=@Model.LatestStream.StreamID"><img asp-append-version="true" id="stream-thumbnail-@Model.LatestStream.Id" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src="@Model.LatestStream.StreamThumbnail?@cacheRand"></a>
+                        </div>
+                        <div class="card-body pt-0 pb-1">
+                            <h5 id="stream-title-@Model.LatestStream.Id" class="text-truncate form-header">@Model.LatestStream.StreamTitle</h5>
+                            <input id="stream-description-@Model.LatestStream.Id" type="hidden" value="@Model.LatestStream.StreamDescription" />
+                            <p class="text-truncate form-header" style="font-size:10px">@Model.UserProfile.Name.Replace('|', ' ')</p>
+                        </div>
+                        <div class="card-footer" style="background-color:@Model.LatestStream.StreamColor; border-bottom-left-radius:20px; border-bottom-right-radius:20px;"></div>
+                    </div>
+                 }
+                <div class="card mt-3">
+                    <div class="card-title">
+                        <p class="form-header p-3 m-0">Social Media Links</p>
+                        <i class="fa fa-linkedin-square p-3" style="font-size:48px; cursor:pointer; color:lightgray" onclick="window.open('@Model.UserProfile.LinkedInUrl')"></i>
+                    </div>
                 </div>
-            </div>
-            <div class="card mt-3">
-                <div class="card-title">
-                    <p class="form-header p-3">Academic Experience</p>
-                    <div class="card-body pt-1 pb-1">
-                        @for (int i = 0; i < Model.Topics.Count; i++)
-                        {
-                            <p><b>@Model.Topics[i].TopicName</b></p>
-                            <pre style="font-family:'Roboto', serif">@Model.Topics[i].ListOfSubjects</pre>
+                <div class="card mt-3">
+                    <div class="card-title">
+                        <p class="form-header p-3">Academic Experience</p>
+                        <div class="card-body pt-1 pb-1">
+                            @if (@Model.Topics != null)
+                            {
+                                @for (int i = 0; i < Model.Topics.Count; i++)
+                                {
+                                    <p><b>@Model.Topics[i].TopicName</b></p>
+                                    <pre style="font-family:'Roboto', serif">@Model.Topics[i].ListOfSubjects</pre>
+                                }
+                            }
 
-                        }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-title">
+                        <p class="form-header p-3">Related Tutors</p>
                     </div>
                 </div>
             </div>
-            <div class="card mt-3">
-                <div class="card-title">
-                    <p class="form-header p-3">Related Tutors</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-8">
-            <p class="form-header pt-3" style="font-size:16px">Recent Stream</p>
-            <div class="card mt-3 border-0 d-block mr-auto ml-auto" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px;">
-                <div class="card-title">
-                    <a href="../StreamViews/StreamPlaybackPage?streamId=@Model.LatestStream.StreamID"><img asp-append-version="true" id="stream-thumbnail-@Model.LatestStream.Id" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src="@Model.LatestStream.StreamThumbnail?@cacheRand"></a>
-                </div>
-                <div class="card-body pt-0 pb-1">
-                    <h5 id="stream-title-@Model.LatestStream.Id" class="text-truncate form-header">@Model.LatestStream.StreamTitle</h5>
-                    <input id="stream-description-@Model.LatestStream.Id" type="hidden" value="@Model.LatestStream.StreamDescription" />
-                    <p class="text-truncate form-header" style="font-size:10px">@Model.UserProfile.Name.Replace('|', ' ')</p>
-                </div>
-                <div class="card-footer" style="background-color:@Model.LatestStream.StreamColor; border-bottom-left-radius:20px; border-bottom-right-radius:20px;"></div>
-            </div>
-
+        <div class="col-lg-9">
             <ul class="nav nav-tabs pt-3" id="myTab" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active form-header" id="profile-tab" data-toggle="tab" href="#profile" onclick="SliderProfile()">Profile</a>
@@ -130,7 +136,7 @@
                                     <div class="card-title p-3">
                                         <p class="form-header d-inline-block" style="font-size:18px">Basic Information</p>
                                     </div>
-                                    <div class="row p-4">
+                                    <div class="row pr-4 pl-4 pt-0">
                                         <div class="col-lg-3">
                                             <div class="card border-0 rounded-0 text-center">
                                                 @if (Model.UserProfile.College == null)

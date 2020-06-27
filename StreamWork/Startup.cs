@@ -56,6 +56,7 @@ namespace StreamWork
             services.AddTransient<EditService>();
             services.AddTransient<CommentService>();
 
+            services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
             services.AddRazorPages().AddRazorRuntimeCompilation();
         }
 
