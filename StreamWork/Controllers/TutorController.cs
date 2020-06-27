@@ -201,7 +201,8 @@ namespace StreamWork.Controllers
             var user = HttpContext.User.Identity.Name;
             
             var saved = await _editProfileMethods.EditProfile(storageConfig, Request, user);
-            if(saved != null) return Json(new { Message = JsonResponse.Success.ToString(), firstName = saved[0], lastName = saved[1], occupation = saved[2], location = saved[3], timezone = saved[4], linkedInUrl = saved[5], profilePicture = saved[6] });
+            //HACK
+            //if(saved != null) return Json(new { Message = JsonResponse.Success.ToString(), firstName = saved[0], lastName = saved[1], occupation = saved[2], location = saved[3], timezone = saved[4], linkedInUrl = saved[5], profilePicture = saved[6] });
             return Json(new { Message = JsonResponse.Failed.ToString() });
         }
 

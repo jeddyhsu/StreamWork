@@ -171,7 +171,8 @@ namespace StreamWork.Controllers
         public async Task<IActionResult> EditProfileInformation([FromServices] IOptionsSnapshot<StorageConfig> storageConfig)
         {
             var success = await _editProfileMethods.EditProfile(storageConfig, Request, HttpContext.User.Identity.Name);
-            if (success != null) return Json(new { Message = JsonResponse.Success.ToString(), caption = success[0], paragraph = success[1], picture = success[2] });
+            //HACK
+            //if (success != null) return Json(new { Message = JsonResponse.Success.ToString(), caption = success[0], paragraph = success[1], picture = success[2] });
             return Json(new { Message = JsonResponse.Failed.ToString() });
         }
 

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using StreamWork.Config;
 using StreamWork.Core;
+using StreamWork.DataModels;
 
 namespace StreamWork.HelperMethods
 {
@@ -14,8 +15,6 @@ namespace StreamWork.HelperMethods
         private readonly HomeMethods _homeMethods = new HomeMethods();
         private readonly TutorMethods _tutorMethods = new TutorMethods();
         private readonly ScheduleMethods _scheduleMethods = new ScheduleMethods();
-
-        
 
         //private string GetTimeZoneAbbreviation(string zone)
         //{
@@ -31,5 +30,20 @@ namespace StreamWork.HelperMethods
 
         //    return (string)timeZones[zone];
         //}
+
+        public async Task<UserLogin> EditProfile(params object[] args)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<string> SaveBanner(params object[] args)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> SaveUniversity(params object[] args)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
