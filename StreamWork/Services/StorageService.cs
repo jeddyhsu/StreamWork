@@ -19,9 +19,6 @@ namespace StreamWork.Services
             this.config = config;
         }
 
-        // I'm still debating whether to make method public.
-        // It would make this class much shorter,
-        // But, on the other hand, I don't want to have to deal with the queries in the rest of the code, if I can avoid it
         public async Task<T> Get<T> (SQLQueries query, params string[] parameters) where T : class
         {
             List<T> results = await DataStore.GetListAsync<T>(connectionString, config.Value, query.ToString(), parameters.Cast<string>().ToList());
@@ -37,7 +34,7 @@ namespace StreamWork.Services
             return await DataStore.GetListAsync<T>(connectionString, config.Value, query.ToString(), parameters.Cast<string>().ToList());
         }
 
-        public async Task<bool> Run<T>(SQLQueries query, params string[] parameters) where T : class //Tom you probably dont know about this one but I created this so that we can update and delete directly to the database without return elements, such as a mass delete or mass update
+        public async Task<bool> Run<T>(SQLQueries query, params string[] parameters) where T : class
         {
             return await DataStore.RunQueryAsync<T>(connectionString, config.Value, query.ToString(), parameters.Cast<string>().ToList());
         }

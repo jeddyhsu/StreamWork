@@ -47,14 +47,16 @@ namespace StreamWork
 
             services.Configure<StorageConfig>(Configuration);
 
-            services.AddTransient<SessionService>();
-            services.AddTransient<StorageService>();
+            services.AddTransient<ChatService>();
+            services.AddTransient<CommentService>();
+            services.AddTransient<EditService>();
+            services.AddTransient<EncryptionService>();
+            services.AddTransient<FollowService>();
             services.AddTransient<ProfileService>();
             services.AddTransient<ScheduleService>();
-            services.AddTransient<FollowService>();
-            services.AddTransient<ChatService>();
-            services.AddTransient<EditService>();
-            services.AddTransient<CommentService>();
+            services.AddTransient<SessionService>();
+            services.AddTransient<StorageService>();
+            services.AddTransient<StreamService>();
 
             services.AddRazorPages();
         }
