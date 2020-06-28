@@ -1,15 +1,4 @@
-﻿.underline:hover{
-    text-decoration:underline;
-}
-
-.chatBoxHeight {
-    border:none;
-    min-height: 100%
-}
-@media screen and (max-width: 1000px) {
-    .chatBoxHeight {
-        border: none;
-        height: 100%;
-        min-height:500px
-    }
+﻿.chatbox-row-height{
+    height:calc(100% - 100px);
+    position:absolute;
 }

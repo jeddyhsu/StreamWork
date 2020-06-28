@@ -1,0 +1,37 @@
+﻿@page "{tutor}"
+@model StreamWork.Pages.Stream.Live
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@Html.AntiForgeryToken()
+
+@{Layout = "_LayoutTutorNavbar"; }
+@{ ViewData["Title"] = "Live";}
+
+<link rel="stylesheet" href="~/css/Streams.css" />
+
+<div class="container-fluid">
+    <div class="row" style="background-color:whitesmoke; padding-top:55px">
+        <div class="col-lg-8 col-md-12 col-sm-12 col-12 p-0 border-right">
+            <iframe id="player" style="width:100%" src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.UserChannel.ChannelKey.Split('|')[0]" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+            <div class="container-fluid">
+                <div id="player-row" class="row p-0">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 pl-0" style="background-color:white">
+                        <img class="pr-3" align="left" src="/images/ChatAssets/Math.png" style="width:100%; height:100%; max-width:120px; max-height:110px; cursor:pointer" onclick="window.open('https://www.streamwork.live/Home/Search?s=@Model.UserChannel.StreamSubject&q=')" />
+                        <div class="mt-2" id="StreamInfo">
+                            <h3 style="color:black; font-family:'Roboto Slab', serif;">Calculus 2: Integrals<span></span></h3>
+                            <p class="mb-0" style="padding-left:120px">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod </p>
+                            <p style="font-size:12px; padding-left:120px">Tutoring @Model.UserChannel.StreamSubject</p>
+                        </div>
+                    </div>
+                    <script>
+                        var height = $('#player-row').height();
+                        var offest = height + 58;
+                        $('#player').css('height', 'calc(100vh - ' + offest + 'px)')
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12 col-sm-12 col-12 p-0" style="position:absolute; right:0; height: calc(100% - 55px)">
+            <iframe class="chatBoxHeight" src="http://localhost:58539/chat/chat?chatId=@Model.UserChannel.Username&chatInfo=@Model.ChatInfo"></iframe>
+        </div>
+    </div>
+</div>

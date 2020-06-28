@@ -1,7 +1,10 @@
-﻿@{Layout = "_LayoutChat";}
-@{ViewData["Title"] = "StreamWorkChat";}
+﻿@page
+@model StreamWork.Pages.Chat.Chat
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@Html.AntiForgeryToken()
 
-@model StreamWork.ViewModels.Chat.ChatViewModel
+@{Layout = "_LayoutChat";}
+@{ViewData["Title"] = "StreamWorkChat";}
 
 @if (Model.IsLoggedIn)
 {
@@ -34,38 +37,41 @@ else
                     {
                         var colorWay = "";
                         @if (i % 2 == 0) colorWay = "chat-list-primary-color-way";
-                         else colorWay = "chat-list-secondary-color-way";
+                        else colorWay = "chat-list-secondary-color-way";
 
                         <li id="message-@i" class='list-group-item @colorWay border-left-0 border-right-0'>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <input align="left" type="image" class="chat-profile-picture rounded" src=@Model.Chats[i].ProfilePicture />
-                                        @if (Model.ChatId == Model.Chats[i].Username)
-                                        {
-                                            <p class="chat-name" style='color:@Model.Chats[i].ChatColor'>@Model.Chats[i].Name.Replace('|', ' ')
-                                                <span><img id="tutortip-@i" class="pl-1" src="/images/ChatAssets/Tutor.png" data-toggle="tooltip" data-placement="top" title="StreamTutor" /></span>
-                                                <span class='chat-date'>@Model.Chats[i].Date.AddMinutes(Model.Chats[i].TimeOffset * -1).ToString("HH:mm")</span>
-                                            </p>
-                                            <script>$('#tutor-tip-@i').tooltip()</script>
-                                        }
-                                        else if (Model.UserProfile != null && Model.UserProfile.Username == Model.Chats[i].Username)
-                                        {
-                                            <h5 class="chat-name" style="color:@Model.Chats[i].ChatColor">@Model.Chats[i].Name.Replace('|', ' ') (you)
-                                                <span class="chat-date">@Model.Chats[i].Date.AddMinutes(Model.Chats[i].TimeOffset * -1).ToString("HH:mm")</span>
-                                            </h5>
-                                        }
-                                        else
-                                        {
-                                            <h5 class="chat-name" style="color:@Model.Chats[i].ChatColor">@Model.Chats[i].Name.Replace('|', ' ')
-                                                <span class="chat-date">@Model.Chats[i].Date.AddMinutes(Model.Chats[i].TimeOffset * -1).ToString("HH:mm")</span>
-                                            </h5>
-                                        }
-                                        <p id="chat-@i" class="chat-message">@Html.Raw(Model.Chats[i].Message)</p>
-                                    </div>
-                                </div>
-                            </li>
+                            <div class="row">
+                                <div class="col-12">
+                                    <input align="left" type="image" class="chat-profile-picture rounded" src=@Model.Chats[i].ProfilePicture />
+                                    @if (Model.ChatId == Model.Chats[i].Username)
+                                    {
+                                        <p class="chat-name" style='color:@Model.Chats[i].ChatColor'>
+                                            @Model.Chats[i].Name.Replace('|', ' ')
+                                        <span><img id="tutortip-@i" class="pl-1" src="/images/ChatAssets/Tutor.png" data-toggle="tooltip" data-placement="top" title="StreamTutor" /></span>
+                                        <span class='chat-date'>@Model.Chats[i].Date.AddMinutes(Model.Chats[i].TimeOffset * -1).ToString("HH:mm")</span>
+                                    </p>
+                                    <script>$('#tutor-tip-@i').tooltip()</script>
+                                }
+                                else if (Model.UserProfile != null && Model.UserProfile.Username == Model.Chats[i].Username)
+                                {
+                                    <h5 class="chat-name" style="color:@Model.Chats[i].ChatColor">
+                                        @Model.Chats[i].Name.Replace('|', ' ') (you)
+                                    <span class="chat-date">@Model.Chats[i].Date.AddMinutes(Model.Chats[i].TimeOffset * -1).ToString("HH:mm")</span>
+                                </h5>
+                            }
+                            else
+                            {
+                                <h5 class="chat-name" style="color:@Model.Chats[i].ChatColor">
+                                    @Model.Chats[i].Name.Replace('|', ' ')
+                                <span class="chat-date">@Model.Chats[i].Date.AddMinutes(Model.Chats[i].TimeOffset * -1).ToString("HH:mm")</span>
+                            </h5>
                         }
-                    </ul>
+                                    <p id="chat-@i" class="chat-message">@Html.Raw(Model.Chats[i].Message)</p>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
                 <script>
                       chatCount = @Model.Chats.Count;
                 </script>
@@ -102,13 +108,11 @@ else
                                 <div class="col-lg-10 col-md-10 col-sm-10 col-8">
                                     <div>
                                         <textarea id="chatInput" onkeydown="pressed(event)" class="form-control form-textarea" style="height:50px !important; resize:none;" placeholder="Send question or message..."></textarea>
-                                        <script>
-                                            function pressed(event) {
+                                        <script>function pressed(event) {
                                                 if (event.keyCode == 13 && !event.shiftKey) {
-                                                   
+
                                                 }
-                                            }
-                                        </script>
+                                            }</script>
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-4">
