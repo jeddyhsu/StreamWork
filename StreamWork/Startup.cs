@@ -54,9 +54,11 @@ namespace StreamWork
             services.AddTransient<FollowService>();
             services.AddTransient<ProfileService>();
             services.AddTransient<ScheduleService>();
+            services.AddTransient<SearchService>();
             services.AddTransient<SessionService>();
-            services.AddTransient<StorageService>();
-            services.AddTransient<StreamService>();
+            services.AddTransient<StorageService>(); // Transient means it creates a new instance every time it's needed
+            services.AddTransient<StreamService>(); // You should use Transient by default
+            services.AddSingleton<SubjectService>(); // Singleton creates a shared instance the first time it's needed
 
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
             services.AddRazorPages().AddRazorRuntimeCompilation().AddRazorOptions(options =>
