@@ -1,5 +1,7 @@
 ﻿@page
 @model StreamWork.Pages.Tutor.TutorDashboard
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@Html.AntiForgeryToken()
 
 @{Layout = "_LayoutNoNavbar";}
 @{ViewData["Title"] = "TutorDashboard";}
@@ -108,7 +110,7 @@
                     </div>
                     <div class="col-lg-5 col-md-12 col-sm-12 col-12 order-lg-2 order-md-1 order-sm-1 order-1">
                         <div id="banner-upload" class="image-container" style="width:100%; height:100%;">
-                            <img class="banner" id="preview-profile-banner" src="@Model.UserProfile.ProfileBanner?@cacheRand" style="cursor:pointer; height:100%; object-fit:cover" />
+                            <img class="banner" id="preview-profile-banner" src="@Model.UserProfile.ProfileBanner?@cacheRand" style="cursor:pointer; height:100%; object-fit:cover;" />
                             <div class="bottom-right mr-2" style="left:0px; bottom:0px;">
                                 <div class="card rounded-0" style="width:100%; height:40px; background-color:black; opacity:0.2">
                                     <i id="add-profile-banner" class="fa fa-camera d-block ml-auto mr-auto mt-2" style="font-size:24px;color:white"></i>
@@ -166,6 +168,8 @@
                                 <div class="card-title p-3">
                                     <p class="form-header d-inline-block" style="font-size:18px">Basic Information</p>
                                     <a class="d-inline-block pr-3" style="cursor:pointer; float:right; color:#004643" onclick="SaveSection(event)"><span><img class="p-1" style="width:28px" src="~/images/TutorAssets/TutorDashboard/Save.svg" /></span>Save</a>
+                                    <form>
+                                    </form>
                                 </div>
                                 <form class="pl-4 pr-4 pb-4" id="form-section-tutor">
                                     <div class="form-row" id="form-row-section">
@@ -185,17 +189,17 @@
                                                         }
                                                         else
                                                         {
-                                                            var split = @Model.UserProfile.College.Split('|');
-                                                            if (split.Length > 1)
+                                                            var college = Model.UserProfile.College.Split('|');
+                                                            if (college.Length > 1)
                                                             {
-                                                                <div class="p-4"><p id="university-abbreviation" class="form-university-header">@Model.UserProfile.College.Split('|')[0]</p><p id="university-name" class="form-header">@Model.UserProfile.College.Split('|')[1]</p></div>
+                                                                <p id="university-abbreviation" class="form-header pt-4 pl-2 pr-2" style="font-size:20px">@college[0]</p>
+                                                                <p id="university-name" class="form-header" style="font-size:14px">@college[1]</p>
                                                             }
                                                             else
                                                             {
-                                                                <div class="p-4"><p id="university-abbreviation" class="form-university-header">@Model.UserProfile.College.Split('|')[0]</p></div>
+                                                                <p id="university-abbreviation" class="form-header pt-4 pl-2 pr-2" style="font-size:20px">@college[0]</p>
                                                             }
                                                         }
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -211,7 +215,7 @@
                                             @if (Model.Sections != null)
                                             {<input id="year" type="hidden" value="@Model.Sections[0].Year" />
                                                 <script>$('#year-select').val($('#year').val())</script>
-}
+                                            }
                                         </div>
                                         @if (Model.Sections != null && Model.Sections.Count > 1)
                                         {

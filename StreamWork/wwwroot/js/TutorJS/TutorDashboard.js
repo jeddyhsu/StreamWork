@@ -22,6 +22,65 @@ function SliderComment() {
     $('#slider-object').css("transform", "translate3d(290px, 0px, 0px)")
 }
 
+//Profile
+function SaveProfile() {
+    var formData = new FormData();
+    var totalFiles = document.getElementById("upload-profile-picture");
+    formData.append("FirstName", $('#first-name').val());
+    formData.append("LastName", $('#last-name').val());
+    formData.append("Occupation", $('#occupation-major').val());
+    formData.append("Location", $('#location').val());
+    formData.append("Timezone", $('#timezone').val());
+    formData.append("LinkedInUrl", $('#linkedin-url').val());
+    if (totalFiles.files.length > 0)
+        formData.append("ProfilePicture", totalFiles.files[0]);
+
+    $.ajax({
+        url: 'TutorDashboard?handler=SaveProfile',
+        type: 'POST',
+        dataType: 'json',
+        data: formData,
+        contentType: false,
+        processData: false,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("XSRF-TOKEN",
+                $('input:hidden[name="__RequestVerificationToken"]').val());
+        },
+        success: function (data) {
+            if (data.message === "Success") {
+                $('#header-name').text(data.savedInfo[0] + " " + data.savedInfo[1]);
+                $('#header-first-name').val(data.savedInfo[0]);
+                $('#header-last-name').val(data.savedInfo[1]);
+                $('#header-occupation').text(data.savedInfo[2]);
+                $('#header-location').text(data.savedInfo[3]);
+                $('#header-timezone').val(data.savedInfo[4]);
+                $('#header-linkedin-url').val(data.savedInfo[5])
+
+                var c = new Date().valueOf();
+                $("#header-profile-picture").attr('src', data.savedInfo[6] + `?nocache=${c}`);
+                $("#navbar-profile-picture").attr('src', data.savedInfo[6] + `?nocache=${c}`);
+
+                $("#profile-information-notification").fadeTo(2000, 500).slideUp(500, function () {
+                    $("#profile-information-notification").slideUp(500);
+                });
+            }
+        }
+    })
+}
+
+function EditProfile() {
+    OpenModal('profile-information-modal')
+
+    document.getElementById("preview-profile-picture").src = document.getElementById("header-profile-picture").src;
+    $('#first-name').val($('#header-first-name').val());
+    $('#last-name').val($('#header-last-name').val());
+    $('#occupation-major').val($('#header-occupation').text());
+    $('#location').val($('#header-location').text());
+    $('#timezone').val($('#header-timezone').val());
+    $('#linkedin-url').val($('#header-linkedin-url').val());
+}
+
+
 //Sections
 function AddSection(event) {
     sectionCount++;
@@ -48,9 +107,13 @@ function SaveSection(event, type) {
 
     $.ajax({
         type: "POST",
-        url: "/Tutor/SaveSection",
+        url: "TutorDashboard?handler=SaveSection",
         dataType: 'json',
         data: serialize,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("XSRF-TOKEN",
+                $('input:hidden[name="__RequestVerificationToken"]').val());
+        },
         success(data) {
             if (data === "Failed") {
                 location.reload();
@@ -149,10 +212,14 @@ function SaveTopic() {
     serialize = serialize.replace(/%0D%0A/g, '*--*');
 
     $.ajax({
-        url: '/Tutor/SaveTopic',
+        url: 'TutorDashboard/?handler=SaveTopic',
         type: 'post',
         dataType: 'json',
         data: serialize,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("XSRF-TOKEN",
+                $('input:hidden[name="__RequestVerificationToken"]').val());
+        },
         success(data) {
             if (data === "Failed") {
                 location.reload();
@@ -165,61 +232,6 @@ function SaveTopic() {
         }
     })
 }
-
-//Profile
-function SaveProfile() {
-    var formData = new FormData();
-    var totalFiles = document.getElementById("upload-profile-picture");
-    formData.append("FirstName", $('#first-name').val());
-    formData.append("LastName", $('#last-name').val());
-    formData.append("Occupation", $('#occupation-major').val());
-    formData.append("Location", $('#location').val());
-    formData.append("Timezone", $('#timezone').val());
-    formData.append("LinkedInUrl", $('#linkedin-url').val());
-    if (totalFiles.files.length > 0)
-        formData.append("ProfilePicture", totalFiles.files[0]);
-
-    $.ajax({
-        url: '/Tutor/SaveProfile',
-        type: 'POST',
-        dataType: 'json',
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function (data) {
-            if (data.message === "Success") {
-                $('#header-name').text(data.firstName + " " + data.lastName);
-                $('#header-first-name').val(data.firstName);
-                $('#header-last-name').val(data.lastName);
-                $('#header-occupation').text(data.occupation);
-                $('#header-location').text(data.location);
-                $('#header-timezone').val(data.timezone);
-                $('#header-linkedin-url').val(data.linkedInUrl)
-
-                var c = new Date().valueOf();
-                $("#header-profile-picture").attr('src', data.profilePicture + `?nocache=${c}`);
-                $("#navbar-profile-picture").attr('src', data.profilePicture + `?nocache=${c}`);
-               
-                $("#profile-information-notification").fadeTo(2000, 500).slideUp(500, function () {
-                    $("#profile-information-notification").slideUp(500);
-                });
-            }
-        }
-    })
-}
-
-function EditProfile() {
-    OpenModal('profile-information-modal')
-
-    document.getElementById("preview-profile-picture").src = document.getElementById("header-profile-picture").src;
-    $('#first-name').val($('#header-first-name').val());
-    $('#last-name').val($('#header-last-name').val());
-    $('#occupation-major').val($('#header-occupation').text());
-    $('#location').val($('#header-location').text());
-    $('#timezone').val($('#header-timezone').val());
-    $('#linkedin-url').val($('#header-linkedin-url').val());
-}
-
 
 //University
 function EditUniversityInfo() {
@@ -243,12 +255,16 @@ function SaveUniversityInfo() {
     container.innerHTML = htmlString;
 
     $.ajax({
-        url: '/Tutor/SaveUniversity',
+        url: 'TutorDashboard/?handler=SaveUniversity',
         type: 'post',
         datatype: 'json',
         data: {
             'abbr': abbreviation,
             'name': name
+        },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("XSRF-TOKEN",
+                $('input:hidden[name="__RequestVerificationToken"]').val());
         },
         success: function (data) {
             if (data.message === "Success") {
@@ -267,12 +283,16 @@ function SaveProfileBanner(image) {
     var formData = new FormData();
     formData.append("ProfileBanner", image.files[0]);
     $.ajax({
-        url: '/Tutor/SaveBanner',
+        url: 'TutorDashboard/?handler=SaveBanner',
         type: 'POST',
         dataType: 'json',
         data: formData,
         processData: false,
         contentType: false,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("XSRF-TOKEN",
+                $('input:hidden[name="__RequestVerificationToken"]').val());
+        },
         success: function (data) {
             if (data.message === "Success") {
                 $('#preview-profile-banner').attr('src', data.banner + `?nocache=${new Date().valueOf()}`);
@@ -357,12 +377,16 @@ function SaveScheduleTask(id, type) {
     if (id != "") formData.append("Id", id);
 
     $.ajax({
-        url: '/Tutor/SaveScheduleTask',
+        url: 'TutorDashboard/?handler=SaveScheduleTask',
         type: 'POST',
         datatype: 'json',
         data: formData,
         processData: false,
         contentType: false,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("XSRF-TOKEN",
+                $('input:hidden[name="__RequestVerificationToken"]').val());
+        },
         success: function (data) {
             if (data.message === "Success") {
                 SortTasks(data);
@@ -475,7 +499,7 @@ function ShowDeleteScheduleTaskBanner(id) {
 
 function DeleteScheduleTask(id) {
     $.ajax({
-        url: '/Tutor/DeleteScheduleTask',
+        url: 'TutorDashboard/?handler=DeleteScheduleTask',
         type: 'POST',
         datatype: 'json',
         data: {
@@ -532,12 +556,16 @@ function SaveEditedStreamInfo(id) {
     if (totalFile.files.length > 0) formData.append("StreamThumbnail", totalFile.files[0]);
 
     $.ajax({
-        url: '/Tutor/SaveEditedStreamInfo',
+        url: 'TutorDashboard/?handler=SaveEditedStreamInfo',
         type: 'POST',
         dataType: 'json',
         data: formData,
         processData: false,
         contentType: false,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("XSRF-TOKEN",
+                $('input:hidden[name="__RequestVerificationToken"]').val());
+        },
         success: function (data) {
             if (data.message === "Success") {
                 isStreamEdited = true;
@@ -555,11 +583,15 @@ function SaveEditedStreamInfo(id) {
 
 function DeleteStream(id) {
     $.ajax({
-        url: '/Tutor/DeleteStream',
+        url: 'TutorDashboard/?handler=DeleteStream',
         type: 'POST',
         dataType: 'json',
         data: {
             'id': id,
+        },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("XSRF-TOKEN",
+                $('input:hidden[name="__RequestVerificationToken"]').val());
         },
         success: function (data) {
 
@@ -578,6 +610,10 @@ function SearchStreams(event, name, username, columnPreference) { //filters by u
         data: {
             'searchTerm': searchTerm,
             'filter': filter,
+        },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("XSRF-TOKEN",
+                $('input:hidden[name="__RequestVerificationToken"]').val());
         },
         success: function (data) {
             document.getElementById("stream-row").innerHTML = "";

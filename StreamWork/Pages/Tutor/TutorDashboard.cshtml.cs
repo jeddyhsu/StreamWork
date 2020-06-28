@@ -18,6 +18,7 @@ namespace StreamWork.Pages.Tutor
         private readonly ProfileService profileService;
         private readonly ScheduleService scheduleService;
         private readonly FollowService followService;
+        private readonly EditService editService;
 
         public UserLogin UserProfile { get; set; }
         public UserChannel UserChannel { get; set; }
@@ -32,13 +33,14 @@ namespace StreamWork.Pages.Tutor
 
         public SearchViewModel SearchViewModel { get; set; }
 
-        public TutorDashboard(StorageService storage, SessionService session, ProfileService profile, ScheduleService schedule, FollowService follow)
+        public TutorDashboard(StorageService storage, SessionService session, ProfileService profile, ScheduleService schedule, FollowService follow, EditService edit)
         {
             storageService = storage;
             sessionService = session;
             profileService = profile;
             scheduleService = schedule;
             followService = follow;
+            editService = edit;
         }
 
         public async Task<IActionResult> OnGet()
@@ -63,5 +65,70 @@ namespace StreamWork.Pages.Tutor
 
             return Page();
         }
+
+        public async Task<IActionResult> OnPostSaveProfile()
+        {
+            var userProfile = await sessionService.GetCurrentUser();
+            var savedInfo = await editService.EditProfile(Request, userProfile.Username);
+
+            if(savedInfo != null) return new JsonResult(new { Message = JsonResponse.Success.ToString(), SavedInfo = savedInfo });
+            return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
+        }
+
+        public async Task<IActionResult> OnPostSaveSection()
+        {
+            var userProfile = await sessionService.GetCurrentUser();
+
+            if (profileService.SaveSection(Request, userProfile)) return new JsonResult(new { Message = JsonResponse.Success.ToString() });
+            return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
+        }
+
+        public async Task<IActionResult> OnPostSaveTopic()
+        {
+            var userProfile = await sessionService.GetCurrentUser();
+
+            if (profileService.SaveTopic(Request, userProfile)) return new JsonResult(new { Message = JsonResponse.Success.ToString() });
+            return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
+        }
+
+        public async Task<IActionResult> OnPostSaveBanner()
+        {
+            var userProfile = await sessionService.GetCurrentUser();
+            var banner = await editService.SaveBanner(Request, userProfile.Username);
+
+            if (banner != null) return new JsonResult(new { Message = JsonResponse.Success.ToString(), Banner = banner });
+            return new JsonResult(new { Message = JsonResponse.Success.ToString(), Banner = banner });
+        }
+
+        public async Task<IActionResult> OnPostSaveUniversity(string abbr, string name)
+        {
+            var userProfile = await sessionService.GetCurrentUser();
+
+            if (await editService.SaveUniversity(userProfile.Username, abbr, name)) return new JsonResult(new { Message = JsonResponse.Success.ToString(), SavedInfo = new List<string> { abbr, name } });
+            return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
+        }
+
+        public async Task<IActionResult> OnPostSaveScheduleTask()
+        {
+            var userProfile = await sessionService.GetCurrentUser();
+            var sortedList = await scheduleService.SaveToSchedule(Request, userProfile.Username);
+
+            if (sortedList != null) return new JsonResult(new { Message = JsonResponse.Success.ToString(), Sorted = sortedList });
+            return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
+        }
+
+        public async Task<IActionResult> OnPostDeleteScheduleTask(string taskId)
+        {
+            var userProfile = await sessionService.GetCurrentUser();
+            var sortedList = await scheduleService.DeleteFromSchedule(taskId, userProfile.Username);
+
+            if (sortedList != null) return new JsonResult(new { Message = JsonResponse.Success.ToString(), Sorted = sortedList });
+            return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
+        }
+
+        //public async Task<IActionResult> OnPostSearchArchivedStreams(string searchTerm, string filter)
+        //{
+        //    return Json(new { Message = JsonResponse.Success.ToString(), Results = await _homeMethods.SearchArchivedStreams(storageConfig, filter, searchTerm) });
+        //}
     }
 }
