@@ -36,7 +36,7 @@ function SaveProfile() {
         formData.append("ProfilePicture", totalFiles.files[0]);
 
     $.ajax({
-        url: 'TutorDashboard?handler=SaveProfile',
+        url: '/Tutor/TutorDashboard?handler=SaveProfile',
         type: 'POST',
         dataType: 'json',
         data: formData,
@@ -107,7 +107,7 @@ function SaveSection(event, type) {
 
     $.ajax({
         type: "POST",
-        url: "TutorDashboard?handler=SaveSection",
+        url: "/Tutor/TutorDashboard?handler=SaveSection",
         dataType: 'json',
         data: serialize,
         beforeSend: function (xhr) {
@@ -212,7 +212,7 @@ function SaveTopic() {
     serialize = serialize.replace(/%0D%0A/g, '*--*');
 
     $.ajax({
-        url: 'TutorDashboard/?handler=SaveTopic',
+        url: '/Tutor/TutorDashboard/?handler=SaveTopic',
         type: 'post',
         dataType: 'json',
         data: serialize,
@@ -255,7 +255,7 @@ function SaveUniversityInfo() {
     container.innerHTML = htmlString;
 
     $.ajax({
-        url: 'TutorDashboard/?handler=SaveUniversity',
+        url: '/Tutor/TutorDashboard/?handler=SaveUniversity',
         type: 'post',
         datatype: 'json',
         data: {
@@ -283,7 +283,7 @@ function SaveProfileBanner(image) {
     var formData = new FormData();
     formData.append("ProfileBanner", image.files[0]);
     $.ajax({
-        url: 'TutorDashboard/?handler=SaveBanner',
+        url: '/Tutor/TutorDashboard/?handler=SaveBanner',
         type: 'POST',
         dataType: 'json',
         data: formData,
@@ -377,7 +377,7 @@ function SaveScheduleTask(id, type) {
     if (id != "") formData.append("Id", id);
 
     $.ajax({
-        url: 'TutorDashboard/?handler=SaveScheduleTask',
+        url: '/Tutor/TutorDashboard/?handler=SaveScheduleTask',
         type: 'POST',
         datatype: 'json',
         data: formData,
@@ -499,7 +499,7 @@ function ShowDeleteScheduleTaskBanner(id) {
 
 function DeleteScheduleTask(id) {
     $.ajax({
-        url: 'TutorDashboard/?handler=DeleteScheduleTask',
+        url: '/Tutor/TutorDashboard/?handler=DeleteScheduleTask',
         type: 'POST',
         datatype: 'json',
         data: {
@@ -583,7 +583,7 @@ function SaveEditedStreamInfo(id) {
 
 function DeleteStream(id) {
     $.ajax({
-        url: 'TutorDashboard/?handler=DeleteStream',
+        url: '/Tutor/TutorDashboard/?handler=DeleteStream',
         type: 'POST',
         dataType: 'json',
         data: {
@@ -604,7 +604,7 @@ function SearchStreams(event, name, username, columnPreference) { //filters by u
     var searchTerm = $('#searchQuery').val();
     var filter = $('#filter').val();
     $.ajax({
-        url: '/Tutor/SearchArchivedStreams',
+        url: '/Tutor/TutorDashboard/SearchArchivedStreams',
         type: 'POST',
         dataType: 'json',
         data: {
