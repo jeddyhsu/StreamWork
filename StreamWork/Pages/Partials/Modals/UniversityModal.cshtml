@@ -1,0 +1,33 @@
+﻿<div id="university-edit-modal" class="custom-modal">
+    <div class="custom-modal-content">
+        <div class="close ml-auto" onclick="DiscardChangesAndCloseModal('university-edit-modal-form','university-edit-modal')">&times;</div>
+        <h5 class="form-header" style="padding-left:20px; padding-top:10px; font-size:16px;">University Information</h5>
+        <div class="slider">
+            <div class="slider-object" style="width:190px"></div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <form id="university-edit-modal-form" class="pt-4 pb-4 pl-5 pr-5">
+                    <div id="university-edit-modal-notification" class="alert notification-success" style="padding-left:50px" role="alert">
+                        <b>Changes Saved!</b> Your information has been successfully saved.
+                        <div class="close ml-auto" onclick="$('#university-edit-modal-notification').hide()">&times;</div>
+                    </div>
+                    <script>$('#university-edit-modal-notification').hide()</script>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-12 mt-2">
+                                <label class="form-header">University Abbreviation</label>
+                                <input id="university-edit-abbreviation" class="form-control form-input mb-2" type="text" placeholder="University Abbreviation (ex: ASU)" required>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-12 mt-2">
+                                <label class="form-header">University Name</label>
+                                <input id="university-edit-name" class="form-control form-input mb-2" placeholder="University Name (ex: Arizona State University)" required />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="SaveUniversityInfo()">Save Changes</button>
+    </div>
+</div>
