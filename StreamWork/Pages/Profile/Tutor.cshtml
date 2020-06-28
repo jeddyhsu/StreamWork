@@ -5,7 +5,7 @@
 @{ViewData["Title"] = "Tutor";}
 @{var cacheRand = new Random().Next();}
 
-<div class="container pt-4">
+<div class="container">
     <img class="banner" id="preview-profile-banner" src="@Model.UserProfile.ProfileBanner?@cacheRand" style="cursor:pointer; object-fit:cover; max-height:300px; object-position:top" />
     <div class="card border-0">
         <div class="card-body p-0 ">
@@ -62,49 +62,53 @@
     <div class="row">
         <div class="col-lg-3 pt-3">
             <p class="form-header pt-3" style="font-size:16px">Recent Stream</p>
-                @if (Model.LatestStream != null)
-                {
-                    <div class="card mt-3 border-0 d-block mr-auto ml-auto" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px;">
-                        <div class="card-title">
-                            <a href="../StreamViews/StreamPlaybackPage?streamId=@Model.LatestStream.StreamID"><img asp-append-version="true" id="stream-thumbnail-@Model.LatestStream.Id" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src="@Model.LatestStream.StreamThumbnail?@cacheRand"></a>
-                        </div>
-                        <div class="card-body pt-0 pb-1">
-                            <h5 id="stream-title-@Model.LatestStream.Id" class="text-truncate form-header">@Model.LatestStream.StreamTitle</h5>
-                            <input id="stream-description-@Model.LatestStream.Id" type="hidden" value="@Model.LatestStream.StreamDescription" />
-                            <p class="text-truncate form-header" style="font-size:10px">@Model.UserProfile.Name.Replace('|', ' ')</p>
-                        </div>
-                        <div class="card-footer" style="background-color:@Model.LatestStream.StreamColor; border-bottom-left-radius:20px; border-bottom-right-radius:20px;"></div>
-                    </div>
-                 }
-                <div class="card mt-3">
+            @if (Model.LatestStream != null)
+            {
+                <div class="card mt-3 border-0 d-block mr-auto ml-auto" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px;">
                     <div class="card-title">
-                        <p class="form-header p-3 m-0">Social Media Links</p>
-                        <i class="fa fa-linkedin-square p-3" style="font-size:48px; cursor:pointer; color:lightgray" onclick="window.open('@Model.UserProfile.LinkedInUrl')"></i>
+                        <a href="../StreamViews/StreamPlaybackPage?streamId=@Model.LatestStream.StreamID"><img asp-append-version="true" id="stream-thumbnail-@Model.LatestStream.Id" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src="@Model.LatestStream.StreamThumbnail?@cacheRand"></a>
                     </div>
+                    <div class="card-body pt-0 pb-1">
+                        <h5 id="stream-title-@Model.LatestStream.Id" class="text-truncate form-header">@Model.LatestStream.StreamTitle</h5>
+                        <input id="stream-description-@Model.LatestStream.Id" type="hidden" value="@Model.LatestStream.StreamDescription" />
+                        <p class="text-truncate form-header" style="font-size:10px">@Model.UserProfile.Name.Replace('|', ' ')</p>
+                    </div>
+                    <div class="card-footer" style="background-color:@Model.LatestStream.StreamColor; border-bottom-left-radius:20px; border-bottom-right-radius:20px;"></div>
                 </div>
-                <div class="card mt-3">
-                    <div class="card-title">
-                        <p class="form-header p-3">Academic Experience</p>
-                        <div class="card-body pt-1 pb-1">
-                            @if (@Model.Topics != null)
+            }
+            <div class="card mt-3">
+                <div class="card-title">
+                    <p class="form-header p-3 m-0" style="font-size:18px">Social Media Links</p>
+                    <i class="fa fa-linkedin-square p-3" style="font-size:48px; cursor:pointer; color:lightgray" onclick="window.open('@Model.UserProfile.LinkedInUrl')"></i>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <div class="card-title">
+                    <p class="form-header p-3" style="font-size:18px">Academic Experience</p>
+                    <div class="card-body pt-1 pb-1">
+                        @if (@Model.Topics != null)
+                        {
+                            @for (int i = 0; i < Model.Topics.Count; i++)
                             {
-                                @for (int i = 0; i < Model.Topics.Count; i++)
-                                {
-                                    <p><b>@Model.Topics[i].TopicName</b></p>
-                                    <pre style="font-family:'Roboto', serif">@Model.Topics[i].ListOfSubjects</pre>
-                                }
+                                <p><b>@Model.Topics[i].TopicName</b></p>
+                                <pre style="font-family:'Roboto', serif">@Model.Topics[i].ListOfSubjects</pre>
                             }
+                        }
+                        else
+                        {
+                            <p class="form-sub-header" style="font-size:14px;"><b>Find relevant experience here!</b></p>
+                        }
 
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card mt-3">
-                    <div class="card-title">
-                        <p class="form-header p-3">Related Tutors</p>
                     </div>
                 </div>
             </div>
+
+            <div class="card mt-3">
+                <div class="card-title">
+                    <p class="form-header p-3" style="font-size:18px">Related Tutors</p>
+                </div>
+            </div>
+        </div>
         <div class="col-lg-9">
             <ul class="nav nav-tabs pt-3" id="myTab" role="tablist">
                 <li class="nav-item">
@@ -125,185 +129,8 @@
                 <div id="slider-object" class="slider-object"></div>
             </div>
 
+            @await Html.PartialAsync("Partials/TutorProfile_StudentView", Model)
 
-
-            <div class="tab-content">
-                <div class="tab-pane active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                    <div class="container-fluid pt-3" style="width:100%">
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                                <div class="card">
-                                    <div class="card-title p-3">
-                                        <p class="form-header d-inline-block" style="font-size:18px">Basic Information</p>
-                                    </div>
-                                    <div class="row pr-4 pl-4 pt-0">
-                                        <div class="col-lg-3">
-                                            <div class="card border-0 rounded-0 text-center">
-                                                @if (Model.UserProfile.College == null)
-                                                {
-                                                    <div>
-                                                        <input type="image" src="~/images/TutorAssets/TutorDashboard/DefaultUniversity.png" class="form-control border-0 rounded-0 d-block mr-auto ml-auto pt-3" style="width:130px; height:100%">
-                                                    </div>
-                                                }
-                                                else
-                                                {
-                                                    var split = @Model.UserProfile.College.Split('|');
-                                                    if (split.Length > 1)
-                                                    {
-                                                        <div class="pt-4"><p id="university-abbreviation" class="form-university-header">@Model.UserProfile.College.Split('|')[0]</p><p id="university-name" class="form-header">@Model.UserProfile.College.Split('|')[1]</p> <p class="form-sub-header" style="font-size:14px">@Model.Sections[0].Year</p></div>
-
-                                                    }
-                                                    else
-                                                    {
-                                                        <div class="pt-4"><p id="university-abbreviation" class="form-university-header">@Model.UserProfile.College.Split('|')[0]</p></div>
-                                                    }
-                                                }
-                                            </div>
-
-                                        </div>
-                                        @if (Model.Sections != null && Model.Sections.Count > 1)
-                                        {
-                                            <div class="form-group col-lg-9 p-4">
-                                                <p class="form-header" style="font-size: 16px">@Model.Sections[1].SectionTitle</p>
-                                                <p style="font-size: 14px">@Model.Sections[1].SectionDescription</p>
-                                            </div>
-                                            if (Model.Sections.Count > 2)
-                                            {
-                                                for (int i = 2; i < Model.Sections.Count; i++)
-                                                {
-                                                    <div class="divider"></div>
-                                                    <div class="form-group col-lg-12 p-4">
-                                                        <p class="form-header" style="font-size: 16px">@Model.Sections[i].SectionTitle</p>
-                                                        <p style="font-size: 14px">@Model.Sections[i].SectionDescription</p>
-                                                    </div>
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tab-pane" id="schedule" role="tabpanel" aria-labelledby="schedule-tab">
-                    <div class="container-fluid pt-3" style="width:100%">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-title p-3 m-0 form-header" style="font-size:18px">Stream Schedule</div>
-                                    <div class="card-body">
-                                        <div class="row" id="taskRow">
-                                            @if (Model.Schedule.Count > 0)
-                                            {
-                                                @foreach (var task in Model.Schedule)
-                                                {
-                                                    <div class="col-lg-12 col-md-12 mt-2 w-100">
-                                                        <div class="card border-0">
-                                                            <div class="card-body">
-                                                                <div class="d-inline-flex">
-                                                                    <img class="rounded m-1 schedule-image" src="@task.SubjectThumbnail" />
-                                                                    <div class="text-center m-1 schedule-image schedule-border">
-                                                                        <p class="form-header schedule-month">@task.Date.ToString("MMM")</p>
-                                                                    </div>
-                                                                    <div class="text-center m-1 schedule-image schedule-border">
-                                                                        <p class="form-header schedule-day">@task.Date.Day</p>
-                                                                        <p class="form-header schedule-dow">@task.Date.ToString("ddd")</p>
-                                                                    </div>
-                                                                    <div class="m-1" style="height:75px;">
-                                                                        <p class="form-header m-0">@task.StreamTitle</p>
-                                                                        <p class="mt-1 mb-0" style="font-size:10px">@task.StreamSubject</p>
-                                                                        <p class="schedule-time">@task.TimeStart - @task.TimeStop [@task.TimeZone.ToString()]</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                }
-                                            }
-                                            else
-                                            {
-                                                <div class="col-lg-6 col-md-12  mt-2">
-                                                    <div class="card">
-                                                        <div class="card-body">
-                                                            <div class="d-inline-flex">
-                                                                <img class="rounded m-1" src="~/images/ScheduleAssets/CalendarAdd.png" style="width:75px; height:75px; cursor:pointer" onclick="CheckIfTimezoneIsValidForSchedule()" />
-                                                                <div class="m-1" style="height:75px;">
-                                                                    <p id="schedule-stream-title" class="form-header m-0">Schedule Stream</p>
-                                                                    <p id="schedule-stream-subject" class="form-sub-header p-0 mt-1 mb-0" style="font-size:10px; font-family:'Roboto', serif">Stream Topic</p>
-                                                                    <p id="schedule-stream-time" class="form-sub-header p-0 mt-1" style="font-size:12px; font-family:'Roboto', serif">Click "Add Stream" or the plus</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tab-pane" id="stream" role="tabpanel" aria-labelledby="stream-tab">
-                    <div class="container-fluid pt-2" style="width:100%">
-                        <div class="row p-3">
-                            <div class="col-12">
-                                <form class="p-1 border rounded" style="background-color:white" onkeyup="SearchStreams(event, '@Model.UserProfile.Name', '@Model.UserProfile.Username', 'col-lg-6')" onsubmit="SearchStreams(event, '@Model.UserProfile.Name', '@Model.UserProfile.Username', 'col-lg-6')">
-                                    <input id="searchQuery" class="form-control-lg" type="search" placeholder="🔎 Search Past Streams" style="border: none; font-size:12px;">
-                                </form>
-                                <select id="filter" name="filter" class="form-control form-control-sm rounded-0 mt-3" onchange="SearchStreams(event, '@Model.UserProfile.Name', '@Model.UserProfile.Username')" style="width:175px">
-                                    <option value="">Filter</option>
-                                    <option value="Mathematics">Mathematics</option>
-                                    <option value="Science">Science</option>
-                                    <option value="Engineering">Engineering</option>
-                                    <option value="Business">Business</option>
-                                    <option value="Law">Law</option>
-                                    <option value="Art">Art</option>
-                                    <option value="Humanities">Humanities</option>
-                                    <option value="Other">Others</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="divider"></div>
-                        <div id="stream-row" class="row p-3">
-                            @if (Model.UserArchivedStreams.Count != 0)
-                            {
-                                @foreach (var streamInfo in Model.UserArchivedStreams)
-                                {
-                                    <div class="col-lg-6 col-md-6 col-sm-6">
-                                        <div class="card mt-3 border-0" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px;">
-                                            <div class="card-title">
-                                                <a href="../StreamViews/StreamPlaybackPage?streamId=@streamInfo.StreamID"><img asp-append-version="true" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src="@streamInfo.StreamThumbnail?@cacheRand"></a>
-                                            </div>
-                                            <div class="card-body pt-0 pb-1">
-                                                <h5 class="text-truncate form-header">@streamInfo.StreamTitle</h5>
-                                                <input type="hidden" value="@streamInfo.StreamDescription" />
-                                                <p class="text-truncate form-header" style="font-size:10px">@Model.UserProfile.Name.Replace('|', ' ')</p>
-                                            </div>
-                                            <div class="card-footer" style="background-color:@streamInfo.StreamColor; border-bottom-left-radius:20px; border-bottom-right-radius:20px;"></div>
-                                        </div>
-                                    </div>
-                                }
-                            }
-                            else
-                            {
-                                <div class="col-12 text-center">
-                                    <p class="form-sub-header p-0" style="font-size:22px">Looks like you don't have any videos yet...</p>
-                                    <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">Help other students find the help they need by putting up content!</p>
-                                    <button class="streamWork-primary mt-3" onclick="window.location.href ='/Tutor/TutorStream'" style="font-size:14px; font-family:'Roboto', serif">Start your first stream</button>
-                                </div>
-                            }
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
