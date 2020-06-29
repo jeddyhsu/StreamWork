@@ -19,6 +19,7 @@ namespace StreamWork.Pages.Tutor
         private readonly ScheduleService scheduleService;
         private readonly FollowService followService;
         private readonly EditService editService;
+        private readonly SearchService searchService;
 
         public UserLogin UserProfile { get; set; }
         public UserChannel UserChannel { get; set; }
@@ -33,7 +34,7 @@ namespace StreamWork.Pages.Tutor
 
         public SearchViewModel SearchViewModel { get; set; }
 
-        public TutorDashboard(StorageService storage, SessionService session, ProfileService profile, ScheduleService schedule, FollowService follow, EditService edit)
+        public TutorDashboard(StorageService storage, SessionService session, ProfileService profile, ScheduleService schedule, FollowService follow, EditService edit, SearchService search)
         {
             storageService = storage;
             sessionService = session;
@@ -41,6 +42,7 @@ namespace StreamWork.Pages.Tutor
             scheduleService = schedule;
             followService = follow;
             editService = edit;
+            searchService = search;
         }
 
         public async Task<IActionResult> OnGet()
@@ -126,9 +128,9 @@ namespace StreamWork.Pages.Tutor
             return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
         }
 
-        //public async Task<IActionResult> OnPostSearchArchivedStreams(string searchTerm, string filter)
-        //{
-        //    return Json(new { Message = JsonResponse.Success.ToString(), Results = await _homeMethods.SearchArchivedStreams(storageConfig, filter, searchTerm) });
-        //}
+        public async Task<IActionResult> OnPostSearchArchivedStreams(string searchTerm, string filter)
+        {
+            return new JsonResult(new { Message = JsonResponse.Success.ToString(), Results = await searchService.SearchArchivedStreams(filter, searchTerm) });
+        }
     }
 }

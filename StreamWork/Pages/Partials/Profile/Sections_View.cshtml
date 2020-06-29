@@ -2,7 +2,7 @@
     <div class="row pr-4 pl-4 pt-0">
         <div class="col-lg-3">
             <div class="card border-0 rounded-0 text-center">
-                @if (Model.UserProfile.College == null)
+                @if (Model.TutorUserProfile.College == null)
                 {
                     <div>
                         <input type="image" src="~/images/TutorAssets/TutorDashboard/DefaultUniversity.png" class="form-control border-0 rounded-0 d-block mr-auto ml-auto pt-3" style="width:130px; height:100%">
@@ -10,7 +10,7 @@
                 }
                 else
                 {
-                    var college = Model.UserProfile.College.Split('|');
+                    var college = Model.TutorUserProfile.College.Split('|');
                     if (college.Length > 1)
                     {
                         <p id="university-abbreviation" class="form-header pt-4 pl-2 pr-2" style="font-size:20px">@college[0]</p>
@@ -44,7 +44,7 @@
         }
         else
         {
-            if (Model.UserProfile.ProfileType == "tutor")
+            if (Model.UserProfile.Id == Model.TutorUserProfile.Id)
             {
                 <div class="col-9 p-3" style="height:200px">
                     <p class="form-sub-header p-0" style="font-size:22px">No Info...yet!</p>

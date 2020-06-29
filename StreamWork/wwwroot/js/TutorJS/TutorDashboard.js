@@ -604,7 +604,7 @@ function SearchStreams(event, name, username, columnPreference) { //filters by u
     var searchTerm = $('#searchQuery').val();
     var filter = $('#filter').val();
     $.ajax({
-        url: '/Tutor/TutorDashboard/SearchArchivedStreams',
+        url: '/Tutor/TutorDashboard/?handler=SearchArchivedStreams',
         type: 'POST',
         dataType: 'json',
         data: {
