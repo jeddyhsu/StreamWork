@@ -31,10 +31,11 @@
         {
             if (Model.UserProfile.ProfileType == "tutor")
             {
-                <div class="col-12 p-3" style="height:200px">
-                    <p class="form-sub-header p-0" style="font-size:22px">Nothing on your schedule...yet!</p>
-                    <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">Schedule streams to let students know when you're going live!</p>
-                </div>
+    <div class="col-12 p-3" style="height:200px">
+        <p class="form-sub-header p-0" style="font-size:22px">Nothing on your schedule...yet!</p>
+        <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">Schedule streams to let students know when you're going live!</p>
+        <button class="streamWork-primary mt-3" onclick="window.location.href ='/Tutor/TutorDashboard/#schedule'" style="font-size:14px; font-family:'Roboto', serif">Schedule Future Streams</button>
+    </div>
             }
             else
             {

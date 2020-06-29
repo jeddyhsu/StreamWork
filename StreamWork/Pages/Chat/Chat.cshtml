@@ -47,7 +47,7 @@ else
                                     {
                                         <p class="chat-name" style='color:@Model.Chats[i].ChatColor'>
                                             @Model.Chats[i].Name.Replace('|', ' ')
-                                            <span><img id="tutortip-@i" class="pl-1" src="/images/ChatAssets/Tutor.png" data-toggle="tooltip" data-placement="top" title="StreamTutor" /></span>
+                                            <span><img id="tutor-tip-@i" class="pl-1" style="width:28px" src="/images/ChatAssets/Tutor.svg" data-toggle="tooltip" data-placement="top" title="StreamTutor" /></span>
                                             <span class='chat-date'>@Model.Chats[i].Date.AddMinutes(Model.Chats[i].TimeOffset * -1).ToString("HH:mm")</span>
                                         </p>
                                         <script>$('#tutor-tip-@i').tooltip()</script>
@@ -108,11 +108,13 @@ else
                                 <div class="col-lg-10 col-md-10 col-sm-10 col-8">
                                     <div>
                                         <textarea id="chatInput" onkeydown="pressed(event)" class="form-control form-textarea" style="height:50px !important; resize:none;" placeholder="Send question or message..."></textarea>
-                                        <script>function pressed(event) {
+                                        <script>
+                                            function pressed(event) {
                                                 if (event.keyCode == 13 && !event.shiftKey) {
 
                                                 }
-                                            }</script>
+                                            }
+                                        </script>
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-4">

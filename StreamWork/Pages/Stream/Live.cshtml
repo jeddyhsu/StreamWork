@@ -9,45 +9,62 @@
 <div class="container-fluid">
     <div class="row" style="padding-top:60px">
         <div class="d-flex flex-column col-lg-8 col-md-12 col-sm-12 col-12 p-0">
-            <div class="card">
+            <div class="card border-0">
                 <iframe id="player" style="width:100%;" src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.UserChannel.ChannelKey.Split('|')[0]" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
                 <div id="player-row" class="card-body p-0">
                     <img class="pr-3" align="left" src="/images/ChatAssets/Math.png" style="width:100%; height:100%; max-width:120px; max-height:110px; cursor:pointer" onclick="window.open('https://www.streamwork.live/Home/Search?s=@Model.UserChannel.StreamSubject&q=')" />
                     <div class="m-3" id="StreamInfo">
                         <h3 style="color:black; font-family:'Roboto Slab', serif;">Calculus 2: Integrals<span></span></h3>
-                        <p class="mb-0" style="padding-left:100px">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod </p>
-                        <p style="font-size:12px; padding-left:100px">Tutoring @Model.UserChannel.StreamSubject</p>
+                        <p class="mb-0" style="padding-left:105px">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod </p>
+                        <p style="font-size:12px; padding-left:105px">Tutoring @Model.UserChannel.StreamSubject</p>
                     </div>
                     <div class="border-top pl-2 pt-3 pb-2" style="background-color:#FBFBFB">
+                       <div class="d-lg-inline-block d-md-inline-block d-sm-none d-none float-right mr-3">
+                            @if (Model.IsFollowing) {<button class="streamWork-primary m-1">Following</button>}
+                            else {<button class="streamWork-primary m-1">Follow</button>}
+                            <button class="streamWork-primary m-1">Donate</button>
+                            <button class="streamWork-secondary m-1">Tutor Profile</button>
+                        </div>
                         <input align="left" type="image" class="rounded" style="width:30px" src=@Model.TutorUserProfile.ProfilePicture />
                         <h3 class="mb-0" style="font-family:'Roboto Slab', serif; font-size:20px; margin-left:40px; color:@Model.UserChannel.ChatColor">@Model.TutorUserProfile.Name.Replace('|', ' ')</h3>
-                        <p style="margin-left:40px">@Model.TutorUserProfile.ProfileCaption</p>
+                        <p class="form-sub-header" style="margin-left:40px; font-size:14px">@Model.TutorUserProfile.ProfileCaption</p>
+                         <div class="d-lg-none d-md-none d-sm-inline-block d-inline-block ml-1">
+                            @if (Model.IsFollowing) {<button class="streamWork-primary m-1">Following</button>}
+                            else {<button class="streamWork-primary m-1">Follow</button>}
+                            <button class="streamWork-primary m-1">Donate</button>
+                            <button class="streamWork-secondary m-1">Tutor Profile</button>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-3 pr-0">
+                <div class="row" style="background-color:#FBFBFB">
+                    <div class="col-lg-3 pr-lg-0">
                         <div class="card m-3">
                             <div class="card-body p-1 mb-2">
-                                <p class="form-header pl-3 pt-3 m-0" style="font-size:14px">Followers: @Model.NumberOfFollowers</p>
-                                <p class="form-header pl-3 m-0" style="font-size:14px">Views: @Model.NumberOfViews</p>
+                                <p class="form-header pl-3 pt-3 m-0" style="font-size:14px"><span><img style="width:24px" class="m-1" src="/images/StreamAssets/Followers.svg"/></span>Followers: @Model.NumberOfFollowers</p>
+                                <p class="form-header pl-3 m-0" style="font-size:14px"><span><img style="width:24px" class="m-1" src="/images/StreamAssets/Views.svg" /></span>Views: @Model.NumberOfViews</p>
                                 <p class="form-header pl-3 m-0" style="font-size:14px">Tutor Since June, 2017</p>
                             </div>
                         </div>
-
                         <div class="card m-3">
                             <div class="card-title">
                                 <p class="form-header p-3" style="font-size:18px">Related Tutors</p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-9 col-md-12 col-sm-12 col-12 pl-0">
+                    <div class="col-lg-9 col-md-12 col-sm-12 col-12 pl-md-0">
                         <div class="card m-3">
                             <div class="card-title p-3 mb-0">
                                 <p class="form-header d-inline-block mb-0" style="font-size:18px">About @Model.TutorUserProfile.Name.Replace('|', ' ')</p>
                             </div>
                             @await Html.PartialAsync("Partials/Profile/Sections_View", Model)
                         </div>
-                        <div class="card m-3 border-0">
+                        <div class="card m-3">
+                            <div class="card-title p-3 mb-0">
+                                <p class="form-header d-inline-block mb-0" style="font-size:18px">Stream Schedule</p>
+                            </div>
+                            @await Html.PartialAsync("Partials/Profile/Schedule_View", Model)
+                        </div>
+                        <div class="card m-3 border-0" style="background-color:transparent">
                             <div class="card-title p-3 mb-0">
                                 <p class="form-header d-inline-block mb-0" style="font-size:18px">Previous Streams</p>
                             </div>
@@ -57,8 +74,8 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex flex-column chatbox-column col-lg-4 col-md-12 col-sm-12 col-12 p-0">
-            <iframe style="width:100%; height:100%" class="border-0" src="http://localhost:58539/chat/chat?chatId=@Model.UserChannel.Username&chatInfo=@Model.ChatInfo"></iframe>
+        <div class="d-flex flex-column chatbox-column col-lg-4 col-md-12 col-sm-12 col-12 p-0 border border-top-0">
+            <iframe class="border-0" style="width:100%; height:100%" src="http://localhost:58539/chat/chat?chatId=@Model.UserChannel.Username&chatInfo=@Model.ChatInfo"></iframe>
         </div>
     </div>
 </div>

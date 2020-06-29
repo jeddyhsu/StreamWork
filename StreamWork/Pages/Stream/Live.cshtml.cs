@@ -26,11 +26,12 @@ namespace StreamWork.Pages.Stream
         public string ChatInfo { get; set; }
         public string StreamSubjectPicture { get; set; }
         public bool IsFollowing { get; set; }
-        public List<Section> Sections { get; set; }
         public int NumberOfStreams { get; set; }
         public int NumberOfFollowers { get; set; }
         public int NumberOfViews { get; set; }
         public List<UserArchivedStreams> UserArchivedStreams { get; set; }
+        public List<Section> Sections { get; set; }
+        public List<Schedule> Schedule { get; set; }
 
         public Live(StorageService storage, SessionService session, ProfileService profile, ScheduleService schedule, FollowService follow, EditService edit, ChatService chat)
         {
@@ -50,13 +51,14 @@ namespace StreamWork.Pages.Stream
             UserChannel = await storageService.Get<UserChannel>(SQLQueries.GetUserChannelWithUsername, tutor);
             ChatInfo = "1234";
             IsFollowing = await followService.IsFollowingFollowee(UserProfile.Id, TutorUserProfile.Id);
-            Sections = profileService.GetSections(TutorUserProfile);
-
-            UserArchivedStreams = await storageService.GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { TutorUserProfile.Username });
 
             NumberOfStreams = UserArchivedStreams.Count;
-            NumberOfViews = UserArchivedStreams.Sum(x => x.Views);
             NumberOfFollowers = await followService.GetNumberOfFollowers(UserProfile.Id);
+            NumberOfViews = UserArchivedStreams.Sum(x => x.Views);
+
+            UserArchivedStreams = await storageService.GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { TutorUserProfile.Username });
+            Sections = profileService.GetSections(TutorUserProfile);
+            Schedule = await scheduleService.GetSchedule(UserProfile.Username);
 
             return Page();
         }
