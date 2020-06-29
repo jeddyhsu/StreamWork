@@ -59,11 +59,11 @@ function PlayAudio() {
     audioElement.setAttribute('src', '/media/juntos.mp3')
     var promise = audioElement.play();
     promise.then(function () {
-        document.getElementById("sound").src = '/images/ChatAssets/Unmute.png';
+        document.getElementById("sound").src = '/images/ChatAssets/Unmute.svg';
         muted = false;
 
     }).catch(function () {
-        return document.getElementById("sound").src = '/images/ChatAssets/Mute.png';
+        return document.getElementById("sound").src = '/images/ChatAssets/Mute.svg';
     })
 }
 
