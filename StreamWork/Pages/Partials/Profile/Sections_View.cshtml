@@ -1,0 +1,64 @@
+﻿<div class="card-body">
+    <div class="row pr-4 pl-4 pt-0">
+        <div class="col-lg-3">
+            <div class="card border-0 rounded-0 text-center">
+                @if (Model.UserProfile.College == null)
+                {
+                    <div>
+                        <input type="image" src="~/images/TutorAssets/TutorDashboard/DefaultUniversity.png" class="form-control border-0 rounded-0 d-block mr-auto ml-auto pt-3" style="width:130px; height:100%">
+                    </div>
+                }
+                else
+                {
+                    var college = Model.UserProfile.College.Split('|');
+                    if (college.Length > 1)
+                    {
+                        <p id="university-abbreviation" class="form-header pt-4 pl-2 pr-2" style="font-size:20px">@college[0]</p>
+                        <p id="university-name" class="form-header" style="font-size:14px">@college[1]</p>
+                    }
+                    else
+                    {
+                        <p id="university-abbreviation" class="form-header pt-4 pl-2 pr-2" style="font-size:20px">@college[0]</p>
+                    }
+                }
+            </div>
+
+        </div>
+        @if (Model.Sections != null && Model.Sections.Count > 1)
+        {
+            <div class="form-group col-lg-9 p-4">
+                <p class="form-header" style="font-size: 16px">@Model.Sections[1].SectionTitle</p>
+                <p style="font-size: 14px">@Model.Sections[1].SectionDescription</p>
+            </div>
+            if (Model.Sections.Count > 2)
+            {
+                for (int i = 2; i < Model.Sections.Count; i++)
+                {
+                    <div class="divider"></div>
+                    <div class="form-group col-lg-12 p-4">
+                        <p class="form-header" style="font-size: 16px">@Model.Sections[i].SectionTitle</p>
+                        <p style="font-size: 14px">@Model.Sections[i].SectionDescription</p>
+                    </div>
+                }
+            }
+        }
+        else
+        {
+            if (Model.UserProfile.ProfileType == "tutor")
+            {
+                <div class="col-9 p-3" style="height:200px">
+                    <p class="form-sub-header p-0" style="font-size:22px">No Info...yet!</p>
+                    <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">Help students know more about you and your background in education</p>
+                    <button class="streamWork-primary mt-3" onclick="window.location.href ='/Tutor/TutorStream'" style="font-size:14px; font-family:'Roboto', serif">Start your first stream</button>
+                </div>
+            }
+            else
+            {
+                <div class="col-9 p-3" style="height:200px">
+                    <p class="form-sub-header p-0" style="font-size:22px">Welcome To My Tutor Profile!</p>
+                    <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">This tutor hasn't filled out any information about themselves yet!</p>
+                </div>
+            }
+        }
+    </div>
+</div>

@@ -1,9 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StreamWork.DataModels;
 using StreamWork.HelperMethods;
 using StreamWork.Services;
+using StreamWork.TutorObjects;
 
 namespace StreamWork.Pages.Stream
 {
@@ -23,6 +26,11 @@ namespace StreamWork.Pages.Stream
         public string ChatInfo { get; set; }
         public string StreamSubjectPicture { get; set; }
         public bool IsFollowing { get; set; }
+        public List<Section> Sections { get; set; }
+        public int NumberOfStreams { get; set; }
+        public int NumberOfFollowers { get; set; }
+        public int NumberOfViews { get; set; }
+        public List<UserArchivedStreams> UserArchivedStreams { get; set; }
 
         public Live(StorageService storage, SessionService session, ProfileService profile, ScheduleService schedule, FollowService follow, EditService edit, ChatService chat)
         {
@@ -32,7 +40,7 @@ namespace StreamWork.Pages.Stream
             scheduleService = schedule;
             followService = follow;
             editService = edit;
-            chat = chatService;
+            chatService = chat;
         }
 
         public async Task<IActionResult> OnGet(string tutor)
@@ -42,6 +50,13 @@ namespace StreamWork.Pages.Stream
             UserChannel = await storageService.Get<UserChannel>(SQLQueries.GetUserChannelWithUsername, tutor);
             ChatInfo = "1234";
             IsFollowing = await followService.IsFollowingFollowee(UserProfile.Id, TutorUserProfile.Id);
+            Sections = profileService.GetSections(TutorUserProfile);
+
+            UserArchivedStreams = await storageService.GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { TutorUserProfile.Username });
+
+            NumberOfStreams = UserArchivedStreams.Count;
+            NumberOfViews = UserArchivedStreams.Sum(x => x.Views);
+            NumberOfFollowers = await followService.GetNumberOfFollowers(UserProfile.Id);
 
             return Page();
         }

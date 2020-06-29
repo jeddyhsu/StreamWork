@@ -515,3 +515,14 @@ lds-dual-ring {
     top: 0px;
     right: -1px;
 }
+
+/*Scroll Bars*/
+.no-scroll-bar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scroll-bar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}

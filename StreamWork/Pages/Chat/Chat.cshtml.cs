@@ -39,8 +39,9 @@ namespace StreamWork.Pages.Chat
         {
             UserProfile = await sessionService.GetCurrentUser();
             ChatId = chatId;
-            ChatInfo = "";
+            ChatInfo = chatInfo;
             Chats = await chatService.GetAllChatsWithChatId(ChatId);
+            IsLoggedIn = true;
 
             return Page();
         }

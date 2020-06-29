@@ -1,4 +1,36 @@
-﻿.chatbox-row-height{
-    height:calc(100% - 100px);
+﻿.row-style {
+    background-color: whitesmoke;
+    height: calc(100% - 58px);
     position:absolute;
+    overflow-y:hidden
+}
+
+.chat-asset {
+    width: 100%;
+    height: 100%;
+    max-width: 120px;
+    max-height: 110px;
+    cursor: pointer
+}
+
+.chatbox-column {
+    position: absolute;
+    right: 0;
+    height: calc(100% - 58px)
+}
+
+@media screen and (max-width:1000px) {
+    .chatbox-column {
+        position: initial;
+        height: 500px
+    }
+}
+
+@media (max-width: 1000px) {
+    .col-md-12 {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
 }

@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using StreamWork.Config;
 using StreamWork.HelperMethods;
+using StreamWork.Hubs;
 using StreamWork.Services;
 
 namespace StreamWork
@@ -93,6 +94,7 @@ namespace StreamWork
             {
                 endpoint.MapRazorPages();
                 endpoint.MapControllers();
+                endpoint.MapHub<ChatHub>("/chathub");
             });
         }
     }

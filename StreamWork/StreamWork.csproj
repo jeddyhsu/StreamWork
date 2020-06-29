@@ -52,6 +52,8 @@
     <Folder Include="wwwroot\css\Profile\" />
     <Folder Include="Pages\Partials\" />
     <Folder Include="Pages\Partials\Modals\" />
+    <Folder Include="Pages\Partials\Profile\" />
+    <Folder Include="Pages\Partials\Stream\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="EmailTemplates\PasswordRecoveryEmailTemplate.html">
@@ -67,5 +69,6 @@
     <Content Remove="wwwroot\images\TutorAssets\TutorDashboard\icons8-save-16-2.png" />
     <Content Remove="wwwroot\images\TutorAssets\TutorDashboard\Save_Icon_v1_SW.png" />
     <Content Remove="wwwroot\images\TutorAssets\TutorDashboard\Remove_Icon_v1 copy3x_SW.png" />
+    <Content Remove="Pages\Partials\Profile\Header_View.json" />
   </ItemGroup>
 </Project>
