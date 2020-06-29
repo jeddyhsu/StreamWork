@@ -255,6 +255,7 @@ lds-dual-ring {
     cursor: pointer !important;
 }
 
+/*Buttons*/
 .streamWork-secondary {
     border: solid !important;
     border-width: 2px !important;
@@ -267,74 +268,16 @@ lds-dual-ring {
     cursor: pointer !important;
 }
 
-.streamWorkPrimary {
-    border: none;
-    background-image: linear-gradient(#008080, #00B3B3);
-    color: #E6FFFF;
-    border-radius: 8px;
-    font-size: 22px;
+.streamWork-orange {
+    border: solid !important;
+    border-width: 2px !important;
+    border-color: #F0AD4E !important;
+    background-color: #F0AD4E !important;
+    color: white !important;
+    border-radius: 5px !important;
+    font-size: 10px;
     padding: 8px 20px;
-    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.3);
-    cursor:pointer
-}
-
-.streamWorkSecondary {
-    border: none;
-    background-image: linear-gradient(#B3FFFF, #E6FFFF);
-    color: #008080;
-    border-radius: 8px;
-    font-size: 22px;
-    padding: 8px 20px;
-    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.3);
-    cursor: pointer
-}
-
-.streamWorkGrey {
-    border: none;
-    background-image: linear-gradient(#E8E8E8, #F7F7F7);
-    color: #808080;
-    border-radius: 8px;
-    font-size: 22px;
-    padding: 8px 22px;
-    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.3);
-    cursor: pointer
-}
-
-.streamWorkRed {
-    border: none;
-    background-image: linear-gradient(#DC1C13, #EA4C46);
-    color: white;
-    border-radius: 8px;
-    font-size: 22px;
-    padding: 8px 22px;
-    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.3);
-    cursor: pointer
-}
-
-.streamWorkGold {
-    border: none;
-    background-image: linear-gradient(#E6B800, #FFD11A);
-    color: #665200;
-    border-radius: 8px;
-    font-size: 22px;
-    padding: 8px 20px;
-    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.3);
-    cursor: pointer
-}
-
-.form-control:focus {
-    outline: none;
-    box-shadow: none !important;
-    border: 3px solid lightgrey !important;
-    background-color: transparent
-}
-
-.form-control-lg {
-    width:100%;
-    outline: none;
-    box-shadow: none !important;
-    border: 3px solid transparent !important;
-    background-color: transparent
+    cursor: pointer !important;
 }
 
 /*Navbar*/
@@ -447,6 +390,21 @@ lds-dual-ring {
 }
 
 /*Forms*/
+.form-control:focus {
+    outline: none;
+    box-shadow: none !important;
+    border: 3px solid lightgrey !important;
+    background-color: transparent
+}
+
+.form-control-lg {
+    width: 100%;
+    outline: none;
+    box-shadow: none !important;
+    border: 3px solid transparent !important;
+    background-color: transparent
+}
+
 .form-header {
     font-family: 'Roboto Slab', serif;
     color: #707070;
@@ -467,7 +425,6 @@ lds-dual-ring {
     font-size: 12px !important;
     height: 125px !important;
 }
-
 
 .form-university-header { /*Created due to appending html string in js*/
     font-family: 'Roboto Slab', serif;

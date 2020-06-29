@@ -22,16 +22,16 @@
                        <div class="d-lg-inline-block d-md-inline-block d-sm-none d-none float-right mr-3">
                             @if (Model.IsFollowing) {<button class="streamWork-primary m-1">Following</button>}
                             else {<button class="streamWork-primary m-1">Follow</button>}
-                            <button class="streamWork-primary m-1">Donate</button>
+                            <button class="streamWork-orange m-1">Donate</button>
                             <button class="streamWork-secondary m-1">Tutor Profile</button>
                         </div>
                         <input align="left" type="image" class="rounded" style="width:30px" src=@Model.TutorUserProfile.ProfilePicture />
-                        <h3 class="mb-0" style="font-family:'Roboto Slab', serif; font-size:20px; margin-left:40px; color:@Model.UserChannel.ChatColor">@Model.TutorUserProfile.Name.Replace('|', ' ')</h3>
+                        <h3 class="mb-0 form-header" style="font-size:20px; margin-left:40px; color:@Model.UserChannel.ChatColor">@Model.TutorUserProfile.Name.Replace('|', ' ')</h3>
                         <p class="form-sub-header" style="margin-left:40px; font-size:14px">@Model.TutorUserProfile.ProfileCaption</p>
                          <div class="d-lg-none d-md-none d-sm-inline-block d-inline-block ml-1">
                             @if (Model.IsFollowing) {<button class="streamWork-primary m-1">Following</button>}
                             else {<button class="streamWork-primary m-1">Follow</button>}
-                            <button class="streamWork-primary m-1">Donate</button>
+                            <button class="streamWork-orange m-1">Donate</button>
                             <button class="streamWork-secondary m-1">Tutor Profile</button>
                         </div>
                     </div>
