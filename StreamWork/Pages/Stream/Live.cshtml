@@ -19,57 +19,63 @@
                         <p style="font-size:12px; padding-left:105px">Tutoring Mathematics @Model.UserChannel.StreamSubject</p>
                     </div>
                     <div class="border-top p-3" style="background-color:#FBFBFB">
-                       <div class="d-lg-inline-block d-md-inline-block d-sm-none d-none float-right mr-3">
-                            @if (Model.FollowValue.Equals("Following")) {<button id="Following" onclick="Unfollow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary m-1">Following</button>}
-                            else if(Model.FollowValue.Equals("Follow")) {<button id="Follow" onclick="Follow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary m-1">Follow</button>}
+                        <div class="d-lg-inline-block d-md-inline-block d-sm-none d-none float-right mr-3">
+                            @if (Model.FollowValue.Equals("Following"))
+                            {<button id="Following" onclick="Unfollow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary m-1">Following</button>}
+                            else if (Model.FollowValue.Equals("Follow"))
+                            {<button id="Follow" onclick="Follow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary m-1">Follow</button>}
                             <button class="streamWork-orange m-1">Donate</button>
                             <button class="streamWork-secondary m-1" onclick="window.location.href='/Profile/Tutor/@Model.TutorUserProfile.Username'">Tutor Profile</button>
                         </div>
                         <input align="left" type="image" class="rounded" style="width:30px" src=@Model.TutorUserProfile.ProfilePicture />
                         <h3 class="mb-0 form-header" style="font-size:20px; margin-left:40px; color:@Model.UserChannel.ChatColor">@Model.TutorUserProfile.Name.Replace('|', ' ')</h3>
                         <p class="form-sub-header" style="margin-left:40px; font-size:14px">@Model.TutorUserProfile.ProfileCaption</p>
-                         <div class="d-lg-none d-md-none d-sm-inline-block d-inline-block ml-1">
-                            @if (Model.FollowValue.Equals("Following")) {<button id="Following" onclick="Unfollow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary m-1">Following</button>}
-                            else if(Model.FollowValue.Equals("Follow")) {<button id="Follow" onclick="Follow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary m-1">Follow</button>}
+                        <div class="d-lg-none d-md-none d-sm-inline-block d-inline-block ml-1">
+                            @if (Model.FollowValue.Equals("Following"))
+                            {<button id="Following" onclick="Unfollow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary m-1">Following</button>}
+                            else if (Model.FollowValue.Equals("Follow"))
+                            {<button id="Follow" onclick="Follow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary m-1">Follow</button>}
                             <button class="streamWork-orange m-1">Donate</button>
                             <button class="streamWork-secondary m-1" onclick="window.location.href='/Profile/Tutor/@Model.TutorUserProfile.Username'">Tutor Profile</button>
                         </div>
                     </div>
                 </div>
-                <div class="row" style="background-color:#FBFBFB">
-                    <div class="col-lg-3 pr-lg-0">
-                        <div class="card m-3">
-                            <div class="card-body p-1 mb-2">
-                                <p class="form-header pl-3 pt-3 m-0" style="font-size:14px"><span><img style="width:24px" class="m-1" src="/images/StreamAssets/Followers.svg"/></span>Followers: @Model.NumberOfFollowers</p>
-                                <p class="form-header pl-3 m-0" style="font-size:14px"><span><img style="width:24px" class="m-1" src="/images/StreamAssets/Views.svg" /></span>Views: @Model.NumberOfViews</p>
-                                <p class="form-header pl-3 m-0" style="font-size:14px"><span><img style="width:24px" class="m-1" src="/images/StreamAssets/Calendar.svg" /></span>Tutor Since June, 2017</p>
+                <div class="card-body" style="background-color:#FBFBFB">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-12 col-sm-12 col-12">
+                            <div class="card m-3">
+                                <div class="card-body p-1 mb-2">
+                                    <p class="form-header pl-3 pt-3 m-0" style="font-size:14px"><span><img style="width:24px" class="m-1" src="/images/StreamAssets/Followers.svg" /></span>Followers: @Model.NumberOfFollowers</p>
+                                    <p class="form-header pl-3 m-0" style="font-size:14px"><span><img style="width:24px" class="m-1" src="/images/StreamAssets/Views.svg" /></span>Views: @Model.NumberOfViews</p>
+                                    <p class="form-header pl-3 m-0" style="font-size:14px"><span><img style="width:24px" class="m-1" src="/images/StreamAssets/Calendar.svg" /></span>Tutor Since June, 2017</p>
+                                </div>
+                            </div>
+                            <div class="card m-3">
+                                <div class="card-title">
+                                    <p class="form-header p-3" style="font-size:18px">Related Tutors</p>
+                                    @await Html.PartialAsync("Partials/Profile/RelatedTutors_View", Model)
+                                </div>
                             </div>
                         </div>
-                        <div class="card m-3">
-                            <div class="card-title">
-                                <p class="form-header p-3" style="font-size:18px">Related Tutors</p>
-                                @await Html.PartialAsync("Partials/Profile/RelatedTutors_View", Model)
+                        <div class="col-lg-8 col-md-12 col-sm-12 col-12">
+                            <div class="card m-3">
+                                <div class="card-title p-3 mb-0">
+                                    <p class="form-header d-inline-block mb-0" style="font-size:18px">About @Model.TutorUserProfile.Name.Replace('|', ' ')</p>
+                                </div>
+                                @await Html.PartialAsync("Partials/Profile/Sections_View", Model)
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-9 col-md-12 col-sm-12 col-12 pl-md-0">
-                        <div class="card m-3">
-                            <div class="card-title p-3 mb-0">
-                                <p class="form-header d-inline-block mb-0" style="font-size:18px">About @Model.TutorUserProfile.Name.Replace('|', ' ')</p>
+                            <div class="card m-3">
+                                <div class="card-title p-3 mb-0">
+                                    <p class="form-header d-inline-block mb-0" style="font-size:18px">Stream Schedule</p>
+                                </div>
+                                @await Html.PartialAsync("Partials/Profile/Schedule_View", Model)
                             </div>
-                            @await Html.PartialAsync("Partials/Profile/Sections_View", Model)
-                        </div>
-                        <div class="card m-3">
-                            <div class="card-title p-3 mb-0">
-                                <p class="form-header d-inline-block mb-0" style="font-size:18px">Stream Schedule</p>
+                            <div class="card m-3 border-0" style="background-color:transparent">
+                                <div class="card-title p-3 mb-0">
+                                    <p class="form-header d-inline-block mb-0" style="font-size:18px">Previous Streams</p>
+                                </div>
+                                @await Html.PartialAsync("Partials/Profile/Stream_View", Model)
                             </div>
-                            @await Html.PartialAsync("Partials/Profile/Schedule_View", Model)
-                        </div>
-                        <div class="card m-3 border-0" style="background-color:transparent">
-                            <div class="card-title p-3 mb-0">
-                                <p class="form-header d-inline-block mb-0" style="font-size:18px">Previous Streams</p>
-                            </div>
-                            @await Html.PartialAsync("Partials/Profile/Stream_View", Model)
                         </div>
                     </div>
                 </div>

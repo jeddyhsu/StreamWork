@@ -1,17 +1,17 @@
 ﻿@{var cacheRand = new Random().Next();}
-@foreach (var streamInfo in Model.UserArchivedStreams)
+@model List<StreamWork.DataModels.UserArchivedStreams>
+
+@foreach (var streamInfo in Model)
 {
-    <div class="col-lg-6 col-md-6 col-sm-6">
-        <div class="card mt-3 border-0" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px">
-            <div class="card-title">
-                <a href="../StreamViews/StreamPlaybackPage?streamId=@streamInfo.StreamID"><img asp-append-version="true" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src="@streamInfo.StreamThumbnail?@cacheRand"></a>
-            </div>
-            <div class="card-body pt-0 pb-1">
-                <h5 class="text-truncate form-header">@streamInfo.StreamTitle</h5>
-                <input type="hidden" value="@streamInfo.StreamDescription" />
-                <p class="text-truncate form-header" style="font-size:10px">@Model.UserProfile.Name.Replace('|', ' ')</p>
-            </div>
-            <div class="card-footer" style="background-color:@streamInfo.StreamColor; border-bottom-left-radius:20px; border-bottom-right-radius:20px;"></div>
+    <div class="card mt-3 border-0" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px">
+        <div class="card-title">
+            <a href="/Stream/Archive/@streamInfo.Username/@streamInfo.StreamID"><img asp-append-version="true" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src="@streamInfo.StreamThumbnail?@cacheRand"></a>
         </div>
+        <div class="card-body pt-0 pb-1">
+            <h5 class="text-truncate form-header">@streamInfo.StreamTitle</h5>
+            <input type="hidden" value="@streamInfo.StreamDescription" />
+            <p class="text-truncate form-header" style="font-size:10px">@streamInfo.Username</p>
+        </div>
+        <div class="card-footer" style="background-color:@streamInfo.StreamColor; border-bottom-left-radius:20px; border-bottom-right-radius:20px;"></div>
     </div>
 }
