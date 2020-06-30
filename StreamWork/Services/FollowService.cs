@@ -88,15 +88,16 @@ namespace StreamWork.Services
             return null;
         }
 
-        public async Task<bool> IsFollowingFollowee(string followerId, string followeeId)
+        public async Task<string> IsFollowingFollowee(string followerId, string followeeId)
         {
             if (followerId != null && followeeId != null)
             {
+                if (followeeId == followerId) return FollowValues.NoFollow.ToString();
                 var followerAndfollowee = await GetList<Follow>(SQLQueries.GetFollowerAndFollowee, new string[] { followerId, followeeId });
-                if (followerAndfollowee.Count > 0) return true;
+                if (followerAndfollowee.Count > 0) return FollowValues.Follow.ToString();
             }
 
-            return false;
+            return FollowValues.Following.ToString();
         }
 
         public async Task<int> GetNumberOfFollowers(string followeeId)

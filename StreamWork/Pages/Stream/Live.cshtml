@@ -15,24 +15,24 @@
                     <img class="pr-3" align="left" src="/images/ChatAssets/Math.png" style="width:100%; height:100%; max-width:120px; max-height:110px; cursor:pointer" onclick="window.open('https://www.streamwork.live/Home/Search?s=@Model.UserChannel.StreamSubject&q=')" />
                     <div class="m-3" id="StreamInfo">
                         <h3 style="color:black; font-family:'Roboto Slab', serif;">Calculus 2: Integrals<span></span></h3>
-                        <p class="mb-0" style="padding-left:105px">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod </p>
-                        <p style="font-size:12px; padding-left:105px">Tutoring @Model.UserChannel.StreamSubject</p>
+                        <p class="mb-1" style="padding-left:105px">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                        <p style="font-size:12px; padding-left:105px">Tutoring Mathematics @Model.UserChannel.StreamSubject</p>
                     </div>
                     <div class="border-top p-3" style="background-color:#FBFBFB">
                        <div class="d-lg-inline-block d-md-inline-block d-sm-none d-none float-right mr-3">
-                            @if (Model.IsFollowing) {<button class="streamWork-primary m-1">Following</button>}
-                            else {<button class="streamWork-primary m-1">Follow</button>}
+                            @if (Model.FollowValue.Equals("Following")) {<button id="Following" onclick="Unfollow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary m-1">Following</button>}
+                            else if(Model.FollowValue.Equals("Follow")) {<button id="Follow" onclick="Follow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary m-1">Follow</button>}
                             <button class="streamWork-orange m-1">Donate</button>
-                            <button class="streamWork-secondary m-1">Tutor Profile</button>
+                            <button class="streamWork-secondary m-1" onclick="window.location.href='/Profile/Tutor/@Model.TutorUserProfile.Username'">Tutor Profile</button>
                         </div>
                         <input align="left" type="image" class="rounded" style="width:30px" src=@Model.TutorUserProfile.ProfilePicture />
                         <h3 class="mb-0 form-header" style="font-size:20px; margin-left:40px; color:@Model.UserChannel.ChatColor">@Model.TutorUserProfile.Name.Replace('|', ' ')</h3>
                         <p class="form-sub-header" style="margin-left:40px; font-size:14px">@Model.TutorUserProfile.ProfileCaption</p>
                          <div class="d-lg-none d-md-none d-sm-inline-block d-inline-block ml-1">
-                            @if (Model.IsFollowing) {<button class="streamWork-primary m-1">Following</button>}
-                            else {<button class="streamWork-primary m-1">Follow</button>}
+                            @if (Model.FollowValue.Equals("Following")) {<button id="Following" onclick="Unfollow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary m-1">Following</button>}
+                            else if(Model.FollowValue.Equals("Follow")) {<button id="Follow" onclick="Follow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary m-1">Follow</button>}
                             <button class="streamWork-orange m-1">Donate</button>
-                            <button class="streamWork-secondary m-1">Tutor Profile</button>
+                            <button class="streamWork-secondary m-1" onclick="window.location.href='/Profile/Tutor/@Model.TutorUserProfile.Username'">Tutor Profile</button>
                         </div>
                     </div>
                 </div>
@@ -48,6 +48,7 @@
                         <div class="card m-3">
                             <div class="card-title">
                                 <p class="form-header p-3" style="font-size:18px">Related Tutors</p>
+                                @await Html.PartialAsync("Partials/Profile/RelatedTutors_View", Model)
                             </div>
                         </div>
                     </div>
@@ -75,7 +76,7 @@
             </div>
         </div>
         <div class="d-flex flex-column chatbox-column col-lg-4 col-md-12 col-sm-12 col-12 p-0 border border-top-0">
-            <iframe class="border-0" style="width:100%; height:100%" src="http://localhost:58539/chat/chat?chatId=@Model.UserChannel.Username&chatInfo=@Model.ChatInfo"></iframe>
+            <iframe class="border-left border-top-0 border-bottom-0 border-right-0" style="width:100%; height:100%" src="http://localhost:58539/chat/chat?chatId=@Model.UserChannel.Username&chatInfo=@Model.ChatInfo"></iframe>
         </div>
     </div>
 </div>

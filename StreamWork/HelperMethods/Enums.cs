@@ -22,6 +22,13 @@ namespace StreamWork.HelperMethods
         False,
     }
 
+    public enum FollowValues
+    {
+        Follow,
+        Following,
+        NoFollow,
+    }
+
     public enum SQLQueries
     {
         // UserLogin
