@@ -8,17 +8,15 @@ _/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/    
 -->
 
 <html style="height:100%">
-<head>
-    @await Html.PartialAsync("Partials/Layout/Tutor/TutorHead");
-</head>
-<body class="no-scroll-bar" style="background-color:#F3F3F3;">
-    @await Html.PartialAsync("Partials/Layout/Tutor/TutorBody");
-    <div class="page-body">
-        @RenderBody()
-    </div>
-
-    @RenderSection("Scripts", required: false)
-
-</body>
+    <head>
+        @await Html.PartialAsync("Partials/Layout/Tutor/TutorHead")
+    </head>
+    <body class="no-scroll-bar" style="background-color:#F3F3F3;">
+        @await Html.PartialAsync("Partials/Layout/Tutor/TutorDashboardBody")
+        <div class="page-body">
+            @RenderBody()
+        </div>
+        @RenderSection("Scripts", required: false)
+    </body>
 </html>
 

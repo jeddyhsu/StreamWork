@@ -71,17 +71,6 @@ vbody{
     width: 100%;
 }
 
-#sidebar {
-    width: 250px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    z-index: 999;
-    background: #7386D5;
-    color: #fff;
-    transition: all 0.3s;
-}
 .form-sign {
     width: 100%;
     max-width: 330px;
