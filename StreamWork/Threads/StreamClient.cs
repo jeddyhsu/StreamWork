@@ -17,7 +17,6 @@ namespace StreamWork.Threads
         readonly HomeMethods _homeHelperFunctions;
         readonly EmailMethods _emailHelperFunctions;
         readonly StreamClientMethods _threadClassHelperFunctions;
-        readonly ChatMethods _chatHelperFunctions;
         readonly IOptionsSnapshot<StorageConfig> _storageConfig;
         readonly UserChannel _userChannel;
         readonly UserLogin _userLogin;
@@ -32,12 +31,11 @@ namespace StreamWork.Threads
         private static int threadCount = 0;
         private static Hashtable hashTable = new Hashtable();
 
-        public StreamClient(IOptionsSnapshot<StorageConfig> storageConfig, UserChannel userChannel, UserLogin userLogin, string streamTitle, string streamSubject, string streamDescription, string streamThumbnail, string archivedVideoId, string chatColor)
+        public StreamClient(IOptionsSnapshot<StorageConfig> storageConfig, UserLogin userLogin, UserChannel userChannel, string streamTitle, string streamSubject, string streamDescription, string streamThumbnail, string archivedVideoId, string chatColor)
         {
             _homeHelperFunctions = new HomeMethods();
             _emailHelperFunctions = new EmailMethods();
             _threadClassHelperFunctions = new StreamClientMethods();
-            _chatHelperFunctions = new ChatMethods();
             _storageConfig = storageConfig;
             _userChannel = userChannel;
             _userLogin = userLogin;

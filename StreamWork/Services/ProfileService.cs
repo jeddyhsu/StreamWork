@@ -131,34 +131,6 @@ namespace StreamWork.Services
 
         }
 
-        public bool StartStream(HttpRequest request, UserChannel userChannel, UserLogin userProfile, string chatColor)
-        {
-            try
-            {
-                string streamThumbnail;
-                var streamTitle = request.Form["StreamTitle"];
-                var streamSubject = request.Form["StreamSubject"];
-                var streamDescription = request.Form["StreamDescription"];
-                var notifyStudent = request.Form["NotifiyStudent"];
-                var archivedStreamId = Guid.NewGuid().ToString();
-                if (request.Form.Files.Count > 0)
-                    streamThumbnail = BlobMethods.SaveImageIntoBlobContainer(request.Form.Files[0], archivedStreamId, 1280, 720);
-                else
-                    streamThumbnail = GetCorrespondingDefaultThumbnail(streamSubject);
-
-                //StreamClient streamClient = new StreamClient(storageConfig, userChannel, userProfile, streamTitle, streamSubject, streamDescription, streamThumbnail, archivedStreamId, chatColor);
-                //if (notifyStudent.Equals("yes")) streamClient.RunEmailThread();
-                //streamClient.RunLiveThread();
-
-                return true;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error in TutorMethods: StartStream " + e.Message);
-                return false;
-            }
-        }
-
         public async Task<string[]> EditArchivedStream(HttpRequest request)
         {
             string streamThumbnail = null;

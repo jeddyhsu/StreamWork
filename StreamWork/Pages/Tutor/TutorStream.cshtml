@@ -1,7 +1,8 @@
-﻿@model StreamWork.ViewModels.Tutor.TutorStreamViewModel
-
+﻿@page
+@model StreamWork.Pages.Tutor.TutorStream
 @{Layout = "_LayoutTutorNavbar";}
 @{ViewData["Title"] = "TutorStream";}
+@Html.AntiForgeryToken()
 
 @if (!Model.UserProfile.ProfileType.Equals("tutor") || !Model.UserProfile.AcceptedTutor)
 {
@@ -14,23 +15,21 @@
 }
 else if (Model.UserChannel.StreamTitle == null && Model.UserChannel.StreamSubject == null)
 {
-    <script>
-        $(document).ready(function () {
+    <script>$(document).ready(function () {
             OpenModal('registerStreamModal');
-          })
-    </script>
+        });</script>
 }
 
 <div class="container-fluid">
-    <div class="row" style="background-color:white;position:absolute; height: calc(100% - 50px); width:100%;">
+    <div class="row row-style">
         <div id="stream" class="d-flex flex-column col-lg-8 col-md-12 col-sm-12 col-12 p-0" style="position:relative">
             <iframe style=" width:100%; height:100%;" class="p-0" src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.UserChannel.ChannelKey.Split('|')[0]" frameborder="0" scrolling="no" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
         </div>
         <div id="chatBox" class="d-flex flex-column col-lg-4 col-md-12 col-sm-12 col-12 p-0">
-            <iframe style="height:100%; border:none;" src="http://localhost:58539/chat/streamworkchat?chatId=@Model.UserChannel.Username&chatInfo=@Model.ChatInfo"></iframe>
+            <iframe style="height:100%; border:none;" src="http://localhost:58539/chat/chat?chatId=@Model.UserChannel.Username&chatInfo=@Model.ChatInfo"></iframe>
         </div>
     </div>
- </div>
+</div>
 
 <div id="registerStreamModal" class="custom-modal">
     <div class="custom-modal-content">

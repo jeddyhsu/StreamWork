@@ -43,5 +43,10 @@ namespace StreamWork.Services
         {
             await DataStore.SaveAsync(connectionString, config.Value, new Dictionary<string, object> { { "Id", id} }, (T)obj);
         }
+
+        public T Call<T>(string url, string authToken) where T: class
+        {
+            return DataStore.CallAPI<T>(url, authToken);
+        }
     }
 }

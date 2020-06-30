@@ -144,7 +144,7 @@ namespace StreamWork.HelperMethods
                 else
                     streamThumbnail = GetCorrespondingDefaultThumbnail(streamSubject);
 
-                StreamClient streamClient = new StreamClient(storageConfig, userChannel, userProfile, streamTitle, streamSubject, streamDescription, streamThumbnail, archivedStreamId, chatColor);
+                StreamClient streamClient = new StreamClient(storageConfig, userProfile, userChannel, streamTitle, streamSubject, streamDescription, streamThumbnail, archivedStreamId, chatColor);
                 if (notifyStudent.Equals("yes")) streamClient.RunEmailThread();
                 streamClient.RunLiveThread();
 

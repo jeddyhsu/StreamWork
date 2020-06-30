@@ -1,16 +1,20 @@
 ﻿//Streaming
-function CheckIfStreamIsLive(channelKey, chatid, chatinfo) {
+function IsLive(channelKey, chatid, chatinfo) {
     chatId = chatid;
     chatInfo = chatinfo;
 
     document.getElementById("GoLive").disabled = true;
 
     $.ajax({
-        url: '/Tutor/CheckIfStreamIsLive',
+        url: '/Tutor/TutorStream?handler=IsLive',
         type: 'post',
         dataType: 'json',
         data: {
             'channelKey': channelKey
+        },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("XSRF-TOKEN",
+                $('input:hidden[name="__RequestVerificationToken"]').val());
         },
         success: function (data) {
             if (data.message === "Success") {
@@ -24,7 +28,7 @@ function CheckIfStreamIsLive(channelKey, chatid, chatinfo) {
     });
 }
 
-function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail(notifyStudent) {
+function RegisterStream (notifyStudent) {
     var formData = new FormData()
     var streamTitle = $('#streamTitle').val();
     var streamSubject = $('#streamSubject').val();
@@ -44,12 +48,16 @@ function RegisterStreamTitleAndStreamSubjectAndCustomThumbanail(notifyStudent) {
         formData.append("StreamThumbnail", totalFile.files[0]);
 
     $.ajax({
-        url: '/Tutor/TutorStream',
+        url: '/Tutor/TutorStream?handler=RegisterStream',
         type: 'post',
         dataType: 'json',
         data: formData,
         contentType: false,
         processData: false,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("XSRF-TOKEN",
+                $('input:hidden[name="__RequestVerificationToken"]').val());
+        },
         success: function (data) {
             if (data.message === "Success") {
                 $('#registerStreamModal').modal('hide'),
