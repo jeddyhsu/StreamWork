@@ -88,13 +88,22 @@
             </div>
         </div>
         <div class="d-flex flex-column fixed col-lg-4 col-md-12 col-sm-12 col-12 p-0 border border-top-0">
-            <iframe class="border-left border-top-0 border-bottom-0 border-right-0" style="width:100%; height:100%" src="http://localhost:58539/chat/chat?chatId=@Model.UserChannel.Username&chatInfo=@Model.ChatInfo"></iframe>
+            <iframe class="border-0" style="width:100%; height:100%" src="http://localhost:58539/chat/chat?chatId=@Model.UserChannel.Username&chatInfo=@Model.ChatInfo"></iframe>
         </div>
     </div>
 </div>
 
 <script>
+    $(window).resize(function () {
+        var height = $('#player-row').height();
+        var offest = height + 58;
+        $('#player').css('height', 'calc(100vh - ' + offest + 'px)')
+        console.log("asdfsadasdf")
+    })
+
     var height = $('#player-row').height();
     var offest = height + 58;
     $('#player').css('height', 'calc(100vh - ' + offest + 'px)')
+    console.log("asdfsadasdf")
+  
 </script>
