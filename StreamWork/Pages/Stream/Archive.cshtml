@@ -6,7 +6,7 @@
 
 <div class="container-fluid">
     <div class="row" style="padding-top:58px">
-        <div class="col-lg-9 col-md-12 col-sm-12 col-12 p-0">
+        <div class="d-flex flex-column col-lg-12 col-md-12 col-sm-12 col-12 p-0">
             <div class="card border-0">
                 <iframe id="player" style="width:100%;" src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.ArchivedStream.StreamID" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
                 <div id="player-row" class="card-body p-0">
@@ -42,12 +42,12 @@
                 </div>
                 <div class="card-body" style="background-color:#FBFBFB">
                     <div class="row">
-                        <div class="col-lg-4 col-md-12 col-sm-12 col-12">
+                        <div class="col-lg-3 col-md-4 col-sm-12 col-12">
                             <div class="card m-3">
                                 <div class="card-body p-1 mb-2">
-                                    <p class="form-header pl-3 pt-3 m-0" style="font-size:14px"><span><img style="width:24px" class="m-1" src="/images/StreamAssets/Followers.svg" /></span>Followers: @Model.NumberOfFollowers</p>
-                                    <p class="form-header pl-3 m-0" style="font-size:14px"><span><img style="width:24px" class="m-1" src="/images/StreamAssets/Views.svg" /></span>Views: @Model.NumberOfViews</p>
-                                    <p class="form-header pl-3 m-0" style="font-size:14px"><span><img style="width:24px" class="m-1" src="/images/StreamAssets/Calendar.svg" /></span>Tutor Since June, 2017</p>
+                                    <p class="form-header pl-2 pt-3 m-0" style="font-size:14px"><span><img style="width:24px" class="m-1" src="/images/StreamAssets/Followers.svg" /></span>Followers: @Model.NumberOfFollowers</p>
+                                    <p class="form-header pl-2 m-0" style="font-size:14px"><span><img style="width:24px" class="m-1" src="/images/StreamAssets/Views.svg" /></span>Views: @Model.NumberOfViews</p>
+                                    <p class="form-header pl-2 m-0" style="font-size:14px"><span><img style="width:24px" class="m-1" src="/images/StreamAssets/Calendar.svg" /></span>June, 2017</p>
                                 </div>
                             </div>
                             <div class="card m-3">
@@ -57,7 +57,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-8 col-md-12 col-sm-12 col-12">
+                        <div class="col-lg-9 col-md-8 col-sm-12 col-12">
                             <div class="card m-3">
                                 <div class="card-title p-3 mb-0">
                                     <p class="form-header d-inline-block mb-0" style="font-size:18px">About @Model.TutorUserProfile.Name.Replace('|', ' ')</p>
@@ -78,14 +78,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 chatbox-column col-md-12" style="overflow:scroll !important">
-            <p class="form-header p-3 mb-0" style="font-size:18px">Other Streams</p>
-            <div class="row">
-                <div class="col-12">
-                    @await Html.PartialAsync("Partials/Stream/Stream_Appearance", Model.OtherArchivedStreams)
                 </div>
             </div>
         </div>

@@ -4,7 +4,7 @@
         @for (int i = 0; i < Model.Topics.Count; i++)
         {
             <p><b>@Model.Topics[i].TopicName</b></p>
-            <pre style="font-family:'Roboto', serif">@Model.Topics[i].ListOfSubjects</pre>
+            <pre style="font-family:'Roboto', serif; white-space: pre-wrap;">@Model.Topics[i].ListOfSubjects</pre>
         }
     }
     else
@@ -17,7 +17,5 @@
         {
             <p class="form-sub-header" style="font-size:14px;"><b>Find relevant experience here!</b></p>
         }
-
     }
-
 </div>

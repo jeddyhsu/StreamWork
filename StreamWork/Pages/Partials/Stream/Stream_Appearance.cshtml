@@ -1,17 +1,14 @@
 ﻿@{var cacheRand = new Random().Next();}
-@model List<StreamWork.DataModels.UserArchivedStreams>
+@model StreamWork.DataModels.UserArchivedStreams
 
-@foreach (var streamInfo in Model)
-{
     <div class="card mt-3 border-0" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px">
         <div class="card-title">
-            <a href="/Stream/Archive/@streamInfo.Username/@streamInfo.StreamID"><img asp-append-version="true" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src="@streamInfo.StreamThumbnail?@cacheRand"></a>
+            <a href="/Stream/Archive/@Model.Username/@Model.StreamID"><img asp-append-version="true" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src="@Model.StreamThumbnail?@cacheRand"></a>
         </div>
         <div class="card-body pt-0 pb-1">
-            <h5 class="text-truncate form-header">@streamInfo.StreamTitle</h5>
-            <input type="hidden" value="@streamInfo.StreamDescription" />
-            <p class="text-truncate form-header" style="font-size:10px">@streamInfo.Username</p>
+            <h5 class="text-truncate form-header">@Model.StreamTitle</h5>
+            <input type="hidden" value="@Model.StreamDescription" />
+            <p class="text-truncate form-header" style="font-size:10px">@Model.Username</p>
         </div>
-        <div class="card-footer" style="background-color:@streamInfo.StreamColor; border-bottom-left-radius:20px; border-bottom-right-radius:20px;"></div>
+        <div class="card-footer" style="background-color:@Model.StreamColor; border-bottom-left-radius:20px; border-bottom-right-radius:20px;"></div>
     </div>
-}
