@@ -42,22 +42,28 @@
                 </div>
                 <div class="card-body" style="background-color:#FBFBFB">
                     <div class="row">
-                        <div class="col-lg-4 col-md-12 col-sm-12 col-12">
-                            <div class="card m-3">
-                                <div class="card-body p-1 mb-2">
-                                    <p class="form-header pl-3 pt-3 m-0" style="font-size:14px"><span><img style="width:24px" class="m-1" src="/images/StreamAssets/Followers.svg" /></span>Followers: @Model.NumberOfFollowers</p>
-                                    <p class="form-header pl-3 m-0" style="font-size:14px"><span><img style="width:24px" class="m-1" src="/images/StreamAssets/Views.svg" /></span>Views: @Model.NumberOfViews</p>
-                                    <p class="form-header pl-3 m-0" style="font-size:14px"><span><img style="width:24px" class="m-1" src="/images/StreamAssets/Calendar.svg" /></span>Tutor Since June, 2017</p>
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-12 custom-column-4 order-lg-1 order-md-2 custom-order-2">
+                            <div class="row">
+                                <div class="col-sm-5 col-lg-12 col-md-12 custom-column-5">
+                                    <div class="card m-3">
+                                        <div class="card-body p-1 mb-2">
+                                            <p class="form-header pl-3 pt-3 m-0" style="font-size:14px"><span><img style="width:24px" class="m-1" src="/images/StreamAssets/Followers.svg" /></span>Followers: @Model.NumberOfFollowers</p>
+                                            <p class="form-header pl-3 m-0" style="font-size:14px"><span><img style="width:24px" class="m-1" src="/images/StreamAssets/Views.svg" /></span>Views: @Model.NumberOfViews</p>
+                                            <p class="form-header pl-3 m-0" style="font-size:14px"><span><img style="width:24px" class="m-1" src="/images/StreamAssets/Calendar.svg" /></span>Tutor Since June, 2017</p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="card m-3">
-                                <div class="card-title">
-                                    <p class="form-header p-3" style="font-size:18px">Related Tutors</p>
-                                    @await Html.PartialAsync("Partials/Profile/RelatedTutors_View", Model)
+                                <div class="col-sm-7 col-lg-12 col-md-12 custom-column-7">
+                                    <div class="card m-3">
+                                        <div class="card-title">
+                                            <p class="form-header p-3" style="font-size:18px">Related Tutors</p>
+                                            @await Html.PartialAsync("Partials/Profile/RelatedTutors_View", Model)
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-8 col-md-12 col-sm-12 col-12">
+                        <div class="col-lg-8 col-md-8 col-sm-12 col-12 custom-column-8 order-lg-2 order-md-1 custom-order-1">
                             <div class="card m-3">
                                 <div class="card-title p-3 mb-0">
                                     <p class="form-header d-inline-block mb-0" style="font-size:18px">About @Model.TutorUserProfile.Name.Replace('|', ' ')</p>
@@ -81,7 +87,7 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex flex-column chatbox-column col-lg-4 col-md-12 col-sm-12 col-12 p-0 border border-top-0">
+        <div class="d-flex flex-column fixed col-lg-4 col-md-12 col-sm-12 col-12 p-0 border border-top-0">
             <iframe class="border-left border-top-0 border-bottom-0 border-right-0" style="width:100%; height:100%" src="http://localhost:58539/chat/chat?chatId=@Model.UserChannel.Username&chatInfo=@Model.ChatInfo"></iframe>
         </div>
     </div>
