@@ -529,7 +529,7 @@ function EditStream(id) {
                                                                         <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#6B6B6B; color:white" onclick="ShowDeleteStreamTaskBanner('${id}')">Delete Stream</button>
                                                                     </div>
                                                                     <div class="col-6 pl-0">
-                                                                        <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="SaveEditedStreamInfo('${id}')">Save Changes</button>
+                                                                        <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="SaveEditedStream('${id}')">Save Changes</button>
                                                                     </div>
                                                                 </div>`
 }
@@ -541,12 +541,12 @@ function ShowDeleteStreamTaskBanner(id) {
                                                                     <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#AC0001; color:white" onclick="DeleteStream('${id}')">Confirm Delete</button>
                                                                 </div>
                                                                 <div class="col-6 pl-0">
-                                                                    <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white; height:100%" onclick="SaveEditedStreamInfo('${id}')">Save Changes</button>
+                                                                    <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white; height:100%" onclick="SaveEditedStream('${id}')">Save Changes</button>
                                                                 </div>
                                                              </div>`
 }
 
-function SaveEditedStreamInfo(id) {
+function SaveEditedStream(id) {
     var formData = new FormData()
     var totalFile = document.getElementById("upload-thumbnail-edit")
 
@@ -556,7 +556,7 @@ function SaveEditedStreamInfo(id) {
     if (totalFile.files.length > 0) formData.append("StreamThumbnail", totalFile.files[0]);
 
     $.ajax({
-        url: 'TutorDashboard/?handler=SaveEditedStreamInfo',
+        url: '/Tutor/TutorDashboard/?handler=SaveEditedStream',
         type: 'POST',
         dataType: 'json',
         data: formData,
@@ -568,10 +568,9 @@ function SaveEditedStreamInfo(id) {
         },
         success: function (data) {
             if (data.message === "Success") {
-                isStreamEdited = true;
-                document.getElementById("stream-title-" + id).innerHTML = data.title;
-                document.getElementById("stream-description-" + id).src = data.description;
-                document.getElementById("stream-thumbnail-" + id).src = data.thumbnail + `?nocache=${new Date().valueOf()}`;
+                $("#stream-title-" + id).text(data.savedInfo[0]); 
+                $("#stream-description-" + id).val(data.savedInfo[1]) 
+                $("#stream-thumbnail-" + id).attr('src', data.savedInfo[2] + `?nocache=${new Date().valueOf()}`);
 
                 $("#edit-stream-modal-notification").fadeTo(2000, 500).slideUp(500, function () {
                     $("#edit-stream-modal-notification").slideUp(500);

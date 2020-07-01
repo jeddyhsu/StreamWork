@@ -6,86 +6,71 @@
 
 <div class="container-fluid">
     <div class="row" style="padding-top:58px">
-        <div class="d-flex flex-column col-lg-12 col-md-12 col-sm-12 col-12 p-0">
+        <div class="d-flex flex-column col-lg-8 col-md-12 col-sm-12 col-12 p-0 border-right ">
             <div class="card border-0">
+                <div id="tutor-info" class="border-top pt-3 pl-3 pr-3 pb-1" style="background-color:#FBFBFB">
+                    <div class="d-lg-inline-block d-md-inline-block d-sm-none d-none float-right mr-3">
+                        @if (Model.FollowValue.Equals("Following"))
+                        {<button id="Following" onclick="Unfollow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary m-1">Following</button>}
+                        else if (Model.FollowValue.Equals("Follow"))
+                        {<button id="Follow" onclick="Follow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary m-1">Follow</button>}
+                        <button class="streamWork-orange m-1">Donate</button>
+                        <button class="streamWork-secondary m-1" onclick="window.location.href='/Profile/Tutor/@Model.TutorUserProfile.Username'">Tutor Profile</button>
+                        <button class="streamWork-secondary m-1" onclick="window.location.href='/Profile/Tutor/@Model.TutorUserProfile.Username'">Message</button>
+                    </div>
+                    <input align="left" type="image" class="rounded" style="width:30px" src=@Model.TutorUserProfile.ProfilePicture />
+                    <h3 class="mb-0 form-header" style="font-size:20px; margin-left:40px; color:@Model.UserChannel.ChatColor">@Model.TutorUserProfile.Name.Replace('|', ' ')</h3>
+                    <p class="form-sub-header" style="margin-left:40px; font-size:14px">@Model.TutorUserProfile.ProfileCaption</p>
+                    <div class="d-lg-none d-md-none d-sm-inline-block d-inline-block ml-1">
+                        @if (Model.FollowValue.Equals("Following"))
+                        {<button id="Following" onclick="Unfollow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary m-1">Following</button>}
+                        else if (Model.FollowValue.Equals("Follow"))
+                        {<button id="Follow" onclick="Follow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary m-1">Follow</button>}
+                        <button class="streamWork-orange m-1">Donate</button>
+                        <button class="streamWork-secondary m-1" onclick="window.location.href='/Profile/Tutor/@Model.TutorUserProfile.Username'">Tutor Profile</button>
+                        <button class="streamWork-secondary m-1" onclick="window.location.href='/Profile/Tutor/@Model.TutorUserProfile.Username'">Message</button>
+                    </div>
+                </div>
                 <iframe id="player" style="width:100%;" src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.ArchivedStream.StreamID" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
                 <div id="player-row" class="card-body p-0">
                     <img class="pr-3" align="left" src="/images/ChatAssets/Math.png" style="width:100%; height:100%; max-width:120px; max-height:110px; cursor:pointer" onclick="window.open('https://www.streamwork.live/Home/Search?s=@Model.UserChannel.StreamSubject&q=')" />
                     <div class="m-3" id="StreamInfo">
-                        <h3 style="color:black; font-family:'Roboto Slab', serif;">Calculus 2: Integrals<span></span></h3>
-                        <p class="mb-1" style="padding-left:105px">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                        <p style="font-size:12px; padding-left:105px">Tutoring Mathematics @Model.UserChannel.StreamSubject</p>
-                    </div>
-                    <div class="border-top p-3" style="background-color:#FBFBFB">
-                        <div class="d-lg-inline-block d-md-inline-block d-sm-none d-none float-right mr-3">
-                            @if (Model.FollowValue.Equals("Following"))
-                            {<button id="Following" onclick="Unfollow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary m-1">Following</button>}
-                            else if (Model.FollowValue.Equals("Follow"))
-                            {<button id="Follow" onclick="Follow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary m-1">Follow</button>}
-                            <button class="streamWork-orange m-1">Donate</button>
-                            <button class="streamWork-secondary m-1" onclick="window.location.href='/Profile/Tutor/@Model.TutorUserProfile.Username'">Tutor Profile</button>
-                            <button class="streamWork-secondary m-1" onclick="window.location.href='/Profile/Tutor/@Model.TutorUserProfile.Username'">Message</button>
-                        </div>
-                        <input align="left" type="image" class="rounded" style="width:30px" src=@Model.TutorUserProfile.ProfilePicture />
-                        <h3 class="mb-0 form-header" style="font-size:20px; margin-left:40px; color:@Model.UserChannel.ChatColor">@Model.TutorUserProfile.Name.Replace('|', ' ')</h3>
-                        <p class="form-sub-header" style="margin-left:40px; font-size:14px">@Model.TutorUserProfile.ProfileCaption</p>
-                        <div class="d-lg-none d-md-none d-sm-inline-block d-inline-block ml-1">
-                            @if (Model.FollowValue.Equals("Following"))
-                            {<button id="Following" onclick="Unfollow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary m-1">Following</button>}
-                            else if (Model.FollowValue.Equals("Follow"))
-                            {<button id="Follow" onclick="Follow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary m-1">Follow</button>}
-                            <button class="streamWork-orange m-1">Donate</button>
-                            <button class="streamWork-secondary m-1" onclick="window.location.href='/Profile/Tutor/@Model.TutorUserProfile.Username'">Tutor Profile</button>
-                            <button class="streamWork-secondary m-1" onclick="window.location.href='/Profile/Tutor/@Model.TutorUserProfile.Username'">Message</button>
-                        </div>
+                        <h3 style="color:black; font-family:'Roboto Slab', serif;">@Model.ArchivedStream.StreamTitle<span></span></h3>
+                        <p class="mb-1" style="padding-left:105px">@Model.ArchivedStream.StreamDescription</p>
+                        <p style="font-size:12px; padding-left:105px">Tutoring @Model.ArchivedStream.StreamSubject</p>
                     </div>
                 </div>
                 <div class="card-body" style="background-color:#FBFBFB">
+                    <p class="form-header" style="font-size:18px"><b>Other Recent Streams</b></p>
                     <div class="row">
-                        <div class="col-lg-3 col-md-4 col-sm-12 col-12">
-                            <div class="card m-3">
-                                <div class="card-body p-1 mb-2">
-                                    <p class="form-header pl-2 pt-3 m-0" style="font-size:14px"><span><img style="width:24px" class="m-1" src="/images/StreamAssets/Followers.svg" /></span>Followers: @Model.NumberOfFollowers</p>
-                                    <p class="form-header pl-2 m-0" style="font-size:14px"><span><img style="width:24px" class="m-1" src="/images/StreamAssets/Views.svg" /></span>Views: @Model.NumberOfViews</p>
-                                    <p class="form-header pl-2 m-0" style="font-size:14px"><span><img style="width:24px" class="m-1" src="/images/StreamAssets/Calendar.svg" /></span>June, 2017</p>
-                                </div>
+                        @foreach (var stream in Model.OtherArchivedStreams)
+                        {
+                            <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12">
+                                @await Html.PartialAsync("Partials/Stream/Stream_Appearance", stream)
                             </div>
-                            <div class="card m-3">
-                                <div class="card-title">
-                                    <p class="form-header p-3" style="font-size:18px">Related Tutors</p>
-                                    @await Html.PartialAsync("Partials/Profile/RelatedTutors_View", Model)
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-9 col-md-8 col-sm-12 col-12">
-                            <div class="card m-3">
-                                <div class="card-title p-3 mb-0">
-                                    <p class="form-header d-inline-block mb-0" style="font-size:18px">About @Model.TutorUserProfile.Name.Replace('|', ' ')</p>
-                                </div>
-                                @await Html.PartialAsync("Partials/Profile/Sections_View", Model)
-                            </div>
-                            <div class="card m-3">
-                                <div class="card-title p-3 mb-0">
-                                    <p class="form-header d-inline-block mb-0" style="font-size:18px">Stream Schedule</p>
-                                </div>
-                                @await Html.PartialAsync("Partials/Profile/Schedule_View", Model)
-                            </div>
-                            <div class="card m-3 border-0" style="background-color:transparent">
-                                <div class="card-title p-3 mb-0">
-                                    <p class="form-header d-inline-block mb-0" style="font-size:18px">Previous Streams</p>
-                                </div>
-                                @await Html.PartialAsync("Partials/Profile/Stream_View", Model)
-                            </div>
-                        </div>
+                        }
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="d-flex flex-column fixed col-lg-4 col-md-12 col-sm-12 col-12 p-0 border-top-0">
+            <iframe class="border-0" style="width:100%; height:100%" src="http://localhost:58539/chat/chat?chatId=@Model.UserChannel.Username&chatInfo=@Model.ChatInfo"></iframe>
         </div>
     </div>
 </div>
 
 <script>
+    $(window).resize(function () {
+        var height = $('#player-row').height();
+        var tutorInfoHeight = $('#tutor-info').height();
+        var offest = height + 58 + tutorInfoHeight + 21;
+        $('#player').css('height', 'calc(100vh - ' + offest + 'px)')
+        console.log("asdfsadasdf")
+    })
+
     var height = $('#player-row').height();
-    var offest = height + 58;
+    var tutorInfoHeight = $('#tutor-info').height();
+    var offest = height + 58 + tutorInfoHeight + 21;
     $('#player').css('height', 'calc(100vh - ' + offest + 'px)')
+    console.log("asdfsadasdf")
 </script>

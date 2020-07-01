@@ -6,7 +6,7 @@
         data: {
             'followerId': followerId,
             'followeeId': followeeId,
-        }
+        },
          beforeSend: function (xhr) {
             xhr.setRequestHeader("XSRF-TOKEN",
                 $('input:hidden[name="__RequestVerificationToken"]').val());
@@ -26,7 +26,7 @@ function Unfollow(followerId, followeeId, i) {
         data: {
             'followerId': followerId,
             'followeeId': followeeId,
-        }
+        },
          beforeSend: function (xhr) {
             xhr.setRequestHeader("XSRF-TOKEN",
                 $('input:hidden[name="__RequestVerificationToken"]').val());

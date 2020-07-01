@@ -131,7 +131,7 @@ namespace StreamWork.Services
 
         }
 
-        public async Task<string[]> EditArchivedStream(HttpRequest request)
+        public async Task<List<string>> SaveEditedArchivedStream(HttpRequest request)
         {
             string streamThumbnail = null;
             var videoId = request.Form["StreamId"];
@@ -148,7 +148,7 @@ namespace StreamWork.Services
 
             await Save<UserArchivedStreams>(archivedStream.Id, archivedStream);
 
-            return new string[] { streamTitle, streamDescription, archivedStream.StreamThumbnail };
+            return new List<string> { streamTitle, streamDescription, archivedStream.StreamThumbnail };
         }
 
         //Uses a hashtable to add default thumbnails based on subject

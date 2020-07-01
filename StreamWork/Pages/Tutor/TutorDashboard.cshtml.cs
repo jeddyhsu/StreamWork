@@ -128,6 +128,22 @@ namespace StreamWork.Pages.Tutor
             return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
         }
 
+        public async Task<IActionResult> OnPostSaveEditedStream()
+        {
+            var savedInfo = await profileService.SaveEditedArchivedStream(Request);
+
+            if (savedInfo != null) return new JsonResult(new { Message = JsonResponse.Success.ToString(), SavedInfo = savedInfo });
+            return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
+        }
+
+        public async Task<IActionResult> OnPostDeleteStream()
+        {
+            var savedInfo = await profileService.SaveEditedArchivedStream(Request);
+
+            if (savedInfo != null) return new JsonResult(new { Message = JsonResponse.Success.ToString(), SavedInfo = savedInfo });
+            return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
+        }
+
         public async Task<IActionResult> OnPostSearchArchivedStreams(string searchTerm, string filter)
         {
             return new JsonResult(new { Message = JsonResponse.Success.ToString(), Results = await searchService.SearchArchivedStreams(filter, searchTerm) });
