@@ -136,11 +136,11 @@ namespace StreamWork.Pages.Tutor
             return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
         }
 
-        public async Task<IActionResult> OnPostDeleteStream()
+        public async Task<IActionResult> OnPostDeleteStream(string id)
         {
-            var savedInfo = await profileService.SaveEditedArchivedStream(Request);
+            var savedInfo = await profileService.DeleteStream(id);
 
-            if (savedInfo != null) return new JsonResult(new { Message = JsonResponse.Success.ToString(), SavedInfo = savedInfo });
+            if (savedInfo) return new JsonResult(new { Message = JsonResponse.Success.ToString() });
             return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
         }
 

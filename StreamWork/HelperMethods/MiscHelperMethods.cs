@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 
 namespace StreamWork.HelperMethods
@@ -8,16 +7,17 @@ namespace StreamWork.HelperMethods
     {
         public static string GetCorrespondingSubjectThumbnail(string subject)
         {
-            Hashtable table = new Hashtable();
-            table.Add("Mathematics", "/images/ChatAssets/Math.png");
-            table.Add("Science", "/images/ChatAssets/Science.png");
-            table.Add("Business", "/images/ChatAssets/Business.png");
-            table.Add("Engineering", "/images/ChatAssets/Engineering.png");
-            table.Add("Law", "/images/ChatAssets/Law.png");
-            table.Add("Art", "/images/ChatAssets/Art.png");
-            table.Add("Humanities", "/images/ChatAssets/Humanities.png");
-            table.Add("Other", "/images/ChatAssets/Other.png");
-
+            Hashtable table = new Hashtable
+            {
+                { "Mathematics", "/images/ChatAssets/Math.png" },
+                { "Science", "/images/ChatAssets/Science.png" },
+                { "Business", "/images/ChatAssets/Business.png" },
+                { "Engineering", "/images/ChatAssets/Engineering.png" },
+                { "Law", "/images/ChatAssets/Law.png" },
+                { "Art", "/images/ChatAssets/Art.png" },
+                { "Humanities", "/images/ChatAssets/Humanities.png" },
+                { "Other", "/images/ChatAssets/Other.png" }
+            };
 
             return (string)table[subject];
         }
@@ -32,5 +32,7 @@ namespace StreamWork.HelperMethods
 
             return ids;
         }
+
+        
     }
 }

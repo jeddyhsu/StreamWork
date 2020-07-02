@@ -182,9 +182,9 @@ namespace StreamWork.Services
             await Save<UserChannel>(userChannel.Id, userChannel);
         }
 
-        public async Task DeleteStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string id)
+        public async Task<bool> DeleteStream(string id)
         {
-            await DataStore.DeleteAsync<UserArchivedStreams>(connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", id } });
+            return await Delete<UserArchivedStreams>(id);
         }
     }
 }

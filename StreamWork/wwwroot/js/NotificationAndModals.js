@@ -34,3 +34,9 @@ function CloseModal(modalId) {
     var modal = document.getElementById(modalId);
     modal.style.display = "none";
 }
+
+function ShowBannerNotification(bannerName) {
+    $("#" + bannerName).fadeTo(2000, 500).slideUp(500, function () {
+        $("#" + bannerName).slideUp(500);
+    });
+}

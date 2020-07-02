@@ -14,9 +14,9 @@
                 <div id="player-row" class="card-body p-0">
                     <img class="pr-3" align="left" src="/images/ChatAssets/Math.png" style="width:100%; height:100%; max-width:120px; max-height:110px; cursor:pointer" onclick="window.open('https://www.streamwork.live/Home/Search?s=@Model.UserChannel.StreamSubject&q=')" />
                     <div class="m-3" id="StreamInfo">
-                        <h3 style="color:black; font-family:'Roboto Slab', serif;">Calculus 2: Integrals<span></span></h3>
-                        <p class="mb-1" style="padding-left:105px">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                        <p style="font-size:12px; padding-left:105px">Tutoring Mathematics @Model.UserChannel.StreamSubject</p>
+                        <h3 style="color:black; font-family:'Roboto Slab', serif;">@Model.UserChannel.StreamTitle<span></span></h3>
+                        <p class="mb-1" style="padding-left:105px">@Model.UserChannel.StreamDescription</p>
+                        <p style="font-size:12px; padding-left:105px">Tutoring @Model.UserChannel.StreamSubject</p>
                     </div>
                     <div class="border-top p-3" style="background-color:#FBFBFB">
                         <div class="d-lg-inline-block d-md-inline-block d-sm-none d-none float-right mr-3">
@@ -88,7 +88,7 @@
             </div>
         </div>
         <div class="d-flex flex-column fixed col-lg-4 col-md-12 col-sm-12 col-12 p-0 border-top-0">
-            <iframe class="border-0" style="width:100%; height:100%" src="http://localhost:58539/chat/chat?chatId=@Model.UserChannel.Username&chatInfo=@Model.ChatInfo"></iframe>
+            <iframe class="border-0" style="width:100%; height:100%" src="http://localhost:58539/chat/LiveChat?chatId=@Model.UserChannel.Username&chatInfo=@Model.ChatInfo"></iframe>
         </div>
     </div>
 </div>

@@ -1,0 +1,66 @@
+﻿@page
+@model StreamWork.Pages.Chat.ArchiveChat
+@{Layout = "_LayoutChat";}
+
+
+    <div class="container-fluid  p-0">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="card fixed-top border-top border-left-0 border-right-0 border-bottom-0 rounded-0" style="background-color:#FBFBFB; height:82px">
+                    <div class="card-body p-0">
+                        <p class="d-inline-block form-header p-4" style="font-size:20px">Chat History</p>
+                    </div>
+                </div>
+                <ul id="chat-field" class="chat-list-view pl-0 pr-0">
+                    @if (Model.Chats.Count < 1)
+                    {
+                        <p class="text-center form-header" style="margin-top:250px; font-size:22px">Chatbox history cannot be retreived</p>
+                    }
+                    else
+                    {
+                        @for (int i = 0; i < Model.Chats.Count; i++)
+                        {
+                            var colorWay = "";
+                            @if (i % 2 == 0) colorWay = "chat-list-primary-color-way";
+                            else colorWay = "chat-list-secondary-color-way";
+
+                            <li id="message-@i" class='list-group-item @colorWay border-left-0 border-right-0'>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <input align="left" type="image" class="chat-profile-picture rounded" src=@Model.Chats[i].ProfilePicture />
+                                        @if (Model.ChatId == Model.Chats[i].Username)
+                                        {
+                                            <p class="chat-name" style='color:@Model.Chats[i].ChatColor'>
+                                                @Model.Chats[i].Name.Replace('|', ' ')
+                                                <span><img id="tutor-tip-@i" class="pl-1" style="width:28px" src="/images/ChatAssets/Tutor.svg" data-toggle="tooltip" data-placement="top" title="StreamTutor" /></span>
+                                                <span class='chat-date'>@Model.Chats[i].Date.AddMinutes(Model.Chats[i].TimeOffset * -1).ToString("HH:mm")</span>
+                                            </p>
+                                            <script>$('#tutor-tip-@i').tooltip()</script>
+                                        }
+                                        else if (Model.UserProfile != null && Model.UserProfile.Username == Model.Chats[i].Username)
+                                        {
+                                            <h5 class="chat-name" style="color:@Model.Chats[i].ChatColor">
+                                                @Model.Chats[i].Name.Replace('|', ' ') (you)
+                                                <span class="chat-date">@Model.Chats[i].Date.AddMinutes(Model.Chats[i].TimeOffset * -1).ToString("HH:mm")</span>
+                                            </h5>
+                                        }
+                                        else
+                                        {
+                                            <h5 class="chat-name" style="color:@Model.Chats[i].ChatColor">
+                                                @Model.Chats[i].Name.Replace('|', ' ')
+                                                <span class="chat-date">@Model.Chats[i].Date.AddMinutes(Model.Chats[i].TimeOffset * -1).ToString("HH:mm")</span>
+                                            </h5>
+                                        }
+                                        <p id="chat-@i" class="chat-message">@Html.Raw(Model.Chats[i].Message)</p>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+

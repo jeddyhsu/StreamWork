@@ -7,7 +7,7 @@ using StreamWork.Services;
 
 namespace StreamWork.Pages.Chat
 {
-    public class Chat : PageModel
+    public class ArchiveChat : PageModel
     {
         private readonly SessionService sessionService;
         private readonly StorageService storageService;
@@ -17,14 +17,11 @@ namespace StreamWork.Pages.Chat
         private readonly EditService editService;
         private readonly ChatService chatService;
 
-        public UserLogin UserProfile { get; set; }
         public string ChatId { get; set; }
-        public string ChatInfo { get; set; }
         public List<Chats> Chats { get; set; }
-        public string ChatColor { get; set; }
-        public bool IsLoggedIn { get; set; }
+        public UserLogin UserProfile { get; set; }
 
-        public Chat(StorageService storage, SessionService session, ProfileService profile, ScheduleService schedule, FollowService follow, EditService edit, ChatService chat)
+        public ArchiveChat(StorageService storage, SessionService session, ProfileService profile, ScheduleService schedule, FollowService follow, EditService edit, ChatService chat)
         {
             storageService = storage;
             sessionService = session;
@@ -35,13 +32,11 @@ namespace StreamWork.Pages.Chat
             chatService = chat;
         }
 
-        public async Task<IActionResult> OnGet(string chatId, string chatInfo)
-        {
-            UserProfile = await sessionService.GetCurrentUser();
+        public async Task<IActionResult> OnGet(string chatId) {
+
             ChatId = chatId;
-            ChatInfo = chatInfo;
-            Chats = await chatService.GetAllChatsWithChatId(ChatId);
-            IsLoggedIn = true;
+            Chats = await chatService.GetAllChatsWithChatId(chatId);
+            UserProfile = await sessionService.GetCurrentUser();
 
             return Page();
         }

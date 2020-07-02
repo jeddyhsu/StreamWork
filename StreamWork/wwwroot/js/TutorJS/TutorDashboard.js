@@ -136,7 +136,6 @@ function RemoveSection(sectionNumber) {
     section.remove();
     divider.remove();
 
-
     var sectionAbove = sectionNumber + 1;
     for (var i = sectionAbove; i <= sectionCount; i++) { //shift all other sections down one 
         document.getElementById("divider-" + i).id = "divider-" + (i - 1);
@@ -593,7 +592,8 @@ function DeleteStream(id) {
                 $('input:hidden[name="__RequestVerificationToken"]').val());
         },
         success: function (data) {
-
+            CloseModal('#edit-stream-modal-notification')
+            $('#streamInfo-' + id).hide();
         }
     });
 }
