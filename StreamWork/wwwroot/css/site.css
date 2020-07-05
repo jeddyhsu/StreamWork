@@ -260,8 +260,8 @@ lds-dual-ring {
 .streamWork-orange {
     border: solid !important;
     border-width: 2px !important;
-    border-color: #F0AD4E !important;
-    background-color: #F0AD4E !important;
+    border-color: #F9bc60 !important;
+    background-color: #F9bc60 !important;
     color: white !important;
     border-radius: 5px !important;
     font-size: 10px;
@@ -492,4 +492,15 @@ lds-dual-ring {
 .notification-info {
     background-color: #DCEDF6;
     color: #3D708D;
+}
+
+/*Custonm hr*/
+.divider {
+    width: 100%;
+    height: 1px;
+    background-color: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    margin-top: 25px;
+    margin-bottom: 25px;
 }
