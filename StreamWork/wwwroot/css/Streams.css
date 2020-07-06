@@ -194,3 +194,17 @@
         padding-right: 15px !important;
     }
 }
+
+.section-cutoff {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+}
+
+.section-cutoff-all {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1000;
+    -webkit-box-orient: vertical;
+}

@@ -15,6 +15,7 @@ namespace StreamWork.DataModels {
         public string ReceiverName { get; set; }
         public string Message { get; set; }
         public DateTime Date { get; set; }
+        public string ParentId { get; set; }
 
         [Timestamp]
         public byte[] RowVersion { get; set; }

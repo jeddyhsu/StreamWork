@@ -28,9 +28,6 @@
                         else if (Model.FollowValue.Equals("Follow"))
                         {<button id="Follow" onclick="Follow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary mt-1" style="width:150px;">Follow</button>}
                         <button class="streamWork-orange m-1" style="width:150px;">Donate</button>
-                        <!--
-
-                        -->
                     </div>
                 </div>
                 <iframe id="player" style="width:100%;" src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.ArchivedStream.StreamID" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
@@ -95,7 +92,11 @@
                 {
                     <div class="form-group p-4">
                         <p class="form-header" style="font-size: 16px">@Model.Sections[1].SectionTitle</p>
-                        <p style="font-size: 14px">@Model.Sections[1].SectionDescription</p>
+                        <p id="section-1" style="font-size: 14px" class="section-cutoff">@Model.Sections[1].SectionDescription</p>
+                        @if (Model.Sections[1].IsOver66Words)
+                        {
+                            <a id="section-sm-btn-1" class="float-right" onclick="SectionShowMore('1')" style="font-size:12px; color:#004643; cursor:pointer">Show More</a>
+                        }
                     </div>
                     if (Model.Sections.Count > 2)
                     {
@@ -106,7 +107,11 @@
                             </div>
                             <div class="form-group p-4">
                                 <p class="form-header" style="font-size: 16px">@Model.Sections[i].SectionTitle</p>
-                                <p style="font-size: 14px">@Model.Sections[i].SectionDescription</p>
+                                <p id="section-@i" style="font-size: 14px" class="section-cutoff">@Model.Sections[i].SectionDescription</p>
+                                @if (Model.Sections[i].IsOver66Words)
+                                {
+                                    <a id="section-sm-btn-@i" class="float-right" onclick="SectionShowMore('@i')" style="font-size:12px; color:#004643; cursor:pointer">Show More</a>
+                                }
                             </div>
                         }
                     }
@@ -115,7 +120,7 @@
                 {
                     if (Model.UserProfile.Id == Model.TutorUserProfile.Id)
                     {
-                        <div class="p-3" style="height:200px">
+                        <div class="p-3">
                             <p class="form-sub-header p-0" style="font-size:22px">No Info...yet!</p>
                             <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">Help students know more about you and your background in education</p>
                             <button class="streamWork-primary mt-3" onclick="window.location.href ='/Tutor/TutorDashboard'" style="font-size:14px; font-family:'Roboto', serif">Edit Profile</button>
@@ -123,7 +128,7 @@
                     }
                     else
                     {
-                        <div class="p-3" style="height:200px">
+                        <div class="p-3">
                             <p class="form-sub-header p-0" style="font-size:22px">Welcome To My Tutor Profile!</p>
                             <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">This tutor hasn't filled out any information about themselves yet!</p>
                         </div>
@@ -134,19 +139,3 @@
     </div>
 </div>
 
-
-
-
-<script>$(window).resize(function () {
-        var height = $('#player-row').height();
-        var tutorInfoHeight = $('#tutor-info').height();
-        var offest = height + 58 + tutorInfoHeight + 21;
-        $('#player').css('height', 'calc(100vh - ' + offest + 'px)')
-        console.log("asdfsadasdf")
-    })
-
-    var height = $('#player-row').height();
-    var tutorInfoHeight = $('#tutor-info').height();
-    var offest = height + 58 + tutorInfoHeight + 21;
-    $('#player').css('height', 'calc(100vh - ' + offest + 'px)')
-    console.log("asdfsadasdf")</script>

@@ -61,7 +61,7 @@ namespace StreamWork.HelperMethods
                     if (!title.Equals("") || !description.Equals("") || i <= 1)
                     {
                         description = description.Replace("*--*", Environment.NewLine);
-                        sectionsList.Add(new Section(title, description));
+                        //sectionsList.Add(new Section(title, description));
                     }
                 }
                 return sectionsList;
