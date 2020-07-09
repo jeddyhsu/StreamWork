@@ -36,7 +36,7 @@ function SaveProfile() {
         formData.append("ProfilePicture", totalFiles.files[0]);
 
     $.ajax({
-        url: '/Tutor/TutorDashboard?handler=SaveProfile',
+        url: '/Tutor/TutorDashboard/?handler=SaveProfile',
         type: 'POST',
         dataType: 'json',
         data: formData,

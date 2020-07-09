@@ -19,6 +19,7 @@ namespace StreamWork.Pages.Stream
         private readonly FollowService followService;
         private readonly EditService editService;
         private readonly ChatService chatService;
+        private readonly CommentService commentService;
 
         public UserLogin UserProfile { get; set; }
         public UserLogin TutorUserProfile { get; set; }
@@ -32,11 +33,12 @@ namespace StreamWork.Pages.Stream
         public List<UserLogin> RelatedTutors { get; set; }
         public List<Section> Sections { get; set; }
         public List<Schedule> Schedule { get; set; }
+        public List<DataModels.Comment> Comments { get; set; }
         public int NumberOfStreams { get; set; }
         public int NumberOfFollowers { get; set; }
         public int NumberOfViews { get; set; }
 
-        public Archive(StorageService storage, SessionService session, ProfileService profile, ScheduleService schedule, FollowService follow, EditService edit, ChatService chat)
+        public Archive(StorageService storage, SessionService session, ProfileService profile, ScheduleService schedule, FollowService follow, EditService edit, ChatService chat, CommentService comment)
         {
             storageService = storage;
             sessionService = session;
@@ -45,6 +47,7 @@ namespace StreamWork.Pages.Stream
             followService = follow;
             editService = edit;
             chatService = chat;
+            commentService = comment;
         }
 
         public async Task<IActionResult> OnGet(string tutor, string id)
@@ -61,6 +64,7 @@ namespace StreamWork.Pages.Stream
             RelatedTutors = (await storageService.GetList<UserLogin>(SQLQueries.GetAllTutorsNotInTheList, new string[] { TutorUserProfile.Id })).GetRange(0, 5);
             Sections = profileService.GetSections(TutorUserProfile);
             Schedule = await scheduleService.GetSchedule(UserProfile.Username);
+            Comments = await commentService.GetAllComments(ArchivedStream.StreamID);
 
             NumberOfStreams = UserArchivedStreams.Count;
             NumberOfFollowers = await followService.GetNumberOfFollowers(UserProfile.Id);

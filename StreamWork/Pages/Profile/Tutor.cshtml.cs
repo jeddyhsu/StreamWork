@@ -26,7 +26,7 @@ namespace StreamWork.Pages.Profile
         public List<UserLogin> RelatedTutors { get; set; }
         public List<Section> Sections { get; set; }
         public List<Topic> Topics { get; set; }
-        public List<Comment> Comments { get; set; }
+        public List<DataModels.Comment> Comments { get; set; }
         public List<Schedule> Schedule { get; set; }
         public int NumberOfStreams { get; set; }
         public int NumberOfFollowers { get; set; }

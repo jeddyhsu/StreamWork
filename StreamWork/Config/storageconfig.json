@@ -153,8 +153,16 @@
       "StorageType": "SqlServer",
       "Queries": [
         {
-          "Query": "SELECT * FROM [dbo].[Coment] WHERE ReceiverUsername = '@x0'",
+          "Query": "SELECT * FROM [dbo].[Comment] WHERE ReceiverUsername = '@x0'",
           "QueryId": "GetCommentsWithReceiverUsername"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Comment] WHERE StreamId = '@x0' AND ParentId IS NULL ORDER BY DATE DESC",
+          "QueryId": "GetCommentsWithStreamId"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Comment] WHERE StreamId = '@x0' AND ParentId IS NOT NULL ORDER BY DATE DESC",
+          "QueryId": "GetRepliesWithStreamId"
         }
       ]
     },

@@ -2,7 +2,9 @@
 @model StreamWork.Pages.Stream.Archive
 @{Layout = "Tutor/_LayoutTutor"; }
 @{ViewData["Title"] = "StreamPlaybackPage";}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{var cacheRand = new Random().Next();}
+@Html.AntiForgeryToken()
 
 <div class="container-fluid">
     <div class="row" style="padding-top:58px">
@@ -11,10 +13,10 @@
                 <div id="tutor-info" class="border-top pt-3 pl-3 pr-3 pb-1" style="background-color:#FBFBFB">
                     <div class="d-lg-inline-block d-md-inline-block d-sm-none d-none float-right mr-3">
                         @if (Model.FollowValue.Equals("Following"))
-                        {<button id="Following" onclick="Unfollow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary m-1" style="width:150px;">Following</button>}
+                        {<button id="Following" onclick="Unfollow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary" style="width:150px;">Following</button>}
                         else if (Model.FollowValue.Equals("Follow"))
-                        {<button id="Follow" onclick="Follow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary m-1" style="width:150px;">Follow</button>}
-                        <button class="streamWork-orange m-1" style="width:150px;">Donate</button>
+                        {<button id="Follow" onclick="Follow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary" style="width:150px;">Follow</button>}
+                        <button class="streamWork-orange" style="width:150px;">Donate</button>
                         <!--
                             <button class="streamWork-secondary m-1" onclick="window.location.href='/Profile/Tutor/@Model.TutorUserProfile.Username'">Tutor Profile</button>
                         -->
@@ -24,10 +26,10 @@
                     <p class="form-sub-header mb-1" style="margin-left:40px; font-size:14px">@Model.TutorUserProfile.ProfileCaption</p>
                     <div class="d-lg-none d-md-none d-sm-inline-block d-inline-block">
                         @if (Model.FollowValue.Equals("Following"))
-                        {<button id="Following" onclick="Unfollow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary mt-1" style="width:150px;">Following</button>}
+                        {<button id="Following" onclick="Unfollow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary" style="width:150px;">Following</button>}
                         else if (Model.FollowValue.Equals("Follow"))
-                        {<button id="Follow" onclick="Follow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary mt-1" style="width:150px;">Follow</button>}
-                        <button class="streamWork-orange m-1" style="width:150px;">Donate</button>
+                        {<button id="Follow" onclick="Follow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary" style="width:150px;">Follow</button>}
+                        <button class="streamWork-orange" style="width:150px;">Donate</button>
                     </div>
                 </div>
                 <iframe id="player" style="width:100%;" src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.ArchivedStream.StreamID" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
@@ -40,12 +42,65 @@
                     </div>
                 </div>
                 <div class="card-body" style="background-color:#FBFBFB">
+                    <p class="form-header" style="font-size:18px"><b>Questions and Comments</b></p>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card rounded-0 comment-send-reply-box">
+                                <div class="card-body w-100">
+                                    <div class="d-flex flex-row">
+                                        <img class="comment-profile-picture" src="@Model.UserProfile.ProfilePicture" />
+                                        <textarea id="comment-message" class="form-control form-textarea comment-send-reply-textarea ml-2 mb-1" placeholder="Send question or message..."></textarea>
+                                        <button id="Follow" onclick="SaveComment()" class="streamWork-primary comment-send-reply-button ml-2">Send</button>
+                                        <input id="comment-tutor-username" type="hidden" value="@Model.TutorUserProfile.Username" />
+                                        <input id="comment-username" type="hidden" value="@Model.UserProfile.Username" />
+                                        <input id="comment-streamId" type="hidden" value="@Model.ArchivedStream.StreamID" />
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="pl-0 comment-list" id="comment-list">
+                                @for (int i = 0; i < Model.Comments.Count; i++)
+                                {
+                                    <li id="comment-@Model.Comments[i].Id" class="border-bottom border-left border-right" style="background-color:white">
+                                        <div class="card border-0">
+                                            <div class="card-body">
+                                                <img class="comment-profile-picture" align="left" src="@Model.Comments[i].SenderProfilePicture" />
+                                                <p class="form-header comment-name mb-0">@Model.Comments[i].SenderName.Replace('|', ' ')</p>
+                                                <p class="mb-1 comment-message">@Model.Comments[i].Message</p>
+                                                <a class="comment-replies" onclick="ShowReplyBox('@Model.Comments[i].SenderProfilePicture', '@Model.Comments[i].Id')"><b>Reply</b></a>
+                                                <a class="comment-cancel pl-1" id="comment-cancel-@Model.Comments[i].Id" onclick="CancelReply('@Model.Comments[i].Id')"><b>Cancel</b></a>
+                                                @{string replyWord = "Replies";}
+                                                @if (Model.Comments[i].Replies.Count == 1)
+                                                {
+                                                    replyWord = "Reply";
+                                                }
+                                                <input id="comment-replies-count-@Model.Comments[i].Id" type="hidden" value="@Model.Comments[i].Replies.Count" />
+                                                <a class="comment-replies pl-1" id="show-replies-@Model.Comments[i].Id" onclick="ShowReplyComments('@Model.Comments[i].Id')"><b>Show @Model.Comments[i].Replies.Count @replyWord</b></a>
+                                                <div style="padding-left:40px" id="reply-box-@Model.Comments[i].Id"></div>
+                                                <ul class="comment-list" style="display:none" id="comment-reply-list-@Model.Comments[i].Id">
+                                                    @for (int e = 0; e < Model.Comments[i].Replies.Count; e++)
+                                                    {
+                                                        <li class="border-bottom border-left border-right p-3" style="background-color:white">
+                                                            <img class="comment-profile-picture" align="left" src="@Model.Comments[i].Replies[e].SenderProfilePicture" />
+                                                            <p class="form-header comment-name mb-0">@Model.Comments[i].Replies[e].SenderName.Replace('|', ' ')</p>
+                                                            <p class="mb-1 comment-message">@Model.Comments[i].Replies[e].Message</p>
+                                                        </li>
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body" style="background-color:#FBFBFB">
                     <p class="form-header" style="font-size:18px"><b>Other Recent Streams</b></p>
                     <div class="row">
-                        @foreach (var stream in Model.OtherArchivedStreams)
+                        @for (int i = 0; i < 8; i++)
                         {
                             <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12">
-                                @await Html.PartialAsync("Partials/Stream/Stream_Appearance", stream)
+                                @await Html.PartialAsync("Partials/Stream/Stream_Appearance", Model.OtherArchivedStreams[i])
                             </div>
                         }
                     </div>
@@ -53,7 +108,7 @@
             </div>
         </div>
         <div class="d-flex flex-column fixed col-lg-4 col-md-12 col-sm-12 col-12 p-0 border-top-0" style="overflow:scroll !important">
-            <div class="border-bottom border-top" style="height:70px; background-color:#FBFBFB">
+            <div class="border-bottom border-top" style="height:71px; background-color:#FBFBFB">
                 <p class="d-inline-block form-header p-3" style="font-size:20px">Bio</p>
                 <button class="streamWork-secondary m-3 float-right" style="width:150px" onclick="window.location.href='/Profile/Tutor/@Model.TutorUserProfile.Username'">Tutor Profile</button>
             </div>

@@ -29,7 +29,7 @@ namespace StreamWork.Pages.Tutor
         public List<UserArchivedStreams> UserArchivedStreams { get; set; }
         public List<Section> Sections { get; set; }
         public List<Topic> Topics { get; set; }
-        public List<Comment> Comments { get; set; }
+        public List<DataModels.Comment> Comments { get; set; }
         public List<Schedule> Schedule { get; set; }
 
         public SearchViewModel SearchViewModel { get; set; }

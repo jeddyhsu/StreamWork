@@ -71,6 +71,8 @@ namespace StreamWork.HelperMethods
 
         // Comment
         GetCommentsWithReceiverUsername,
+        GetCommentsWithStreamId,
+        GetRepliesWithStreamId,
 
         // View
         GetViewsWithViewer,

@@ -1,0 +1,54 @@
+﻿.comment-send-reply-textarea {
+    height: 40px !important;
+    border: none;
+    background-color: transparent;
+}
+
+.comment-send-reply-button {
+    width: 100px;
+    height: 40px;
+}
+
+.comment-name {
+    padding-left: 40px;
+    font-size: 16px;
+}
+
+.comment-message {
+    padding-left: 40px;
+    font-size: 12px;
+}
+
+.comment-profile-picture {
+    width: 30px;
+    height: 40px;
+}
+
+.comment-replies {
+    padding-left: 40px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.comment-list {
+    list-style-type: none
+}
+
+.comment-reply-list {
+    padding-left: 60px;
+    list-style-type: none
+}
+
+.comment-list-item {
+    background-color: white
+}
+
+.comment-send-reply-box {
+    background-color: transparent;
+}
+
+.comment-cancel {
+    font-size: 12px;
+    cursor: pointer;
+    display:none;
+}

@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using StreamWork.Framework;
 
 namespace StreamWork.DataModels {
     public class Comment : IStorageBase<Comment> {
+
+        [NotMapped]
+        public List<Comment> Replies = new List<Comment>();
 
         [Key]
         public string Id { get; set; }
@@ -16,6 +21,7 @@ namespace StreamWork.DataModels {
         public string Message { get; set; }
         public DateTime Date { get; set; }
         public string ParentId { get; set; }
+        public string StreamId { get; set; }
 
         [Timestamp]
         public byte[] RowVersion { get; set; }

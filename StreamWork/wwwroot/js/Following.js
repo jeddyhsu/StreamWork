@@ -1,6 +1,6 @@
 ﻿function Follow(followerId, followeeId) {
     $.ajax({
-        url: '/Follow/Follow?handler=Follow',
+        url: '/Follow/Follow/?handler=Follow',
         type: 'post',
         datatype: 'json',
         data: {
@@ -20,7 +20,7 @@
 
 function Unfollow(followerId, followeeId, i) {
     $.ajax({
-        url: '/Follow/Follow?handler=Unfollow',
+        url: '/Follow/Follow/?handler=Unfollow',
         type: 'post',
         datatype: 'json',
         data: {
