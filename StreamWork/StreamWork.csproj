@@ -63,6 +63,7 @@
     <Folder Include="wwwroot\js\CommentJS\" />
     <Folder Include="Pages\Comment\" />
     <Folder Include="wwwroot\css\CommentCSS\" />
+    <Folder Include="Pages\Partials\Comment\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="EmailTemplates\PasswordRecoveryEmailTemplate.html">
@@ -80,5 +81,6 @@
     <Content Remove="wwwroot\images\TutorAssets\TutorDashboard\Remove_Icon_v1 copy3x_SW.png" />
     <Content Remove="Pages\Partials\Profile\Header_View.json" />
     <Content Remove="Pages\Comment\CommentModal.cshtml" />
+    <Content Remove="Pages\Partials\Stream\Comments.html" />
   </ItemGroup>
 </Project>
