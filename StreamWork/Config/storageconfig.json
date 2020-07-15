@@ -157,12 +157,20 @@
           "QueryId": "GetCommentsWithReceiverUsername"
         },
         {
-          "Query": "SELECT * FROM [dbo].[Comment] WHERE StreamId = '@x0' AND ParentId IS NULL ORDER BY DATE DESC",
+          "Query": "SELECT * FROM [dbo].[Comment] WHERE StreamId = '@x0' AND ParentId IS NULL ORDER BY DATE ASC",
           "QueryId": "GetCommentsWithStreamId"
         },
         {
-          "Query": "SELECT * FROM [dbo].[Comment] WHERE StreamId = '@x0' AND ParentId IS NOT NULL ORDER BY DATE DESC",
+          "Query": "SELECT * FROM [dbo].[Comment] WHERE StreamId = '@x0' AND ParentId IS NOT NULL ORDER BY DATE ASC",
           "QueryId": "GetRepliesWithStreamId"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Comment] WHERE Id = '@x0'",
+          "QueryId": "GetCommentWithId"
+        },
+        {
+          "Query": "DELETE FROM [dbo].[Comment] WHERE Id = '@x0' DELETE FROM [dbo].[Comment] WHERE ParentId = '@x0'",
+          "QueryId": "DeleteComment"
         }
       ]
     },

@@ -1,7 +1,6 @@
-﻿function OpenNotificationModal(body, id, type) {
+﻿function OpenNotificationModal(body, id) {
     var notification = document.getElementById('notificationMessage');
     notification.textContent = body;
-    if (type == "Failed") document.getElementById("notificationImage").src = "/images/NotificationAssets/Error.png"
     OpenModal(id);
 }
 

@@ -22,5 +22,21 @@ namespace StreamWork.Pages.Comment
 
             return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
         }
+
+        public async Task<IActionResult> OnPostEditComment(string message, string commentId)
+        {
+            var savedInfo = await commentService.EditComment(message, commentId);
+            if (savedInfo != null) return new JsonResult(new { Message = JsonResponse.Success.ToString(), SavedInfo = savedInfo });
+
+            return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
+        }
+
+        public async Task<IActionResult> OnPostDeleteComment(string commentId)
+        {
+            var savedInfo = await commentService.DeleteComment(commentId);
+            if (savedInfo) return new JsonResult(new { Message = JsonResponse.Success.ToString()});
+
+            return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
+        }
     }
 }

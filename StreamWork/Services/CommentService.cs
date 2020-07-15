@@ -45,6 +45,37 @@ namespace StreamWork.Services
             }
         }
 
+        public async Task<List<string>> EditComment(string message, string commentId)
+        {
+            try
+            {
+                var comment = await Get<Comment>(SQLQueries.GetCommentWithId, new string[] { commentId });
+                comment.Message = message;
+                comment.Edited = "true";
+                await Save<Comment>(comment.Id, comment);
+                return new List<string> {comment.Message, comment.Id};
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error in EditComment " + e.Message);
+                return null;
+            }
+        }
+
+        public async Task<bool> DeleteComment(string commentId)
+        {
+            try
+            {
+                var comment = await Get<Comment>(SQLQueries.GetCommentWithId, new string[] { commentId });
+                return await Run<Comment>(SQLQueries.DeleteComment, new string[] { commentId });
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error in RemoveComment " + e.Message);
+                return false;
+            }
+        }
+
         public async Task<List<Comment>> GetAllComments(string streamId)
         {
             var comments = await GetList<Comment>(SQLQueries.GetCommentsWithStreamId, new string[] { streamId });

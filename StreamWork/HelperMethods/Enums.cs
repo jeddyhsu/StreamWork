@@ -73,6 +73,8 @@ namespace StreamWork.HelperMethods
         GetCommentsWithReceiverUsername,
         GetCommentsWithStreamId,
         GetRepliesWithStreamId,
+        GetCommentWithId,
+        DeleteComment,
 
         // View
         GetViewsWithViewer,

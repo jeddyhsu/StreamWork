@@ -23,7 +23,3 @@ function SectionShowLess(id) {
     $('#section-sm-btn-' + id).attr('onclick', 'SectionShowMore(' + id + ')');
     $('#section-sm-btn-' + id).text('Show More');
 }
-
-function CountWords() {
-
-}

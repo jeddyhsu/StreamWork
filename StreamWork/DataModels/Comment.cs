@@ -22,6 +22,7 @@ namespace StreamWork.DataModels {
         public DateTime Date { get; set; }
         public string ParentId { get; set; }
         public string StreamId { get; set; }
+        public string Edited { get; set; }
 
         [Timestamp]
         public byte[] RowVersion { get; set; }

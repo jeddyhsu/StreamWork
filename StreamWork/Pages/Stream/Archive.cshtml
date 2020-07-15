@@ -8,18 +8,16 @@
 
 <div class="container-fluid">
     <div class="row" style="padding-top:58px">
-        <div class="d-flex flex-column col-lg-8 col-md-12 col-sm-12 col-12 p-0 border-right ">
-            <div class="card border-0">
+        <div class="d-flex flex-column col-lg-9 col-md-12 col-sm-12 col-12 p-0 border-right ">
+            <div id="player-card" class="card border-0">
                 <div id="tutor-info" class="border-top pt-3 pl-3 pr-3 pb-1" style="background-color:#FBFBFB">
-                    <div class="d-lg-inline-block d-md-inline-block d-sm-none d-none float-right mr-3">
+                    <div class="d-lg-inline-block d-md-inline-block d-sm-none d-none float-right">
                         @if (Model.FollowValue.Equals("Following"))
                         {<button id="Following" onclick="Unfollow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary" style="width:150px;">Following</button>}
                         else if (Model.FollowValue.Equals("Follow"))
                         {<button id="Follow" onclick="Follow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary" style="width:150px;">Follow</button>}
                         <button class="streamWork-orange" style="width:150px;">Donate</button>
-                        <!--
-                            <button class="streamWork-secondary m-1" onclick="window.location.href='/Profile/Tutor/@Model.TutorUserProfile.Username'">Tutor Profile</button>
-                        -->
+                        <button class="streamWork-secondary m-1" style="width:150px;" onclick="window.location.href='/Profile/Tutor/@Model.TutorUserProfile.Username'">Tutor Profile</button>
                     </div>
                     <input align="left" type="image" class="rounded" style="width:30px" src=@Model.TutorUserProfile.ProfilePicture />
                     <h3 class="mb-0 form-header" style="font-size:20px; margin-left:40px; color:@Model.UserChannel.ChatColor">@Model.TutorUserProfile.Name.Replace('|', ' ')</h3>
@@ -30,11 +28,12 @@
                         else if (Model.FollowValue.Equals("Follow"))
                         {<button id="Follow" onclick="Follow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary" style="width:150px;">Follow</button>}
                         <button class="streamWork-orange" style="width:150px;">Donate</button>
+                        <button class="streamWork-secondary m-1" style="width:150px;" onclick="window.location.href='/Profile/Tutor/@Model.TutorUserProfile.Username'">Tutor Profile</button>
                     </div>
                 </div>
                 <iframe id="player" style="width:100%;" src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.ArchivedStream.StreamID" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
                 <div id="player-row" class="card-body p-0">
-                    <img class="pr-3" align="left" src="/images/ChatAssets/Math.png" style="width:100%; height:100%; max-width:120px; max-height:110px; cursor:pointer" onclick="window.open('https://www.streamwork.live/Home/Search?s=@Model.UserChannel.StreamSubject&q=')" />
+                    <img class="p-3" align="left" src="/images/ChatAssets/Math.png" style="width:100%; height:100%; max-width:120px; max-height:120px; cursor:pointer" onclick="window.open('https://www.streamwork.live/Home/Search?s=@Model.UserChannel.StreamSubject&q=')" />
                     <div class="m-3" id="StreamInfo">
                         <h3 style="color:black; font-family:'Roboto Slab', serif;">@Model.ArchivedStream.StreamTitle<span></span></h3>
                         <p class="mb-1" style="padding-left:105px">@Model.ArchivedStream.StreamDescription</p>
@@ -49,8 +48,8 @@
                                 <div class="card-body w-100">
                                     <div class="d-flex flex-row">
                                         <img class="comment-profile-picture" src="@Model.UserProfile.ProfilePicture" />
-                                        <textarea id="comment-message" class="form-control form-textarea comment-send-reply-textarea ml-2 mb-1" placeholder="Send question or message..."></textarea>
-                                        <button id="Follow" onclick="SaveComment()" class="streamWork-primary comment-send-reply-button ml-2">Send</button>
+                                        <textarea id="comment-send-" class="form-control form-textarea comment-send-reply-textarea ml-2 mb-1" placeholder="Send question or message..." onkeydown="ButtonEnabledDisabled('send', '')" onkeyup="ButtonEnabledDisabled('send', '')"></textarea>
+                                        <button id="send-comment-button-" onclick="SaveComment()" class="streamWork-primary comment-send-reply-button ml-2">Send</button>
                                         <input id="comment-tutor-username" type="hidden" value="@Model.TutorUserProfile.Username" />
                                         <input id="comment-username" type="hidden" value="@Model.UserProfile.Username" />
                                         <input id="comment-streamId" type="hidden" value="@Model.ArchivedStream.StreamID" />
@@ -64,25 +63,49 @@
                                         <div class="card border-0">
                                             <div class="card-body">
                                                 <img class="comment-profile-picture" align="left" src="@Model.Comments[i].SenderProfilePicture" />
-                                                <p class="form-header comment-name mb-0">@Model.Comments[i].SenderName.Replace('|', ' ')</p>
-                                                <p class="mb-1 comment-message">@Model.Comments[i].Message</p>
+                                                @if (@Model.Comments[i].SenderUsername.Equals(Model.UserProfile.Username))
+                                                {
+                                                    <img src="~/images/GenericAssets/Trash.png" class="comment-remove pl-1 float-right" id="comment-remove-@Model.Comments[i].Id" onclick="OpenDeleteConfirmation('@Model.Comments[i].Id')" />
+                                                    <img src="~/images/GenericAssets/Edit.png" class="comment-edit pl-1 float-right" id="comment-edit-@Model.Comments[i].Id" onclick="ShowEditBox('@Model.Comments[i].SenderProfilePicture', '@Model.Comments[i].Id')" />
+                                                }
+                                                <p class="form-header comment-name mb-0">@Model.Comments[i].SenderName.Replace('|', ' ') <span class="form-sub-header ml-1" style="font-size:10px; font-family:'Roboto', serif">@Model.Comments[i].Date.ToLocalTime().ToString("MMM dd yyyy")  @if (@Model.Comments[i].Edited != null)
+                                                {<span class="ml-1">(edited)</span>}</span></p>
+                                                <input type="hidden" id="comment-send-hidden-@Model.Comments[i].Id" value="@Model.Comments[i].Message" />
+                                                <div id="comment-send-holder-@Model.Comments[i].Id">
+                                                    <p class="mb-1 comment-send" id="comment-send-@Model.Comments[i].Id">@Model.Comments[i].Message</p>
+                                                </div>
                                                 <a class="comment-replies" onclick="ShowReplyBox('@Model.Comments[i].SenderProfilePicture', '@Model.Comments[i].Id')"><b>Reply</b></a>
-                                                <a class="comment-cancel pl-1" id="comment-cancel-@Model.Comments[i].Id" onclick="CancelReply('@Model.Comments[i].Id')"><b>Cancel</b></a>
                                                 @{string replyWord = "Replies";}
                                                 @if (Model.Comments[i].Replies.Count == 1)
                                                 {
                                                     replyWord = "Reply";
                                                 }
                                                 <input id="comment-replies-count-@Model.Comments[i].Id" type="hidden" value="@Model.Comments[i].Replies.Count" />
-                                                <a class="comment-replies pl-1" id="show-replies-@Model.Comments[i].Id" onclick="ShowReplyComments('@Model.Comments[i].Id')"><b>Show @Model.Comments[i].Replies.Count @replyWord</b></a>
+                                                @if (Model.Comments[i].Replies.Count > 0)
+                                                {
+                                                    <a class="comment-replies pl-1" id="show-replies-@Model.Comments[i].Id" onclick="ShowReplyComments('@Model.Comments[i].Id')"><b>Show @Model.Comments[i].Replies.Count @replyWord</b></a>
+                                                }
+                                                else
+                                                {
+                                                    <a class="comment-replies pl-1" style="display:none" id="show-replies-@Model.Comments[i].Id" onclick="ShowReplyComments('@Model.Comments[i].Id')"><b>Show @Model.Comments[i].Replies.Count @replyWord</b></a>
+                                                }
                                                 <div style="padding-left:40px" id="reply-box-@Model.Comments[i].Id"></div>
                                                 <ul class="comment-list" style="display:none" id="comment-reply-list-@Model.Comments[i].Id">
                                                     @for (int e = 0; e < Model.Comments[i].Replies.Count; e++)
                                                     {
-                                                        <li class="border-bottom border-left border-right p-3" style="background-color:white">
+                                                        <li id="comment-@Model.Comments[i].Replies[e].Id" class="border-bottom border-left border-right p-3" style="background-color:white">
                                                             <img class="comment-profile-picture" align="left" src="@Model.Comments[i].Replies[e].SenderProfilePicture" />
-                                                            <p class="form-header comment-name mb-0">@Model.Comments[i].Replies[e].SenderName.Replace('|', ' ')</p>
-                                                            <p class="mb-1 comment-message">@Model.Comments[i].Replies[e].Message</p>
+                                                            @if (@Model.Comments[i].Replies[e].SenderUsername.Equals(Model.UserProfile.Username))
+                                                            {
+                                                                <img src="~/images/GenericAssets/Trash.png" class="comment-remove pl-1 float-right" id="comment-remove-@Model.Comments[i].Replies[e].Id" onclick="OpenDeleteConfirmation('@Model.Comments[i].Replies[e].Id', '@Model.Comments[i].Id')" />
+                                                                <img src="~/images/GenericAssets/Edit.png" class="comment-edit pl-1 float-right" id="comment-edit-@Model.Comments[i].Replies[e].Id" onclick="ShowEditBox('@Model.Comments[i].Replies[e].SenderProfilePicture', '@Model.Comments[i].Replies[e].Id')" />
+                                                            }
+                                                            <p class="form-header comment-name mb-0">@Model.Comments[i].Replies[e].SenderName.Replace('|', ' ')<span class="form-sub-header ml-1" style="font-size:10px; font-family:'Roboto', serif">@Model.Comments[i].Replies[e].Date.ToLocalTime().ToString("MMM dd yyyy")  @if (@Model.Comments[i].Replies[e].Edited != null)
+                                                            {<span class="ml-1">(edited)</span>}</span></p>
+                                                            <input type="hidden" id="comment-send-hidden-@Model.Comments[i].Replies[e].Id" value="@Model.Comments[i].Replies[e].Message" />
+                                                            <div id="comment-send-holder-@Model.Comments[i].Replies[e].Id">
+                                                                <p class="mb-1 comment-send" id="comment-send-@Model.Comments[i].Replies[e].Id">@Model.Comments[i].Replies[e].Message</p>
+                                                            </div>
                                                         </li>
                                                     }
                                                 </ul>
@@ -92,6 +115,9 @@
                                 }
                             </ul>
                         </div>
+                    </div>
+                    <div id="notification-modal" class="custom-modal">
+                       
                     </div>
                 </div>
                 <div class="card-body" style="background-color:#FBFBFB">
@@ -107,90 +133,13 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex flex-column fixed col-lg-4 col-md-12 col-sm-12 col-12 p-0 border-top-0" style="overflow:scroll !important">
-            <div class="border-bottom border-top" style="height:71px; background-color:#FBFBFB">
-                <p class="d-inline-block form-header p-3" style="font-size:20px">Bio</p>
-                <button class="streamWork-secondary m-3 float-right" style="width:150px" onclick="window.location.href='/Profile/Tutor/@Model.TutorUserProfile.Username'">Tutor Profile</button>
-            </div>
-            <div style="background-color:white">
-                <div>
-                    <p class="d-inline-block form-header p-3 m-0" style="font-size:20px">About @Model.TutorUserProfile.Name.Replace('|', ' ')</p>
-                </div>
-                <div class="pl-3 pr-3">
-                    <hr />
-                </div>
-                <div class="p-3">
-                    @if (Model.TutorUserProfile.College == null)
-                    {
-                        <div>
-                            <input type="image" src="~/images/TutorAssets/TutorDashboard/DefaultUniversity.png" class="form-control border-0 rounded-0 d-block mr-auto ml-auto pt-3" style="width:130px; height:100%">
-                        </div>
-                    }
-                    else
-                    {
-                        var college = Model.TutorUserProfile.College.Split('|');
-                        if (college.Length > 1)
-                        {
-                            <p id="university-abbreviation" class="form-header pl-2 pr-2" style="font-size:28px">@college[0]</p>
-                            <p id="university-name" class="form-header pl-2 pr-2" style="font-size:20px">@college[1]</p>
-                        }
-                        else
-                        {
-                            <p id="university-abbreviation" class="form-header pl-2 pr-2" style="font-size:20px">@college[0]</p>
-                        }
-                    }
-                </div>
-                <div class="pl-3 pr-3">
-                    <hr />
-                </div>
-                @if (Model.Sections != null && Model.Sections.Count > 1)
-                {
-                    <div class="form-group p-4">
-                        <p class="form-header" style="font-size: 16px">@Model.Sections[1].SectionTitle</p>
-                        <p id="section-1" style="font-size: 14px" class="section-cutoff">@Model.Sections[1].SectionDescription</p>
-                        @if (Model.Sections[1].IsOver66Words)
-                        {
-                            <a id="section-sm-btn-1" class="float-right" onclick="SectionShowMore('1')" style="font-size:12px; color:#004643; cursor:pointer">Show More</a>
-                        }
-                    </div>
-                    if (Model.Sections.Count > 2)
-                    {
-                        for (int i = 2; i < Model.Sections.Count; i++)
-                        {
-                            <div class="pl-3 pr-3">
-                                <hr />
-                            </div>
-                            <div class="form-group p-4">
-                                <p class="form-header" style="font-size: 16px">@Model.Sections[i].SectionTitle</p>
-                                <p id="section-@i" style="font-size: 14px" class="section-cutoff">@Model.Sections[i].SectionDescription</p>
-                                @if (Model.Sections[i].IsOver66Words)
-                                {
-                                    <a id="section-sm-btn-@i" class="float-right" onclick="SectionShowMore('@i')" style="font-size:12px; color:#004643; cursor:pointer">Show More</a>
-                                }
-                            </div>
-                        }
-                    }
-                }
-                else
-                {
-                    if (Model.UserProfile.Id == Model.TutorUserProfile.Id)
-                    {
-                        <div class="p-3">
-                            <p class="form-sub-header p-0" style="font-size:22px">No Info...yet!</p>
-                            <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">Help students know more about you and your background in education</p>
-                            <button class="streamWork-primary mt-3" onclick="window.location.href ='/Tutor/TutorDashboard'" style="font-size:14px; font-family:'Roboto', serif">Edit Profile</button>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="p-3">
-                            <p class="form-sub-header p-0" style="font-size:22px">Welcome To My Tutor Profile!</p>
-                            <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">This tutor hasn't filled out any information about themselves yet!</p>
-                        </div>
-                    }
-                }
-            </div>
+        <div class="d-flex flex-column fixed col-lg-3 col-md-12 col-sm-12 col-12 p-0 border-top-0" style="overflow:scroll !important; min-width:420px; max-width:420px">
+            <iframe class="border-0" style="width:100%; height:100%" src="http://localhost:58539/chat/ArchiveChat?chatId=@Model.UserChannel.Username&chatInfo=@Model.ChatInfo"></iframe>
         </div>
     </div>
 </div>
 
+<script>
+    ButtonEnabledDisabled('send', '')
+    ResizeStreamSection();
+</script>

@@ -233,15 +233,15 @@ lds-dual-ring {
 }
 
 .streamWork-primary {
-    border: solid !important;
-    border-width: 2px !important;
-    border-color: #004643 !important;
-    background-color: #004643 !important;
-    color: white !important;
-    border-radius: 5px !important;
+    border: solid;
+    border-width: 2px;
+    border-color: #004643;
+    background-color: #004643;
+    color: white;
+    border-radius: 5px;
     font-size: 10px;
     padding: 8px 20px;
-    cursor: pointer !important;
+    cursor: pointer;
 }
 
 /*Buttons*/

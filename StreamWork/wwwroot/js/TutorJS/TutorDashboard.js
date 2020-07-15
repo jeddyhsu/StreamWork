@@ -60,9 +60,7 @@ function SaveProfile() {
                 $("#header-profile-picture").attr('src', data.savedInfo[6] + `?nocache=${c}`);
                 $("#navbar-profile-picture").attr('src', data.savedInfo[6] + `?nocache=${c}`);
 
-                $("#profile-information-notification").fadeTo(2000, 500).slideUp(500, function () {
-                    $("#profile-information-notification").slideUp(500);
-                });
+                ShowBannerNotification("profile-information-notification")
             }
         }
     })
@@ -120,9 +118,7 @@ function SaveSection(event, type) {
             }
             else {
                 if (type != "remove") {
-                    $("#section-topic-notification").fadeTo(2000, 500).slideUp(500, function () {
-                        $("#section-topic-notification").slideUp(500);
-                    });
+                    ShowBannerNotification("section-topic-notification")
                 }
             }
         }
@@ -224,9 +220,7 @@ function SaveTopic() {
                 location.reload();
             }
             else {
-                $("#section-topic-notification").fadeTo(2000, 500).slideUp(500, function () {
-                    $("#section-topic-notification").slideUp(500);
-                });
+                ShowBannerNotification("section-topic-notification")
             }
         }
     })
@@ -269,9 +263,7 @@ function SaveUniversityInfo() {
             if (data.message === "Success") {
                 $('#university-abbreviation').text(data.abbreviation)
                 $('#university-name').text(data.name)
-                $("#university-edit-modal-notification").fadeTo(2000, 500).slideUp(500, function () {
-                    $("#university-edit-modal-notification").slideUp(500);
-                });
+                ShowBannerNotification("university-edit-modal-notification")
             }
         }
     })
@@ -332,9 +324,7 @@ function AddDateToModal(date) {
 
 function CheckIfTimezoneIsValidForSchedule() {
     if ($('#header-timezone').val() == "") {
-        $("#schedule-timezone-notification").fadeTo(2000, 500).slideUp(500, function () {
-            $("#schedule-timezone-notification").slideUp(500);
-        });
+        ShowBannerNotification("schedule-timezone-notification")
 
         return;
     }
@@ -391,9 +381,7 @@ function SaveScheduleTask(id, type) {
                 SortTasks(data);
                 if (type != 'edit') DiscardCalendarModalAndCloseModal();
                 else {
-                    $("#schedule-modal-notification").fadeTo(2000, 500).slideUp(500, function () {
-                        $("#schedule-modal-notification").slideUp(500);
-                    });
+                    ShowBannerNotification("schedule-modal-notification")
                 }
             }
         }
@@ -504,6 +492,10 @@ function DeleteScheduleTask(id) {
         data: {
             'taskId': id,
         },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("XSRF-TOKEN",
+                $('input:hidden[name="__RequestVerificationToken"]').val());
+        },
         success: function (data) {
             if (data.message === "Success") {
                 SortTasks(data);
@@ -571,9 +563,7 @@ function SaveEditedStream(id) {
                 $("#stream-description-" + id).val(data.savedInfo[1]) 
                 $("#stream-thumbnail-" + id).attr('src', data.savedInfo[2] + `?nocache=${new Date().valueOf()}`);
 
-                $("#edit-stream-modal-notification").fadeTo(2000, 500).slideUp(500, function () {
-                    $("#edit-stream-modal-notification").slideUp(500);
-                });
+                ShowBannerNotification("edit-stream-modal-notification")
             }
         }
     });

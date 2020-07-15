@@ -8,18 +8,18 @@
 
 <div class="container-fluid">
     <div class="row" style="padding-top:58px">
-        <div class="d-flex flex-column col-lg-8 col-md-12 col-sm-12 col-12 p-0 border-right ">
-            <div class="card border-0">
+        <div class="d-flex flex-column col-lg-9 col-md-12 col-sm-12 col-12 p-0 border-right ">
+            <div id="player-card" class="card border-0">
                 <iframe id="player" style="width:100%;" src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.UserChannel.ChannelKey.Split('|')[0]" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
                 <div id="player-row" class="card-body p-0">
-                    <img class="pr-3" align="left" src="/images/ChatAssets/Math.png" style="width:100%; height:100%; max-width:120px; max-height:110px; cursor:pointer" onclick="window.open('https://www.streamwork.live/Home/Search?s=@Model.UserChannel.StreamSubject&q=')" />
+                    <img class="p-3" align="left" src="/images/ChatAssets/Math.png" style="width:100%; height:100%; max-width:120px; max-height:120px; cursor:pointer" onclick="window.open('https://www.streamwork.live/Home/Search?s=@Model.UserChannel.StreamSubject&q=')" />
                     <div class="m-3" id="StreamInfo">
                         <h3 style="color:black; font-family:'Roboto Slab', serif;">Calc 2<span></span></h3>
                         <p class="mb-1" style="padding-left:105px">asdfasfsfsfdasdfasdfasfdasdfasdfasdf</p>
                         <p style="font-size:12px; padding-left:105px">Tutoring Mathematics</p>
                     </div>
-                    <div class="border-top p-3" style="background-color:#FBFBFB">
-                        <div class="d-lg-inline-block d-md-inline-block d-sm-none d-none float-right mr-3">
+                    <div class="border-top pt-3 pl-3 pr-3 pb-1" style="background-color:#FBFBFB">
+                        <div class="d-lg-inline-block d-md-inline-block d-sm-none d-none float-right">
                             @if (Model.FollowValue.Equals("Following"))
                             {<button id="Following" onclick="Unfollow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary m-1">Following</button>}
                             else if (Model.FollowValue.Equals("Follow"))
@@ -87,23 +87,13 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex flex-column fixed col-lg-4 col-md-12 col-sm-12 col-12 p-0 border-top-0">
+        <div class="d-flex flex-column fixed col-lg-3 col-md-12 col-sm-12 col-12 p-0 border-top-0" style="min-width:420px; max-width:420px;">
             <iframe class="border-0" style="width:100%; height:100%" src="http://localhost:58539/chat/LiveChat?chatId=@Model.UserChannel.Username&chatInfo=@Model.ChatInfo"></iframe>
         </div>
     </div>
 </div>
 
 <script>
-    $(window).resize(function () {
-        var height = $('#player-row').height();
-        var offest = height + 58;
-        $('#player').css('height', 'calc(100vh - ' + offest + 'px)')
-        console.log("asdfsadasdf")
-    })
-
-    var height = $('#player-row').height();
-    var offest = height + 58;
-    $('#player').css('height', 'calc(100vh - ' + offest + 'px)')
-    console.log("asdfsadasdf")
-  
+    ResizeStreamInfoSection();
+    ResizeStreamSection();
 </script>
