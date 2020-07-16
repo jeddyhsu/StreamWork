@@ -1,0 +1,296 @@
+﻿body {
+    background-color: #F3F3F3;
+}
+
+/*Container*/
+.container-fluid {
+    width: calc(100% - 200px);
+    overflow-x: hidden;
+}
+
+@media screen and (max-width: 800px) {
+    .container-fluid {
+        width: calc(100% - 100px)
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .container-fluid {
+        width: calc(100% - 75px);
+        padding: 0px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .container-fluid {
+        width: 100%;
+        padding: 0px;
+    }
+}
+
+.inner-container-fluid {
+    width: 100%;
+    max-width: 1800px;
+}
+
+.custom-container-padding {
+    padding-top: 100px !important;
+}
+
+@media screen and (max-width: 600px) {
+    .custom-container-padding {
+        padding-top: 50px !important;
+    }
+}
+
+/*Bootstrap Column Resposive Widths*/
+@media (max-width: 1250px) {
+    .col-md-12 {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .order-md-1 {
+        -webkit-box-ordinal-group: 2;
+        -ms-flex-order: 1;
+        order: 1;
+    }
+
+    .order-md-2 {
+        -webkit-box-ordinal-group: 3;
+        -ms-flex-order: 2;
+        order: 2;
+    }
+}
+
+/*Navbar*/
+.navbar-custom {
+    width: calc(100% - 200px) !important;
+    margin-left: auto
+}
+
+@media screen and (max-width: 800px) {
+    .navbar-custom {
+        width: calc(100% - 100px) !important;
+        margin-left: auto
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .navbar-custom {
+        width: calc(100% - 75px) !important;
+        margin-left: auto
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .navbar-custom {
+        width: calc(100% - 0px) !important;
+        margin-left: auto
+    }
+}
+
+/*Sidebar*/
+.wrapper {
+    display: flex;
+    width: 100%;
+}
+
+#sidebar {
+    width: 200px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 2;
+    background: #004643;
+    color: #fff;
+    transition: all 0.3s;
+}
+
+@media screen and (max-width: 800px) {
+    #sidebar {
+        width: 0px;
+        display: none;
+    }
+}
+
+#sidebar-tablet {
+    width: 100px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 2;
+    background: #004643;
+    color: #fff;
+    transition: all 0.3s;
+    display: none
+}
+
+@media screen and (max-width: 800px) {
+    #sidebar-tablet {
+        display: block;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    #sidebar-tablet {
+        width: 75px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #sidebar-tablet {
+        width: 0px;
+        display: none;
+    }
+}
+
+.logo-desktop {
+    width: 160px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px
+}
+
+.logo-tablet {
+    width: 50px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px
+}
+
+.sidebar-icon-desktop {
+    width: 40px;
+    padding: 3px;
+}
+
+.sidebar-list-item-desktop {
+    list-style-type: none;
+    height: 60px;
+    background-color: #003936;
+    padding: 10px;
+    padding-left: 30px;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: left;
+    margin-bottom: 3px;
+}
+
+.sidebar-list-item-tablet {
+    list-style-type: none;
+    height: 50px;
+    background-color: #003936;
+    text-align: center;
+    margin-top: 3px;
+    cursor: pointer;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/*Navigation Slider Tabs*/
+.nav-tabs > li > a.active {
+    color: #707070 !important;
+    background-color: transparent !important;
+    border: none;
+    font-family: 'Roboto Slab', serif;
+}
+
+.nav-tabs > li > a {
+    color: #9F9F9F !important;
+    background-color: transparent !important;
+    border: none;
+    font-family: 'Roboto Slab', serif;
+}
+
+.banner {
+    width: 100%;
+}
+
+/*Streams, Followers & Views Objects*/
+.count-outer-object {
+    font-size: 14px;
+    word-spacing: 8px;
+    padding-top: 8px
+}
+
+.count-inner-object {
+    font-size: 18px;
+    font-family: 'Roboto Slab', serif;
+    padding: 7px;
+}
+
+/*Card Border*/
+.hide {
+    display: none;
+}
+
+.card-border {
+    border-width: 0px !important;
+}
+
+    .card-border:hover {
+        border-width: 2px !important;
+        cursor: pointer;
+    }
+
+/*Schedule*/
+.schedule-image {
+    width: 75px;
+    height: 75px;
+}
+
+.schedule-month {
+    font-size: 18px;
+    margin-top: 30%;
+}
+
+.schedule-day {
+    font-size: 22px;
+    margin-top: 10%;
+    margin-bottom: 0%;
+}
+
+.schedule-dow {
+    font-size: 14px;
+}
+
+.schedule-time {
+    font-size: 14px;
+}
+
+@media(max-width:600px) {
+    .schedule-image {
+        width: 55px;
+        height: 55px;
+    }
+
+    .schedule-month {
+        font-size: 14px;
+    }
+
+    .schedule-day {
+        font-size: 18px;
+        margin-top: 10%;
+        margin-bottom: 0%;
+    }
+
+    .schedule-dow {
+        font-size: 10px;
+    }
+
+    .schedule-time {
+        font-size: 10px;
+    }
+}
+
+.schedule-border {
+    border: dashed;
+    color: #9F9F9F;
+}

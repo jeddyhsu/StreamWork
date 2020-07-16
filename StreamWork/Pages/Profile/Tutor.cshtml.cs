@@ -18,8 +18,8 @@ namespace StreamWork.Pages.Profile
         private readonly ScheduleService scheduleService;
         private readonly FollowService followService;
 
+        public UserLogin CurrentUserProfile { get; set; }
         public UserLogin UserProfile { get; set; }
-        public UserLogin TutorUserProfile { get; set; }
         public UserChannel UserChannel { get; set; }
         public UserArchivedStreams LatestStream { get; set; }
         public List<UserArchivedStreams> UserArchivedStreams { get; set; }
@@ -48,20 +48,20 @@ namespace StreamWork.Pages.Profile
                 //return Redirect(session.Url("/Home/Login?dest=-Tutor-TutorDashboard"));
             }
 
-            UserProfile = await sessionService.GetCurrentUser();
-            TutorUserProfile = await storageService.Get<UserLogin>(SQLQueries.GetUserWithUsername, tutor);
-            UserChannel = await storageService.Get<UserChannel>(SQLQueries.GetUserChannelWithUsername, new string[] { TutorUserProfile.Username });
+            CurrentUserProfile = await sessionService.GetCurrentUser();
+            UserProfile = await storageService.Get<UserLogin>(SQLQueries.GetUserWithUsername, tutor);
+            UserChannel = await storageService.Get<UserChannel>(SQLQueries.GetUserChannelWithUsername, new string[] { UserProfile.Username });
 
-            LatestStream = await storageService.Get<UserArchivedStreams>(SQLQueries.GetLatestArchivedStreamByUser, new string[] { TutorUserProfile.Username });
-            UserArchivedStreams = await storageService.GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { TutorUserProfile.Username });
-            RelatedTutors = (await storageService.GetList<UserLogin>(SQLQueries.GetAllTutorsNotInTheList, new string[] { TutorUserProfile.Id })).GetRange(0,5);
-            Sections = profileService.GetSections(TutorUserProfile);
-            Topics = profileService.GetTopics(TutorUserProfile);
-            Schedule = await scheduleService.GetSchedule(TutorUserProfile.Username);
+            LatestStream = await storageService.Get<UserArchivedStreams>(SQLQueries.GetLatestArchivedStreamByUser, new string[] { UserProfile.Username });
+            UserArchivedStreams = await storageService.GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { UserProfile.Username });
+            RelatedTutors = (await storageService.GetList<UserLogin>(SQLQueries.GetAllTutorsNotInTheList, new string[] { UserProfile.Id })).GetRange(0,5);
+            Sections = profileService.GetSections(UserProfile);
+            Topics = profileService.GetTopics(UserProfile);
+            Schedule = await scheduleService.GetSchedule(UserProfile.Username);
 
             NumberOfStreams = UserArchivedStreams.Count;
             NumberOfViews = UserArchivedStreams.Sum(x => x.Views);
-            NumberOfFollowers = await followService.GetNumberOfFollowers(TutorUserProfile.Id);
+            NumberOfFollowers = await followService.GetNumberOfFollowers(UserProfile.Id);
 
             return Page();
         }

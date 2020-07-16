@@ -6,7 +6,7 @@
 @{var cacheRand = new Random().Next();}
 
 <div class="container">
-    <img class="banner" id="preview-profile-banner" src="@Model.TutorUserProfile.ProfileBanner?@cacheRand" style="cursor:pointer; object-fit:cover; max-height:300px; object-position:top" />
+    <img class="banner" id="preview-profile-banner" src="@Model.UserProfile.ProfileBanner?@cacheRand" style="cursor:pointer; object-fit:cover; max-height:300px; object-position:top" />
     <div class="card border-0">
         <div class="card-body p-0 ">
             @await Html.PartialAsync("Partials/Profile/Header_View", Model)
@@ -24,7 +24,7 @@
                     <div class="card-body pt-0 pb-1">
                         <h5 id="stream-title-@Model.LatestStream.Id" class="text-truncate form-header">@Model.LatestStream.StreamTitle</h5>
                         <input id="stream-description-@Model.LatestStream.Id" type="hidden" value="@Model.LatestStream.StreamDescription" />
-                        <p class="text-truncate form-header" style="font-size:10px">@Model.TutorUserProfile.Name.Replace('|', ' ')</p>
+                        <p class="text-truncate form-header" style="font-size:10px">@Model.UserProfile.Name.Replace('|', ' ')</p>
                     </div>
                     <div class="card-footer" style="background-color:@Model.LatestStream.StreamColor; border-bottom-left-radius:20px; border-bottom-right-radius:20px;"></div>
                 </div>
@@ -32,7 +32,7 @@
             <div class="card mt-3">
                 <div class="card-title">
                     <p class="form-header p-3 m-0" style="font-size:18px">Social Media Links</p>
-                    <i class="fa fa-linkedin-square p-3" style="font-size:48px; cursor:pointer; color:lightgray" onclick="window.open('@Model.TutorUserProfile.LinkedInUrl')"></i>
+                    <i class="fa fa-linkedin-square p-3" style="font-size:48px; cursor:pointer; color:lightgray" onclick="window.open('@Model.UserProfile.LinkedInUrl')"></i>
                 </div>
             </div>
             <div class="card mt-3">
@@ -104,10 +104,10 @@
                     <div class="container-fluid pt-3" style="width:100%">
                         <div class="row p-3">
                             <div class="col-12">
-                                <form class="p-1 border rounded" style="background-color:white" onkeyup="SearchStreams(event, '@Model.TutorUserProfile.Name', '@Model.TutorUserProfile.Username', 'col-lg-6')" onsubmit="SearchStreams(event, '@Model.TutorUserProfile.Name', '@Model.TutorUserProfile.Username', 'col-lg-6')">
+                                <form class="p-1 border rounded" style="background-color:white" onkeyup="SearchStreams(event, '@Model.UserProfile.Name', '@Model.UserProfile.Username', 'col-lg-6')" onsubmit="SearchStreams(event, '@Model.UserProfile.Name', '@Model.UserProfile.Username', 'col-lg-6')">
                                     <input id="searchQuery" class="form-control-lg" type="search" placeholder="🔎 Search Past Streams" style="border: none; font-size:12px;">
                                 </form>
-                                <select id="filter" name="filter" class="form-control form-control-sm rounded-0 mt-3" onchange="SearchStreams(event, '@Model.TutorUserProfile.Name', '@Model.TutorUserProfile.Username')" style="width:175px">
+                                <select id="filter" name="filter" class="form-control form-control-sm rounded-0 mt-3" onchange="SearchStreams(event, '@Model.UserProfile.Name', '@Model.UserProfile.Username')" style="width:175px">
                                     <option value="">Filter</option>
                                     <option value="Mathematics">Mathematics</option>
                                     <option value="Science">Science</option>

@@ -18,7 +18,6 @@ namespace StreamWork.Services
     {
         public ProfileService([FromServices] IOptionsSnapshot<StorageConfig> config) : base(config) { }
         
-         //Going to simplify this code once the whole refractor is done
         public bool SaveSection(HttpRequest request, UserLogin userProfile)
         {
             try
@@ -29,8 +28,7 @@ namespace StreamWork.Services
                 string formatString = "";
                 foreach (var key in keys)
                 {
-                    if (!form[key].Equals(""))
-                        formatString += key.ToString() + "|``~``|" + form[key] + Environment.NewLine;
+                   formatString += key.ToString() + "|``~``|" + form[key] + Environment.NewLine;
                 }
 
                 var url = BlobMethods.SaveFileIntoBlobContainer(userProfile.Username + "-" + userProfile.Id + "-sections" + ".txt", formatString);
@@ -86,8 +84,7 @@ namespace StreamWork.Services
                 string formatString = "";
                 foreach (var key in keys)
                 {
-                    if (!form[key].Equals(""))
-                        formatString += key.ToString() + "|``~``|" + form[key] + Environment.NewLine;
+                    formatString += key.ToString() + "|``~``|" + form[key] + Environment.NewLine;
                 }
 
                 var url = BlobMethods.SaveFileIntoBlobContainer(userProfile.Username + "-" + userProfile.Id + "-topics" + ".txt", formatString);
@@ -115,7 +112,7 @@ namespace StreamWork.Services
                     var topic = topicSplit[i].Split("|``~``|")[1];
                     var listOfSubjects = topicSplit[i + 1].Split("|``~``|")[1];
 
-                    if (!topic.Equals("") || !listOfSubjects.Equals(""))
+                    if (!topic.Equals("-Select-Topic-") || !listOfSubjects.Equals("") || (i <= 1))
                     {
                         listOfSubjects = listOfSubjects.Replace("*--*", Environment.NewLine);
                         topicsList.Add(new Topic(topic, listOfSubjects));

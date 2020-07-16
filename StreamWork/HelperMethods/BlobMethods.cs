@@ -54,7 +54,7 @@ namespace StreamWork.HelperMethods
         {
             CloudStorageAccount cloudStorage = CloudStorageAccount.Parse(_blobconnectionString);
             CloudBlobClient blobClient = cloudStorage.CreateCloudBlobClient();
-            CloudBlobContainer blobContainer = blobClient.GetContainerReference("streamworktutorsecitonsandtopic");
+            CloudBlobContainer blobContainer = blobClient.GetContainerReference("streamworksectionsandtopics");
             CloudBlockBlob blob = blobContainer.GetBlockBlobReference(reference);
             blob.DeleteIfExists();
 
@@ -67,7 +67,7 @@ namespace StreamWork.HelperMethods
         {
             CloudStorageAccount cloudStorage = CloudStorageAccount.Parse(_blobconnectionString);
             CloudBlobClient blobClient = cloudStorage.CreateCloudBlobClient();
-            CloudBlobContainer blobContainer = blobClient.GetContainerReference("streamworktutorsecitonsandtopic");
+            CloudBlobContainer blobContainer = blobClient.GetContainerReference("streamworksectionsandtopics");
             CloudBlockBlob blob = blobContainer.GetBlockBlobReference(reference);
             return blob;
         }

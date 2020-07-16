@@ -3,44 +3,59 @@
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="p-3">
-
-            @if (Model.UserProfile.Id == Model.TutorUserProfile.Id)
+            @if (Model.CurrentUserProfile.ProfileType == "tutor")
             {
-                <div class="btn-group d-lg-block d-md-none d-sm-none d-none float-right">
-                    <button type="button" class="streamWork-secondary mr-2" style="font-size:12px" onclick="EditProfile()">Edit Profile</button>
-                    <button type="button" class="streamWork-primary" style="font-size:12px" onclick="window.location.href ='/Tutor/TutorDashboard'">Tutor Dashboard</button>
-                </div>
+                @if (Model.CurrentUserProfile.Id == Model.UserProfile.Id)
+                {
+                    <div class="btn-group d-lg-block d-md-none d-sm-none d-none float-right">
+                        <button type="button" class="streamWork-secondary mr-2" style="font-size:12px" onclick="EditProfile()">Edit Profile</button>
+                        <button type="button" class="streamWork-primary" style="font-size:12px" onclick="window.location.href ='/Tutor/TutorDashboard'">Tutor Dashboard</button>
+                    </div>
+                }
+                else
+                {
+                    <div class="btn-group d-lg-block d-md-none d-sm-none d-none float-right">
+                        <button type="button" class="streamWork-secondary mr-2" style="font-size:12px" onclick="EditProfile()">Message</button>
+                        <button type="button" class="streamWork-primary" style="font-size:12px" onclick="window.location.href ='/Tutor/TutorDashboard'">Follow</button>
+                    </div>
+                }
             }
             else
             {
-                <div class="btn-group d-lg-block d-md-none d-sm-none d-none float-right">
-                    <button type="button" class="streamWork-secondary mr-2" style="font-size:12px" onclick="EditProfile()">Message</button>
-                    <button type="button" class="streamWork-primary" style="font-size:12px" onclick="window.location.href ='/Tutor/TutorDashboard'">Follow</button>
-                </div>
+                @if (Model.CurrentUserProfile.Id == Model.UserProfile.Id)
+                {
+                    <div class="btn-group d-lg-block d-md-none d-sm-none d-none float-right">
+                        <button type="button" class="streamWork-secondary mr-2" style="font-size:12px" onclick="EditProfile()">Edit Profile</button>
+                    </div>
+                }
+                else
+                {
+                   
+                }
             }
 
             <div class="profile-picture-overlap-container">
-                <input id="header-profile-picture" align="left" class="rounded" type="image" src="@Model.TutorUserProfile.ProfilePicture?@cacheRand" style="width:90px; cursor:text" />
+                <input id="header-profile-picture" align="left" class="rounded" type="image" src="@Model.UserProfile.ProfilePicture?@cacheRand" style="width:90px; cursor:text" />
             </div>
             <div class="d-inline-block">
-                <p id="header-name" class="form-header m-0" style="font-size:22px; padding-left:110px">@Model.TutorUserProfile.Name.Replace('|', ' ')</p>
+                <p id="header-name" class="form-header m-0" style="font-size:22px; padding-left:110px">@Model.UserProfile.Name.Replace('|', ' ')</p>
                 <p id="header-occupation" class="form-header m-0" style="padding-left:110px; font-size:16px; color: #9F9F9F">@Model.UserProfile.ProfileCaption</p>
                 <div class="d-lg-none d-md-none d-sm-block d-block">
                     <p class="mb-0 mt-2 form-sub-header" style="padding-left:110px; font-size:12px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
-                    <p class="form-sub-header" style="padding-left:110px; font-size:12px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">@Model.TutorUserProfile.Location</span></p>
-                    <input id="header-first-name" type="hidden" value="@Model.TutorUserProfile.Name.Split('|')[0]" />
-                    <input id="header-last-name" type="hidden" value="@Model.TutorUserProfile.Name.Split('|')[1]" />
-                    <input id="header-timezone" type="hidden" value="@Model.TutorUserProfile.TimeZone" />
-                    <input id="header-linkedin-url" type="hidden" value="@Model.TutorUserProfile.LinkedInUrl" />
+                    <p class="form-sub-header" style="padding-left:110px; font-size:12px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">@Model.UserProfile.Location</span></p>
+                    <input id="header-first-name" type="hidden" value="@Model.UserProfile.Name.Split('|')[0]" />
+                    <input id="header-last-name" type="hidden" value="@Model.UserProfile.Name.Split('|')[1]" />
+                    <input id="header-timezone" type="hidden" value="@Model.UserProfile.TimeZone" />
+                    <input id="header-linkedin-url" type="hidden" value="@Model.UserProfile.LinkedInUrl" />
                 </div>
             </div>
             <div class="d-lg-inline-block d-md-inline-block d-sm-none d-none pl-3">
                 <p class="mb-0 mt-2 form-sub-header d-inline-block" style="font-size:12px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
-                <p class="form-sub-header" style="font-size:12px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">@Model.TutorUserProfile.Location</span></p>
+                <p class="form-sub-header" style="font-size:12px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">@Model.UserProfile.Location</span></p>
             </div>
         </div>
 
-        @if (Model.UserProfile.Id == Model.TutorUserProfile.Id)
+        @if (Model.CurrentUserProfile.Id == Model.UserProfile.Id)
         {
             <div class="btn-group d-lg-none d-md-block d-sm-block d-block pl-3 pr-3">
                 <button type="button" class="streamWork-secondary mr-2" style="font-size:8px; height:35px;" onclick="EditProfile()">Edit Profile</button>
@@ -54,23 +69,25 @@
                 <button type="button" class="streamWork-primary" style="font-size:8px; height:35px;" onclick="OpenModal()">Follow</button>
             </div>
         }
-
-        <div class="p-lg-4 pt-md-4 p-sm-3 p-3">
-            <div class="d-inline-block mr-2">
-                <div class="card pr-2" style="background-color:#004643; color:white">
-                    <h6 class="count-outer-object"><span style="background-color:#003936" class="rounded count-inner-object">@Model.NumberOfStreams</span> Streams</h6>
+        @if (Model.UserProfile.ProfileType == "tutor")
+        {
+            <div class="p-lg-4 pt-md-4 p-sm-3 p-3">
+                <div class="d-inline-block mr-2">
+                    <div class="card pr-2" style="background-color:#004643; color:white">
+                        <h6 class="count-outer-object"><span style="background-color:#003936" class="rounded count-inner-object">@Model.NumberOfStreams</span> Streams</h6>
+                    </div>
+                </div>
+                <div class="d-inline-block mr-2">
+                    <div class="card pr-2" style="background-color:#FFC627; color:white">
+                        <h6 class="count-outer-object"><span style="background-color:#E6B62F" class="rounded count-inner-object ">@Model.NumberOfFollowers</span> Followers</h6>
+                    </div>
+                </div>
+                <div class="d-inline-block mr-2">
+                    <div class="card pr-2" style="background-color:#7266BA; color:white">
+                        <h6 class="count-outer-object"><span style="background-color:#5C50A7;" class="rounded count-inner-object">@{Random rand = new Random(1247635134); int mult = rand.Next(10, 16); int views = Model.NumberOfViews * mult + rand.Next(mult);}@views</span> Views</h6>
+                    </div>
                 </div>
             </div>
-            <div class="d-inline-block mr-2">
-                <div class="card pr-2" style="background-color:#FFC627; color:white">
-                    <h6 class="count-outer-object"><span style="background-color:#E6B62F" class="rounded count-inner-object ">@Model.NumberOfFollowers</span> Followers</h6>
-                </div>
-            </div>
-            <div class="d-inline-block mr-2">
-                <div class="card pr-2" style="background-color:#7266BA; color:white">
-                    <h6 class="count-outer-object"><span style="background-color:#5C50A7;" class="rounded count-inner-object">@{Random rand = new Random(1247635134); int mult = rand.Next(10, 16); int views = Model.NumberOfViews * mult + rand.Next(mult);}@views</span> Views</h6>
-                </div>
-            </div>
-        </div>
+        }
     </div>
 </div>

@@ -26,7 +26,7 @@
     <Folder Include="Pages\Student\" />
     <Folder Include="Threads\" />
     <Folder Include="HelperMethods\" />
-    <Folder Include="TutorObjects\" />
+    <Folder Include="ProfileObjects\" />
     <Folder Include="StreamHoster\" />
     <Folder Include="EmailTemplates\" />
     <Folder Include="Pages\Chat\" />
@@ -64,6 +64,8 @@
     <Folder Include="Pages\Comment\" />
     <Folder Include="wwwroot\css\CommentCSS\" />
     <Folder Include="Pages\Partials\Comment\" />
+    <Folder Include="Pages\Partials\Layout\Student\" />
+    <Folder Include="Pages\Shared\Student\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="EmailTemplates\PasswordRecoveryEmailTemplate.html">

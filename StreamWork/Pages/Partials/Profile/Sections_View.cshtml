@@ -2,7 +2,7 @@
     <div class="row pr-4 pl-4 pt-0">
         <div class="col-lg-3">
             <div class="card border-0 rounded-0 text-center">
-                @if (Model.TutorUserProfile.College == null)
+                @if (Model.UserProfile.College == null)
                 {
                     <div>
                         <input type="image" src="~/images/TutorAssets/TutorDashboard/DefaultUniversity.png" class="form-control border-0 rounded-0 d-block mr-auto ml-auto pt-3" style="width:130px; height:100%">
@@ -10,7 +10,7 @@
                 }
                 else
                 {
-                    var college = Model.TutorUserProfile.College.Split('|');
+                    var college = Model.UserProfile.College.Split('|');
                     if (college.Length > 1)
                     {
                         <p id="university-abbreviation" class="form-header pt-4 pl-2 pr-2" style="font-size:20px">@college[0]</p>
@@ -43,20 +43,41 @@
         }
         else
         {
-            if (Model.UserProfile.Id == Model.TutorUserProfile.Id)
+            @if (Model.UserProfile.ProfileType == "tutor")
             {
-                <div class="col-9 p-3" style="height:200px">
-                    <p class="form-sub-header p-0" style="font-size:22px">No Info...yet!</p>
-                    <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">Help students know more about you and your background in education</p>
-                    <button class="streamWork-primary mt-3" onclick="window.location.href ='/Tutor/TutorDashboard'" style="font-size:14px; font-family:'Roboto', serif">Edit Profile</button>
-                </div>
+                if (Model.CurrentUserProfile.Id == Model.UserProfile.Id)
+                {
+                    <div class="col-9 p-3" style="height:200px">
+                        <p class="form-sub-header p-0" style="font-size:22px">No Info...yet!</p>
+                        <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">Help students know more about you and your background in education</p>
+                        <button class="streamWork-primary mt-3" onclick="window.location.href ='/Tutor/TutorDashboard'" style="font-size:14px; font-family:'Roboto', serif">Edit Profile</button>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-9 p-3" style="height:200px">
+                        <p class="form-sub-header p-0" style="font-size:22px">Welcome To My Tutor Profile!</p>
+                        <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">This tutor hasn't filled out any information about themselves yet!</p>
+                    </div>
+                }
             }
             else
             {
-                <div class="col-9 p-3" style="height:200px">
-                    <p class="form-sub-header p-0" style="font-size:22px">Welcome To My Tutor Profile!</p>
-                    <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">This tutor hasn't filled out any information about themselves yet!</p>
-                </div>
+                if (Model.CurrentUserProfile.Id == Model.UserProfile.Id)
+                {
+                    <div class="col-9 p-3" style="height:200px">
+                        <p class="form-sub-header p-0" style="font-size:22px">No Info...yet!</p>
+                        <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">Help other students and tutors know a little bit about you and your intrests!</p>
+                        <button class="streamWork-primary mt-3" onclick="" style="font-size:14px; font-family:'Roboto', serif">Edit Profile</button>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-9 p-3" style="height:200px">
+                        <p class="form-sub-header p-0" style="font-size:22px">Welcome To My Student Profile!</p>
+                        <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">This student hasn't filled out any information about themselves yet!</p>
+                    </div>
+                }
             }
         }
     </div>
