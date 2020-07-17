@@ -161,8 +161,15 @@
                                                 <option>Other</option>
                                             </select>
                                             @if (Model.Sections != null)
-                                            {<input id="year" type="hidden" value="@Model.Sections[0].Year" />
-                                                <script>$('#year-select').val($('#year').val())</script>
+                                            {
+                                                <script>
+                                                    if ($('#year').val() == "" || $('#year').val() == "-Select-Year/Class-") {
+                                                        $('#year-select').val("-Select-Year/Class-")
+                                                    }
+                                                    else {
+                                                        $('#year-select').val($('#year').val())
+                                                    }
+                                                </script>
                                             }
                                         </div>
                                         @if (Model.Sections != null && Model.Sections.Count > 1)
@@ -224,7 +231,7 @@
                                                     @if (i > 0)
                                                     {<img id="remove-topic-icon-@t" src="~/images/TutorAssets/TutorDashboard/Remove.svg" class="d-inline-block form-icon float-right" onclick="RemoveTopic(@t)" />}
                                                     <select id="topic-@t" name="topic-@t" asp-for="@Model.Topics[i].TopicName" class="form-control form-control-sm rounded-0">
-                                                        <option>-Select-Topic-</option>
+                                                        <option value="">-Select-Topic-</option>
                                                         <option>Mathematics</option>
                                                         <option>Science</option>
                                                         <option>Engineering</option>
@@ -253,7 +260,7 @@
                                             <div class="form-group col-lg-12 border p-2">
                                                 <label class="form-header">Topic</label>
                                                 <select name="topic" class="form-control form-control-sm rounded-0">
-                                                    <option>-Select-Topic-</option>
+                                                    <option value="">-Select-Topic-</option>
                                                     <option>Mathematics</option>
                                                     <option>Science</option>
                                                     <option>Engineering</option>

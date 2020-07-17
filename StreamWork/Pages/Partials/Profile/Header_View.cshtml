@@ -8,15 +8,15 @@
                 @if (Model.CurrentUserProfile.Id == Model.UserProfile.Id)
                 {
                     <div class="btn-group d-lg-block d-md-none d-sm-none d-none float-right">
-                        <button type="button" class="streamWork-secondary mr-2" style="font-size:12px" onclick="EditProfile()">Edit Profile</button>
-                        <button type="button" class="streamWork-primary" style="font-size:12px" onclick="window.location.href ='/Tutor/TutorDashboard'">Tutor Dashboard</button>
+                        <button type="button" class="streamWork-secondary mr-2" onclick="EditProfile()">Edit Profile</button>
+                        <button type="button" class="streamWork-primary" onclick="window.location.href ='/Tutor/TutorDashboard'">Tutor Dashboard</button>
                     </div>
                 }
                 else
                 {
                     <div class="btn-group d-lg-block d-md-none d-sm-none d-none float-right">
-                        <button type="button" class="streamWork-secondary mr-2" style="font-size:12px" onclick="EditProfile()">Message</button>
-                        <button type="button" class="streamWork-primary" style="font-size:12px" onclick="window.location.href ='/Tutor/TutorDashboard'">Follow</button>
+                        <button type="button" class="streamWork-secondary mr-2" onclick="EditProfile()">Message</button>
+                        <button type="button" class="streamWork-primary" onclick="window.location.href ='/Tutor/TutorDashboard'">Follow</button>
                     </div>
                 }
             }
@@ -25,7 +25,8 @@
                 @if (Model.CurrentUserProfile.Id == Model.UserProfile.Id)
                 {
                     <div class="btn-group d-lg-block d-md-none d-sm-none d-none float-right">
-                        <button type="button" class="streamWork-secondary mr-2" style="font-size:12px" onclick="EditProfile()">Edit Profile</button>
+                        <button type="button" class="streamWork-secondary mr-2" onclick="EditProfile()">Edit Profile</button>
+                        <button type="button" class="streamWork-primary" onclick="window.location.href ='/Student/StudentDashboard'">Student Dashboard</button>
                     </div>
                 }
                 else
@@ -58,15 +59,15 @@
         @if (Model.CurrentUserProfile.Id == Model.UserProfile.Id)
         {
             <div class="btn-group d-lg-none d-md-block d-sm-block d-block pl-3 pr-3">
-                <button type="button" class="streamWork-secondary mr-2" style="font-size:8px; height:35px;" onclick="EditProfile()">Edit Profile</button>
-                <button type="button" class="streamWork-primary" style="font-size:8px; height:35px;" onclick="OpenModal()">Tutor Dashboard</button>
+                <button type="button" class="streamWork-secondary mr-2" onclick="EditProfile()">Edit Profile</button>
+                <button type="button" class="streamWork-primary" onclick="window.location.href ='/Student/StudentDashboard'">Student Dashboard</button>
             </div>
         }
         else
         {
             <div class="btn-group d-lg-none d-md-block d-sm-block d-block pl-3 pr-3">
-                <button type="button" class="streamWork-secondary mr-2" style="font-size:8px; height:35px;" onclick="EditProfile()">Message</button>
-                <button type="button" class="streamWork-primary" style="font-size:8px; height:35px;" onclick="OpenModal()">Follow</button>
+                <button type="button" class="streamWork-secondary mr-2" onclick="EditProfile()">Message</button>
+                <button type="button" class="streamWork-primary" onclick="OpenModal()">Follow</button>
             </div>
         }
         @if (Model.UserProfile.ProfileType == "tutor")

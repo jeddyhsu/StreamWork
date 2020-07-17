@@ -6,10 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using StreamWork.Config;
-using StreamWork.Core;
 using StreamWork.DataModels;
 using StreamWork.HelperMethods;
-using StreamWork.Threads;
 using StreamWork.TutorObjects;
 
 namespace StreamWork.Services
@@ -51,7 +49,8 @@ namespace StreamWork.Services
                 var sections = blob.DownloadText();
                 var sectionsSplit = sections.Split(Environment.NewLine);
 
-                sectionsList.Add(new Section(sectionsSplit[0].Split("|``~``|")[1]));
+                if(sectionsSplit[0].Split("|``~``|")[1] != "" && sectionsSplit[0].Split("|``~``|")[1] != "-Select-Year/Class-")
+                    sectionsList.Add(new Section(sectionsSplit[0].Split("|``~``|")[1]));
 
                 for (int i = 1; i < sectionsSplit.Length - 1; i += 2)
                 {
@@ -112,7 +111,7 @@ namespace StreamWork.Services
                     var topic = topicSplit[i].Split("|``~``|")[1];
                     var listOfSubjects = topicSplit[i + 1].Split("|``~``|")[1];
 
-                    if (!topic.Equals("-Select-Topic-") || !listOfSubjects.Equals("") || (i <= 1))
+                    if (!topic.Equals("") || !listOfSubjects.Equals("") || (i <= 1))
                     {
                         listOfSubjects = listOfSubjects.Replace("*--*", Environment.NewLine);
                         topicsList.Add(new Topic(topic, listOfSubjects));

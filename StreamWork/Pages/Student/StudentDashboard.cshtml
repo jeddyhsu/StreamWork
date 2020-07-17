@@ -1,4 +1,4 @@
-﻿@page
+﻿@page 
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @model StreamWork.Pages.Student.StudentDashboard
 @Html.AntiForgeryToken()
@@ -16,22 +16,22 @@
                     <div class="col-lg-7 col-md-12 col-sm-12 col-12 order-lg-1 order-md-2 order-sm-2 order-2">
                         <div class="p-lg-4 pt-md-4 p-sm-3 p-3">
                             <div class="btn-group d-lg-block d-md-block d-sm-none d-none float-right">
-                                <button type="button" class="streamWork-secondary mr-2" style="font-size:8px; height:35px;" onclick="EditProfile()">Edit Profile</button>
-                                <button type="button" class="streamWork-primary" style="font-size:8px; height:35px;" onclick="window.location.href ='/Profile/Tutor/@Model.UserProfile.Username'">View Profile</button>
+                                <button type="button" class="streamWork-secondary mr-2" onclick="EditProfile()">Edit Profile</button>
+                                <button type="button" class="streamWork-primary" onclick="window.location.href ='/Profile/Student/@Model.UserProfile.Username'">View Profile</button>
                             </div>
-                            <input id="header-profile-picture" align="left" class="rounded" type="image" src="@Model.UserProfile.ProfilePicture?@cacheRand" style="width:90px; cursor:text" />
-                            <p id="header-name" class="form-header m-0" style="font-size:20px; padding-left:110px">@Model.UserProfile.Name.Replace('|', ' ')</p>
-                            <p id="header-occupation" class="form-header m-0" style="padding-left:110px; font-size:12px; color: #9F9F9F">@Model.UserProfile.ProfileCaption</p>
-                            <p class="mb-0 mt-2 form-sub-header" style="padding-left:110px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
-                            <p class="form-sub-header" style="padding-left:110px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">@Model.UserProfile.Location</span></p>
+                            <input id="header-profile-picture" align="left" class="rounded" type="image" src="@Model.UserProfile.ProfilePicture?@cacheRand" style="width:80px; cursor:text" />
+                            <p id="header-name" class="form-header m-0" style="font-size:20px; padding-left:100px">@Model.UserProfile.Name.Replace('|', ' ')</p>
+                            <p id="header-occupation" class="form-sub-header m-0" style="padding-left:100px; font-size:12px;">@Model.UserProfile.ProfileCaption</p>
+                            <p class="mb-0 mt-2 form-sub-header" style="padding-left:100px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
+                            <p class="form-sub-header" style="padding-left:100px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">@Model.UserProfile.Location</span></p>
                             <input id="header-first-name" type="hidden" value="@Model.UserProfile.Name.Split('|')[0]" />
                             <input id="header-last-name" type="hidden" value="@Model.UserProfile.Name.Split('|')[1]" />
                             <input id="header-timezone" type="hidden" value="@Model.UserProfile.TimeZone" />
                             <input id="header-linkedin-url" type="hidden" value="@Model.UserProfile.LinkedInUrl" />
                         </div>
-                        <div class="btn-group d-lg-none d-md-none d-sm-block d-block pl-3 pr-3 pt-2">
-                            <button type="button" class="streamWork-secondary mr-2" style="font-size:8px; height:35px;" onclick="EditProfile()">Edit Profile</button>
-                            <button type="button" class="streamWork-primary" style="font-size:8px; height:35px;" onclick="OpenModal()">View Profile</button>
+                        <div class="btn-group d-lg-none d-md-none d-sm-block d-block pl-3 pr-3 pb-3">
+                            <button type="button" class="streamWork-secondary mr-2"onclick="EditProfile()">Edit Profile</button>
+                            <button type="button" class="streamWork-primary " onclick="window.location.href ='/Profile/Student/@Model.UserProfile.Username'">View Profile</button>
                         </div>
                     </div>
                     <div class="col-lg-5 col-md-12 col-sm-12 col-12 order-lg-2 order-md-1 order-sm-1 order-1">
@@ -142,7 +142,15 @@
                                             </select>
                                             @if (Model.Sections != null)
                                             {<input id="year" type="hidden" value="@Model.Sections[0].Year" />
-                                                <script>$('#year-select').val($('#year').val())</script>
+                                             <script>
+                                                 if ($('#year').val() == "" || $('#year').val() == "-Select-Year/Class-") {
+                                                     $('#year-select').val("-Select-Year/Class-")
+                                                 }
+                                                 else {
+                                                     $('#year-select').val($('#year').val())
+                                                 }
+                                                 
+                                             </script>
                                             }
                                         </div>
                                         @if (Model.Sections != null && Model.Sections.Count > 1)
@@ -204,7 +212,7 @@
                                                     @if (i > 0)
                                                     {<img id="remove-topic-icon-@t" src="~/images/TutorAssets/TutorDashboard/Remove.svg" class="d-inline-block form-icon float-right" onclick="RemoveTopic(@t)" />}
                                                     <select id="topic-@t" name="topic-@t" asp-for="@Model.Topics[i].TopicName" class="form-control form-control-sm rounded-0">
-                                                        <option>-Select-Topic-</option>
+                                                        <option value="">-Select-Topic-</option>
                                                         <option>Mathematics</option>
                                                         <option>Science</option>
                                                         <option>Engineering</option>
@@ -233,7 +241,7 @@
                                             <div class="form-group col-lg-12 border p-2">
                                                 <label class="form-header">Topic</label>
                                                 <select name="topic" class="form-control form-control-sm rounded-0">
-                                                    <option>-Select-Topic-</option>
+                                                    <option value="">-Select-Topic-</option>
                                                     <option>Mathematics</option>
                                                     <option>Science</option>
                                                     <option>Engineering</option>
