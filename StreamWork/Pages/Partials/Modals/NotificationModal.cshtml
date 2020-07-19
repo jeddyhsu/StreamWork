@@ -1,0 +1,37 @@
+﻿<div id="notification-modal" class="custom-modal">
+    <div class="custom-modal-content">
+        <div class="close ml-auto" onclick="DiscardChangesAndCloseModal('notification-modal-form', 'notification-modal')">&times;</div>
+        <h5 class="form-header" style="padding-left:20px; padding-top:10px; font-size:16px;">Notifications</h5>
+        <div class="slider">
+            <div class="slider-object" style="width:120px"></div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                @if (Model.Notifications != null)
+                {
+                    <ul class="pl-3 m-0" style="list-style-type:none">
+                        @foreach (var notification in Model.Notifications)
+                        {
+                            <li class="">
+                                <div class="row border-bottom pt-3 pb-3">
+                                    <div class="col-12">
+                                        <input align="left" type="image" class="rounded" src="@notification.SenderProfilePicture" style="width:30px" />
+                                        <p class="form-header mb-0" style="padding-left:40px;">
+                                            @notification.SenderName.Replace('|', ' ') @notification.Message (@notification.NotificationInfo.Split('|')[0])
+                                            <span class='chat-date'></span>
+                                        </p>
+                                        <p style="padding-left:40px; font-size:12px;">
+                                            @notification.NotificationInfo.Split('|')[2]
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                }
+
+            </div>
+        </div>
+        <div id="stream-edit-buttons"></div>
+    </div>
+</div>

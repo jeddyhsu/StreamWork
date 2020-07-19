@@ -29,6 +29,12 @@ namespace StreamWork.HelperMethods
         NoFollow,
     }
 
+    public enum NotificationType
+    {
+        Follow,
+        Comment,
+    }
+
     public enum SQLQueries
     {
         // UserLogin
@@ -103,5 +109,10 @@ namespace StreamWork.HelperMethods
         UpdateTimezonesOfScheduledTasks,
         // Misc
         UserProfile,       //Use For Session
+
+        //Notifications
+        GetNotificationsWithReceiver,
+        DeleteNotificationWithId,
+        DeleteNotificationWithObjectId
     }
 }

@@ -273,6 +273,25 @@
           "QueryId": "UpdateTimezonesOfScheduledTasks"
         }
       ]
+    },
+
+    {
+      "Name": "Notification",
+      "StorageType": "SqlServer",
+      "Queries": [
+        {
+          "Query": "SELECT * FROM [dbo].[Notification] WHERE ReceiverUsername = '@x0' ORDER BY DATE ASC",
+          "QueryId": "GetNotificationsWithReceiver"
+        },
+        {
+          "Query": "DELETE FROM [dbo].[Notification] WHERE Id = '@x0'",
+          "QueryId": "DeleteNotificationWithId"
+        },
+        {
+          "Query": "DELETE FROM [dbo].[Notification] WHERE ObjectId = '@x0'",
+          "QueryId": "DeleteNotificationWithObjectId"
+        }
+      ]
     }
   ]
 }

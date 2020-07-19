@@ -20,6 +20,7 @@ namespace StreamWork.Pages.Tutor
         private readonly FollowService followService;
         private readonly EditService editService;
         private readonly SearchService searchService;
+        private readonly NotificationService notificationService;
 
         public UserLogin UserProfile { get; set; }
         public UserChannel UserChannel { get; set; }
@@ -29,12 +30,12 @@ namespace StreamWork.Pages.Tutor
         public List<UserArchivedStreams> UserArchivedStreams { get; set; }
         public List<Section> Sections { get; set; }
         public List<Topic> Topics { get; set; }
-        public List<DataModels.Comment> Comments { get; set; }
         public List<Schedule> Schedule { get; set; }
+        public List<Notification> Notifications { get; set; }
 
         public SearchViewModel SearchViewModel { get; set; }
 
-        public TutorDashboard(StorageService storage, SessionService session, ProfileService profile, ScheduleService schedule, FollowService follow, EditService edit, SearchService search)
+        public TutorDashboard(StorageService storage, SessionService session, ProfileService profile, ScheduleService schedule, FollowService follow, EditService edit, SearchService search, NotificationService notification)
         {
             storageService = storage;
             sessionService = session;
@@ -43,6 +44,7 @@ namespace StreamWork.Pages.Tutor
             followService = follow;
             editService = edit;
             searchService = search;
+            notificationService = notification;
         }
 
         public async Task<IActionResult> OnGet()
@@ -58,8 +60,8 @@ namespace StreamWork.Pages.Tutor
             UserArchivedStreams = await storageService.GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { UserProfile.Username });
             Sections = profileService.GetSections(UserProfile);
             Topics = profileService.GetTopics(UserProfile);
-            //Comments = storage.GetCommentsToTutor(UserProfile.Username);
             Schedule = await scheduleService.GetSchedule(UserProfile.Username);
+            Notifications = await notificationService.GetNotifications(UserProfile.Username);
 
             NumberOfStreams = UserArchivedStreams.Count;
             NumberOfViews = UserArchivedStreams.Sum(x => x.Views);

@@ -1,5 +1,5 @@
 ﻿function OpenNotificationModal(body, id) {
-    var notification = document.getElementById('notificationMessage');
+    var notification = document.getElementById('notification-message');
     notification.textContent = body;
     OpenModal(id);
 }

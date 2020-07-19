@@ -17,6 +17,7 @@ namespace StreamWork.Pages.Profile
         private readonly ProfileService profileService;
         private readonly ScheduleService scheduleService;
         private readonly FollowService followService;
+        private readonly NotificationService notificationService;
 
         public UserLogin CurrentUserProfile { get; set; }
         public UserLogin UserProfile { get; set; }
@@ -31,14 +32,16 @@ namespace StreamWork.Pages.Profile
         public int NumberOfStreams { get; set; }
         public int NumberOfFollowers { get; set; }
         public int NumberOfViews { get; set; }
+        public List<Notification> Notifications { get; set; }
 
-        public Tutor(StorageService storage, SessionService session, ProfileService profile, ScheduleService schedule, FollowService follow)
+        public Tutor(StorageService storage, SessionService session, ProfileService profile, ScheduleService schedule, FollowService follow, NotificationService notification)
         {
             storageService = storage;
             sessionService = session;
             profileService = profile;
             scheduleService = schedule;
             followService = follow;
+            notificationService = notification;
         }
 
         public async Task<IActionResult> OnGet(string tutor)
@@ -58,6 +61,7 @@ namespace StreamWork.Pages.Profile
             Sections = profileService.GetSections(UserProfile);
             Topics = profileService.GetTopics(UserProfile);
             Schedule = await scheduleService.GetSchedule(UserProfile.Username);
+            Notifications = await notificationService.GetNotifications(UserProfile.Username);
 
             NumberOfStreams = UserArchivedStreams.Count;
             NumberOfViews = UserArchivedStreams.Sum(x => x.Views);

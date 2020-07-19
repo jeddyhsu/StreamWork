@@ -15,16 +15,17 @@
             <div class="card-body p-0">
                 <div class="row">
                     <div class="col-lg-7 col-md-12 col-sm-12 col-12 order-lg-1 order-md-2 order-sm-2 order-2">
+                        <div class="btn-group d-lg-block d-md-block d-sm-none d-none float-right m-4">
+                            <button type="button" class="streamWork-secondary mr-2" onclick="EditProfile()">Edit Profile</button>
+                            <button type="button" class="streamWork-primary" onclick="window.location.href ='/Profile/Tutor/@Model.UserProfile.Username'">View Profile</button>
+                        </div>
                         <div class="p-lg-4 pt-md-4 p-sm-3 p-3">
-                            <div class="btn-group d-lg-block d-md-block d-sm-none d-none float-right">
-                                <button type="button" class="streamWork-secondary mr-2" style="font-size:8px; height:35px;" onclick="EditProfile()">Edit Profile</button>
-                                <button type="button" class="streamWork-primary" style="font-size:8px; height:35px;" onclick="window.location.href ='/Profile/Tutor/@Model.UserProfile.Username'">View Profile</button>
-                            </div>
-                            <input id="header-profile-picture" align="left" class="rounded" type="image" src="@Model.UserProfile.ProfilePicture?@cacheRand" style="width:90px; cursor:text" />
-                            <p id="header-name" class="form-header m-0" style="font-size:20px; padding-left:110px">@Model.UserProfile.Name.Replace('|', ' ')</p>
-                            <p id="header-occupation" class="form-header m-0" style="padding-left:110px; font-size:12px; color: #9F9F9F">@Model.UserProfile.ProfileCaption</p>
-                            <p class="mb-0 mt-2 form-sub-header" style="padding-left:110px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
-                            <p class="form-sub-header" style="padding-left:110px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">@Model.UserProfile.Location</span></p>
+
+                            <input id="header-profile-picture" align="left" class="rounded" type="image" src="@Model.UserProfile.ProfilePicture?@cacheRand" style="width:80px; cursor:text" />
+                            <p id="header-name" class="form-header m-0" style="font-size:20px; padding-left:100px">@Model.UserProfile.Name.Replace('|', ' ')</p>
+                            <p id="header-occupation" class="form-header m-0" style="padding-left:100px; font-size:12px; color: #9F9F9F">@Model.UserProfile.ProfileCaption</p>
+                            <p class="mb-0 mt-2 form-sub-header" style="padding-left:100px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
+                            <p class="form-sub-header" style="padding-left:100px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">@Model.UserProfile.Location</span></p>
                             <input id="header-first-name" type="hidden" value="@Model.UserProfile.Name.Split('|')[0]" />
                             <input id="header-last-name" type="hidden" value="@Model.UserProfile.Name.Split('|')[1]" />
                             <input id="header-timezone" type="hidden" value="@Model.UserProfile.TimeZone" />
@@ -32,8 +33,8 @@
                         </div>
 
                         <div class="btn-group d-lg-none d-md-none d-sm-block d-block pl-3 pr-3">
-                            <button type="button" class="streamWork-secondary mr-2" style="font-size:8px; height:35px;" onclick="EditProfile()">Edit Profile</button>
-                            <button type="button" class="streamWork-primary" style="font-size:8px; height:35px;" onclick="OpenModal()">View Profile</button>
+                            <button type="button" class="streamWork-secondary mr-2" onclick="EditProfile()">Edit Profile</button>
+                            <button type="button" class="streamWork-primary" onclick="OpenModal()">View Profile</button>
                         </div>
 
                         <div class="p-lg-4 pt-md-4 p-sm-3 p-3">

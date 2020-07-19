@@ -18,6 +18,7 @@
                 </li>
             </ul>
         </div>
+        <img src="~/images/GenericAssets/Bell.svg" width="65" style="cursor:pointer" onclick="OpenModal('notification-modal')" />
         <div class="btn-group pr-3">
             <input id="navbar-profile-picture" class="navbar-profile-picture" type="image" data-toggle="dropdown" src="@Model.UserProfile.ProfilePicture?@cacheRand" />
             <button type="button" id="dropdown" class="btn btn-info dropdown-toggle border-0 navbar-dropdown-button" data-toggle="dropdown"></button>
@@ -32,3 +33,5 @@
         <script>$('#dropdown').dropdown()</script>
     </nav>
 </div>
+
+@await Html.PartialAsync("Partials/Modals/NotificationModal")

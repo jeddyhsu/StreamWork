@@ -26,7 +26,7 @@ namespace StreamWork.Services
 
         public async Task<UserLogin> GetCurrentUser()
         {
-            return await storage.Get<UserLogin>(HelperMethods.SQLQueries.GetUserWithUsername, new string[] { "rarunS" });
+            return await storage.Get<UserLogin>(HelperMethods.SQLQueries.GetUserWithUsername, new string[] { "rarunT" });
         }
     }
 }

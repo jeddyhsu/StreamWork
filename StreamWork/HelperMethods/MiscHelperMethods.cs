@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace StreamWork.HelperMethods
 {
@@ -33,6 +34,15 @@ namespace StreamWork.HelperMethods
             return ids;
         }
 
-        
+        public static string URLIFY(string message)
+        {
+            string pattern = "(https?://([^ ]+))";
+            string replacement = "<a target=\"_blank\" href=\"$1\">$1</a>";
+            Regex rgx = new Regex(pattern);
+            string result = rgx.Replace(message, replacement);
+
+            return result;
+        }
+
     }
 }
