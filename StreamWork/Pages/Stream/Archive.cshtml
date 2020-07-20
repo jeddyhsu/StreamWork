@@ -1,4 +1,4 @@
-﻿@page "{tutor}/{id}"
+﻿@page "{tutor}/{id}/{commentId}"
 @model StreamWork.Pages.Stream.Archive
 @{Layout = "Tutor/_LayoutTutor"; }
 @{ViewData["Title"] = "StreamPlaybackPage";}
@@ -7,7 +7,7 @@
 @Html.AntiForgeryToken()
 
 <div class="container-fluid">
-    <div class="row" style="padding-top:58px">
+    <div class="row" style="padding-top:71px">
         <div class="d-flex flex-column col-lg-9 col-md-12 col-sm-12 col-12 p-0 border-right ">
             <div id="player-card" class="card border-0">
                 <div id="tutor-info" class="border-top pt-3 pl-3 pr-3 pb-1" style="background-color:#FBFBFB">
@@ -59,6 +59,13 @@
         </div>
     </div>
 </div>
+
+@if(Model.NotificationRequestComment != null)
+{
+    <script>
+        GoToComment('@Model.NotificationRequestComment.ParentId', '@Model.NotificationRequestComment.Id')
+    </script>
+}
 
 <script>
     ButtonEnabledDisabled('send', '')

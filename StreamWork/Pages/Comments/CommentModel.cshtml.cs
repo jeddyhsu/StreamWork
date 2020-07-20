@@ -5,7 +5,7 @@ using StreamWork.DataModels;
 using StreamWork.HelperMethods;
 using StreamWork.Services;
 
-namespace StreamWork.Pages.Comment
+namespace StreamWork.Pages.Comments
 {
     public class CommentModel : PageModel
     {

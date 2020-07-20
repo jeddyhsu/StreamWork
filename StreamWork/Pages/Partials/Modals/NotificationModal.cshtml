@@ -16,6 +16,7 @@
                                 <div class="row border-bottom pt-3 pb-3">
                                     <div class="col-12">
                                         <input align="left" type="image" class="rounded" src="@notification.SenderProfilePicture" style="width:30px" />
+                                        <button class="streamWork-primary float-right ml-3 mr-3" onclick="window.location.href='/Stream/Archive/rarunT/@notification.NotificationInfo.Split('|')[1]/@notification.ObjectId'">Reply</button>
                                         <p class="form-header mb-0" style="padding-left:40px;">
                                             @notification.SenderName.Replace('|', ' ') @notification.Message (@notification.NotificationInfo.Split('|')[0])
                                             <span class='chat-date'></span>

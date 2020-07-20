@@ -17,8 +17,6 @@ namespace StreamWork.Pages.Stream
         private readonly ProfileService profileService;
         private readonly ScheduleService scheduleService;
         private readonly FollowService followService;
-        private readonly EditService editService;
-        private readonly ChatService chatService;
         private readonly CommentService commentService;
         private readonly NotificationService notificationService;
 
@@ -34,26 +32,25 @@ namespace StreamWork.Pages.Stream
         public List<UserLogin> RelatedTutors { get; set; }
         public List<Section> Sections { get; set; }
         public List<Schedule> Schedule { get; set; }
-        public List<DataModels.Comment> Comments { get; set; }
+        public List<Comment> Comments { get; set; }
         public int NumberOfStreams { get; set; }
         public int NumberOfFollowers { get; set; }
         public int NumberOfViews { get; set; }
         public List<Notification> Notifications { get; set; }
+        public Comment NotificationRequestComment { get; set; }
 
-        public Archive(StorageService storage, SessionService session, ProfileService profile, ScheduleService schedule, FollowService follow, EditService edit, ChatService chat, CommentService comment, NotificationService notification)
+        public Archive(StorageService storage, SessionService session, ProfileService profile, ScheduleService schedule, FollowService follow, CommentService comment, NotificationService notification)
         {
             storageService = storage;
             sessionService = session;
             profileService = profile;
             scheduleService = schedule;
             followService = follow;
-            editService = edit;
-            chatService = chat;
             commentService = comment;
             notificationService = notification;
         }
 
-        public async Task<IActionResult> OnGet(string tutor, string id)
+        public async Task<IActionResult> OnGet(string tutor, string id, string commentId)
         {
             UserProfile = await sessionService.GetCurrentUser();
             TutorUserProfile = await storageService.Get<UserLogin>(SQLQueries.GetUserWithUsername, tutor);
@@ -73,6 +70,8 @@ namespace StreamWork.Pages.Stream
             NumberOfStreams = UserArchivedStreams.Count;
             NumberOfFollowers = await followService.GetNumberOfFollowers(UserProfile.Id);
             NumberOfViews = UserArchivedStreams.Sum(x => x.Views);
+
+            if (!string.IsNullOrEmpty(commentId)) NotificationRequestComment = await storageService.Get<Comment>(SQLQueries.GetCommentWithId, commentId);
 
             return Page();
         }

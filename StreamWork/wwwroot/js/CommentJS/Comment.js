@@ -10,7 +10,7 @@ function SaveComment(parentId, parentParentId) {
     }
 
     $.ajax({
-        url: '/Comment/CommentModel/?handler=SaveComment',
+        url: '/Comments/CommentModel/?handler=SaveComment',
         type: 'POST',
         datatype: 'json',
         data: {
@@ -92,7 +92,7 @@ function IncrementDecrementComments(profilePicture, id, receiverName, parentId) 
 
 function DeleteComment(commentId, parentId) {
     $.ajax({
-        url: '/Comment/CommentModel/?handler=DeleteComment',
+        url: '/Comments/CommentModel/?handler=DeleteComment',
         type: 'POST',
         datatype: 'json',
         data: {
@@ -126,7 +126,7 @@ function DeleteComment(commentId, parentId) {
 
 function EditComment(commentId) {
     $.ajax({
-        url: '/Comment/CommentModel/?handler=EditComment',
+        url: '/Comments/CommentModel/?handler=EditComment',
         type: 'POST',
         datatype: 'json',
         data: {
@@ -238,4 +238,14 @@ function OpenDeleteConfirmation(commentId, parentId) {
     $('#notification-delete-comment-modal').html(confirmation);
     OpenNotificationModal('Are you sure you want to delete? This is a irreverible action!', 'notification-delete-comment-modal')
 
+}
+
+function GoToComment(parentId, commentId) {
+    if (parentId != "" || parentId != null) {
+        ShowReplyComments(parentId)
+    }
+
+    $('html, body').animate({
+        scrollTop: ($('#comment-' + commentId).offset().top)
+    }, 500);
 }
