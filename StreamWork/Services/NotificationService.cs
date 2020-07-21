@@ -48,17 +48,30 @@ namespace StreamWork.Services
 
         public async Task<bool> DeleteNotificationWhenObjectIsDeleted(string objectId)
         {
-            return await Run<Notification>(SQLQueries.DeleteNotificationWithObjectId, new string[] { objectId });
+            return await Run<Notification>(SQLQueries.DeleteNotificationWithObjectId, objectId);
         }
 
         public async Task<bool> DeleteNotification(string id)
         {
-            return await Run<Notification>(SQLQueries.DeleteNotificationWithId, new string[] { id });
+            return await Run<Notification>(SQLQueries.DeleteNotificationWithId, id);
         }
 
         public async Task<List<Notification>> GetNotifications(string username)
         {
-            return await GetList<Notification>(SQLQueries.GetNotificationsWithReceiver, new string[] { username });
+            return await GetList<Notification>(SQLQueries.GetNotificationsWithReceiver,username);
+        }
+
+        public async Task<bool> UpdateNotificationsToSeen(string username)
+        {
+            return await Run<Notification>(SQLQueries.UpdateNotificationToSeen, username);
+        }
+
+        public async Task<bool> AreThereUnseenNotifications(string username)
+        {
+            var unseenNotifications = await GetList<Notification>(SQLQueries.GetUnseenNotifications, username);
+
+            if (unseenNotifications.Count > 0) return true;
+            return false;
         }
 
         private string CreateNotification(NotificationType notificationType)

@@ -25,11 +25,25 @@
                             <img class="comment-profile-picture" align="left" src="@Model.Comments[i].SenderProfilePicture" />
                             @if (@Model.Comments[i].SenderUsername.Equals(Model.UserProfile.Username))
                             {
-                            <img src="~/images/GenericAssets/Trash.png" class="comment-remove pl-1 float-right" id="comment-remove-@Model.Comments[i].Id" onclick="OpenDeleteConfirmation('@Model.Comments[i].Id')" />
-                            <img src="~/images/GenericAssets/Edit.png" class="comment-edit pl-1 float-right" id="comment-edit-@Model.Comments[i].Id" onclick="ShowEditBox('@Model.Comments[i].SenderProfilePicture', '@Model.Comments[i].Id')" />
+                                <img src="~/images/GenericAssets/Trash.png" class="comment-remove pl-1 float-right" id="comment-remove-@Model.Comments[i].Id" onclick="OpenDeleteConfirmation('@Model.Comments[i].Id')" />
+                                <img src="~/images/GenericAssets/Edit.png" class="comment-edit pl-1 float-right" id="comment-edit-@Model.Comments[i].Id" onclick="ShowEditBox('@Model.Comments[i].SenderProfilePicture', '@Model.Comments[i].Id')" />
+                                <script>
+                                $('#comment-@Model.Comments[i].Id').hover(function () {
+                                    $('#comment-edit-@Model.Comments[i].Id').css('display', 'block')
+                                    $('#comment-remove-@Model.Comments[i].Id').css('display', 'block')
+                                }, function () {
+                                    $('#comment-edit-@Model.Comments[i].Id').css('display', 'none')
+                                    $('#comment-remove-@Model.Comments[i].Id').css('display', 'none')
+                                })
+                                </script>
                             }
                             <p class="form-header comment-name mb-0">
-                                @Model.Comments[i].SenderName.Replace('|', ' ') <span class="form-sub-header ml-1" style="font-size:10px; font-family:'Roboto', serif"> @Model.Comments[i].Date.ToLocalTime().ToString("MMM dd yyyy")  @if (@Model.Comments[i].Edited != null) {<span class="ml-1">(edited)</span>} else{<span id="edited-holder-@Model.Comments[i].Id" class="ml-1"></span>}</span>
+                                @Model.Comments[i].SenderName.Replace('|', ' ') <span class="form-sub-header ml-1" style="font-size:10px; font-family:'Roboto', serif">
+                                    @Model.Comments[i].Date.ToLocalTime().ToString("MMM dd yyyy")  @if (@Model.Comments[i].Edited != null)
+                                    {<span class="ml-1">(edited)</span>}
+                                    else
+                                    {<span id="edited-holder-@Model.Comments[i].Id" class="ml-1"></span>}
+                                </span>
                             </p>
                             <input type="hidden" id="comment-send-hidden-@Model.Comments[i].Id" value="@Model.Comments[i].Message" />
                             <div id="comment-send-holder-@Model.Comments[i].Id">
@@ -39,38 +53,43 @@
                             @{string replyWord = "Replies";}
                             @if (Model.Comments[i].Replies.Count == 1)
                             {
-                            replyWord = "Reply";
+                                replyWord = "Reply";
                             }
                             <input id="comment-replies-count-@Model.Comments[i].Id" type="hidden" value="@Model.Comments[i].Replies.Count" />
                             @if (Model.Comments[i].Replies.Count > 0)
                             {
-                            <a class="comment-replies pl-1" id="show-replies-@Model.Comments[i].Id" onclick="ShowReplyComments('@Model.Comments[i].Id')"><b>Show @Model.Comments[i].Replies.Count @replyWord</b></a>
+                                <a class="comment-replies pl-1" id="show-replies-@Model.Comments[i].Id" onclick="ShowReplyComments('@Model.Comments[i].Id')"><b>Show @Model.Comments[i].Replies.Count @replyWord</b></a>
                             }
                             else
                             {
-                            <a class="comment-replies pl-1" style="display:none" id="show-replies-@Model.Comments[i].Id" onclick="ShowReplyComments('@Model.Comments[i].Id')"><b>Show @Model.Comments[i].Replies.Count @replyWord</b></a>
+                                <a class="comment-replies pl-1" style="display:none" id="show-replies-@Model.Comments[i].Id" onclick="ShowReplyComments('@Model.Comments[i].Id')"><b>Show @Model.Comments[i].Replies.Count @replyWord</b></a>
                             }
                             <div style="padding-left:40px" id="reply-box-@Model.Comments[i].Id"></div>
                             <ul class="comment-list" style="display:none" id="comment-reply-list-@Model.Comments[i].Id">
                                 @for (int e = 0; e < Model.Comments[i].Replies.Count; e++)
                                 {
-                                <li id="comment-@Model.Comments[i].Replies[e].Id" class="border-bottom border-left border-right p-3" style="background-color:white">
-                                    <img class="comment-profile-picture" align="left" src="@Model.Comments[i].Replies[e].SenderProfilePicture" />
-                                    @if (@Model.Comments[i].Replies[e].SenderUsername.Equals(Model.UserProfile.Username))
-                                    {
-                                    <img src="~/images/GenericAssets/Trash.png" class="comment-remove pl-1 float-right" id="comment-remove-@Model.Comments[i].Replies[e].Id" onclick="OpenDeleteConfirmation('@Model.Comments[i].Replies[e].Id', '@Model.Comments[i].Id')" />
-                                    <img src="~/images/GenericAssets/Edit.png" class="comment-edit pl-1 float-right" id="comment-edit-@Model.Comments[i].Replies[e].Id" onclick="ShowEditBox('@Model.Comments[i].Replies[e].SenderProfilePicture', '@Model.Comments[i].Replies[e].Id')" />
-                                    }
-                                    <p class="form-header comment-name mb-0">
-                                        @Model.Comments[i].Replies[e].SenderName.Replace('|', ' ')<span class="form-sub-header ml-1" style="font-size:10px; font-family:'Roboto', serif"> @Model.Comments[i].Replies[e].Date.ToLocalTime().ToString("MMM dd yyyy")  @if (@Model.Comments[i].Replies[e].Edited != null){<span class="ml-1">(edited)</span>} else{<span id="edited-holder-@Model.Comments[i].Replies[e].Id" class="ml-1"></span>}</span>
-                                    </p>
-                                    <input type="hidden" id="comment-send-hidden-@Model.Comments[i].Replies[e].Id" value="@Model.Comments[i].Replies[e].Message" />
-                                    <div id="comment-send-holder-@Model.Comments[i].Replies[e].Id">
-                                        <p class="mb-1 comment-send" id="comment-send-@Model.Comments[i].Replies[e].Id"><span id="comment-at-@Model.Comments[i].Replies[e].Message" class="comment-at" contenteditable="false"><b>@@@Model.Comments[i].Replies[e].ReceiverName.Replace('|', ' ') </b></span>@Html.Raw(Model.Comments[i].Replies[e].Message)</p>
-                                    </div>
-                                    <a class="comment-replies" onclick="ShowReplyBox('@Model.Comments[i].SenderProfilePicture', '@Model.Comments[i].Replies[e].Id', '@Model.Comments[i].SenderName','@Model.Comments[i].Id', true)"><b>Reply</b></a>
-                                    <div style="padding-left:40px" id="reply-box-@Model.Comments[i].Replies[e].Id"></div>
-                                </li>
+                                    <li id="comment-@Model.Comments[i].Replies[e].Id" class="border-bottom border-left border-right p-3" style="background-color:white">
+                                        <img class="comment-profile-picture" align="left" src="@Model.Comments[i].Replies[e].SenderProfilePicture" />
+                                        @if (@Model.Comments[i].Replies[e].SenderUsername.Equals(Model.UserProfile.Username))
+                                        {
+                                            <img src="~/images/GenericAssets/Trash.png" class="comment-remove pl-1 float-right" id="comment-remove-@Model.Comments[i].Replies[e].Id" onclick="OpenDeleteConfirmation('@Model.Comments[i].Replies[e].Id', '@Model.Comments[i].Id')" />
+                                            <img src="~/images/GenericAssets/Edit.png" class="comment-edit pl-1 float-right" id="comment-edit-@Model.Comments[i].Replies[e].Id" onclick="ShowEditBox('@Model.Comments[i].Replies[e].SenderProfilePicture', '@Model.Comments[i].Replies[e].Id')" />
+                                        }
+                                        <p class="form-header comment-name mb-0">
+                                            @Model.Comments[i].Replies[e].SenderName.Replace('|', ' ')<span class="form-sub-header ml-1" style="font-size:10px; font-family:'Roboto', serif">
+                                                @Model.Comments[i].Replies[e].Date.ToLocalTime().ToString("MMM dd yyyy")  @if (@Model.Comments[i].Replies[e].Edited != null)
+                                                {<span class="ml-1">(edited)</span>}
+                                                else
+                                                {<span id="edited-holder-@Model.Comments[i].Replies[e].Id" class="ml-1"></span>}
+                                            </span>
+                                        </p>
+                                        <input type="hidden" id="comment-send-hidden-@Model.Comments[i].Replies[e].Id" value="@Model.Comments[i].Replies[e].Message" />
+                                        <div id="comment-send-holder-@Model.Comments[i].Replies[e].Id">
+                                            <p class="mb-1 comment-send" id="comment-send-@Model.Comments[i].Replies[e].Id"><span id="comment-at-@Model.Comments[i].Replies[e].Message" class="comment-at" contenteditable="false"><b>@@@Model.Comments[i].Replies[e].ReceiverName.Replace('|', ' ') </b></span>@Html.Raw(Model.Comments[i].Replies[e].Message)</p>
+                                        </div>
+                                        <a class="comment-replies" onclick="ShowReplyBox('@Model.Comments[i].SenderProfilePicture', '@Model.Comments[i].Replies[e].Id', '@Model.Comments[i].SenderName','@Model.Comments[i].Id', true)"><b>Reply</b></a>
+                                        <div style="padding-left:40px" id="reply-box-@Model.Comments[i].Replies[e].Id"></div>
+                                    </li>
                                 }
                             </ul>
                         </div>

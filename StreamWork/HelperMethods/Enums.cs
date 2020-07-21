@@ -113,6 +113,8 @@ namespace StreamWork.HelperMethods
         //Notifications
         GetNotificationsWithReceiver,
         DeleteNotificationWithId,
-        DeleteNotificationWithObjectId
+        DeleteNotificationWithObjectId,
+        UpdateNotificationToSeen,
+        GetUnseenNotifications
     }
 }

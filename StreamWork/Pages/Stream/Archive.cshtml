@@ -6,8 +6,8 @@
 @{var cacheRand = new Random().Next();}
 @Html.AntiForgeryToken()
 
-<div class="container-fluid">
-    <div class="row" style="padding-top:71px">
+<div class="container-fluid" style="overflow-y:hidden">
+    <div class="row" style="margin-top:71px">
         <div class="d-flex flex-column col-lg-9 col-md-12 col-sm-12 col-12 p-0 border-right ">
             <div id="player-card" class="card border-0">
                 <div id="tutor-info" class="border-top pt-3 pl-3 pr-3 pb-1" style="background-color:#FBFBFB">
@@ -70,4 +70,5 @@
 <script>
     ButtonEnabledDisabled('send', '')
     ResizeStreamSection();
+    ResizeStreamInfoSectionArchivedStreams()
 </script>

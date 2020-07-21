@@ -38,6 +38,7 @@ namespace StreamWork.Pages.Stream
         public int NumberOfViews { get; set; }
         public List<Notification> Notifications { get; set; }
         public Comment NotificationRequestComment { get; set; }
+        public bool AreThereUnseenNotifications { get; set; }
 
         public Archive(StorageService storage, SessionService session, ProfileService profile, ScheduleService schedule, FollowService follow, CommentService comment, NotificationService notification)
         {
@@ -65,13 +66,14 @@ namespace StreamWork.Pages.Stream
             Sections = profileService.GetSections(TutorUserProfile);
             Schedule = await scheduleService.GetSchedule(UserProfile.Username);
             Comments = await commentService.GetAllComments(ArchivedStream.StreamID);
-            Notifications = await notificationService.GetNotifications(UserProfile.Username);
 
             NumberOfStreams = UserArchivedStreams.Count;
             NumberOfFollowers = await followService.GetNumberOfFollowers(UserProfile.Id);
             NumberOfViews = UserArchivedStreams.Sum(x => x.Views);
 
+            Notifications = await notificationService.GetNotifications(UserProfile.Username);
             if (!string.IsNullOrEmpty(commentId)) NotificationRequestComment = await storageService.Get<Comment>(SQLQueries.GetCommentWithId, commentId);
+            AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(UserProfile.Username);
 
             return Page();
         }

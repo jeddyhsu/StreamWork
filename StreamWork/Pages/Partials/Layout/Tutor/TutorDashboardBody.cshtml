@@ -1,4 +1,5 @@
 ﻿@{var cacheRand = new Random().Next();}
+@Html.AntiForgeryToken()
 
 <div class="row">
     <nav class="navbar navbar-expand-lg fixed-top p-1 w-100 navbar-custom" style="background-color:white;">
@@ -18,7 +19,14 @@
                 </li>
             </ul>
         </div>
-        <img src="~/images/GenericAssets/Bell.svg" width="65" style="cursor:pointer" onclick="OpenModal('notification-modal')" />
+        @if (Model.Notifications.Count > 0 && Model.AreThereUnseenNotifications)
+        {
+            <img id="notification-bell" src="~/images/GenericAssets/NotificationBell.svg" width="65" style="cursor:pointer" onclick="OpenModal('notification-modal'); UpdateToSeen('@Model.UserProfile.Username');  $('#notification-bell').attr('src', '/images/GenericAssets/Bell.svg')" />
+        }
+        else
+        {
+            <img src="~/images/GenericAssets/Bell.svg" width="65" style="cursor:pointer" onclick="OpenModal('notification-modal')" />
+        }
         <div class="btn-group pr-3">
             <input id="navbar-profile-picture" class="navbar-profile-picture" type="image" data-toggle="dropdown" src="@Model.UserProfile.ProfilePicture?@cacheRand" />
             <button type="button" id="dropdown" class="btn btn-info dropdown-toggle border-0 navbar-dropdown-button" data-toggle="dropdown"></button>

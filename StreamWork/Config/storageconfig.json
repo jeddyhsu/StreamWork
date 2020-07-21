@@ -280,7 +280,7 @@
       "StorageType": "SqlServer",
       "Queries": [
         {
-          "Query": "SELECT * FROM [dbo].[Notification] WHERE ReceiverUsername = '@x0' ORDER BY DATE ASC",
+          "Query": "SELECT * FROM [dbo].[Notification] WHERE ReceiverUsername = '@x0' ORDER BY DATE DESC",
           "QueryId": "GetNotificationsWithReceiver"
         },
         {
@@ -290,6 +290,14 @@
         {
           "Query": "DELETE FROM [dbo].[Notification] WHERE ObjectId = '@x0'",
           "QueryId": "DeleteNotificationWithObjectId"
+        },
+        {
+          "Query": "UPDATE [dbo].[Notification] SET Seen = 'true' WHERE ReceiverUsername = '@x0'",
+          "QueryId": "UpdateNotificationToSeen"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Notification] WHERE ReceiverUsername = '@x0' AND Seen = 'false'",
+          "QueryId": "GetUnseenNotifications"
         }
       ]
     }

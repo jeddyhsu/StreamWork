@@ -6,29 +6,40 @@
             <div class="slider-object" style="width:120px"></div>
         </div>
         <div class="row">
-            <div class="col-12">
-                @if (Model.Notifications != null)
+            <div id="notification-mask" class="col-12">
+                @if (Model.Notifications != null && Model.Notifications.Count > 0)
                 {
-                    <ul class="pl-3 m-0" style="list-style-type:none">
+                    <ul id="notification-list" class="pl-3 m-0" style="list-style-type:none">
                         @foreach (var notification in Model.Notifications)
                         {
-                            <li class="">
-                                <div class="row border-bottom pt-3 pb-3">
+                            <li id="notification-@notification.Id" class="border-bottom">
+                                <div class="row pt-3 pb-3">
                                     <div class="col-12">
+                                        <img id="notification-delete-@notification.Id" src="~/images/GenericAssets/Trash.png" class="comment-remove mr-3 float-right" onclick="DeleteNotification('@notification.Id')"/>
                                         <input align="left" type="image" class="rounded" src="@notification.SenderProfilePicture" style="width:30px" />
-                                        <button class="streamWork-primary float-right ml-3 mr-3" onclick="window.location.href='/Stream/Archive/rarunT/@notification.NotificationInfo.Split('|')[1]/@notification.ObjectId'">Reply</button>
+                                        <script>
+                                            $('#notification-@notification.Id').hover(function () {
+                                                $('#notification-delete-@notification.Id').css('display', 'block')
+                                            }, function () {
+                                                $('#notification-delete-@notification.Id').css('display', 'none')
+                                            })
+                                        </script>
                                         <p class="form-header mb-0" style="padding-left:40px;">
-                                            @notification.SenderName.Replace('|', ' ') @notification.Message (@notification.NotificationInfo.Split('|')[0])
-                                            <span class='chat-date'></span>
+                                            @notification.SenderName.Replace('|', ' ') @notification.Message (@notification.NotificationInfo.Split('|')[0]) <span class="form-subheader roboto" style="font-size:10px;">@notification.Date.ToLocalTime().ToString("h:mm tt")</span>
                                         </p>
-                                        <p style="padding-left:40px; font-size:12px;">
+                                        <p class="mb-0" style="padding-left:40px; font-size:12px;">
                                             @notification.NotificationInfo.Split('|')[2]
                                         </p>
+                                        <a class="comment-replies" href="/Stream/Archive/rarunT/@notification.NotificationInfo.Split('|')[1]/@notification.ObjectId" style="padding-left:10px"><b>Reply</b></a>
                                     </div>
                                 </div>
                             </li>
                         }
                     </ul>
+                }
+                else
+                {
+                    <p class="form-header text-center p-3 mb-0" style="font-size:18px;">No notifications at this time!</p>
                 }
 
             </div>

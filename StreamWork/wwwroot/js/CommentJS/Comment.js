@@ -48,6 +48,15 @@ function SaveComment(parentId, parentParentId) {
                                             <img class="comment-profile-picture" align="left" src="${data.savedInfo[0]}"/>
                                             <img src="/images/GenericAssets/Trash.png" class="comment-remove pl-1 float-right" id="comment-remove-${data.savedInfo[3]}" onclick="OpenDeleteConfirmation('${data.savedInfo[3]}', '${parentId}')" />
                                             <img src="/images/GenericAssets/Edit.png" class="comment-edit pl-1 float-right" id="comment-edit-${data.savedInfo[3]}" onclick="ShowEditBox('${data.savedInfo[0]}', '${data.savedInfo[3]}')" />
+                                            <script>
+                                                $('#comment-${data.savedInfo[3]}').hover(function () {
+                                                    $('#comment-edit-${data.savedInfo[3]}').css('display', 'block')
+                                                    $('#comment-remove-${data.savedInfo[3]}').css('display', 'block')
+                                                }, function () {
+                                                    $('#comment-edit-${data.savedInfo[3]}').css('display', 'none')
+                                                    $('#comment-remove-${data.savedInfo[3]}').css('display', 'none')
+                                                })
+                                            </script>
                                             <p class="form-header comment-name mb-0">${data.savedInfo[1]}<span class="form-sub-header ml-2" style="font-size:10px; font-family:'Roboto', serif">${date}<span id="edited-holder-${data.savedInfo[3]}" class="ml-2"></span></span></p>
                                             <input type="hidden" id="comment-send-hidden-${data.savedInfo[3]}" value="${message}" />
                                             <div id="comment-send-holder-${data.savedInfo[3]}">

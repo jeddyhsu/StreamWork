@@ -66,6 +66,8 @@
     <Folder Include="Pages\Partials\Comment\" />
     <Folder Include="Pages\Partials\Layout\Student\" />
     <Folder Include="Pages\Shared\Student\" />
+    <Folder Include="Pages\Notifications\" />
+    <Folder Include="wwwroot\js\NotificationJS\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="EmailTemplates\PasswordRecoveryEmailTemplate.html">

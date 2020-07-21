@@ -58,12 +58,14 @@
 .comment-edit {
     width:30px;
     cursor: pointer;
+    display:none;
 }
 
 .comment-remove {
     width: 24px;
     cursor: pointer;
-    padding-top:2px;
+    padding-top: 2px;
+    display: none;
 }
 
 .comment-cancel-button {
