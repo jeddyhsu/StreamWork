@@ -45,8 +45,8 @@ namespace StreamHoster
 		public List<string> Description { get; set; }
 		[XmlElement(ElementName = "guid")]
 		public string Guid { get; set; }
-		[XmlElement(ElementName = "mediaid", Namespace = "http://static.streamhoster.com/feed/sh.dtd")]
-		public string Mediaid { get; set; }
+		[XmlElement(ElementName = "mediaContentId", Namespace = "http://static.streamhoster.com/feed/sh.dtd")]
+		public string MediaContentId { get; set; }
 		[XmlElement(ElementName = "category", Namespace = "http://search.yahoo.com/mrss/")]
 		public string Category { get; set; }
 		[XmlElement(ElementName = "thumbnail", Namespace = "http://search.yahoo.com/mrss/")]
