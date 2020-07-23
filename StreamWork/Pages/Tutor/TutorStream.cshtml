@@ -21,12 +21,14 @@ else if (Model.UserChannel.StreamTitle == null && Model.UserChannel.StreamSubjec
 }
 
 <div class="container-fluid">
-    <div class="row row-style">
-        <div id="stream" class="d-flex flex-column col-lg-8 col-md-12 col-sm-12 col-12 p-0" style="position:relative">
-            <iframe style=" width:100%; height:100%;" class="p-0" src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.UserChannel.ChannelKey.Split('|')[0]" frameborder="0" scrolling="no" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+    <div class="row" style="margin-top:71px">
+        <div class="d-flex flex-column col-lg-9 col-md-12 col-sm-12 col-12 p-0 border-right ">
+            <div id="player-card" class="card border-0">
+                <iframe id="player" style="width:100%; height:calc(100vh - 71px)" src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.UserChannel.ChannelKey.Split('|')[0]" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+            </div>
         </div>
-        <div id="chatBox" class="d-flex flex-column col-lg-4 col-md-12 col-sm-12 col-12 p-0">
-            <iframe style="height:100%; border:none;" src="http://localhost:58539/chat/LiveChat?chatId=@Model.UserChannel.Username&chatInfo=@Model.ChatInfo"></iframe>
+        <div id="chat-card" class="d-flex flex-column fixed archived-chats col-lg-3 col-md-12 col-sm-12 col-12 p-0 border-top-0">
+            <iframe style="width:100%;height:100%; border:none;" src="http://localhost:58539/chat/LiveChat?chatId=@Model.UserChannel.Username&chatInfo=@Model.ChatInfo"></iframe>
         </div>
     </div>
 </div>
@@ -93,3 +95,7 @@ else if (Model.UserChannel.StreamTitle == null && Model.UserChannel.StreamSubjec
         <button id="GoLive" class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="IsLive('@Model.UserChannel.ChannelKey')">Go Live!</button>
     </div>
 </div>
+
+<script>
+    ResizeStreamSection()
+</script>

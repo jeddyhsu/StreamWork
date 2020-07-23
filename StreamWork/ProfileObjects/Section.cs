@@ -1,5 +1,4 @@
-﻿using System;
-namespace StreamWork.TutorObjects
+﻿namespace StreamWork.ProfileObjects
 {
     public class Section
     {

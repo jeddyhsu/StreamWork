@@ -1,4 +1,7 @@
-﻿.row-style {
+﻿.stream-buttons{
+    width:150px;
+}
+.row-style {
     background-color: white;
     position: absolute;
     height: 100%;
@@ -20,6 +23,9 @@
     height: calc(100% - 71px)
 }
 
+.archived-chats {
+    overflow: scroll !important;
+}
 
 @media screen and (max-width:991px) {
     .fixed {

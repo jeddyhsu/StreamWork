@@ -64,9 +64,7 @@ function RegisterStream () {
         },
         success: function (data) {
             if (data.message === "Success") {
-                $('#registerStreamModal').modal('hide'),
-                OpenNotificationModalSuccess("Your broadcast is visible to students!");
-                PopoutChat()
+                CloseModal('register-stream-modal')
             }
         }
     });

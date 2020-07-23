@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using StreamWork.DataModels;
 using StreamWork.HelperMethods;
 using StreamWork.Services;
-using StreamWork.TutorObjects;
+using StreamWork.ProfileObjects;
 
 namespace StreamWork.Pages.Student
 {

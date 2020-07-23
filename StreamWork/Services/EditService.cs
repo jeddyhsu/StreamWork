@@ -24,6 +24,9 @@ namespace StreamWork.Services
             var location = request.Form["Location"];
             var timeZone = request.Form["Timezone"];
             var linkedInUrl = request.Form["LinkedInUrl"];
+            var instagramUrl = request.Form["InstagramUrl"];
+            var facebookUrl = request.Form["FacebookUrl"];
+            var twitterUrl = request.Form["TwitterUrl"];
 
             if (request.Form.Files.Count > 0)
                 profilePicture = request.Form.Files[0];
@@ -33,6 +36,9 @@ namespace StreamWork.Services
             userProfile.Location = location;
             userProfile.TimeZone = timeZone;
             userProfile.LinkedInUrl = linkedInUrl;
+            userProfile.InstagramUrl = instagramUrl;
+            userProfile.FacebookUrl = facebookUrl;
+            userProfile.TwitterUrl = twitterUrl;
 
             //await _scheduleMethods.UpdateTimezoneForScheduleTask(storageConfig, timeZone, userProfile.Username);
 

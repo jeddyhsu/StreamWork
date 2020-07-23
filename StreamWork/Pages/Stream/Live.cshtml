@@ -7,36 +7,36 @@
 <link rel="stylesheet" href="~/css/Streams.css" />
 
 <div class="container-fluid">
-    <div class="row" style="padding-top:58px">
+    <div class="row" style="padding-top:71px">
         <div class="d-flex flex-column col-lg-9 col-md-12 col-sm-12 col-12 p-0 border-right ">
             <div id="player-card" class="card border-0">
                 <iframe id="player" style="width:100%;" src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.UserChannel.ChannelKey.Split('|')[0]" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
                 <div id="player-row" class="card-body p-0">
                     <img class="p-3" align="left" src="/images/ChatAssets/Math.png" style="width:100%; height:100%; max-width:120px; max-height:120px; cursor:pointer" onclick="window.open('https://www.streamwork.live/Home/Search?s=@Model.UserChannel.StreamSubject&q=')" />
                     <div class="m-3" id="StreamInfo">
-                        <h3 style="color:black; font-family:'Roboto Slab', serif;">Calc 2<span></span></h3>
-                        <p class="mb-1" style="padding-left:105px">asdfasfsfsfdasdfasdfasfdasdfasdfasdf</p>
+                        <h3 style="color:black; font-family:'Roboto Slab', serif;">Welcome to @Model.UserProfile.Name.Replace('|', ' ')'s live stream page</h3>
+                        <p class="mb-1" style="padding-left:105px">It looks like @Model.UserProfile.Name.Replace('|', ' ') is not live at the moment</p>
                         <p style="font-size:12px; padding-left:105px">Tutoring Mathematics</p>
                     </div>
                     <div class="border-top pt-3 pl-3 pr-3 pb-1" style="background-color:#FBFBFB">
                         <div class="d-lg-inline-block d-md-inline-block d-sm-none d-none float-right">
                             @if (Model.FollowValue.Equals("Following"))
-                            {<button id="Following" onclick="Unfollow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary m-1">Following</button>}
+                            {<button id="Following" class="streamWork-primary m-1 stream-buttons" onclick="Unfollow('@Model.UserProfile.Id', '@Model.UserProfile.Id')">Following</button>}
                             else if (Model.FollowValue.Equals("Follow"))
-                            {<button id="Follow" onclick="Follow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary m-1">Follow</button>}
-                            <button class="streamWork-orange m-1">Donate</button>
-                            <button class="streamWork-secondary m-1" onclick="window.location.href='/Profile/Tutor/@Model.TutorUserProfile.Username'">Tutor Profile</button>
+                            {<button id="Follow" class="streamWork-primary m-1 stream-buttons" onclick="Follow('@Model.UserProfile.Id', '@Model.UserProfile.Id')">Follow</button>}
+                            <button class="streamWork-orange m-1 stream-buttons">Donate</button>
+                            <button class="streamWork-secondary m-1 stream-buttons" onclick="window.location.href='/Profile/Tutor/@Model.UserProfile.Username'">Tutor Profile</button>
                         </div>
-                        <input align="left" type="image" class="rounded" style="width:30px" src=@Model.TutorUserProfile.ProfilePicture />
-                        <h3 class="mb-0 form-header" style="font-size:20px; margin-left:40px; color:@Model.UserChannel.ChatColor">@Model.TutorUserProfile.Name.Replace('|', ' ')</h3>
-                        <p class="form-sub-header" style="margin-left:40px; font-size:14px">@Model.TutorUserProfile.ProfileCaption</p>
+                        <input align="left" type="image" class="rounded" style="width:30px" src=@Model.UserProfile.ProfilePicture />
+                        <h3 class="mb-0 form-header" style="font-size:20px; margin-left:40px; color:@Model.UserChannel.ChatColor">@Model.UserProfile.Name.Replace('|', ' ')</h3>
+                        <p class="form-sub-header" style="margin-left:40px; font-size:14px">@Model.UserProfile.ProfileCaption</p>
                         <div class="d-lg-none d-md-none d-sm-inline-block d-inline-block ml-1">
                             @if (Model.FollowValue.Equals("Following"))
                             {<button id="Following" onclick="Unfollow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary m-1">Following</button>}
                             else if (Model.FollowValue.Equals("Follow"))
                             {<button id="Follow" onclick="Follow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary m-1">Follow</button>}
                             <button class="streamWork-orange m-1">Donate</button>
-                            <button class="streamWork-secondary m-1" onclick="window.location.href='/Profile/Tutor/@Model.TutorUserProfile.Username'">Tutor Profile</button>
+                            <button class="streamWork-secondary m-1" onclick="window.location.href='/Profile/Tutor/@Model.UserProfile.Username'">Tutor Profile</button>
                         </div>
                     </div>
                 </div>
@@ -50,6 +50,12 @@
                                             <p class="form-header pl-3 pt-3 m-0" style="font-size:14px"><span><img style="width:24px" class="m-1" src="/images/StreamAssets/Followers.svg" /></span>Followers: @Model.NumberOfFollowers</p>
                                             <p class="form-header pl-3 m-0" style="font-size:14px"><span><img style="width:24px" class="m-1" src="/images/StreamAssets/Views.svg" /></span>Views: @Model.NumberOfViews</p>
                                             <p class="form-header pl-3 m-0" style="font-size:14px"><span><img style="width:24px" class="m-1" src="/images/StreamAssets/Calendar.svg" /></span>Tutor Since June, 2017</p>
+                                        </div>
+                                    </div>
+                                    <div class="card mt-3">
+                                        <div class="card-title">
+                                            <p class="form-header p-3" style="font-size:18px">Social Media</p>
+                                            @await Html.PartialAsync("Partials/Profile/SocialMedia_View", Model)
                                         </div>
                                     </div>
                                 </div>
@@ -66,7 +72,7 @@
                         <div class="col-lg-8 col-md-8 col-sm-12 col-12 custom-column-8 order-lg-2 order-md-1 custom-order-1 custom-column-8-padding">
                             <div class="card mt-3">
                                 <div class="card-title p-3 mb-0">
-                                    <p class="form-header d-inline-block mb-0" style="font-size:18px">About @Model.TutorUserProfile.Name.Replace('|', ' ')</p>
+                                    <p class="form-header d-inline-block mb-0" style="font-size:18px">About @Model.UserProfile.Name.Replace('|', ' ')</p>
                                 </div>
                                 @await Html.PartialAsync("Partials/Profile/Sections_View", Model)
                             </div>
@@ -87,7 +93,7 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex flex-column fixed col-lg-3 col-md-12 col-sm-12 col-12 p-0 border-top-0" style="min-width:420px; max-width:420px;">
+        <div id="chat-card" class="d-flex flex-column fixed col-lg-3 col-md-12 col-sm-12 col-12 p-0 border-top-0">
             <iframe class="border-0" style="width:100%; height:100%" src="http://localhost:58539/chat/LiveChat?chatId=@Model.UserChannel.Username&chatInfo=@Model.ChatInfo"></iframe>
         </div>
     </div>

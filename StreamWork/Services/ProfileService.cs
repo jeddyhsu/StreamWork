@@ -8,14 +8,17 @@ using Microsoft.Extensions.Options;
 using StreamWork.Config;
 using StreamWork.DataModels;
 using StreamWork.HelperMethods;
-using StreamWork.TutorObjects;
+using StreamWork.ProfileObjects;
 
 namespace StreamWork.Services
 {
     public class ProfileService : StorageService
     {
+        const string EOL = "|__*%ENDOFLINE%*__|";
+        const string DELIMITER = "|__*%SPLIT%*__|";
+
         public ProfileService([FromServices] IOptionsSnapshot<StorageConfig> config) : base(config) { }
-        
+
         public bool SaveSection(HttpRequest request, UserLogin userProfile)
         {
             try
@@ -26,7 +29,7 @@ namespace StreamWork.Services
                 string formatString = "";
                 foreach (var key in keys)
                 {
-                   formatString += key.ToString() + "|``~``|" + form[key] + Environment.NewLine;
+                    formatString += key.ToString() + DELIMITER + form[key] + EOL;
                 }
 
                 var url = BlobMethods.SaveFileIntoBlobContainer(userProfile.Username + "-" + userProfile.Id + "-sections" + ".txt", formatString);
@@ -47,15 +50,17 @@ namespace StreamWork.Services
 
                 var blob = BlobMethods.GetBlockBlob(userProfile.Username + "-" + userProfile.Id + "-sections" + ".txt");
                 var sections = blob.DownloadText();
-                var sectionsSplit = sections.Split(Environment.NewLine);
+                var sectionsSplit = sections.Split(EOL);
 
-                if(sectionsSplit[0].Split("|``~``|")[1] != "" && sectionsSplit[0].Split("|``~``|")[1] != "-Select-Year/Class-")
-                    sectionsList.Add(new Section(sectionsSplit[0].Split("|``~``|")[1]));
+                if (sectionsSplit[0].Split(DELIMITER)[1] != "")
+                {
+                    sectionsList.Add(new Section(sectionsSplit[0].Split(DELIMITER)[1]));
+                }
 
                 for (int i = 1; i < sectionsSplit.Length - 1; i += 2)
                 {
-                    var title = sectionsSplit[i].Split("|``~``|")[1];
-                    var description = sectionsSplit[i + 1].Split("|``~``|")[1];
+                    var title = sectionsSplit[i].Split(DELIMITER)[1];
+                    var description = sectionsSplit[i + 1].Split(DELIMITER)[1];
 
                     if (!title.Equals("") || !description.Equals("") || i <= 1)
                     {
@@ -63,6 +68,7 @@ namespace StreamWork.Services
                         sectionsList.Add(new Section(title, description, description.Split(" ").Length > 66));
                     }
                 }
+
                 return sectionsList;
             }
             catch (Exception e)
@@ -83,7 +89,7 @@ namespace StreamWork.Services
                 string formatString = "";
                 foreach (var key in keys)
                 {
-                    formatString += key.ToString() + "|``~``|" + form[key] + Environment.NewLine;
+                    formatString += key.ToString() + DELIMITER + form[key] + EOL;
                 }
 
                 var url = BlobMethods.SaveFileIntoBlobContainer(userProfile.Username + "-" + userProfile.Id + "-topics" + ".txt", formatString);
@@ -104,12 +110,12 @@ namespace StreamWork.Services
 
                 var blob = BlobMethods.GetBlockBlob(userProfile.Username + "-" + userProfile.Id + "-topics" + ".txt");
                 var topics = blob.DownloadText();
-                var topicSplit = topics.Split(Environment.NewLine);
+                var topicSplit = topics.Split(EOL);
 
                 for (int i = 0; i < topicSplit.Length - 1; i += 2)
                 {
-                    var topic = topicSplit[i].Split("|``~``|")[1];
-                    var listOfSubjects = topicSplit[i + 1].Split("|``~``|")[1];
+                    var topic = topicSplit[i].Split(DELIMITER)[1];
+                    var listOfSubjects = topicSplit[i + 1].Split(DELIMITER)[1];
 
                     if (!topic.Equals("") || !listOfSubjects.Equals("") || (i <= 1))
                     {

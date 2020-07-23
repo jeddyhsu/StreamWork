@@ -19,7 +19,7 @@
             {
                 <div class="card mt-3 border-0 d-block mr-auto ml-auto" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px;">
                     <div class="card-title">
-                        <a href="/Stream/Archive/@Model.LatestStream.Username/@Model.LatestStream.StreamID"><img asp-append-version="true" id="stream-thumbnail-@Model.LatestStream.Id" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src="@Model.LatestStream.StreamThumbnail?@cacheRand"></a>
+                        <a href="/Stream/Archive/@Model.LatestStream.Username/@Model.LatestStream.StreamID/32169"><img asp-append-version="true" id="stream-thumbnail-@Model.LatestStream.Id" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src="@Model.LatestStream.StreamThumbnail?@cacheRand"></a>
                     </div>
                     <div class="card-body pt-0 pb-1">
                         <h5 id="stream-title-@Model.LatestStream.Id" class="text-truncate form-header">@Model.LatestStream.StreamTitle</h5>
@@ -31,8 +31,8 @@
             }
             <div class="card mt-3">
                 <div class="card-title">
-                    <p class="form-header p-3 m-0" style="font-size:18px">Social Media Links</p>
-                    <i class="fa fa-linkedin-square p-3" style="font-size:48px; cursor:pointer; color:lightgray" onclick="window.open('@Model.UserProfile.LinkedInUrl')"></i>
+                    <p class="form-header p-3" style="font-size:18px">Social Media Links</p>
+                    @await Html.PartialAsync("Partials/Profile/SocialMedia_View", Model)
                 </div>
             </div>
             <div class="card mt-3">
@@ -60,11 +60,6 @@
                 <li class="nav-item">
                     <a class="nav-link form-header" id="stream-tab" data-toggle="tab" href="#stream" onclick="SliderStream()">Streams</a>
                 </li>
-                <!--
-                 <li class="nav-item">
-                    <a class="nav-link form-header" id="comment-tab" data-toggle="tab" href="#comment" onclick="SliderComment()">Comments</a>
-                </li>
-                -->
             </ul>
 
             <div class="slider">

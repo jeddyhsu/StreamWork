@@ -19,6 +19,16 @@ function SliderComment() {
     $('#slider-object').css("transform", "translate3d(290px, 0px, 0px)")
 }
 
+function SliderProfileInformation() {
+    $('#profile-info-tab').tab('show');
+    $('#slider-object-profile-edit-modal').css("transform", "translate3d(15px, 0px, 0px)")
+}
+
+function SliderSocialMedia() {
+    $('#social-media-tab').tab('show');
+    $('#slider-object-profile-edit-modal').css("transform", "translate3d(180px, 0px, 0px)")
+}
+
 //Schedule
 $(function () {
     $('#schedule-date-picker').datetimepicker({
@@ -241,8 +251,7 @@ function EditStream(id) {
     $('#stream-description-edit').val($('#stream-description-' + id).val());
     document.getElementById("preview-stream-thumbnail-edit").src = document.getElementById("stream-thumbnail-" + id).src
     document.getElementById("preview-stream-thumbnail-edit").src = document.getElementById("stream-thumbnail-" + id).src
-
-    document.getElementById("stream-edit-buttons").innerHTML = ` <div class="row">
+    document.getElementById("archived-stream-edit-buttons").innerHTML = `<div class="row">
                                                                     <div class="col-6 pr-0">
                                                                         <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#6B6B6B; color:white" onclick="ShowDeleteStreamTaskBanner('${id}')">Delete Stream</button>
                                                                     </div>
@@ -254,7 +263,7 @@ function EditStream(id) {
 
 function ShowDeleteStreamTaskBanner(id) {
     $('#edit-stream-modal-delete-stream-notification').show()
-    document.getElementById("stream-edit-buttons").innerHTML = `<div class="row">
+    document.getElementById("archived-stream-edit-buttons").innerHTML = `<div class="row">
                                                                 <div class="col-6 pr-0">
                                                                     <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#AC0001; color:white" onclick="DeleteStream('${id}')">Confirm Delete</button>
                                                                 </div>
@@ -309,7 +318,8 @@ function DeleteStream(id) {
                 $('input:hidden[name="__RequestVerificationToken"]').val());
         },
         success: function (data) {
-            CloseModal('#edit-stream-modal-notification')
+            DiscardChangesAndCloseModal('edit-stream-modal-form', 'edit-stream-modal')
+            $('#edit-stream-modal-delete-stream-notification').hide()
             $('#streamInfo-' + id).hide();
         }
     });
@@ -339,7 +349,7 @@ function SearchStreams(event, name, username, columnPreference) { //filters by u
                     element += `<div id="streamInfo-${data.results[i].id}" class="${columnPreference} col-md-6 col-sm-6">
                                 <div class="card mt-3 border-0" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px;">
                                     <div class="card-title">
-                                        <a href="../StreamViews/StreamPlaybackPage?streamId=${data.results[i].streamId}"><img id="stream-thumbnail-${data.results[i].id}" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src=${data.results[i].streamThumbnail}></a>
+                                        <a href="../Stream/Archive/${data.results[i].username}/${data.results[i].streamID}/32169"><img id="stream-thumbnail-${data.results[i].id}" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src=${data.results[i].streamThumbnail}?nocache=${new Date().valueOf()}></a>
                                     </div>
                                     <div class="card-body pt-0 pb-1">
                                         <h5 id="stream-title-${data.results[i].id}" class="text-truncate form-header">${data.results[i].streamTitle}</h5>

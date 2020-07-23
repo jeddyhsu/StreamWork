@@ -30,6 +30,9 @@
                             <input id="header-last-name" type="hidden" value="@Model.UserProfile.Name.Split('|')[1]" />
                             <input id="header-timezone" type="hidden" value="@Model.UserProfile.TimeZone" />
                             <input id="header-linkedin-url" type="hidden" value="@Model.UserProfile.LinkedInUrl" />
+                            <input id="header-instagram-url" type="hidden" value="@Model.UserProfile.InstagramUrl" />
+                            <input id="header-facebook-url" type="hidden" value="@Model.UserProfile.FacebookUrl" />
+                            <input id="header-twitter-url" type="hidden" value="@Model.UserProfile.TwitterUrl" />
                         </div>
 
                         <div class="btn-group d-lg-none d-md-none d-sm-block d-block pl-3 pr-3">
@@ -161,18 +164,22 @@
                                                 <option>Senior</option>
                                                 <option>Other</option>
                                             </select>
+
                                             @if (Model.Sections != null)
                                             {
-                                                <script>
-                                                    if ($('#year').val() == "" || $('#year').val() == "-Select-Year/Class-") {
+                                                <input id="year" value="@Model.Sections[0].Year" type="hidden" />
+                                                <script>if ($('#year').val() == "" || $('#year').val() == "-Select-Year/Class-") {
                                                         $('#year-select').val("-Select-Year/Class-")
                                                     }
                                                     else {
                                                         $('#year-select').val($('#year').val())
-                                                    }
+                                                    }</script>
+                                                <script>
+                                            console.log(@Model.Sections.Count)
                                                 </script>
                                             }
                                         </div>
+   
                                         @if (Model.Sections != null && Model.Sections.Count > 1)
                                         {
                                             <div class="form-group col-lg-9 pl-lg-3 pl-0">
@@ -366,7 +373,7 @@
                             <form class="p-1 border rounded" style="background-color:white" onkeyup="SearchStreams(event, '@Model.UserProfile.Name', '@Model.UserProfile.Username', 'col-lg-3')" onsubmit="SearchStreams(event, '@Model.UserProfile.Name', '@Model.UserProfile.Username' 'col-lg-3')">
                                 <input id="searchQuery" class="form-control-lg" type="search" placeholder="🔎 Search Past Streams" style="border: none; font-size:12px;">
                             </form>
-                            <select id="filter" name="filter" class="form-control form-control-sm rounded-0 mt-3" onchange="SearchStreams(event, '@Model.UserProfile.Name', '@Model.UserProfile.Username')" style="width:175px">
+                            <select id="filter" name="filter" class="form-control form-control-sm rounded-0 mt-3" onchange="SearchStreams(event, '@Model.UserProfile.Name', '@Model.UserProfile.Username', 'col-lg-3')" style="width:175px">
                                 <option value="">Filter</option>
                                 <option value="Mathematics">Mathematics</option>
                                 <option value="Science">Science</option>
@@ -388,7 +395,7 @@
                                 <div id="streamInfo-@streamInfo.Id" class="col-lg-3 col-md-6 col-sm-6">
                                     <div class="card mt-3 border-0" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px;">
                                         <div class="card-title">
-                                            <a href="../Stream/Archive/rarunT/@streamInfo.StreamID"><img asp-append-version="true" id="stream-thumbnail-@streamInfo.Id" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src="@streamInfo.StreamThumbnail?@cacheRand"></a>
+                                            <a href="../Stream/Archive/rarunT/@streamInfo.StreamID/32169"><img asp-append-version="true" id="stream-thumbnail-@streamInfo.Id" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src="@streamInfo.StreamThumbnail?@cacheRand"></a>
                                         </div>
                                         <div class="card-body pt-0 pb-1">
                                             <p id="stream-title-@streamInfo.Id" class="text-truncate form-header mb-0">@streamInfo.StreamTitle</p>
@@ -412,7 +419,7 @@
                     </div>
                 </div>
             </div>
-            <!-- 
+            <!--
             <div class="tab-pane" id="comment" role="tabpanel" aria-labelledby="comment-tab">
 
             </div>
@@ -428,8 +435,8 @@
             <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Tutor/TutorStream'"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/StartStream.svg" /></span>Start Stream</li>
             <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Tutor/HowToStream'"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/HowToStream.svg" /></span>How To Stream</li>
             <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Tutor/TutorWatch'"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/WatchStream.svg" /></span>Watch Streams</li>
-            <li class="sidebar-list-item-desktop"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/FollowingList.svg" /></span>Following List</li>
-            <li class="sidebar-list-item-desktop"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/FollowerList.svg" /></span>Follower List</li>
+            <li class="sidebar-list-item-desktop" onclick="OpenModal('followees-modal')"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/FollowingList.svg" /></span>Following List</li>
+            <li class="sidebar-list-item-desktop" onclick="OpenModal('followers-modal')"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/FollowerList.svg" /></span>Follower List</li>
         </ul>
     </nav>
 </div>
@@ -451,3 +458,6 @@
 @await Html.PartialAsync("Partials/Modals/ScheduleModal")
 @await Html.PartialAsync("Partials/Modals/UniversityModal")
 @await Html.PartialAsync("Partials/Modals/EditStreamModal")
+@await Html.PartialAsync("Partials/Modals/FollowersModal")
+@await Html.PartialAsync("Partials/Modals/FolloweesModal")
+

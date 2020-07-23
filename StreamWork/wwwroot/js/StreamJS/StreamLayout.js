@@ -31,19 +31,25 @@ $(document).ready(function () {
     if (windowWidth > 991) {
         var width = $('#player-card').width();
         $('#player-card').css('width', (windowWidth - 422) + 'px');
+        $('#chat-card').css('min-width', '420px');
+        $('#chat-card').css('max-width', '420px');
     }
     else {
         $('#player-card').css('width', '100%');
+        $('#chat-card').css('min-width', '100%');
     }
 })
   $(window).resize(function () {
     var windowWidth = $(window).width();
     if (windowWidth > 991) {
       var width = $('#player-card').width();
-      $('#player-card').css('width', (windowWidth - 422) + 'px');
+        $('#player-card').css('width', (windowWidth - 422) + 'px');
+        $('#chat-card').css('min-width', '420px');
+        $('#chat-card').css('max-width', '420px');
     }
     else {
-      $('#player-card').css('width', '100%');
+        $('#player-card').css('width', '100%');
+        $('#chat-card').css('min-width', '100%');
     }
   })
 }

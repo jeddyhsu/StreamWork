@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using StreamWork.DataModels;
 using StreamWork.HelperMethods;
 using StreamWork.Services;
-using StreamWork.TutorObjects;
+using StreamWork.ProfileObjects;
 
 namespace StreamWork.Pages.Stream
 {
@@ -20,8 +20,8 @@ namespace StreamWork.Pages.Stream
         private readonly CommentService commentService;
         private readonly NotificationService notificationService;
 
+        public UserLogin CurrentUserProfile { get; set; }
         public UserLogin UserProfile { get; set; }
-        public UserLogin TutorUserProfile { get; set; }
         public UserChannel UserChannel { get; set; }
         public UserArchivedStreams ArchivedStream { get; set; }
         public string ChatInfo { get; set; }
@@ -53,17 +53,17 @@ namespace StreamWork.Pages.Stream
 
         public async Task<IActionResult> OnGet(string tutor, string id, string commentId)
         {
-            UserProfile = await sessionService.GetCurrentUser();
-            TutorUserProfile = await storageService.Get<UserLogin>(SQLQueries.GetUserWithUsername, tutor);
+            CurrentUserProfile = await sessionService.GetCurrentUser();
+            UserProfile = await storageService.Get<UserLogin>(SQLQueries.GetUserWithUsername, tutor);
             UserChannel = await storageService.Get<UserChannel>(SQLQueries.GetUserChannelWithUsername, tutor);
             ArchivedStream = await storageService.Get<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithStreamId, id);
             ChatInfo = "1234";
-            FollowValue = await followService.IsFollowingFollowee(UserProfile.Id, TutorUserProfile.Id);
+            FollowValue = await followService.IsFollowingFollowee(UserProfile.Id, CurrentUserProfile.Id);
 
-            UserArchivedStreams = await storageService.GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { TutorUserProfile.Username });
+            UserArchivedStreams = await storageService.GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { CurrentUserProfile.Username });
             OtherArchivedStreams = await storageService.GetList<UserArchivedStreams>(SQLQueries.GetAllArchivedStreams, new string[] { });
-            RelatedTutors = (await storageService.GetList<UserLogin>(SQLQueries.GetAllTutorsNotInTheList, new string[] { TutorUserProfile.Id })).GetRange(0, 5);
-            Sections = profileService.GetSections(TutorUserProfile);
+            RelatedTutors = (await storageService.GetList<UserLogin>(SQLQueries.GetAllTutorsNotInTheList, new string[] { CurrentUserProfile.Id })).GetRange(0, 5);
+            Sections = profileService.GetSections(CurrentUserProfile);
             Schedule = await scheduleService.GetSchedule(UserProfile.Username);
             Comments = await commentService.GetAllComments(ArchivedStream.StreamID);
 

@@ -11,6 +11,9 @@ function SaveProfile() {
     formData.append("Location", $('#location').val());
     formData.append("Timezone", $('#timezone').val());
     formData.append("LinkedInUrl", $('#linkedin-url').val());
+    formData.append("InstagramURL", $('#instagram-url').val());
+    formData.append("FacebookURL", $('#facebook-url').val());
+    formData.append("TwitterURL", $('#twitter-url').val());
     if (totalFiles.files.length > 0)
         formData.append("ProfilePicture", totalFiles.files[0]);
 
@@ -55,6 +58,9 @@ function EditProfile() {
     $('#location').val($('#header-location').text());
     $('#timezone').val($('#header-timezone').val());
     $('#linkedin-url').val($('#header-linkedin-url').val());
+    $('#instagram-url').val($('#header-instagram-url').val());
+    $('#facebook-url').val($('#header-facebook-url').val());
+    $('#twitter-url').val($('#header-twitter-url').val());
 }
 
 //Sections

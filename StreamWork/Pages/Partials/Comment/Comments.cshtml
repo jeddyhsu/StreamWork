@@ -5,13 +5,13 @@
             <div class="card rounded-0 comment-send-reply-box">
                 <div class="card-body w-100">
                     <div class="d-flex flex-row">
-                        <img class="comment-profile-picture" src="@Model.UserProfile.ProfilePicture" />
+                        <img class="comment-profile-picture" src="@Model.CurrentUserProfile.ProfilePicture" />
                         <div id="comment-send-" class="form-control form-textarea comment-send-reply-textarea ml-2 mb-1" onkeydown="ButtonEnabledDisabled('send', '')" onkeyup="ButtonEnabledDisabled('send', '')" contenteditable="true">
-                            <span id="comment-at-" class="comment-at" contenteditable="false"><b>@@@Model.TutorUserProfile.Name.Replace('|', ' ') </b></span>
+                            <span id="comment-at-" class="comment-at" contenteditable="false"><b>@@@Model.UserProfile.Name.Replace('|', ' ') </b></span>
                         </div>
                         <button id="send-comment-button-" onclick="SaveComment()" class="streamWork-primary comment-send-reply-button ml-2">Send</button>
-                        <input id="comment-tutor-username" type="hidden" value="@Model.TutorUserProfile.Username" />
-                        <input id="comment-username" type="hidden" value="@Model.UserProfile.Username" />
+                        <input id="comment-tutor-username" type="hidden" value="@Model.UserProfile.Username" />
+                        <input id="comment-username" type="hidden" value="@Model.CurrentUserProfile.Username" />
                         <input id="comment-streamId" type="hidden" value="@Model.ArchivedStream.StreamID" />
                     </div>
                 </div>
@@ -23,7 +23,7 @@
                     <div class="card border-0">
                         <div class="card-body">
                             <img class="comment-profile-picture" align="left" src="@Model.Comments[i].SenderProfilePicture" />
-                            @if (@Model.Comments[i].SenderUsername.Equals(Model.UserProfile.Username))
+                            @if (@Model.Comments[i].SenderUsername.Equals(Model.CurrentUserProfile.Username))
                             {
                                 <img src="~/images/GenericAssets/Trash.png" class="comment-remove pl-1 float-right" id="comment-remove-@Model.Comments[i].Id" onclick="OpenDeleteConfirmation('@Model.Comments[i].Id')" />
                                 <img src="~/images/GenericAssets/Edit.png" class="comment-edit pl-1 float-right" id="comment-edit-@Model.Comments[i].Id" onclick="ShowEditBox('@Model.Comments[i].SenderProfilePicture', '@Model.Comments[i].Id')" />
@@ -70,10 +70,20 @@
                                 {
                                     <li id="comment-@Model.Comments[i].Replies[e].Id" class="border-bottom border-left border-right p-3" style="background-color:white">
                                         <img class="comment-profile-picture" align="left" src="@Model.Comments[i].Replies[e].SenderProfilePicture" />
-                                        @if (@Model.Comments[i].Replies[e].SenderUsername.Equals(Model.UserProfile.Username))
+                                        @if (@Model.Comments[i].Replies[e].SenderUsername.Equals(Model.CurrentUserProfile.Username))
                                         {
                                             <img src="~/images/GenericAssets/Trash.png" class="comment-remove pl-1 float-right" id="comment-remove-@Model.Comments[i].Replies[e].Id" onclick="OpenDeleteConfirmation('@Model.Comments[i].Replies[e].Id', '@Model.Comments[i].Id')" />
                                             <img src="~/images/GenericAssets/Edit.png" class="comment-edit pl-1 float-right" id="comment-edit-@Model.Comments[i].Replies[e].Id" onclick="ShowEditBox('@Model.Comments[i].Replies[e].SenderProfilePicture', '@Model.Comments[i].Replies[e].Id')" />
+                                            <script>
+                                                $('#comment-@Model.Comments[i].Replies[e].Id').hover(function () {
+                                                    $('#comment-edit-@Model.Comments[i].Replies[e].Id').css('display', 'block')
+                                                    $('#comment-remove-@Model.Comments[i].Replies[e].Id').css('display', 'block')
+                                                }, function () {
+                                                    $('#comment-edit-@Model.Comments[i].Replies[e].Id').css('display', 'none')
+                                                    $('#comment-remove-@Model.Comments[i].Replies[e].Id').css('display', 'none')
+                                                })
+                                                     
+                                            </script>
                                         }
                                         <p class="form-header comment-name mb-0">
                                             @Model.Comments[i].Replies[e].SenderName.Replace('|', ' ')<span class="form-sub-header ml-1" style="font-size:10px; font-family:'Roboto', serif">

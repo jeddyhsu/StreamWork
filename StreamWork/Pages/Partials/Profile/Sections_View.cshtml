@@ -21,20 +21,20 @@
                         <p id="university-abbreviation" class="form-header pt-4 pl-2 pr-2" style="font-size:20px">@college[0]</p>
                     }
 
-                    @if (Model.Sections != null)
+                    @if (Model.Sections != null && Model.Sections[0].Year != "-Select-Year/Class-")
                     {
                         <p id="university-name" class="form-header" style="font-size:14px">@Model.Sections[0].Year</p>
                     }
                 }
             </div>
         </div>
-        @if (Model.Sections != null && Model.Sections.Count > 2)
+        @if (Model.Sections != null && Model.Sections.Count > 1)
         {
             <div class="form-group col-lg-9 p-4">
                 <p class="form-header" style="font-size: 16px">@Model.Sections[1].SectionTitle</p>
                 <p style="font-size: 14px">@Model.Sections[1].SectionDescription</p>
             </div>
-            if (Model.Sections.Count > 3)
+            if (Model.Sections.Count > 2)
             {
                 for (int i = 2; i < Model.Sections.Count; i++)
                 {

@@ -183,7 +183,7 @@ namespace StreamWork.Threads
             for (int i = 1; i < hashTable.Count + 1; i++)
             {
                 var archivedStream = (UserArchivedStreams)hashTable[i];
-                archivedStream.StreamID = response.Channel.Item[threadCount - i].Mediaid;
+                archivedStream.StreamID = response.Channel.Item[threadCount - i].MediaContentId;
                 archivedStream.Views = _userChannel.Views;
                 archivedStream.StartTime = DateTime.UtcNow;
 

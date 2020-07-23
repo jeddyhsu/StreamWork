@@ -40,7 +40,9 @@ namespace StreamWork.Pages.Comments
         public async Task<IActionResult> OnPostDeleteComment(string commentId)
         {
             var savedInfo = await commentService.DeleteComment(commentId);
-            if (savedInfo) return new JsonResult(new { Message = JsonResponse.Success.ToString()});
+            var deletedNotification = await notificationService.DeleteNotificationWhenObjectIsDeleted(commentId);
+
+            if (savedInfo && deletedNotification) return new JsonResult(new { Message = JsonResponse.Success.ToString()});
 
             return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
         }

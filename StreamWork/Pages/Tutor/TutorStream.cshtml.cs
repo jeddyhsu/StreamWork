@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StreamWork.DataModels;
@@ -12,16 +13,20 @@ namespace StreamWork.Pages.Tutor
         private readonly SessionService sessionService;
         private readonly StorageService storageService;
         private readonly StreamService streamService;
+        private readonly NotificationService notificationService;
 
         public UserLogin UserProfile { get; set; }
         public UserChannel UserChannel { get; set; }
         public string ChatInfo { get; set; }
+        public List<Notification> Notifications { get; set; }
+        public bool AreThereUnseenNotifications { get; set; }
 
-        public TutorStream(StorageService storage, SessionService session, StreamService stream)
+        public TutorStream(StorageService storage, SessionService session, StreamService stream, NotificationService notification)
         {
             storageService = storage;
             sessionService = session;
             streamService = stream;
+            notificationService = notification;
         }
 
         public async Task<IActionResult> OnGet()
@@ -34,6 +39,9 @@ namespace StreamWork.Pages.Tutor
             UserProfile = await sessionService.GetCurrentUser();
             UserChannel = await storageService.Get<UserChannel>(SQLQueries.GetUserChannelWithUsername, new string[] { UserProfile.Username });
             ChatInfo = "1234";
+
+            Notifications = await notificationService.GetNotifications(UserProfile.Username);
+            AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(UserProfile.Username);
 
             return Page();
         }

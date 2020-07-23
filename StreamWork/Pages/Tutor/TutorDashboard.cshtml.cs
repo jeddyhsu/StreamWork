@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using StreamWork.DataModels;
 using StreamWork.HelperMethods;
 using StreamWork.Services;
-using StreamWork.TutorObjects;
+using StreamWork.ProfileObjects;
 using StreamWork.ViewModels;
 
 namespace StreamWork.Pages.Tutor
@@ -31,8 +31,10 @@ namespace StreamWork.Pages.Tutor
         public List<Section> Sections { get; set; }
         public List<Topic> Topics { get; set; }
         public List<Schedule> Schedule { get; set; }
+        public List<UserLogin> Followers { get; set; }
+        public List<UserLogin> Followees { get; set; }
         public List<Notification> Notifications { get; set; }
-
+        public bool AreThereUnseenNotifications { get; set; }
         public SearchViewModel SearchViewModel { get; set; }
 
         public TutorDashboard(StorageService storage, SessionService session, ProfileService profile, ScheduleService schedule, FollowService follow, EditService edit, SearchService search, NotificationService notification)
@@ -61,11 +63,16 @@ namespace StreamWork.Pages.Tutor
             Sections = profileService.GetSections(UserProfile);
             Topics = profileService.GetTopics(UserProfile);
             Schedule = await scheduleService.GetSchedule(UserProfile.Username);
-            Notifications = await notificationService.GetNotifications(UserProfile.Username);
+
+            Followers = await followService.GetAllFollowers(UserProfile.Id);
+            Followees = await followService.GetAllFollowees(UserProfile.Id);
 
             NumberOfStreams = UserArchivedStreams.Count;
             NumberOfViews = UserArchivedStreams.Sum(x => x.Views);
-            NumberOfFollowers = await followService.GetNumberOfFollowers(UserProfile.Id);
+            NumberOfFollowers = Followers == null ? 0 : Followers.Count;
+
+            Notifications = await notificationService.GetNotifications(UserProfile.Username);
+            AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(UserProfile.Username);
 
             return Page();
         }
