@@ -1,27 +1,46 @@
-﻿@{Layout = "_LayoutNoNavbar";}
-@{ViewData["title"] = "Login";}
+﻿@page
+@model StreamWork.Pages.Home.LoginModel
+@{Layout = "SignUp-SignIn/_LayoutSignUp-SignIn";}
 
 <br />
-<br />
-<br />
-<form class="form-sign" style="margin-top:7%">
-    <div class=" text-center">
-        <a href="/"><img src="~/images/streamworklogo.png" width="250" height="70"/></a>
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-        <label for="inputEmail" class="sr-only">Username</label>
-        <input type="text" id="username" class="form-control" placeholder="Username" autofocus="">
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="password" class="form-control" placeholder="Password">
-        <br />
-        <input class="streamWorkPrimary" type="button" value="Login" style="width:300px;" onclick="Login()">
-        <br />
-        <div class="pt-2"> Don't have an account?  <a href="/Home/SignUp" style="color: rgb(0,160,160)">Sign Up!</a> </div>
-        <br />
-        <div class="pt-2"> Forgot Password?  <a href="/Home/PasswordRecovery" style="color: rgb(0,160,160)">Click Here</a> </div>
+<div style="background-color: #f3f3f3; padding-top:100px;">
+    <br />
+    <div class="row my-4" style="display: block; text-align: center;">
+        <a href="/"><img src="~/images/streamworkLogo.png" height="100" /></a>
     </div>
-</form>
-<script>
-    document.getElementById('username').onkeydown = function (event) {
+
+    @* Email *@
+    <div class="row" id="tab-1">
+        <div class="col-lg-4 col-md-3"></div>
+        <div class="col-lg-4 col-md-6 py-4 px-5" style="background-color: white; border-style: solid; border-width: 1px; border-color: #b1b1b1;">
+            <p class="text-center my-3" style="font-family: 'Roboto Slab'; font-size: 50px; font-weight: bold;">Sign-in</p>
+            <p class="text-center mb-4" style="color: #707070; font-size: 13px;">Welcome back! Sign in to continue learning!</p>
+
+            <p style="font-family: 'Roboto Slab'; font-size: 14px; color: #707070; margin-bottom: 0;">Username</p>
+            <div id="emailAddress-wrapper" data-container="body" data-toggle="popover" data-placement="top" data-content="An account already exists with this email address">
+                <input id="emailAddress" type="text" class="mb-3" style="width: 100%;" onkeyup="tab1UpdateNext();" data-container="body" data-toggle="popover" data-placement="top" data-content="Please enter a valid email address" />
+            </div>
+            <p style="font-family: 'Roboto Slab'; font-size: 14px; color: #707070; margin-bottom: 0;">Password</p>
+            <div id="emailAddress-wrapper" data-container="body" data-toggle="popover" data-placement="top" data-content="An account already exists with this email address">
+                <input id="emailAddress" type="text" class="mb-3" style="width: 100%;" onkeyup="tab1UpdateNext();" data-container="body" data-toggle="popover" data-placement="top" data-content="Please enter a valid email address" />
+            </div>
+            <button id="tab-1-next" type="button" class="streamWork-primary mb-3" style="width: 100%;" onclick="tab1Next();">Sign-in</button>
+            <br />
+
+            <p class="divider-text">or sign in with</p>
+
+            @*TODO Implement*@
+            <button class="streamWork-secondary mb-1" style="width: 100%;">Sign-in with Google</button>
+            <br />
+            <br />
+
+            <p style="text-align: center; color: #004643;">Not a Member? <a href="/Home/SignUp" style="color: #00A0A0">Sign up</a></p>
+        </div>
+        <div class="col-lg-4 col-md-3"></div>
+    </div>
+</div>
+
+<script>document.getElementById('username').onkeydown = function (event) {
         if (event.keyCode == 13) {
             Login();
         }
@@ -30,5 +49,4 @@
         if (event.keyCode == 13) {
             Login();
         }
-    }
-</script>
+    }</script>

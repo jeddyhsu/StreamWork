@@ -6,7 +6,7 @@ using StreamWork.DataModels;
 using StreamWork.HelperMethods;
 using StreamWork.Services;
 
-namespace StreamWork.Pages
+namespace StreamWork.Pages.Home
 {
     public class SignUpModel : PageModel
     {
