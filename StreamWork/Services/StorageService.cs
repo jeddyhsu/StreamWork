@@ -39,9 +39,9 @@ namespace StreamWork.Services
             return await DataStore.RunQueryAsync<T>(connectionString, config.Value, query.ToString(), parameters.Cast<string>().ToList());
         }
 
-        public async Task Save<T>(string id, object obj) where T : class
+        public async Task Save<T>(string id, T obj) where T : class
         {
-            await DataStore.SaveAsync(connectionString, config.Value, new Dictionary<string, object> { { "Id", id} }, (T)obj);
+            await DataStore.SaveAsync(connectionString, config.Value, new Dictionary<string, object> { { "Id", id } }, obj);
         }
     }
 }

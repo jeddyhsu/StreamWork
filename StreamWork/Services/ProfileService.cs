@@ -204,7 +204,7 @@ namespace StreamWork.Services
             foreach (var stream in allArchivedStreamsByUser)
             {
                 stream.ProfilePicture = profilePicture;
-                await Save<UserChannel>(stream.Id, stream);
+                await Save<UserArchivedStreams>(stream.Id, stream);
             }
             userChannel.ProfilePicture = profilePicture;
             await Save<UserChannel>(userChannel.Id, userChannel);
