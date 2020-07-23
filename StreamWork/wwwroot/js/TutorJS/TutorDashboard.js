@@ -29,6 +29,7 @@ function SliderSocialMedia() {
     $('#slider-object-profile-edit-modal').css("transform", "translate3d(180px, 0px, 0px)")
 }
 
+
 //Schedule
 $(function () {
     $('#schedule-date-picker').datetimepicker({
@@ -89,6 +90,14 @@ function SaveScheduleTask(id, type) {
     var form = $('#schedule-modal-form');
     if (!form[0].checkValidity()) {
         return form[0].reportValidity();
+    }
+
+    var startTime = moment($('#schedule-time-start-picker-value').val(), "HH:mm:ss").format("hh:mm A");
+    var stopTime = moment($('#schedule-time-start-picker-value').val(), "HH:mm:ss").format("hh:mm A");
+
+    if (startTime == "Invalid date" || stopTime == "Invalid date") {
+        ShowBannerNotification("schedule-modal-check-time-format-notification")
+        return;
     }
 
     var formData = new FormData();

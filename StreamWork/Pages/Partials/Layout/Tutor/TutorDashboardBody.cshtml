@@ -21,7 +21,7 @@
         </div>
         @if (Model.Notifications.Count > 0 && Model.AreThereUnseenNotifications)
         {
-            <img id="notification-bell" src="~/images/GenericAssets/NotificationBell.svg" width="65" style="cursor:pointer" onclick="OpenModal('notification-modal'); UpdateToSeen('@Model.UserProfile.Username');  $('#notification-bell').attr('src', '/images/GenericAssets/Bell.svg')" />
+            <img id="notification-bell" class="float-right" src="~/images/GenericAssets/NotificationBell.svg" width="65" style="cursor:pointer" onclick="OpenModal('notification-modal'); UpdateToSeen('@Model.UserProfile.Username');  $('#notification-bell').attr('src', '/images/GenericAssets/Bell.svg')" />
         }
         else
         {

@@ -17,12 +17,16 @@
                         <b>Are you sure you want to delete this stream?</b> This is a irreversible action.
                     </div>
                     <script>$('#schedule-modal-delete-task-notification').hide()</script>
+                    <div id="schedule-modal-check-time-format-notification" class="alert notification-info" style="padding-left:25px" role="alert">
+                        <b>One or both of the times that you set are invalid!</b> Use the clock icon to set a time.
+                    </div>
+                    <script>$('#schedule-modal-check-time-format-notification').hide()</script>
                     <div class="row">
                         <div class="col-lg-2 col-md-12">
                             <label class="form-header">Select Date</label>
                             <div class="p-4 schedule-border">
                                 <div class="datetimepicker-input" id="schedule-date-picker">
-                                    <div id="schedule-date-mask">
+                                    <div id="schedule-date-mask" style="cursor:pointer">
                                         <img id="schedule-default" class="d-block ml-auto mr-auto" src="~/images/ScheduleAssets/Calendar.png" data-target="#schedule-date-picker" data-toggle="datetimepicker" />
                                     </div>
                                 </div>

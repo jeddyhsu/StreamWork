@@ -1,15 +1,10 @@
 ﻿@page
 @model StreamWork.Pages.SignUpModel
-@{
-    ViewData["Title"] = "Sign Up";
-}
-
-<link rel="stylesheet" href="~/css/GrayBackground.css" asp-append-version="true" />
-<link href='https://fonts.googleapis.com/css?family=Roboto Slab' rel='stylesheet'>
+@{Layout = "SignUp-SignIn/_LayoutSignUp-SignIn";}
 
 <br />
 
-<div style="background-color: #f3f3f3;">
+<div style="background-color: #f3f3f3; margin-top:100px">
     <br />
 
     <div class="row my-4" style="display: block; text-align: center;">
@@ -572,8 +567,7 @@
             $('#student-lastName').val().length == 0 ||
             $('#student-username').val().length == 0 ||
             $('#student-password').val().length == 0 ||
-            $('#student-confirmPassword').val().length == 0)
-        {
+            $('#student-confirmPassword').val().length == 0) {
             $('#tab-4-next').removeClass('streamWork-primary');
             $('#tab-4-next').addClass('streamWork-disabled');
         } else {
@@ -587,8 +581,7 @@
             $('#student-lastName').val().length > 0 &&
             $('#student-username').val().length > 0 &&
             $('#student-password').val().length > 0 &&
-            $('#student-confirmPassword').val().length > 0)
-        {
+            $('#student-confirmPassword').val().length > 0) {
             if (/^[A-Za-z0-9_-]+$/.test($('#student-username').val())) {
                 $.ajax({
                     url: '/Home/SignUp/?handler=IsUsernameAvailable',
@@ -664,7 +657,7 @@
         } catch (e) {
             alert(e.message);
         }
-        
+
     }
 
     function tab6UpdateNext() {
