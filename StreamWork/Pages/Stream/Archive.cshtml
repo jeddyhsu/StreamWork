@@ -1,92 +1,74 @@
-﻿@model StreamWork.ViewModels.Stream.StreamPlayBackPageViewModel
+﻿@page "{tutor}/{id}/{commentId}"
+@model StreamWork.Pages.Stream.Archive
+@{Layout = "Tutor/_LayoutTutor"; }
 @{ViewData["Title"] = "StreamPlaybackPage";}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{var cacheRand = new Random().Next();}
+@Html.AntiForgeryToken()
 
-@*
-    @if (!Model.IsSubscribed())
-    {
-        <script>window.location.href = '/Home/Subscribe';</script>
-    }
-*@
-
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-8 p-0">
-            <div>
-                <iframe src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.ArchivedStream.StreamID" width="100%" height="700px" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
-                <h2 class="text-center mt-3" style="font-family:'Roboto Slab', serif;">@Model.ArchivedStream.StreamTitle</h2>
-                <p class="text-center m-3">@Model.ArchivedStream.StreamDescription</p>
-            </div>
-        </div>
-        <div class="col-sm-12 col-md-12 col-lg-4">
-            <div class="card text-center border-0" style="color:white; ">
-                <div class="card-body" style="background-color:white; border-top-right-radius:5px; border-top-left-radius:5px; ">
-                    <a href="/Home/ProfileView?Tutor=@Model.TutorUserProfile.Username"><img src=@Model.TutorUserProfile.ProfilePicture style="width:115px; height: 150px; border-radius:5%; cursor:pointer" /></a>
-                    <br />
-                    @if (Model.IsFollowing == false && Model.GenericUserProfile != null && Model.GenericUserProfile.Username != Model.TutorUserProfile.Username)
-                    {
-                        <button id="FollowButton" type="button" style="font-size:12px;" class="streamWorkSecondary mt-3" onclick="FollowStreamTutor('@Model.TutorUserProfile.Id')">Follow</button>
-                        <button id="UnfollowButton" type="button" style="font-size:12px; display:none;" class="streamWorkGrey mt-3" onclick="UnfollowStreamTutor('@Model.TutorUserProfile.Id')">Unfollow</button>
-                    }
-                    else if (Model.IsFollowing == true && Model.GenericUserProfile != null)
-                    {
-                        <button id="FollowButton" type="button" style="font-size:12px;display:none;" class="streamWorkSecondary mt-3" onclick="FollowStreamTutor('@Model.TutorUserProfile.Id')">Follow</button>
-                        <button id="UnfollowButton" type="button" style="font-size:12px;" class="streamWorkGrey mt-3" onclick="UnfollowStreamTutor('@Model.TutorUserProfile.Id')">Unfollow</button>
-                    }
-                    <h1 class="card-title mt-4" style="font-size: 24px; color: black; font-family: 'Roboto Slab', serif;"><b>@Model.TutorUserProfile.Name.Replace('|', ' ')</b></h1>
-                    <p class="card-text" style="font-size:16px; color:black">@Model.TutorUserProfile.ProfileCaption</p>
-                    <p class="card-text" style="font-size:14px; color:black">@Model.TutorUserProfile.ProfileParagraph</p>
+<div class="container-fluid" style="overflow-y:hidden">
+    <div class="row" style="margin-top:71px">
+        <div class="d-flex flex-column col-lg-9 col-md-12 col-sm-12 col-12 p-0 border-right ">
+            <div id="player-card" class="card border-0">
+                <div id="tutor-info" class="border-top pt-3 pl-3 pr-3 pb-1" style="background-color:#FBFBFB">
+                    <div class="d-lg-inline-block d-md-inline-block d-sm-none d-none float-right">
+                        @if (Model.FollowValue.Equals("Following"))
+                        {<button id="Following" class="streamWork-primary stream-buttons" onclick="Unfollow('@Model.CurrentUserProfile.Id', '@Model.CurrentUserProfile.Id')">Following</button>}
+                        else if (Model.FollowValue.Equals("Follow"))
+                        {<button id="Follow" class="streamWork-primary stream-buttons" onclick="Follow('@Model.CurrentUserProfile.Id', '@Model.CurrentUserProfile.Id')">Follow</button>}
+                        <button class="streamWork-orange stream-buttons">Donate</button>
+                        <button class="streamWork-secondary m-1 stream-buttons" onclick="window.location.href='/Profile/Tutor/@Model.UserProfile.Username'">Tutor Profile</button>
+                    </div>
+                    <input align="left" type="image" class="rounded" style="width:30px" src=@Model.UserProfile.ProfilePicture />
+                    <h3 class="mb-0 form-header" style="font-size:20px; margin-left:40px; color:@Model.UserChannel.ChatColor">@Model.UserProfile.Name.Replace('|', ' ')</h3>
+                    <p class="form-sub-header mb-1" style="margin-left:40px; font-size:14px">@Model.UserProfile.ProfileCaption</p>
+                    <div class="d-lg-none d-md-none d-sm-inline-block d-inline-block">
+                        @if (Model.FollowValue.Equals("Following"))
+                        {<button id="Following" onclick="Unfollow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary" style="width:150px;">Following</button>}
+                        else if (Model.FollowValue.Equals("Follow"))
+                        {<button id="Follow" onclick="Follow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary" style="width:150px;">Follow</button>}
+                        <button class="streamWork-orange" style="width:150px;">Donate</button>
+                        <button class="streamWork-secondary m-1" style="width:150px;" onclick="window.location.href='/Profile/Tutor/@Model.UserProfile.Username'">Tutor Profile</button>
+                    </div>
                 </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card-body" style="background-color:white; border-bottom-left-radius:5px">
-                            <h5 style="color:black">Streams</h5>
-                            <h4 style="color:black">@Model.NumberOfStreams</h4>
-                        </div>
+                <iframe id="player" style="width:100%;" src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.ArchivedStream.StreamID" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+                <div id="player-row" class="card-body p-0">
+                    <img class="p-3" align="left" src="/images/ChatAssets/Math.png" style="width:100%; height:100%; max-width:120px; max-height:120px; cursor:pointer" onclick="window.open('https://www.streamwork.live/Home/Search?s=@Model.UserChannel.StreamSubject&q=')" />
+                    <div class="m-3" id="StreamInfo">
+                        <h3 style="color:black; font-family:'Roboto Slab', serif;">@Model.ArchivedStream.StreamTitle<span></span></h3>
+                        <p class="mb-1" style="padding-left:105px">@Model.ArchivedStream.StreamDescription</p>
+                        <p style="font-size:12px; padding-left:105px">Tutoring @Model.ArchivedStream.StreamSubject</p>
                     </div>
-                    <div class="col-12">
-                        <div class="card-body" style="background-color:white;border-top-left-radius:0px ">
-                            <a href="/Home/Donate?tutor=@Model.UserChannel.Username"><button class="uploadbtn" style="font-family:'Roboto Slab', serif; cursor: pointer; display:block; margin-left:auto; margin-right:auto; height:68px; width:100%; background-color:#FFC04C; color:black; border:none;" onmouseover="">Donate</button></a>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="card-body" style="background-color:white; border-bottom-right-radius:5px ">
-                            <h5 style="color:black">Total Views</h5>
-                            <h4 style="color:black">@{Random rand = new Random(1247635134); int mult = rand.Next(10, 16); int views = Model.ArchivedStream.Views * mult + rand.Next(mult);}@views</h4>
-                        </div>
-
+                </div>
+                @await Html.PartialAsync("Partials/Comment/Comments", Model)
+                <div class="card-body" style="background-color:#FBFBFB">
+                    <p class="form-header" style="font-size:18px"><b>Other Recent Streams</b></p>
+                    <div class="row">
+                        @for (int i = 0; i < 8; i++)
+                        {
+                            <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12">
+                                @await Html.PartialAsync("Partials/Stream/Stream_Appearance", Model.OtherArchivedStreams[i])
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="container-fluid">
-            <hr />
-            <h5 class="text-center"><b>Other Streams</b></h5>
-            <div class="row">
-                @foreach (var videoInfo in Model.ArchivedStreams)
-                {
-                    <div class="col-lg-4 col-md-6 col-sm-6 streamsubject @videoInfo.StreamSubject">
-                        <div class="card mt-3" style="border:none; background-color:transparent">
-                            <a href="../StreamViews/StreamPlaybackPage?streamId=@videoInfo.StreamID"><img style="width:100%; height:100%; border-top-left-radius:10px; border-top-right-radius:10px; border-bottom-left-radius:0px; border-bottom-right-radius:0px;" src="@videoInfo.StreamThumbnail" /></a>
-                            <a class="card-body p-0" style="background-color:black; border-bottom-left-radius:10px; border-bottom-right-radius:10px;" href="/Home/ProfileView?Tutor=@videoInfo.Username">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <input type="image" style="border-radius:5%; width:50px; margin-left:10px; margin-top:10px; margin-bottom:10px; height:60px; float:left" src=@videoInfo.ProfilePicture />
-                                        <h5 class="text-truncate" style="font-family: 'Roboto'; font-size:15px; color:white; margin-left:80px; margin-top:10px;">@videoInfo.StreamTitle</h5>
-                                        <h6 class="text-truncate" style="font-family: 'Roboto'; font-size:14px; color:white; margin-left:80px;">@videoInfo.Username</h6>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                }
-            </div>
+        <div id="chat-card" class="d-flex flex-column fixed archived-chats col-lg-3 col-md-12 col-sm-12 col-12 p-0 border-top-0">
+            <iframe class="border-0" style="width:100%; height:100%" src="http://localhost:58539/chat/ArchiveChat?chatId=@Model.UserChannel.Username&chatInfo=@Model.ChatInfo"></iframe>
         </div>
     </div>
 </div>
 
-<script>$(document).ready(function () {
-        $("#nav").click(function () {
-            $("#navbarText").slideToggle();
-        });
-    });</script>
+@if(Model.NotificationRequestComment != null)
+{
+    <script>
+        GoToComment('@Model.NotificationRequestComment.ParentId', '@Model.NotificationRequestComment.Id')
+    </script>
+}
+
+<script>
+    ButtonEnabledDisabled('send', '')
+    ResizeStreamSection();
+    ResizeStreamInfoSectionArchivedStreams()
+</script>

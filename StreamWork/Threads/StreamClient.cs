@@ -17,10 +17,9 @@ namespace StreamWork.Threads
         readonly HomeMethods _homeHelperFunctions;
         readonly EmailMethods _emailHelperFunctions;
         readonly StreamClientMethods _threadClassHelperFunctions;
-        readonly ChatMethods _chatHelperFunctions;
         readonly IOptionsSnapshot<StorageConfig> _storageConfig;
         readonly UserChannel _userChannel;
-        readonly UserLogin _userLogin;
+        readonly UserLogin _userProfile;
         readonly string _streamTitle;
         readonly string _streamSubject;
         readonly string _streamDescription;
@@ -32,15 +31,14 @@ namespace StreamWork.Threads
         private static int threadCount = 0;
         private static Hashtable hashTable = new Hashtable();
 
-        public StreamClient(IOptionsSnapshot<StorageConfig> storageConfig, UserChannel userChannel, UserLogin userLogin, string streamTitle, string streamSubject, string streamDescription, string streamThumbnail, string archivedVideoId, string chatColor)
+        public StreamClient(IOptionsSnapshot<StorageConfig> storageConfig, UserLogin userLogin, UserChannel userChannel, string streamTitle, string streamSubject, string streamDescription, string streamThumbnail, string archivedVideoId, string chatColor)
         {
             _homeHelperFunctions = new HomeMethods();
             _emailHelperFunctions = new EmailMethods();
             _threadClassHelperFunctions = new StreamClientMethods();
-            _chatHelperFunctions = new ChatMethods();
             _storageConfig = storageConfig;
             _userChannel = userChannel;
-            _userLogin = userLogin;
+            _userProfile = userLogin;
             _streamTitle = streamTitle;
             _streamSubject = streamSubject;
             _streamDescription = streamDescription;
@@ -55,7 +53,7 @@ namespace StreamWork.Threads
             {
                 try
                 {
-                    await _emailHelperFunctions.SendOutMassEmail(_storageConfig, _userLogin, _userChannel, _archivedVideoId);
+                    await _emailHelperFunctions.SendOutMassEmail(_storageConfig, _userProfile, _userChannel, _archivedVideoId);
                 }
                 catch (Microsoft.EntityFrameworkCore.DbUpdateException e)
                 {
@@ -172,18 +170,20 @@ namespace StreamWork.Threads
                 StreamSubject = _streamSubject,
                 StreamDescription = _streamDescription,
                 StreamThumbnail = _streamThumbnail,
-                ProfilePicture = _userLogin.ProfilePicture
+                ProfilePicture = _userProfile.ProfilePicture,
+                StreamColor = GetCorrespondingStreamColor(_streamSubject),
+                Name = _userProfile.Name
             };
 
             return archivedStream;
         }
 
-        private async Task<bool> ArchiveStreams(StreamHosterRSSFeed response) // HI SELF DO THIS
+        private async Task<bool> ArchiveStreams(StreamHosterRSSFeed response)
         {
             for (int i = 1; i < hashTable.Count + 1; i++)
             {
                 var archivedStream = (UserArchivedStreams)hashTable[i];
-                archivedStream.StreamID = response.Channel.Item[threadCount - i].Mediaid;
+                archivedStream.StreamID = response.Channel.Item[threadCount - i].MediaContentId;
                 archivedStream.Views = _userChannel.Views;
                 archivedStream.StartTime = DateTime.UtcNow;
 
@@ -219,6 +219,23 @@ namespace StreamWork.Threads
             {
                 Console.WriteLine("Error in ClearChannelStreamInfo " + ex.Message);
             }
+        }
+
+        public string GetCorrespondingStreamColor(string subject)
+        {
+            Hashtable table = new Hashtable
+            {
+                { "Mathematics", "#AEE8FE" },
+                { "Science", "#A29CFE" },
+                { "Business", "#46A86E" },
+                { "Engineering", "#74B9FF" },
+                { "Law", "#F0AD4E" },
+                { "Art", "#F8C5DC" },
+                { "Humanities", "#FF7775" },
+                { "Other", "#FECA6E" }
+            };
+
+            return (string)table[subject];
         }
     }
 }

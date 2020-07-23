@@ -1,0 +1,41 @@
+﻿<div id="followers-modal" class="custom-modal">
+    <div class="custom-modal-content" style="width:500px">
+        <div class="close ml-auto" onclick="DiscardChangesAndCloseModal('followers-modal-form', 'followers-modal')">&times;</div>
+        <h5 class="form-header" style="padding-left:20px; padding-top:10px; font-size:16px;">Followers (@Model.NumberOfFollowers)</h5>
+        <div class="slider">
+            <div class="slider-object" style="width:110px;"></div>
+        </div>
+        <div class="row">
+            <div id="notification-mask" class="col-12">
+                @if (Model.Followers != null && Model.Followers.Count > 0)
+                {
+                    <ul id="followers-list" class="pl-3 m-0" style="list-style-type:none; height:435px; overflow:scroll">
+                        @foreach (var follower in Model.Followers)
+                        {
+                            <li id="follower-@follower.Id" class="border-bottom" onclick="window.location.href = '/Profile/@follower.ProfileType/@follower.Username'" style="cursor:pointer">
+                                <div class="row pt-3 pb-3">
+                                    <div class="col-12">
+                                        <img id="notification-delete-@follower.Id" src="~/images/GenericAssets/Trash.png" class="comment-remove mr-3 float-right" onclick="DeleteNotification('@follower.Id')" />
+                                        <input align="left" type="image" class="rounded" src="@follower.ProfilePicture" style="width:30px" onclick="window.location.href = '/Profile/@follower.ProfileType/@follower.Username'" />
+                                        <p class="form-header mb-0" style="padding-left:40px;">
+                                            @follower.Name.Replace('|', ' ') <span class="form-subheader roboto" style="font-size:10px">(@follower.ProfileType)</span>
+                                        </p>
+                                        <p class="form-header mb-0 roboto" style="padding-left:40px; font-size:12px">
+                                           @follower.ProfileCaption
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p class="form-header text-center p-3 mb-0" style="font-size:18px;">No followers at this time!</p>
+                }
+
+            </div>
+        </div>
+        <div id="stream-edit-buttons"></div>
+    </div>
+</div>

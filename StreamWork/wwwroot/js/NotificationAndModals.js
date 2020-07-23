@@ -1,7 +1,6 @@
-﻿function OpenNotificationModal(body, id, type) {
-    var notification = document.getElementById('notificationMessage');
+﻿function OpenNotificationModal(body, id) {
+    var notification = document.getElementById('notification-message');
     notification.textContent = body;
-    if (type == "Failed") document.getElementById("notificationImage").src = "/images/NotificationAssets/Error.png"
     OpenModal(id);
 }
 
@@ -33,4 +32,10 @@ function OpenModal(modalId) {
 function CloseModal(modalId) {
     var modal = document.getElementById(modalId);
     modal.style.display = "none";
+}
+
+function ShowBannerNotification(bannerName) {
+    $("#" + bannerName).fadeTo(2000, 500).slideUp(500, function () {
+        $("#" + bannerName).slideUp(500);
+    });
 }

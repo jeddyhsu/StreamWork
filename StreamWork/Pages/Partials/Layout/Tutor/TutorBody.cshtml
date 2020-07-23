@@ -1,0 +1,45 @@
+﻿@{var cacheRand = new Random().Next();}
+@Html.AntiForgeryToken()
+
+<div class="row">
+    <nav class="navbar navbar-expand-lg p-1 w-100 fixed-top" style="background-color:white">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse pl-3" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active d-block mr-auto ml-auto">
+                    <a class="navItem nav-link pl-3 pr-3" href="#">Tutor</a>
+                </li>
+                <li class="nav-item active d-block mr-auto ml-auto">
+                    <a class="navItem nav-link pl-3 pr-3" href="#">Browse</a>
+                </li>
+                <li class="nav-item active d-block mr-auto ml-auto">
+                    <a class="navItem nav-link pl-3 pr-3" href="#">About</a>
+                </li>
+            </ul>
+        </div>
+        @if (Model.Notifications.Count > 0 && Model.AreThereUnseenNotifications)
+        {
+            <img id="notification-bell" src="~/images/GenericAssets/NotificationBell.svg" width="65" style="cursor:pointer" onclick="OpenModal('notification-modal'); UpdateToSeen('@Model.UserProfile.Username');  $('#notification-bell').attr('src', '/images/GenericAssets/Bell.svg')" />
+        }
+        else
+        {
+            <img src="~/images/GenericAssets/Bell.svg" width="65" style="cursor:pointer" onclick="OpenModal('notification-modal')" />
+        }
+        <div class="btn-group pr-3">
+            <input id="navbar-profile-picture" class="navbar-profile-picture" type="image" data-toggle="dropdown" src="@Model.UserProfile.ProfilePicture?@cacheRand" />
+            <button type="button" id="dropdown" class="btn btn-info dropdown-toggle border-0 navbar-dropdown-button" data-toggle="dropdown"></button>
+            <div class="dropdown-menu dropdown-menu-right" style="font-size:12px; min-width:0px !important">
+                <a class="dropdown-item" href="/Tutor/TutorDashboard">Dashboard</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" id="Settings" href="/Tutor/TutorSettings">Settings</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" onclick="Logout()">Logout</a>
+            </div>
+        </div>
+        <script>$('#dropdown').dropdown()</script>
+    </nav>
+</div>
+
+@await Html.PartialAsync("Partials/Modals/NotificationModal")

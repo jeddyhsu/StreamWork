@@ -13,7 +13,7 @@ namespace StreamWork.Threads
                 var response = DataStore.CallAPI<StreamHosterEndpoint>("https://a.streamhoster.com/v1/papi/media/stream/stat/realtime-stream?targetcustomerid=" + channelKey, "NjBjZDBjYzlkNTNlOGViZDc3YWYyZGE2ZDNhN2EyZjQ5YWNmODk1YTo=");
                 foreach(var channel in response.Data)
                 {
-                    if (channel.MediaId == channelKey.Split("|")[0])
+                    if ((channel.MediaId + "_5").Equals(channelKey.Split("|")[0]))
                     {
                         Console.WriteLine("Live");
                         return true;

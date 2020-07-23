@@ -153,8 +153,24 @@
       "StorageType": "SqlServer",
       "Queries": [
         {
-          "Query": "SELECT * FROM [dbo].[Coment] WHERE ReceiverUsername = '@x0'",
+          "Query": "SELECT * FROM [dbo].[Comment] WHERE ReceiverUsername = '@x0'",
           "QueryId": "GetCommentsWithReceiverUsername"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Comment] WHERE StreamId = '@x0' AND ParentId IS NULL ORDER BY DATE ASC",
+          "QueryId": "GetCommentsWithStreamId"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Comment] WHERE StreamId = '@x0' AND ParentId IS NOT NULL ORDER BY DATE ASC",
+          "QueryId": "GetRepliesWithStreamId"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Comment] WHERE Id = '@x0'",
+          "QueryId": "GetCommentWithId"
+        },
+        {
+          "Query": "DELETE FROM [dbo].[Comment] WHERE Id = '@x0' DELETE FROM [dbo].[Comment] WHERE ParentId = '@x0'",
+          "QueryId": "DeleteComment"
         }
       ]
     },
@@ -255,6 +271,33 @@
         {
           "Query": "UPDATE [dbo].[Schedule] SET TimeZone = '@x0' WHERE Username = '@x1'",
           "QueryId": "UpdateTimezonesOfScheduledTasks"
+        }
+      ]
+    },
+
+    {
+      "Name": "Notification",
+      "StorageType": "SqlServer",
+      "Queries": [
+        {
+          "Query": "SELECT * FROM [dbo].[Notification] WHERE ReceiverUsername = '@x0' ORDER BY DATE DESC",
+          "QueryId": "GetNotificationsWithReceiver"
+        },
+        {
+          "Query": "DELETE FROM [dbo].[Notification] WHERE Id = '@x0'",
+          "QueryId": "DeleteNotificationWithId"
+        },
+        {
+          "Query": "DELETE FROM [dbo].[Notification] WHERE ObjectId = '@x0'",
+          "QueryId": "DeleteNotificationWithObjectId"
+        },
+        {
+          "Query": "UPDATE [dbo].[Notification] SET Seen = 'true' WHERE ReceiverUsername = '@x0'",
+          "QueryId": "UpdateNotificationToSeen"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Notification] WHERE ReceiverUsername = '@x0' AND Seen = 'false'",
+          "QueryId": "GetUnseenNotifications"
         }
       ]
     }

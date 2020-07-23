@@ -39,9 +39,19 @@ namespace StreamWork.Services
             return await DataStore.RunQueryAsync<T>(connectionString, config.Value, query.ToString(), parameters.Cast<string>().ToList());
         }
 
+        public async Task<bool> Delete<T>(string id) where T : class
+        {
+            return await DataStore.DeleteAsync<T>(connectionString, config.Value, new Dictionary<string, object> { { "Id", id } });
+        }
+
         public async Task Save<T>(string id, T obj) where T : class
         {
             await DataStore.SaveAsync(connectionString, config.Value, new Dictionary<string, object> { { "Id", id } }, obj);
+        }
+
+        public T Call<T>(string url, string authToken) where T: class
+        {
+            return DataStore.CallAPI<T>(url, authToken);
         }
     }
 }

@@ -1,12 +1,27 @@
-﻿
-<div id="stream-row" class="row p-3">
+﻿@{var cacheRand = new Random().Next();}
+    <div id="stream-row" class="row p-3">
         @if (Model.UserArchivedStreams.Count != 0)
         {
-            @await Html.PartialAsync("Partials/Stream/Stream_Appearance")
+            @foreach (var streamInfo in Model.UserArchivedStreams)
+            {
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                    <div class="card mt-3 border-0" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px">
+                        <div class="card-title">
+                            <a href="/Stream/Archive/@streamInfo.Username/@streamInfo.StreamID"><img asp-append-version="true" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src="@streamInfo.StreamThumbnail?@cacheRand"></a>
+                        </div>
+                        <div class="card-body pt-0 pb-1">
+                            <h5 class="text-truncate form-header">@streamInfo.StreamTitle</h5>
+                            <input type="hidden" value="@streamInfo.StreamDescription" />
+                            <p class="text-truncate form-header" style="font-size:10px">@streamInfo.Username</p>
+                        </div>
+                        <div class="card-footer" style="background-color:@streamInfo.StreamColor; border-bottom-left-radius:20px; border-bottom-right-radius:20px;"></div>
+                    </div>
+                </div>
+            }
         }
         else
         {
-            if (Model.UserProfile.ProfileType == "tutor")
+            if (Model.CurrentUserProfile.Id == Model.UserProfile.Id)
             {
                 <div class="col-12 text-center">
                     <p class="form-sub-header p-0" style="font-size:22px">Looks like you don't have any videos yet...</p>

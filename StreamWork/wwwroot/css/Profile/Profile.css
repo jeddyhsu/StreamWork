@@ -8,3 +8,31 @@
     top: -20%;
     left: 35px;
 }
+
+/*Navigation Slider Tabs*/
+.nav-tabs > li > a.active {
+    color: #707070 !important;
+    background-color: transparent !important;
+    border: none;
+    font-family: 'Roboto Slab', serif;
+}
+
+.nav-tabs > li > a {
+    color: #9F9F9F !important;
+    background-color: transparent !important;
+    border: none;
+    font-family: 'Roboto Slab', serif;
+}
+
+/*Streams, Followers & Views Objects*/
+.count-outer-object {
+    font-size: 14px;
+    word-spacing: 8px;
+    padding-top: 8px
+}
+
+.count-inner-object {
+    font-size: 18px;
+    font-family: 'Roboto Slab', serif;
+    padding: 7px;
+}

@@ -1,0 +1,49 @@
+﻿<div id="notification-modal" class="custom-modal">
+    <div class="custom-modal-content">
+        <div class="close ml-auto" onclick="DiscardChangesAndCloseModal('notification-modal-form', 'notification-modal')">&times;</div>
+        <h5 class="form-header" style="padding-left:20px; padding-top:10px; font-size:16px;">Notifications</h5>
+        <div class="slider">
+            <div class="slider-object" style="width:120px"></div>
+        </div>
+        <div class="row">
+            <div id="notification-mask" class="col-12">
+                @if (Model.Notifications != null && Model.Notifications.Count > 0)
+                {
+                    <ul id="notification-list" class="pl-3 m-0" style="list-style-type:none">
+                        @foreach (var notification in Model.Notifications)
+                        {
+                            <li id="notification-@notification.Id" class="border-bottom">
+                                <div class="row pt-3 pb-3">
+                                    <div class="col-12">
+                                        <img id="notification-delete-@notification.Id" src="~/images/GenericAssets/Trash.png" class="comment-remove mr-3 float-right" onclick="DeleteNotification('@notification.Id')"/>
+                                        <input align="left" type="image" class="rounded" src="@notification.SenderProfilePicture" style="width:30px" />
+                                        <script>
+                                            $('#notification-@notification.Id').hover(function () {
+                                                $('#notification-delete-@notification.Id').css('display', 'block')
+                                            }, function () {
+                                                $('#notification-delete-@notification.Id').css('display', 'none')
+                                            })
+                                        </script>
+                                        <p class="form-header mb-0" style="padding-left:40px;">
+                                            @notification.SenderName.Replace('|', ' ') @notification.Message (@notification.NotificationInfo.Split('|')[0]) <span class="form-subheader roboto" style="font-size:10px;">@notification.Date.ToLocalTime().ToString("h:mm tt")</span>
+                                        </p>
+                                        <p class="mb-0" style="padding-left:40px; font-size:12px;">
+                                            @notification.NotificationInfo.Split('|')[2]
+                                        </p>
+                                        <a class="comment-replies" href="/Stream/Archive/rarunT/@notification.NotificationInfo.Split('|')[1]/@notification.ObjectId" style="padding-left:10px"><b>Reply</b></a>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p class="form-header text-center p-3 mb-0" style="font-size:18px;">No notifications at this time!</p>
+                }
+
+            </div>
+        </div>
+        <div id="stream-edit-buttons"></div>
+    </div>
+</div>

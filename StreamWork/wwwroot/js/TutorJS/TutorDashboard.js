@@ -1,7 +1,4 @@
-﻿var sectionCount = 0; //used for sections
-var topicCount = 0; // //used for topics
-
-//Sliders
+﻿//Sliders
 function SliderProfile() {
     $('#profile-tab').tab('show');
     $('#slider-object').css("transform", "translate3d(15px, 0px, 0px)")
@@ -22,283 +19,14 @@ function SliderComment() {
     $('#slider-object').css("transform", "translate3d(290px, 0px, 0px)")
 }
 
-//Profile
-function SaveProfile() {
-    var formData = new FormData();
-    var totalFiles = document.getElementById("upload-profile-picture");
-    formData.append("FirstName", $('#first-name').val());
-    formData.append("LastName", $('#last-name').val());
-    formData.append("Occupation", $('#occupation-major').val());
-    formData.append("Location", $('#location').val());
-    formData.append("Timezone", $('#timezone').val());
-    formData.append("LinkedInUrl", $('#linkedin-url').val());
-    if (totalFiles.files.length > 0)
-        formData.append("ProfilePicture", totalFiles.files[0]);
-
-    $.ajax({
-        url: '/Tutor/TutorDashboard?handler=SaveProfile',
-        type: 'POST',
-        dataType: 'json',
-        data: formData,
-        contentType: false,
-        processData: false,
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader("XSRF-TOKEN",
-                $('input:hidden[name="__RequestVerificationToken"]').val());
-        },
-        success: function (data) {
-            if (data.message === "Success") {
-                $('#header-name').text(data.savedInfo[0] + " " + data.savedInfo[1]);
-                $('#header-first-name').val(data.savedInfo[0]);
-                $('#header-last-name').val(data.savedInfo[1]);
-                $('#header-occupation').text(data.savedInfo[2]);
-                $('#header-location').text(data.savedInfo[3]);
-                $('#header-timezone').val(data.savedInfo[4]);
-                $('#header-linkedin-url').val(data.savedInfo[5])
-
-                var c = new Date().valueOf();
-                $("#header-profile-picture").attr('src', data.savedInfo[6] + `?nocache=${c}`);
-                $("#navbar-profile-picture").attr('src', data.savedInfo[6] + `?nocache=${c}`);
-
-                $("#profile-information-notification").fadeTo(2000, 500).slideUp(500, function () {
-                    $("#profile-information-notification").slideUp(500);
-                });
-            }
-        }
-    })
+function SliderProfileInformation() {
+    $('#profile-info-tab').tab('show');
+    $('#slider-object-profile-edit-modal').css("transform", "translate3d(15px, 0px, 0px)")
 }
 
-function EditProfile() {
-    OpenModal('profile-information-modal')
-
-    document.getElementById("preview-profile-picture").src = document.getElementById("header-profile-picture").src;
-    $('#first-name').val($('#header-first-name').val());
-    $('#last-name').val($('#header-last-name').val());
-    $('#occupation-major').val($('#header-occupation').text());
-    $('#location').val($('#header-location').text());
-    $('#timezone').val($('#header-timezone').val());
-    $('#linkedin-url').val($('#header-linkedin-url').val());
-}
-
-
-//Sections
-function AddSection(event) {
-    sectionCount++;
-    event.preventDefault();
-    var section = ` <div id="divider-${sectionCount}" class="divider"></div>
-                    <div id="form-section-${sectionCount}" class="form-group col-lg-12">
-                        <label id="section-label-title-${sectionCount}" class="form-header d-inline-block">Section ${sectionCount} Title</label>
-                        <img id="remove-section-icon-${sectionCount}" src="/images/TutorAssets/TutorDashboard/Remove.svg" class="d-inline-block form-icon float-right" onclick="RemoveSection(${sectionCount})" />
-                        <input name="section-title-${sectionCount}" id="section-title-${sectionCount}" class="form-control border rounded-0 form-input" placeholder="Title of section ${sectionCount}!">
-                        <label class="form-header pt-3">Description</label>
-                        <textarea name="section-description-${sectionCount}" id="section-description-${sectionCount}" class="form-control border rounded-0 form-textarea" placeholder="Tell us what you are studying, concentrations, passions, and other extra curricular activities here!"></textarea>
-                    </div>`
-
-    $("#form-row-section").append(section);
-    var e = document.getElementById("form-section-" + sectionCount);
-    e.scrollIntoView();
-}
-
-function SaveSection(event, type) {
-    var form = $('#form-section-tutor');
-    var serialize = form.serialize();
-    serialize = serialize.replace(/%0D%0A/g, '*--*');
-    serialize = serialize.replace('\r', '');
-
-    $.ajax({
-        type: "POST",
-        url: "/Tutor/TutorDashboard?handler=SaveSection",
-        dataType: 'json',
-        data: serialize,
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader("XSRF-TOKEN",
-                $('input:hidden[name="__RequestVerificationToken"]').val());
-        },
-        success(data) {
-            if (data === "Failed") {
-                location.reload();
-            }
-            else {
-                if (type != "remove") {
-                    $("#section-topic-notification").fadeTo(2000, 500).slideUp(500, function () {
-                        $("#section-topic-notification").slideUp(500);
-                    });
-                }
-            }
-        }
-    })
-}
-
-function RemoveSection(sectionNumber) {
-    var section = document.getElementById("form-section-" + sectionNumber);
-    var divider = document.getElementById("divider-" + sectionNumber);
-
-    section.remove();
-    divider.remove();
-
-
-    var sectionAbove = sectionNumber + 1;
-    for (var i = sectionAbove; i <= sectionCount; i++) { //shift all other sections down one 
-        document.getElementById("divider-" + i).id = "divider-" + (i - 1);
-        document.getElementById("form-section-" + i).id = "form-section-" + (i - 1);
-
-        var label = document.getElementById("section-label-title-" + i);
-        label.id = "section-label-title-" + (i - 1);
-        label.textContent = "Section " + (i - 1) + " Title"
-
-        var removeIcon = document.getElementById("remove-section-icon-" + i)
-        removeIcon.id = "remove-section-icon-" + (i - 1);
-        removeIcon.setAttribute("onclick", "RemoveSection(" + (i - 1) + ")");
-
-        var sectionTitle = document.getElementById("section-title-" + i);
-        sectionTitle.id = "section-title-" + (i - 1);
-        sectionTitle.name = "section-title-" + (i - 1);
-        sectionTitle.setAttribute("placeholder", "Title of section " + (i - 1) + "!");
-
-        var sectionDescription = document.getElementById("section-description-" + i);
-        sectionDescription.id = "section-description-" + (i - 1);
-        sectionDescription.name = "section-description-" + (i - 1);
-    }
-
-    SaveSection(event, "remove");
-
-    sectionCount--;
-}
-
-
-//Topics
-function AddTopic(event) {
-    topicCount++;
-    event.preventDefault();
-    var topic = `<div id="divider-topic-${topicCount}" class="divider"></div>
-                    <div id="form-topic-${topicCount}" class="form-group col-lg-12 border p-2">
-                        <label class="form-header">Topic</label>
-                        <img id="remove-topic-icon-${topicCount}" src="/images/TutorAssets/TutorDashboard/Remove.svg" class="d-inline-block form-icon float-right" onclick="RemoveTopic(${topicCount})" />
-                        <select id="topic-${topicCount}" name="topic-${topicCount}" class="form-control form-control-sm border rounded-0">
-                            <option>-Select-Topic-</option>
-                            <option>Mathematics</option>
-                            <option>Science</option>
-                            <option>Engineering</option>
-                            <option>Business</option>
-                            <option>Law</option>
-                            <option>Art</option>
-                            <option>Humanities</option>
-                            <option>Others</option>
-                        </select>
-                        <label class="form-header pt-3">List Of Subjects</label>
-                        <textarea id="list-of-subjects-${topicCount}" name="list-of-subjects-${topicCount}" class="form-control border rounded-0 form-textarea" placeholder="Enter list of subjects here!"></textarea>
-                    </div>`
-
-    $("#form-row-topic").append(topic);
-    var e = document.getElementById("form-topic-" + topicCount);
-    e.scrollIntoView();
-}
-
-function RemoveTopic(topicNumber) {
-    var topic = document.getElementById("form-topic-" + topicNumber);
-    var divider = document.getElementById("divider-topic-" + topicNumber);
-
-    topic.remove();
-    divider.remove();
-
-    SaveTopic();
-
-    topicCount--;
-}
-
-function SaveTopic() {
-    var form = $('#form-topic-tutor');
-    var serialize = form.serialize();
-    serialize = serialize.replace(/%0D%0A/g, '*--*');
-
-    $.ajax({
-        url: '/Tutor/TutorDashboard/?handler=SaveTopic',
-        type: 'post',
-        dataType: 'json',
-        data: serialize,
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader("XSRF-TOKEN",
-                $('input:hidden[name="__RequestVerificationToken"]').val());
-        },
-        success(data) {
-            if (data === "Failed") {
-                location.reload();
-            }
-            else {
-                $("#section-topic-notification").fadeTo(2000, 500).slideUp(500, function () {
-                    $("#section-topic-notification").slideUp(500);
-                });
-            }
-        }
-    })
-}
-
-//University
-function EditUniversityInfo() {
-    OpenModal('university-edit-modal')
-
-    $('#university-edit-abbreviation').val($('#university-abbreviation').text());
-    $('#university-edit-name').val($('#university-name').text());
-}
-
-function SaveUniversityInfo() {
-    var form = $('#university-edit-modal-form');
-    if (!form[0].checkValidity()) {
-        form[0].reportValidity();
-        return;
-    }
-    var abbreviation = $('#university-edit-abbreviation').val()
-    var name = $('#university-edit-name').val();
-    var container = document.getElementById("university-element");
-
-    var htmlString = "<div class='p-4'><p id='university-abbreviation' class='form-university-header'>" + abbreviation + "</p><p id='university-name' class='form-header'>" + name + "</p></div>"
-    container.innerHTML = htmlString;
-
-    $.ajax({
-        url: '/Tutor/TutorDashboard/?handler=SaveUniversity',
-        type: 'post',
-        datatype: 'json',
-        data: {
-            'abbr': abbreviation,
-            'name': name
-        },
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader("XSRF-TOKEN",
-                $('input:hidden[name="__RequestVerificationToken"]').val());
-        },
-        success: function (data) {
-            if (data.message === "Success") {
-                $('#university-abbreviation').text(data.abbreviation)
-                $('#university-name').text(data.name)
-                $("#university-edit-modal-notification").fadeTo(2000, 500).slideUp(500, function () {
-                    $("#university-edit-modal-notification").slideUp(500);
-                });
-            }
-        }
-    })
-}
-
-//Banner
-function SaveProfileBanner(image) {
-    var formData = new FormData();
-    formData.append("ProfileBanner", image.files[0]);
-    $.ajax({
-        url: '/Tutor/TutorDashboard/?handler=SaveBanner',
-        type: 'POST',
-        dataType: 'json',
-        data: formData,
-        processData: false,
-        contentType: false,
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader("XSRF-TOKEN",
-                $('input:hidden[name="__RequestVerificationToken"]').val());
-        },
-        success: function (data) {
-            if (data.message === "Success") {
-                $('#preview-profile-banner').attr('src', data.banner + `?nocache=${new Date().valueOf()}`);
-            }
-        }
-    });
+function SliderSocialMedia() {
+    $('#social-media-tab').tab('show');
+    $('#slider-object-profile-edit-modal').css("transform", "translate3d(180px, 0px, 0px)")
 }
 
 //Schedule
@@ -333,9 +61,7 @@ function AddDateToModal(date) {
 
 function CheckIfTimezoneIsValidForSchedule() {
     if ($('#header-timezone').val() == "") {
-        $("#schedule-timezone-notification").fadeTo(2000, 500).slideUp(500, function () {
-            $("#schedule-timezone-notification").slideUp(500);
-        });
+        ShowBannerNotification("schedule-timezone-notification")
 
         return;
     }
@@ -392,9 +118,7 @@ function SaveScheduleTask(id, type) {
                 SortTasks(data);
                 if (type != 'edit') DiscardCalendarModalAndCloseModal();
                 else {
-                    $("#schedule-modal-notification").fadeTo(2000, 500).slideUp(500, function () {
-                        $("#schedule-modal-notification").slideUp(500);
-                    });
+                    ShowBannerNotification("schedule-modal-notification")
                 }
             }
         }
@@ -505,6 +229,10 @@ function DeleteScheduleTask(id) {
         data: {
             'taskId': id,
         },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("XSRF-TOKEN",
+                $('input:hidden[name="__RequestVerificationToken"]').val());
+        },
         success: function (data) {
             if (data.message === "Success") {
                 SortTasks(data);
@@ -523,30 +251,29 @@ function EditStream(id) {
     $('#stream-description-edit').val($('#stream-description-' + id).val());
     document.getElementById("preview-stream-thumbnail-edit").src = document.getElementById("stream-thumbnail-" + id).src
     document.getElementById("preview-stream-thumbnail-edit").src = document.getElementById("stream-thumbnail-" + id).src
-
-    document.getElementById("stream-edit-buttons").innerHTML = ` <div class="row">
+    document.getElementById("archived-stream-edit-buttons").innerHTML = `<div class="row">
                                                                     <div class="col-6 pr-0">
                                                                         <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#6B6B6B; color:white" onclick="ShowDeleteStreamTaskBanner('${id}')">Delete Stream</button>
                                                                     </div>
                                                                     <div class="col-6 pl-0">
-                                                                        <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="SaveEditedStreamInfo('${id}')">Save Changes</button>
+                                                                        <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="SaveEditedStream('${id}')">Save Changes</button>
                                                                     </div>
                                                                 </div>`
 }
 
 function ShowDeleteStreamTaskBanner(id) {
     $('#edit-stream-modal-delete-stream-notification').show()
-    document.getElementById("stream-edit-buttons").innerHTML = `<div class="row">
+    document.getElementById("archived-stream-edit-buttons").innerHTML = `<div class="row">
                                                                 <div class="col-6 pr-0">
                                                                     <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#AC0001; color:white" onclick="DeleteStream('${id}')">Confirm Delete</button>
                                                                 </div>
                                                                 <div class="col-6 pl-0">
-                                                                    <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white; height:100%" onclick="SaveEditedStreamInfo('${id}')">Save Changes</button>
+                                                                    <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white; height:100%" onclick="SaveEditedStream('${id}')">Save Changes</button>
                                                                 </div>
                                                              </div>`
 }
 
-function SaveEditedStreamInfo(id) {
+function SaveEditedStream(id) {
     var formData = new FormData()
     var totalFile = document.getElementById("upload-thumbnail-edit")
 
@@ -556,7 +283,7 @@ function SaveEditedStreamInfo(id) {
     if (totalFile.files.length > 0) formData.append("StreamThumbnail", totalFile.files[0]);
 
     $.ajax({
-        url: 'TutorDashboard/?handler=SaveEditedStreamInfo',
+        url: '/Tutor/TutorDashboard/?handler=SaveEditedStream',
         type: 'POST',
         dataType: 'json',
         data: formData,
@@ -568,14 +295,11 @@ function SaveEditedStreamInfo(id) {
         },
         success: function (data) {
             if (data.message === "Success") {
-                isStreamEdited = true;
-                document.getElementById("stream-title-" + id).innerHTML = data.title;
-                document.getElementById("stream-description-" + id).src = data.description;
-                document.getElementById("stream-thumbnail-" + id).src = data.thumbnail + `?nocache=${new Date().valueOf()}`;
+                $("#stream-title-" + id).text(data.savedInfo[0]); 
+                $("#stream-description-" + id).val(data.savedInfo[1]) 
+                $("#stream-thumbnail-" + id).attr('src', data.savedInfo[2] + `?nocache=${new Date().valueOf()}`);
 
-                $("#edit-stream-modal-notification").fadeTo(2000, 500).slideUp(500, function () {
-                    $("#edit-stream-modal-notification").slideUp(500);
-                });
+                ShowBannerNotification("edit-stream-modal-notification")
             }
         }
     });
@@ -594,7 +318,9 @@ function DeleteStream(id) {
                 $('input:hidden[name="__RequestVerificationToken"]').val());
         },
         success: function (data) {
-
+            DiscardChangesAndCloseModal('edit-stream-modal-form', 'edit-stream-modal')
+            $('#edit-stream-modal-delete-stream-notification').hide()
+            $('#streamInfo-' + id).hide();
         }
     });
 }
@@ -604,7 +330,7 @@ function SearchStreams(event, name, username, columnPreference) { //filters by u
     var searchTerm = $('#searchQuery').val();
     var filter = $('#filter').val();
     $.ajax({
-        url: '/Tutor/TutorDashboard/SearchArchivedStreams',
+        url: '/Tutor/TutorDashboard/?handler=SearchArchivedStreams',
         type: 'POST',
         dataType: 'json',
         data: {
@@ -623,7 +349,7 @@ function SearchStreams(event, name, username, columnPreference) { //filters by u
                     element += `<div id="streamInfo-${data.results[i].id}" class="${columnPreference} col-md-6 col-sm-6">
                                 <div class="card mt-3 border-0" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px;">
                                     <div class="card-title">
-                                        <a href="../StreamViews/StreamPlaybackPage?streamId=${data.results[i].streamId}"><img id="stream-thumbnail-${data.results[i].id}" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src=${data.results[i].streamThumbnail}></a>
+                                        <a href="../Stream/Archive/${data.results[i].username}/${data.results[i].streamID}/32169"><img id="stream-thumbnail-${data.results[i].id}" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src=${data.results[i].streamThumbnail}?nocache=${new Date().valueOf()}></a>
                                     </div>
                                     <div class="card-body pt-0 pb-1">
                                         <h5 id="stream-title-${data.results[i].id}" class="text-truncate form-header">${data.results[i].streamTitle}</h5>

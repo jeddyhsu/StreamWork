@@ -26,7 +26,7 @@
     <Folder Include="Pages\Student\" />
     <Folder Include="Threads\" />
     <Folder Include="HelperMethods\" />
-    <Folder Include="TutorObjects\" />
+    <Folder Include="ProfileObjects\" />
     <Folder Include="StreamHoster\" />
     <Folder Include="EmailTemplates\" />
     <Folder Include="Pages\Chat\" />
@@ -56,6 +56,19 @@
     <Folder Include="Pages\Partials\Stream\" />
     <Folder Include="wwwroot\images\StreamAssets\" />
     <Folder Include="Components\" />
+    <Folder Include="Pages\Follows\" />
+    <Folder Include="Pages\Partials\Layout\" />
+    <Folder Include="Pages\Partials\Layout\Tutor\" />
+    <Folder Include="Pages\Shared\Tutor\" />
+    <Folder Include="wwwroot\js\StreamJS\" />
+    <Folder Include="wwwroot\js\CommentJS\" />
+    <Folder Include="Pages\Comments\" />
+    <Folder Include="wwwroot\css\CommentCSS\" />
+    <Folder Include="Pages\Partials\Comment\" />
+    <Folder Include="Pages\Partials\Layout\Student\" />
+    <Folder Include="Pages\Shared\Student\" />
+    <Folder Include="Pages\Notifications\" />
+    <Folder Include="wwwroot\js\NotificationJS\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="EmailTemplates\PasswordRecoveryEmailTemplate.html">
@@ -72,5 +85,7 @@
     <Content Remove="wwwroot\images\TutorAssets\TutorDashboard\Save_Icon_v1_SW.png" />
     <Content Remove="wwwroot\images\TutorAssets\TutorDashboard\Remove_Icon_v1 copy3x_SW.png" />
     <Content Remove="Pages\Partials\Profile\Header_View.json" />
+    <Content Remove="Pages\Comment\CommentModal.cshtml" />
+    <Content Remove="Pages\Partials\Stream\Comments.html" />
   </ItemGroup>
 </Project>

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using StreamWork.DataModels;
 using StreamWork.HelperMethods;
 using StreamWork.Services;
-using StreamWork.TutorObjects;
+using StreamWork.ProfileObjects;
 using StreamWork.ViewModels;
 
 namespace StreamWork.Pages.Tutor
@@ -19,6 +19,8 @@ namespace StreamWork.Pages.Tutor
         private readonly ScheduleService scheduleService;
         private readonly FollowService followService;
         private readonly EditService editService;
+        private readonly SearchService searchService;
+        private readonly NotificationService notificationService;
 
         public UserLogin UserProfile { get; set; }
         public UserChannel UserChannel { get; set; }
@@ -28,12 +30,14 @@ namespace StreamWork.Pages.Tutor
         public List<UserArchivedStreams> UserArchivedStreams { get; set; }
         public List<Section> Sections { get; set; }
         public List<Topic> Topics { get; set; }
-        public List<Comment> Comments { get; set; }
         public List<Schedule> Schedule { get; set; }
-
+        public List<UserLogin> Followers { get; set; }
+        public List<UserLogin> Followees { get; set; }
+        public List<Notification> Notifications { get; set; }
+        public bool AreThereUnseenNotifications { get; set; }
         public SearchViewModel SearchViewModel { get; set; }
 
-        public TutorDashboard(StorageService storage, SessionService session, ProfileService profile, ScheduleService schedule, FollowService follow, EditService edit)
+        public TutorDashboard(StorageService storage, SessionService session, ProfileService profile, ScheduleService schedule, FollowService follow, EditService edit, SearchService search, NotificationService notification)
         {
             storageService = storage;
             sessionService = session;
@@ -41,6 +45,8 @@ namespace StreamWork.Pages.Tutor
             scheduleService = schedule;
             followService = follow;
             editService = edit;
+            searchService = search;
+            notificationService = notification;
         }
 
         public async Task<IActionResult> OnGet()
@@ -56,56 +62,19 @@ namespace StreamWork.Pages.Tutor
             UserArchivedStreams = await storageService.GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { UserProfile.Username });
             Sections = profileService.GetSections(UserProfile);
             Topics = profileService.GetTopics(UserProfile);
-            //Comments = storage.GetCommentsToTutor(UserProfile.Username);
             Schedule = await scheduleService.GetSchedule(UserProfile.Username);
+
+            Followers = await followService.GetAllFollowers(UserProfile.Id);
+            Followees = await followService.GetAllFollowees(UserProfile.Id);
 
             NumberOfStreams = UserArchivedStreams.Count;
             NumberOfViews = UserArchivedStreams.Sum(x => x.Views);
-            NumberOfFollowers = await followService.GetNumberOfFollowers(UserProfile.Id);
+            NumberOfFollowers = Followers == null ? 0 : Followers.Count;
+
+            Notifications = await notificationService.GetNotifications(UserProfile.Username);
+            AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(UserProfile.Username);
 
             return Page();
-        }
-
-        public async Task<IActionResult> OnPostSaveProfile()
-        {
-            var userProfile = await sessionService.GetCurrentUser();
-            var savedInfo = await editService.EditProfile(Request, userProfile.Username);
-
-            if(savedInfo != null) return new JsonResult(new { Message = JsonResponse.Success.ToString(), SavedInfo = savedInfo });
-            return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
-        }
-
-        public async Task<IActionResult> OnPostSaveSection()
-        {
-            var userProfile = await sessionService.GetCurrentUser();
-
-            if (profileService.SaveSection(Request, userProfile)) return new JsonResult(new { Message = JsonResponse.Success.ToString() });
-            return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
-        }
-
-        public async Task<IActionResult> OnPostSaveTopic()
-        {
-            var userProfile = await sessionService.GetCurrentUser();
-
-            if (profileService.SaveTopic(Request, userProfile)) return new JsonResult(new { Message = JsonResponse.Success.ToString() });
-            return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
-        }
-
-        public async Task<IActionResult> OnPostSaveBanner()
-        {
-            var userProfile = await sessionService.GetCurrentUser();
-            var banner = await editService.SaveBanner(Request, userProfile.Username);
-
-            if (banner != null) return new JsonResult(new { Message = JsonResponse.Success.ToString(), Banner = banner });
-            return new JsonResult(new { Message = JsonResponse.Success.ToString(), Banner = banner });
-        }
-
-        public async Task<IActionResult> OnPostSaveUniversity(string abbr, string name)
-        {
-            var userProfile = await sessionService.GetCurrentUser();
-
-            if (await editService.SaveUniversity(userProfile.Username, abbr, name)) return new JsonResult(new { Message = JsonResponse.Success.ToString(), SavedInfo = new List<string> { abbr, name } });
-            return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
         }
 
         public async Task<IActionResult> OnPostSaveScheduleTask()
@@ -126,9 +95,25 @@ namespace StreamWork.Pages.Tutor
             return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
         }
 
-        //public async Task<IActionResult> OnPostSearchArchivedStreams(string searchTerm, string filter)
-        //{
-        //    return Json(new { Message = JsonResponse.Success.ToString(), Results = await _homeMethods.SearchArchivedStreams(storageConfig, filter, searchTerm) });
-        //}
+        public async Task<IActionResult> OnPostSaveEditedStream()
+        {
+            var savedInfo = await profileService.SaveEditedArchivedStream(Request);
+
+            if (savedInfo != null) return new JsonResult(new { Message = JsonResponse.Success.ToString(), SavedInfo = savedInfo });
+            return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
+        }
+
+        public async Task<IActionResult> OnPostDeleteStream(string id)
+        {
+            var savedInfo = await profileService.DeleteStream(id);
+
+            if (savedInfo) return new JsonResult(new { Message = JsonResponse.Success.ToString() });
+            return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
+        }
+
+        public async Task<IActionResult> OnPostSearchArchivedStreams(string searchTerm, string filter)
+        {
+            return new JsonResult(new { Message = JsonResponse.Success.ToString(), Results = await searchService.SearchArchivedStreams(filter, searchTerm) });
+        }
     }
 }

@@ -6,19 +6,19 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using StreamWork.Config;
-using StreamWork.Core;
 using StreamWork.DataModels;
 using StreamWork.HelperMethods;
-using StreamWork.Threads;
-using StreamWork.TutorObjects;
+using StreamWork.ProfileObjects;
 
 namespace StreamWork.Services
 {
     public class ProfileService : StorageService
     {
+        const string EOL = "|__*%ENDOFLINE%*__|";
+        const string DELIMITER = "|__*%SPLIT%*__|";
+
         public ProfileService([FromServices] IOptionsSnapshot<StorageConfig> config) : base(config) { }
-        
-         //Going to simplify this code once the whole refractor is done
+
         public bool SaveSection(HttpRequest request, UserLogin userProfile)
         {
             try
@@ -29,8 +29,7 @@ namespace StreamWork.Services
                 string formatString = "";
                 foreach (var key in keys)
                 {
-                    if (!form[key].Equals(""))
-                        formatString += key.ToString() + "|``~``|" + form[key] + Environment.NewLine;
+                    formatString += key.ToString() + DELIMITER + form[key] + EOL;
                 }
 
                 var url = BlobMethods.SaveFileIntoBlobContainer(userProfile.Username + "-" + userProfile.Id + "-sections" + ".txt", formatString);
@@ -51,21 +50,25 @@ namespace StreamWork.Services
 
                 var blob = BlobMethods.GetBlockBlob(userProfile.Username + "-" + userProfile.Id + "-sections" + ".txt");
                 var sections = blob.DownloadText();
-                var sectionsSplit = sections.Split(Environment.NewLine);
+                var sectionsSplit = sections.Split(EOL);
 
-                sectionsList.Add(new Section(sectionsSplit[0].Split("|``~``|")[1]));
+                if (sectionsSplit[0].Split(DELIMITER)[1] != "")
+                {
+                    sectionsList.Add(new Section(sectionsSplit[0].Split(DELIMITER)[1]));
+                }
 
                 for (int i = 1; i < sectionsSplit.Length - 1; i += 2)
                 {
-                    var title = sectionsSplit[i].Split("|``~``|")[1];
-                    var description = sectionsSplit[i + 1].Split("|``~``|")[1];
+                    var title = sectionsSplit[i].Split(DELIMITER)[1];
+                    var description = sectionsSplit[i + 1].Split(DELIMITER)[1];
 
                     if (!title.Equals("") || !description.Equals("") || i <= 1)
                     {
                         description = description.Replace("*--*", Environment.NewLine);
-                        sectionsList.Add(new Section(title, description));
+                        sectionsList.Add(new Section(title, description, description.Split(" ").Length > 66));
                     }
                 }
+
                 return sectionsList;
             }
             catch (Exception e)
@@ -86,8 +89,7 @@ namespace StreamWork.Services
                 string formatString = "";
                 foreach (var key in keys)
                 {
-                    if (!form[key].Equals(""))
-                        formatString += key.ToString() + "|``~``|" + form[key] + Environment.NewLine;
+                    formatString += key.ToString() + DELIMITER + form[key] + EOL;
                 }
 
                 var url = BlobMethods.SaveFileIntoBlobContainer(userProfile.Username + "-" + userProfile.Id + "-topics" + ".txt", formatString);
@@ -108,14 +110,14 @@ namespace StreamWork.Services
 
                 var blob = BlobMethods.GetBlockBlob(userProfile.Username + "-" + userProfile.Id + "-topics" + ".txt");
                 var topics = blob.DownloadText();
-                var topicSplit = topics.Split(Environment.NewLine);
+                var topicSplit = topics.Split(EOL);
 
                 for (int i = 0; i < topicSplit.Length - 1; i += 2)
                 {
-                    var topic = topicSplit[i].Split("|``~``|")[1];
-                    var listOfSubjects = topicSplit[i + 1].Split("|``~``|")[1];
+                    var topic = topicSplit[i].Split(DELIMITER)[1];
+                    var listOfSubjects = topicSplit[i + 1].Split(DELIMITER)[1];
 
-                    if (!topic.Equals("") || !listOfSubjects.Equals(""))
+                    if (!topic.Equals("") || !listOfSubjects.Equals("") || (i <= 1))
                     {
                         listOfSubjects = listOfSubjects.Replace("*--*", Environment.NewLine);
                         topicsList.Add(new Topic(topic, listOfSubjects));
@@ -131,35 +133,7 @@ namespace StreamWork.Services
 
         }
 
-        public bool StartStream(HttpRequest request, UserChannel userChannel, UserLogin userProfile, string chatColor)
-        {
-            try
-            {
-                string streamThumbnail;
-                var streamTitle = request.Form["StreamTitle"];
-                var streamSubject = request.Form["StreamSubject"];
-                var streamDescription = request.Form["StreamDescription"];
-                var notifyStudent = request.Form["NotifiyStudent"];
-                var archivedStreamId = Guid.NewGuid().ToString();
-                if (request.Form.Files.Count > 0)
-                    streamThumbnail = BlobMethods.SaveImageIntoBlobContainer(request.Form.Files[0], archivedStreamId, 1280, 720);
-                else
-                    streamThumbnail = GetCorrespondingDefaultThumbnail(streamSubject);
-
-                //StreamClient streamClient = new StreamClient(storageConfig, userChannel, userProfile, streamTitle, streamSubject, streamDescription, streamThumbnail, archivedStreamId, chatColor);
-                //if (notifyStudent.Equals("yes")) streamClient.RunEmailThread();
-                //streamClient.RunLiveThread();
-
-                return true;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error in TutorMethods: StartStream " + e.Message);
-                return false;
-            }
-        }
-
-        public async Task<string[]> EditArchivedStream(HttpRequest request)
+        public async Task<List<string>> SaveEditedArchivedStream(HttpRequest request)
         {
             string streamThumbnail = null;
             var videoId = request.Form["StreamId"];
@@ -176,7 +150,7 @@ namespace StreamWork.Services
 
             await Save<UserArchivedStreams>(archivedStream.Id, archivedStream);
 
-            return new string[] { streamTitle, streamDescription, archivedStream.StreamThumbnail };
+            return new List<string> { streamTitle, streamDescription, archivedStream.StreamThumbnail };
         }
 
         //Uses a hashtable to add default thumbnails based on subject
@@ -210,9 +184,9 @@ namespace StreamWork.Services
             await Save<UserChannel>(userChannel.Id, userChannel);
         }
 
-        public async Task DeleteStream([FromServices] IOptionsSnapshot<StorageConfig> storageConfig, string id)
+        public async Task<bool> DeleteStream(string id)
         {
-            await DataStore.DeleteAsync<UserArchivedStreams>(connectionString, storageConfig.Value, new Dictionary<string, object> { { "Id", id } });
+            return await Delete<UserArchivedStreams>(id);
         }
     }
 }

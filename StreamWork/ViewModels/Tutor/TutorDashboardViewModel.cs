@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using StreamWork.DataModels;
-using StreamWork.TutorObjects;
+using StreamWork.ProfileObjects;
 
 namespace StreamWork.ViewModels.Tutor {
 

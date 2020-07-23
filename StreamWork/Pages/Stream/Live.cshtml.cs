@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using StreamWork.DataModels;
 using StreamWork.HelperMethods;
 using StreamWork.Services;
-using StreamWork.TutorObjects;
+using StreamWork.ProfileObjects;
 
 namespace StreamWork.Pages.Stream
 {
@@ -19,21 +19,25 @@ namespace StreamWork.Pages.Stream
         private readonly FollowService followService;
         private readonly EditService editService;
         private readonly ChatService chatService;
+        private readonly NotificationService notificationService;
 
         public UserLogin UserProfile { get; set; }
-        public UserLogin TutorUserProfile { get; set; }
+        public UserLogin CurrentUserProfile { get; set; }
         public UserChannel UserChannel { get; set; }
         public string ChatInfo { get; set; }
         public string StreamSubjectPicture { get; set; }
-        public bool IsFollowing { get; set; }
+        public string FollowValue { get; set; }
         public List<UserArchivedStreams> UserArchivedStreams { get; set; }
+        public List<UserLogin> RelatedTutors { get; set; }
         public List<Section> Sections { get; set; }
         public List<Schedule> Schedule { get; set; }
         public int NumberOfStreams { get; set; }
         public int NumberOfFollowers { get; set; }
         public int NumberOfViews { get; set; }
+        public List<Notification> Notifications { get; set; }
+        public bool AreThereUnseenNotifications { get; set; }
 
-        public Live(StorageService storage, SessionService session, ProfileService profile, ScheduleService schedule, FollowService follow, EditService edit, ChatService chat)
+        public Live(StorageService storage, SessionService session, ProfileService profile, ScheduleService schedule, FollowService follow, EditService edit, ChatService chat, NotificationService notification)
         {
             storageService = storage;
             sessionService = session;
@@ -42,23 +46,28 @@ namespace StreamWork.Pages.Stream
             followService = follow;
             editService = edit;
             chatService = chat;
+            notificationService = notification;
         }
 
         public async Task<IActionResult> OnGet(string tutor)
         {
-            UserProfile = await sessionService.GetCurrentUser();
-            TutorUserProfile = await storageService.Get<UserLogin>(SQLQueries.GetUserWithUsername, tutor);
+            CurrentUserProfile = await sessionService.GetCurrentUser();
+            UserProfile = await storageService.Get<UserLogin>(SQLQueries.GetUserWithUsername, tutor);
             UserChannel = await storageService.Get<UserChannel>(SQLQueries.GetUserChannelWithUsername, tutor);
             ChatInfo = "1234";
-            IsFollowing = await followService.IsFollowingFollowee(UserProfile.Id, TutorUserProfile.Id);
+            FollowValue = await followService.IsFollowingFollowee(UserProfile.Id, CurrentUserProfile.Id);
 
-            UserArchivedStreams = await storageService.GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { TutorUserProfile.Username });
-            Sections = profileService.GetSections(TutorUserProfile);
+            UserArchivedStreams = await storageService.GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { CurrentUserProfile.Username });
+            RelatedTutors = (await storageService.GetList<UserLogin>(SQLQueries.GetAllTutorsNotInTheList, new string[] { CurrentUserProfile.Id })).GetRange(0, 5);
+            Sections = profileService.GetSections(CurrentUserProfile);
             Schedule = await scheduleService.GetSchedule(UserProfile.Username);
 
             NumberOfStreams = UserArchivedStreams.Count;
             NumberOfFollowers = await followService.GetNumberOfFollowers(UserProfile.Id);
             NumberOfViews = UserArchivedStreams.Sum(x => x.Views);
+
+            Notifications = await notificationService.GetNotifications(UserProfile.Username);
+            AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(UserProfile.Username);
 
             return Page();
         }

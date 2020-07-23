@@ -1,0 +1,322 @@
+﻿@page 
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model StreamWork.Pages.Student.StudentDashboard
+@Html.AntiForgeryToken()
+@{var cacheRand = new Random().Next();}
+@{Layout = "Student/_LayoutStudentDashboard";}
+
+<div class="container-fluid mr-0">
+    <div class="container-fluid inner-container-fluid custom-container-padding">
+        <div class="row d-lg-none d-md-none d-sm-none d-block h-100 " style="background-color:#003936">
+            <p class="form-header ml-4 mb-0 p-3" style="color:white">Tutor Dashboard</p>
+        </div>
+        <div class="card border-0">
+            <div class="card-body p-0">
+                <div class="row">
+                    <div class="col-lg-7 col-md-12 col-sm-12 col-12 order-lg-1 order-md-2 order-sm-2 order-2">
+                        <div class="p-lg-4 pt-md-4 p-sm-3 p-3">
+                            <div class="btn-group d-lg-block d-md-block d-sm-none d-none float-right">
+                                <button type="button" class="streamWork-secondary mr-2" onclick="EditProfile()">Edit Profile</button>
+                                <button type="button" class="streamWork-primary" onclick="window.location.href ='/Profile/Student/@Model.UserProfile.Username'">View Profile</button>
+                            </div>
+                            <input id="header-profile-picture" align="left" class="rounded" type="image" src="@Model.UserProfile.ProfilePicture?@cacheRand" style="width:80px; cursor:text" />
+                            <p id="header-name" class="form-header m-0" style="font-size:20px; padding-left:100px">@Model.UserProfile.Name.Replace('|', ' ')</p>
+                            <p id="header-occupation" class="form-sub-header m-0" style="padding-left:100px; font-size:12px;">@Model.UserProfile.ProfileCaption</p>
+                            <p class="mb-0 mt-2 form-sub-header" style="padding-left:100px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
+                            <p class="form-sub-header" style="padding-left:100px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">@Model.UserProfile.Location</span></p>
+                            <input id="header-first-name" type="hidden" value="@Model.UserProfile.Name.Split('|')[0]" />
+                            <input id="header-last-name" type="hidden" value="@Model.UserProfile.Name.Split('|')[1]" />
+                            <input id="header-timezone" type="hidden" value="@Model.UserProfile.TimeZone" />
+                            <input id="header-linkedin-url" type="hidden" value="@Model.UserProfile.LinkedInUrl" />
+                        </div>
+                        <div class="btn-group d-lg-none d-md-none d-sm-block d-block pl-3 pr-3 pb-3">
+                            <button type="button" class="streamWork-secondary mr-2"onclick="EditProfile()">Edit Profile</button>
+                            <button type="button" class="streamWork-primary " onclick="window.location.href ='/Profile/Student/@Model.UserProfile.Username'">View Profile</button>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-12 col-sm-12 col-12 order-lg-2 order-md-1 order-sm-1 order-1">
+                        <div id="banner-upload" class="image-container" style="width:100%; height:100%;">
+                            <img class="banner" id="preview-profile-banner" src="@Model.UserProfile.ProfileBanner?@cacheRand" style="cursor:pointer; height:100%; object-fit:cover;" />
+                            <div class="bottom-right mr-2" style="left:0px; bottom:0px;">
+                                <div class="card rounded-0" style="width:100%; height:40px; background-color:black; opacity:0.2">
+                                    <i id="add-profile-banner" class="fa fa-camera d-block ml-auto mr-auto mt-2" style="font-size:24px;color:white"></i>
+                                    <input id="upload-profile-banner" style="cursor:pointer; display:none" type='file' onchange="SaveProfileBanner(this)" />
+                                    <script>$('#preview-profile-banner').click(function () {
+                                            $('#upload-profile-banner').click();
+                                        })</script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid inner-container-fluid pt-4">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active form-header" id="profile-tab" data-toggle="tab" href="#profile" onclick="SliderProfile()">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link form-header" id="schedule-tab" data-toggle="tab" href="#schedule" onclick="SliderSchedule()">Following</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link form-header" id="stream-tab" data-toggle="tab" href="#stream" onclick="SliderStream()">Topics</a>
+            </li>
+            <!--
+             <li class="nav-item">
+                <a class="nav-link form-header" id="comment-tab" data-toggle="tab" href="#comment" onclick="SliderComment()">Comments</a>
+            </li>
+            -->
+        </ul>
+
+        <div class="slider">
+            <div id="slider-object" class="slider-object"></div>
+        </div>
+
+        <div id="section-topic-notification" class="alert notification-success mt-3 mb-0 ml-2 mr-2" role="alert">
+            <b>Changes Saved!</b> Your information has been successfully saved.
+            <div class="close ml-auto" onclick="$('#section-topic-notification').hide()">&times;</div>
+        </div>
+        <script>$('#section-topic-notification').hide()</script>
+
+        <div id="schedule-timezone-notification" class="alert notification-info mt-3 mb-0 ml-2 mr-2" role="alert">
+            <b>Enter Timezone!</b> You must enter your timezone in "Edit Profile" to use the scheduling feature.
+            <div class="close ml-auto" onclick="$('#sectionTopicNotification').hide()">&times;</div>
+        </div>
+        <script>$('#schedule-timezone-notification').hide()</script>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="container-fluid pt-3" style="width:100%">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-12 col-sm-12 col-12">
+                            <div class="card">
+                                <div class="card-title p-3">
+                                    <p class="form-header d-inline-block" style="font-size:18px">Basic Information</p>
+                                    <a class="d-inline-block pr-3" style="cursor:pointer; float:right; color:#004643" onclick="SaveSection(event)"><span><img class="p-1" style="width:28px" src="~/images/TutorAssets/TutorDashboard/Save.svg" /></span>Save</a>
+                                    <form>
+                                    </form>
+                                </div>
+                                <form class="pl-4 pr-4 pb-4" id="form-section-tutor">
+                                    <div class="form-row" id="form-row-section">
+                                        <div class="form-group col-lg-3">
+                                            <label class="form-header">University</label>
+                                            <div class="card rounded-0">
+                                                <div class="image-container">
+                                                    <div class="top-right">
+                                                        <img class="p-1" style="width:30px; cursor:pointer" src="~/images/TutorAssets/TutorDashboard/Edit.png" onclick="EditUniversityInfo()" />
+                                                    </div>
+                                                    <div id="university-element" class="card-body text-center p-0" style="height:135px">
+                                                        @if (Model.UserProfile.College == null)
+                                                        {
+                                                            <div>
+                                                                <input type="image" src="~/images/TutorAssets/TutorDashboard/DefaultUniversity.png" class="form-control border-0 rounded-0 d-block mr-auto ml-auto pt-3" style="width:130px; height:100%">
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            var college = Model.UserProfile.College.Split('|');
+                                                            if (college.Length > 1)
+                                                            {
+                                                                <p id="university-abbreviation" class="form-header pt-4 pl-2 pr-2" style="font-size:20px">@college[0]</p>
+                                                                <p id="university-name" class="form-header pl-2 pr-2" style="font-size:14px">@college[1]</p>
+                                                            }
+                                                            else
+                                                            {
+                                                                <p id="university-abbreviation" class="form-header pt-4 pl-2 pr-2" style="font-size:20px">@college[0]</p>
+                                                            }
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <label class="form-header pt-4">Year/Class</label>
+                                            <select name="year" id="year-select" class="form-control form-control-sm rounded-0">
+                                                <option>-Select-Year/Class-</option>
+                                                <option>Freshman</option>
+                                                <option>Sophomore</option>
+                                                <option>Junior</option>
+                                                <option>Senior</option>
+                                                <option>Other</option>
+                                            </select>
+                                            @if (Model.Sections != null)
+                                            {<input id="year" type="hidden" value="@Model.Sections[0].Year" />
+                                             <script>
+                                                 if ($('#year').val() == "" || $('#year').val() == "-Select-Year/Class-") {
+                                                     $('#year-select').val("-Select-Year/Class-")
+                                                 }
+                                                 else {
+                                                     $('#year-select').val($('#year').val())
+                                                 }
+                                                 
+                                             </script>
+                                            }
+                                        </div>
+                                        @if (Model.Sections != null && Model.Sections.Count > 1)
+                                        {
+                                            <div class="form-group col-lg-9 pl-lg-3 pl-0">
+                                                <label class="form-header">Section 1 Title</label>
+                                                <input name="section-title-1" id="section-title-1" class="form-control border rounded-0 form-input" placeholder="Title of section one!" value="@Model.Sections[1].SectionTitle">
+                                                <label class="form-header pt-3">Description</label>
+                                                <textarea name="section-description-1" id="section-description-1" class="form-control border rounded-0 form-textarea" style="height:145px !important" placeholder="Tell us what you're studying, concentrations, passions, and other extra curricular activities here!">@Model.Sections[1].SectionDescription</textarea>
+                                            </div>
+                                            if (Model.Sections.Count > 2)
+                                            {
+                                                for (int i = 2; i < Model.Sections.Count; i++)
+                                                {
+                                                    <div id="divider-@i" class="divider"></div>
+                                                    <div id="form-section-@i" class="form-group col-lg-12">
+                                                        <label id="section-label-title-@i" class="form-header d-inline-block">Section @i Title</label>
+                                                        <img id="remove-section-icon-@i" src="~/images/TutorAssets/TutorDashboard/Remove.svg" class="d-inline-block form-icon float-right" onclick="RemoveSection(@i)" />
+                                                        <input name="section-title-@i" id="section-title-@i" class="form-control border rounded-0 form-input" placeholder="Title of section @i!" value="@Model.Sections[i].SectionTitle">
+                                                        <label class="form-header pt-3">Description</label>
+                                                        <textarea name="section-description-@i" id="section-description-@i" class="form-control border rounded-0 form-textarea" placeholder="Tell us what you are studying, concentrations, passions, and other extra curricular activities here!">@Model.Sections[i].SectionDescription</textarea>
+                                                    </div>
+                                                }
+                                            }
+                                            <script>sectionCount = @Model.Sections.Count - 1;</script>
+                                        }
+                                        else
+                                        {
+                                            <div class="form-group col-lg-9 pl-3">
+                                                <label class="form-header">Section 1 Title</label>
+                                                <input name="section-title-1" id="section-title-1" class="form-control border rounded-0 form-input" placeholder="Title of section one!">
+                                                <label class="form-header pt-3">Description</label>
+                                                <textarea name="section-description-1" id="section-description-1" class="form-control border rounded-0 form-textarea" placeholder="Tell us what you're studying, concentrations, passions, and other extra curricular activities here!"></textarea>
+                                            </div>
+                                            <script>sectionCount = 1</script>
+                                        }
+                                    </div>
+                                    <div class="mt-4">
+                                        <a class="d-inline-block" style="cursor:pointer; color:#004643" onclick="AddSection(event)"><span><img class="form-icon" src="~/images/TutorAssets/TutorDashboard/Add.svg" /></span>Add Section</a>
+                                        <a class="d-inline-block" style="cursor:pointer; float:right; color:#004643" onclick="SaveSection(event)"><span><img class="form-icon" src="~/images/TutorAssets/TutorDashboard/Save.svg" /></span>Save</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-12 col-sm-12 col-12">
+                            <div class="card">
+                                <div class="card-title p-3 form-header" style="font-size:18px">Academic Experience</div>
+                                @if (Model.Topics != null)
+                                {
+                                    <form class="pl-4 pr-4 pb-4" id="form-topic-tutor">
+                                        <div class="form-row" id="form-row-topic">
+                                            @for (int i = 0; i < Model.Topics.Count; i++)
+                                            {
+                                                var t = i + 1;
+                                                @if (i > 0)
+                                                {<div id="divider-topic-@t" class="divider"></div>}
+                                                <div id="form-topic-@t" class="form-group col-lg-12 border p-2">
+                                                    <label class="form-header">Topic</label>
+                                                    @if (i > 0)
+                                                    {<img id="remove-topic-icon-@t" src="~/images/TutorAssets/TutorDashboard/Remove.svg" class="d-inline-block form-icon float-right" onclick="RemoveTopic(@t)" />}
+                                                    <select id="topic-@t" name="topic-@t" asp-for="@Model.Topics[i].TopicName" class="form-control form-control-sm rounded-0">
+                                                        <option value="">-Select-Topic-</option>
+                                                        <option>Mathematics</option>
+                                                        <option>Science</option>
+                                                        <option>Engineering</option>
+                                                        <option>Business</option>
+                                                        <option>Law</option>
+                                                        <option>Art</option>
+                                                        <option>Humanities</option>
+                                                        <option>Others</option>
+                                                    </select>
+                                                    <label class="form-header pt-3">List Of Subjects</label>
+                                                    <textarea id="list-of-subjects-@t" name="list-of-subjects-@t" class="form-control border rounded-0 form-textarea" placeholder="Enter list of subjects here!">@Model.Topics[i].ListOfSubjects</textarea>
+                                                </div>
+                                            }
+                                        </div>
+                                        <div class="mt-4">
+                                            <a style="cursor:pointer; color:#004643" onclick="AddTopic(event)"><span><img class="form-icon" src="~/images/TutorAssets/TutorDashboard/Add.svg" /></span>Add Topic</a>
+                                            <a style="cursor:pointer; float:right; color:#004643" onclick="SaveTopic(event)"><span><img class="form-icon" src="~/images/TutorAssets/TutorDashboard/Save.svg" /></span>Save</a>
+                                        </div>
+                                    </form>
+                                    <script>topicCount = @Model.Topics.Count;</script>
+                                }
+                                else
+                                {
+                                    <form class="pl-4 pr-4 pb-4" id="form-topic-tutor">
+                                        <div class="form-row" id="form-row-topic">
+                                            <div class="form-group col-lg-12 border p-2">
+                                                <label class="form-header">Topic</label>
+                                                <select name="topic" class="form-control form-control-sm rounded-0">
+                                                    <option value="">-Select-Topic-</option>
+                                                    <option>Mathematics</option>
+                                                    <option>Science</option>
+                                                    <option>Engineering</option>
+                                                    <option>Business</option>
+                                                    <option>Law</option>
+                                                    <option>Art</option>
+                                                    <option>Humanities</option>
+                                                    <option>Others</option>
+                                                </select>
+                                                <label class="form-header pt-3">List Of Subjects</label>
+                                                <textarea name="list-of-subjects" class="form-control border rounded-0 form-textarea" placeholder="Enter list of subjects here!"></textarea>
+                                            </div>
+                                        </div>
+                                        <a style="cursor:pointer; color:#004643" onclick="AddTopic(event)"><span><img class="form-icon" src="~/images/TutorAssets/TutorDashboard/Add.svg" /></span>Add Topic</a>
+                                        <a style="cursor:pointer; float:right; color:#004643" onclick="SaveTopic(event)"><span><img class="form-icon" src="~/images/TutorAssets/TutorDashboard/Save.svg" /></span>Save</a>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="tab-pane" id="schedule" role="tabpanel" aria-labelledby="schedule-tab">
+                <div class="container-fluid pt-3" style="width:100%">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-title p-3 m-0 form-header" style="font-size:18px">Stream Schedule</div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="tab-pane" id="stream" role="tabpanel" aria-labelledby="stream-tab">
+                <div class="container-fluid pt-2" style="width:100%">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="wrapper">
+    <nav id="sidebar">
+        <img class="logo-desktop" onclick="window.location.href ='/'" src="~/images/WhiteStreamWork.png" />
+        <ul class="p-0">
+            <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Tutor/TutorWatch'"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/WatchStream.svg" /></span>Watch Streams</li>
+            <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Tutor/HowToStream'"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/HowToStream.svg" /></span>Become a Tutor</li>
+            <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Tutor/HowToStream'"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/HowToStream.svg" /></span>Settings</li>
+        </ul>
+        <hr />
+        <p class="form-header p-3" style="font-size:18px; color:white">Recommended Tutors</p>
+        @await Html.PartialAsync("Partials/Profile/RelatedTutors_View", Model)
+    </nav>
+</div>
+
+<div class="wrapper">
+    <nav id="sidebar-tablet">
+        <img class="logo-tablet" onclick="window.location.href ='/'" src="~/images/streamWorkPencilWhite.png" />
+        <ul class="p-0">
+            <li class="sidebar-list-item-tablet" onclick="window.location.href ='/Tutor/TutorStream'"><img src="~/images/TutorAssets/TutorDashboard/StartStream2x.png" /></li>
+            <li class="sidebar-list-item-tablet" onclick="window.location.href ='/Tutor/HowToStream'"><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/HowToStream2x.png" /></li>
+            <li class="sidebar-list-item-tablet" onclick="window.location.href ='/Tutor/TutorWatch'"><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/WatchStream2x.png" /></li>
+            <li class="sidebar-list-item-tablet"><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/FollowingList2x.png" /></li>
+            <li class="sidebar-list-item-tablet"><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/FollowerList2x.png" /></li>
+        </ul>
+    </nav>
+</div>
+
+@await Html.PartialAsync("Partials/Modals/ProfileModal")
+@await Html.PartialAsync("Partials/Modals/UniversityModal")
+

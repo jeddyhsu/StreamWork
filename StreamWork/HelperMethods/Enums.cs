@@ -22,6 +22,19 @@ namespace StreamWork.HelperMethods
         False,
     }
 
+    public enum FollowValues
+    {
+        Follow,
+        Following,
+        NoFollow,
+    }
+
+    public enum NotificationType
+    {
+        Follow,
+        Comment,
+    }
+
     public enum SQLQueries
     {
         // UserLogin
@@ -64,6 +77,10 @@ namespace StreamWork.HelperMethods
 
         // Comment
         GetCommentsWithReceiverUsername,
+        GetCommentsWithStreamId,
+        GetRepliesWithStreamId,
+        GetCommentWithId,
+        DeleteComment,
 
         // View
         GetViewsWithViewer,
@@ -92,5 +109,12 @@ namespace StreamWork.HelperMethods
         UpdateTimezonesOfScheduledTasks,
         // Misc
         UserProfile,       //Use For Session
+
+        //Notifications
+        GetNotificationsWithReceiver,
+        DeleteNotificationWithId,
+        DeleteNotificationWithObjectId,
+        UpdateNotificationToSeen,
+        GetUnseenNotifications
     }
 }

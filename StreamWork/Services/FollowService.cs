@@ -49,9 +49,22 @@ namespace StreamWork.Services
             return false;
         }
 
+        public async Task<List<UserLogin>> GetAllFollowers(string followeeId) //all users that arent follwing the followee
+        {
+            var listOfFollowers = await GetList<Follow>(SQLQueries.GetAllFollowersWithId, new string[] { followeeId });
+            if (listOfFollowers.Count != 0)
+            {
+                List<string> idList = new List<string>();
+                foreach (var follower in listOfFollowers) idList.Add(follower.FollowerId);
+                return await GetList<UserLogin>(SQLQueries.GetAllUsersInTheList, new string[] { MiscHelperMethods.FormatQueryString(idList) });
+            }
+
+            return null;
+        }
+
         public async Task<List<UserLogin>> GetAllFollowees(string followerId)
         {
-            var listOfFollowees = await GetList<Follow>(SQLQueries.GetAllFollowersWithId, new string[] { followerId });
+            var listOfFollowees = await GetList<Follow>(SQLQueries.GetAllFolloweesWithId, new string[] { followerId });
             if (listOfFollowees.Count != 0)
             {
                 List<string> idList = new List<string>();
@@ -75,28 +88,16 @@ namespace StreamWork.Services
             return await GetList<UserLogin>(SQLQueries.GetAllApprovedTutors, null);
         }
 
-        public async Task<List<UserLogin>> GetAllFollowers(string followeeId) //all users that arent follwing the followee
-        {
-            var listOfFollowers = await GetList<Follow>(SQLQueries.GetAllFolloweesWithId, new string[] { followeeId });
-            if (listOfFollowers.Count != 0)
-            {
-                List<string> idList = new List<string>();
-                foreach (var follower in listOfFollowers) idList.Add(follower.FollowerId);
-                return await GetList<UserLogin>(SQLQueries.GetAllUsersInTheList, new string[] { MiscHelperMethods.FormatQueryString(idList) });
-            }
-
-            return null;
-        }
-
-        public async Task<bool> IsFollowingFollowee(string followerId, string followeeId)
+        public async Task<string> IsFollowingFollowee(string followerId, string followeeId)
         {
             if (followerId != null && followeeId != null)
             {
+                if (followeeId == followerId) return FollowValues.NoFollow.ToString();
                 var followerAndfollowee = await GetList<Follow>(SQLQueries.GetFollowerAndFollowee, new string[] { followerId, followeeId });
-                if (followerAndfollowee.Count > 0) return true;
+                if (followerAndfollowee.Count > 0) return FollowValues.Follow.ToString();
             }
 
-            return false;
+            return FollowValues.Following.ToString();
         }
 
         public async Task<int> GetNumberOfFollowers(string followeeId)

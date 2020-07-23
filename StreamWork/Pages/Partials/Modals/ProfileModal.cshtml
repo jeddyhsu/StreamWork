@@ -1,65 +1,89 @@
 ﻿<div id="profile-information-modal" class="custom-modal">
     <div class="custom-modal-content">
         <div class="close ml-auto" onclick="DiscardChangesAndCloseModal('profile-information-modal-form', 'profile-information-modal')">&times;</div>
-        <h5 style="padding-left:20px; padding-top:10px; font-family:'Roboto Slab', serif; font-size:16px; color: #707070;">Profile Information</h5>
+        <ul class="nav nav-tabs ml-1" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active form-header" id="profile-info-tab" data-toggle="tab" href="#profileinfo" onclick="SliderProfileInformation()">Profile Information</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link form-header" id="social-media-tab" data-toggle="tab" href="#socialmedia" onclick="SliderSocialMedia()">Social Media Links</a>
+            </li>
+        </ul>
         <div class="slider">
-            <div class="slider-object" style="width:155px"></div>
+            <div id="slider-object-profile-edit-modal" class="slider-object" style="width:140px"></div>
         </div>
         <div id="profile-information-notification" class="alert notification-success mt-3 mb-0" style="margin-left:50px; margin-right:50px" role="alert">
             <b>Changes Saved!</b> Your information has been successfully saved.
             <div class="close ml-auto" onclick="$('#profile-information-notification').hide()">&times;</div>
         </div>
         <script>$('#profile-information-notification').hide()</script>
-        <div class="row">
-            <div class="col-12">
-                <form id="profile-information-modal-form" class="pt-4 pb-4 pl-5 pr-5">
-                    <div class="row">
-                        <div class="col-lg-3 col-md-12 col-sm-12 col-12">
-                            <label class="form-header">Profile Picture</label>
-                            <div class="">
-                                <img id="preview-profile-picture" class="rounded" style="width:120px" />
-                                <input id="upload-profile-picture" type="file" style="display:none" onchange="ReadImageUrl(this, 'preview-profile-picture')" />
-                                <p id="upload-profile-picture-button" class="pt-2 mb-1" style="cursor:pointer; font-size:12px; color:#004643">Upload an Image</p>
-                                <p style="font-size:10px;">Upload must be either in jpg or png formats and less than 1 MB</p>
-                                <script>$('#upload-profile-picture-button').click(function () {
-                                        $('#upload-profile-picture').click()
-                                    })</script>
-                            </div>
-                        </div>
-                        <div class="col-lg-9 col-md-12 col-sm-12 col-12">
-                            <div class="form-group pr-lg-4">
-                                <div class="form-row">
-                                    <div class="col-lg-6 col-md-6 col-sm-6">
-                                        <label class="form-header">First Name</label>
-                                        <input id="first-name" class="form-control border rounded-0 form-input" placeholder="First Name">
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 pt-2 pt-lg-0 pt-md-0 pt-sm-0">
-                                        <label class="form-header">Last Name</label>
-                                        <input id="last-name" class="form-control border rounded-0 form-input" placeholder="Last Name">
+        <div class="tab-content">
+            <div class="tab-pane active" id="profileinfo" role="tabpanel" aria-labelledby="profile-info-tab">
+                <div class="row">
+                    <div class="col-12">
+                        <form id="profile-information-modal-form" class="pt-4 pb-4 pl-5 pr-5">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+                                    <label class="form-header">Profile Picture</label>
+                                    <div class="">
+                                        <img id="preview-profile-picture" class="rounded" style="width:120px" />
+                                        <input id="upload-profile-picture" type="file" style="display:none" onchange="ReadImageUrl(this, 'preview-profile-picture')" />
+                                        <p id="upload-profile-picture-button" class="pt-2 mb-1" style="cursor:pointer; font-size:12px; color:#004643">Upload an Image</p>
+                                        <p style="font-size:10px;">Upload must be either in jpg or png formats and less than 1 MB</p>
+                                        <script>$('#upload-profile-picture-button').click(function () {
+                                                $('#upload-profile-picture').click()
+                                            })</script>
                                     </div>
                                 </div>
-                                <label class="form-header pt-3">Occupation / Major</label>
-                                <input id="occupation-major" class="form-control border rounded-0 form-input" maxlength="50" placeholder="Occupation / Major">
-                                <label class="form-header pt-3">Location</label>
-                                <input id="location" class="form-control border rounded-0 form-input" placeholder="Location">
-                                <div class="divider"></div>
-                                <label class="form-header">Timezone</label>
-                                <select id="timezone" class="form-control form-control-sm rounded-0">
-                                    <option value="">-Select-Timezone-</option>
-                                    <option value="PST">(GMT -8:00) Pacific Time</option>
-                                    <option value="MST">(GMT -7:00) Mountain Time</option>
-                                    <option value="CST">(GMT -6:00) Central Time</option>
-                                    <option value="EST">(GMT -5:00) Eastern Time</option>
-                                    <option value="Hawaii">(GMT -10:00) Hawaii</option>
-                                    <option value="Alaska">(GMT -9:00) Alaska</option>
-                                </select>
-                                <div class="divider"></div>
-                                <label class="form-header">LinkedIn URL</label>
-                                <input id="linkedin-url" class="form-control border rounded-0 form-input" placeholder="LinkedIn Url">
+                                <div class="col-lg-9 col-md-12 col-sm-12 col-12">
+                                    <div class="form-group pr-lg-4">
+                                        <div class="form-row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                                <label class="form-header">First Name</label>
+                                                <input id="first-name" class="form-control border rounded-0 form-input" placeholder="First Name">
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 pt-2 pt-lg-0 pt-md-0 pt-sm-0">
+                                                <label class="form-header">Last Name</label>
+                                                <input id="last-name" class="form-control border rounded-0 form-input" placeholder="Last Name">
+                                            </div>
+                                        </div>
+                                        <label class="form-header pt-3">Occupation / Major</label>
+                                        <input id="occupation-major" class="form-control border rounded-0 form-input" maxlength="50" placeholder="Occupation / Major">
+                                        <label class="form-header pt-3">Location</label>
+                                        <input id="location" class="form-control border rounded-0 form-input" placeholder="Location">
+                                        <div class="divider"></div>
+                                        <label class="form-header">Timezone</label>
+                                        <select id="timezone" class="form-control form-control-sm rounded-0">
+                                            <option value="">-Select-Timezone-</option>
+                                            <option value="PST">(GMT -8:00) Pacific Time</option>
+                                            <option value="MST">(GMT -7:00) Mountain Time</option>
+                                            <option value="CST">(GMT -6:00) Central Time</option>
+                                            <option value="EST">(GMT -5:00) Eastern Time</option>
+                                            <option value="Hawaii">(GMT -10:00) Hawaii</option>
+                                            <option value="Alaska">(GMT -9:00) Alaska</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
-                </form>
+                </div>
+            </div>
+            <div class="tab-pane" id="socialmedia" role="tabpanel" aria-labelledby="social-media-tab">
+                <div class="row">
+                    <div class="col-12">
+                        <form id="profile-information-modal-form" class="pt-4 pb-4 pl-5 pr-5">
+                            <label class="form-header">LinkedIn URL</label>
+                            <input id="linkedin-url" class="form-control border rounded-0 form-input" placeholder="LinkedIn Url">
+                            <label class="form-header mt-3">Instagram URL</label>
+                            <input id="instagram-url" class="form-control border rounded-0 form-input" placeholder="Instagram Url">
+                            <label class="form-header mt-3">Facebook URL</label>
+                            <input id="facebook-url" class="form-control border rounded-0 form-input" placeholder="Facebook Url">
+                            <label class="form-header mt-3">Twitter URL</label>
+                            <input id="twitter-url" class="form-control border rounded-0 form-input" placeholder="Twitter Url">
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
         <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="SaveProfile(this)">Save Changes</button>

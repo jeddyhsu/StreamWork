@@ -1,15 +1,15 @@
 ﻿<div class="card-body pt-1 pb-1">
-    @if (@Model.Topics != null)
+    @if (@Model.Topics != null && (Model.Topics[0].TopicName != "" || Model.Topics[0].ListOfSubjects != ""))
     {
         @for (int i = 0; i < Model.Topics.Count; i++)
         {
             <p><b>@Model.Topics[i].TopicName</b></p>
-            <pre style="font-family:'Roboto', serif">@Model.Topics[i].ListOfSubjects</pre>
+            <pre style="font-family:'Roboto', serif; white-space: pre-wrap;">@Model.Topics[i].ListOfSubjects</pre>
         }
     }
     else
     {
-        if (Model.UserProfile.ProfileType == "tutor")
+        if (Model.CurrentUserProfile.Id == Model.UserProfile.Id)
         {
             <p class="form-sub-header" style="font-size:14px;"><b>Fill out Academic Experience!</b></p>
         }
@@ -17,7 +17,5 @@
         {
             <p class="form-sub-header" style="font-size:14px;"><b>Find relevant experience here!</b></p>
         }
-
     }
-
 </div>

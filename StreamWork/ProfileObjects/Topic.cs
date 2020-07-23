@@ -1,4 +1,4 @@
-﻿namespace StreamWork.TutorObjects
+﻿namespace StreamWork.ProfileObjects
 {
     public class Topic
     {
