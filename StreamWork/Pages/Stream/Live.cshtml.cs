@@ -12,7 +12,7 @@ namespace StreamWork.Pages.Stream
 {
     public class Live : PageModel
     {
-        private readonly SessionService sessionService;
+        private readonly CookieService cookieService;
         private readonly StorageService storageService;
         private readonly ProfileService profileService;
         private readonly ScheduleService scheduleService;
@@ -37,10 +37,10 @@ namespace StreamWork.Pages.Stream
         public List<Notification> Notifications { get; set; }
         public bool AreThereUnseenNotifications { get; set; }
 
-        public Live(StorageService storage, SessionService session, ProfileService profile, ScheduleService schedule, FollowService follow, EditService edit, ChatService chat, NotificationService notification)
+        public Live(StorageService storage, CookieService cookie, ProfileService profile, ScheduleService schedule, FollowService follow, EditService edit, ChatService chat, NotificationService notification)
         {
             storageService = storage;
-            sessionService = session;
+            cookieService = cookie;
             profileService = profile;
             scheduleService = schedule;
             followService = follow;
@@ -51,7 +51,12 @@ namespace StreamWork.Pages.Stream
 
         public async Task<IActionResult> OnGet(string tutor)
         {
-            CurrentUserProfile = await sessionService.GetCurrentUser();
+            if (!cookieService.Authenticated)
+            {
+                return Redirect(cookieService.Url("/Home/SignIn"));
+            }
+
+            CurrentUserProfile = await cookieService.GetCurrentUser();
             UserProfile = await storageService.Get<UserLogin>(SQLQueries.GetUserWithUsername, tutor);
             UserChannel = await storageService.Get<UserChannel>(SQLQueries.GetUserChannelWithUsername, tutor);
             ChatInfo = "1234";

@@ -13,7 +13,7 @@ namespace StreamWork.Pages
     public class IndexModel : PageModel
     {
         private readonly StorageService storage;
-        private readonly SessionService session;
+        private readonly CookieService session;
         private readonly EncryptionService encryption;
 
         public UserLogin GenericUserProfile { get; set; }
@@ -24,7 +24,7 @@ namespace StreamWork.Pages
         public bool IsUserFollowingFeaturedTutor { get; set; }
         public string ChatInfo { get; set; }
 
-        public IndexModel(StorageService storage, SessionService session, EncryptionService encryption)
+        public IndexModel(StorageService storage, CookieService session, EncryptionService encryption)
         {
             this.storage = storage;
             this.session = session;

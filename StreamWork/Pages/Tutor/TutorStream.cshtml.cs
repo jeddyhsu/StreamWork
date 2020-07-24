@@ -10,7 +10,7 @@ namespace StreamWork.Pages.Tutor
 {
     public class TutorStream : PageModel
     {
-        private readonly SessionService sessionService;
+        private readonly CookieService cookieService;
         private readonly StorageService storageService;
         private readonly StreamService streamService;
         private readonly NotificationService notificationService;
@@ -21,22 +21,22 @@ namespace StreamWork.Pages.Tutor
         public List<Notification> Notifications { get; set; }
         public bool AreThereUnseenNotifications { get; set; }
 
-        public TutorStream(StorageService storage, SessionService session, StreamService stream, NotificationService notification)
+        public TutorStream(StorageService storage, CookieService cookie, StreamService stream, NotificationService notification)
         {
             storageService = storage;
-            sessionService = session;
+            cookieService = cookie;
             streamService = stream;
             notificationService = notification;
         }
 
         public async Task<IActionResult> OnGet()
         {
-            if (!sessionService.Authenticated)
+            if (!cookieService.Authenticated)
             {
-                //return Redirect(session.Url("/Home/Login?dest=-Tutor-TutorDashboard"));
+                return Redirect(cookieService.Url("/Home/SignIn"));
             }
 
-            UserProfile = await sessionService.GetCurrentUser();
+            UserProfile = await cookieService.GetCurrentUser();
             UserChannel = await storageService.Get<UserChannel>(SQLQueries.GetUserChannelWithUsername, new string[] { UserProfile.Username });
             ChatInfo = "1234";
 
@@ -54,7 +54,7 @@ namespace StreamWork.Pages.Tutor
 
         public async Task<IActionResult> OnPostRegisterStream()
         {
-            var userProfile = await sessionService.GetCurrentUser();
+            var userProfile = await cookieService.GetCurrentUser();
             var userChannel = await storageService.Get<UserChannel>(SQLQueries.GetUserChannelWithUsername, userProfile.Username);
 
             if (streamService.StartStream(Request, userProfile, userChannel)) return new JsonResult(new { Message = JsonResponse.Success.ToString() });

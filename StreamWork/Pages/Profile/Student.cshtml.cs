@@ -13,36 +13,32 @@ namespace StreamWork.Pages.Profile
 {
     public class Student : PageModel
     {
-        private readonly SessionService sessionService;
+        private readonly CookieService cookieService;
         private readonly StorageService storageService;
         private readonly ProfileService profileService;
-        private readonly ScheduleService scheduleService;
-        private readonly FollowService followService;
 
         public UserLogin CurrentUserProfile { get; set; }
         public UserLogin UserProfile { get; set; }
         public List<UserLogin> RelatedTutors { get; set; }
         public List<Section> Sections { get; set; }
         public List<Topic> Topics { get; set; }
-        public List<DataModels.Comment> Comments { get; set; }
+        public List<Comment> Comments { get; set; }
 
-        public Student(StorageService storage, SessionService session, ProfileService profile, ScheduleService schedule, FollowService follow)
+        public Student(StorageService storage, CookieService cookie, ProfileService profile)
         {
             storageService = storage;
-            sessionService = session;
+            cookieService = cookie;
             profileService = profile;
-            scheduleService = schedule;
-            followService = follow;
         }
 
         public async Task<IActionResult> OnGet(string student)
         {
-            if (!sessionService.Authenticated)
+            if (!cookieService.Authenticated)
             {
-                //return Redirect(session.Url("/Home/Login?dest=-Tutor-TutorDashboard"));
+                return Redirect(cookieService.Url("/Home/SignIn"));
             }
 
-            CurrentUserProfile = await sessionService.GetCurrentUser();
+            CurrentUserProfile = await cookieService.GetCurrentUser();
             UserProfile = await storageService.Get<UserLogin>(SQLQueries.GetUserWithUsername, student);
 
             RelatedTutors = (await storageService.GetList<UserLogin>(SQLQueries.GetAllTutorsNotInTheList, new string[] { UserProfile.Id })).GetRange(0, 5);

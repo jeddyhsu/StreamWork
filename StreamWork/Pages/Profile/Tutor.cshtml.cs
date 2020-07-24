@@ -12,7 +12,7 @@ namespace StreamWork.Pages.Profile
 {
     public class Tutor : PageModel
     {
-        private readonly SessionService sessionService;
+        private readonly CookieService cookieService;
         private readonly StorageService storageService;
         private readonly ProfileService profileService;
         private readonly ScheduleService scheduleService;
@@ -34,10 +34,10 @@ namespace StreamWork.Pages.Profile
         public List<Notification> Notifications { get; set; }
         public bool AreThereUnseenNotifications { get; set; }
 
-        public Tutor(StorageService storage, SessionService session, ProfileService profile, ScheduleService schedule, FollowService follow, NotificationService notification)
+        public Tutor(StorageService storage, CookieService cookie, ProfileService profile, ScheduleService schedule, FollowService follow, NotificationService notification)
         {
             storageService = storage;
-            sessionService = session;
+            cookieService = cookie;
             profileService = profile;
             scheduleService = schedule;
             followService = follow;
@@ -46,12 +46,12 @@ namespace StreamWork.Pages.Profile
 
         public async Task<IActionResult> OnGet(string tutor)
         {
-            if (!sessionService.Authenticated)
+            if (!cookieService.Authenticated)
             {
-                //return Redirect(session.Url("/Home/Login?dest=-Tutor-TutorDashboard"));
+                return Redirect(cookieService.Url("/Home/SignIn"));
             }
 
-            CurrentUserProfile = await sessionService.GetCurrentUser();
+            CurrentUserProfile = await cookieService.GetCurrentUser();
             UserProfile = await storageService.Get<UserLogin>(SQLQueries.GetUserWithUsername, tutor);
             UserChannel = await storageService.Get<UserChannel>(SQLQueries.GetUserChannelWithUsername, new string[] { UserProfile.Username });
 

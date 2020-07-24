@@ -11,11 +11,11 @@ namespace StreamWork.Pages.Home
 {
     public class AboutModel : PageModel
     {
-        private readonly SessionService session;
+        private readonly CookieService session;
 
         public UserLogin GenericUserProfile { get; set; }
 
-        public AboutModel(SessionService session)
+        public AboutModel(CookieService session)
         {
             this.session = session;
         }

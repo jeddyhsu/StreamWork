@@ -12,13 +12,13 @@ namespace StreamWork.Pages.Home
 {
     public class BecomeTutorModel : PageModel
     {
-        private readonly SessionService session;
+        private readonly CookieService session;
         private readonly StorageService storage;
 
         public UserLogin GenericUserProfile { get; set; }
         public List<UserLogin> StreamTutors { get; set; }
 
-        public BecomeTutorModel(SessionService session, StorageService storage)
+        public BecomeTutorModel(CookieService session, StorageService storage)
         {
             this.session = session;
             this.storage = storage;

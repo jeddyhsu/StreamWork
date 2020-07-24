@@ -9,7 +9,7 @@ namespace StreamWork.Pages.Chat
 {
     public class ArchiveChat : PageModel
     {
-        private readonly SessionService sessionService;
+        private readonly CookieService sessionService;
         private readonly StorageService storageService;
         private readonly ProfileService profileService;
         private readonly ScheduleService scheduleService;
@@ -21,7 +21,7 @@ namespace StreamWork.Pages.Chat
         public List<Chats> Chats { get; set; }
         public UserLogin UserProfile { get; set; }
 
-        public ArchiveChat(StorageService storage, SessionService session, ProfileService profile, ScheduleService schedule, FollowService follow, EditService edit, ChatService chat)
+        public ArchiveChat(StorageService storage, CookieService session, ProfileService profile, ScheduleService schedule, FollowService follow, EditService edit, ChatService chat)
         {
             storageService = storage;
             sessionService = session;

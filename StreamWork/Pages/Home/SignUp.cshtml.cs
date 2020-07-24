@@ -10,13 +10,13 @@ namespace StreamWork.Pages.Home
 {
     public class SignUpModel : PageModel
     {
-        private readonly SessionService session;
+        private readonly CookieService session;
         private readonly StorageService storage;
         private readonly EncryptionService encryption;
 
         public UserLogin GenericUserProfile { get; set; }
 
-        public SignUpModel(SessionService session, StorageService storage, EncryptionService encryption)
+        public SignUpModel(CookieService session, StorageService storage, EncryptionService encryption)
         {
             this.session = session;
             this.storage = storage;

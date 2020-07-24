@@ -11,7 +11,7 @@ namespace StreamWork.Pages.Student
 {
     public class StudentDashboard : PageModel
     {
-        private readonly SessionService sessionService;
+        private readonly CookieService cookieService;
         private readonly StorageService storageService;
         private readonly ProfileService profileService;
         private readonly ScheduleService scheduleService;
@@ -25,10 +25,10 @@ namespace StreamWork.Pages.Student
         public List<Topic> Topics { get; set; }
         public List<DataModels.Comment> Comments { get; set; }
 
-        public StudentDashboard(StorageService storage, SessionService session, ProfileService profile, ScheduleService schedule, FollowService follow)
+        public StudentDashboard(StorageService storage, CookieService cookie, ProfileService profile, ScheduleService schedule, FollowService follow)
         {
             storageService = storage;
-            sessionService = session;
+            cookieService = cookie;
             profileService = profile;
             scheduleService = schedule;
             followService = follow;
@@ -36,12 +36,12 @@ namespace StreamWork.Pages.Student
 
         public async Task<IActionResult> OnGet()
         {
-            if (!sessionService.Authenticated)
+            if (!cookieService.Authenticated)
             {
-                //return Redirect(session.Url("/Home/Login?dest=-Tutor-TutorDashboard"));
+                return Redirect(cookieService.Url("/Home/SignIn"));
             }
 
-            CurrentUserProfile = await sessionService.GetCurrentUser();
+            CurrentUserProfile = await cookieService.GetCurrentUser();
             UserProfile = await storageService.Get<UserLogin>(SQLQueries.GetUserWithUsername, CurrentUserProfile.Username);
 
             RelatedTutors = (await storageService.GetList<UserLogin>(SQLQueries.GetAllTutorsNotInTheList, new string[] { UserProfile.Id })).GetRange(0, 5);

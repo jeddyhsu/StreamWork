@@ -13,7 +13,7 @@ namespace StreamWork.Pages.Home
     public class SearchModel : PageModel
     {
         private readonly StorageService storage;
-        private readonly SessionService session;
+        private readonly CookieService session;
         private readonly SearchService search;
         private readonly SubjectService subjectService;
 
@@ -26,7 +26,7 @@ namespace StreamWork.Pages.Home
         public string SearchQuery { get; set; }
         public string SubjectIcon { get; set; }
 
-        public SearchModel(StorageService storage, SessionService session, SearchService search, SubjectService subjectService)
+        public SearchModel(StorageService storage, CookieService session, SearchService search, SubjectService subjectService)
         {
             this.storage = storage;
             this.session = session;

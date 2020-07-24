@@ -13,7 +13,7 @@ namespace StreamWork.Pages.Tutor
 {
     public class TutorDashboard : PageModel
     {
-        private readonly SessionService sessionService;
+        private readonly CookieService cookieService;
         private readonly StorageService storageService;
         private readonly ProfileService profileService;
         private readonly ScheduleService scheduleService;
@@ -37,10 +37,10 @@ namespace StreamWork.Pages.Tutor
         public bool AreThereUnseenNotifications { get; set; }
         public SearchViewModel SearchViewModel { get; set; }
 
-        public TutorDashboard(StorageService storage, SessionService session, ProfileService profile, ScheduleService schedule, FollowService follow, EditService edit, SearchService search, NotificationService notification)
+        public TutorDashboard(StorageService storage, CookieService cookie, ProfileService profile, ScheduleService schedule, FollowService follow, EditService edit, SearchService search, NotificationService notification)
         {
             storageService = storage;
-            sessionService = session;
+            cookieService = cookie;
             profileService = profile;
             scheduleService = schedule;
             followService = follow;
@@ -51,12 +51,12 @@ namespace StreamWork.Pages.Tutor
 
         public async Task<IActionResult> OnGet()
         {
-            if (!sessionService.Authenticated)
+            if (!cookieService.Authenticated)
             {
-                //return Redirect(session.Url("/Home/Login?dest=-Tutor-TutorDashboard"));
+                return Redirect(cookieService.Url("/Home/SignIn"));
             }
 
-            UserProfile = await sessionService.GetCurrentUser();
+            UserProfile = await cookieService.GetCurrentUser();
             UserChannel = await storageService.Get<UserChannel>(SQLQueries.GetUserChannelWithUsername, new string[] { UserProfile.Username });
 
             UserArchivedStreams = await storageService.GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { UserProfile.Username });
@@ -79,7 +79,7 @@ namespace StreamWork.Pages.Tutor
 
         public async Task<IActionResult> OnPostSaveScheduleTask()
         {
-            var userProfile = await sessionService.GetCurrentUser();
+            var userProfile = await cookieService.GetCurrentUser();
             var sortedList = await scheduleService.SaveToSchedule(Request, userProfile.Username);
 
             if (sortedList != null) return new JsonResult(new { Message = JsonResponse.Success.ToString(), Sorted = sortedList });
@@ -88,7 +88,7 @@ namespace StreamWork.Pages.Tutor
 
         public async Task<IActionResult> OnPostDeleteScheduleTask(string taskId)
         {
-            var userProfile = await sessionService.GetCurrentUser();
+            var userProfile = await cookieService.GetCurrentUser();
             var sortedList = await scheduleService.DeleteFromSchedule(taskId, userProfile.Username);
 
             if (sortedList != null) return new JsonResult(new { Message = JsonResponse.Success.ToString(), Sorted = sortedList });

@@ -24,7 +24,7 @@ namespace StreamWork
                 .AddEnvironmentVariables();
 
             Configuration = builder.Build();
-            HomeMethods.devEnvironment = env.IsDevelopment();
+            CookieService.devEnvironment = env.IsDevelopment();
         }
 
         public IConfiguration Configuration { get; }
@@ -43,7 +43,7 @@ namespace StreamWork
             {
                 options.Cookie.SameSite = SameSiteMode.None;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.None;
-                options.LoginPath = "/Home/Login";
+                options.LoginPath = "/Home/SignIn";
             });
 
             services.Configure<StorageConfig>(Configuration);
@@ -56,13 +56,15 @@ namespace StreamWork
             services.AddTransient<ProfileService>();
             services.AddTransient<ScheduleService>();
             services.AddTransient<SearchService>();
-            services.AddTransient<SessionService>();
+            services.AddTransient<CookieService>();
+            services.AddTransient<CookieService>();
             services.AddTransient<StorageService>(); // Transient means it creates a new instance every time it's needed
             services.AddTransient<StreamService>(); // You should use Transient by default
             services.AddTransient<NotificationService>();
             services.AddSingleton<SubjectService>(); // Singleton creates a shared instance the first time it's needed
 
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
+
             services.AddRazorPages().AddRazorRuntimeCompilation().AddRazorOptions(options =>
             {
                 options.PageViewLocationFormats.Add("/Pages/Partials/{0}.cshtml");

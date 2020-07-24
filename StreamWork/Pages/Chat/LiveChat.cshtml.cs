@@ -9,7 +9,7 @@ namespace StreamWork.Pages.Chat
 {
     public class LiveChat : PageModel
     {
-        private readonly SessionService sessionService;
+        private readonly CookieService sessionService;
         private readonly StorageService storageService;
         private readonly ProfileService profileService;
         private readonly ScheduleService scheduleService;
@@ -24,7 +24,7 @@ namespace StreamWork.Pages.Chat
         public string ChatColor { get; set; }
         public bool IsLoggedIn { get; set; }
 
-        public LiveChat(StorageService storage, SessionService session, ProfileService profile, ScheduleService schedule, FollowService follow, EditService edit, ChatService chat)
+        public LiveChat(StorageService storage, CookieService session, ProfileService profile, ScheduleService schedule, FollowService follow, EditService edit, ChatService chat)
         {
             storageService = storage;
             sessionService = session;
