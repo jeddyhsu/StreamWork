@@ -94,10 +94,10 @@ namespace StreamWork.Services
             {
                 if (followeeId == followerId) return FollowValues.NoFollow.ToString();
                 var followerAndfollowee = await GetList<Follow>(SQLQueries.GetFollowerAndFollowee, new string[] { followerId, followeeId });
-                if (followerAndfollowee.Count > 0) return FollowValues.Follow.ToString();
+                if (followerAndfollowee.Count > 0) return FollowValues.Following.ToString();
             }
 
-            return FollowValues.Following.ToString();
+            return FollowValues.Follow.ToString();
         }
 
         public async Task<int> GetNumberOfFollowers(string followeeId)

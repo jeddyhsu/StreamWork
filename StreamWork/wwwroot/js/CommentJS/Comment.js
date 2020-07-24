@@ -72,11 +72,6 @@ function SaveComment(parentId, masterParent) {
                     $('#comment-send-').attr('style', '40px !important');
                     ButtonEnabledDisabled('send', '');
                 }
-                else if (masterParent == "" || masterParent == null || masterParent == "undefined") {
-                    $('#comment-reply-list-' + parentId).append(comment);
-                    $('#comment-reply-' + parentId).html(`<span id="comment-at-${parentId}" class="comment-at" contenteditable="false"><b>@${data.savedInfo[4]} </b></span>`)
-                    ButtonEnabledDisabled('reply', parentId);
-                }
                 else {
                     $('#comment-reply-list-' + masterParent).append(comment);
                     $('#comment-reply-' + parentId).html(`<span id="comment-at-${parentId}" class="comment-at" contenteditable="false"><b>@${data.savedInfo[4]} </b></span>`)

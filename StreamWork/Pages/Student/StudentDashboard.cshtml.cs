@@ -14,8 +14,7 @@ namespace StreamWork.Pages.Student
         private readonly CookieService cookieService;
         private readonly StorageService storageService;
         private readonly ProfileService profileService;
-        private readonly ScheduleService scheduleService;
-        private readonly FollowService followService;
+        private readonly NotificationService notificationService;
 
         public UserLogin CurrentUserProfile { get; set; }
         public UserChannel UserChannel { get; set; }
@@ -23,14 +22,15 @@ namespace StreamWork.Pages.Student
         public List<Section> Sections { get; set; }
         public List<Topic> Topics { get; set; }
         public List<Comment> Comments { get; set; }
+        public List<Notification> Notifications { get; set; }
+        public bool AreThereUnseenNotifications { get; set; }
 
-        public StudentDashboard(StorageService storage, CookieService cookie, ProfileService profile, ScheduleService schedule, FollowService follow)
+        public StudentDashboard(StorageService storage, CookieService cookie, ProfileService profile, NotificationService notification)
         {
             storageService = storage;
             cookieService = cookie;
             profileService = profile;
-            scheduleService = schedule;
-            followService = follow;
+            notificationService = notification;
         }
 
         public async Task<IActionResult> OnGet()
@@ -45,6 +45,9 @@ namespace StreamWork.Pages.Student
             RelatedTutors = (await storageService.GetList<UserLogin>(SQLQueries.GetAllTutorsNotInTheList, new string[] { CurrentUserProfile.Id })).GetRange(0, 5);
             Sections = profileService.GetSections(CurrentUserProfile);
             Topics = profileService.GetTopics(CurrentUserProfile);
+
+            Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
+            AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
 
             return Page();
         }

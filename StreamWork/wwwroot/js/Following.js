@@ -1,4 +1,4 @@
-﻿function Follow(followerId, followeeId) {
+﻿function Follow(followerId, followeeId, buttonId) {
     $.ajax({
         url: '/Follows/FollowModel/?handler=Follow',
         type: 'post',
@@ -12,13 +12,13 @@
                 $('input:hidden[name="__RequestVerificationToken"]').val());
         },
     });
-
-    $("#Follow").setAttr("innerText", "Following")
-    $("#Follow").setAttr("onclick", "Unfollow(" + followerId + "," + followeeId + ")") 
-    $("#Follow").setAttr("id", "Following") 
+    var newId = "following-" + buttonId.split('-')[1]
+    $("#" + buttonId).html("Following")
+    $("#" + buttonId).attr("onclick", "Unfollow('" + followerId + "','" + followeeId + "','" + newId + "')")
+    $("#" + buttonId).attr("id", newId) 
 }
 
-function Unfollow(followerId, followeeId, i) {
+function Unfollow(followerId, followeeId, buttonId) {
     $.ajax({
         url: '/Follows/FollowModel/?handler=Unfollow',
         type: 'post',
@@ -32,8 +32,8 @@ function Unfollow(followerId, followeeId, i) {
                 $('input:hidden[name="__RequestVerificationToken"]').val());
         },
     });
-
-    $("#Following").setAttr("innerText", "Follow")
-    $("#Following").setAttr("onclick", "Follow(" + followerId + "," + followeeId + ")")
-    $("#Following").setAttr("id", "Follow") 
+    var newId = "follow-" + buttonId.split('-')[1]
+    $("#" + buttonId).html("Follow")
+    $("#" + buttonId).attr("onclick", "Follow('" + followerId + "','" + followeeId + "','" + newId + "')")
+    $("#" + buttonId).attr("id", newId) 
 }

@@ -21,22 +21,22 @@
                     <div class="border-top pt-3 pl-3 pr-3 pb-1" style="background-color:#FBFBFB">
                         <div class="d-lg-inline-block d-md-inline-block d-sm-none d-none float-right">
                             @if (Model.FollowValue.Equals("Following"))
-                            {<button id="Following" class="streamWork-primary m-1 stream-buttons" onclick="Unfollow('@Model.UserProfile.Id', '@Model.UserProfile.Id')">Following</button>}
+                            {<button id="following-live" class="streamWork-primary stream-buttons m-1" onclick="Unfollow('@Model.CurrentUserProfile.Id', '@Model.UserProfile.Id', 'following-archive')">Following</button>}
                             else if (Model.FollowValue.Equals("Follow"))
-                            {<button id="Follow" class="streamWork-primary m-1 stream-buttons" onclick="Follow('@Model.UserProfile.Id', '@Model.UserProfile.Id')">Follow</button>}
-                            <button class="streamWork-orange m-1 stream-buttons">Donate</button>
+                            {<button id="follow-live" class="streamWork-primary stream-buttons m-1" onclick="Follow('@Model.CurrentUserProfile.Id', '@Model.UserProfile.Id', 'follow-archive')">Follow</button>}
+                            <button class="streamWork-orange stream-buttons m-1">Donate</button>
                             <button class="streamWork-secondary m-1 stream-buttons" onclick="window.location.href='/Profile/Tutor/@Model.UserProfile.Username'">Tutor Profile</button>
                         </div>
                         <input align="left" type="image" class="rounded" style="width:30px" src=@Model.UserProfile.ProfilePicture />
                         <h3 class="mb-0 form-header" style="font-size:20px; margin-left:40px; color:@Model.UserChannel.ChatColor">@Model.UserProfile.Name.Replace('|', ' ')</h3>
                         <p class="form-sub-header" style="margin-left:40px; font-size:14px">@Model.UserProfile.ProfileCaption</p>
-                        <div class="d-lg-none d-md-none d-sm-inline-block d-inline-block ml-1">
+                        <div class="d-lg-none d-md-none d-sm-inline-block d-inline-block">
                             @if (Model.FollowValue.Equals("Following"))
-                            {<button id="Following" onclick="Unfollow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary m-1">Following</button>}
+                            {<button id="following-live" onclick="Unfollow('@Model.CurrentUserProfile.Id', '@Model.UserProfile.Id', 'following-archive')" class="streamWork-primary" style="width:150px;">Following</button>}
                             else if (Model.FollowValue.Equals("Follow"))
-                            {<button id="Follow" onclick="Follow('@Model.UserProfile.Id', '@Model.UserProfile.Id')" class="streamWork-primary m-1">Follow</button>}
-                            <button class="streamWork-orange m-1">Donate</button>
-                            <button class="streamWork-secondary m-1" onclick="window.location.href='/Profile/Tutor/@Model.UserProfile.Username'">Tutor Profile</button>
+                            {<button id="follow-live" onclick="Follow('@Model.CurrentUserProfile.Id', '@Model.UserProfile.Id', 'follow-archive')" class="streamWork-primary" style="width:150px;">Follow</button>}
+                            <button class="streamWork-orange" style="width:150px;">Donate</button>
+                            <button class="streamWork-secondary m-1" style="width:150px;" onclick="window.location.href='/Profile/Tutor/@Model.UserProfile.Username'">Tutor Profile</button>
                         </div>
                     </div>
                 </div>

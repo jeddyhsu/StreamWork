@@ -4,7 +4,7 @@
 @{ViewData["Title"] = "TutorStream";}
 @Html.AntiForgeryToken()
 
-@if (!Model.UserProfile.ProfileType.Equals("tutor") || !Model.UserProfile.AcceptedTutor)
+@if (!Model.CurrentUserProfile.ProfileType.Equals("tutor") || !Model.CurrentUserProfile.AcceptedTutor)
 {
     <script>$(document).ready(function () {
             $('#unapprovedTutorModal').modal({

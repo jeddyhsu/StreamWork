@@ -16,6 +16,7 @@ namespace StreamWork.Pages.Profile
         private readonly CookieService cookieService;
         private readonly StorageService storageService;
         private readonly ProfileService profileService;
+        private readonly NotificationService notificationService;
 
         public UserLogin CurrentUserProfile { get; set; }
         public UserLogin UserProfile { get; set; }
@@ -23,12 +24,15 @@ namespace StreamWork.Pages.Profile
         public List<Section> Sections { get; set; }
         public List<Topic> Topics { get; set; }
         public List<Comment> Comments { get; set; }
+        public List<Notification> Notifications { get; set; }
+        public bool AreThereUnseenNotifications { get; set; }
 
-        public Student(StorageService storage, CookieService cookie, ProfileService profile)
+        public Student(StorageService storage, CookieService cookie, ProfileService profile, NotificationService notification)
         {
             storageService = storage;
             cookieService = cookie;
             profileService = profile;
+            notificationService = notification;
         }
 
         public async Task<IActionResult> OnGet(string student)
@@ -44,6 +48,9 @@ namespace StreamWork.Pages.Profile
             RelatedTutors = (await storageService.GetList<UserLogin>(SQLQueries.GetAllTutorsNotInTheList, new string[] { UserProfile.Id })).GetRange(0, 5);
             Sections = profileService.GetSections(UserProfile);
             Topics = profileService.GetTopics(UserProfile);
+
+            Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
+            AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
 
             return Page();
         }

@@ -15,7 +15,7 @@ namespace StreamWork.Pages.Tutor
         private readonly StreamService streamService;
         private readonly NotificationService notificationService;
 
-        public UserLogin UserProfile { get; set; }
+        public UserLogin CurrentUserProfile { get; set; }
         public UserChannel UserChannel { get; set; }
         public string ChatInfo { get; set; }
         public List<Notification> Notifications { get; set; }
@@ -36,12 +36,12 @@ namespace StreamWork.Pages.Tutor
                 return Redirect(cookieService.Url("/Home/SignIn"));
             }
 
-            UserProfile = await cookieService.GetCurrentUser();
-            UserChannel = await storageService.Get<UserChannel>(SQLQueries.GetUserChannelWithUsername, new string[] { UserProfile.Username });
+            CurrentUserProfile = await cookieService.GetCurrentUser();
+            UserChannel = await storageService.Get<UserChannel>(SQLQueries.GetUserChannelWithUsername, new string[] { CurrentUserProfile.Username });
             ChatInfo = "1234";
 
-            Notifications = await notificationService.GetNotifications(UserProfile.Username);
-            AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(UserProfile.Username);
+            Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
+            AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
 
             return Page();
         }
