@@ -51,7 +51,7 @@ namespace StreamWork.Pages.Tutor
 
         public async Task<IActionResult> OnGet()
         {
-            if (!cookieService.Authenticated)
+            if (!cookieService.Authenticated || (await cookieService.GetCurrentUser()).ProfileType != "tutor")
             {
                 return Redirect(cookieService.Url("/Home/SignIn"));
             }

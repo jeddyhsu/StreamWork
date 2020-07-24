@@ -51,6 +51,11 @@ namespace StreamWork.Pages.Profile
                 return Redirect(cookieService.Url("/Home/SignIn"));
             }
 
+            if(!await cookieService.ValidateUserType(tutor, "tutor")) //checks for 
+            {
+                return Redirect("/Profile/Student/" + tutor);
+            }
+
             CurrentUserProfile = await cookieService.GetCurrentUser();
             UserProfile = await storageService.Get<UserLogin>(SQLQueries.GetUserWithUsername, tutor);
             UserChannel = await storageService.Get<UserChannel>(SQLQueries.GetUserChannelWithUsername, new string[] { UserProfile.Username });

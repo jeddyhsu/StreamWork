@@ -76,5 +76,13 @@ namespace StreamWork.Services
         {
             return await Get<UserLogin>(SQLQueries.GetUserWithUsername, new string[] { httpContext.HttpContext.User.Identity.Name });
         }
+
+        public async Task<bool> ValidateUserType(string username, string type)
+        {
+            var currentUser = await Get<UserLogin>(SQLQueries.GetUserWithUsername, username);
+            if (currentUser.ProfileType == type) return true;
+
+            return false;
+        }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -40,6 +38,11 @@ namespace StreamWork.Pages.Profile
             if (!cookieService.Authenticated)
             {
                 return Redirect(cookieService.Url("/Home/SignIn"));
+            }
+
+            if (!await cookieService.ValidateUserType(student, "student")) //checks for 
+            {
+                return Redirect("/Profile/Tutor/" + student);
             }
 
             CurrentUserProfile = await cookieService.GetCurrentUser();

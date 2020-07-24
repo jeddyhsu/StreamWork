@@ -1,6 +1,13 @@
 ﻿@page "{tutor}/{id}/{commentId}"
 @model StreamWork.Pages.Stream.Archive
-@{Layout = "Tutor/_LayoutTutor"; }
+@if (Model.CurrentUserProfile.ProfileType == "tutor")
+{
+    { Layout = "Tutor/_LayoutTutor"; }
+}
+else
+{
+    { Layout = "Student/_LayoutStudent"; }
+}
 @{ViewData["Title"] = "StreamPlaybackPage";}
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{var cacheRand = new Random().Next();}
@@ -60,15 +67,13 @@
     </div>
 </div>
 
-@if(Model.NotificationRequestComment != null)
+@if (Model.NotificationRequestComment != null)
 {
     <script>
         GoToComment('@Model.NotificationRequestComment.ParentId', '@Model.NotificationRequestComment.Id')
     </script>
 }
 
-<script>
-    ButtonEnabledDisabled('send', '')
+<script>ButtonEnabledDisabled('send', '')
     ResizeStreamSection();
-    ResizeStreamInfoSectionArchivedStreams()
-</script>
+    ResizeStreamInfoSectionArchivedStreams()</script>

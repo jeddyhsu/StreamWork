@@ -6,6 +6,7 @@ using StreamWork.DataModels;
 using StreamWork.HelperMethods;
 using StreamWork.Services;
 using StreamWork.ProfileObjects;
+using System.IO;
 
 namespace StreamWork.Pages.Student
 {
@@ -35,7 +36,7 @@ namespace StreamWork.Pages.Student
 
         public async Task<IActionResult> OnGet()
         {
-            if (!cookieService.Authenticated)
+            if (!cookieService.Authenticated || (await cookieService.GetCurrentUser()).ProfileType != "student")
             {
                 return Redirect(cookieService.Url("/Home/SignIn"));
             }
