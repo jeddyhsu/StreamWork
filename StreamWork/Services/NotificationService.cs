@@ -36,7 +36,7 @@ namespace StreamWork.Services
                     ObjectId = objectId
                 };
 
-                await Save<Notification>(notification.Id, notification);
+                await Save(notification.Id, notification);
                 return true;
             }
             catch (Exception e)

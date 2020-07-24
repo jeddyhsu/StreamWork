@@ -63,12 +63,12 @@ namespace StreamWork.Pages.Stream
             UserChannel = await storageService.Get<UserChannel>(SQLQueries.GetUserChannelWithUsername, tutor);
             ArchivedStream = await storageService.Get<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithStreamId, id);
             ChatInfo = "1234";
-            FollowValue = await followService.IsFollowingFollowee(UserProfile.Id, CurrentUserProfile.Id);
+            FollowValue = await followService.IsFollowingFollowee(CurrentUserProfile.Id, UserProfile.Id);
 
-            UserArchivedStreams = await storageService.GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { CurrentUserProfile.Username });
+            UserArchivedStreams = await storageService.GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { UserProfile.Username });
             OtherArchivedStreams = await storageService.GetList<UserArchivedStreams>(SQLQueries.GetAllArchivedStreams, new string[] { });
-            RelatedTutors = (await storageService.GetList<UserLogin>(SQLQueries.GetAllTutorsNotInTheList, new string[] { CurrentUserProfile.Id })).GetRange(0, 5);
-            Sections = profileService.GetSections(CurrentUserProfile);
+            RelatedTutors = (await storageService.GetList<UserLogin>(SQLQueries.GetAllTutorsNotInTheList, new string[] { UserProfile.Id })).GetRange(0, 5);
+            Sections = profileService.GetSections(UserProfile);
             Schedule = await scheduleService.GetSchedule(UserProfile.Username);
             Comments = await commentService.GetAllComments(ArchivedStream.StreamID);
 
@@ -76,9 +76,9 @@ namespace StreamWork.Pages.Stream
             NumberOfFollowers = await followService.GetNumberOfFollowers(UserProfile.Id);
             NumberOfViews = UserArchivedStreams.Sum(x => x.Views);
 
-            Notifications = await notificationService.GetNotifications(UserProfile.Username);
+            Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
             if (!string.IsNullOrEmpty(commentId)) NotificationRequestComment = await storageService.Get<Comment>(SQLQueries.GetCommentWithId, commentId);
-            AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(UserProfile.Username);
+            AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
 
             return Page();
         }

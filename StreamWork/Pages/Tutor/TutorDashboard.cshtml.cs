@@ -22,7 +22,7 @@ namespace StreamWork.Pages.Tutor
         private readonly SearchService searchService;
         private readonly NotificationService notificationService;
 
-        public UserLogin UserProfile { get; set; }
+        public UserLogin CurrentUserProfile { get; set; }
         public UserChannel UserChannel { get; set; }
         public int NumberOfStreams { get; set; }
         public int NumberOfFollowers { get; set; }
@@ -56,23 +56,23 @@ namespace StreamWork.Pages.Tutor
                 return Redirect(cookieService.Url("/Home/SignIn"));
             }
 
-            UserProfile = await cookieService.GetCurrentUser();
-            UserChannel = await storageService.Get<UserChannel>(SQLQueries.GetUserChannelWithUsername, new string[] { UserProfile.Username });
+            CurrentUserProfile = await cookieService.GetCurrentUser();
+            UserChannel = await storageService.Get<UserChannel>(SQLQueries.GetUserChannelWithUsername, new string[] { CurrentUserProfile.Username });
 
-            UserArchivedStreams = await storageService.GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { UserProfile.Username });
-            Sections = profileService.GetSections(UserProfile);
-            Topics = profileService.GetTopics(UserProfile);
-            Schedule = await scheduleService.GetSchedule(UserProfile.Username);
+            UserArchivedStreams = await storageService.GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { CurrentUserProfile.Username });
+            Sections = profileService.GetSections(CurrentUserProfile);
+            Topics = profileService.GetTopics(CurrentUserProfile);
+            Schedule = await scheduleService.GetSchedule(CurrentUserProfile.Username);
 
-            Followers = await followService.GetAllFollowers(UserProfile.Id);
-            Followees = await followService.GetAllFollowees(UserProfile.Id);
+            Followers = await followService.GetAllFollowers(CurrentUserProfile.Id);
+            Followees = await followService.GetAllFollowees(CurrentUserProfile.Id);
 
             NumberOfStreams = UserArchivedStreams.Count;
             NumberOfViews = UserArchivedStreams.Sum(x => x.Views);
             NumberOfFollowers = Followers == null ? 0 : Followers.Count;
 
-            Notifications = await notificationService.GetNotifications(UserProfile.Username);
-            AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(UserProfile.Username);
+            Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
+            AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
 
             return Page();
         }

@@ -21,12 +21,6 @@ namespace StreamWork.Services
                 var sender = await Get<UserLogin>(SQLQueries.GetUserWithUsername, senderUsername);
                 var receiver = await Get<UserLogin>(SQLQueries.GetUserWithUsername, receiverUsername);
 
-                if(parentId != null)
-                {
-                    var parentComment = await Get<Comment>(SQLQueries.GetCommentWithId, parentId);
-                    receiver = await Get<UserLogin>(SQLQueries.GetUserWithUsername, parentComment.SenderUsername);
-                }
-
                 Comment comment = new Comment
                 {
                     Id = Guid.NewGuid().ToString(),
@@ -41,8 +35,8 @@ namespace StreamWork.Services
                     StreamId = streamId
                 };
 
-                await Save<Comment>(comment.Id, comment);
-                return new List<string> { sender.ProfilePicture, sender.Name.Replace('|', ' '), comment.Message, comment.Id, comment.ReceiverName.Replace('|',' ')};
+                await Save(comment.Id, comment);
+                return new List<string> { sender.ProfilePicture, sender.Name.Replace('|', ' '), comment.Message, comment.Id, comment.ReceiverName.Replace('|', ' ') };
             }
             catch(Exception e)
             {

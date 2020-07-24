@@ -18,6 +18,9 @@
             if (data.message === "Tutor" || data.message === "Student") {
                 window.location.href = '/' + data.message + '/' + data.message + 'Dashboard'
             }
+            else {
+                ShowBannerNotification('invalid-username-password-notification')
+            }
         }
     })
 }

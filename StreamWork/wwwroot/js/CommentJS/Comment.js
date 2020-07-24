@@ -1,6 +1,6 @@
 ﻿var commentCount = 0;
 
-function SaveComment(parentId, parentParentId) {
+function SaveComment(parentId, masterParent) {
     var message = "";
     if (parentId == "" || parentId == null) {
         message = GetStringWithoutAt('send', '');
@@ -17,7 +17,8 @@ function SaveComment(parentId, parentParentId) {
             'senderUsername': $('#comment-username').val(),
             'receiverUsername': $('#comment-tutor-username').val(),
             'message': message,
-            'parentId': parentParentId == "undefined" ? parentId : parentParentId,
+            'parentId': parentId,
+            'masterParent': masterParent,
             'streamId': $('#comment-streamId').val(),
         },
          beforeSend: function (xhr) {
@@ -29,16 +30,11 @@ function SaveComment(parentId, parentParentId) {
                 var reply = ``;
                 var at = ``;
                 if (parentId == "" || parentId == null) {
-                    reply = `<a class="comment-replies" onclick="ShowReplyBox('${data.savedInfo[0]}', '${data.savedInfo[3]}', '${data.savedInfo[4]}')"><b>Reply</b></a>`
-                }
-                else if (parentParentId == "" || parentParentId == null || parentParentId == "undefined") {
-                    IncrementDecrementComments(data.savedInfo[0], data.savedInfo[3], data.savedInfo[4], parentId)
-                    reply = `<a class="comment-replies" onclick="ShowReplyBox('${data.savedInfo[0]}', '${data.savedInfo[3]}', '${data.savedInfo[4]}', '${parentId}')"><b>Reply</b></a>`
-                    at = `<span id="comment-at-${parentId}" class="comment-at" contenteditable="false"><b>@${data.savedInfo[4]} </b></span>`
+                    reply = `<a class="comment-replies" onclick="ShowReplyBox('${data.savedInfo[0]}', '${data.savedInfo[3]}', '${data.savedInfo[1]}')"><b>Reply</b></a>`
                 }
                 else {
-                    IncrementDecrementComments(data.savedInfo[0], data.savedInfo[3], data.savedInfo[4], parentParentId)
-                    reply = `<a class="comment-replies" onclick="ShowReplyBox('${data.savedInfo[0]}', '${data.savedInfo[3]}', '${data.savedInfo[4]}', '${parentParentId}')"><b>Reply</b></a>`
+                    IncrementDecrementComments(data.savedInfo[0], data.savedInfo[3], data.savedInfo[4], masterParent == "undefined" ? parentId : masterParent)
+                    reply = `<a class="comment-replies" onclick="ShowReplyBox('${data.savedInfo[0]}', '${data.savedInfo[3]}', '${data.savedInfo[1]}', '${masterParent == "undefined" ? parentId : masterParent}')"><b>Reply</b></a>`
                     at = `<span id="comment-at-${parentId}" class="comment-at" contenteditable="false"><b>@${data.savedInfo[4]} </b></span>`
                 }
                 var date = moment().format("MMM DD YYYY");
@@ -76,13 +72,13 @@ function SaveComment(parentId, parentParentId) {
                     $('#comment-send-').attr('style', '40px !important');
                     ButtonEnabledDisabled('send', '');
                 }
-                else if (parentParentId == "" || parentParentId == null || parentParentId == "undefined") {
+                else if (masterParent == "" || masterParent == null || masterParent == "undefined") {
                     $('#comment-reply-list-' + parentId).append(comment);
                     $('#comment-reply-' + parentId).html(`<span id="comment-at-${parentId}" class="comment-at" contenteditable="false"><b>@${data.savedInfo[4]} </b></span>`)
                     ButtonEnabledDisabled('reply', parentId);
                 }
                 else {
-                    $('#comment-reply-list-' + parentParentId).append(comment);
+                    $('#comment-reply-list-' + masterParent).append(comment);
                     $('#comment-reply-' + parentId).html(`<span id="comment-at-${parentId}" class="comment-at" contenteditable="false"><b>@${data.savedInfo[4]} </b></span>`)
                     ButtonEnabledDisabled('reply', parentId);
                 }

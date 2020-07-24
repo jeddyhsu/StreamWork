@@ -60,19 +60,19 @@ namespace StreamWork.Pages.Stream
             UserProfile = await storageService.Get<UserLogin>(SQLQueries.GetUserWithUsername, tutor);
             UserChannel = await storageService.Get<UserChannel>(SQLQueries.GetUserChannelWithUsername, tutor);
             ChatInfo = "1234";
-            FollowValue = await followService.IsFollowingFollowee(UserProfile.Id, CurrentUserProfile.Id);
+            FollowValue = await followService.IsFollowingFollowee(CurrentUserProfile.Id, UserProfile.Id);
 
             UserArchivedStreams = await storageService.GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { CurrentUserProfile.Username });
             RelatedTutors = (await storageService.GetList<UserLogin>(SQLQueries.GetAllTutorsNotInTheList, new string[] { CurrentUserProfile.Id })).GetRange(0, 5);
-            Sections = profileService.GetSections(CurrentUserProfile);
+            Sections = profileService.GetSections(UserProfile);
             Schedule = await scheduleService.GetSchedule(UserProfile.Username);
 
             NumberOfStreams = UserArchivedStreams.Count;
             NumberOfFollowers = await followService.GetNumberOfFollowers(UserProfile.Id);
             NumberOfViews = UserArchivedStreams.Sum(x => x.Views);
 
-            Notifications = await notificationService.GetNotifications(UserProfile.Username);
-            AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(UserProfile.Username);
+            Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
+            AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
 
             return Page();
         }

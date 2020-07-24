@@ -49,7 +49,7 @@
                             <div id="comment-send-holder-@Model.Comments[i].Id">
                                 <p class="mb-1 comment-send" id="comment-send-@Model.Comments[i].Id">@Html.Raw(Model.Comments[i].Message)</p>
                             </div>
-                            <a class="comment-replies" onclick="ShowReplyBox('@Model.Comments[i].SenderProfilePicture', '@Model.Comments[i].Id', '@Model.Comments[i].SenderName')"><b>Reply</b></a>
+                            <a class="comment-replies" onclick="ShowReplyBox('@Model.CurrentUserProfile.ProfilePicture', '@Model.Comments[i].Id', '@Model.Comments[i].SenderName')"><b>Reply</b></a>
                             @{string replyWord = "Replies";}
                             @if (Model.Comments[i].Replies.Count == 1)
                             {
@@ -97,7 +97,7 @@
                                         <div id="comment-send-holder-@Model.Comments[i].Replies[e].Id">
                                             <p class="mb-1 comment-send" id="comment-send-@Model.Comments[i].Replies[e].Id"><span id="comment-at-@Model.Comments[i].Replies[e].Message" class="comment-at" contenteditable="false"><b>@@@Model.Comments[i].Replies[e].ReceiverName.Replace('|', ' ') </b></span>@Html.Raw(Model.Comments[i].Replies[e].Message)</p>
                                         </div>
-                                        <a class="comment-replies" onclick="ShowReplyBox('@Model.Comments[i].SenderProfilePicture', '@Model.Comments[i].Replies[e].Id', '@Model.Comments[i].SenderName','@Model.Comments[i].Id', true)"><b>Reply</b></a>
+                                        <a class="comment-replies" onclick="ShowReplyBox('@Model.CurrentUserProfile.ProfilePicture', '@Model.Comments[i].Replies[e].Id', '@Model.Comments[i].Replies[e].SenderName','@Model.Comments[i].Id', true)"><b>Reply</b></a>
                                         <div style="padding-left:40px" id="reply-box-@Model.Comments[i].Replies[e].Id"></div>
                                     </li>
                                 }

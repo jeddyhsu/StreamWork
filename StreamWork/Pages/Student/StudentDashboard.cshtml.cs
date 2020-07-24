@@ -18,12 +18,11 @@ namespace StreamWork.Pages.Student
         private readonly FollowService followService;
 
         public UserLogin CurrentUserProfile { get; set; }
-        public UserLogin UserProfile { get; set; }
         public UserChannel UserChannel { get; set; }
         public List<UserLogin> RelatedTutors { get; set; }
         public List<Section> Sections { get; set; }
         public List<Topic> Topics { get; set; }
-        public List<DataModels.Comment> Comments { get; set; }
+        public List<Comment> Comments { get; set; }
 
         public StudentDashboard(StorageService storage, CookieService cookie, ProfileService profile, ScheduleService schedule, FollowService follow)
         {
@@ -42,11 +41,10 @@ namespace StreamWork.Pages.Student
             }
 
             CurrentUserProfile = await cookieService.GetCurrentUser();
-            UserProfile = await storageService.Get<UserLogin>(SQLQueries.GetUserWithUsername, CurrentUserProfile.Username);
 
-            RelatedTutors = (await storageService.GetList<UserLogin>(SQLQueries.GetAllTutorsNotInTheList, new string[] { UserProfile.Id })).GetRange(0, 5);
-            Sections = profileService.GetSections(UserProfile);
-            Topics = profileService.GetTopics(UserProfile);
+            RelatedTutors = (await storageService.GetList<UserLogin>(SQLQueries.GetAllTutorsNotInTheList, new string[] { CurrentUserProfile.Id })).GetRange(0, 5);
+            Sections = profileService.GetSections(CurrentUserProfile);
+            Topics = profileService.GetTopics(CurrentUserProfile);
 
             return Page();
         }

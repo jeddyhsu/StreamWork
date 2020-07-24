@@ -66,8 +66,8 @@ namespace StreamWork.Pages.Profile
             NumberOfViews = UserArchivedStreams.Sum(x => x.Views);
             NumberOfFollowers = await followService.GetNumberOfFollowers(UserProfile.Id);
 
-            Notifications = await notificationService.GetNotifications(UserProfile.Username);
-            AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(UserProfile.Username);
+            Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
+            AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
 
             return Page();
         }

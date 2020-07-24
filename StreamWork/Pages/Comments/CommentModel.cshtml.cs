@@ -20,9 +20,15 @@ namespace StreamWork.Pages.Comments
             notificationService = notification;
         }
 
-        public async Task<IActionResult> OnPostSaveComment(string senderUsername, string receiverUsername, string message, string parentId, string streamId)
+        public async Task<IActionResult> OnPostSaveComment(string senderUsername, string receiverUsername, string message, string parentId, string masterParent, string streamId)
         {
-            var savedInfo = await commentService.SaveComment(senderUsername, receiverUsername, message, parentId, streamId);
+            if (parentId != null)
+            {
+                var parentComment = await storageService.Get<Comment>(SQLQueries.GetCommentWithId, parentId);
+                receiverUsername = (await storageService.Get<UserLogin>(SQLQueries.GetUserWithUsername, parentComment.SenderUsername)).Username; //this could be a reply to a reply so receiver could change
+            }
+
+            var savedInfo = await commentService.SaveComment(senderUsername, receiverUsername, message, masterParent == "undefined" ? parentId: masterParent, streamId);
             var savedNotification = await  notificationService.SaveNotification(NotificationType.Comment, senderUsername, receiverUsername, (await storageService.Get<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithStreamId, streamId )).StreamTitle + "|" + streamId + "|" + savedInfo[2], savedInfo[3]);
             if (savedInfo != null && savedNotification) return new JsonResult(new { Message = JsonResponse.Success.ToString(), SavedInfo = savedInfo});
 

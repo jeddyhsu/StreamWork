@@ -17,26 +17,26 @@
                         <div class="p-lg-4 pt-md-4 p-sm-3 p-3">
                             <div class="btn-group d-lg-block d-md-block d-sm-none d-none float-right">
                                 <button type="button" class="streamWork-secondary mr-2" onclick="EditProfile()">Edit Profile</button>
-                                <button type="button" class="streamWork-primary" onclick="window.location.href ='/Profile/Student/@Model.UserProfile.Username'">View Profile</button>
+                                <button type="button" class="streamWork-primary" onclick="window.location.href ='/Profile/Student/@Model.CurrentUserProfile.Username'">View Profile</button>
                             </div>
-                            <input id="header-profile-picture" align="left" class="rounded" type="image" src="@Model.UserProfile.ProfilePicture?@cacheRand" style="width:80px; cursor:text" />
-                            <p id="header-name" class="form-header m-0" style="font-size:20px; padding-left:100px">@Model.UserProfile.Name.Replace('|', ' ')</p>
-                            <p id="header-occupation" class="form-sub-header m-0" style="padding-left:100px; font-size:12px;">@Model.UserProfile.ProfileCaption</p>
+                            <input id="header-profile-picture" align="left" class="rounded" type="image" src="@Model.CurrentUserProfile.ProfilePicture?@cacheRand" style="width:80px; cursor:text" />
+                            <p id="header-name" class="form-header m-0" style="font-size:20px; padding-left:100px">@Model.CurrentUserProfile.Name.Replace('|', ' ')</p>
+                            <p id="header-occupation" class="form-sub-header m-0" style="padding-left:100px; font-size:12px;">@Model.CurrentUserProfile.ProfileCaption</p>
                             <p class="mb-0 mt-2 form-sub-header" style="padding-left:100px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
-                            <p class="form-sub-header" style="padding-left:100px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">@Model.UserProfile.Location</span></p>
-                            <input id="header-first-name" type="hidden" value="@Model.UserProfile.Name.Split('|')[0]" />
-                            <input id="header-last-name" type="hidden" value="@Model.UserProfile.Name.Split('|')[1]" />
-                            <input id="header-timezone" type="hidden" value="@Model.UserProfile.TimeZone" />
-                            <input id="header-linkedin-url" type="hidden" value="@Model.UserProfile.LinkedInUrl" />
+                            <p class="form-sub-header" style="padding-left:100px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">@Model.CurrentUserProfile.Location</span></p>
+                            <input id="header-first-name" type="hidden" value="@Model.CurrentUserProfile.Name.Split('|')[0]" />
+                            <input id="header-last-name" type="hidden" value="@Model.CurrentUserProfile.Name.Split('|')[1]" />
+                            <input id="header-timezone" type="hidden" value="@Model.CurrentUserProfile.TimeZone" />
+                            <input id="header-linkedin-url" type="hidden" value="@Model.CurrentUserProfile.LinkedInUrl" />
                         </div>
                         <div class="btn-group d-lg-none d-md-none d-sm-block d-block pl-3 pr-3 pb-3">
                             <button type="button" class="streamWork-secondary mr-2"onclick="EditProfile()">Edit Profile</button>
-                            <button type="button" class="streamWork-primary " onclick="window.location.href ='/Profile/Student/@Model.UserProfile.Username'">View Profile</button>
+                            <button type="button" class="streamWork-primary " onclick="window.location.href ='/Profile/Student/@Model.CurrentUserProfile.Username'">View Profile</button>
                         </div>
                     </div>
                     <div class="col-lg-5 col-md-12 col-sm-12 col-12 order-lg-2 order-md-1 order-sm-1 order-1">
                         <div id="banner-upload" class="image-container" style="width:100%; height:100%;">
-                            <img class="banner" id="preview-profile-banner" src="@Model.UserProfile.ProfileBanner?@cacheRand" style="cursor:pointer; height:100%; object-fit:cover;" />
+                            <img class="banner" id="preview-profile-banner" src="@Model.CurrentUserProfile.ProfileBanner?@cacheRand" style="cursor:pointer; height:100%; object-fit:cover;" />
                             <div class="bottom-right mr-2" style="left:0px; bottom:0px;">
                                 <div class="card rounded-0" style="width:100%; height:40px; background-color:black; opacity:0.2">
                                     <i id="add-profile-banner" class="fa fa-camera d-block ml-auto mr-auto mt-2" style="font-size:24px;color:white"></i>
@@ -109,7 +109,7 @@
                                                         <img class="p-1" style="width:30px; cursor:pointer" src="~/images/TutorAssets/TutorDashboard/Edit.png" onclick="EditUniversityInfo()" />
                                                     </div>
                                                     <div id="university-element" class="card-body text-center p-0" style="height:135px">
-                                                        @if (Model.UserProfile.College == null)
+                                                        @if (Model.CurrentUserProfile.College == null)
                                                         {
                                                             <div>
                                                                 <input type="image" src="~/images/TutorAssets/TutorDashboard/DefaultUniversity.png" class="form-control border-0 rounded-0 d-block mr-auto ml-auto pt-3" style="width:130px; height:100%">
@@ -117,7 +117,7 @@
                                                         }
                                                         else
                                                         {
-                                                            var college = Model.UserProfile.College.Split('|');
+                                                            var college = Model.CurrentUserProfile.College.Split('|');
                                                             if (college.Length > 1)
                                                             {
                                                                 <p id="university-abbreviation" class="form-header pt-4 pl-2 pr-2" style="font-size:20px">@college[0]</p>
