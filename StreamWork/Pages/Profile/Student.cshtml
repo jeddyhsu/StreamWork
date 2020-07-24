@@ -25,7 +25,7 @@ else
             <div class="card mt-3">
                 <div class="card-title">
                     <p class="form-header p-3 m-0" style="font-size:18px">Social Media Links</p>
-                    <i class="fa fa-linkedin-square p-3" style="font-size:48px; cursor:pointer; color:lightgray" onclick="window.open('@Model.UserProfile.LinkedInUrl')"></i>
+                    @await Html.PartialAsync("Partials/Profile/SocialMedia_View", Model)
                 </div>
             </div>
             <div class="card mt-3">

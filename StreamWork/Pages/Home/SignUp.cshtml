@@ -1,6 +1,7 @@
 ﻿@page
 @model StreamWork.Pages.Home.SignUpModel
 @{Layout = "SignUp-SignIn/_LayoutSignUp-SignIn";}
+@Html.AntiForgeryToken()
 
 <br />
 
@@ -433,6 +434,7 @@
                 $.ajax({
                     url: '/Home/SignUp/?handler=IsAddressAvailable',
                     type: 'GET',
+                    datatype: 'json',
                     data: {
                         emailAddress: $('#emailAddress').val()
                     }
@@ -629,37 +631,6 @@
         }
     }
 
-    function signUpStudent() {
-        try {
-            $.ajax({
-                url: '/Home/SignUp/?handler=SignUpStudent',
-                type: 'GET',
-                data: {
-                    emailAddress: $('#emailAddress').val(),
-                    inCollege: $('#tab-2-inCollege').hasClass('streamWork-primary'),
-                    schoolName: $('#schoolName').val(),
-                    humanitiesTopic: $('#tab-3-humanities').hasClass('streamWork-primary-rect'),
-                    mathTopic: $('#tab-3-math').hasClass('streamWork-primary-rect'),
-                    scienceTopic: $('#tab-3-science').hasClass('streamWork-primary-rect'),
-                    artTopic: $('#tab-3-art').hasClass('streamWork-primary-rect'),
-                    engineeringTopic: $('#tab-3-engineering').hasClass('streamWork-primary-rect'),
-                    businessTopic: $('#tab-3-business').hasClass('streamWork-primary-rect'),
-                    lawTopic: $('#tab-3-law').hasClass('streamWork-primary-rect'),
-                    otherTopic: $('#tab-3-other').hasClass('streamWork-primary-rect'),
-                    firstName: $('#student-firstName').val(),
-                    lastName: $('#student-lastName').val(),
-                    username: $('#student-username').val(),
-                    password: $('#student-password').val(),
-                }
-            }).done(function (data) {
-                goToTab(5);
-            });
-        } catch (e) {
-            alert(e.message);
-        }
-
-    }
-
     function tab6UpdateNext() {
         $('#tutor-username').removeClass('input-invalid');
         $('#tutor-username').popover('hide');
@@ -694,7 +665,7 @@
             if (/^[A-Za-z0-9_-]+$/.test($('#tutor-username').val())) {
                 $.ajax({
                     url: '/Home/SignUp/?handler=IsUsernameAvailable',
-                    type: 'POST',
+                    type: 'GET',
                     data: {
                         username: $('#tutor-username').val()
                     }
@@ -754,6 +725,7 @@
 
     function tab7Next() {
         if (transcriptUploaded && resumeUploaded) {
+            signUpTutor()
             $('#transcript-label').popover('hide');
             $('#transcript-label').popover('disable');
             $('#resume-label').popover('hide');
@@ -762,27 +734,63 @@
         }
     }
 
+    function signUpStudent() {
+        var formData = new FormData();
+        formData.append('EmailAddress', $('#emailAddress').val());
+        formData.append('InCollege', $('#tab-2-inCollege').hasClass('streamWork-primary'));
+        formData.append('SchoolName', $('#schoolName').val());
+        formData.append('FirstName', $('#student-firstName').val());
+        formData.append('LastName', $('#student-lastName').val());
+        formData.append('Username', $('#student-username').val());
+        formData.append('Password', $('#student-password').val());
+        formData.append('Topics', $('#tab-3-humanities').hasClass('streamWork-primary-rect') + "|" + $('#tab-3-math').hasClass('streamWork-primary-rect') + "|" + $('#tab-3-science').hasClass('streamWork-primary-rect') + "|" + $('#tab-3-art').hasClass('streamWork-primary-rect') + "|" + $('#tab-3-engineering').hasClass('streamWork-primary-rect') + "|" + $('#tab-3-business').hasClass('streamWork-primary-rect') + "|" + $('#tab-3-law').hasClass('streamWork-primary-rect') + "|" + $('#tab-3-other').hasClass('streamWork-primary-rect'))
+
+        try {
+            $.ajax({
+                url: '/Home/SignUp/?handler=SignUpStudent',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                cache: false,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("XSRF-TOKEN",
+                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                },
+            }).done(function (data) {
+                goToTab(5);
+            });
+        } catch (e) {
+            alert(e.message);
+        }
+    }
+
+
     function signUpTutor() {
-        var data = new FormData();
-        data.append('emailAddress', $('#emailAdress').val());
-        data.append('inCollege', $('#tab-2-inCollege').hasClass('streamWork-primary'));
-        data.append('schoolName', $('#schoolName').val());
-        data.append('firstName', $('#tutor-firstName').val());
-        data.append('lastName', $('#tutor-lastName').val());
-        data.append('username', $('#tutor-username').val());
-        data.append('password', $('#tutor-password').val());
-        data.append('transcript', $('#transcript')[0].files[0]);
-        data.append('resume', $('#resume')[0].files[0]);
+        var formData = new FormData();
+        formData.append('EmailAddress', $('#emailAddress').val());
+        formData.append('InCollege', $('#tab-2-inCollege').hasClass('streamWork-primary'));
+        formData.append('SchoolName', $('#schoolName').val());
+        formData.append('FirstName', $('#tutor-firstName').val());
+        formData.append('LastName', $('#tutor-lastName').val());
+        formData.append('Username', $('#tutor-username').val());
+        formData.append('Password', $('#tutor-password').val());
+        formData.append('Transcript', $('#transcript')[0].files[0]);
+        formData.append('Resume', $('#resume')[0].files[0]);
 
         $.ajax({
             url: '/Home/SignUp/?handler=SignUpTutor',
             type: 'POST',
-            data: data,
+            data: formData,
             processData: false,
             contentType: false,
-            cache: false
+            cache: false,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("XSRF-TOKEN",
+                    $('input:hidden[name="__RequestVerificationToken"]').val());
+            },
         }).done(function (data) {
-            goToTab(5);
+            //goToTab(5);
         });
     }
 
@@ -803,6 +811,5 @@
             resumeUploaded = e.target.files.length > 0;
             tab7UpdateNext();
         });
-    });
-</script>
+    });</script>
 

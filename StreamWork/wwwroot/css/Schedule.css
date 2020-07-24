@@ -1,0 +1,54 @@
+﻿/*Schedule*/
+.schedule-image {
+    width: 75px;
+    height: 75px;
+}
+
+.schedule-month {
+    font-size: 18px;
+    margin-top: 30%;
+}
+
+.schedule-day {
+    font-size: 22px;
+    margin-top: 10%;
+    margin-bottom: 0%;
+}
+
+.schedule-dow {
+    font-size: 14px;
+}
+
+.schedule-time {
+    font-size: 14px;
+}
+
+@media(max-width:600px) {
+    .schedule-image {
+        width: 55px;
+        height: 55px;
+    }
+
+    .schedule-month {
+        font-size: 14px;
+    }
+
+    .schedule-day {
+        font-size: 18px;
+        margin-top: 10%;
+        margin-bottom: 0%;
+    }
+
+    .schedule-dow {
+        font-size: 10px;
+    }
+
+    .schedule-time {
+        font-size: 10px;
+    }
+}
+
+.schedule-border {
+    border: dashed;
+    color: #9F9F9F;
+}

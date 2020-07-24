@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -10,22 +12,13 @@ namespace StreamWork.Pages.Home
 {
     public class SignUpModel : PageModel
     {
-        private readonly CookieService session;
         private readonly StorageService storage;
         private readonly EncryptionService encryption;
 
-        public UserLogin GenericUserProfile { get; set; }
-
-        public SignUpModel(CookieService session, StorageService storage, EncryptionService encryption)
+        public SignUpModel(StorageService storage, EncryptionService encryption)
         {
-            this.session = session;
             this.storage = storage;
             this.encryption = encryption;
-        }
-
-        public async Task OnGet()
-        {
-            GenericUserProfile = await session.GetCurrentUser();
         }
 
         public async Task<JsonResult> OnGetIsAddressAvailable(string emailAddress)
@@ -38,32 +31,92 @@ namespace StreamWork.Pages.Home
             return new JsonResult(await storage.Get<UserLogin>(SQLQueries.GetUserWithUsername, username) == null);
         }
 
-        public async Task OnGetSignUpStudent(string emailAddress, bool inCollege, string schoolName,
-            bool humanitiesTopic, bool mathTopic, bool scienceTopic, bool artTopic, bool engineeringTopic, bool businessTopic, bool lawTopic, bool otherTopic,
-            string firstName, string lastName, string username, string password)
+        public async Task OnPostSignUpStudent()
         {
             string id = Guid.NewGuid().ToString();
             await storage.Save(id, new UserLogin
             {
                 Id = id,
-                Name = firstName + "|" + lastName,
-                EmailAddress = emailAddress,
-                Username = username,
-                Password = encryption.EncryptPassword(password),
+                Name = Request.Form["FirstName"] + "|" + Request.Form["LastName"],
+                EmailAddress = Request.Form["EmailAddress"],
+                Username = Request.Form["Username"],
+                Password = encryption.EncryptPassword(Request.Form["Password"]),
                 ProfileType = "student",
-                College = schoolName,
+                College = Request.Form["SchoolName"],
                 NotificationSubscribe = "True",
                 Expiration = DateTime.UtcNow,
                 AcceptedTutor = false,
                 LastLogin = DateTime.UtcNow,
                 ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_pfp_SW.png",
-                ProfileBanner = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Profile_Banner_Placeholder_SW.png",
+                ProfileBanner = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_Banner_svg_SW.svg",
+            });
+
+            GetAllSelectedTopics(Request.Form["Topics"].ToString().Split('|')); //we need to save this somewhere
+        }
+
+        public async Task OnPostSignUpTutor()
+        {
+            string id = Guid.NewGuid().ToString();
+            await storage.Save(id, new UserLogin
+            {
+                Id = id,
+                Name = Request.Form["FirstName"] + "|" + Request.Form["LastName"],
+                EmailAddress = Request.Form["EmailAddress"],
+                Username = Request.Form["Username"],
+                Password = encryption.EncryptPassword(Request.Form["Password"]),
+                ProfileType = "tutor",
+                College = Request.Form["SchoolName"],
+                NotificationSubscribe = "True",
+                Expiration = DateTime.UtcNow,
+                AcceptedTutor = false,
+                LastLogin = DateTime.UtcNow,
+                ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_pfp_SW.png",
+                ProfileBanner = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_Banner_svg_SW.svg",
+            });
+
+            await CreateChannel(Request.Form["Username"]);
+        }
+
+        private async Task<bool> CreateChannel(string username)
+        {
+            string id = Guid.NewGuid().ToString();
+            return await storage.Save(id, new UserChannel
+            {
+                Id = Guid.NewGuid().ToString(),
+                Username = username,
+                ChannelKey = "Ec9jbSsc880_5",
+                StreamSubject = null,
+                StreamThumbnail = null,
+                StreamTitle = null,
+                ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_pfp_SW.png",
             });
         }
 
-        public async Task OnPostSignUpTutor(string emailAddress, bool inCollege, string schoolName) //etc
+        private List<string> GetAllSelectedTopics(string[] subjects)
         {
-            // Also need to send email
+            List<string> selectedSubjects = new List<string>();
+
+            Hashtable table = new Hashtable
+            {
+                { 0, "Humanities" },
+                { 1, "Mathematics" },
+                { 2, "Science" },
+                { 3, "Art" },
+                { 4, "Engineering" },
+                { 5, "Business" },
+                { 6, "Law" },
+                { 7, "Other" }
+            };
+
+            for (int i = 0; i < subjects.Length; i++)
+            {
+                if (subjects[i] == "true")
+                {
+                    selectedSubjects.Add((string)table[i]);
+                }
+            }
+
+            return selectedSubjects;
         }
     }
 }

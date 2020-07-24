@@ -28,7 +28,7 @@
                 }
             </div>
         </div>
-        @if (Model.Sections != null && Model.Sections.Count > 1)
+        @if (Model.Sections != null && Model.Sections.Count > 1 && (Model.Sections[1].SectionTitle != "" || Model.Sections[1].SectionDescription != ""))
         {
             <div class="form-group col-lg-9 p-4">
                 <p class="form-header" style="font-size: 16px">@Model.Sections[1].SectionTitle</p>
