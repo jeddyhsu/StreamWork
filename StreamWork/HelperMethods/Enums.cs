@@ -33,6 +33,7 @@ namespace StreamWork.HelperMethods
     {
         Follow,
         Comment,
+        Reply,
     }
 
     public enum SQLQueries

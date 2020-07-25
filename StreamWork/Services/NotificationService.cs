@@ -82,6 +82,10 @@ namespace StreamWork.Services
             {
                 message = " commented on your stream ";
             }
+            else if(notificationType == NotificationType.Reply)
+            {
+                message = " replied to your comment ";
+            }
             else
             {
                 message = " started following you";
