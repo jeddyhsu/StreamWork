@@ -128,7 +128,7 @@ namespace StreamWork.Threads
             threadCount += 1;
             hashTable.Add(threadCount, archivedVideo);
 
-            StreamHosterRSSFeed initialResponse = (StreamHosterRSSFeed)DataStore.CallAPI<StreamHosterRSSFeed>("https://c.streamhoster.com/feed/WxsdDM/mAe0epZsixC/" + rssId + "?format=mrss");
+            StreamHosterRSSFeed initialResponse = (StreamHosterRSSFeed)DataStore.CallAPIXML<StreamHosterRSSFeed>("https://c.streamhoster.com/feed/WxsdDM/mAe0epZsixC/" + rssId + "?format=mrss");
             if (initialResponse.Channel.Item != null)
                 initialCount = initialResponse.Channel.Item.Length;
 
@@ -141,7 +141,7 @@ namespace StreamWork.Threads
                         try
                         {
                             await Task.Delay(30000, cancellationToken);
-                            StreamHosterRSSFeed response = (StreamHosterRSSFeed)DataStore.CallAPI<StreamHosterRSSFeed>("https://c.streamhoster.com/feed/WxsdDM/mAe0epZsixC/" + rssId + "?format=mrss");
+                            StreamHosterRSSFeed response = (StreamHosterRSSFeed)DataStore.CallAPIXML<StreamHosterRSSFeed>("https://c.streamhoster.com/feed/WxsdDM/mAe0epZsixC/" + rssId + "?format=mrss");
                             if (response.Channel.Item != null && response.Channel.Item.Length == initialCount + threadCount)
                             {
                                 Console.WriteLine("Videos Found");

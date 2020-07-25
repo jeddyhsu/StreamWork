@@ -10,6 +10,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.5" />
     <PackageReference Include="Microsoft.Azure.Storage.Blob" Version="11.1.7" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -73,6 +74,10 @@
     <Folder Include="Pages\Shared\SignUp-SignIn\" />
     <Folder Include="wwwroot\js\SignUp-SignInJS\" />
     <Folder Include="wwwroot\css\SignUp-SignIn\" />
+    <Folder Include="Oauth\" />
+    <Folder Include="Pages\Partials\SignUp\" />
+    <Folder Include="Pages\Partials\SignUp\Tutor\" />
+    <Folder Include="Pages\Partials\SignUp\Student\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="EmailTemplates\PasswordRecoveryEmailTemplate.html">

@@ -51,7 +51,12 @@ namespace StreamWork.Services
 
         public T Call<T>(string url, string authToken) where T: class
         {
-            return DataStore.CallAPI<T>(url, authToken);
+            return DataStore.CallAPIJSON<T>(url, authToken);
+        }
+
+        public T Call<T>(string url) where T : class
+        {
+            return DataStore.CallAPIJSON<T>(url);
         }
     }
 }

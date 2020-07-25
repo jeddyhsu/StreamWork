@@ -2,10 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StreamWork.DataModels;
 using StreamWork.HelperMethods;
+using StreamWork.Oauth;
 using StreamWork.Services;
 
 namespace StreamWork.Pages.Home
@@ -34,22 +36,30 @@ namespace StreamWork.Pages.Home
         public async Task OnPostSignUpStudent()
         {
             string id = Guid.NewGuid().ToString();
-            await storage.Save(id, new UserLogin
+
+            if (Request.Form.ContainsKey("Token"))
             {
-                Id = id,
-                Name = Request.Form["FirstName"] + "|" + Request.Form["LastName"],
-                EmailAddress = Request.Form["EmailAddress"],
-                Username = Request.Form["Username"],
-                Password = encryption.EncryptPassword(Request.Form["Password"]),
-                ProfileType = "student",
-                College = Request.Form["SchoolName"],
-                NotificationSubscribe = "True",
-                Expiration = DateTime.UtcNow,
-                AcceptedTutor = false,
-                LastLogin = DateTime.UtcNow,
-                ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_pfp_SW.png",
-                ProfileBanner = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_Banner_svg_SW.svg",
-            });
+                await SignUpOauth(Request, id);
+            }
+            else
+            {
+                await storage.Save(id, new UserLogin
+                {
+                    Id = id,
+                    Name = Request.Form["FirstName"] + "|" + Request.Form["LastName"],
+                    EmailAddress = Request.Form["EmailAddress"],
+                    Username = Request.Form["Username"],
+                    Password = encryption.EncryptPassword(Request.Form["Password"]),
+                    ProfileType = "student",
+                    College = Request.Form["SchoolName"],
+                    NotificationSubscribe = "True",
+                    Expiration = DateTime.UtcNow,
+                    AcceptedTutor = false,
+                    LastLogin = DateTime.UtcNow,
+                    ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_pfp_SW.png",
+                    ProfileBanner = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_Banner_svg_SW.svg",
+                });
+            }
 
             GetAllSelectedTopics(Request.Form["Topics"].ToString().Split('|')); //we need to save this somewhere
         }
@@ -75,6 +85,28 @@ namespace StreamWork.Pages.Home
             });
 
             await CreateChannel(Request.Form["Username"]);
+        }
+
+        public async Task SignUpOauth(HttpRequest request, string id)
+        {
+            var oauthRequestToken = request.Form["Token"];
+            GoogleOauth oauthInfo = storage.Call<GoogleOauth>("https://oauth2.googleapis.com/tokeninfo?id_token=" + oauthRequestToken);
+
+            await storage.Save(id, new UserLogin
+            {
+                Id = id,
+                Name = oauthInfo.Name.Replace(' ','|'),
+                EmailAddress = oauthInfo.Email,
+                Username = Request.Form["Username"],
+                ProfileType = "student",
+                College = Request.Form["SchoolName"],
+                NotificationSubscribe = "True",
+                Expiration = DateTime.UtcNow,
+                AcceptedTutor = false,
+                LastLogin = DateTime.UtcNow,
+                ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_pfp_SW.png",
+                ProfileBanner = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_Banner_svg_SW.svg",
+            });
         }
 
         private async Task<bool> CreateChannel(string username)

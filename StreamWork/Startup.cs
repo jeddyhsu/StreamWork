@@ -6,7 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using StreamWork.Config;
-using StreamWork.HelperMethods;
 using StreamWork.Hubs;
 using StreamWork.Services;
 
@@ -44,6 +43,15 @@ namespace StreamWork
                 options.Cookie.SameSite = SameSiteMode.None;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.None;
                 options.LoginPath = "/Home/SignIn";
+            });
+
+            services.AddAuthentication()
+            .AddGoogle(options =>
+            {
+                IConfigurationSection googleAuthNSection = Configuration.GetSection("Authentication:Google");
+
+                options.ClientId = "200781052449-1vbbl8k9t6g2hr3hd5c2ve8natdjsk9s.apps.googleusercontent.com";
+                options.ClientSecret = "5pJv9d7UACsWWPkWKMjb-sTb";
             });
 
             services.Configure<StorageConfig>(Configuration);

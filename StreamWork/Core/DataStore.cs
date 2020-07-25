@@ -212,7 +212,7 @@ namespace StreamWork.Core
         }
 
         //Takes Generic Type - use for any api that has json format
-        public static object CallAPI<T>(string URL)
+        public static object CallAPIXML<T>(string URL)
         {
             try
             {
@@ -246,7 +246,7 @@ namespace StreamWork.Core
         }
 
         //Takes Generic Type - use for any api that has json format with authentication
-        public static T CallAPI<T>(string URL, string authenticationToken)
+        public static T CallAPIJSON<T>(string URL, string authenticationToken)
         {
             WebRequest webRequest = WebRequest.Create(URL);
             webRequest.Headers.Add("Authorization", "Basic" + authenticationToken);
@@ -262,19 +262,20 @@ namespace StreamWork.Core
             return API;
         }
 
-
-        //Use for just URL calls
-        public static string GetChatID(string url)
+        //Takes Generic Type - use for any api that has json format with authentication
+        public static T CallAPIJSON<T>(string URL)
         {
-            WebRequest request = WebRequest.Create(url);
-            request.Credentials = CredentialCache.DefaultCredentials;
-            WebResponse response = request.GetResponse();
+            WebRequest webRequest = WebRequest.Create(URL);
+            webRequest.Credentials = CredentialCache.DefaultCredentials;
+            WebResponse response = webRequest.GetResponse();
+            Console.WriteLine(((HttpWebResponse)response).StatusDescription);
             Stream dataStream = response.GetResponseStream();
             StreamReader reader = new StreamReader(dataStream);
             string responseFromServer = reader.ReadToEnd();
             reader.Close();
             response.Close();
-            return responseFromServer;
+            var API = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responseFromServer);
+            return API;
         }
     }
 }

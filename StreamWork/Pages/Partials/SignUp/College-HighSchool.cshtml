@@ -1,0 +1,41 @@
+﻿<div class="row" id="tab-2" style="display: none;">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8" style="background-color: white; border-style: solid; border-width: 1px; border-color: #b1b1b1;">
+        <div class="row" style="min-height: 400px;">
+            <div class="col-md-6"></div>
+            <div class="col-md-6 pt-5 px-5" style="border-style: none none none solid; border-width: 1px; border-color: #b1b1b1;">
+                <h1 class="text-center mb-2" style="font-family: 'Roboto Slab';">Awesome!</h1>
+                <p class="text-center mb-4" style="color: #707070; font-size: 13px;">Help us learn more about you:</p>
+
+                <p style="color: #707070; font-size: 12px; margin-bottom: 0;">I want to join as a</p>
+                <label class="radio-inline mb-4" style="color: #707070; font-size: 13px; font-family: 'Roboto Slab';">
+                    <input class="mr-2" value="false" type="radio" name="profile-type" onclick="setIsTutor(false);" />Student
+                </label>
+                <label class="radio-inline mb-4" style="color: #707070; font-size: 13px; font-family: 'Roboto Slab';">
+                    <input class="ml-3 mr-2" value="true" type="radio" name="profile-type" onclick="setIsTutor(true);" />StreamTutor
+                </label>
+                <br />
+
+                <button id="tab-2-inHighSchool" class="streamWork-secondary mb-1" type="button" style="width: 100%" onclick="setInCollege(false);">In High School</button>
+                <br />
+                <button id="tab-2-inCollege" class="streamWork-secondary mb-3" type="button" style="width: 100%" onclick="setInCollege(true);">In College</button>
+
+                <div id="tab-2-bottom" style="display: none;">
+                    <p id="tab-2-schoolType" style="font-family: 'Roboto Slab'; color: #707070; margin-bottom: 0; font-size: 12px;">High School Name</p>
+                    <input id="schoolName" class="mb-3" style="width: 100%;" onkeyup="tab2UpdateNext();" />
+
+                    <button id="tab-2-next" class="streamWork-disabled" type="button" style="width: 100%;" onclick="tab2Next();">Sign Up As a Student</button>
+                </div>
+
+                <br />
+                <br />
+                <br />
+
+                <div class="mt-6 pt-6 pr-3" style="color: #004643; position: absolute; bottom: 0; right: 0;">
+                    <h5 style="color: #004643; display: inline-block;">&#x25CF;</h5><h5 style="color: #b1b1b1; display: inline-block;">&#x25CB;&#x25CB;</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2"></div>
+</div>
