@@ -13,7 +13,7 @@ else
 @{var cacheRand = new Random().Next();}
 
 <div class="container">
-    <img class="banner" id="preview-profile-banner" src="@Model.UserProfile.ProfileBanner?@cacheRand" style="cursor:pointer; object-fit:cover; max-height:300px; object-position:top" />
+    <img class="banner" id="preview-profile-banner" src="@Model.UserProfile.ProfileBanner?@cacheRand" />
     <div class="card border-0">
         <div class="card-body p-0 ">
             @await Html.PartialAsync("Partials/Profile/Header_View", Model)
@@ -46,13 +46,6 @@ else
                 <div class="card-title">
                     <p class="form-header p-3" style="font-size:18px">Academic Experience</p>
                     @await Html.PartialAsync("Partials/Profile/Topics_View", Model)
-                </div>
-            </div>
-
-            <div class="card mt-3">
-                <div class="card-title">
-                    <p class="form-header p-3" style="font-size:18px">Related Tutors</p>
-                    @await Html.PartialAsync("Partials/Profile/RelatedTutors_View", Model)
                 </div>
             </div>
         </div>

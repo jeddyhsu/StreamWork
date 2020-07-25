@@ -130,6 +130,9 @@ function SaveScheduleTask(id, type) {
                     ShowBannerNotification("schedule-modal-notification")
                 }
             }
+            else {
+                ShowBannerNotification("schedule-invalid-date-time-notification")
+            }
         }
     })
 }

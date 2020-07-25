@@ -33,6 +33,8 @@ namespace StreamWork.Services
 
                 DateTime newDate = new DateTime(date.Year, date.Month, date.Day, timeStart.Hour, timeStart.Minute, timeStart.Second);
 
+                if (newDate < DateTime.Now.ToLocalTime()) return null;
+
                 if (id.Equals("undefined"))
                 {
                     schedule = new Schedule

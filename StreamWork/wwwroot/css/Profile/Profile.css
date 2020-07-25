@@ -36,3 +36,10 @@
     font-family: 'Roboto Slab', serif;
     padding: 7px;
 }
+
+.banner {
+    width: 100%;
+    object-fit: cover;
+    object-position: top;
+    max-height: 300px
+}

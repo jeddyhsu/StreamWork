@@ -32,7 +32,7 @@
         {
             <div class="form-group col-lg-9 p-4">
                 <p class="form-header" style="font-size: 16px">@Model.Sections[1].SectionTitle</p>
-                <p style="font-size: 14px">@Model.Sections[1].SectionDescription</p>
+                <pre class="roboto" style="font-size: 14px">@Model.Sections[1].SectionDescription</pre>
             </div>
             if (Model.Sections.Count > 2)
             {
@@ -41,7 +41,7 @@
                     <div class="divider"></div>
                     <div class="form-group col-lg-12 p-4">
                         <p class="form-header" style="font-size: 16px">@Model.Sections[i].SectionTitle</p>
-                        <p style="font-size: 14px">@Model.Sections[i].SectionDescription</p>
+                        <pre class="roboto" style="font-size: 14px">@Model.Sections[i].SectionDescription</pre>
                     </div>
                 }
             }
