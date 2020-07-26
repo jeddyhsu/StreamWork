@@ -14,13 +14,15 @@ namespace StreamWork.Pages.Home
 {
     public class SignUpModel : PageModel
     {
+        private readonly CookieService cookieService;
         private readonly StorageService storage;
         private readonly EncryptionService encryption;
 
-        public SignUpModel(StorageService storage, EncryptionService encryption)
+        public SignUpModel(StorageService storage, EncryptionService encryption, CookieService cookie)
         {
             this.storage = storage;
             this.encryption = encryption;
+            cookieService = cookie;
         }
 
         public async Task<JsonResult> OnGetIsAddressAvailable(string emailAddress)
@@ -39,7 +41,7 @@ namespace StreamWork.Pages.Home
 
             if (Request.Form.ContainsKey("Token"))
             {
-                await SignUpOauth(Request, id);
+                await SignUpOauth(Request, id, "student");
             }
             else
             {
@@ -67,38 +69,47 @@ namespace StreamWork.Pages.Home
         public async Task OnPostSignUpTutor()
         {
             string id = Guid.NewGuid().ToString();
-            await storage.Save(id, new UserLogin
+            if (Request.Form.ContainsKey("Token"))
             {
-                Id = id,
-                Name = Request.Form["FirstName"] + "|" + Request.Form["LastName"],
-                EmailAddress = Request.Form["EmailAddress"],
-                Username = Request.Form["Username"],
-                Password = encryption.EncryptPassword(Request.Form["Password"]),
-                ProfileType = "tutor",
-                College = Request.Form["SchoolName"],
-                NotificationSubscribe = "True",
-                Expiration = DateTime.UtcNow,
-                AcceptedTutor = false,
-                LastLogin = DateTime.UtcNow,
-                ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_pfp_SW.png",
-                ProfileBanner = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_Banner_svg_SW.svg",
-            });
-
+                await SignUpOauth(Request, id, "tutor");
+            }
+            else
+            {
+                await storage.Save(id, new UserLogin
+                {
+                    Id = id,
+                    Name = Request.Form["FirstName"] + "|" + Request.Form["LastName"],
+                    EmailAddress = Request.Form["EmailAddress"],
+                    Username = Request.Form["Username"],
+                    Password = encryption.EncryptPassword(Request.Form["Password"]),
+                    ProfileType = "tutor",
+                    College = Request.Form["SchoolName"],
+                    NotificationSubscribe = "True",
+                    Expiration = DateTime.UtcNow,
+                    AcceptedTutor = false,
+                    LastLogin = DateTime.UtcNow,
+                    ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_pfp_SW.png",
+                    ProfileBanner = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_Banner_svg_SW.svg",
+                });
+            }
+           
             await CreateChannel(Request.Form["Username"]);
         }
 
-        public async Task SignUpOauth(HttpRequest request, string id)
+        public async Task SignUpOauth(HttpRequest request, string id, string type)
         {
             var oauthRequestToken = request.Form["Token"];
             GoogleOauth oauthInfo = storage.Call<GoogleOauth>("https://oauth2.googleapis.com/tokeninfo?id_token=" + oauthRequestToken);
+            var password = encryption.EncryptPassword("!!0_STREAMWORK_!!0");
 
             await storage.Save(id, new UserLogin
             {
                 Id = id,
-                Name = oauthInfo.Name.Replace(' ','|'),
+                Name = oauthInfo.Name.Contains(' ') ? oauthInfo.Name.Replace(' ','|') : oauthInfo.Name + "|",
                 EmailAddress = oauthInfo.Email,
                 Username = Request.Form["Username"],
-                ProfileType = "student",
+                Password = password,
+                ProfileType = type,
                 College = Request.Form["SchoolName"],
                 NotificationSubscribe = "True",
                 Expiration = DateTime.UtcNow,
@@ -107,6 +118,20 @@ namespace StreamWork.Pages.Home
                 ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_pfp_SW.png",
                 ProfileBanner = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_Banner_svg_SW.svg",
             });
+
+            await cookieService.SignIn(Request.Form["Username"], encryption.DecryptPassword(password, "!!0_STREAMWORK_!!0"));
+        }
+
+        public async Task<IActionResult> OnPostCheckIfOauthUserExists(string email)
+        {
+            var userProfile = await storage.Get<UserLogin>(SQLQueries.GetUserWithEmailAddress, email);
+            if (userProfile != null)
+            {
+                await cookieService.SignIn(userProfile.Username, userProfile.Password);
+                return new JsonResult(userProfile.ProfileType);
+            }
+
+            return new JsonResult(null);
         }
 
         private async Task<bool> CreateChannel(string username)

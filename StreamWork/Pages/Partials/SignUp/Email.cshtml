@@ -11,14 +11,17 @@
         <button id="tab-1-next" type="button" class="streamWork-primary mb-3" style="width: 100%;" onclick="tab1Next();">Continue with Email</button>
         <br />
 
-        <p class="divider-text">or sign in with</p>
+        <p class="divider-text">or</p>
+        <div class="row">
+            <div class="col-md-12">
+                <a id="sign-in-google" class="btn d-block mr-auto ml-auto" style="border-color:black" onclick="SignInOauth()" role="button" style="text-transform:none">
+                    <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                    Sign-in with Google
+                </a>
+            </div>
+        </div>
 
-        @*TODO Implement*@
-
-        <div class="g-signin2" data-onsuccess="onSignIn"></div>
         <br />
-        <br />
-
         <p style="text-align: center; color: #004643;">Already a Member? <a href="/Home/Login" style="color: #00A0A0">Sign in</a></p>
     </div>
     <div class="col-lg-4 col-md-3"></div>

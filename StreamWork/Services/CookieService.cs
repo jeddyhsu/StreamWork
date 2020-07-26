@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
@@ -56,7 +57,7 @@ namespace StreamWork.Services
 
         public async Task SignOut()
         {
-            await httpContext.HttpContext.SignOutAsync();
+            await httpContext.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         }
 
         public async Task<UserLogin> ValidateUser(string username)

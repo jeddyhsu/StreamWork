@@ -28,10 +28,16 @@
             <button id="sign-in-button" type="button" class="streamWork-primary mb-3" style="width: 100%;" onclick="SignIn();">Sign-in</button>
             <br />
 
-            <p class="divider-text">or sign in with</p>
+            <p class="divider-text">or</p>
+            <div class="row">
+                <div class="col-md-12">
+                    <a id="sign-in-google" class="btn d-block mr-auto ml-auto" style="border-color:black" onclick="SignInOauth()" role="button" style="text-transform:none">
+                        <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                        Sign-in with Google
+                    </a>
+                </div>
+            </div>
 
-            @*TODO Implement*@
-            <button class="streamWork-secondary mb-1" style="width: 100%;">Sign-in with Google</button>
             <br />
             <br />
 
@@ -41,8 +47,29 @@
     </div>
 </div>
 
-<script>
-    CheckIfBothFieldsAreEmpty()
+@* Student/Tutor and College/High School *@
+@await Html.PartialAsync("Partials/SignUp/College-HighSchool")
+
+@* Student Topics *@
+@await Html.PartialAsync("Partials/SignUp/Student/Topics")
+
+@* Student Profile Info (GoogleOAuth) *@
+@await Html.PartialAsync("Partials/SignUp/Student/ProfileInformationOauth")
+
+@* Student Complete *@
+@await Html.PartialAsync("Partials/SignUp/Student/Complete")
+
+@* Tutor Profile Info (GoogleOAuth) *@
+@await Html.PartialAsync("Partials/SignUp/Tutor/ProfileInformationOauth")
+
+@* Tutor Resume-Transcript *@
+@await Html.PartialAsync("Partials/SignUp/Tutor/Resume-Transcript")
+
+@* Tutor Complete *@
+@await Html.PartialAsync("Partials/SignUp/Tutor/Complete")
+
+
+<script>CheckIfBothFieldsAreEmpty()
     document.getElementById('username').onkeydown = function (event) {
         if (event.keyCode == 13) {
             SignIn();
@@ -52,5 +79,4 @@
         if (event.keyCode == 13) {
             SignIn();
         }
-    }
-</script>
+    }</script>

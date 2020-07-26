@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -37,22 +38,23 @@ namespace StreamWork
             services.AddSignalR();
             services.AddSession();
 
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+            })
             .AddCookie(options =>
             {
                 options.Cookie.SameSite = SameSiteMode.None;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.None;
                 options.LoginPath = "/Home/SignIn";
-            });
-
-            services.AddAuthentication()
+            })
             .AddGoogle(options =>
             {
-                IConfigurationSection googleAuthNSection = Configuration.GetSection("Authentication:Google");
-
                 options.ClientId = "200781052449-1vbbl8k9t6g2hr3hd5c2ve8natdjsk9s.apps.googleusercontent.com";
                 options.ClientSecret = "5pJv9d7UACsWWPkWKMjb-sTb";
             });
+
 
             services.Configure<StorageConfig>(Configuration);
 

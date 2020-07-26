@@ -1,4 +1,44 @@
-﻿function SignIn() {
+﻿function onSignIn(googleProfile) {
+    $.ajax({
+        url: '/Home/SignUp/?handler=CheckIfOauthUserExists',
+        type: 'POST',
+        data: {
+            email: googleProfile.getBasicProfile().getEmail()
+        },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("XSRF-TOKEN",
+                $('input:hidden[name="__RequestVerificationToken"]').val());
+        },
+    }).done(function (data) {
+        if (data == null) {
+            oauthToken = googleProfile.getAuthResponse().id_token;
+            oauthStarted = true;
+            goToTab(2)
+        }
+        else {
+            window.location.href = '/' + data + '/' + data + 'Dashboard'
+        }
+    });
+}
+
+function SignInOauth() {
+    debugger;
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signIn().then(function () {
+        var profile = auth2.currentUser.get()
+        onSignIn(profile)
+        console.log('User signed in.');
+    });
+}
+
+function SignOutOauth() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+        console.log('User signed out.');
+    });
+}
+
+function SignIn() {
     var formData = new FormData();
     formData.append('Username', $('#username').val())
     formData.append('Password', $('#password').val())
@@ -35,7 +75,8 @@ function SignOut() {
                 $('input:hidden[name="__RequestVerificationToken"]').val());
         },
         success: function (data) {
-            window.location.href = '/Home/SignIn'
+            SignOutOauth()
+            window.location.href = "/Home/SignIn"
         }
     })
 }
