@@ -78,11 +78,11 @@ else
                 @if (Model.IsLoggedIn)
                 {
                     <div id="bottomCard" class="card fixed-bottom border-top border-left-0 border-right-0 border-bottom-0 rounded-0" style="background-color:#FBFBFB;">
-                        <div class="card-body pt-2" style="margin-top:3px;">
+                        <div class="card-body p-0 m-0" style="margin-top:3px;">
                             <div id="questionBox" class="row">
-                                <div class="col-xl-9 col-lg-10 col-md-10 col-sm-9 col-8">
+                                <div class="col-9 pr-0">
                                     <div>
-                                        <textarea id="chatInput" onkeydown="pressed(event)" class="form-control form-textarea" style="height:50px !important; resize:none;" placeholder="Send question or message..."></textarea>
+                                        <textarea id="chatInput" onkeydown="pressed(event)" class="form-control form-textarea rounded-0 border-0" style="height:81px !important; resize:none; background-color:transparent" placeholder="Send question or message..."></textarea>
                                         <script>
                                             function pressed(event) {
                                                 if (event.keyCode == 13 && !event.shiftKey) {
@@ -92,8 +92,8 @@ else
                                         </script>
                                     </div>
                                 </div>
-                                <div class="col-xl-3 col-lg-2 col-md-2 col-sm-3 col-4">
-                                    <button type="button" id="sendQuestionButton" class="streamWork-primary w-100" style="font-size:12px; height:100%; display:block; margin-left:auto; margin-right:auto" onclick="GetMessage('@Model.ChatId','@Model.UserProfile.Username','@Model.UserProfile.Name', '@Model.UserProfile.ProfilePicture', '@Model.ChatColor')">Send</button>
+                                <div class="col-3 pl-2 pr-0">
+                                    <button type="button" id="sendQuestionButton" class="streamWork-primary" style="font-size:12px; margin-top:20px; margin-left:5px;" onclick="GetMessage('@Model.ChatId','@Model.UserProfile.Username','@Model.UserProfile.Name', '@Model.UserProfile.ProfilePicture', '@Model.ChatColor')">Send</button>
                                 </div>
                             </div>
                         </div>
@@ -106,7 +106,7 @@ else
                             <div id="questionBox" class="row">
                                 <div class="col-lg-10 col-md-10 col-sm-10 col-8">
                                     <div>
-                                        <textarea id="chatInput" onkeydown="pressed(event)" class="form-control form-textarea" style="height:50px !important; resize:none;" placeholder="Send question or message..."></textarea>
+                                        <textarea id="chatInput" onkeydown="pressed(event)" class="form-control form-textarea" style="height:60px !important; resize:none;" placeholder="Send question or message..."></textarea>
                                         <script>
                                             function pressed(event) {
                                                 if (event.keyCode == 13 && !event.shiftKey) {

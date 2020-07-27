@@ -45,6 +45,26 @@
     padding-bottom: 76px !important;
 }
 
+::-webkit-input-placeholder {
+    padding-top:16px;
+    font-size:16px;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+    padding-top: 16px;
+    font-size: 16px;
+}
+
+::-moz-placeholder { /* Firefox 19+ */
+    padding-top: 16px;
+    font-size: 16px;
+}
+
+:-ms-input-placeholder {
+    padding-top: 16px;
+    font-size: 16px;
+}
+
 
 
 
