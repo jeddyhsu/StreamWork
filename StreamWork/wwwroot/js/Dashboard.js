@@ -34,6 +34,8 @@ function SaveProfile() {
                 $('#header-first-name').val(data.savedInfo[0]);
                 $('#header-last-name').val(data.savedInfo[1]);
                 $('#header-occupation').text(data.savedInfo[2]);
+                if (data.savedInfo[3] == "") $('#header-location-mask').css('display', 'none');
+                else $('#header-location-mask').css('display', 'block');
                 $('#header-location').text(data.savedInfo[3]);
                 $('#header-timezone').val(data.savedInfo[4]);
                 $('#header-linkedin-url').val(data.savedInfo[5])
