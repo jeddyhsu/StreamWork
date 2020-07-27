@@ -6,7 +6,6 @@ using StreamWork.DataModels;
 using StreamWork.HelperMethods;
 using StreamWork.Services;
 using StreamWork.ProfileObjects;
-using System.IO;
 
 namespace StreamWork.Pages.Student
 {

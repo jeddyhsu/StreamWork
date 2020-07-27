@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using StreamWork.Framework;
 
@@ -21,6 +20,7 @@ namespace StreamWork.DataModels
         public string Type { get; set; }
         public string NotificationInfo { get; set; }
         public string ObjectId { get; set; }
+        public string ProfileColor { get; set; }
 
         [Timestamp]
         public byte[] RowVersion { get; set; }

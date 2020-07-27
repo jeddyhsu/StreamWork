@@ -10,18 +10,18 @@
                 @if (Model.Followers != null && Model.Followers.Count > 0)
                 {
                     <ul id="followers-list" class="pl-3 m-0" style="list-style-type:none; height:435px; overflow:scroll">
-                        @foreach (var followees in Model.Followees)
+                        @foreach (var followee in Model.Followees)
                         {
-                            <li id="followees-@followees.Id" class="border-bottom" onclick="window.location.href = '/Profile/@followees.ProfileType/@followees.Username'" style="cursor:pointer">
+                            <li id="followees-@followee.Id" class="border-bottom" onclick="window.location.href = '/Profile/@followee.ProfileType/@followee.Username'" style="cursor:pointer">
                                 <div class="row pt-3 pb-3">
                                     <div class="col-12">
-                                        <img id="notification-delete-@followees.Id" src="~/images/GenericAssets/Trash.png" class="comment-remove mr-3 float-right" onclick="DeleteNotification('@followees.Id')" />
-                                        <input align="left" type="image" class="rounded" src="@followees.ProfilePicture" style="width:30px" onclick="window.location.href = '/Profile/@followees.ProfileType/@followees.Username'" />
+                                        <img id="notification-delete-@followee.Id" src="~/images/GenericAssets/Trash.png" class="comment-remove mr-3 float-right" onclick="DeleteNotification('@followee.Id')" />
+                                        <input align="left" type="image" class="rounded" src="@followee.ProfilePicture" style="width:30px" onclick="window.location.href = '/Profile/@followee.ProfileType/@followee.Username'" />
                                         <p class="form-header mb-0" style="padding-left:40px;">
-                                            @followees.Name.Replace('|', ' ') <span class="form-subheader roboto" style="font-size:10px">(@followees.ProfileType)</span>
+                                            <span style="color:@followee.ProfileColor">@followee.Name.Replace('|', ' ')</span> <span class="form-subheader roboto" style="font-size:10px">(@followee.ProfileType)</span>
                                         </p>
                                         <p class="form-header mb-0 roboto" style="padding-left:40px; font-size:12px">
-                                            @followees.ProfileCaption
+                                            @followee.ProfileCaption
                                         </p>
                                     </div>
                                 </div>

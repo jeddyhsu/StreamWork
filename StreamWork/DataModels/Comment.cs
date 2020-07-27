@@ -23,6 +23,7 @@ namespace StreamWork.DataModels {
         public string ParentId { get; set; }
         public string StreamId { get; set; }
         public string Edited { get; set; }
+        public string ProfileColor { get; set; }
 
         [Timestamp]
         public byte[] RowVersion { get; set; }

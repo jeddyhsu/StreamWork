@@ -5,7 +5,7 @@
     <div class="card border-0" style="cursor:pointer; background-color:transparent" onclick="window.location.href ='/Profile/Tutor/@tutor.Username'">
         <div class="card-body">
             <input align="left" class="rounded" type="image" src="@tutor.ProfilePicture?@cacheRand" style="width:30px; cursor:text" />
-            <p class="form-header m-0" style="font-size:14px; padding-left:50px">@tutor.Name.Replace('|', ' ')</p>
+            <p class="form-header m-0" style="font-size:14px; padding-left:50px; color:@tutor.ProfileColor">@tutor.Name.Replace('|', ' ')</p>
             <p class="form-sub-header m-0" style="font-size:10px; padding-left:50px; ">@tutor.ProfileCaption</p>
         </div>
     </div>

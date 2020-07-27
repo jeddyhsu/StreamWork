@@ -53,7 +53,7 @@ function SaveComment(parentId, masterParent) {
                                                     $('#comment-remove-${data.savedInfo[3]}').css('display', 'none')
                                                 })
                                             </script>
-                                            <p class="form-header comment-name mb-0">${data.savedInfo[1]}<span class="form-sub-header ml-2" style="font-size:10px; font-family:'Roboto', serif">${date}<span id="edited-holder-${data.savedInfo[3]}" class="ml-2"></span></span></p>
+                                            <p class="form-header comment-name mb-0" style="color:${data.savedInfo[5]}">${data.savedInfo[1]}<span class="form-sub-header ml-2" style="font-size:10px; font-family:'Roboto', serif">${date}<span id="edited-holder-${data.savedInfo[3]}" class="ml-2"></span></span></p>
                                             <input type="hidden" id="comment-send-hidden-${data.savedInfo[3]}" value="${message}" />
                                             <div id="comment-send-holder-${data.savedInfo[3]}">
                                                 <p class="mb-1 comment-send" id="comment-send-${data.savedInfo[3]}">${at}${data.savedInfo[2]}</p>
@@ -73,7 +73,8 @@ function SaveComment(parentId, masterParent) {
                     ButtonEnabledDisabled('send', '');
                 }
                 else {
-                    $('#comment-reply-list-' + masterParent).append(comment);
+                    var id = masterParent == "undefined" ? parentId : masterParent;
+                    $('#comment-reply-list-' + id).append(comment);
                     $('#comment-reply-' + parentId).html(`<span id="comment-at-${parentId}" class="comment-at" contenteditable="false"><b>@${data.savedInfo[4]} </b></span>`)
                     ButtonEnabledDisabled('reply', parentId);
                 }

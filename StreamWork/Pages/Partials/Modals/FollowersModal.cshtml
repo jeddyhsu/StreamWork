@@ -18,7 +18,7 @@
                                         <img id="notification-delete-@follower.Id" src="~/images/GenericAssets/Trash.png" class="comment-remove mr-3 float-right" onclick="DeleteNotification('@follower.Id')" />
                                         <input align="left" type="image" class="rounded" src="@follower.ProfilePicture" style="width:30px" onclick="window.location.href = '/Profile/@follower.ProfileType/@follower.Username'" />
                                         <p class="form-header mb-0" style="padding-left:40px;">
-                                            @follower.Name.Replace('|', ' ') <span class="form-subheader roboto" style="font-size:10px">(@follower.ProfileType)</span>
+                                            <span style="color:@follower.ProfileColor">@follower.Name.Replace('|', ' ')</span> <span class="form-subheader roboto" style="font-size:10px">(@follower.ProfileType)</span>
                                         </p>
                                         <p class="form-header mb-0 roboto" style="padding-left:40px; font-size:12px">
                                            @follower.ProfileCaption

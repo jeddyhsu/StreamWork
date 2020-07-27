@@ -33,7 +33,8 @@ namespace StreamWork.Services
                     Date = DateTime.UtcNow,
                     Type = notificationType.ToString(),
                     NotificationInfo = notficationInfo,
-                    ObjectId = objectId
+                    ObjectId = objectId,
+                    ProfileColor = sender.ProfileColor
                 };
 
                 await Save(notification.Id, notification);

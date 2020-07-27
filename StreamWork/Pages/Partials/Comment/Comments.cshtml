@@ -37,7 +37,7 @@
                                 })
                                 </script>
                             }
-                            <p class="form-header comment-name mb-0">
+                            <p class="form-header comment-name mb-0" style="color:@Model.Comments[i].ProfileColor">
                                 @Model.Comments[i].SenderName.Replace('|', ' ') <span class="form-sub-header ml-1" style="font-size:10px; font-family:'Roboto', serif">
                                     @Model.Comments[i].Date.ToLocalTime().ToString("MMM dd yyyy")  @if (@Model.Comments[i].Edited != null)
                                     {<span class="ml-1">(edited)</span>}
@@ -85,7 +85,7 @@
                                                      
                                             </script>
                                         }
-                                        <p class="form-header comment-name mb-0">
+                                        <p class="form-header comment-name mb-0" style="color:@Model.Comments[i].Replies[e].ProfileColor">
                                             @Model.Comments[i].Replies[e].SenderName.Replace('|', ' ')<span class="form-sub-header ml-1" style="font-size:10px; font-family:'Roboto', serif">
                                                 @Model.Comments[i].Replies[e].Date.ToLocalTime().ToString("MMM dd yyyy")  @if (@Model.Comments[i].Replies[e].Edited != null)
                                                 {<span class="ml-1">(edited)</span>}

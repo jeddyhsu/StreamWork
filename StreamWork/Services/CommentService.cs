@@ -32,11 +32,12 @@ namespace StreamWork.Services
                     Message = MiscHelperMethods.URLIFY(message),
                     ParentId = parentId,
                     Date = DateTime.UtcNow,
-                    StreamId = streamId
+                    StreamId = streamId,
+                    ProfileColor = sender.ProfileColor,
                 };
 
                 await Save(comment.Id, comment);
-                return new List<string> { sender.ProfilePicture, sender.Name.Replace('|', ' '), comment.Message, comment.Id, comment.ReceiverName.Replace('|', ' ') };
+                return new List<string> { sender.ProfilePicture, sender.Name.Replace('|', ' '), comment.Message, comment.Id, comment.ReceiverName.Replace('|', ' '), comment.ProfileColor };
             }
             catch(Exception e)
             {

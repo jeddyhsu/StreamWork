@@ -45,7 +45,7 @@
           "QueryId": "GetAllUsersInTheList"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE Id not in ('@x0') AND ProfileType = 'tutor' AND AcceptedTutor = '1'",
+          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE Id not in ('@x0') AND ProfileType = 'tutor' AND AcceptedTutor = '1' ORDER BY NEWID()",
           "QueryId": "GetAllTutorsNotInTheList"
         }
       ]

@@ -28,6 +28,8 @@ namespace StreamWork.DataModels
         public string InstagramUrl { get; set; }
         public string FacebookUrl { get; set; }
         public string TwitterUrl { get; set; }
+        public string ProfileColor { get; set; }
+        //public DateTime ProfileSince { get; set; }
 
         //Students
         public decimal Balance { get; set; }

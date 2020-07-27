@@ -58,6 +58,7 @@ namespace StreamWork.Pages.Home
                     Expiration = DateTime.UtcNow,
                     AcceptedTutor = false,
                     LastLogin = DateTime.UtcNow,
+                    //ProfileSince = DateTime.UtcNow,
                     ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_pfp_SW.png",
                     ProfileBanner = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_Banner_svg_SW.svg",
                 });
@@ -88,12 +89,14 @@ namespace StreamWork.Pages.Home
                     Expiration = DateTime.UtcNow,
                     AcceptedTutor = false,
                     LastLogin = DateTime.UtcNow,
+                    //ProfileSince = DateTime.UtcNow,
                     ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_pfp_SW.png",
                     ProfileBanner = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_Banner_svg_SW.svg",
                 });
             }
            
             await CreateChannel(Request.Form["Username"]);
+            //need to email transcript and resume
         }
 
         public async Task SignUpOauth(HttpRequest request, string id, string type)
@@ -115,6 +118,7 @@ namespace StreamWork.Pages.Home
                 Expiration = DateTime.UtcNow,
                 AcceptedTutor = false,
                 LastLogin = DateTime.UtcNow,
+                //ProfileSince = DateTime.UtcNow,
                 ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_pfp_SW.png",
                 ProfileBanner = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_Banner_svg_SW.svg",
             });

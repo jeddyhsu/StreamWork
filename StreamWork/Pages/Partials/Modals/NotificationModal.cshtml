@@ -25,7 +25,7 @@
                                             })
                                         </script>
                                         <p class="form-header mb-0" style="padding-left:40px;">
-                                            @notification.SenderName.Replace('|', ' ') @notification.Message (@notification.NotificationInfo.Split('|')[0]) <span class="form-subheader roboto" style="font-size:10px;">@notification.Date.ToLocalTime().ToString("h:mm tt")</span>
+                                            <span style="color:@notification.ProfileColor">@notification.SenderName.Replace('|', ' ')</span> @notification.Message (@notification.NotificationInfo.Split('|')[0]) <span class="form-subheader roboto" style="font-size:10px;">@notification.Date.ToLocalTime().ToString("h:mm tt")</span>
                                         </p>
                                         <p class="mb-0" style="padding-left:40px; font-size:12px;">
                                             @notification.NotificationInfo.Split('|')[2]
