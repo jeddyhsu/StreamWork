@@ -1,0 +1,47 @@
+﻿@page
+@{Layout = "Browse/_LayoutBrowse";}
+@model StreamWork.Pages.Home.BrowseModel
+
+    <div class="container-fluid mr-0">
+        <div class="container-fluid inner-container-fluid custom-container-padding">
+            <div class="row p-3">
+                <div class="col-12">
+                    <form class="p-1 border rounded" style="background-color:white" onkeyup="" onsubmit="">
+                        <input id="searchQuery" class="form-control-lg" type="search" placeholder="🔎 Search Streams" style="border: none; font-size:12px;">
+                    </form>
+                    <select id="filter" name="filter" class="form-control form-control-sm rounded-0 mt-3" onchange="" style="width:175px">
+                        <option value="">Filter</option>
+                        <option value="Mathematics">Mathematics</option>
+                        <option value="Science">Science</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="Business">Business</option>
+                        <option value="Law">Law</option>
+                        <option value="Art">Art</option>
+                        <option value="Humanities">Humanities</option>
+                        <option value="Other">Others</option>
+                    </select>
+                </div>
+            </div>
+            <p class="form-header pl-3" style="font-size:32px">Browse Streams</p>
+        </div>
+    </div>
+
+        <div class="wrapper">
+            <nav id="sidebar">
+                <img class="logo-desktop" onclick="window.location.href ='/'" src="~/images/WhiteStreamWork.png" />
+                <ul class="p-0">
+                    <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Tutor/TutorStream'"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/StartStream.svg" /></span>Explore Live</li>
+                    <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Tutor/HowToStream'"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/HowToStream.svg" /></span>Explore Topics</li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="wrapper">
+            <nav id="sidebar-tablet">
+                <img class="logo-tablet" onclick="window.location.href ='/'" src="~/images/streamWorkPencilWhite.png" />
+                <ul class="p-0">
+                    <li class="sidebar-list-item-tablet" onclick="window.location.href ='/Tutor/TutorStream'"><img src="~/images/TutorAssets/TutorDashboard/StartStream2x.png" />Explore Current Live</li>
+                    <li class="sidebar-list-item-tablet" onclick="window.location.href ='/Tutor/HowToStream'"><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/HowToStream2x.png" />Explore Categories</li>
+                </ul>
+            </nav>
+        </div>

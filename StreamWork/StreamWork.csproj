@@ -64,7 +64,7 @@
     <Folder Include="wwwroot\js\StreamJS\" />
     <Folder Include="wwwroot\js\CommentJS\" />
     <Folder Include="Pages\Comments\" />
-    <Folder Include="wwwroot\css\CommentCSS\" />
+    <Folder Include="wwwroot\css\Comment\" />
     <Folder Include="Pages\Partials\Comment\" />
     <Folder Include="Pages\Partials\Layout\Student\" />
     <Folder Include="Pages\Shared\Student\" />
@@ -78,6 +78,9 @@
     <Folder Include="Pages\Partials\SignUp\" />
     <Folder Include="Pages\Partials\SignUp\Tutor\" />
     <Folder Include="Pages\Partials\SignUp\Student\" />
+    <Folder Include="wwwroot\css\Browse\" />
+    <Folder Include="Pages\Partials\Layout\Browse\" />
+    <Folder Include="Pages\Shared\Browse\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="EmailTemplates\PasswordRecoveryEmailTemplate.html">
@@ -96,5 +99,6 @@
     <Content Remove="Pages\Partials\Profile\Header_View.json" />
     <Content Remove="Pages\Comment\CommentModal.cshtml" />
     <Content Remove="Pages\Partials\Stream\Comments.html" />
+    <Content Remove="Pages\Partials\Layout\Browse\BrowseHead.css" />
   </ItemGroup>
 </Project>
