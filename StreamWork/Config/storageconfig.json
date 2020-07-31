@@ -9,15 +9,15 @@
           "QueryId": "GetAllUsers"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE Username = '@x0'",
+          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE LOWER(Username) = LOWER('@x0')",
           "QueryId": "GetUserWithUsername"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE EmailAddress = '@x0'",
+          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE LOWER(EmailAddress) = LOWER('@x0')",
           "QueryId": "GetUserWithEmailAddress"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE PayPalAddress = '@x0'",
+          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE LOWER(PayPalAddress) = LOWER('@x0')",
           "QueryId": "GetUserWithPayPalAddress"
         },
         {
@@ -25,7 +25,7 @@
           "QueryId": "GetUserWithId"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE Username = '@x0' AND Password = '@x1'",
+          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE LOWER(Username) = LOWER('@x0') AND Password = '@x1'",
           "QueryId": "GetUserWithUsernameAndPassword"
         },
         {
@@ -63,7 +63,7 @@
           "QueryId": "GetAllUserChannelsThatAreStreaming"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserChannel] WHERE Username = '@x0'",
+          "Query": "SELECT * FROM [dbo].[UserChannel] WHERE LOWER(Username) = LOWER('@x0')",
           "QueryId": "GetUserChannelWithUsername"
         },
         {
@@ -94,7 +94,7 @@
           "QueryId": "GetArchivedStreamsWithId"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE Username = '@x0'",
+          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE LOWER(Username) = LOWER('@x0')",
           "QueryId": "GetArchivedStreamsWithUsername"
         },
         {
@@ -118,7 +118,7 @@
           "QueryId": "GetArchivedStreamsByStreamIdInTheList"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE Username = ('@x0') ORDER BY StartTime DESC",
+          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE LOWER(Username) = LOWER('@x0') ORDER BY StartTime DESC",
           "QueryId": "GetLatestArchivedStreamByUser"
         },
         {
@@ -180,7 +180,7 @@
       "StorageType": "SqlServer",
       "Queries": [
         {
-          "Query": "SELECT * FROM [dbo].[View] WHERE Viewer = '@x0'",
+          "Query": "SELECT * FROM [dbo].[View] WHERE LOWER(Viewer) = LOWER('@x0')",
           "QueryId": "GetViewsWithViewer"
         },
         {
@@ -188,15 +188,15 @@
           "QueryId": "GetViewsWithStreamId"
         },
         {
-          "Query": "SELECT * FROM [dbo].[View] WHERE Viewer = '@x0' AND StreamId = '@x1'",
+          "Query": "SELECT * FROM [dbo].[View] WHERE LOWER(Viewer) = LOWER('@x0') AND StreamId = '@x1'",
           "QueryId": "GetViewsWithViewerAndStreamId"
         },
         {
-          "Query": "SELECT * FROM [dbo].[View] WHERE Channel = '@x0' AND Date <= '@x1'",
+          "Query": "SELECT * FROM [dbo].[View] WHERE LOWER(Channel) = LOWER('@x0') AND Date <= '@x1'",
           "QueryId": "GetViewsWithChannelSince"
         },
         {
-          "Query": "SELECT * FROM [dbo].[View] WHERE Viewer = '@x0' AND Channel = '@x1' AND Date <= '@x2'",
+          "Query": "SELECT * FROM [dbo].[View] WHERE LOWER(Viewer) = LOWER('@x0') AND Channel = '@x1' AND Date <= '@x2'",
           "QueryId": "GetViewsWithViewerAndChannelSince"
         }
       ]
@@ -253,7 +253,7 @@
       "StorageType": "SqlServer",
       "Queries": [
         {
-          "Query": "SELECT * FROM [dbo].[Schedule] WHERE Username = '@x0' AND Date >= '@x1' ORDER BY DATE ASC",
+          "Query": "SELECT * FROM [dbo].[Schedule] WHERE LOWER(Username) = LOWER('@x0') AND Date >= '@x1' ORDER BY DATE ASC",
           "QueryId": "GetScheduleWithUserUsername"
         },
         {
@@ -269,7 +269,7 @@
           "QueryId": "DeletePastScheduledTasks"
         },
         {
-          "Query": "UPDATE [dbo].[Schedule] SET TimeZone = '@x0' WHERE Username = '@x1'",
+          "Query": "UPDATE [dbo].[Schedule] SET TimeZone = '@x0' WHERE LOWER(Username) = LOWER('@x1')",
           "QueryId": "UpdateTimezonesOfScheduledTasks"
         }
       ]
@@ -280,7 +280,7 @@
       "StorageType": "SqlServer",
       "Queries": [
         {
-          "Query": "SELECT * FROM [dbo].[Notification] WHERE ReceiverUsername = '@x0' ORDER BY DATE DESC",
+          "Query": "SELECT * FROM [dbo].[Notification] WHERE LOWER(ReceiverUsername) = LOWER('@x0') ORDER BY DATE DESC",
           "QueryId": "GetNotificationsWithReceiver"
         },
         {
@@ -292,11 +292,11 @@
           "QueryId": "DeleteNotificationWithObjectId"
         },
         {
-          "Query": "UPDATE [dbo].[Notification] SET Seen = 'true' WHERE ReceiverUsername = '@x0'",
+          "Query": "UPDATE [dbo].[Notification] SET Seen = 'true' WHERE LOWER(ReceiverUsername) = LOWER('@x0')",
           "QueryId": "UpdateNotificationToSeen"
         },
         {
-          "Query": "SELECT * FROM [dbo].[Notification] WHERE ReceiverUsername = '@x0' AND Seen = 'false'",
+          "Query": "SELECT * FROM [dbo].[Notification] WHERE LOWER(ReceiverUsername) = LOWER('@x0') AND Seen = 'false'",
           "QueryId": "GetUnseenNotifications"
         }
       ]
