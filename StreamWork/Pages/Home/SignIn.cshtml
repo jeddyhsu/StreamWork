@@ -21,7 +21,7 @@
             <script>$('#invalid-username-password-notification').hide()</script>
             <p class="text-center my-3" style="font-family: 'Roboto Slab'; font-size: 50px; font-weight: bold;">Sign-in</p>
             <p class="text-center mb-4" style="color: #707070; font-size: 13px;">Welcome back! Sign in to continue learning!</p>
-            <p class="form-header mb-0">Username</p>
+            <p class="form-header mb-0">Username / Email Address</p>
             <input id="username" type="text" class="mb-3" style="width: 100%;" onkeydown="CheckIfBothFieldsAreEmpty()" onkeyup="CheckIfBothFieldsAreEmpty()" required />
             <p class="d-inline-block form-header mb-0">Password</p>
             <a class="d-inline-block float-right roboto pb-0" style="font-size:14px; color:#00A0A0 ">Forgot Password?</a>
@@ -69,6 +69,8 @@
 @* Tutor Complete *@
 @await Html.PartialAsync("Partials/SignUp/Tutor/Complete")
 
+<br />
+<br />
 
 <script>CheckIfBothFieldsAreEmpty()
     document.getElementById('username').onkeydown = function (event) {

@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using StreamWork.DataModels;
 using StreamWork.HelperMethods;
 using StreamWork.Services;
 
@@ -8,11 +9,13 @@ namespace StreamWork.Pages.Home
 {
     public class SignInModel : PageModel
     {
+        private readonly StorageService storage;
         private readonly EncryptionService encryptionService;
         private readonly CookieService cookieService;
 
-        public SignInModel(EncryptionService encryption, CookieService cookie)
+        public SignInModel(StorageService storage, EncryptionService encryption, CookieService cookie)
         {
+            this.storage = storage;
             encryptionService = encryption;
             cookieService = cookie;
         }
@@ -27,8 +30,18 @@ namespace StreamWork.Pages.Home
             var username = Request.Form["Username"];
             var password = Request.Form["Password"];
 
-            var userProfile = await cookieService.ValidateUser(username);
-            if(userProfile != null)
+            var userProfile = await storage.Get<UserLogin>(SQLQueries.GetUserWithUsername, username);
+            if (userProfile == null)
+            {
+                // User can also sign in with email address, in which case the username needs to be updated
+                userProfile = await storage.Get<UserLogin>(SQLQueries.GetUserWithEmailAddress, username);
+                if (userProfile != null)
+                {
+                    username = userProfile.Username;
+                }
+            }
+
+            if (userProfile != null)
             {
                 var signInProfile = await cookieService.SignIn(username, encryptionService.DecryptPassword(userProfile.Password, password));
                 if (signInProfile != null)

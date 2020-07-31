@@ -63,8 +63,6 @@ namespace StreamWork.Services
         public async Task<UserLogin> ValidateUser(string username)
         {
             var userProfile = await Get<UserLogin>(SQLQueries.GetUserWithUsername, new string[] { username });
-            if (userProfile == null) return null;
-
             return userProfile;
         }
 
