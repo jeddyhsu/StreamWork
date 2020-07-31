@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Mail;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +32,18 @@ namespace StreamWork.Pages.Home
             return new JsonResult(await storage.Get<UserLogin>(SQLQueries.GetUserWithEmailAddress, emailAddress) == null);
         }
 
+        public JsonResult OnGetIsAddressValid(string emailAddress)
+        {
+            try
+            {
+                return new JsonResult(new MailAddress(emailAddress).Address == emailAddress);
+            }
+            catch
+            {
+                return new JsonResult(false);
+            }
+        }
+
         public async Task<JsonResult> OnGetIsUsernameAvailable(string username)
         {
             return new JsonResult(await storage.Get<UserLogin>(SQLQueries.GetUserWithUsername, username) == null);
@@ -37,6 +51,13 @@ namespace StreamWork.Pages.Home
 
         public async Task OnPostSignUpStudent()
         {
+            if (!await VerifyRequest(Request))
+            {
+                // JavaScript checks seeem to have been ignored!
+                // Potential attack detected. Aborting.
+                return;
+            }
+
             string id = Guid.NewGuid().ToString();
 
             if (Request.Form.ContainsKey("Token"))
@@ -69,6 +90,13 @@ namespace StreamWork.Pages.Home
 
         public async Task OnPostSignUpTutor()
         {
+            if (!await VerifyRequest(Request))
+            {
+                // JavaScript checks seeem to have been ignored!
+                // Potential attack detected. Aborting.
+                return;
+            }
+
             string id = Guid.NewGuid().ToString();
             if (Request.Form.ContainsKey("Token"))
             {
@@ -97,6 +125,25 @@ namespace StreamWork.Pages.Home
            
             await CreateChannel(Request.Form["Username"]);
             //need to email transcript and resume
+        }
+
+        // Server-side security checks
+        private async Task<bool> VerifyRequest(HttpRequest request)
+        {
+            string emailAddress = request.Form["EmailAddress"];
+            string username = request.Form["Username"];
+            try
+            {
+                return
+                    new Regex(@"^[A-Za-z0-9_-]+$").IsMatch(username) &&
+                    new MailAddress(emailAddress).Address == emailAddress &&
+                    await storage.Get<UserLogin>(SQLQueries.GetUserWithUsername, username) == null &&
+                    await storage.Get<UserLogin>(SQLQueries.GetUserWithEmailAddress, emailAddress) == null;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public async Task SignUpOauth(HttpRequest request, string id, string type)

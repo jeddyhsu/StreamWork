@@ -29,34 +29,42 @@ function tab1UpdateNext() {
 
 function tab1Next() {
     if ($('#emailAddress').val().length > 0) {
-        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if (re.test($('#emailAddress').val())) {
-            $.ajax({
-                url: '/Home/SignUp/?handler=IsAddressAvailable',
-                type: 'GET',
-                datatype: 'json',
-                data: {
-                    emailAddress: $('#emailAddress').val()
-                }
-            }).done(function (data) {
-                if (data) {
-                    $('#emailAddress').removeClass('input-invalid');
-                    $('#emailAddress').popover('hide');
-                    $('#emailAddress').popover('disable');
-                    $('#emailAddress-wrapper').popover('hide');
-                    $('#emailAddress-wrapper').popover('disable');
-                    goToTab(2);
-                } else {
-                    $('#emailAddress').addClass('input-invalid');
-                    $('#emailAddress-wrapper').popover('enable');
-                    $('#emailAddress-wrapper').popover('show');
-                }
-            });
-        } else {
-            $('#emailAddress').addClass('input-invalid');
-            $('#emailAddress').popover('enable');
-            $('#emailAddress').popover('show');
-        }
+        $.ajax({
+            url: '/Home/SignUp/?handler=IsAddressValid',
+            type: 'GET',
+            datatype: 'json',
+            data: {
+                emailAddress: $('#emailAddress').val()
+            }
+        }).done(function (data) {
+            if (data) {
+                $.ajax({
+                    url: '/Home/SignUp/?handler=IsAddressAvailable',
+                    type: 'GET',
+                    datatype: 'json',
+                    data: {
+                        emailAddress: $('#emailAddress').val()
+                    }
+                }).done(function (data) {
+                    if (data) {
+                        $('#emailAddress').removeClass('input-invalid');
+                        $('#emailAddress').popover('hide');
+                        $('#emailAddress').popover('disable');
+                        $('#emailAddress-wrapper').popover('hide');
+                        $('#emailAddress-wrapper').popover('disable');
+                        goToTab(2);
+                    } else {
+                        $('#emailAddress').addClass('input-invalid');
+                        $('#emailAddress-wrapper').popover('enable');
+                        $('#emailAddress-wrapper').popover('show');
+                    }
+                });
+            } else {
+                $('#emailAddress').addClass('input-invalid');
+                $('#emailAddress').popover('enable');
+                $('#emailAddress').popover('show');
+            }
+        });
     }
 }
 
