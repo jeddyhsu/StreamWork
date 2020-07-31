@@ -66,10 +66,7 @@
                 <a class="nav-link active form-header" id="profile-tab" data-toggle="tab" href="#profile" onclick="SliderProfile()">Profile</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link form-header" id="schedule-tab" data-toggle="tab" href="#schedule" onclick="SliderSchedule()">Streams</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link form-header" id="following-tab" data-toggle="tab" href="#following" onclick="SliderSchedule()">Following</a>
+                <a class="nav-link form-header" id="following-tab" data-toggle="tab" href="#following" onclick="SliderFollowing()">Following</a>
             </li>
         </ul>
 
@@ -264,20 +261,6 @@
                 </div>
             </div>
 
-
-            <div class="tab-pane" id="schedule" role="tabpanel" aria-labelledby="schedule-tab">
-                <div class="container-fluid pt-3" style="width:100%">
-                    <div class="row">
-                        <div class="col-lg-9">
-                            <p class="form-header" style="font-size:16px">Streams you might like</p>
-                        </div>
-                        <div class="col-lg-3">
-                            <p class="form-header" style="font-size:16px">Previously watched</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div class="tab-pane" id="following" role="tabpanel" aria-labelledby="following-tab">
                 <p class="form-header p-3 mb-0" style="font-size:16px">Tutors you are following</p>
                 <div class="container-fluid" style="width:100%">
@@ -287,25 +270,24 @@
                             @for (int i = 0; i < Model.FollowedTutors.Count; i++)
                             {
                                 <div class="col-lg-6 col-md-12 p-3">
-                                    <div class="card" style="">
+                                    <div class="card">
                                         <div class="card-body">
                                             <div>
                                                 <img class="rounded" src="@Model.FollowedTutors[i].Tutor.ProfilePicture" style="width:50px" align="left" />
                                                 <div class="btn-group float-right">
                                                     @if (Model.FollowedTutors[i].FollowValue.Equals("Following"))
-                                                    {<button id="following-student-dashboard" class="streamWork-primary stream-buttons m-1" onclick="Unfollow('@Model.CurrentUserProfile.Id', '@Model.FollowedTutors[i].Tutor.Id', 'following-student-dashboard')">Following</button>}
+                                                    {<button id="following-@Model.FollowedTutors[i].Tutor.Id" class="streamWork-primary stream-buttons m-1" onclick="Unfollow('@Model.CurrentUserProfile.Id', '@Model.FollowedTutors[i].Tutor.Id', 'following-@Model.FollowedTutors[i].Tutor.Id')">Following</button>}
                                                     else if (Model.FollowedTutors[i].FollowValue.Equals("Follow"))
-                                                    {<button id="following-student-dashboard" class="streamWork-primary stream-buttons m-1" onclick="Follow('@Model.CurrentUserProfile.Id', '@Model.FollowedTutors[i].Tutor.Id', 'following-student-dashboard')">Follow</button>}
+                                                    {<button id="follow-@Model.FollowedTutors[i].Tutor.Id" class="streamWork-primary stream-buttons m-1" onclick="Follow('@Model.CurrentUserProfile.Id', '@Model.FollowedTutors[i].Tutor.Id', 'follow-@Model.FollowedTutors[i].Tutor.Id')">Follow</button>}
                                                     <button class="streamWork-secondary m-1 stream-buttons" onclick="window.location.href='/Profile/Tutor/@Model.FollowedTutors[i].Tutor.Username'">Profile</button>
                                                 </div>
-                                                <p class="form-header mb-0" style="font-size:14px; padding-left:60px; color:@Model.FollowedTutors[i].Tutor.ProfileColor">@Model.FollowedTutors[i].Tutor.Name.Replace('|', ' ')</p>
+                                                <p class="form-header mb-0" style="font-size:16px; padding-left:60px; color:@Model.FollowedTutors[i].Tutor.ProfileColor">@Model.FollowedTutors[i].Tutor.Name.Replace('|', ' ')</p>
                                                 <p class="form-sub-header mb-0" style="font-size:12px; padding-left:60px">@Model.FollowedTutors[i].Tutor.ProfileCaption</p>
                                                 <p class="mb-0 mt-1 form-sub-header" style="padding-left:60px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
                                             </div>
                                         </div>
                                         <div class="card-body pt-0">
                                             <p class="form-header mb-3 d-inline-block">Previous streams:</p>
-                                            <p class="form-header mb-3 d-inline-block float-right">Need help? <span><a style="color:#004643;" href="mailto:@Model.FollowedTutors[i].Tutor.EmailAddress?subject=Question/Comment from @Model.CurrentUserProfile.Name.Replace('|', ' ')">Ask @Model.FollowedTutors[i].Tutor.Name.Split('|')[0] a question</a></span></p>
                                             <div class="row">
                                                 @if (@Model.FollowedTutors[i].PreviousStreams.Count > 0)
                                                 {

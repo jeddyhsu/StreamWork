@@ -154,7 +154,8 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-    padding: 15px
+    padding: 15px;
+    cursor:pointer;
 }
 
 .logo-tablet {
@@ -162,7 +163,8 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-    padding: 10px
+    padding: 10px;
+    cursor:pointer;
 }
 
 .sidebar-icon-desktop {
@@ -241,4 +243,13 @@
 .card-border:hover {
     border-width: 2px !important;
     cursor: pointer;
+}
+
+.header-padding{
+    padding-left:100px
+}
+
+.header-picture {
+    width: 80px;
+    cursor:default
 }

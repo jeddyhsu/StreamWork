@@ -21,12 +21,14 @@
                         </div>
 
                         <div class="p-lg-4 pt-md-4 p-sm-3 p-3">
-                            <input id="header-profile-picture" align="left" class="rounded" type="image" src="@Model.CurrentUserProfile.ProfilePicture?@cacheRand" style="width:80px; cursor:text" />
-                            <p id="header-name" class="form-header m-0" style="font-size:20px; padding-left:100px">@Model.CurrentUserProfile.Name.Replace('|', ' ')</p>
-                            <p id="header-occupation" class="form-header m-0" style="padding-left:100px; font-size:12px; color: #9F9F9F">@Model.CurrentUserProfile.ProfileCaption</p>
-                            <p class="mb-0 mt-2 form-sub-header" style="padding-left:100px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
-                            @if (Model.CurrentUserProfile.Location == "" || Model.CurrentUserProfile.Location == null) {<p id="header-location-mask" class="form-sub-header" style="padding-left:100px; display:none"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">@Model.CurrentUserProfile.Location</span></p>}
-                            else {<p id="header-location-mask" class="form-sub-header" style="padding-left:100px;"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">@Model.CurrentUserProfile.Location</span></p>}
+                            <input id="header-profile-picture" align="left" class="rounded header-picture" type="image" src="@Model.CurrentUserProfile.ProfilePicture?@cacheRand" />
+                            <p id="header-name" class="form-header m-0 header-padding" style="font-size:20px;">@Model.CurrentUserProfile.Name.Replace('|', ' ')</p>
+                            @if (@Model.CurrentUserProfile.ProfileCaption == null || @Model.CurrentUserProfile.ProfileCaption == "") {<p id="header-occupation" class="form-header m-0" style="padding-left:100px; font-size:12px; color: #9F9F9F">Occupation / Major</p>}
+                            else { <p id="header-location" class="form-header m-0 header-padding" style="font-size:12px;">@Model.CurrentUserProfile.ProfileCaption</p>}
+                            <p class="mb-0 mt-2 form-sub-header header-padding"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
+                            @if (Model.CurrentUserProfile.Location == "" || Model.CurrentUserProfile.Location == null)
+                            {<p id="header-location-mask" class="form-sub-header header-padding"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">City, State</span></p>}
+                            else{<p id="header-location-mask" class="form-sub-header header-padding"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">@Model.CurrentUserProfile.Location</span></p>}
                             <input id="header-first-name" type="hidden" value="@Model.CurrentUserProfile.Name.Split('|')[0]" />
                             <input id="header-last-name" type="hidden" value="@Model.CurrentUserProfile.Name.Split('|')[1]" />
                             <input id="header-timezone" type="hidden" value="@Model.CurrentUserProfile.TimeZone" />
@@ -87,7 +89,7 @@
                 <a class="nav-link form-header" id="schedule-tab" data-toggle="tab" href="#schedule" onclick="SliderSchedule()">Schedule</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link form-header" id="stream-tab" data-toggle="tab" href="#stream" onclick="SliderStream()">Streams</a>
+                <a class="nav-link form-header" id="video-tab" data-toggle="tab" href="#video" onclick="SliderStream()">Videos</a>
             </li>
             <!--
              <li class="nav-item">
@@ -367,7 +369,7 @@
             </div>
 
 
-            <div class="tab-pane" id="stream" role="tabpanel" aria-labelledby="stream-tab">
+            <div class="tab-pane" id="video" role="tabpanel" aria-labelledby="video-tab">
                 <div class="container-fluid pt-2" style="width:100%">
                     <div class="row p-3">
                         <div class="col-12">
@@ -435,7 +437,7 @@
         <ul class="p-0">
             <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Tutor/TutorStream'"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/StartStream.svg" /></span>Start Stream</li>
             <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Tutor/HowToStream'"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/HowToStream.svg" /></span>How To Stream</li>
-            <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Tutor/TutorWatch'"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/WatchStream.svg" /></span>Watch Streams</li>
+            <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Home/Browse'"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/WatchStream.svg" /></span>Watch Streams</li>
             <li class="sidebar-list-item-desktop" onclick="OpenModal('followees-modal')"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/FollowingList.svg" /></span>Following List</li>
             <li class="sidebar-list-item-desktop" onclick="OpenModal('followers-modal')"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/FollowerList.svg" /></span>Follower List</li>
         </ul>
@@ -448,7 +450,7 @@
         <ul class="p-0">
             <li class="sidebar-list-item-tablet" onclick="window.location.href ='/Tutor/TutorStream'"><img src="~/images/TutorAssets/TutorDashboard/StartStream2x.png" /></li>
             <li class="sidebar-list-item-tablet" onclick="window.location.href ='/Tutor/HowToStream'"><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/HowToStream2x.png" /></li>
-            <li class="sidebar-list-item-tablet" onclick="window.location.href ='/Tutor/TutorWatch'"><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/WatchStream2x.png" /></li>
+            <li class="sidebar-list-item-tablet" onclick="window.location.href ='/Home/Browse'"><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/WatchStream2x.png" /></li>
             <li class="sidebar-list-item-tablet"><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/FollowingList2x.png" /></li>
             <li class="sidebar-list-item-tablet"><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/FollowerList2x.png" /></li>
         </ul>

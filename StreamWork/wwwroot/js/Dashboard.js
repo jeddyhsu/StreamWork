@@ -1,6 +1,43 @@
 ﻿var sectionCount = 0; //used for sections
 var topicCount = 0; // //used for topics
 
+//Sliders
+function SliderProfile() {
+    $('#profile-tab').tab('show');
+    $('#slider-object').css("transform", "translate3d(15px, 0px, 0px)")
+}
+
+function SliderSchedule() {
+    $('#schedule-tab').tab('show');
+    $('#slider-object').css("transform", "translate3d(100px, 0px, 0px)")
+}
+
+function SliderStream() {
+    $('#stream-tab').tab('show');
+    $('#slider-object').css("transform", "translate3d(187px, 0px, 0px)")
+}
+
+function SliderComment() {
+    $('#comment-tab').tab('show');
+    $('#slider-object').css("transform", "translate3d(290px, 0px, 0px)")
+}
+
+function SliderFollowing() {
+    $('#following-tab').tab('show');
+    $('#slider-object').css("transform", "translate3d(100px, 0px, 0px)")
+}
+
+function SliderProfileInformation() {
+    $('#profile-info-tab').tab('show');
+    $('#slider-object-profile-edit-modal').css("transform", "translate3d(15px, 0px, 0px)")
+}
+
+function SliderSocialMedia() {
+    $('#social-media-tab').tab('show');
+    $('#slider-object-profile-edit-modal').css("transform", "translate3d(180px, 0px, 0px)")
+}
+
+
 //Profile
 function SaveProfile() {
     var formData = new FormData();
@@ -33,10 +70,10 @@ function SaveProfile() {
                 $('#header-name').text(data.savedInfo[0] + " " + data.savedInfo[1]);
                 $('#header-first-name').val(data.savedInfo[0]);
                 $('#header-last-name').val(data.savedInfo[1]);
-                $('#header-occupation').text(data.savedInfo[2]);
-                if (data.savedInfo[3] == "") $('#header-location-mask').css('display', 'none');
-                else $('#header-location-mask').css('display', 'block');
-                $('#header-location').text(data.savedInfo[3]);
+                if (data.savedInfo[2] == "") $('#header-occupation').text("Occupation / Major")
+                else $('#header-occupation').text(data.savedInfo[2]);
+                if (data.savedInfo[3] == "") $('#header-location').text("City, State");
+                else $('#header-location').text(data.savedInfo[3]);
                 $('#header-timezone').val(data.savedInfo[4]);
                 $('#header-linkedin-url').val(data.savedInfo[5])
 
@@ -56,8 +93,8 @@ function EditProfile() {
     document.getElementById("preview-profile-picture").src = document.getElementById("header-profile-picture").src;
     $('#first-name').val($('#header-first-name').val());
     $('#last-name').val($('#header-last-name').val());
-    $('#occupation-major').val($('#header-occupation').text());
-    $('#location').val($('#header-location').text());
+    if($('#header-occupation').text() != "Occupation / Major") $('#occupation-major').val($('#header-occupation').text());
+    if ($('#header-location').text() != "City, State") $('#location').val($('#header-location').text());
     $('#timezone').val($('#header-timezone').val());
     $('#linkedin-url').val($('#header-linkedin-url').val());
     $('#instagram-url').val($('#header-instagram-url').val());

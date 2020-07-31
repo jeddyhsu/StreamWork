@@ -33,6 +33,7 @@ namespace StreamWork.Pages.Profile
         public int NumberOfViews { get; set; }
         public List<Notification> Notifications { get; set; }
         public bool AreThereUnseenNotifications { get; set; }
+        public string FollowValue { get; set; }
 
         public Tutor(StorageService storage, CookieService cookie, ProfileService profile, ScheduleService schedule, FollowService follow, NotificationService notification)
         {
@@ -73,6 +74,8 @@ namespace StreamWork.Pages.Profile
 
             Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
             AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
+
+            FollowValue = await followService.IsFollowingFollowee(CurrentUserProfile.Id, UserProfile.Id);
 
             return Page();
         }

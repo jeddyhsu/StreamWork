@@ -48,7 +48,6 @@
     <Folder Include="wwwroot\images\NotificationAssets\" />
     <Folder Include="wwwroot\images\ScheduleAssets\" />
     <Folder Include="Services\" />
-    <Folder Include="Views\Profile\" />
     <Folder Include="ViewModels\Profile\" />
     <Folder Include="wwwroot\css\Profile\" />
     <Folder Include="Pages\Partials\" />
@@ -81,6 +80,8 @@
     <Folder Include="wwwroot\css\Browse\" />
     <Folder Include="Pages\Partials\Layout\Browse\" />
     <Folder Include="Pages\Shared\Browse\" />
+    <Folder Include="Pages\Partials\Browse\" />
+    <Folder Include="wwwroot\js\BrowseJS\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="EmailTemplates\PasswordRecoveryEmailTemplate.html">

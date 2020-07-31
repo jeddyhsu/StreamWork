@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<!--
+      _/_/_/  _/                                         _/       _/                  _/
+   _/      _/_/_/_/ _/ _/_/  _/_/     _/_/_/ _/_/  _/   _/       _/  _/_/    _/ _/_/ _/  _/
+    _/_/    _/     _/_/   _/_/_/_/ _/    _/ _/  _/  _/ _/  _/   _/ _/   _/  _/_/    _/_/
+       _/  _/     _/     _/       _/    _/ _/  _/  _/  _/_/ _/_/  _/   _/  _/      _/  _/
+_/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/      _/    _/
+-->
+
+<html style="height:100%">
+<head>
+    @await Html.PartialAsync("Partials/Layout/SignUp-SignIn/SignUp-SignInHead")
+</head>
+<body class="no-scroll-bar" style="background-color:#F3F3F3;">
+    @await Html.PartialAsync("Partials/Layout/SignUp-SignIn/SignUp-SignInBody")
+    <div class="page-body">
+        @RenderBody()
+    </div>
+    <div class="page-footer my-0" style="text-align: left; font-size: 14px;">
+        <div class="container-fluid pb-5" style="background-color:#008080; height:100%; color:white">
+            <div class="row pb-5 pt-4">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-3">
+                    <a href="/"><img class="mt-3 mb-3" src="~/images/WhiteStreamWork.png" height="50" /></a>
+                    <p>StreamWork is an online tutoring center that brings the minds of students together, building upon each other’s knowledge to reach scholastic success. 📚👩🏽‍🎓✨<br /><br />Study smarter, not harder. Get schooled with StreamWork.</p>
+                    <a href="/Home/About"><button class="streamWorkSecondary">Learn More</button></a>
+                </div>
+                <div class="col-lg-7 mr-5">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h5 class="mt-4 mb-3" style="font-weight: bold;">StreamWork</h5>
+                            <a href="/Home/About" style="color: white;">About Us</a><br />
+                            <a href="/Home/SignUp" style="color: white;">Sign Up</a><br />
+                            <a href="/Home/Login" style="color: white;">Login</a>
+                        </div>
+                        <div class="col-md-3">
+                            <h5 class="mt-4 mb-3" style="font-weight: bold;">StreamTutors</h5>
+                            <a href="/Home/BecomeTutor" style="color: white;">Become a StreamTutor</a><br />
+                            <a href="/Home/HowToStream" style="color: white;">How to Stream</a>
+                        </div>
+                        <div class="col-md-3">
+                            <h5 class="mt-4 mb-3" style="font-weight: bold;">Education</h5>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <a href="/Home/Search?s=Mathematics&q=" style="color: white;">Mathematics</a><br />
+                                    <a href="/Home/Search?s=Science&q=" style="color: white;">Science</a><br />
+                                    <a href="/Home/Search?s=Engineering&q=" style="color: white;">Engineering</a><br />
+                                    <a href="/Home/Search?s=Business&q=" style="color: white;">Business</a><br />
+                                </div>
+                                <div class="col-sm-6">
+                                    <a href="/Home/Search?s=Law&q=" style="color: white;">Law</a><br />
+                                    <a href="/Home/Search?s=Art&q=" style="color: white;">Art</a><br />
+                                    <a href="/Home/Search?s=Humanities&q=" style="color: white;">Humanities</a><br />
+                                    <a href="/Home/Search?s=Other&q=" style="color: white;">Other</a><br />
+                                </div>
+                            </div>
+                            <br />
+                            <a href="/Home/Search" style="color: white;">Browse</a>
+                        </div>
+                        <div class="col-md-3">
+                            <h5 class="mt-4 mb-3" style="font-weight: bold;">Follow Us</h5>
+                            <a href="https://www.facebook.com/streamwork.live/"><img class="mr-3" src="~/images/facebook.png" style="width: 30px; height: 30px;" /></a>
+                            <a href="https://twitter.com/StreamWorkLive"><img class="mr-3" src="~/images/twitter.png" style="width: 30px; height: 30px;" /></a>
+                            <a href="https://www.linkedin.com/company/streamwork"><img src="~/images/linkedin.png" style="width: 30px; height: 30px;" /></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-1"></div>
+            </div>
+            <br />
+            <div style="text-align: center;">
+                Copyright © 2020 StreamWork LLC. All rights reserved.
+            </div>
+        </div>
+    </div>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
+

@@ -1,6 +1,6 @@
 ﻿@{var cacheRand = new Random().Next();}
 
-@foreach (var tutor in Model.RelatedTutors)
+@foreach (var tutor in Model.PopularTutors)
 {
     <div class="card border-0" style="cursor:pointer; background-color:transparent" onclick="window.location.href ='/Profile/Tutor/@tutor.Username'">
         <div class="card-body">

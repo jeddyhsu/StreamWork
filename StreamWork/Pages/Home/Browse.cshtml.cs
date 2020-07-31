@@ -1,24 +1,42 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StreamWork.DataModels;
+using StreamWork.HelperMethods;
 using StreamWork.Services;
 
 namespace StreamWork.Pages.Home
 {
     public class BrowseModel : PageModel
     {
-        public UserLogin CurrentUserProfile { get; set; }
-
+        private readonly StorageService storageService;
         private readonly CookieService cookieService;
 
-        public BrowseModel(CookieService cookie)
+        public UserLogin CurrentUserProfile { get; set; }
+        public List<UserArchivedStreams> Videos { get; set; }
+        public List<UserLogin> PopularTutors { get; set; }
+        public List<UserChannel> LiveChannels { get; set; }
+        public List<UserLogin> AllTutors { get; set; }
+
+        public BrowseModel(CookieService cookie, StorageService storage)
         {
             cookieService = cookie;
+            storageService = storage;
         }
 
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGet()
         {
-            //CurrentUserProfile 
+            CurrentUserProfile = await cookieService.GetCurrentUser();
+
+
+            var tutors = await storageService.GetList<UserLogin>(SQLQueries.GetAllApprovedTutors, "");
+
+            Videos = await storageService.GetList<UserArchivedStreams>(SQLQueries.GetAllArchivedStreams, "");
+            PopularTutors = tutors.GetRange(0,5);
+            LiveChannels = await storageService.GetList<UserChannel>(SQLQueries.GetAllUserChannelsThatAreStreaming, "");
+            AllTutors = tutors;
+
             return Page();
         }
     }

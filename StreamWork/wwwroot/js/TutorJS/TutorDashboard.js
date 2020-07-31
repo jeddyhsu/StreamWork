@@ -1,36 +1,4 @@
-﻿//Sliders
-function SliderProfile() {
-    $('#profile-tab').tab('show');
-    $('#slider-object').css("transform", "translate3d(15px, 0px, 0px)")
-}
-
-function SliderSchedule() {
-    $('#schedule-tab').tab('show');
-    $('#slider-object').css("transform", "translate3d(100px, 0px, 0px)")
-}
-
-function SliderStream() {
-    $('#stream-tab').tab('show');
-    $('#slider-object').css("transform", "translate3d(193px, 0px, 0px)")
-}
-
-function SliderComment() {
-    $('#comment-tab').tab('show');
-    $('#slider-object').css("transform", "translate3d(290px, 0px, 0px)")
-}
-
-function SliderProfileInformation() {
-    $('#profile-info-tab').tab('show');
-    $('#slider-object-profile-edit-modal').css("transform", "translate3d(15px, 0px, 0px)")
-}
-
-function SliderSocialMedia() {
-    $('#social-media-tab').tab('show');
-    $('#slider-object-profile-edit-modal').css("transform", "translate3d(180px, 0px, 0px)")
-}
-
-
-//Schedule
+﻿//Schedule
 $(function () {
     $('#schedule-date-picker').datetimepicker({
         format: 'L',

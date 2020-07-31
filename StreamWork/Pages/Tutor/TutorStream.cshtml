@@ -6,18 +6,22 @@
 
 @if (!Model.CurrentUserProfile.ProfileType.Equals("tutor") || !Model.CurrentUserProfile.AcceptedTutor)
 {
-    <script>$(document).ready(function () {
+    <script>
+        $(document).ready(function () {
             $('#unapprovedTutorModal').modal({
                 backdrop: 'static',
                 keyboard: false
             })
-        })</script>
+        })
+    </script>
 }
 else if (Model.UserChannel.StreamTitle == null && Model.UserChannel.StreamSubject == null)
 {
-    <script>$(document).ready(function () {
+    <script>
+        $(document).ready(function () {
             OpenModal('register-stream-modal');
-        });</script>
+        });
+    </script>
 }
 
 <div class="container-fluid">
