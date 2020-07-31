@@ -508,11 +508,11 @@ function signUpTutor() {
 }
 
 function Route() {
-    if (oauthStarted) {
-        window.location.href = '/' + profileType + '/' + profileType + 'Dashboard'
+    if (profileType === "tutor") {
+        window.location.href = "/Tutor/TutorDashboard";
     }
     else {
-        window.location.href = '/Home/SignIn'
+        window.location.href = "/";
     }
 }
 

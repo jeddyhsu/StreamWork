@@ -66,7 +66,7 @@ namespace StreamWork.Pages.Home
             }
             else
             {
-                await storage.Save(id, new UserLogin
+                UserLogin user = new UserLogin
                 {
                     Id = id,
                     Name = Request.Form["FirstName"] + "|" + Request.Form["LastName"],
@@ -82,7 +82,12 @@ namespace StreamWork.Pages.Home
                     //ProfileSince = DateTime.UtcNow,
                     ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_pfp_SW.png",
                     ProfileBanner = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_Banner_svg_SW.svg",
-                });
+                };
+
+                storage.Save(user.Id, user).Wait(); // Can't SignIn until user has been created
+
+                UserLogin temp = await cookieService.SignIn(Request.Form["Username"], encryption.DecryptPassword(user.Password, Request.Form["Password"]));
+                int test = 0;
             }
 
             GetAllSelectedTopics(Request.Form["Topics"].ToString().Split('|')); //we need to save this somewhere
@@ -104,7 +109,7 @@ namespace StreamWork.Pages.Home
             }
             else
             {
-                await storage.Save(id, new UserLogin
+                UserLogin user = new UserLogin
                 {
                     Id = id,
                     Name = Request.Form["FirstName"] + "|" + Request.Form["LastName"],
@@ -120,9 +125,13 @@ namespace StreamWork.Pages.Home
                     //ProfileSince = DateTime.UtcNow,
                     ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_pfp_SW.png",
                     ProfileBanner = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_Banner_svg_SW.svg",
-                });
+                };
+
+                storage.Save(user.Id, user).Wait(); // Can't SignIn until user has been created
+
+                UserLogin temp = await cookieService.SignIn(Request.Form["Username"], encryption.DecryptPassword(user.Password, Request.Form["Password"]));
             }
-           
+            
             await CreateChannel(Request.Form["Username"]);
             //need to email transcript and resume
         }
