@@ -207,7 +207,7 @@ function tab4Next() {
                 }
             }).done(function (data) {
                 if (data) {
-                    const re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
+                    const re = /^(?=.*[0-9])(?=.*[A-Za-z]).{8,}$/
                     if (re.test($('#student-password').val())) {
                         if ($('#student-password').val() === $('#student-confirmPassword').val()) {
                             $('#student-username').removeClass('input-invalid');
@@ -287,7 +287,7 @@ function tab6Next() {
                 }
             }).done(function (data) {
                 if (data) {
-                    if (/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test($('#tutor-password').val())) {
+                    if (/^(?=.*[0-9])(?=.*[A-Za-z]).{8,}$/.test($('#tutor-password').val())) {
                         if ($('#tutor-password').val() === $('#tutor-confirmPassword').val()) {
                             $('#tutor-username').removeClass('input-invalid');
                             $('#tutor-username').popover('hide');

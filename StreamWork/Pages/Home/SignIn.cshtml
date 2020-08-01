@@ -25,15 +25,22 @@
             <input id="username" type="text" class="mb-3" style="width: 100%;" onkeydown="CheckIfBothFieldsAreEmpty()" onkeyup="CheckIfBothFieldsAreEmpty()" required />
             <p class="d-inline-block form-header mb-0">Password</p>
             <a class="d-inline-block float-right roboto pb-0" style="font-size:14px; color:#00A0A0 ">Forgot Password?</a>
-            <input id="password" type="password" class="mb-3" style="width: 100%;" onkeydown="CheckIfBothFieldsAreEmpty()" onkeyup="CheckIfBothFieldsAreEmpty()" required />
+            <div class="mb-3 input-group">
+                <input id="password" type="password" class="form-control" onkeydown="CheckIfBothFieldsAreEmpty()" onkeyup="CheckIfBothFieldsAreEmpty();" required />
+                <div class="input-group-append">
+                    <span class="input-group-text" style="background-color: white; cursor: pointer;" onclick="togglePasswordVisibility();">
+                        <i id="password-eye" class="fa fa-eye-slash"></i>
+                    </span>
+                </div>
+            </div>
             <button id="sign-in-button" type="button" class="streamWork-primary mb-3" style="width: 100%;" onclick="SignIn();">Sign-in</button>
             <br />
 
             <p class="divider-text">or</p>
             <div class="row">
                 <div class="col-md-12">
-                    <a id="sign-in-google" class="btn d-block mr-auto ml-auto" style="border-color:black" onclick="SignInOauth()" role="button" style="text-transform:none">
-                        <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                    <a id="sign-in-google" class="btn d-block mr-auto ml-auto" style="border-color:black; text-transform:none;" onclick="SignInOauth()" role="button">
+                        <img width="20" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
                         Sign-in with Google
                     </a>
                 </div>

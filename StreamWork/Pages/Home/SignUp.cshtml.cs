@@ -86,8 +86,7 @@ namespace StreamWork.Pages.Home
 
                 storage.Save(user.Id, user).Wait(); // Can't SignIn until user has been created
 
-                UserLogin temp = await cookieService.SignIn(Request.Form["Username"], encryption.DecryptPassword(user.Password, Request.Form["Password"]));
-                int test = 0;
+                await cookieService.SignIn(Request.Form["Username"], encryption.DecryptPassword(user.Password, Request.Form["Password"]));
             }
 
             GetAllSelectedTopics(Request.Form["Topics"].ToString().Split('|')); //we need to save this somewhere
@@ -129,7 +128,7 @@ namespace StreamWork.Pages.Home
 
                 storage.Save(user.Id, user).Wait(); // Can't SignIn until user has been created
 
-                UserLogin temp = await cookieService.SignIn(Request.Form["Username"], encryption.DecryptPassword(user.Password, Request.Form["Password"]));
+                await cookieService.SignIn(Request.Form["Username"], encryption.DecryptPassword(user.Password, Request.Form["Password"]));
             }
             
             await CreateChannel(Request.Form["Username"]);
