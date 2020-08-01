@@ -3,414 +3,69 @@
 @{Layout = "_LayoutFooter";}
 @{ViewData["title"] = "Home";}
 
-<div class="container-fluid" style="background: linear-gradient(to bottom right, #008080, #00C0C0); background-size: 100% 60%; background-repeat: no-repeat;">
-    <section style="padding-top:50px;">
-        <div id="SearchBarContainer" class="container-fluid" style="max-width:1500px">
-            <div class="row">
-                <div class="col-12"> <p class="text-center" style="color: white "><font size="3"><b>Find helpful videos in our scholastic database.</b></font></p></div>
-                <div class="col-lg-1"></div>
-                <div class="col-lg-10 col-md-12 col-sm-12">
-                    <form class="p-2" onsubmit="return search();" style="background-color: white; border-radius: 6px; box-shadow: 0px 0px 30px -10px">
-                        <div class="row">
-                            <div class="col-lg-8 col-md-12 col-sm-12">
-                                <div>
-                                    <input id="searchQuery" class="form-control form-control-lg mt-2 mb-2" type="search" placeholder="🔎 Homework topic..." style="border: none;">
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-md-12 col-sm-12">
-                                <select id="searchSubject" class="custom-select mt-2 mb-2" style="background-color: #006060; height:46px; color: white; font-size: 85%; font-weight: bold;">
-                                    <option value="Any">All Subjects</option>
-                                    <option value="Mathematics">Mathematics</option>
-                                    <option value="Science">Science</option>
-                                    <option value="Engineering">Engineering</option>
-                                    <option value="Business">Business</option>
-                                    <option value="Law">Law</option>
-                                    <option value="Art">Art</option>
-                                    <option value="Humanities">Humanities</option>
-                                    <option value="Other">Other</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-1 col-md-12">
-                                <button class="btn btn-lg mt-2 mb-2" type="submit" style="color: white; background-color:#006060; height:46px; width:100px; margin-left:auto; margin-right:auto; display:block">
-                                    <div>
-                                        <div style="font-size: 70%; font-weight: bold;">Search</div>
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
+<div class="container-fluid" style="margin-top:15vh";>
+    <div class="row">
+        <div class="col-12">
+            <img style="margin-top:50px; width:100%; max-width:450px" class="d-block mr-auto ml-auto" src="~/images/StreamWorkWhite.svg" />
+            <p class="text-center" style="color:white; font-size:20px;"><i>"Study smarter, not harder."</i></p>
+            <p class="text-center mt-4 ml-auto mr-auto" style="color:white; max-width:450px">StreamWork is an academic live-streaming platform where hundreds of students come together to chat, tutor, and learn with classmates and friends.</p>
+        </div>
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6" style="margin-top: 50px">
+            <div class="d-block mr-auto ml-auto">
+                <p style="color:white;">Sign up for our mailing list to be notified when we launch.</p>
+                <div class="d-flex">
+                    <form id="email-form" style="width:100%">
+                        <input id="email" class="form-control" align="center" type="email" placeholder="your@email.com" style="width:100%; border-top-left-radius:5px; border-bottom-left-radius:5px; border-top-right-radius:0px; border-bottom-right-radius:0px; padding-left: 10px;" required />
                     </form>
+                    <button class="streamWorkPrimary" onclick="RecordEmail()">Sign Up</button>
+
                 </div>
+                <p id="confirmation" class="text-center mt-3" style="color:#F9BC60;">Email Saved! Will notify you when we go live.</p>
+                <p id="confirmation-fail" class="text-center mt-3" style="color:red;">Hmmm, something went wrong.</p>
+                <script>$('#confirmation').hide()</script>
+                <script>$('#confirmation-fail').hide()</script>
             </div>
         </div>
-    </section>
-
-    <section style="padding-top:100px;">
-        <div id="IntroductionContainer" class="container-fluid" style="max-width:1525px">
-            <div class="row">
-                <div class="col-lg-8 col-sm-12">
-                    <p style="color:white; font-size:12px; ">Streaming - Coursework - Tutoring</p>
-                    <div class="d-sm-none" style="font-family: 'Roboto Slab', serif; color:white; font-size: 2.5rem; font-weight: 300; line-height: 1.2;"><b>End your homework <br /> procrastination <span>TONIGHT.</span><span style='font-size:50px; margin-left:20px'>&#127881;</span></b></div>
-                    <div class="display-4 d-none d-sm-block" style="font-family: 'Roboto Slab', serif; color:white"><b>End your homework <br /> procrastination <span>TONIGHT.</span><span style='font-size:50px; margin-left:20px'>&#127881;</span></b></div>
-                    <br />
-                    <p style="color:white; font-size:15px">StreamWork is an educational live-streaming platform for homework tutoring <br />that allows for students to learn from their classmates and friends.</p>
-                </div>
-                <div class="col-lg-3 p-3 my-4" style="background-color: #FFC04C; border-radius: 10px; box-shadow: 0px 0px 30px -10px;">
-                    <div class="row">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-10">
-                            <a href="/Home/BecomeTutor" style="color: black;"><h4 class="text-center" style="text-decoration: underline">COVID-19 Update</h4></a>
-                            <p style="font-size: 14px;">In light of the recent school shut-downs, StreamWork is offering our educational video archive and academic live-stream services free for all users. We're continuing to support all student tutors by offering to pay $5 for every 15+ minute tutoring session streamed. <a href="/Home/BecomeTutor" style="color: #00A0A0;">Learn more</a></p>
-                        </div>
-                        <div class="col-md-1"></div>
-                    </div>
-                </div>
-                <div class="col-lg-1"></div>
-            </div>
+        <div class="col-12">
+            <p class="text-center" style="color:white; font-size:20px; margin-top:100px; margin-bottom:50px;"><b>Get schooled on 9.1.2020</b></p>
         </div>
-    </section>
-
-    <section style="padding-top:75px;">
-        <div id="StreamContainer" class="container-fluid" style="background-color:whitesmoke; border-radius:10px; max-width:1500px">
-            <div class="row">
-                <div class="col-lg-2 col-md-2 mt-3">
-                    <div class="card p-0" style="background-color:transparent; border:none">
-                        <input class="mt-3" type="image" data-toggle="dropdown" src=@Model.UserLogin.ProfilePicture style="width:75px; height:95px; border-radius:10px; display:block; margin-left:auto; margin-right:auto" />
-                        <h6 class="text-center mt-3" style="font-family: 'Roboto Slab', serif; color:black"><b>@Model.UserLogin.Name.Replace('|', ' ')</b></h6>
-                        <p class="text-center mb-3 ml-3 mr-3" style="font-family: 'Roboto Slab'; font-size:12px">@Model.UserLogin.ProfileCaption</p>
-                        @if (Model.UserArchivedStream != null)
-                        {
-                            <a class="streamWorkGold mt-1 text-center" style="background-color:#006565; width:100px; font-size:15px; color:white; display:block; margin-left:auto; margin-right:auto;" href="../StreamViews/StreamPlaybackPage?streamId=@Model.UserArchivedStream.StreamID"><b>Watch</b></a>
-                        }
-                        else
-                        {
-                            <a class="streamWorkGold mt-1 text-center" style="background-color:#006565; width:100px; font-size:15px; color:white; display:block; margin-left:auto; margin-right:auto;" href="../StreamViews/StreamPage?streamTutorUsername=@Model.UserChannel.Username"><b>Watch</b></a>
-                        }
-                        <a class="streamWorkGold mt-1 mb-4 text-center" style="background-color:#006565; width:100px; font-size:15px; color:white; display:block; margin-left:auto; margin-right:auto;" href="/Home/ProfileView?Tutor=@Model.UserLogin.Username"><b>Profile</b></a>
-                        <p class="text-center indexCaption" style="font-family: 'Roboto Slab';">@Model.UserLogin.ProfileParagraph</p>
-                    </div>
-                </div>
-
-                @if (Model.UserArchivedStream != null)
-                {
-                    <div class="col-lg-6 col-md-6 mt-3 mb-3 p-0">
-                        <div class="card m-2" style=" border:none;">
-                            <iframe src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.UserArchivedStream.StreamID" style="border-top-left-radius:10px; border-top-right-radius:10px; min-width:250px; cursor:pointer" height="450" frameborder="0" scrolling="no" allow="autoplay;"></iframe>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <a href="../StreamViews/StreamPlaybackPage?streamId=@Model.UserArchivedStream.StreamID"style="font-family: 'Roboto Slab'; font-size: 20px;">@Model.UserArchivedStream.StreamTitle</a>
-                                        <h6 style="font-family: 'Roboto Slab'; font-size:14px;">@Model.UserArchivedStream.StreamSubject</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
-                else
-                {
-                    <div class="col-lg-6 col-md-6 mt-3 mb-3 p-0">
-                        <div class="card m-2" style=" border:none;">
-                            <iframe src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.UserChannel.ChannelKey.Split('|')[0]" style="border-top-left-radius:10px; border-top-right-radius:10px; min-width:250px; cursor:pointer" height="450" frameborder="0" scrolling="no" allow="autoplay;"></iframe>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <a href="../StreamViews/StreamPage?streamTutorUsername=@Model.UserChannel.Username" style="font-family: 'Roboto Slab'; font-size:20px;">@Model.UserChannel.StreamTitle</a>
-                                        <h6 style="font-family: 'Roboto Slab'; font-size:14px;">@Model.UserChannel.StreamSubject</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
-                <div class="col-lg-4 col-md-4 mt-3 p-0 ">
-                    <iframe class="chatBoxHeight mt-2" src="https://www.streamwork.live/chat/streamworkchat?chatId=@Model.UserChannel.Username&chatInfo=@Model.ChatInfo" allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>
-                </div>
-
-            </div>
-            <hr>
-            <div class="row">
-                <div id="carouselExampleIndicators" class="carousel slide d-none d-sm-block" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                    </ol>
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img class="d-block w-100" src="~/images/transparency.png" alt="First slide">
-                            <div class="container">
-                                <div class="row">
-                                    @for (int i = 0; i < 4; i++)
-                                    {
-                                        <div class="col-lg-3 col-md-6 col-sm-6 streamsubject @Model.UserArchivedStreams[i].StreamSubject">
-                                            <div class="card mt-3" style="border:none; background-color:transparent">
-                                                <a href="../StreamViews/StreamPlaybackPage?streamId=@Model.UserArchivedStreams[i].StreamID"><img style="width:100%; height:100%; border-top-left-radius:10px; border-top-right-radius:10px; border-bottom-left-radius:0px; border-bottom-right-radius:0px; cursor:pointer" src=@Model.UserArchivedStreams[i].StreamThumbnail></a>
-                                                <a class="card-body p-0" style="background-color:black; border-bottom-left-radius:10px; border-bottom-right-radius:10px;" href="/Home/ProfileView?Tutor=@Model.UserArchivedStreams[i].Username">
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            <input type="image" style="border-radius:5%; width:50px; margin-left:10px; margin-top:10px; margin-bottom:10px; height:60px; float:left" src=@Model.UserArchivedStreams[i].ProfilePicture />
-                                                            <h5 class="text-truncate" style="font-family: 'Roboto'; font-size:15px; color:white; margin-left:80px; margin-top:10px;">@Model.UserArchivedStreams[i].StreamTitle</h5>
-                                                            <h6 class="text-truncate" style="font-family: 'Roboto'; font-size:14px; color:white; margin-left:80px;">@Model.UserArchivedStreams[i].Username</h6>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    }
-                                </div>
-                                <br />
-                                <br />
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <img class="d-block w-100" src="~/images/transparency.png" alt="Second slide">
-                            <div class="container">
-                                <div class="row">
-                                    @for (int i = 4; i < 8; i++)
-                                    {
-                                        <div class="col-lg-3 col-md-6 col-sm-6 streamsubject @Model.UserArchivedStreams[i].StreamSubject">
-                                            <div class="card mt-3" style="border:none; background-color:transparent">
-                                                <a href="../StreamViews/StreamPlaybackPage?streamId=@Model.UserArchivedStreams[i].StreamID"><img style="width:100%; height:100%; border-top-left-radius:10px; border-top-right-radius:10px; border-bottom-left-radius:0px; border-bottom-right-radius:0px; cursor:pointer" src=@Model.UserArchivedStreams[i].StreamThumbnail></a>
-                                                <a class="card-body p-0" style="background-color:black; border-bottom-left-radius:10px; border-bottom-right-radius:10px;" href="/Home/ProfileView?Tutor=@Model.UserArchivedStreams[i].Username">
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            <input type="image" style="border-radius:5%; width:50px; margin-left:10px; margin-top:10px; margin-bottom:10px; height:60px; float:left" src=@Model.UserArchivedStreams[i].ProfilePicture />
-                                                            <h5 class="text-truncate" style="font-family: 'Roboto'; font-size:15px; color:white; margin-left:80px; margin-top:10px;">@Model.UserArchivedStreams[i].StreamTitle</h5>
-                                                            <h6 class="text-truncate" style="font-family: 'Roboto'; font-size:14px; color:white; margin-left:80px;">@Model.UserArchivedStreams[i].Username</h6>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    }
-                                </div>
-                                <br />
-                                <br />
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <img class="d-block w-100" src="~/images/transparency.png" alt="Third slide">
-                            <div class="container">
-                                <div class="row">
-                                    @for (int i = 8; i < 12; i++)
-                                    {
-                                        <div class="col-lg-3 col-md-6 col-sm-6 streamsubject @Model.UserArchivedStreams[i].StreamSubject">
-                                            <div class="card mt-3" style="border:none; background-color:transparent">
-                                                <a href="../StreamViews/StreamPlaybackPage?streamId=@Model.UserArchivedStreams[i].StreamID"><img style="width:100%; height:100%; border-top-left-radius:10px; border-top-right-radius:10px; border-bottom-left-radius:0px; border-bottom-right-radius:0px; cursor:pointer" src=@Model.UserArchivedStreams[i].StreamThumbnail></a>
-                                                <a class="card-body p-0" style="background-color:black; border-bottom-left-radius:10px; border-bottom-right-radius:10px;" href="/Home/ProfileView?Tutor=@Model.UserArchivedStreams[i].Username">
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            <input type="image" style="border-radius:5%; width:50px; margin-left:10px; margin-top:10px; margin-bottom:10px; height:60px; float:left" src=@Model.UserArchivedStreams[i].ProfilePicture />
-                                                            <h5 class="text-truncate" style="font-family: 'Roboto'; font-size:15px; color:white; margin-left:80px; margin-top:10px;">@Model.UserArchivedStreams[i].StreamTitle</h5>
-                                                            <h6 class="text-truncate" style="font-family: 'Roboto'; font-size:14px; color:white; margin-left:80px;">@Model.UserArchivedStreams[i].Username</h6>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    }
-                                </div>
-                                <br />
-                                <br />
-                            </div>
-                        </div>
-                    </div>
-                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
-            </div>
-            <div class="d-sm-none">
-                @for (int i = 0; i < 4; i++)
-                {
-                    <div class="col-lg-3 col-md-6 col-sm-6 streamsubject @Model.UserArchivedStreams[i].StreamSubject">
-                        <div class="card mt-3" style="border:none; background-color:transparent">
-                            <a href="../StreamViews/StreamPlaybackPage?streamId=@Model.UserArchivedStreams[i].StreamID"><img style="width:100%; height:100%; border-top-left-radius:10px; border-top-right-radius:10px; border-bottom-left-radius:0px; border-bottom-right-radius:0px; cursor:pointer" src=@Model.UserArchivedStreams[i].StreamThumbnail></a>
-                            <a class="card-body p-0" style="background-color:black; border-bottom-left-radius:10px; border-bottom-right-radius:10px;" href="/Home/ProfileView?Tutor=@Model.UserArchivedStreams[i].Username">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <input type="image" style="border-radius:5%; width:40px; margin-left:10px; margin-top:10px; margin-bottom:10px; height:60px; float:left" src=@Model.UserArchivedStreams[i].ProfilePicture />
-                                        <h5 class="text-truncate" style="font-family: 'Roboto'; font-size:15px; color:white; margin-left:80px; margin-top:10px;">@Model.UserArchivedStreams[i].StreamTitle</h5>
-                                        <h6 class="text-truncate" style="font-family: 'Roboto'; font-size:14px; color:white; margin-left:80px;">@Model.UserArchivedStreams[i].Username</h6>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                }
-            </div>
-            <br />
-        </div>
-    </section>
+    </div>
 </div>
 
-<section style="padding-bottom:75px">
-    <div id="TopicsAndOther" class="container-fluid" style="max-width:1525px">
-        <div style="padding-top:75px">
-            <div class="card" style="background-color:#66CCCC">
-                <div class="row p-4">
-                    <div class="col-lg-10 col-md-12">
-                        <div>
-                            <a href="/"><img class="ml-3" src="~/images/pencil.svg" style="float:left; margin-right:20px;  height:7.5vh" /></a>
-                            <h3 class="mt-3 ml-3" style="font-family: 'Roboto Slab', serif; color:black"><b>Watch and learn from LIVE A+ tutors for FREE!</b></h3>
-                            <p>Interested in getting schooled by your friends and classmates?</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-12 mt-3">
-                        <a href="/Home/PickStudentOrTutor"><button class="streamWorkPrimary" style="font-family:'Roboto Slab', serif; cursor: pointer;">Sign me up! 🙋🏻‍♀️</button></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div style="padding-top:75px">
-            <div class="card" style="background-color:whitesmoke">
-                <div class="row p-2">
-                    <div class="col-lg-8 col-lg-8">
-                        <div class="card-title">
-                            <h3 class="mt-2 ml-3" style="font-family: 'Roboto Slab', serif; color:black"><b>Topics</b></h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 col-6" align="center">
-                            <a href="/Home/Search?s=Mathematics&q="><img class="zoom" src="~/images/MathCard.png" style="width:90%; height:100%; cursor: pointer;" onmouseover="" /></a>
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-6" align="center">
-                            <a href="/Home/Search?s=Science&q="><img class="zoom" src="~/images/ScienceCard.png" style="width:90%; height:100%; cursor: pointer;" onmouseover="" /></a>
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-6" align="center">
-                            <a href="/Home/Search?s=Engineering&q="><img class="zoom" src="~/images/EngineeringCard.png" style="width:90%; height:100%; cursor: pointer;" onmouseover="" /></a>
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-6" align="center">
-                            <a href="/Home/Search?s=Business&q="><img class="zoom" src="~/images/BusinessCard.png" style="width:90%; height:100%; cursor: pointer;" onmouseover="" /></a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-6 mt-2" align="center">
-                            <a href="/Home/Search?s=Law&q="><img class="zoom" src="~/images/LawCard.png" style="width:90%; height:100%; cursor: pointer;" onmouseover="" /></a>
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-6 mt-2" align="center">
-                            <a href="/Home/Search?s=Art&q="><img class="zoom" src="~/images/ArtCard.png" style="width:90%; height:100%; cursor: pointer;" onmouseover="" /></a>
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-6 mt-2" align="center">
-                            <a href="/Home/Search?s=Humanities&q="><img class="zoom" src="~/images/HumanitiesCard.png" style="width:90%; height:100%; cursor: pointer;" onmouseover="" /></a>
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-6 mt-2" align="center">
-                            <a href="/Home/Search?s=Other&q="><img class="zoom" src="~/images/OtherCard.png" style="width:90%; height:100%; cursor: pointer;" onmouseover="" /></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div style="padding-top:75px">
-            <div class="card" style="background-color:#FFC04C">
-                <div class="row p-4">
-                    <div class="col-lg-10 col-md-12">
-                        <div>
-                            <a href="/Tutor/ProfileTutor"><img class="ml-3" src="~/images/Tutor.png" onmouseover="" style="cursor: pointer; float:left; margin-right:20px; height:8vh" /></a>
-                            <h3 class="mt-3 ml-3" style="font-family: 'Roboto Slab', serif; color:black"><b>Best perks of becoming a StreamTutor?</b></h3>
-                            <p>For a limited time, StreamTutors get paid $5 for every 15+ minute tutoring session streamed.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-12 mt-3">
-                        <a href="/Tutor/ProfileTutor"><button class="streamWorkSecondary" style="font-family:'Roboto Slab', serif; cursor: pointer; font-size:21px" onmouseover="">Start Tutoring! 📚</button></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div style="padding-top:75px">
-            <div class="card" style="background-color:white; border:none">
-                <div class="row pl-3 pr-3">
-                    <div class="col-lg-7 p-0">
-                        <img src="~/images/Splash2.png" style='height: 100%; width: 100%; object-fit: contain; border-radius:5px' />
-                    </div>
-                    <div class="col-lg-1 mt-4"></div>
-                    <div class="col-lg-4">
-                        <p style="color:black; font-size:12px; ">Streaming - Coursework - Tutoring</p>
-                        <div class="d-sm-none" style="font-family: 'Roboto Slab', serif; color:black; font-size: 2.5rem; font-weight: 300; line-height: 1.2;"><b>Education <br /> meets <br /> innovation.</b></div>
-                        <div class="display-4 d-none d-sm-block" style="font-family: 'Roboto Slab', serif; color:black"><b>Education <br /> meets <br /> innovation.</b></div>
-                        <br />
-                        <p style="color:black; font-size:15px">StreamWork is a revolutionary tool used to make learning easier, <br /> for everyone. Whether it's studying coursework problems  <br /> or looking up homework help, our StreamTutors have got you  <br /> covered. </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div style="padding-top:75px">
-            <div class="card" style="background-color:whitesmoke">
-                <br />
-                <div class="row p-3">
-                    <div class="col-lg-4 ml-3">
-                        <p style="color:black; font-size:12px; ">Streaming - Coursework - Tutoring</p>
-                        <div class="d-sm-none" style="font-family: 'Roboto Slab', serif; color:black; font-size: 2.5rem; font-weight: 300; line-height: 1.2;"><b>How can<br />our Streams<br />Work for you?</b></div>
-                        <div class="display-4 d-none d-sm-block" style="font-family: 'Roboto Slab', serif; color:black"><b>How can<br />our Streams<br />Work for you?</b></div>
-                        <br />
-                        <p style="color:black; font-size:15px">StreamWork is dedicated to academic integrity and does not tolerate cheating in any form. Just like a physical tutoring center, we help students understand their coursework by teaching helpful methods and reviewing similar problems.</p>
-                        <br />
-                        <a href="/Home/PickStudentOrTutor"><button class="streamWorkPrimary" style="font-family:'Roboto Slab', serif; cursor: pointer;" onmouseover="">Sign me up! 🙋🏽‍♂️</button></a>
-                    </div>
-
-                    <div class="col-lg-7 ml-lg-5 ml-md-2 mt-sm-4 mt-4">
-                        <div class="card-title">
-                            <img width="100%" src="~/images/Splash.png" style="border-top-left-radius:5px; border-top-right-radius:5px; " />
-                            <a href="/Home/SignUp?type=Tutor"><button class="streamWorkGold" style="width:100%; font-size:15px; border-top-left-radius:0px; border-top-right-radius:0px; cursor:pointer; background-color:#FFC04C; color:black;">Earn money by doing your homework 👩🏼‍🏫</button></a>
-                            <p class="m-3" ; style="text-align:center">Have you ever taught a classmate a simpler way to understand a homework problem? You may have the qualities of a StreamTutor! </p>
-                            <a href="/Home/SignUp?type=Student"><button class="streamWorkPrimary mt-3" style="width:100%; font-size:15px; cursor:pointer; background-color:#008080; color: white">Study with your A+ classmates 👨🏽‍🎓</button></a>
-                            <p class="m-3" ; style="text-align:center"> Progress at your own pace. Attend your favorite StreamTutors live academic sessions, and tune in to the subjects that you're interested in any hour of the day.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</section>
-
-
-
-<script>$(document).ready(function () {
-
-        $("#nav").click(function () {
-            $("#navbarText").slideToggle();
-        });
-
-        $("#carousel").carousel();
-    });</script>
-
 <style>
-
-    :-moz-placeholder {
-        color: lightgray !important;
-        opacity: 1 !important;
-    }
-
-    ::-moz-placeholder {
-        color: lightgray !important;
-        opacity: 1 !important;
-    }
-
-    ::-webkit-input-placeholder {
-        color: lightgray !important;
-    }
-
-    :-ms-input-placeholder {
-        color: lightgray !important;
-    }
-
-    ::placeholder {
-        color: lightgray !important;
-    }
-
-    .subjectCard:hover {
-        box-shadow: 10px 10px grey;
+    .form-control:focus {
+        outline: none !important;
+        border: 2px solid #008080 !important;
     }
 </style>
+
+<script>
+    function RecordEmail() {
+        debugger;
+        var form = $('#email-form');
+        if (!form[0].checkValidity()) {
+            form[0].reportValidity()
+            return
+        }
+
+        $.ajax({
+            url: '/Home/RecordEmail',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                'email': $('#email').val()
+            },
+            success: function (data) {
+                if (data.message === "Success") {
+                    $('#confirmation').fadeIn().delay(3000).fadeOut()
+                }
+                else {
+                    $('#confirmation-fail').fadeIn().delay(3000).fadeOut()
+                }
+
+                $('#email').val("");
+            }
+        });
+    }
+</script>
