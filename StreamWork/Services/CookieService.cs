@@ -73,6 +73,8 @@ namespace StreamWork.Services
 
         public async Task<UserLogin> GetCurrentUser()
         {
+            if (httpContext.HttpContext.User.Identity.Name == null) return null;
+
             return await Get<UserLogin>(SQLQueries.GetUserWithUsername, new string[] { httpContext.HttpContext.User.Identity.Name });
         }
 
