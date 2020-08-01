@@ -1,8 +1,12 @@
 ﻿<div class="row" id="tab-9" style="display: none;">
     <div class="col-lg-2"></div>
     <div class="col-lg-8" style="background-color: white; border-style: solid; border-width: 1px; border-color: #b1b1b1;">
-        <div class="row">
-            <div class="col-md-6"></div>
+        <div class="row" style="min-height: 600px;">
+            <div class="col-md-6 d-none d-md-block" style="min-height: 600px;">
+                <div class="row p-4" style="min-height: 600px; display: flex; align-items: center; flex-wrap: wrap; justify-content: center;">
+                    <img src="~/images/SignUpAssets/SignUp_4_SW_SVG.svg" style="width: 70%;" />
+                </div>
+            </div>
             <div class="col-md-6 pt-5 pb-4 px-5" style="border-style: none none none solid; border-width: 1px; border-color: #b1b1b1;">
                 <h3 class="text-center mb-2" style="font-family: 'Roboto Slab';">Finish Up Profile</h3>
                 <p class="text-center mb-4" style="color: #707070; font-size: 13px;">Let's create a profile so you can connect with others!</p>
@@ -10,8 +14,8 @@
                 <div id="student-username-oauth-wrapper" data-container="body" data-toggle="popover" data-placement="top" data-content="This username is taken">
                     <input id="student-username-oauth" class="mb-3" style="width: 100%;" onkeyup="tab9OauthUpdateNext();" data-toggle="popover" data-placement="top" data-content="Usernames may only include letters, numbers, underscores, and hyphens" />
                 </div>
-
-                @*TODO Invoke signup*@
+                <br />
+                
                 <button id="tab-9-next" class="streamWork-disabled" type="button" style="width: 100%;" onclick="tab9OauthNext();">Create Profile</button>
 
                 <br />
@@ -22,7 +26,7 @@
                     <button class="streamWork-primary ml-3 mb-2" style="width: 60px; height: 20px; padding: 0px 0px;" onclick="goToTab(3);">Go Back</button>
                 </div>
                 <div class="mt-6 pt-6 pr-3" style="color: #004643; position: absolute; bottom: 0; right: 0;">
-                    <h5 style="color: #b1b1b1; display: inline-block;">&#x25CB;&#x25CB;</h5><h5 style="color: #004643; display: inline-block;">&#x25CF;</h5>
+                    <p style="color: #b1b1b1; display: inline-block;">&#x25CB;&#x25CB;</p><p style="color: #004643; display: inline-block;">&#x25CF;</p>
                 </div>
             </div>
         </div>

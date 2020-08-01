@@ -92,9 +92,13 @@ function setInCollege(inCollege) {
 
 function setIsTutor(isTutor) {
     if (isTutor) {
-        $('#tab-2-next').text('Sign Up As a Tutor');
+        $('#tab-2-next').text('Sign Up As a StreamTutor');
+        $('#tab-2-image-1').hide();
+        $('#tab-2-image-2').show();
     } else {
         $('#tab-2-next').text('Sign Up As a Student');
+        $('#tab-2-image-2').hide();
+        $('#tab-2-image-1').show();
     }
 
     if ($('#tab-2-inCollege').hasClass('streamWork-primary') || $('#tab-2-inHighSchool').hasClass('streamWork-primary')) {

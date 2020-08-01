@@ -82,6 +82,10 @@
     <Folder Include="Pages\Shared\Browse\" />
     <Folder Include="Pages\Partials\Browse\" />
     <Folder Include="wwwroot\js\BrowseJS\" />
+    <Folder Include="wwwroot\images\SignUpAssets\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove=".DS_Store" />
   </ItemGroup>
   <ItemGroup>
     <None Update="EmailTemplates\PasswordRecoveryEmailTemplate.html">
@@ -101,5 +105,7 @@
     <Content Remove="Pages\Comment\CommentModal.cshtml" />
     <Content Remove="Pages\Partials\Stream\Comments.html" />
     <Content Remove="Pages\Partials\Layout\Browse\BrowseHead.css" />
+    <Content Remove="wwwroot\.DS_Store" />
+    <Content Remove="wwwroot\images\.DS_Store" />
   </ItemGroup>
 </Project>
