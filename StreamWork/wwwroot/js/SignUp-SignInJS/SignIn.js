@@ -55,8 +55,11 @@ function SignIn() {
                 $('input:hidden[name="__RequestVerificationToken"]').val());
         },
         success: function (data) {
-            if (data.message === "Tutor" || data.message === "Student") {
+            if (data.message === "Tutor") {
                 window.location.href = '/' + data.message + '/' + data.message + 'Dashboard'
+            }
+            else if (data.message === "Student") {
+                window.location.href = '/Home/Browse'
             }
             else {
                 ShowBannerNotification('invalid-username-password-notification')
@@ -76,7 +79,7 @@ function SignOut() {
         },
         success: function (data) {
             SignOutOauth()
-            window.location.href = "/Home/SignIn"
+            window.location.href = "/"
         }
     })
 }
