@@ -1,4 +1,19 @@
 ﻿
+@media (max-width: 2000px) {
+    .margin-custom {
+        margin-top: 100px;
+    }
+}
+
+@media (max-width: 500px) {
+    .margin-custom {
+        margin-top: 30px;
+    }
+}
+
+
+
+
 ﻿html
 {
     width: 100%;
@@ -241,12 +256,18 @@ lds-dual-ring {
     }
 }
 
+@media screen and (max-width: 600px) {
+    .text-size {
+        font-size: 8px;
+    }
+}
+
 .streamWorkPrimary {
     border: none;
     background-color: #008080;
     color: #E6FFFF;
     width: 100px;
-    font-size: 14px;
+    font-size: 10px;
     padding: 8px 20px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;

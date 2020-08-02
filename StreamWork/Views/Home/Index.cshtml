@@ -3,7 +3,7 @@
 @{Layout = "_LayoutFooter";}
 @{ViewData["title"] = "Home";}
 
-<div class="container-fluid" style="margin-top:15vh";>
+<div class="container-fluid margin-custom">
     <div class="row">
         <div class="col-12">
             <img style="margin-top:50px; width:100%; max-width:450px" class="d-block mr-auto ml-auto" src="~/images/StreamWorkWhite.svg" />
@@ -13,22 +13,24 @@
         <div class="col-lg-3"></div>
         <div class="col-lg-6" style="margin-top: 50px">
             <div class="d-block mr-auto ml-auto">
-                <p style="color:white;">Sign up for our mailing list to be notified when we launch.</p>
+                <p style="color:white;">Join our mailing list to be notified when we launch.</p>
                 <div class="d-flex">
                     <form id="email-form" style="width:100%">
-                        <input id="email" class="form-control" align="center" type="email" placeholder="your@email.com" style="width:100%; border-top-left-radius:5px; border-bottom-left-radius:5px; border-top-right-radius:0px; border-bottom-right-radius:0px; padding-left: 10px;" required />
+                        <input id="email" class="form-control" align="center" type="email" placeholder="you@email.com" style="width:100%; border-top-left-radius:5px; border-bottom-left-radius:5px; border-top-right-radius:0px; border-bottom-right-radius:0px; padding-left: 10px;" required />
                     </form>
-                    <button class="streamWorkPrimary" onclick="RecordEmail()">Sign Up</button>
+                    <button class="streamWorkPrimary text-size" onclick="RecordEmail()">Sign Up</button>
 
                 </div>
-                <p id="confirmation" class="text-center mt-3" style="color:#F9BC60;">Email Saved! Will notify you when we go live.</p>
+                <p id="email-valid" class="text-center mt-3" style="color:red;">Please enter a valid email address</p>
+                <p id="confirmation" class="text-center mt-3" style="color:#F9BC60;">Email Saved! We will notify you when we go live.</p>
                 <p id="confirmation-fail" class="text-center mt-3" style="color:red;">Hmmm, something went wrong.</p>
+                <script>$('#email-valid').hide()</script>
                 <script>$('#confirmation').hide()</script>
                 <script>$('#confirmation-fail').hide()</script>
             </div>
         </div>
         <div class="col-12">
-            <p class="text-center" style="color:white; font-size:20px; margin-top:100px; margin-bottom:50px;"><b>Get schooled on 9.1.2020</b></p>
+            <p class="text-center" style="color:white; font-size:20px; margin-top:100px; margin-bottom:50px;">Get schooled on September 1, 2020</p>
         </div>
     </div>
 </div>
@@ -38,6 +40,16 @@
         outline: none !important;
         border: 2px solid #008080 !important;
     }
+
+    .someElement {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 200px;
+        height: 200px;
+        margin: -100px 0 0 -100px;
+    }
+
 </style>
 
 <script>
@@ -45,7 +57,7 @@
         debugger;
         var form = $('#email-form');
         if (!form[0].checkValidity()) {
-            form[0].reportValidity()
+            $('#email-valid').fadeIn().delay(3000).fadeOut()
             return
         }
 
