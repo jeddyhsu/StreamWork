@@ -8,7 +8,7 @@
         <div class="col-12">
             <img style="margin-top:50px; width:100%; max-width:450px" class="d-block mr-auto ml-auto" src="~/images/StreamWorkWhite.svg" />
             <p class="text-center" style="color:white; font-size:20px;"><i>"Study smarter, not harder."</i></p>
-            <p class="text-center mt-4 ml-auto mr-auto" style="color:white; max-width:450px">StreamWork is an academic live-streaming platform where hundreds of students come together to chat, tutor, and learn with classmates and friends.</p>
+            <p class="text-center mt-4 ml-auto mr-auto" style="color:white; max-width:450px">StreamWork is an academic live-streaming platform where hundreds of students come together to tutor, learn, and chat with classmates and friends.</p>
         </div>
         <div class="col-lg-3"></div>
         <div class="col-lg-6" style="margin-top: 50px">
@@ -22,7 +22,7 @@
 
                 </div>
                 <p id="email-valid" class="text-center mt-3" style="color:red;">Please enter a valid email address</p>
-                <p id="confirmation" class="text-center mt-3" style="color:#F9BC60;">Email Saved! We will notify you when we go live.</p>
+                <p id="confirmation" class="text-center mt-3" style="color:#F9BC60;">Thanks for joining our mailing list, we'll keep you updated with future announcements!</p>
                 <p id="confirmation-fail" class="text-center mt-3" style="color:red;">Hmmm, something went wrong.</p>
                 <script>$('#email-valid').hide()</script>
                 <script>$('#confirmation').hide()</script>
@@ -70,10 +70,10 @@
             },
             success: function (data) {
                 if (data.message === "Success") {
-                    $('#confirmation').fadeIn().delay(3000).fadeOut()
+                    $('#confirmation').fadeIn().delay(5000).fadeOut()
                 }
                 else {
-                    $('#confirmation-fail').fadeIn().delay(3000).fadeOut()
+                    $('#confirmation-fail').fadeIn().delay(5000).fadeOut()
                 }
 
                 $('#email').val("");
