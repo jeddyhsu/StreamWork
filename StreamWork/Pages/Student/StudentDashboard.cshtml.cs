@@ -64,13 +64,16 @@ namespace StreamWork.Pages.Student
             List<FollowedTutors> followedTutorsList = new List<FollowedTutors>();
             var followedTutors = await followService.GetAllFollowees(followeeId);
 
-            foreach(var tutor in followedTutors)
+            if(followedTutors != null && followedTutors.Count > 1)
             {
-                var previousStreams = (await storageService.GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, tutor.Username)).Count >= 3  ? (await storageService.GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, tutor.Username)).GetRange(0,3): (await storageService.GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, tutor.Username));
-                var latestScheduledStream = (await scheduleService.GetSchedule(tutor.Username)).Count == 0 ? null : (await scheduleService.GetSchedule(tutor.Username))[0];
-                var followValue = await followService.IsFollowingFollowee(CurrentUserProfile.Id, tutor.Id);
+                foreach (var tutor in followedTutors)
+                {
+                    var previousStreams = (await storageService.GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, tutor.Username)).Count >= 3 ? (await storageService.GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, tutor.Username)).GetRange(0, 3) : (await storageService.GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, tutor.Username));
+                    var latestScheduledStream = (await scheduleService.GetSchedule(tutor.Username)).Count == 0 ? null : (await scheduleService.GetSchedule(tutor.Username))[0];
+                    var followValue = await followService.IsFollowingFollowee(CurrentUserProfile.Id, tutor.Id);
 
-                followedTutorsList.Add(new FollowedTutors(tutor, previousStreams, latestScheduledStream, followValue));
+                    followedTutorsList.Add(new FollowedTutors(tutor, previousStreams, latestScheduledStream, followValue));
+                }
             }
 
             return followedTutorsList;

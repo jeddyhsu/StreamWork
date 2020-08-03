@@ -4,16 +4,16 @@ function ChangePlaceHolder(text) {
     $('#searchQuery').attr('placeholder', text);
 }
 
-function SliderVideos() {
-    $('#videos-tab').tab('show');
-    $('#slider-object').css("transform", "translate3d(15px, 0px, 0px)")
-    ChangePlaceHolder("🔎  Search Videos")
-}
-
 function SliderStreams() {
     $('#streams-tab').tab('show');
-    $('#slider-object').css("transform", "translate3d(100px, 0px, 0px)")
+    $('#slider-object').css("transform", "translate3d(15px, 0px, 0px)")
     ChangePlaceHolder("🔎  Search Streams")
+}
+
+function SliderVideos() {
+    $('#videos-tab').tab('show');
+    $('#slider-object').css("transform", "translate3d(100px, 0px, 0px)")
+    ChangePlaceHolder("🔎  Search Videos")
 }
 
 function SliderTutors() {

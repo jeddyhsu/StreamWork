@@ -1,0 +1,31 @@
+﻿.container-padding {
+    padding-top: 100px;
+    padding-bottom: 75px
+}
+
+.custom-container {
+    max-width: 1500px;
+    margin-top: 100px
+}
+
+.header {
+    font-size: 52px;
+    color: white;
+}
+
+.featured-profile-image {
+    width: 75px;
+    margin-top: 50px
+}
+
+.featured-subject-icon {
+    width: 100%;
+    height: 100%;
+    max-width: 120px;
+    max-height: 120px;
+    cursor: pointer
+}
+
+.white {
+    color: white;
+}

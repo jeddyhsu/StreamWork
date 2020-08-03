@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StreamWork.DataModels;
 using StreamWork.HelperMethods;
@@ -69,6 +66,7 @@ namespace StreamWork.Pages
                 FeaturedChannel = await storage.Get<UserChannel>(SQLQueries.GetUserChannelWithUsername, "juliamkim");
                 FeaturedTutor = await storage.Get<UserLogin>(SQLQueries.GetUserWithUsername, "juliamkim");
                 FeaturedArchivedStream = await storage.Get<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, "juliamkim");
+                FeaturedArchivedStream.StreamSubjectIcon = MiscHelperMethods.GetCorrespondingSubjectThumbnail(FeaturedArchivedStream.StreamSubject);
             }
             else
             {

@@ -23,12 +23,12 @@
                         <div class="p-lg-4 pt-md-4 p-sm-3 p-3">
                             <input id="header-profile-picture" align="left" class="rounded" type="image" src="@Model.CurrentUserProfile.ProfilePicture?@cacheRand" style="width:80px; cursor:text" />
                             <p id="header-name" class="form-header m-0" style="font-size:20px; padding-left:100px">@Model.CurrentUserProfile.Name.Replace('|', ' ')</p>
-                            <p id="header-occupation" class="form-sub-header m-0" style="padding-left:100px; font-size:12px;">@Model.CurrentUserProfile.ProfileCaption</p>
+                            @if (@Model.CurrentUserProfile.ProfileCaption == null || @Model.CurrentUserProfile.ProfileCaption == "") {<p id="header-occupation" class="form-header m-0" style="padding-left:100px; font-size:12px; color: #9F9F9F">Occupation / Major</p>}
+                            else { <p id="header-location" class="form-header m-0 header-padding" style="font-size:12px;">@Model.CurrentUserProfile.ProfileCaption</p>}
                             <p class="mb-0 mt-2 form-sub-header" style="padding-left:100px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Student since Jun, 2020</p>
                             @if (Model.CurrentUserProfile.Location == "" || Model.CurrentUserProfile.Location == null)
-                            {<p id="header-location-mask" class="form-sub-header" style="padding-left:100px; display:none"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">@Model.CurrentUserProfile.Location</span></p>}
-                        else
-                        {<p id="header-location-mask" class="form-sub-header" style="padding-left:100px;"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">@Model.CurrentUserProfile.Location</span></p>}
+                            {<p id="header-location-mask" class="form-sub-header header-padding"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">City, State</span></p>}
+                            else{<p id="header-location-mask" class="form-sub-header header-padding"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">@Model.CurrentUserProfile.Location</span></p>}
                             <input id="header-first-name" type="hidden" value="@Model.CurrentUserProfile.Name.Split('|')[0]" />
                             <input id="header-last-name" type="hidden" value="@Model.CurrentUserProfile.Name.Split('|')[1]" />
                             <input id="header-timezone" type="hidden" value="@Model.CurrentUserProfile.TimeZone" />
@@ -265,7 +265,7 @@
                 <p class="form-header p-3 mb-0" style="font-size:16px">Tutors you are following</p>
                 <div class="container-fluid" style="width:100%">
                     <div class="row">
-                        @if (Model.FollowedTutors.Count > 0)
+                        @if (Model.FollowedTutors != null && Model.FollowedTutors.Count > 0)
                         {
                             @for (int i = 0; i < Model.FollowedTutors.Count; i++)
                             {
@@ -333,9 +333,9 @@
     <nav id="sidebar">
         <img class="logo-desktop" onclick="window.location.href ='/'" src="~/images/WhiteStreamWork.png" />
         <ul class="p-0">
-            <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Tutor/TutorWatch'"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/WatchStream.svg" /></span>Watch Streams</li>
-            <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Tutor/HowToStream'"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/HowToStream.svg" /></span>Become a Tutor</li>
-            <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Tutor/HowToStream'"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/HowToStream.svg" /></span>Settings</li>
+            <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Home/Browse'"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/WatchStream.svg" /></span>Watch Streams</li>
+            <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Home/Tutor'"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/HowToStream.svg" /></span>Become a Tutor</li>
+            <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Home/HowToStream'"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/HowToStream.svg" /></span>Settings</li>
         </ul>
         <hr />
         <p class="form-header p-3" style="font-size:18px; color:white">Recommended Tutors</p>
@@ -347,8 +347,8 @@
     <nav id="sidebar-tablet">
         <img class="logo-tablet" onclick="window.location.href ='/'" src="~/images/streamWorkPencilWhite.png" />
         <ul class="p-0">
-            <li class="sidebar-list-item-tablet" onclick="window.location.href ='/Tutor/TutorStream'"><img src="~/images/TutorAssets/TutorDashboard/StartStream2x.png" /></li>
-            <li class="sidebar-list-item-tablet" onclick="window.location.href ='/Tutor/HowToStream'"><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/HowToStream2x.png" /></li>
+            <li class="sidebar-list-item-tablet" onclick="window.location.href ='/Home/Browse'"><img src="~/images/TutorAssets/TutorDashboard/StartStream2x.png" /></li>
+            <li class="sidebar-list-item-tablet" onclick="window.location.href ='/Home/Tutor'"><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/HowToStream2x.png" /></li>
             <li class="sidebar-list-item-tablet" onclick="window.location.href ='/Tutor/TutorWatch'"><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/WatchStream2x.png" /></li>
 
             <li class="sidebar-list-item-tablet"><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/FollowerList2x.png" /></li>

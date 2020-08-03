@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using StreamWork.Framework;
 
@@ -7,6 +8,9 @@ namespace StreamWork.DataModels
 {
     public class UserArchivedStreams : IStorageBase<UserArchivedStreams>
     {
+        [NotMapped]
+        public string StreamSubjectIcon { get; set; }
+
         [Key]
         public string Id { get; set; }
         public string Username { get; set; }

@@ -83,6 +83,9 @@
     <Folder Include="Pages\Partials\Browse\" />
     <Folder Include="wwwroot\js\BrowseJS\" />
     <Folder Include="wwwroot\images\SignUpAssets\" />
+    <Folder Include="Pages\Partials\Layout\Home\" />
+    <Folder Include="Pages\Shared\Home\" />
+    <Folder Include="wwwroot\css\Home\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove=".DS_Store" />
@@ -107,5 +110,6 @@
     <Content Remove="Pages\Partials\Layout\Browse\BrowseHead.css" />
     <Content Remove="wwwroot\.DS_Store" />
     <Content Remove="wwwroot\images\.DS_Store" />
+    <Content Remove="wwwroot\StreamWork enc 1.mp4" />
   </ItemGroup>
 </Project>
