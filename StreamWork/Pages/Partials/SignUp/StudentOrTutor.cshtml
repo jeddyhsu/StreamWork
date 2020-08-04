@@ -1,11 +1,11 @@
-﻿<div class="row" id="tab-2" style="display: none;">
+﻿<div class="row" id="studentOrTutor" style="display: none;">
     <div class="col-lg-2"></div>
     <div class="col-lg-8" style="background-color: white; border-style: solid; border-width: 1px; border-color: #b1b1b1;">
         <div class="row" style="min-height: 600px;">
             <div class="col-md-6 d-none d-md-block" style="min-height: 600px;">
                 <div class="row p-4" style="min-height: 600px; display: flex; align-items: center; flex-wrap: wrap; justify-content: center;">
-                    <img id="tab-2-image-1" src="~/images/SignUpAssets/SignUp_1_SW_SVG.svg" style="width: 100%;" />
-                    <img id="tab-2-image-2" src="~/images/SignUpAssets/SignUp_2_SW_SVG.svg" style="width: 100%; display: none;" />
+                    <img id="studentOrTutor-image-1" src="~/images/SignUpAssets/SignUp_1_SW_SVG.svg" style="width: 100%;" />
+                    <img id="studentOrTutor-image-2" src="~/images/SignUpAssets/SignUp_2_SW_SVG.svg" style="width: 100%; display: none;" />
                 </div>
             </div>
             <div class="col-md-6 pt-5 px-5" style="border-style: none none none solid; border-width: 1px; border-color: #b1b1b1;">
@@ -21,17 +21,17 @@
                 </label>
                 <br />
 
-                <button id="tab-2-inHighSchool" class="streamWork-secondary mb-1" type="button" style="width: 100%" onclick="setInCollege(false);">In High School</button>
+                <button id="studentOrTutor-inHighSchool" class="streamWork-secondary mb-1" type="button" style="width: 100%" onclick="setInCollege(false);">In High School</button>
                 <br />
-                <button id="tab-2-inCollege" class="streamWork-secondary mb-3" type="button" style="width: 100%" onclick="setInCollege(true);">In College</button>
+                <button id="studentOrTutor-inCollege" class="streamWork-secondary mb-3" type="button" style="width: 100%" onclick="setInCollege(true);">In College</button>
                 <br />
                 <br />
 
-                <div id="tab-2-bottom" style="display: none;">
-                    <p id="tab-2-schoolType" style="font-family: 'Roboto Slab'; color: #707070; margin-bottom: 0; font-size: 12px;">High School Name</p>
-                    <input id="schoolName" class="mb-3" style="width: 100%;" onkeyup="tab2UpdateNext();" />
+                <div id="studentOrTutor-bottom" style="display: none;">
+                    <p id="studentOrTutor-schoolType" style="font-family: 'Roboto Slab'; color: #707070; margin-bottom: 0; font-size: 12px;">High School Name</p>
+                    <input id="schoolName" class="mb-3" style="width: 100%;" onkeyup="studentOrTutorUpdateNext();" />
 
-                    <button id="tab-2-next" class="streamWork-disabled" type="button" style="width: 100%;" onclick="tab2Next();">Sign Up As a Student</button>
+                    <button id="studentOrTutor-next" class="streamWork-disabled" type="button" style="width: 100%;" onclick="studentOrTutorNext();">Sign Up As a Student</button>
                 </div>
 
                 <br />

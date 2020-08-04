@@ -1,4 +1,4 @@
-﻿<div class="row" id="tab-9" style="display: none;">
+﻿<div class="row" id="tutorProfileInfoOAuth" style="display: none;">
     <div class="col-lg-2"></div>
     <div class="col-lg-8" style="background-color: white; border-style: solid; border-width: 1px; border-color: #b1b1b1;">
         <div class="row" style="min-height: 600px;">
@@ -11,19 +11,20 @@
                 <h3 class="text-center mb-2" style="font-family: 'Roboto Slab';">Finish Up Profile</h3>
                 <p class="text-center mb-4" style="color: #707070; font-size: 13px;">Let's create a profile so you can connect with others!</p>
                 <p style="color: #707070; margin-bottom: 0; font-family: 'Roboto Slab'; font-size: 12px;">Username</p>
-                <div id="student-username-oauth-wrapper" data-container="body" data-toggle="popover" data-placement="top" data-content="This username is taken">
-                    <input id="student-username-oauth" class="mb-3" style="width: 100%;" onkeyup="tab9OauthUpdateNext();" data-toggle="popover" data-placement="top" data-content="Usernames may only include letters, numbers, underscores, and hyphens" />
+                <div id="tutor-username-oauth-wrapper" data-container="body" data-toggle="popover" data-placement="top" data-content="This username is taken">
+                    <input id="tutor-username-oauth" class="mb-3" style="width: 100%;" onkeyup="tutorProfileInfoOAuthUpdateNext();" data-toggle="popover" data-placement="top" data-content="Usernames may only include letters, numbers, underscores, and hyphens" />
                 </div>
                 <br />
-                
-                <button id="tab-9-next" class="streamWork-disabled" type="button" style="width: 100%;" onclick="tab9OauthNext();">Create Profile</button>
+                <br />
+
+                <button id="tutorProfileInfoOAuth-next" class="streamWork-disabled" type="button" style="width: 100%;" onclick="tutorProfileInfoOAuthNext();">Create Profile</button>
 
                 <br />
                 <br />
                 <br />
 
                 <div class="mt-6 pt-6 pr-3" style="color: #004643; position: absolute; bottom: 0; left: 0;">
-                    <button class="streamWork-primary ml-3 mb-2" style="width: 60px; height: 20px; padding: 0px 0px;" onclick="goToTab(3);">Go Back</button>
+                    <button class="streamWork-primary ml-3 mb-2" style="width: 60px; height: 20px; padding: 0px 0px;" onclick="goToTab('tutorTopics');">Go Back</button>
                 </div>
                 <div class="mt-6 pt-6 pr-3" style="color: #004643; position: absolute; bottom: 0; right: 0;">
                     <p style="color: #b1b1b1; display: inline-block;">&#x25CB;&#x25CB;</p><p style="color: #004643; display: inline-block;">&#x25CF;</p>

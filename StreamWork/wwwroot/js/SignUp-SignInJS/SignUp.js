@@ -1,33 +1,49 @@
-﻿var subjects = 0;
+﻿var studentTopics = 0;
+var tutorTopics = 0;
 var transcriptUploaded = false;
 var resumeUploaded = false;
 var oauthStarted = false;
 var oauthToken = "";
 var profileType = "";
 
+var tabs = [
+    'email',
+    'emailVerification',
+    'studentOrTutor',
+    'studentTopics',
+    'studentProfileInfo',
+    'studentProfileInfoOAuth',
+    'studentComplete',
+    'tutorTopics',
+    'tutorProfileInfo',
+    'tutorProfileInfoOAuth',
+    'tutorResumeTranscript',
+    'tutorComplete',
+]
+
 function goToTab(tab) {
-    for (let i = 1; i <= 10; i++) {
-        $('#tab-' + i).hide();
+    for (let i of tabs) {
+        $('#' + i).hide();
     }
-    $('#tab-' + tab).show();
+    $('#' + tab).show();
 }
 
-function tab1UpdateNext() {
+function emailUpdateNext() {
     $('#emailAddress').removeClass('input-invalid');
     $('#emailAddress').popover('hide');
     $('#emailAddress').popover('disable');
     $('#emailAddress-wrapper').popover('hide');
     $('#emailAddress-wrapper').popover('disable');
     if ($('#emailAddress').val().length == 0) {
-        $('#tab-1-next').removeClass('streamWork-primary');
-        $('#tab-1-next').addClass('streamWork-disabled');
+        $('#email-next').removeClass('streamWork-primary');
+        $('#email-next').addClass('streamWork-disabled');
     } else {
-        $('#tab-1-next').removeClass('streamWork-disabled');
-        $('#tab-1-next').addClass('streamWork-primary');
+        $('#email-next').removeClass('streamWork-disabled');
+        $('#email-next').addClass('streamWork-primary');
     }
 }
 
-function tab1Next() {
+function emailNext() {
     if ($('#emailAddress').val().length > 0) {
         $.ajax({
             url: '/Home/SignUp/?handler=IsAddressValid',
@@ -52,7 +68,7 @@ function tab1Next() {
                         $('#emailAddress').popover('disable');
                         $('#emailAddress-wrapper').popover('hide');
                         $('#emailAddress-wrapper').popover('disable');
-                        goToTab(2);
+                        goToTab('emailVerification');
                     } else {
                         $('#emailAddress').addClass('input-invalid');
                         $('#emailAddress-wrapper').popover('enable');
@@ -72,13 +88,13 @@ function setInCollege(inCollege) {
     let primary;
     let secondary;
     if (inCollege) {
-        primary = $('#tab-2-inCollege');
-        secondary = $('#tab-2-inHighSchool');
-        $('#tab-2-schoolType').text('College / University Name');
+        primary = $('#studentOrTutor-inCollege');
+        secondary = $('#studentOrTutor-inHighSchool');
+        $('#studentOrTutor-schoolType').text('College / University Name');
     } else {
-        primary = $('#tab-2-inHighSchool');
-        secondary = $('#tab-2-inCollege');
-        $('#tab-2-schoolType').text('High School Name');
+        primary = $('#studentOrTutor-inHighSchool');
+        secondary = $('#studentOrTutor-inCollege');
+        $('#studentOrTutor-schoolType').text('High School Name');
     }
 
     primary.addClass('streamWork-primary').removeClass('streamWork-secondary');
@@ -86,92 +102,87 @@ function setInCollege(inCollege) {
 
     let isTutor = $("input[name='profile-type']:checked").val()
     if (isTutor === 'true' || isTutor === 'false') {
-        $('#tab-2-bottom').show();
+        $('#studentOrTutor-bottom').show();
     }
 }
 
 function setIsTutor(isTutor) {
     if (isTutor) {
-        $('#tab-2-next').text('Sign Up As a StreamTutor');
-        $('#tab-2-image-1').hide();
-        $('#tab-2-image-2').show();
+        $('#studentOrTutor-next').text('Sign Up As a StreamTutor');
+        $('#studentOrTutor-image-1').hide();
+        $('#studentOrTutor-image-2').show();
     } else {
-        $('#tab-2-next').text('Sign Up As a Student');
-        $('#tab-2-image-2').hide();
-        $('#tab-2-image-1').show();
+        $('#studentOrTutor-next').text('Sign Up As a Student');
+        $('#studentOrTutor-image-2').hide();
+        $('#studentOrTutor-image-1').show();
     }
 
-    if ($('#tab-2-inCollege').hasClass('streamWork-primary') || $('#tab-2-inHighSchool').hasClass('streamWork-primary')) {
-        $('#tab-2-bottom').show();
+    if ($('#studentOrTutor-inCollege').hasClass('streamWork-primary') || $('#studentOrTutor-inHighSchool').hasClass('streamWork-primary')) {
+        $('#studentOrTutor-bottom').show();
     }
 }
 
-function tab2UpdateNext() {
+function studentOrTutorUpdateNext() {
     if ($('#schoolName').val().length == 0) {
-        $('#tab-2-next').removeClass('streamWork-primary');
-        $('#tab-2-next').addClass('streamWork-disabled');
+        $('#studentOrTutor-next').removeClass('streamWork-primary');
+        $('#studentOrTutor-next').addClass('streamWork-disabled');
     } else {
-        $('#tab-2-next').removeClass('streamWork-disabled');
-        $('#tab-2-next').addClass('streamWork-primary');
+        $('#studentOrTutor-next').removeClass('streamWork-disabled');
+        $('#studentOrTutor-next').addClass('streamWork-primary');
     }
 }
 
-function tab2Next() {
+function studentOrTutorNext() {
     if ($('#schoolName').val().length > 0) {
         if ($("input[name='profile-type']:checked").val() === 'true') {
-            if (oauthStarted) {
-                goToTab(10);
-            }
-            else {
-                goToTab(6);
-            }
+            goToTab('tutorTopics');
         } else {
-            goToTab(3);
+            goToTab('studentTopics');
         }
     }
 }
 
-function toggleSubject(subject) {
-    let button = $('#tab-3-' + subject);
+function toggleStudentTopic(topic) {
+    let button = $('#studentTopics-' + topic);
     if (button.hasClass('streamWork-primary-rect')) {
         button.removeClass('streamWork-primary-rect');
         button.addClass('streamWork-secondary-rect');
-        subjects -= 1;
+        studentTopics -= 1;
     } else {
         button.removeClass('streamWork-secondary-rect');
         button.addClass('streamWork-primary-rect');
-        subjects += 1;
+        studentTopics += 1;
     }
 
-    $('#tab-3-selected').text('Selected: ' + subjects);
+    $('#studentTopics-selected').text('Selected: ' + studentTopics);
 
-    if (subjects >= 1) {
-        $('#tab-3-next').removeClass('streamWork-disabled');
-        $('#tab-3-next').addClass('streamWork-primary');
+    if (studentTopics >= 1) {
+        $('#studentTopics-next').removeClass('streamWork-disabled');
+        $('#studentTopics-next').addClass('streamWork-primary');
     } else {
-        $('#tab-3-next').removeClass('streamWork-primary');
-        $('#tab-3-next').addClass('streamWork-disabled');
+        $('#studentTopics-next').removeClass('streamWork-primary');
+        $('#studentTopics-next').addClass('streamWork-disabled');
     }
 }
 
-function goToTab3Tab1() {
-    $('#tab-3-tab-2').hide();
-    $('#tab-3-tab-1').show();
+function goToStudentTopicsTab1() {
+    $('#studentTopics-tab-2').hide();
+    $('#studentTopics-tab-1').show();
 }
 
-function goToTab3Tab2() {
-    $('#tab-3-tab-1').hide();
-    $('#tab-3-tab-2').show();
+function goToStudentTopicsTab2() {
+    $('#studentTopics-tab-1').hide();
+    $('#studentTopics-tab-2').show();
 }
 
-function tab3Next() {
-    if (subjects >= 1) {
-        if (oauthStarted) goToTab(9);
-        else goToTab(4);
+function studentTopicsNext() {
+    if (studentTopics >= 1) {
+        if (oauthStarted) goToTab('studentProfileInfoOAuth');
+        else goToTab('studentProfileInfo');
     }
 }
 
-function tab4UpdateNext() {
+function studentProfileInfoUpdateNext() {
     $('#student-username').removeClass('input-invalid');
     $('#student-username').popover('hide');
     $('#student-username').popover('disable');
@@ -188,15 +199,15 @@ function tab4UpdateNext() {
         $('#student-username').val().length == 0 ||
         $('#student-password').val().length == 0 ||
         $('#student-confirmPassword').val().length == 0) {
-        $('#tab-4-next').removeClass('streamWork-primary');
-        $('#tab-4-next').addClass('streamWork-disabled');
+        $('#studentProfileInfo-next').removeClass('streamWork-primary');
+        $('#studentProfileInfo-next').addClass('streamWork-disabled');
     } else {
-        $('#tab-4-next').removeClass('streamWork-disabled');
-        $('#tab-4-next').addClass('streamWork-primary');
+        $('#studentProfileInfo-next').removeClass('streamWork-disabled');
+        $('#studentProfileInfo-next').addClass('streamWork-primary');
     }
 }
 
-function tab4Next() {
+function studentProfileInfoNext() {
     if ($('#student-firstName').val().length > 0 &&
         $('#student-lastName').val().length > 0 &&
         $('#student-username').val().length > 0 &&
@@ -250,7 +261,88 @@ function tab4Next() {
     }
 }
 
-function tab6UpdateNext() {
+function studentProfileInfoOAuthUpdateNext() {
+    $('#student-username-oauth').removeClass('input-invalid');
+    $('#student-username-oauth').popover('hide');
+    $('#student-username-oauth').popover('disable');
+    $('#student-username-oauth-wrapper').popover('hide');
+    $('#student-username-oauth-wrapper').popover('disable');
+    if ($('#student-username-oauth').val().length == 0) {
+        $('#studentProfileInfoOAuth-next').removeClass('streamWork-primary');
+        $('#studentProfileInfoOAuth-next').addClass('streamWork-disabled');
+    } else {
+        $('#studentProfileInfoOAuth-next').removeClass('streamWork-disabled');
+        $('#studentProfileInfoOAuth-next').addClass('streamWork-primary');
+    }
+}
+
+function studentProfileInfoOAuthNext() {
+    if ($('#student-username-oauth').val().length > 0) {
+        if (/^[A-Za-z0-9_-]+$/.test($('#student-username-oauth').val())) {
+            $.ajax({
+                url: '/Home/SignUp/?handler=IsUsernameAvailable',
+                type: 'GET',
+                data: {
+                    username: $('#student-username-oauth').val()
+                }
+            }).done(function (data) {
+                if (data) {
+                    signUpStudent();
+                } else {
+                    $('#student-username-oauth').addClass('input-invalid');
+                    $('#student-username-oauth-wrapper').popover('enable');
+                    $('#student-username-oauth-wrapper').popover('show');
+                }
+            });
+        } else {
+            $('#student-username-oauth').addClass('input-invalid');
+            $('#student-username-oauth').popover('enable');
+            $('#student-username-oauth').popover('show');
+        }
+    }
+}
+
+function toggleTutorTopic(topic) {
+    let button = $('#tutorTopics-' + topic);
+    if (button.hasClass('streamWork-primary-rect')) {
+        button.removeClass('streamWork-primary-rect');
+        button.addClass('streamWork-secondary-rect');
+        tutorTopics -= 1;
+    } else {
+        button.removeClass('streamWork-secondary-rect');
+        button.addClass('streamWork-primary-rect');
+        tutorTopics += 1;
+    }
+
+    $('#tutorTopics-selected').text('Selected: ' + tutorTopics);
+
+    if (tutorTopics >= 1) {
+        $('#tutorTopics-next').removeClass('streamWork-disabled');
+        $('#tutorTopics-next').addClass('streamWork-primary');
+    } else {
+        $('#tutorTopics-next').removeClass('streamWork-primary');
+        $('#tutorTopics-next').addClass('streamWork-disabled');
+    }
+}
+
+function goToTutorTopicsTab1() {
+    $('#tutorTopics-tab-2').hide();
+    $('#tutorTopics-tab-1').show();
+}
+
+function goToTutorTopicsTab2() {
+    $('#tutorTopics-tab-1').hide();
+    $('#tutorTopics-tab-2').show();
+}
+
+function tutorTopicsNext() {
+    if (tutorTopics >= 1) {
+        if (oauthStarted) goToTab('tutorProfileInfoOAuth');
+        else goToTab('tutorProfileInfo');
+    }
+}
+
+function tutorProfileInfoUpdateNext() {
     $('#tutor-username').removeClass('input-invalid');
     $('#tutor-username').popover('hide');
     $('#tutor-username').popover('disable');
@@ -267,15 +359,15 @@ function tab6UpdateNext() {
         $('#tutor-username').val().length == 0 ||
         $('#tutor-password').val().length == 0 ||
         $('#tutor-confirmPassword').val().length == 0) {
-        $('#tab-6-next').removeClass('streamWork-primary');
-        $('#tab-6-next').addClass('streamWork-disabled');
+        $('#tutorProfileInfo-next').removeClass('streamWork-primary');
+        $('#tutorProfileInfo-next').addClass('streamWork-disabled');
     } else {
-        $('#tab-6-next').removeClass('streamWork-disabled');
-        $('#tab-6-next').addClass('streamWork-primary');
+        $('#tutorProfileInfo-next').removeClass('streamWork-disabled');
+        $('#tutorProfileInfo-next').addClass('streamWork-primary');
     }
 }
 
-function tab6Next() {
+function tutorProfileInfoNext() {
     if ($('#tutor-firstName').val().length > 0 &&
         $('#tutor-lastName').val().length > 0 &&
         $('#tutor-username').val().length > 0 &&
@@ -304,7 +396,7 @@ function tab6Next() {
                             $('#tutor-confirmPassword').removeClass('input-invalid');
                             $('#tutor-confirmPassword').popover('hide');
                             $('#tutor-confirmPassword').popover('disable');
-                            goToTab(7);
+                            goToTab('tutorResumeTranscript');
                         } else {
                             $('#tutor-confirmPassword').addClass('input-invalid');
                             $('#tutor-confirmPassword').popover('enable');
@@ -329,88 +421,22 @@ function tab6Next() {
     }
 }
 
-function tab7UpdateNext() {
-    $('#transcript-label').popover('hide');
-    $('#transcript-label').popover('disable');
-    $('#resume-label').popover('hide');
-    $('#resume-label').popover('disable');
-    if (!transcriptUploaded || !resumeUploaded) {
-        $('#tab-7-next').removeClass('streamWork-primary');
-        $('#tab-7-next').addClass('streamWork-disabled');
-    } else {
-        $('#tab-7-next').removeClass('streamWork-disabled');
-        $('#tab-7-next').addClass('streamWork-primary');
-    }
-}
-
-function tab7Next() {
-    if (transcriptUploaded && resumeUploaded) {
-        signUpTutor()
-        $('#transcript-label').popover('hide');
-        $('#transcript-label').popover('disable');
-        $('#resume-label').popover('hide');
-        $('#resume-label').popover('disable');
-        goToTab(8);
-    }
-}
-
-function tab9OauthUpdateNext() {
-    $('#student-username-oauth').removeClass('input-invalid');
-    $('#student-username-oauth').popover('hide');
-    $('#student-username-oauth').popover('disable');
-    $('#student-username-oauth-wrapper').popover('hide');
-    $('#student-username-oauth-wrapper').popover('disable');
-    if ($('#student-username-oauth').val().length == 0) {
-        $('#tab-9-next').removeClass('streamWork-primary');
-        $('#tab-9-next').addClass('streamWork-disabled');
-    } else {
-        $('#tab-9-next').removeClass('streamWork-disabled');
-        $('#tab-9-next').addClass('streamWork-primary');
-    }
-}
-
-function tab9OauthNext() {
-    if ($('#student-username-oauth').val().length > 0) {
-        if (/^[A-Za-z0-9_-]+$/.test($('#student-username-oauth').val())) {
-            $.ajax({
-                url: '/Home/SignUp/?handler=IsUsernameAvailable',
-                type: 'GET',
-                data: {
-                    username: $('#student-username-oauth').val()
-                }
-            }).done(function (data) {
-                if (data) {
-                    signUpStudent();
-                } else {
-                    $('#student-username-oauth').addClass('input-invalid');
-                    $('#student-username-oauth-wrapper').popover('enable');
-                    $('#student-username-oauth-wrapper').popover('show');
-                }
-            });
-        } else {
-            $('#student-username-oauth').addClass('input-invalid');
-            $('#student-username-oauth').popover('enable');
-            $('#student-username-oauth').popover('show');
-        }
-    }
-}
-
-function tab10OauthUpdateNext() {
+function tutorProfileInfoOAuthUpdateNext() {
     $('#tutor-username-oauth').removeClass('input-invalid');
     $('#tutor-username-oauth').popover('hide');
     $('#tutor-username-oauth').popover('disable');
     $('#tutor-username-oauth-wrapper').popover('hide');
     $('#tutor-username-oauth-wrapper').popover('disable');
     if ($('#tutor-username-oauth').val().length == 0) {
-        $('#tab-10-next').removeClass('streamWork-primary');
-        $('#tab-10-next').addClass('streamWork-disabled');
+        $('#tutorProfileInfoOAuth-next').removeClass('streamWork-primary');
+        $('#tutorProfileInfoOAuth-next').addClass('streamWork-disabled');
     } else {
-        $('#tab-10-next').removeClass('streamWork-disabled');
-        $('#tab-10-next').addClass('streamWork-primary');
+        $('#tutorProfileInfoOAuth-next').removeClass('streamWork-disabled');
+        $('#tutorProfileInfoOAuth-next').addClass('streamWork-primary');
     }
 }
 
-function tab10OauthNext() {
+function tutorProfileInfoOAuthNext() {
     if ($('#tutor-username-oauth').val().length > 0) {
         if (/^[A-Za-z0-9_-]+$/.test($('#tutor-username-oauth').val())) {
             $.ajax({
@@ -421,7 +447,7 @@ function tab10OauthNext() {
                 }
             }).done(function (data) {
                 if (data) {
-                    goToTab(7);
+                    goToTab('tutorResumeTranscript');
                 } else {
                     $('#tutor-username-oauth').addClass('input-invalid');
                     $('#tutor-username-oauth-wrapper').popover('enable');
@@ -434,6 +460,36 @@ function tab10OauthNext() {
             $('#tutor-username-oauth').popover('show');
         }
     }
+}
+
+function tutorResumeTranscriptUpdateNext() {
+    $('#transcript-label').popover('hide');
+    $('#transcript-label').popover('disable');
+    $('#resume-label').popover('hide');
+    $('#resume-label').popover('disable');
+    if (!transcriptUploaded || !resumeUploaded) {
+        $('#tutorResumeTranscript-next').removeClass('streamWork-primary');
+        $('#tutorResumeTranscript-next').addClass('streamWork-disabled');
+    } else {
+        $('#tutorResumeTranscript-next').removeClass('streamWork-disabled');
+        $('#tutorResumeTranscript-next').addClass('streamWork-primary');
+    }
+}
+
+function tutorResumeTranscriptNext() {
+    if (transcriptUploaded && resumeUploaded) {
+        signUpTutor()
+        $('#transcript-label').popover('hide');
+        $('#transcript-label').popover('disable');
+        $('#resume-label').popover('hide');
+        $('#resume-label').popover('disable');
+        goToTab('tutorComplete');
+    }
+}
+
+function tutorResumeTranscriptPrev() {
+    if (oauthStarted) goToTab('tutorProfileInfoOAuth');
+    else goToTab('tutorProfileInfo');
 }
 
 function signUpStudent() {
@@ -451,9 +507,17 @@ function signUpStudent() {
         formData.append('Token', oauthToken);
     }
 
-    formData.append('InCollege', $('#tab-2-inCollege').hasClass('streamWork-primary'));
+    formData.append('InCollege', $('#studentOrTutor-inCollege').hasClass('streamWork-primary'));
     formData.append('SchoolName', $('#schoolName').val());
-    formData.append('Topics', $('#tab-3-humanities').hasClass('streamWork-primary-rect') + "|" + $('#tab-3-math').hasClass('streamWork-primary-rect') + "|" + $('#tab-3-science').hasClass('streamWork-primary-rect') + "|" + $('#tab-3-art').hasClass('streamWork-primary-rect') + "|" + $('#tab-3-engineering').hasClass('streamWork-primary-rect') + "|" + $('#tab-3-business').hasClass('streamWork-primary-rect') + "|" + $('#tab-3-law').hasClass('streamWork-primary-rect') + "|" + $('#tab-3-other').hasClass('streamWork-primary-rect'))
+    formData.append('Topics',
+        $('#studentTopics-humanities').hasClass('streamWork-primary-rect') + "|" +
+        $('#studentTopics-math').hasClass('streamWork-primary-rect') + "|" +
+        $('#studentTopics-science').hasClass('streamWork-primary-rect') + "|" +
+        $('#studentTopic-art').hasClass('streamWork-primary-rect') + "|" +
+        $('#studentTopics-engineering').hasClass('streamWork-primary-rect') + "|" +
+        $('#studentTopics-business').hasClass('streamWork-primary-rect') + "|" +
+        $('#studentTopics-law').hasClass('streamWork-primary-rect') + "|" +
+        $('#studentTopics-other').hasClass('streamWork-primary-rect'))
 
     try {
         $.ajax({
@@ -468,7 +532,7 @@ function signUpStudent() {
                     $('input:hidden[name="__RequestVerificationToken"]').val());
             },
         }).done(function (data) {
-            goToTab(5);
+            goToTab('studentComplete');
         });
     } catch (e) {
         alert(e.message);
@@ -507,7 +571,7 @@ function signUpTutor() {
                 $('input:hidden[name="__RequestVerificationToken"]').val());
         },
     }).done(function (data) {
-        //goToTab(5);
+        goToTab('tutorComplete');
     });
 }
 
@@ -521,20 +585,21 @@ function Route() {
 }
 
 $(function () {
-    tab1UpdateNext();
-    tab2UpdateNext();
-    tab4UpdateNext();
-    tab6UpdateNext();
-    tab7UpdateNext();
-
+    emailUpdateNext();
+    studentOrTutorUpdateNext();
+    studentProfileInfoUpdateNext();
+    studentProfileInfoOAuthUpdateNext();
+    tutorProfileInfoUpdateNext();
+    tutorProfileInfoOAuthUpdateNext();
+    tutorResumeTranscriptUpdateNext();
     $('#transcript').change(function (e) {
         $('#transcript-label').text('Transcript: "' + e.target.files[0].name + '"');
         transcriptUploaded = e.target.files.length > 0;
-        tab7UpdateNext();
+        tutorResumeTranscriptUpdateNext();
     });
     $('#resume').change(function (e) {
         $('#resume-label').text('Résumé: "' + e.target.files[0].name + '"');
         resumeUploaded = e.target.files.length > 0;
-        tab7UpdateNext();
+        tutorResumeTranscriptUpdateNext();
     });
 });

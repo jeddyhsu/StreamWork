@@ -1,4 +1,4 @@
-﻿<div class="row" id="tab-4" style="display: none;">
+﻿<div class="row" id="studentProfileInfo" style="display: none;">
     <div class="col-lg-2"></div>
     <div class="col-lg-8" style="background-color: white; border-style: solid; border-width: 1px; border-color: #b1b1b1;">
         <div class="row" style="min-height: 600px;">
@@ -14,32 +14,32 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <p style="color: #707070; margin-bottom: 0; font-family: 'Roboto Slab'; font-size: 12px;">First Name</p>
-                        <input id="student-firstName" class="mb-3" style="width: 100%;" onkeyup="tab4UpdateNext();" />
+                        <input id="student-firstName" class="mb-3" style="width: 100%;" onkeyup="studentProfileInfoUpdateNext();" />
                     </div>
                     <div class="col-sm-6">
                         <p style="color: #707070; margin-bottom: 0; font-family: 'Roboto Slab'; font-size: 12px;">Last Name</p>
-                        <input id="student-lastName" class="mb-3" style="width: 100%;" onkeyup="tab4UpdateNext();" />
+                        <input id="student-lastName" class="mb-3" style="width: 100%;" onkeyup="studentProfileInfoUpdateNext();" />
                     </div>
                 </div>
                 <p style="color: #707070; margin-bottom: 0; font-family: 'Roboto Slab'; font-size: 12px;">Username</p>
                 <div id="student-username-wrapper" data-container="body" data-toggle="popover" data-placement="top" data-content="This username is taken">
-                    <input id="student-username" class="mb-3" style="width: 100%;" onkeyup="tab4UpdateNext();" data-toggle="popover" data-placement="top" data-content="Usernames may only include letters, numbers, underscores, and hyphens" />
+                    <input id="student-username" class="mb-3" style="width: 100%;" onkeyup="studentProfileInfoUpdateNext();" data-toggle="popover" data-placement="top" data-content="Usernames may only include letters, numbers, underscores, and hyphens" />
                 </div>
                 <p style="color: #707070; margin-bottom: 0; font-family: 'Roboto Slab'; font-size: 12px;">Password</p>
-                <input id="student-password" type="password" class="mb-3" style="width: 100%;" onkeyup="tab4UpdateNext();" data-toggle="popover" data-placement="top" data-content="Passwords must be at least 8 characters long, including at least one letter and number" />
+                <input id="student-password" type="password" class="mb-3" style="width: 100%;" onkeyup="studentProfileInfoUpdateNext();" data-toggle="popover" data-placement="top" data-content="Passwords must be at least 8 characters long, including at least one letter and number" />
                 <p style="color: #707070; margin-bottom: 0; font-family: 'Roboto Slab'; font-size: 12px;">Re-Enter Password</p>
-                <input id="student-confirmPassword" type="password" class="mb-3" style="width: 100%;" onkeyup="tab4UpdateNext();" data-toggle="popover" data-placement="top" data-content="Passwords must match" />
+                <input id="student-confirmPassword" type="password" class="mb-3" style="width: 100%;" onkeyup="studentProfileInfoUpdateNext();" data-toggle="popover" data-placement="top" data-content="Passwords must match" />
                 <br />
                 <br />
 
-                <button id="tab-4-next" class="streamWork-disabled" type="button" style="width: 100%;" onclick="tab4Next();">Create Profile</button>
+                <button id="studentProfileInfo-next" class="streamWork-disabled" type="button" style="width: 100%;" onclick="studentProfileInfoNext();">Create Profile</button>
 
                 <br />
                 <br />
                 <br />
 
                 <div class="mt-6 pt-6 pr-3" style="color: #004643; position: absolute; bottom: 0; left: 0;">
-                    <button class="streamWork-primary ml-3 mb-2" style="width: 60px; height: 20px; padding: 0px 0px;" onclick="goToTab(3);">Go Back</button>
+                    <button class="streamWork-primary ml-3 mb-2" style="width: 60px; height: 20px; padding: 0px 0px;" onclick="goToTab('studentTopics');">Go Back</button>
                 </div>
                 <div class="mt-6 pt-6 pr-3" style="color: #004643; position: absolute; bottom: 0; right: 0;">
                     <p style="color: #b1b1b1; display: inline-block;">&#x25CB;&#x25CB;</p><p style="color: #004643; display: inline-block;">&#x25CF;</p>

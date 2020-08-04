@@ -11,37 +11,49 @@
         <a href="/"><img src="~/images/streamworkLogo.png" height="100" /></a>
     </div>
 
+    @* 2020 Aug 1: Partial names have been changed to match an update in the JavaScript *@
+
+    @* Current control flow: *@
+    @* Email -> EmailVerification -> StudentOrTutor -> StudentTopics -> StudentProfileInfo -> StudentComplete *@
+    @*     \-------------------------^            \                \-> StudentProfileInfoOAuth -^ *@
+    @*                                             \-> TutorTopics -> TutorProfileInfo -> TutorResumeTranscript -> TutorComplete *@
+    @*                                                           \-> TutorProfileInfoOAuth -^ *@
+
     @* Email *@
     @await Html.PartialAsync("Partials/SignUp/Email")
 
-    @*TODO Email verification page*@
+    @* Email Verification *@
+    @await Html.PartialAsync("Partials/SignUp/EmailVerification")
 
     @* Student/Tutor and College/High School *@
-    @await Html.PartialAsync("Partials/SignUp/College-HighSchool")
+    @await Html.PartialAsync("Partials/SignUp/StudentOrTutor")
 
     @* Student Topics *@
-    @await Html.PartialAsync("Partials/SignUp/Student/Topics")
+    @await Html.PartialAsync("Partials/SignUp/Student/StudentTopics")
 
     @* Student Profile Info *@
-    @await Html.PartialAsync("Partials/SignUp/Student/ProfileInformation")
+    @await Html.PartialAsync("Partials/SignUp/Student/StudentProfileInfo")
 
     @* Student Profile Info (GoogleOAuth) *@
-    @await Html.PartialAsync("Partials/SignUp/Student/ProfileInformationOauth")
+    @await Html.PartialAsync("Partials/SignUp/Student/StudentProfileInfoOAuth")
 
     @* Student Complete *@
-    @await Html.PartialAsync("Partials/SignUp/Student/Complete")
+    @await Html.PartialAsync("Partials/SignUp/Student/StudentComplete")
+
+    @* Tutor Topics *@
+    @await Html.PartialAsync("Partials/SignUp/Tutor/TutorTopics") 
 
     @* Tutor Profile Info *@
-    @await Html.PartialAsync("Partials/SignUp/Tutor/ProfileInformation")
+    @await Html.PartialAsync("Partials/SignUp/Tutor/TutorProfileInfo")
 
     @* Student Profile Info (GoogleOAuth) *@
-    @await Html.PartialAsync("Partials/SignUp/Tutor/ProfileInformationOauth")
+    @await Html.PartialAsync("Partials/SignUp/Tutor/TutorProfileInfoOAuth")
 
     @* Tutor Resume & Transcript *@
-    @await Html.PartialAsync("Partials/SignUp/Tutor/Resume-Transcript")
+    @await Html.PartialAsync("Partials/SignUp/Tutor/TutorResumeTranscript")
 
     @* Tutor Complete *@
-    @await Html.PartialAsync("Partials/SignUp/Tutor/Complete")
+    @await Html.PartialAsync("Partials/SignUp/Tutor/TutorComplete")
 
     <br />
     <br />

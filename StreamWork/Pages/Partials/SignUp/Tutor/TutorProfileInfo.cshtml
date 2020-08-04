@@ -1,4 +1,4 @@
-﻿<div class="row" id="tab-6" style="display: none;">
+﻿<div class="row" id="tutorProfileInfo" style="display: none;">
     <div class="col-lg-2"></div>
     <div class="col-lg-8" style="background-color: white; border-style: solid; border-width: 1px; border-color: #b1b1b1;">
         <div class="row" style="min-height: 600px;">
@@ -14,32 +14,32 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <p style="color: #707070; margin-bottom: 0; font-family: 'Roboto Slab'; font-size: 12px;">First Name</p>
-                        <input id="tutor-firstName" class="mb-3" style="width: 100%;" onkeyup="tab6UpdateNext();" />
+                        <input id="tutor-firstName" class="mb-3" style="width: 100%;" onkeyup="tutorProfileInfoUpdateNext();" />
                     </div>
                     <div class="col-sm-6">
                         <p style="color: #707070; margin-bottom: 0; font-family: 'Roboto Slab'; font-size: 12px;">Last Name</p>
-                        <input id="tutor-lastName" class="mb-3" style="width: 100%;" onkeyup="tab6UpdateNext();" />
+                        <input id="tutor-lastName" class="mb-3" style="width: 100%;" onkeyup="tutorProfileInfoUpdateNext();" />
                     </div>
                 </div>
                 <p style="color: #707070; margin-bottom: 0; font-family: 'Roboto Slab'; font-size: 12px;">Username</p>
                 <div id="tutor-username-wrapper" data-container="body" data-toggle="popover" data-placement="top" data-content="This username is taken">
-                    <input id="tutor-username" class="mb-3" style="width: 100%;" onkeyup="tab6UpdateNext();" data-toggle="popover" data-placement="top" data-content="Usernames may only include letters, numbers, underscores, and hyphens" />
+                    <input id="tutor-username" class="mb-3" style="width: 100%;" onkeyup="tutorProfileInfoUpdateNext();" data-toggle="popover" data-placement="top" data-content="Usernames may only include letters, numbers, underscores, and hyphens" />
                 </div>
                 <p style="color: #707070; margin-bottom: 0; font-family: 'Roboto Slab'; font-size: 12px;">Password</p>
-                <input id="tutor-password" type="password" class="mb-3" style="width: 100%;" onkeyup="tab6UpdateNext();" data-toggle="popover" data-placement="top" data-content="Passwords must be at least 8 characters long, including at least one letter and number" />
+                <input id="tutor-password" type="password" class="mb-3" style="width: 100%;" onkeyup="tutorProfileInfoUpdateNext();" data-toggle="popover" data-placement="top" data-content="Passwords must be at least 8 characters long, including at least one letter and number" />
                 <p style="color: #707070; margin-bottom: 0; font-family: 'Roboto Slab'; font-size: 12px;">Re-Enter Password</p>
-                <input id="tutor-confirmPassword" type="password" class="mb-3" style="width: 100%;" onkeyup="tab6UpdateNext();" data-toggle="popover" data-placement="top" data-content="Passwords must match" />
+                <input id="tutor-confirmPassword" type="password" class="mb-3" style="width: 100%;" onkeyup="tutorProfileInfoUpdateNext();" data-toggle="popover" data-placement="top" data-content="Passwords must match" />
                 <br />
                 <br />
 
-                <button id="tab-6-next" class="streamWork-disabled" type="button" style="width: 100%;" onclick="tab6Next();">Create Profile</button>
+                <button id="tutorProfileInfo-next" class="streamWork-disabled" type="button" style="width: 100%;" onclick="tutorProfileInfoNext();">Create Profile</button>
 
                 <br />
                 <br />
                 <br />
 
                 <div class="mt-6 pt-6 pr-3" style="color: #004643; position: absolute; bottom: 0; left: 0;">
-                    <button class="streamWork-primary ml-3 mb-2" style="width: 60px; height: 20px; padding: 0px 0px;" onclick="goToTab(2);">Go Back</button>
+                    <button class="streamWork-primary ml-3 mb-2" style="width: 60px; height: 20px; padding: 0px 0px;" onclick="goToTab('tutorTopics');">Go Back</button>
                 </div>
                 <div class="mt-6 pt-6 pr-3" style="color: #004643; position: absolute; bottom: 0; right: 0;">
                     <p style="color: #b1b1b1; display: inline-block;">&#x25CB;</p><p style="color: #004643; display: inline-block;">&#x25CF;</p><p style="color: #b1b1b1; display: inline-block;">&#x25CB;</p>

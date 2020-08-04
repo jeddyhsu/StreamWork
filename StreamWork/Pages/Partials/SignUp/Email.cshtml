@@ -1,4 +1,4 @@
-﻿<div class="row" id="tab-1">
+﻿<div class="row" id="email">
     <div class="col-lg-4 col-md-3"></div>
     <div class="col-lg-4 col-md-6 py-4 px-5" style="background-color: white; border-style: solid; border-width: 1px; border-color: #b1b1b1;">
         <p class="text-center my-3" style="font-family: 'Roboto Slab'; font-size: 50px; font-weight: bold;">Sign Up</p>
@@ -6,16 +6,16 @@
 
         <p style="font-family: 'Roboto Slab'; font-size: 14px; color: #707070; margin-bottom: 0;">Email</p>
         <div id="emailAddress-wrapper" data-container="body" data-toggle="popover" data-placement="top" data-content="An account already exists with this email address">
-            <input id="emailAddress" type="text" class="mb-3" style="width: 100%;" onkeyup="tab1UpdateNext();" data-container="body" data-toggle="popover" data-placement="top" data-content="Please enter a valid email address" />
+            <input id="emailAddress" type="text" class="mb-3" style="width: 100%;" onkeyup="emailUpdateNext();" data-container="body" data-toggle="popover" data-placement="top" data-content="Please enter a valid email address" />
         </div>
-        <button id="tab-1-next" type="button" class="streamWork-primary mb-3" style="width: 100%;" onclick="tab1Next();">Continue with Email</button>
+        <button id="email-next" type="button" class="streamWork-primary mb-3" style="width: 100%;" onclick="emailNext();">Continue with Email</button>
         <br />
 
         <p class="divider-text">or</p>
         <div class="row">
             <div class="col-md-12">
-                <a id="sign-in-google" class="btn d-block mr-auto ml-auto" style="border-color:black" onclick="SignInOauth()" role="button" style="text-transform:none">
-                    <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                <a id="sign-in-google" class="btn d-block mr-auto ml-auto" style="border-color:black; text-transform: none;" onclick="SignInOauth()" role="button">
+                    <img width="20" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
                     Sign-in with Google
                 </a>
             </div>
