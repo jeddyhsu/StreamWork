@@ -371,6 +371,17 @@ lds-dual-ring {
     border-bottom-right-radius: 0%;
 }
 
+@media screen and (max-width: 800px) {
+    .navbar-profile-picture {
+        width: 34px;
+        height: 42px;
+        border-top-left-radius: 5%;
+        border-bottom-left-radius: 5%;
+        border-top-right-radius: 0%;
+        border-bottom-right-radius: 0%;
+    }
+}
+
 .navItem {
     color: #004643;
     font-family: 'Roboto Slab', serif;

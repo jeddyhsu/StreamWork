@@ -13,7 +13,7 @@ namespace StreamWork.Services
     {
         public FollowService([FromServices] IOptionsSnapshot<StorageConfig> config) : base(config) { }
        
-        public async Task<bool> AddFollower(string followerId, string followeeId)
+        public async Task<string[]> AddFollower(string followerId, string followeeId)
         {
             var followerProfile = await Get<UserLogin>(SQLQueries.GetUserWithId, followerId);
             var followeeProfile = await Get<UserLogin>(SQLQueries.GetUserWithId, followeeId);
@@ -31,12 +31,12 @@ namespace StreamWork.Services
                     FolloweeEmail = followeeProfile.EmailAddress,
                 };
 
-                await Save<Follow>(followRequest.Id, followRequest);
+                await Save(followRequest.Id, followRequest);
 
-                return true;
+                return new string[] {followerProfile.Username, followeeProfile.Username, followRequest.Id};
             }
 
-            return false;
+            return null;
         }
 
         public async Task<bool> RemoveFollower(string followerId, string followeeId)

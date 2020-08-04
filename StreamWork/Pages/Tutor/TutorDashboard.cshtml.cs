@@ -18,7 +18,6 @@ namespace StreamWork.Pages.Tutor
         private readonly ProfileService profileService;
         private readonly ScheduleService scheduleService;
         private readonly FollowService followService;
-        private readonly EditService editService;
         private readonly SearchService searchService;
         private readonly NotificationService notificationService;
 
@@ -37,14 +36,13 @@ namespace StreamWork.Pages.Tutor
         public bool AreThereUnseenNotifications { get; set; }
         public SearchViewModel SearchViewModel { get; set; }
 
-        public TutorDashboard(StorageService storage, CookieService cookie, ProfileService profile, ScheduleService schedule, FollowService follow, EditService edit, SearchService search, NotificationService notification)
+        public TutorDashboard(StorageService storage, CookieService cookie, ProfileService profile, ScheduleService schedule, FollowService follow, SearchService search, NotificationService notification)
         {
             storageService = storage;
             cookieService = cookie;
             profileService = profile;
             scheduleService = schedule;
             followService = follow;
-            editService = edit;
             searchService = search;
             notificationService = notification;
         }
@@ -53,7 +51,7 @@ namespace StreamWork.Pages.Tutor
         {
             if (!cookieService.Authenticated || (await cookieService.GetCurrentUser()).ProfileType != "tutor")
             {
-                return Redirect(cookieService.Url("/Home/SignIn"));
+                return Redirect(cookieService.Url("/Home/SignIn/SW"));
             }
 
             CurrentUserProfile = await cookieService.GetCurrentUser();

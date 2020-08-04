@@ -1,6 +1,5 @@
 ﻿.container-padding {
     padding-top: 100px;
-    padding-bottom: 75px
 }
 
 .custom-container {
@@ -15,7 +14,7 @@
 }
 
 .home-background {
-    background: linear-gradient(to bottom, #004643 90%, #F3F3F3 10%);
+    background: linear-gradient(to bottom, #004643 65%, #F3F3F3 25%);
 }
 
 @media (max-width: 800px){
@@ -25,7 +24,7 @@
     }
 
     .home-background {
-        background: linear-gradient(to bottom, #004643 100vh, #F3F3F3 0%);
+        background: linear-gradient(to bottom, #004643 100%);
     }
 }
 

@@ -15,6 +15,7 @@ namespace StreamWork.Pages.Profile
         private readonly StorageService storageService;
         private readonly ProfileService profileService;
         private readonly NotificationService notificationService;
+        private readonly EncryptionService encryptionService;
 
         public UserLogin CurrentUserProfile { get; set; }
         public UserLogin UserProfile { get; set; }
@@ -25,19 +26,20 @@ namespace StreamWork.Pages.Profile
         public List<Notification> Notifications { get; set; }
         public bool AreThereUnseenNotifications { get; set; }
 
-        public Student(StorageService storage, CookieService cookie, ProfileService profile, NotificationService notification)
+        public Student(StorageService storage, CookieService cookie, ProfileService profile, NotificationService notification, EncryptionService encryption)
         {
             storageService = storage;
             cookieService = cookie;
             profileService = profile;
             notificationService = notification;
+            encryptionService = encryption;
         }
 
         public async Task<IActionResult> OnGet(string student)
         {
             if (!cookieService.Authenticated)
             {
-                return Redirect(cookieService.Url("/Home/SignIn"));
+                return Redirect(cookieService.Url("/Home/SignIn/" + encryptionService.EncryptString("/Profile/Tutor/" + student)));
             }
 
             if (!await cookieService.ValidateUserType(student, "student")) //checks for 

@@ -25,7 +25,7 @@ namespace StreamWork.Pages.Home
             return Page();
         }
 
-        public async Task<IActionResult> OnPostSignIn()
+        public async Task<IActionResult> OnPostSignIn(string route)
         {
             var username = Request.Form["Username"];
             var password = Request.Form["Password"];
@@ -46,7 +46,12 @@ namespace StreamWork.Pages.Home
                 var signInProfile = await cookieService.SignIn(username, encryptionService.DecryptPassword(userProfile.Password, password));
                 if (signInProfile != null)
                 {
-                    if(signInProfile.ProfileType == "tutor")
+                    if(route != "SW")
+                    {
+                        var decryptedRoute = encryptionService.DecryptString(route);
+                        return new JsonResult(new { Message = "Route", Route = decryptedRoute });
+                    }
+                    else if(signInProfile.ProfileType == "tutor")
                         return new JsonResult(new { Message = JsonResponse.Tutor.ToString() });
                     else
                         return new JsonResult(new { Message = JsonResponse.Student.ToString() });

@@ -33,7 +33,7 @@ namespace StreamWork.Pages.Tutor
         {
             if (!cookieService.Authenticated || (await cookieService.GetCurrentUser()).ProfileType != "tutor")
             {
-                return Redirect(cookieService.Url("/Home/SignIn"));
+                return Redirect(cookieService.Url("/Home/SignIn/SW"));
             }
 
             CurrentUserProfile = await cookieService.GetCurrentUser();
