@@ -13,7 +13,7 @@
         if (data == null) {
             oauthToken = googleProfile.getAuthResponse().id_token;
             oauthStarted = true;
-            goToTab(2)
+            goToTab('studentOrTutor');
         }
         else {
             window.location.href = '/' + data + '/' + data + 'Dashboard'
@@ -22,7 +22,6 @@
 }
 
 function SignInOauth() {
-    debugger;
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signIn().then(function () {
         var profile = auth2.currentUser.get()

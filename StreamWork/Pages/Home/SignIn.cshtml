@@ -12,7 +12,7 @@
     </div>
 
     @* Email *@
-    <div class="row" id="tab-1">
+    <div class="row" id="email">
         <div class="col-lg-4 col-md-3"></div>
         <div class="col-lg-4 col-md-6 py-4 px-5" style="background-color: white; border-style: solid; border-width: 1px; border-color: #b1b1b1;">
             <div id="invalid-username-password-notification" class="alert notification-warning text-center" style="padding-left:25px" role="alert">
@@ -56,25 +56,28 @@
 </div>
 
 @* Student/Tutor and College/High School *@
-@await Html.PartialAsync("Partials/SignUp/College-HighSchool")
+@await Html.PartialAsync("Partials/SignUp/StudentOrTutor")
 
 @* Student Topics *@
-@await Html.PartialAsync("Partials/SignUp/Student/Topics")
+@await Html.PartialAsync("Partials/SignUp/Student/StudentTopics")
 
 @* Student Profile Info (GoogleOAuth) *@
-@await Html.PartialAsync("Partials/SignUp/Student/ProfileInformationOauth")
+@await Html.PartialAsync("Partials/SignUp/Student/StudentProfileInfoOauth")
 
 @* Student Complete *@
-@await Html.PartialAsync("Partials/SignUp/Student/Complete")
+@await Html.PartialAsync("Partials/SignUp/Student/StudentComplete")
+
+@* Tutor Topics *@
+@await Html.PartialAsync("Partials/SignUp/Tutor/TutorTopics") 
 
 @* Tutor Profile Info (GoogleOAuth) *@
-@await Html.PartialAsync("Partials/SignUp/Tutor/ProfileInformationOauth")
+@await Html.PartialAsync("Partials/SignUp/Tutor/TutorProfileInfoOauth")
 
 @* Tutor Resume-Transcript *@
-@await Html.PartialAsync("Partials/SignUp/Tutor/Resume-Transcript")
+@await Html.PartialAsync("Partials/SignUp/Tutor/TutorResumeTranscript")
 
 @* Tutor Complete *@
-@await Html.PartialAsync("Partials/SignUp/Tutor/Complete")
+@await Html.PartialAsync("Partials/SignUp/Tutor/TutorComplete")
 
 <br />
 <br />
