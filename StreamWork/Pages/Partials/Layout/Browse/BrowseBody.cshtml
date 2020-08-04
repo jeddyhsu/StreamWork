@@ -17,8 +17,8 @@
                     <a class="navItem nav-link pl-3 pr-3" href="/Home/About">About</a>
                 </li>
             </ul>
-            <form class="p-1 border rounded w-100" style="background-color:white; margin-left:40px; margin-right:50px" onkeyup="" onsubmit="">
-                <input id="searchQuery" class="form-control-lg" type="search" placeholder="🔎  Search Videos" style="border: none; font-size:12px;">
+            <form id="search-form" class="p-1 border rounded w-100" style="background-color:white; margin-left:40px; margin-right:50px" onkeyup="SearchStreams(event, 'video-row')" onsubmit="SearchStreams(event, 'video-row')">
+                <input id="searchQuery" class="form-control-lg" type="search" placeholder="🔎  Search Streams By Title" style="border: none; font-size:12px;">
             </form>
         </div>
         @if (Model.CurrentUserProfile == null)
@@ -30,6 +30,15 @@
         }
         else
         {
+            @if (Model.Notifications.Count > 0 && Model.AreThereUnseenNotifications)
+            {
+                <img id="notification-bell" class="float-right" src="~/images/GenericAssets/NotificationBell.svg" width="65" style="cursor:pointer" onclick="OpenModal('notification-modal'); UpdateToSeen('@Model.CurrentUserProfile.Username');  $('#notification-bell').attr('src', '/images/GenericAssets/Bell.svg')" />
+            }
+            else
+            {
+                <img src="~/images/GenericAssets/Bell.svg" class="float-right" width="65" style="cursor:pointer" onclick="OpenModal('notification-modal')" />
+            }
+
             <div class="btn-group pr-3">
                 <input id="navbar-profile-picture" class="navbar-profile-picture" type="image" data-toggle="dropdown" src="@Model.CurrentUserProfile.ProfilePicture?@cacheRand" />
                 <button type="button" id="dropdown" class="btn btn-info dropdown-toggle border-0 navbar-dropdown-button" data-toggle="dropdown"></button>

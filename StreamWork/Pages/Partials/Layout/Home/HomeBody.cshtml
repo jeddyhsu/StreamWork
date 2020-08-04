@@ -1,0 +1,57 @@
+﻿@{var cacheRand = new Random().Next();}
+
+<div class="row">
+    <nav class="navbar navbar-expand-lg p-1 w-100 fixed-top" style="background-color:white">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse pl-3" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <li class="nav-item active d-block mr-auto ml-auto">
+                    <a class="navItem nav-link pl-3 pr-3" href="/Home/Tutor">Tutor</a>
+                </li>
+                <li class="nav-item active d-block mr-auto ml-auto">
+                    <a class="navItem nav-link pl-3 pr-3" href="/Home/Browse">Browse</a>
+                </li>
+                <li class="nav-item active d-block mr-auto ml-auto">
+                    <a class="navItem nav-link pl-3" href="/Home/About">About</a>
+                </li>
+            </ul>
+            <div class="d-block mr-auto ml-auto">
+                <a class="navbar-brand" href="/">
+                    <img src="~/images/StreamWorkLogo.png" width="150" alt="">
+                </a>
+            </div>
+        </div>
+        @if (Model.CurrentUserProfile == null)
+        {
+            <div class="btn-group pr-3 float-right m-2">
+                <button class="streamWork-secondary mr-2" onclick="window.location.href='/Home/SignUp'">Sign Up</button>
+                <button class="streamWork-primary" onclick="window.location.href='/Home/SignIn/SW'">Sign In</button>
+            </div>
+        }
+        else
+        {
+            <div class="btn-group pr-3">
+                <input id="navbar-profile-picture" class="navbar-profile-picture" type="image" data-toggle="dropdown" src="@Model.CurrentUserProfile.ProfilePicture?@cacheRand" />
+                <button type="button" id="dropdown" class="btn btn-info dropdown-toggle border-0 navbar-dropdown-button" data-toggle="dropdown"></button>
+                <div class="dropdown-menu dropdown-menu-right" style="font-size:12px; min-width:0px !important">
+                    @if (Model.CurrentUserProfile.ProfileType == "tutor")
+                    {
+                        <a class="dropdown-item" href="/Tutor/TutorDashboard">Dashboard</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" id="Settings" href="/Tutor/TutorSettings">Settings</a>
+                    }
+                    else
+                    {
+                        <a class="dropdown-item" href="/Student/StudentDashboard">Dashboard</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" id="Settings" href="/Student/TutorSettings">Settings</a>
+                    }
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" onclick="SignOut()">Logout</a>
+                </div>
+            </div>
+        }
+    </nav>
+</div>

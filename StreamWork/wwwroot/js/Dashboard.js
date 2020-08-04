@@ -34,7 +34,7 @@ function SliderProfileInformation() {
 
 function SliderSocialMedia() {
     $('#social-media-tab').tab('show');
-    $('#slider-object-profile-edit-modal').css("transform", "translate3d(180px, 0px, 0px)")
+    $('#slider-object-profile-edit-modal').css("transform", "translate3d(110px, 0px, 0px)")
 }
 
 
@@ -47,10 +47,19 @@ function SaveProfile() {
     formData.append("Occupation", $('#occupation-major').val());
     formData.append("Location", $('#location').val());
     formData.append("Timezone", $('#timezone').val());
+
+    var isSMValid = CheckSMUrls($('#linkedin-url').val(), $('#instagram-url').val(), $('#facebook-url').val(), $('#twitter-url').val());
+    if (isSMValid != "all valid") {
+        $('#profile-information-sm-p').text(isSMValid)
+        ShowBannerNotification("profile-information-sm-notification")
+        return;
+    }
+   
     formData.append("LinkedInUrl", $('#linkedin-url').val());
     formData.append("InstagramURL", $('#instagram-url').val());
     formData.append("FacebookURL", $('#facebook-url').val());
     formData.append("TwitterURL", $('#twitter-url').val());
+
     if (totalFiles.files.length > 0)
         formData.append("ProfilePicture", totalFiles.files[0]);
 
@@ -85,6 +94,38 @@ function SaveProfile() {
             }
         }
     })
+}
+
+function CheckSMUrls(linkden, insta, facebook, twitter) {
+    if (linkden != null && linkden != "") {
+        if (/(ftp|http|https):\/\/?(?:www\.)?linkedin.com(\w+:{0,1}\w*@)?(\S+)(:([0-9])+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/.test(linkden)) {
+        }else {
+            return "Linkden";
+        }
+    }
+
+    if (insta != null && insta != "") {
+        if (/^(http|https)\:\/\/www.instagram.com\/.*/i.test(insta)) {
+        } else {
+            return "Instagram";
+        }
+    }
+
+    if (facebook != null && facebook != "") {
+        if (/^(http|https)\:\/\/www.facebook.com\/.*/i.test(facebook)) {
+        } else {
+            return "Facebook";
+        }
+    }
+
+    if (twitter != null && twitter != "") {
+        if (/http(?:s)?:\/\/(?:www\.)?twitter\.com\/([a-zA-Z0-9_]+)/.test(twitter)) {
+        } else {
+            return "Twitter";
+        }
+    }
+
+    return "all valid"
 }
 
 function EditProfile() {

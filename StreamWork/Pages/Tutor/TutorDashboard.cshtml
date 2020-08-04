@@ -118,7 +118,7 @@
             <div class="tab-pane active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <div class="container-fluid pt-3" style="width:100%">
                     <div class="row">
-                        <div class="col-lg-8 col-md-12 col-sm-12 col-12">
+                        <div class="col-lg-8 col-md-12 col-sm-12 col-12 pt-4">
                             <div class="card">
                                 <div class="card-title p-3">
                                     <p class="form-header d-inline-block" style="font-size:18px">Basic Information</p>
@@ -225,7 +225,7 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-12 col-sm-12 col-12">
+                        <div class="col-lg-4 col-md-12 col-sm-12 col-12 pt-4">
                             <div class="card">
                                 <div class="card-title p-3 form-header" style="font-size:18px">Academic Experience</div>
                                 @if (Model.Topics != null)
@@ -299,7 +299,7 @@
             <div class="tab-pane" id="schedule" role="tabpanel" aria-labelledby="schedule-tab">
                 <div class="container-fluid pt-3" style="width:100%">
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-12 pt-4">
                             <div class="card">
                                 <div class="card-title p-3 m-0 form-header" style="font-size:18px">Stream Schedule</div>
                                 <div class="card-body">
@@ -370,9 +370,9 @@
 
 
             <div class="tab-pane" id="video" role="tabpanel" aria-labelledby="video-tab">
-                <div class="container-fluid pt-2" style="width:100%">
-                    <div class="row p-3">
-                        <div class="col-12">
+                <div class="container-fluid pt-3" style="width:100%">
+                    <div class="row">
+                        <div class="col-12 p-4">
                             <form class="p-1 border rounded" style="background-color:white" onkeyup="SearchStreams(event, '@Model.CurrentUserProfile.Name', '@Model.CurrentUserProfile.Username', 'col-lg-3')" onsubmit="SearchStreams(event, '@Model.CurrentUserProfile.Name', '@Model.CurrentUserProfile.Username' 'col-lg-3')">
                                 <input id="searchQuery" class="form-control-lg" type="search" placeholder="🔎 Search Past Streams" style="border: none; font-size:12px;">
                             </form>

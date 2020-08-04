@@ -269,6 +269,18 @@ lds-dual-ring {
     cursor: pointer !important;
 }
 
+.streamWork-teal {
+    border: solid;
+    border-width: 2px;
+    border-color: #008080;
+    background-color: #008080;
+    color: white;
+    border-radius: 5px;
+    font-size: 10px;
+    padding: 8px 20px;
+    cursor: pointer;
+}
+
 .streamWork-delete {
     border: solid !important;
     border-width: 2px !important;
@@ -357,6 +369,17 @@ lds-dual-ring {
     border-bottom-left-radius: 5%;
     border-top-right-radius: 0%;
     border-bottom-right-radius: 0%;
+}
+
+@media screen and (max-width: 800px) {
+    .navbar-profile-picture {
+        width: 34px;
+        height: 42px;
+        border-top-left-radius: 5%;
+        border-bottom-left-radius: 5%;
+        border-top-right-radius: 0%;
+        border-bottom-right-radius: 0%;
+    }
 }
 
 .navItem {
@@ -607,3 +630,16 @@ pre {
 .container-padding{
     padding-top:58px;
 }
+
+.streamWork-white {
+    color: white;
+}
+
+.streamWork-green {
+    color: #004643;
+}
+
+.streamWork-grey {
+    color: #707070;
+}
+

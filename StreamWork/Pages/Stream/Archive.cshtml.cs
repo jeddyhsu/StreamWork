@@ -19,6 +19,7 @@ namespace StreamWork.Pages.Stream
         private readonly FollowService followService;
         private readonly CommentService commentService;
         private readonly NotificationService notificationService;
+        private readonly EncryptionService encryptionService;
 
         public UserLogin CurrentUserProfile { get; set; }
         public UserLogin UserProfile { get; set; }
@@ -40,7 +41,7 @@ namespace StreamWork.Pages.Stream
         public Comment NotificationRequestComment { get; set; }
         public bool AreThereUnseenNotifications { get; set; }
 
-        public Archive(StorageService storage, CookieService cookie, ProfileService profile, ScheduleService schedule, FollowService follow, CommentService comment, NotificationService notification)
+        public Archive(StorageService storage, CookieService cookie, ProfileService profile, ScheduleService schedule, FollowService follow, CommentService comment, NotificationService notification, EncryptionService encryption)
         {
             storageService = storage;
             cookieService = cookie;
@@ -49,13 +50,14 @@ namespace StreamWork.Pages.Stream
             followService = follow;
             commentService = comment;
             notificationService = notification;
+            encryptionService = encryption;
         }
 
         public async Task<IActionResult> OnGet(string tutor, string id, string commentId)
         {
             if (!cookieService.Authenticated)
             {
-                return Redirect(cookieService.Url("/Home/SignIn"));
+                return Redirect(cookieService.Url("/Home/SignIn/" + encryptionService.EncryptString("/Stream/Archive/" + tutor + "/" + id + "/" + commentId)));
             }
 
             CurrentUserProfile = await cookieService.GetCurrentUser();

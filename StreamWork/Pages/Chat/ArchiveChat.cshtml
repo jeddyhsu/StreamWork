@@ -7,15 +7,15 @@
     <div class="row">
         <div class="col-lg-12">
 
-            <div class="card fixed-top border-top border-left-0 border-right-0 border-bottom rounded-0" style="background-color:#FBFBFB; height:70px">
+            <div class="card fixed-top border-top border-left-0 border-right-0 border-bottom rounded-0" style="background-color:#FBFBFB; height:72px">
                 <div class="card-body p-0">
-                    <p class="d-inline-block form-header p-3" style="font-size:20px">Chat History</p>
+                    <p class="d-inline-block form-header p-3 mb-0 mt-1" style="font-size:20px">Chat History</p>
                 </div>
             </div>
-            <ul id="chat-field" class="chat-list-view pl-0 pr-0">
+            <ul id="chat-field" class="chat-list-view pl-0 pr-0 mb-0">
                 @if (Model.Chats.Count < 1)
                 {
-                    <p class="text-center form-header p-3" style="margin-top:250px; font-size:22px">No chats for this stream</p>
+                    <p class="text-center form-header p-3" style="margin-top:200px; font-size:22px">No chats for this stream</p>
                 }
                 else
                 {
@@ -25,7 +25,7 @@
                         @if (i % 2 == 0) colorWay = "chat-list-primary-color-way";
                         else colorWay = "chat-list-secondary-color-way";
 
-                        <li id="message-@i" class='list-group-item @colorWay border-left-0 border-right-0'>
+                        <li id="message-@i" class='list-group-item @colorWay border-left-0 border-right-0 border-top-0'>
                             <div class="row">
                                 <div class="col-12">
                                     <input align="left" type="image" class="chat-profile-picture rounded" src=@Model.Chats[i].ProfilePicture />

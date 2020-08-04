@@ -18,6 +18,7 @@ namespace StreamWork.Pages.Profile
         private readonly ScheduleService scheduleService;
         private readonly FollowService followService;
         private readonly NotificationService notificationService;
+        private readonly EncryptionService encryptionService;
 
         public UserLogin CurrentUserProfile { get; set; }
         public UserLogin UserProfile { get; set; }
@@ -35,7 +36,7 @@ namespace StreamWork.Pages.Profile
         public bool AreThereUnseenNotifications { get; set; }
         public string FollowValue { get; set; }
 
-        public Tutor(StorageService storage, CookieService cookie, ProfileService profile, ScheduleService schedule, FollowService follow, NotificationService notification)
+        public Tutor(StorageService storage, CookieService cookie, ProfileService profile, ScheduleService schedule, FollowService follow, NotificationService notification, EncryptionService encryption)
         {
             storageService = storage;
             cookieService = cookie;
@@ -43,13 +44,14 @@ namespace StreamWork.Pages.Profile
             scheduleService = schedule;
             followService = follow;
             notificationService = notification;
+            encryptionService = encryption;
         }
 
         public async Task<IActionResult> OnGet(string tutor)
         {
             if (!cookieService.Authenticated)
             {
-                return Redirect(cookieService.Url("/Home/SignIn"));
+                return Redirect(cookieService.Url("/Home/SignIn/" + encryptionService.EncryptString("/Profile/Tutor/" + tutor)));
             }
 
             if(!await cookieService.ValidateUserType(tutor, "tutor")) //checks for 

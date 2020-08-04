@@ -2,104 +2,83 @@
 @{Layout = "Browse/_LayoutBrowse";}
 @model StreamWork.Pages.Home.BrowseModel
 @{var cacheRand = new Random().Next();}
+@Html.AntiForgeryToken()
 
-    <div class="container-fluid mr-0" style="padding-top:25px;">
-        <div class="container-fluid inner-container-fluid custom-container-padding">
-            <p class="form-header pl-3" style="font-size:38px">Browse</p>
-            <p class="form-header pl-3" style="font-size:22px">Subject Topics</p>
-            <hr />
-            @await Html.PartialAsync("Partials/Browse/Carousels")
+<div class="container-fluid mr-0" style="padding-top:25px;">
+    <div class="container-fluid inner-container-fluid custom-container-padding">
+        <p class="form-header pl-3" style="font-size:38px">Browse</p>
+        <p class="form-header pl-3" style="font-size:22px">Subject Topics</p>
+        <hr />
+        @await Html.PartialAsync("Partials/Browse/Topics")
+        <ul class="nav nav-tabs pt-3" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active form-header" id="streams-tab" data-toggle="tab" href="#streams" onclick="SliderStreams()">Streams</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link form-header" id="videos-tab" data-toggle="tab" href="#videos" onclick="SliderVideos()">Videos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link form-header" id="tutors-tab" data-toggle="tab" href="#tutors" onclick="SliderTutors()">Tutors</a>
+            </li>
+        </ul>
 
-            <ul class="nav nav-tabs pt-3" id="myTab" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active form-header" id="profile-tab" data-toggle="tab" href="#profile" onclick="SliderVideos()">Videos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link form-header" id="streams-tab" data-toggle="tab" href="#streams" onclick="SliderStreams()">Streams</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link form-header" id="tutors-tab" data-toggle="tab" href="#tutors" onclick="SliderTutors()">Tutors</a>
-                </li>
-            </ul>
+        <div class="slider">
+            <div id="slider-object" class="slider-object"></div>
+        </div>
 
-            <div class="slider">
-                <div id="slider-object" class="slider-object"></div>
+        <div class="tab-content">
+            <div class="tab-pane active" id="streams" role="tabpanel" aria-labelledby="streams-tab">
+                <div class="container-fluid pt-3" style="width:100%">
+                    <div id="stream-row" class="row">
+                        @if (Model.LiveChannels.Count > 0)
+                        {
+
+                        }
+                        else
+                        {
+                            <div class="col-9" style="height:200px">
+                                <p class="form-sub-header pl-3 pr-3 pt-3 pb-0" style="font-size:22px">No live streams at the moment.</p>
+                                <p class="form-sub-header pl-3 pr-3" style="font-size:14px; font-family:'Roboto', serif">Feel free to look at some past streams in the videos tab.</p>
+                            </div>
+                        }
+                        @await Html.PartialAsync("Partials/Browse/LiveChannels", Model)
+                    </div>
+                </div>
             </div>
 
-            <div class="tab-content">
-                <div class="tab-pane active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                    <div class="container-fluid pt-3" style="width:100%; max-height:calc(100%-500px);">
-                        <div class="row p-3">
-                            @await Html.PartialAsync("Partials/Browse/Videos", Model)
-                        </div>
+            <div class="tab-pane" id="videos" role="tabpanel" aria-labelledby="videos-tab">
+                <div class="container-fluid pt-3" style="width:100%; max-height:calc(100%-500px);">
+                    <div id="video-row" class="row p-3">
+                        @await Html.PartialAsync("Partials/Browse/Videos", Model)
                     </div>
                 </div>
+            </div>
 
-                <div class="tab-pane" id="streams" role="tabpanel" aria-labelledby="streams-tab">
-                    <div class="container-fluid pt-3" style="width:100%">
-                        <div class="row">
-                            @if (Model.LiveChannels.Count > 0)
-                            {
-
-                            }
-                            else
-                            {
-                                <div class="col-9 p-3" style="height:200px">
-                                    <p class="form-sub-header p-0" style="font-size:22px">No live streams at the moment.</p>
-                                    <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">Feel free to look at some past streams in the videos tab.</p>
-                                </div>
-                            }
-                            @await Html.PartialAsync("Partials/Browse/LiveChannels", Model)
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tab-pane" id="tutors" role="tabpanel" aria-labelledby="tutors-tab">
-                    <div class="container-fluid pt-3" style="width:100%">
-                        <div class="row">
-                            @foreach (var tutor in Model.AllTutors)
-                            {
-                                <div class="col-lg-4 mt-2 mb-2">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div>
-                                                <img class="rounded" src="@tutor.ProfilePicture" style="width:50px" align="left" />
-                                                <div class="btn-group float-right">
-                                                    <button class="streamWork-secondary m-1 stream-buttons" onclick="window.location.href='/Profile/Tutor/@tutor.Username'">Profile</button>
-                                                </div>
-                                                <p class="form-header mb-0" style="font-size:16px; padding-left:60px; color:@tutor.ProfileColor">@tutor.Name.Replace('|', ' ')</p>
-                                                <p class="form-sub-header mb-0" style="font-size:12px; padding-left:60px">@tutor.ProfileCaption</p>
-                                                <p class="mb-0 mt-1 form-sub-header" style="padding-left:60px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            }
-                        </div>
-
+            <div class="tab-pane" id="tutors" role="tabpanel" aria-labelledby="tutors-tab">
+                <div class="container-fluid pt-3" style="width:100%">
+                    <div id="tutor-row" class="row">
                         @await Html.PartialAsync("Partials/Browse/Tutors", Model)
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-        <div class="wrapper">
-            <nav id="sidebar">
-                <img class="logo-desktop" onclick="window.location.href ='/'" src="~/images/WhiteStreamWork.png" />
-                <ul class="p-0">
-                    <p class="form-header p-3" style="font-size:18px; color:white">Popular Tutors</p>
-                    @await Html.PartialAsync("Partials/Browse/PopularTutors", Model)
-                </ul>
-            </nav>
-        </div>
+<div class="wrapper">
+    <nav id="sidebar">
+        <img class="logo-desktop" onclick="window.location.href ='/'" src="~/images/WhiteStreamWork.png" />
+        <ul class="p-0">
+            <p class="form-header p-3" style="font-size:18px; color:white">Popular Tutors</p>
+            @await Html.PartialAsync("Partials/Browse/PopularTutors", Model)
+        </ul>
+    </nav>
+</div>
 
-        <div class="wrapper">
-            <nav id="sidebar-tablet">
-                <img class="logo-tablet" onclick="window.location.href ='/'" src="~/images/streamWorkPencilWhite.png" />
-                <ul class="p-0">
-                   
-                </ul>
-            </nav>
-        </div>
+<div class="wrapper">
+    <nav id="sidebar-tablet">
+        <img class="logo-tablet" onclick="window.location.href ='/'" src="~/images/streamWorkPencilWhite.png" />
+        <ul class="p-0">
+        </ul>
+    </nav>
+</div>

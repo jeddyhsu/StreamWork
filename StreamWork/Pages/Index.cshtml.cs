@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StreamWork.DataModels;
 using StreamWork.HelperMethods;
@@ -12,11 +9,11 @@ namespace StreamWork.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly StorageService storage;
-        private readonly CookieService session;
-        private readonly EncryptionService encryption;
+        private readonly StorageService storageService;
+        private readonly CookieService cookieService;
+        private readonly EncryptionService encryptionService;
 
-        public UserLogin GenericUserProfile { get; set; }
+        public UserLogin CurrentUserProfile { get; set; }
         public UserLogin FeaturedTutor { get; set; }
         public UserChannel FeaturedChannel { get; set; }
         public UserArchivedStreams FeaturedArchivedStream { get; set; }
@@ -24,11 +21,11 @@ namespace StreamWork.Pages
         public bool IsUserFollowingFeaturedTutor { get; set; }
         public string ChatInfo { get; set; }
 
-        public IndexModel(StorageService storage, CookieService session, EncryptionService encryption)
+        public IndexModel(StorageService storage, CookieService cookie, EncryptionService encryption)
         {
-            this.storage = storage;
-            this.session = session;
-            this.encryption = encryption;
+            storageService = storage;
+            cookieService = cookie;
+            encryptionService = encryption;
         }
 
         public async Task OnGet()
@@ -46,7 +43,7 @@ namespace StreamWork.Pages
             };
 
             // List of the IDs of the streams to hardcode in
-            List<UserArchivedStreams> streamsByViews = await storage.GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsInDescendingOrderByViews);
+            List<UserArchivedStreams> streamsByViews = await storageService.GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsInDescendingOrderByViews);
             List<UserArchivedStreams> userArchivedStreams = new List<UserArchivedStreams>();
 
             foreach (string streamWithPriority in streamsWithPriority) // Add hardcoded streams
@@ -63,23 +60,24 @@ namespace StreamWork.Pages
             }
             ArchivedStreams = userArchivedStreams;
 
-            UserChannel streamingChannel = await storage.Get<UserChannel>(SQLQueries.GetAllUserChannelsThatAreStreaming);
+            UserChannel streamingChannel = await storageService.Get<UserChannel>(SQLQueries.GetAllUserChannelsThatAreStreaming);
             if (streamingChannel == null)
             {
-                FeaturedChannel = await storage.Get<UserChannel>(SQLQueries.GetUserChannelWithUsername, "juliamkim");
-                FeaturedTutor = await storage.Get<UserLogin>(SQLQueries.GetUserWithUsername, "juliamkim");
-                FeaturedArchivedStream = await storage.Get<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, "juliamkim");
+                FeaturedChannel = await storageService.Get<UserChannel>(SQLQueries.GetUserChannelWithUsername, "juliamkim");
+                FeaturedTutor = await storageService.Get<UserLogin>(SQLQueries.GetUserWithUsername, "juliamkim");
+                FeaturedArchivedStream = await storageService.Get<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, "juliamkim");
+                FeaturedArchivedStream.StreamSubjectIcon = MiscHelperMethods.GetCorrespondingSubjectThumbnail(FeaturedArchivedStream.StreamSubject);
             }
             else
             {
                 FeaturedChannel = streamingChannel;
-                FeaturedTutor = await storage.Get<UserLogin>(SQLQueries.GetUserWithUsername, streamingChannel.Username);
+                FeaturedTutor = await storageService.Get<UserLogin>(SQLQueries.GetUserWithUsername, streamingChannel.Username);
             }
 
-            if (session.Authenticated)
+            if (cookieService.Authenticated)
             {
-                GenericUserProfile = await session.GetCurrentUser();
-                ChatInfo = encryption.EncryptString(GenericUserProfile.Username + "|" + GenericUserProfile.Id + "|" + GenericUserProfile.EmailAddress);
+                CurrentUserProfile = await cookieService.GetCurrentUser();
+                ChatInfo = encryptionService.EncryptString(CurrentUserProfile.Username + "|" + CurrentUserProfile.Id + "|" + CurrentUserProfile.EmailAddress);
             }
         }
     }

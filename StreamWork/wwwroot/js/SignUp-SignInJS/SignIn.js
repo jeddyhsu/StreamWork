@@ -43,8 +43,10 @@ function SignIn() {
     formData.append('Username', $('#username').val())
     formData.append('Password', $('#password').val())
 
+    var currentURL = document.location.href
+
     $.ajax({
-        url: '/Home/SignIn/?handler=SignIn',
+        url: currentURL + '?handler=SignIn',
         type: 'POST',
         datatype: 'json',
         data: formData,
@@ -55,8 +57,14 @@ function SignIn() {
                 $('input:hidden[name="__RequestVerificationToken"]').val());
         },
         success: function (data) {
-            if (data.message === "Tutor" || data.message === "Student") {
+            if (data.message === "Tutor") {
                 window.location.href = '/' + data.message + '/' + data.message + 'Dashboard'
+            }
+            else if (data.message === "Student") {
+                window.location.href = '/Home/Browse'
+            }
+            else if (data.message === "Route") {
+                window.location.href = data.route
             }
             else {
                 ShowBannerNotification('invalid-username-password-notification')
@@ -67,7 +75,7 @@ function SignIn() {
 
 function SignOut() {
     $.ajax({
-        url: '/Home/SignIn/?handler=SignOut',
+        url: '/Home/SignIn/SW/?handler=SignOut',
         type: 'POST',
         datatype: 'json',
         beforeSend: function (xhr) {
@@ -76,7 +84,7 @@ function SignOut() {
         },
         success: function (data) {
             SignOutOauth()
-            window.location.href = "/Home/SignIn"
+            window.location.href = "/"
         }
     })
 }

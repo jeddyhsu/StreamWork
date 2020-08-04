@@ -40,9 +40,6 @@ else
                 <li class="nav-item">
                     <a class="nav-link active form-header" id="profile-tab" data-toggle="tab" href="#profile" onclick="SliderProfile()">Profile</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link form-header" id="following-tab" data-toggle="tab" href="#following" onclick="SliderFollowing()">Following</a>
-                </li>
             </ul>
 
             <div class="slider">
@@ -59,19 +56,6 @@ else
                                         <p class="form-header d-inline-block mb-0" style="font-size:18px">Basic Information</p>
                                     </div>
                                     @await Html.PartialAsync("Partials/Profile/Sections_View", Model)
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tab-pane" id="following" role="tabpanel" aria-labelledby="following-tab">
-                    <div class="container-fluid pt-3" style="width:100%">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-title p-3 mb-0 form-header" style="font-size:18px">Stream Schedule</div>
-
                                 </div>
                             </div>
                         </div>
