@@ -5,6 +5,7 @@
     ViewData["title"] = "Home";
     var cacheRand = new Random().Next();
 }
+@Html.AntiForgeryToken()
 
 <div class="container-fluid container-padding home-background">
     <div class="container">
@@ -21,30 +22,68 @@
         <p class="white" style="margin-bottom:75px">StreamWork is an academic live-streaming platform where <br /> hundreds of students come together to tutor, learn, and chat <br /> with classmates and friends.</p>
         <div class="card border-bottom border-top-0">
             <div class="row">
-                <div class="col-lg-2">
+                <div class="col-lg-2 border-bottom">
                     <img src="@Model.FeaturedTutor.ProfilePicture" class="rounded d-block mr-auto ml-auto featured-profile-image" />
                     <p class="form-header text-center mt-3 mb-0 ml-3 mr-3" style="font-size:18px">@Model.FeaturedTutor.Name.Replace('|', ' ')</p>
                     <p class="form-sub-header text-center mb-0 ml-3 mr-3" style="font-size:12px">@Model.FeaturedTutor.ProfileCaption</p>
-                    <button class="streamWork-primary d-block mr-auto ml-auto mt-3 mb-2 w-75" onclick="window.location.href = '/Profile/Tutor/@Model.FeaturedTutor.Username'">Profile</button>
-                    <button class="streamWork-secondary d-block mr-auto ml-auto w-75 mb-3" onclick="window.location.href = '/Stream/Archive/@Model.FeaturedArchivedStream.Username/@Model.FeaturedArchivedStream.StreamID/32169'">Watch</button>
+                    <button class="streamWork-primary d-block mr-auto ml-auto mt-3 mb-2 w-75" onclick="window.location.href = '/Profiles/Tutor/@Model.FeaturedTutor.Username'">Profile</button>
+                    @if (Model.FeaturedArchivedStream == null)
+                    {
+                        <button class="streamWork-secondary d-block mr-auto ml-auto w-75 mb-3" onclick="window.location.href ='/Stream/Live/@Model.FeaturedTutor.Username'">Watch</button>
+                    }
+                    else
+                    {
+                        <button class="streamWork-secondary d-block mr-auto ml-auto w-75 mb-3" onclick="window.location.href = '/Stream/Archive/@Model.FeaturedArchivedStream.Username/@Model.FeaturedArchivedStream.StreamID/32169'">Watch</button>
+                    }
                 </div>
                 <div class="col-lg-6 col-md-12 col-sm-12 p-lg-0 pl-md-3 pr-md-3 pt-md-3 pt-3">
                     <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="border-0" src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.FeaturedArchivedStream.StreamID"></iframe>
+                        @if (Model.FeaturedArchivedStream == null)
+                        {
+                            <iframe class="border-0" src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.FeaturedChannel.ChannelKey.Split('|')[0]"></iframe>
+                        }
+                        else
+                        {
+                            <iframe class="border-0" src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.FeaturedArchivedStream.StreamID"></iframe>
+                        }
                     </div>
-                    <div class="card border-0 rounded-0">
-                        <div class="card-body m-1 p-1">
-                            <img class="p-3 featured-subject-icon" align="left" src="@Model.FeaturedArchivedStream.StreamSubjectIcon" />
-                            <div class="m-3" id="StreamInfo">
-                                <h3 class="roboto-slab streamWork-green">@Model.FeaturedArchivedStream.StreamTitle<span></span></h3>
-                                <p class="mb-1" style="padding-left:105px">@Model.FeaturedArchivedStream.StreamDescription</p>
-                                <p style="font-size:12px; padding-left:105px">Tutoring @Model.FeaturedArchivedStream.StreamSubject</p>
+                    @if (Model.FeaturedArchivedStream == null)
+                    {
+                        <div class="card border-bottom border-right border-top-0 border-left rounded-0">
+                            <div class="card-body m-1 p-1">
+                                <img class="p-3 featured-subject-icon" align="left" src="@Model.FeaturedChannel.StreamSubjectIcon" />
+                                <div class="m-3" id="StreamInfo">
+                                    <h3 class="roboto-slab streamWork-green">@Model.FeaturedChannel.StreamTitle<span></span></h3>
+                                    <p class="mb-1" style="padding-left:105px">@Model.FeaturedChannel.StreamDescription</p>
+                                    <p style="font-size:12px; padding-left:105px">Tutoring @Model.FeaturedChannel.StreamSubject</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
+                    else
+                    {
+                        <div class="card border-bottom border-right-0 border-top-0 border-left-0 rounded-0">
+                            <div class="card-body m-1 p-1">
+                                <img class="p-3 featured-subject-icon" align="left" src="@Model.FeaturedArchivedStream.StreamSubjectIcon" />
+                                <div class="m-3" id="StreamInfo">
+                                    <h3 class="roboto-slab streamWork-green">@Model.FeaturedArchivedStream.StreamTitle<span></span></h3>
+                                    <p class="mb-1" style="padding-left:105px">@Model.FeaturedArchivedStream.StreamDescription</p>
+                                    <p style="font-size:12px; padding-left:105px">Tutoring @Model.FeaturedArchivedStream.StreamSubject</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
                 </div>
                 <div class="col-lg-4 pl-lg-0 pl-md-3 pl-3">
-                    <iframe class="border-0 w-100 h-100" style="min-height:500px" src="https://streamworktest.azurewebsites.net/chat/ArchiveChat?chatId=@Model.FeaturedTutor.Username&chatInfo=@Model.ChatInfo"></iframe>
+                    @if (Model.FeaturedArchivedStream == null)
+                    {
+                        <iframe class="border-bottom border-right-0 border-top-0 border-left-0 w-100 h-100" style="min-height:500px" src="http://localhost:58539/chat/LiveChat?chatId=@Model.FeaturedTutor.Username&chatInfo=@Model.ChatInfo"></iframe>
+                    }
+                    else
+                    {
+                        <iframe class="border-bottom border-right-0 border-top-0 border-left-0 w-100 h-100" style="min-height:500px" src="http://localhost:58539/chat/ArchiveChat?chatId=@Model.FeaturedTutor.Username&chatInfo=@Model.ChatInfo"></iframe>
+                    }
                 </div>
                 <div class="col-lg-12">
                     <div id="subject-topic-carousel-xs" class="carousel slide" data-ride="carousel">
@@ -213,34 +252,6 @@
     </div>
 </div>
 
-<div class="container-fluid pt-4 pb-4" style="background-color:white">
-    <div class="container custom-container mt-0">
-        <div class="row pb-4 pt-4">
-            <div class="col-lg-8">
-                <img src="~/images/GenericAssets/TutorDashboard.png" class="w-100 pr-3" />
-            </div>
-            <div class="col-lg-4">
-                <p>Streaming - Coursework - Tutoring</p>
-                <div class="header roboto-slab" style="color:black">Dope Dashboard!?</div>
-                <p class="mt-3">StreamWork is dedicated to academic integrity and does not tolerate cheating in any form. Just like a physical tutoring center, we help students understand their coursework by teaching helpful methods and reviewing similar problems.</p>
-                <button class="streamWork-teal mt-3 mb-3">Learn More</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container-fluid mt-3" style="background-color:#008080">
-    <div class="container custom-container mt-0">
-        <div class="row pt-4 pb-4">
-            <div class="col-lg-9">
-                <h3 class="mt-3 roboto-slab white"><b>Best perks of becoming a StreamTutor?</b></h3>
-                <p class="roboto white">For a limited time, StreamTutors get paid $5 for every 15+ minute tutoring session streamed.</p>
-                <button class="streamWork-secondary float-right d-lg-none d-md-none d-sm-none d-block">Sign me up!</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="container-fluid mt-3 pb-5" style="background-color:#004643; height:100%; color:white">
     <div class="row pb-5 pt-4">
         <div class="col-lg-1"></div>
@@ -296,3 +307,5 @@
         Copyright © 2020 StreamWork LLC. All rights reserved.
     </div>
 </div>
+
+@await Html.PartialAsync("Partials/Modals/SignIn-SignUpModal", Model)

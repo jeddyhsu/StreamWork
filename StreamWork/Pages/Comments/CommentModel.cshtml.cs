@@ -25,11 +25,11 @@ namespace StreamWork.Pages.Comments
             if (parentId != null)
             {
                 var parentComment = await storageService.Get<Comment>(SQLQueries.GetCommentWithId, parentId);
-                receiverUsername = (await storageService.Get<UserLogin>(SQLQueries.GetUserWithUsername, parentComment.SenderUsername)).Username; //this could be a reply to a reply so receiver could change
+                receiverUsername = (await storageService.Get<DataModels.Profile>(SQLQueries.GetUserWithUsername, parentComment.SenderUsername)).Username; //this could be a reply to a reply so receiver could change
             }
 
             var savedInfo = await commentService.SaveComment(senderUsername, receiverUsername, message, masterParent == "undefined" ? parentId: masterParent, streamId);
-            var savedNotification = await  notificationService.SaveNotification(parentId  == null ? NotificationType.Comment : NotificationType.Reply, senderUsername, receiverUsername, parentId == null ? (await storageService.Get<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithStreamId, streamId )).StreamTitle + "|" + streamId + "|" + savedInfo[2] : (await storageService.Get<Comment>(SQLQueries.GetCommentWithId, parentId)).Message +  "|" + streamId + "|" + savedInfo[2], savedInfo[3]); //savedInfo[2] == comment message
+            var savedNotification = await  notificationService.SaveNotification(parentId  == null ? NotificationType.Comment : NotificationType.Reply, senderUsername, receiverUsername, parentId == null ? (await storageService.Get<Video>(SQLQueries.GetArchivedStreamsWithStreamId, streamId )).StreamTitle + "|" + streamId + "|" + savedInfo[2] : (await storageService.Get<Comment>(SQLQueries.GetCommentWithId, parentId)).Message +  "|" + streamId + "|" + savedInfo[2], savedInfo[3]); //savedInfo[2] == comment message
             if (savedInfo != null && savedNotification) return new JsonResult(new { Message = JsonResponse.Success.ToString(), SavedInfo = savedInfo});
 
             return new JsonResult(new { Message = JsonResponse.Failed.ToString() });

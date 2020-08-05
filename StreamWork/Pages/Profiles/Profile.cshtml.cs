@@ -1,19 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StreamWork.HelperMethods;
 using StreamWork.Services;
 
-namespace StreamWork.Pages.Profile
+namespace StreamWork.Pages.Profiles
 {
-    public class Profile : PageModel
+    public class ProfileModal : PageModel
     {
         private readonly CookieService cookieService;
         private readonly ProfileService profileService;
         private readonly EditService editService;
 
-        public Profile(CookieService cookie, ProfileService profile, EditService edit)
+        public ProfileModal(CookieService cookie, ProfileService profile, EditService edit)
         {
             cookieService = cookie;
             profileService = profile;
@@ -60,6 +61,11 @@ namespace StreamWork.Pages.Profile
 
             if (await editService.SaveUniversity(userProfile.Username, abbr, name)) return new JsonResult(new { Message = JsonResponse.Success.ToString(), SavedInfo = new List<string> { abbr, name } });
             return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
+        }
+
+        public static implicit operator ProfileModal(DataModels.Profile v)
+        {
+            throw new NotImplementedException();
         }
     }
 }

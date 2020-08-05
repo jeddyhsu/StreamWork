@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -17,10 +15,10 @@ namespace StreamWork.Pages.Home
         private readonly SearchService search;
         private readonly SubjectService subjectService;
 
-        public List<UserLogin> PopularStreamTutors { get; set; }
-        public List<UserChannel> StreamResults { get; set; }
-        public List<UserArchivedStreams> ArchiveResults { get; set; }
-        public UserLogin UserProfile { get; set; }
+        public List<Profile> PopularStreamTutors { get; set; }
+        public List<Channel> StreamResults { get; set; }
+        public List<Video> ArchiveResults { get; set; }
+        public Profile UserProfile { get; set; }
 
         public string Subject { get; set; }
         public string SearchQuery { get; set; }
@@ -36,9 +34,9 @@ namespace StreamWork.Pages.Home
 
         public async Task OnGet([FromQuery(Name = "s")] string subject, [FromQuery(Name = "q")] string searchQuery)
         {
-            PopularStreamTutors = await storage.GetList<UserLogin>(SQLQueries.GetApprovedTutorsByFollowers);
+            PopularStreamTutors = await storage.GetList<Profile>(SQLQueries.GetApprovedTutorsByFollowers);
             StreamResults = await search.SearchChannels(subject, searchQuery);
-            ArchiveResults = await search.SearchArchivedStreams(subject, searchQuery);
+            ArchiveResults = await search.SearchVideos(subject, searchQuery);
             UserProfile = await session.GetCurrentUser();
             Subject = string.IsNullOrEmpty(subject) ? "All subjects" : subject;
             SearchQuery = searchQuery;

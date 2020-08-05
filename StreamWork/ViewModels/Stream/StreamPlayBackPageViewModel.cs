@@ -6,11 +6,11 @@ namespace StreamWork.ViewModels.Stream
 {
     public class StreamPlayBackPageViewModel
     {
-        public UserLogin GenericUserProfile { get; set; }
-        public UserLogin TutorUserProfile { get; set; }
-        public UserArchivedStreams ArchivedStream { get; set; }
-        public UserChannel UserChannel { get; set; }
-        public List<UserArchivedStreams> ArchivedStreams { get; set; }
+        public Profile GenericUserProfile { get; set; }
+        public Profile TutorUserProfile { get; set; }
+        public Video ArchivedStream { get; set; }
+        public Channel UserChannel { get; set; }
+        public List<Video> ArchivedStreams { get; set; }
         public int NumberOfStreams { get; set; }
         public bool IsFollowing { get; set; }
 

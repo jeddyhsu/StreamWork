@@ -13,14 +13,14 @@ namespace StreamWork.Services
     {
         public ChatService([FromServices] IOptionsSnapshot<StorageConfig> config) : base(config) { }
         
-        public async Task<List<Chats>> GetAllChatsWithChatId(string chatId)
+        public async Task<List<Chat>> GetAllChatsWithChatId(string chatId)
         {
-            return await GetList<Chats>(SQLQueries.GetAllChatsWithId, new string[]{chatId});
+            return await GetList<Chat>(SQLQueries.GetAllChatsWithId, new string[]{chatId});
         }
 
         public async Task DeleteAllChatsWithChatId(string chatId)
         {
-            await Run<Chats>(SQLQueries.DeleteAllChatsWithId, new string[] { chatId });
+            await Run<Chat>(SQLQueries.DeleteAllChatsWithId, new string[] { chatId });
         }
 
         public string GetRandomChatColor()

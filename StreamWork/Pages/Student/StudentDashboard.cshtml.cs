@@ -18,9 +18,9 @@ namespace StreamWork.Pages.Student
         private readonly FollowService followService;
         private readonly ScheduleService scheduleService;
 
-        public UserLogin CurrentUserProfile { get; set; }
-        public UserChannel UserChannel { get; set; }
-        public List<UserLogin> RelatedTutors { get; set; }
+        public Profile CurrentUserProfile { get; set; }
+        public Channel UserChannel { get; set; }
+        public List<Profile> RelatedTutors { get; set; }
         public List<FollowedTutors> FollowedTutors { get; set; }
         public List<Section> Sections { get; set; }
         public List<Topic> Topics { get; set; }
@@ -47,7 +47,7 @@ namespace StreamWork.Pages.Student
 
             CurrentUserProfile = await cookieService.GetCurrentUser();
 
-            RelatedTutors = (await storageService.GetList<UserLogin>(SQLQueries.GetAllTutorsNotInTheList, new string[] { CurrentUserProfile.Id })).GetRange(0, 5);
+            RelatedTutors = (await storageService.GetList<Profile>(SQLQueries.GetAllTutorsNotInTheList, new string[] { CurrentUserProfile.Id })).GetRange(0, 3);
             FollowedTutors = await GetFollowedTutors(CurrentUserProfile.Id);
             Sections = profileService.GetSections(CurrentUserProfile);
             Topics = profileService.GetTopics(CurrentUserProfile);
@@ -67,7 +67,7 @@ namespace StreamWork.Pages.Student
             {
                 foreach (var tutor in followedTutors)
                 {
-                    var previousStreams = (await storageService.GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, tutor.Username)).Count >= 3 ? (await storageService.GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, tutor.Username)).GetRange(0, 3) : (await storageService.GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, tutor.Username));
+                    var previousStreams = (await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsWithUsername, tutor.Username)).Count >= 3 ? (await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsWithUsername, tutor.Username)).GetRange(0, 3) : (await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsWithUsername, tutor.Username));
                     var latestScheduledStream = (await scheduleService.GetSchedule(tutor.Username)).Count == 0 ? null : (await scheduleService.GetSchedule(tutor.Username))[0];
                     var followValue = await followService.IsFollowingFollowee(CurrentUserProfile.Id, tutor.Id);
 

@@ -5,7 +5,7 @@ using StreamWork.Framework;
 
 namespace StreamWork.DataModels
 {
-    public class Chats : IStorageBase<Chats>
+    public class Chat : IStorageBase<Chat>
     {
         [Key]
         public string Id { get; set; }
@@ -21,7 +21,7 @@ namespace StreamWork.DataModels
         [Timestamp]
         public byte[] RowVersion { get; set; }
 
-        public virtual void Configure(EntityTypeBuilder<Chats> builder)
+        public virtual void Configure(EntityTypeBuilder<Chat> builder)
         {
             
         }

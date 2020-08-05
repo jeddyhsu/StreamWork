@@ -37,7 +37,7 @@ function SignOutOauth() {
     });
 }
 
-function SignIn() {
+function SignIn(route) {
     var formData = new FormData();
     formData.append('Username', $('#username').val())
     formData.append('Password', $('#password').val())
@@ -67,6 +67,33 @@ function SignIn() {
             }
             else {
                 ShowBannerNotification('invalid-username-password-notification')
+            }
+        }
+    })
+}
+
+function SignInModal(route) {
+    var formData = new FormData();
+    formData.append('Username', $('#username').val())
+    formData.append('Password', $('#password').val())
+
+    $.ajax({
+        url: '/Home/SignIn/SW?handler=SignIn',
+        type: 'POST',
+        datatype: 'json',
+        data: formData,
+        processData: false,
+        contentType: false,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("XSRF-TOKEN",
+                $('input:hidden[name="__RequestVerificationToken"]').val());
+        },
+        success: function (data) {
+            if (data.message === "Failed") {
+                ShowBannerNotification('invalid-username-password-notification')
+            }
+            else {
+                window.location.href = route;
             }
         }
     })

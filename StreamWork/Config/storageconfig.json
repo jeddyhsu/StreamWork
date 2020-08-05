@@ -1,132 +1,132 @@
 ﻿{
   "EntityModels": [
     {
-      "Name": "UserLogin",
+      "Name": "Profile",
       "StorageType": "SqlServer",
       "Queries": [
         {
-          "Query": "SELECT * FROM [dbo].[UserLogin]",
+          "Query": "SELECT * FROM [dbo].[Profile]",
           "QueryId": "GetAllUsers"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE LOWER(Username) = LOWER('@x0')",
+          "Query": "SELECT * FROM [dbo].[Profile] WHERE LOWER(Username) = LOWER('@x0')",
           "QueryId": "GetUserWithUsername"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE LOWER(EmailAddress) = LOWER('@x0')",
+          "Query": "SELECT * FROM [dbo].[Profile] WHERE LOWER(EmailAddress) = LOWER('@x0')",
           "QueryId": "GetUserWithEmailAddress"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE LOWER(PayPalAddress) = LOWER('@x0')",
+          "Query": "SELECT * FROM [dbo].[Profile] WHERE LOWER(PayPalAddress) = LOWER('@x0')",
           "QueryId": "GetUserWithPayPalAddress"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE Id = '@x0'",
+          "Query": "SELECT * FROM [dbo].[Profile] WHERE Id = '@x0'",
           "QueryId": "GetUserWithId"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE LOWER(Username) = LOWER('@x0') AND Password = '@x1'",
+          "Query": "SELECT * FROM [dbo].[Profile] WHERE LOWER(Username) = LOWER('@x0') AND Password = '@x1'",
           "QueryId": "GetUserWithUsernameAndPassword"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE ProfileType = 'tutor' AND AcceptedTutor = '1'",
+          "Query": "SELECT * FROM [dbo].[Profile] WHERE ProfileType = 'tutor' AND AcceptedTutor = '1'",
           "QueryId": "GetAllApprovedTutors"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE ProfileType = 'tutor' AND AcceptedTutor = '1'",
+          "Query": "SELECT * FROM [dbo].[Profile] WHERE ProfileType = 'tutor' AND AcceptedTutor = '1'",
           "QueryId": "GetApprovedTutorsByFollowers"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE ProfileType = 'student'",
+          "Query": "SELECT * FROM [dbo].[Profile] WHERE ProfileType = 'student'",
           "QueryId": "GetAllStudents"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE Id in ('@x0')",
+          "Query": "SELECT * FROM [dbo].[Profile] WHERE Id in ('@x0')",
           "QueryId": "GetAllUsersInTheList"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE Id not in ('@x0') AND ProfileType = 'tutor' AND AcceptedTutor = '1' ORDER BY NEWID()",
+          "Query": "SELECT * FROM [dbo].[Profile] WHERE Id not in ('@x0') AND ProfileType = 'tutor' AND AcceptedTutor = '1' ORDER BY NEWID()",
           "QueryId": "GetAllTutorsNotInTheList"
         }
       ]
     },
     {
-      "Name": "UserChannel",
+      "Name": "Channel",
       "StorageType": "SqlServer",
       "Queries": [
         {
-          "Query": "SELECT * FROM [dbo].[UserChannel] WHERE StreamSubject = '@x0'",
+          "Query": "SELECT * FROM [dbo].[Channel] WHERE StreamSubject = '@x0'",
           "QueryId": "GetUserChannelWithSubject"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserChannel] WHERE StreamSubject != '@x0'",
+          "Query": "SELECT * FROM [dbo].[Channel] WHERE StreamSubject != '@x0'",
           "QueryId": "GetAllUserChannelsThatAreStreaming"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserChannel] WHERE LOWER(Username) = LOWER('@x0')",
+          "Query": "SELECT * FROM [dbo].[Channel] WHERE LOWER(Username) = LOWER('@x0')",
           "QueryId": "GetUserChannelWithUsername"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserChannel] WHERE Id = '@x0'",
+          "Query": "SELECT * FROM [dbo].[Channel] WHERE Id = '@x0'",
           "QueryId": "GetUserChannelWithId"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserChannel] WHERE LOWER(StreamTitle) LIKE '%@x0%'",
+          "Query": "SELECT * FROM [dbo].[Channel] WHERE LOWER(StreamTitle) LIKE '%@x0%'",
           "QueryId": "GetUserChannelsBySearchTerm"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserChannel] WHERE StreamSubject = '@x0' AND LOWER(StreamTitle) LIKE '%@x1%'",
+          "Query": "SELECT * FROM [dbo].[Channel] WHERE StreamSubject = '@x0' AND LOWER(StreamTitle) LIKE '%@x1%'",
           "QueryId": "GetUserChannelsBySubjectAndSearchTerm"
         },
       ]
     },
 
     {
-      "Name": "UserArchivedStreams",
+      "Name": "Video",
       "StorageType": "SqlServer",
       "Queries": [
         {
-          "Query": "SELECT * FROM [dbo].[UserArchivedStreams]",
+          "Query": "SELECT * FROM [dbo].[Video]",
           "QueryId": "GetAllArchivedStreams"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE Id = '@x0'",
+          "Query": "SELECT * FROM [dbo].[Video] WHERE Id = '@x0'",
           "QueryId": "GetArchivedStreamsWithId"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE LOWER(Username) = LOWER('@x0')",
+          "Query": "SELECT * FROM [dbo].[Video] WHERE LOWER(Username) = LOWER('@x0')",
           "QueryId": "GetArchivedStreamsWithUsername"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE StreamSubject = '@x0'",
+          "Query": "SELECT * FROM [dbo].[Video] WHERE StreamSubject = '@x0'",
           "QueryId": "GetArchivedStreamsWithSubject"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE StreamId = '@x0'",
+          "Query": "SELECT * FROM [dbo].[Video] WHERE StreamId = '@x0'",
           "QueryId": "GetArchivedStreamsWithStreamId"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE LOWER(StreamTitle) LIKE '%@x0%'",
+          "Query": "SELECT * FROM [dbo].[Video] WHERE LOWER(StreamTitle) LIKE '%@x0%'",
           "QueryId": "GetArchivedStreamsWithSearchTerm"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE StreamSubject = '@x0' AND LOWER(StreamTitle) LIKE '%@x1%'",
+          "Query": "SELECT * FROM [dbo].[Video] WHERE StreamSubject = '@x0' AND LOWER(StreamTitle) LIKE '%@x1%'",
           "QueryId": "GetArchivedStreamsWithSubjectAndSearchTerm"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE StreamId in ('@x0')",
+          "Query": "SELECT * FROM [dbo].[Video] WHERE StreamId in ('@x0')",
           "QueryId": "GetArchivedStreamsByStreamIdInTheList"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE LOWER(Username) = LOWER('@x0') ORDER BY StartTime DESC",
+          "Query": "SELECT * FROM [dbo].[Video] WHERE LOWER(Username) = LOWER('@x0') ORDER BY StartTime DESC",
           "QueryId": "GetLatestArchivedStreamByUser"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] ORDER BY StartTime DESC",
+          "Query": "SELECT * FROM [dbo].[Video] ORDER BY StartTime DESC",
           "QueryId": "GetArchivedStreamsInDescendingOrderByDate"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] ORDER BY Views DESC",
+          "Query": "SELECT * FROM [dbo].[Video] ORDER BY Views DESC",
           "QueryId": "GetArchivedStreamsInDescendingOrderByViews"
         }
       ]
@@ -203,19 +203,19 @@
     },
 
     {
-      "Name": "Chats",
+      "Name": "Chat",
       "StorageType": "SqlServer",
       "Queries": [
         {
-          "Query": "SELECT * FROM [dbo].[Chats]",
+          "Query": "SELECT * FROM [dbo].[Chat]",
           "QueryId": "GetAllChats"
         },
         {
-          "Query": "SELECT * FROM [dbo].[Chats] WHERE ChatId = '@x0' ORDER BY DATE ASC",
+          "Query": "SELECT * FROM [dbo].[Chat] WHERE ChatId = '@x0' ORDER BY DATE ASC",
           "QueryId": "GetAllChatsWithId"
         },
         {
-          "Query": "DELETE FROM [dbo].[Chats] WHERE ChatId = '@x0'",
+          "Query": "DELETE FROM [dbo].[Chat] WHERE ChatId = '@x0'",
           "QueryId": "DeleteAllChatsWithId"
         }
       ]

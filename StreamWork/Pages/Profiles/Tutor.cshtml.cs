@@ -8,7 +8,7 @@ using StreamWork.HelperMethods;
 using StreamWork.Services;
 using StreamWork.ProfileObjects;
 
-namespace StreamWork.Pages.Profile
+namespace StreamWork.Pages.Profiles
 {
     public class Tutor : PageModel
     {
@@ -20,12 +20,12 @@ namespace StreamWork.Pages.Profile
         private readonly NotificationService notificationService;
         private readonly EncryptionService encryptionService;
 
-        public UserLogin CurrentUserProfile { get; set; }
-        public UserLogin UserProfile { get; set; }
-        public UserChannel UserChannel { get; set; }
-        public UserArchivedStreams LatestStream { get; set; }
-        public List<UserArchivedStreams> UserArchivedStreams { get; set; }
-        public List<UserLogin> RelatedTutors { get; set; }
+        public Profile CurrentUserProfile { get; set; }
+        public Profile UserProfile { get; set; }
+        public Channel UserChannel { get; set; }
+        public Video LatestStream { get; set; }
+        public List<Video> UserArchivedStreams { get; set; }
+        public List<Profile> RelatedTutors { get; set; }
         public List<Section> Sections { get; set; }
         public List<Topic> Topics { get; set; }
         public List<Schedule> Schedule { get; set; }
@@ -51,21 +51,21 @@ namespace StreamWork.Pages.Profile
         {
             if (!cookieService.Authenticated)
             {
-                return Redirect(cookieService.Url("/Home/SignIn/" + encryptionService.EncryptString("/Profile/Tutor/" + tutor)));
+                return Redirect(cookieService.Url("/Home/SignIn/" + encryptionService.EncryptString("/Profiles/Tutor/" + tutor)));
             }
 
-            if(!await cookieService.ValidateUserType(tutor, "tutor")) //checks for 
+            if (!await cookieService.ValidateUserType(tutor, "tutor")) //checks for 
             {
-                return Redirect("/Profile/Student/" + tutor);
+                return Redirect("/Profiles/Student/" + tutor);
             }
 
             CurrentUserProfile = await cookieService.GetCurrentUser();
-            UserProfile = await storageService.Get<UserLogin>(SQLQueries.GetUserWithUsername, tutor);
-            UserChannel = await storageService.Get<UserChannel>(SQLQueries.GetUserChannelWithUsername, new string[] { UserProfile.Username });
+            UserProfile = await storageService.Get<Profile>(SQLQueries.GetUserWithUsername, tutor);
+            UserChannel = await storageService.Get<Channel>(SQLQueries.GetUserChannelWithUsername, new string[] { UserProfile.Username });
 
-            LatestStream = await storageService.Get<UserArchivedStreams>(SQLQueries.GetLatestArchivedStreamByUser, new string[] { UserProfile.Username });
-            UserArchivedStreams = await storageService.GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { UserProfile.Username });
-            RelatedTutors = (await storageService.GetList<UserLogin>(SQLQueries.GetAllTutorsNotInTheList, new string[] { UserProfile.Id })).GetRange(0,5);
+            LatestStream = await storageService.Get<Video>(SQLQueries.GetLatestArchivedStreamByUser, new string[] { UserProfile.Username });
+            UserArchivedStreams = await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { UserProfile.Username });
+            RelatedTutors = (await storageService.GetList<Profile>(SQLQueries.GetAllTutorsNotInTheList, new string[] { UserProfile.Id })).GetRange(0, 5);
             Sections = profileService.GetSections(UserProfile);
             Topics = profileService.GetTopics(UserProfile);
             Schedule = await scheduleService.GetSchedule(UserProfile.Username);

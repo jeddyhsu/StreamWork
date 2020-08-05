@@ -5,7 +5,7 @@ using StreamWork.Framework;
 
 namespace StreamWork.DataModels
 {
-    public class UserLogin : IStorageBase<UserLogin>
+    public class Profile : IStorageBase<Profile>
     {
         [Key]
         //Both
@@ -45,7 +45,7 @@ namespace StreamWork.DataModels
         [Timestamp]
         public byte[] RowVersion { get; set; }
 
-        public virtual void Configure(EntityTypeBuilder<UserLogin> builder)
+        public virtual void Configure(EntityTypeBuilder<Profile> builder)
         {
 
         }

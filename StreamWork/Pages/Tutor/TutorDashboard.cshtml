@@ -17,18 +17,18 @@
                     <div class="col-lg-7 col-md-12 col-sm-12 col-12 order-lg-1 order-md-2 order-sm-2 order-2">
                         <div class="btn-group d-lg-block d-md-block d-sm-none d-none float-right m-4">
                             <button type="button" class="streamWork-secondary mr-2" onclick="EditProfile()">Edit Profile</button>
-                            <button type="button" class="streamWork-primary" onclick="window.location.href ='/Profile/Tutor/@Model.CurrentUserProfile.Username'">View Profile</button>
+                            <button type="button" class="streamWork-primary" onclick="window.location.href ='/Profiles/Tutor/@Model.CurrentUserProfile.Username'">View Profile</button>
                         </div>
 
                         <div class="p-lg-4 pt-md-4 p-sm-3 p-3">
                             <input id="header-profile-picture" align="left" class="rounded header-picture" type="image" src="@Model.CurrentUserProfile.ProfilePicture?@cacheRand" />
                             <p id="header-name" class="form-header m-0 header-padding" style="font-size:20px;">@Model.CurrentUserProfile.Name.Replace('|', ' ')</p>
                             @if (@Model.CurrentUserProfile.ProfileCaption == null || @Model.CurrentUserProfile.ProfileCaption == "") {<p id="header-occupation" class="form-header m-0" style="padding-left:100px; font-size:12px; color: #9F9F9F">Occupation / Major</p>}
-                            else { <p id="header-location" class="form-header m-0 header-padding" style="font-size:12px;">@Model.CurrentUserProfile.ProfileCaption</p>}
+                            else { <p id="header-occupation" class="form-header m-0 header-padding" style="font-size:12px;">@Model.CurrentUserProfile.ProfileCaption</p>}
                             <p class="mb-0 mt-2 form-sub-header header-padding"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
                             @if (Model.CurrentUserProfile.Location == "" || Model.CurrentUserProfile.Location == null)
-                            {<p id="header-location-mask" class="form-sub-header header-padding"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">City, State</span></p>}
-                            else{<p id="header-location-mask" class="form-sub-header header-padding"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">@Model.CurrentUserProfile.Location</span></p>}
+                            {<p class="form-sub-header header-padding"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">City, State</span></p>}
+                            else{<p class="form-sub-header header-padding"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">@Model.CurrentUserProfile.Location</span></p>}
                             <input id="header-first-name" type="hidden" value="@Model.CurrentUserProfile.Name.Split('|')[0]" />
                             <input id="header-last-name" type="hidden" value="@Model.CurrentUserProfile.Name.Split('|')[1]" />
                             <input id="header-timezone" type="hidden" value="@Model.CurrentUserProfile.TimeZone" />
@@ -40,7 +40,7 @@
 
                         <div class="btn-group d-lg-none d-md-none d-sm-block d-block pl-3 pr-3">
                             <button type="button" class="streamWork-secondary mr-2" onclick="EditProfile()">Edit Profile</button>
-                            <button type="button" class="streamWork-primary" onclick="OpenModal()">View Profile</button>
+                            <button type="button" class="streamWork-primary" onclick="window.location.href ='/Profiles/Tutor/@Model.CurrentUserProfile.Username'">View Profile</button>
                         </div>
 
                         <div class="p-lg-4 pt-md-4 p-sm-3 p-3">

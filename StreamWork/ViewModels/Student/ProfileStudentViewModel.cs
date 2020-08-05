@@ -5,11 +5,11 @@ namespace StreamWork.ViewModels.Student
 {
     public class ProfileStudentViewModel
     {
-        public UserLogin StudentUserProfile { get; set; }
-        public List<UserLogin> NonFollowedTutors { get; set; }
-        public List<UserLogin> FollowedTutors { get; set; }
-        public List<UserChannel> LiveChannels { get; set; }
-        public List<UserArchivedStreams> ArchivedStreams {get; set; }
-        public List<UserArchivedStreams> PreviouslyWatchedStreams { get; set; }
+        public Profile StudentUserProfile { get; set; }
+        public List<Profile> NonFollowedTutors { get; set; }
+        public List<Profile> FollowedTutors { get; set; }
+        public List<Channel> LiveChannels { get; set; }
+        public List<Video> ArchivedStreams {get; set; }
+        public List<Video> PreviouslyWatchedStreams { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace StreamWork.Services
             try
             {
                 Schedule schedule = null;
-                var userProfile = await Get<UserLogin>(SQLQueries.GetUserWithUsername, new string[] { user });
+                var userProfile = await Get<Profile>(SQLQueries.GetUserWithUsername, new string[] { user });
 
                 var id = request.Form["Id"];
                 var streamTitle = request.Form["StreamTitle"];
@@ -76,7 +76,7 @@ namespace StreamWork.Services
         public async Task<List<Schedule>> GetSchedule(string user)
         {
             await Run<Schedule>(SQLQueries.DeletePastScheduledTasks, new string[] { DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm") });
-            return await GetList<Schedule>( SQLQueries.GetScheduleWithUserUsername, new string[] { user, DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm") });
+            return await GetList<Schedule>(SQLQueries.GetScheduleWithUserUsername, new string[] { user, DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm") });
         }
 
         public async Task<List<Schedule>> DeleteFromSchedule(string id, string user)
@@ -88,7 +88,7 @@ namespace StreamWork.Services
 
         public async Task<bool> UpdateTimezoneForScheduleTask(string timezone, string username)
         {
-            return await Run<Schedule>(SQLQueries.UpdateTimezonesOfScheduledTasks, new string[]{ timezone, username });
+            return await Run<Schedule>(SQLQueries.UpdateTimezonesOfScheduledTasks, new string[] { timezone, username });
         }
     }
 }

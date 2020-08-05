@@ -5,11 +5,11 @@ namespace StreamWork.ViewModels
 {
     public class IndexViewModel
     {
-        public UserChannel UserChannel { get; set; }
-        public UserLogin GenericUserProfile { get; set; }
-        public UserArchivedStreams UserArchivedStream { get; set; }
-        public UserLogin UserLogin { get; set; }
-        public List<UserArchivedStreams> UserArchivedStreams { get; set; }
+        public Channel UserChannel { get; set; }
+        public Profile GenericUserProfile { get; set; }
+        public Video UserArchivedStream { get; set; }
+        public Profile UserLogin { get; set; }
+        public List<Video> UserArchivedStreams { get; set; }
         public bool IsUserFollowingThisTutor { get; set; }
         public string ChatInfo { get; set; }
     }

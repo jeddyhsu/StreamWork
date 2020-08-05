@@ -25,16 +25,13 @@
     <Folder Include="ViewModels\" />
     <Folder Include="Pages\Tutor\" />
     <Folder Include="Pages\Student\" />
-    <Folder Include="Threads\" />
     <Folder Include="HelperMethods\" />
     <Folder Include="ProfileObjects\" />
     <Folder Include="StreamHoster\" />
-    <Folder Include="EmailTemplates\" />
     <Folder Include="Pages\Chat\" />
     <Folder Include="Hubs\" />
     <Folder Include="wwwroot\images\ChatAssets\" />
     <Folder Include="wwwroot\media\" />
-    <Folder Include="HelperClasses\" />
     <Folder Include="wwwroot\css\Tutor\" />
     <Folder Include="wwwroot\images\TutorAssets\" />
     <Folder Include="wwwroot\images\TutorAssets\TutorDashboard\" />
@@ -55,7 +52,6 @@
     <Folder Include="Pages\Partials\Profile\" />
     <Folder Include="Pages\Partials\Stream\" />
     <Folder Include="wwwroot\images\StreamAssets\" />
-    <Folder Include="Components\" />
     <Folder Include="Pages\Follows\" />
     <Folder Include="Pages\Partials\Layout\" />
     <Folder Include="Pages\Partials\Layout\Tutor\" />
@@ -89,14 +85,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove=".DS_Store" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="EmailTemplates\PasswordRecoveryEmailTemplate.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="EmailTemplates\AutomatedEmailTemplate.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\images\NotificationAssets\icons8-checkmark-128.png" />

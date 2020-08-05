@@ -17,7 +17,7 @@ namespace StreamWork.Services
         public async Task<List<string>> EditProfile(HttpRequest request, string user)
         {
             IFormFile profilePicture = null;
-            var userProfile = await Get<UserLogin>(SQLQueries.GetUserWithUsername, user);
+            var userProfile = await Get<Profile>(SQLQueries.GetUserWithUsername, user);
             var firstName = request.Form["FirstName"];
             var lastName = request.Form["LastName"];
             var occupation = request.Form["Occupation"];
@@ -49,7 +49,7 @@ namespace StreamWork.Services
                 //await _tutorMethods.ChangeAllArchivedStreamAndUserChannelProfilePhotos(storageConfig, userProfile.Username, userProfile.ProfilePicture); //only if tutor
             }
 
-            await Save<UserLogin>(userProfile.Id, userProfile);
+            await Save<Profile>(userProfile.Id, userProfile);
 
             return new List<string> { firstName, lastName, occupation, location, timeZone, linkedInUrl, userProfile.ProfilePicture };
         }
@@ -58,11 +58,11 @@ namespace StreamWork.Services
         {
             try
             {
-                var userProfile = await Get<UserLogin>(SQLQueries.GetUserWithUsername, user);
+                var userProfile = await Get<Profile>(SQLQueries.GetUserWithUsername, user);
                 IFormFile profileBanner = request.Form.Files[0];
                 var banner = BlobMethods.SaveImageIntoBlobContainer(profileBanner, userProfile.Username + "-" + userProfile.Id + "-profilebanner", 720, 242);
                 userProfile.ProfileBanner = banner;
-                await Save<UserLogin>(userProfile.Id, userProfile);
+                await Save<Profile>(userProfile.Id, userProfile);
                 return banner;
             }
             catch (Exception e)
@@ -76,9 +76,9 @@ namespace StreamWork.Services
         {
             try
             {
-                var userProfile = await Get<UserLogin>(SQLQueries.GetUserWithUsername, user);
+                var userProfile = await Get<Profile>(SQLQueries.GetUserWithUsername, user);
                 userProfile.College = abbr + "|" + name;
-                await Save<UserLogin>(userProfile.Id, userProfile);
+                await Save<Profile>(userProfile.Id, userProfile);
                 return true;
             }
             catch (Exception e)

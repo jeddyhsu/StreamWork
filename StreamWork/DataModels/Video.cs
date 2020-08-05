@@ -6,7 +6,7 @@ using StreamWork.Framework;
 
 namespace StreamWork.DataModels
 {
-    public class UserArchivedStreams : IStorageBase<UserArchivedStreams>
+    public class Video : IStorageBase<Video>
     {
         [NotMapped]
         public string StreamSubjectIcon { get; set; }
@@ -28,7 +28,7 @@ namespace StreamWork.DataModels
         [Timestamp]
         public byte[] RowVersion { get; set; }
 
-        public virtual void Configure(EntityTypeBuilder<UserArchivedStreams> builder)
+        public virtual void Configure(EntityTypeBuilder<Video> builder)
         {
 
         }

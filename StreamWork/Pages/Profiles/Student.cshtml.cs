@@ -7,7 +7,7 @@ using StreamWork.HelperMethods;
 using StreamWork.Services;
 using StreamWork.ProfileObjects;
 
-namespace StreamWork.Pages.Profile
+namespace StreamWork.Pages.Profiles
 {
     public class Student : PageModel
     {
@@ -17,9 +17,9 @@ namespace StreamWork.Pages.Profile
         private readonly NotificationService notificationService;
         private readonly EncryptionService encryptionService;
 
-        public UserLogin CurrentUserProfile { get; set; }
-        public UserLogin UserProfile { get; set; }
-        public List<UserLogin> RelatedTutors { get; set; }
+        public DataModels.Profile CurrentUserProfile { get; set; }
+        public DataModels.Profile UserProfile { get; set; }
+        public List<DataModels.Profile> RelatedTutors { get; set; }
         public List<Section> Sections { get; set; }
         public List<Topic> Topics { get; set; }
         public List<Comment> Comments { get; set; }
@@ -48,9 +48,9 @@ namespace StreamWork.Pages.Profile
             }
 
             CurrentUserProfile = await cookieService.GetCurrentUser();
-            UserProfile = await storageService.Get<UserLogin>(SQLQueries.GetUserWithUsername, student);
+            UserProfile = await storageService.Get<DataModels.Profile>(SQLQueries.GetUserWithUsername, student);
 
-            RelatedTutors = (await storageService.GetList<UserLogin>(SQLQueries.GetAllTutorsNotInTheList, new string[] { UserProfile.Id })).GetRange(0, 5);
+            RelatedTutors = (await storageService.GetList<DataModels.Profile>(SQLQueries.GetAllTutorsNotInTheList, new string[] { UserProfile.Id })).GetRange(0, 5);
             Sections = profileService.GetSections(UserProfile);
             Topics = profileService.GetTopics(UserProfile);
 

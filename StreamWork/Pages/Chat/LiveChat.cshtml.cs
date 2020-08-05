@@ -9,40 +9,31 @@ namespace StreamWork.Pages.Chat
 {
     public class LiveChat : PageModel
     {
-        private readonly CookieService sessionService;
-        private readonly StorageService storageService;
-        private readonly ProfileService profileService;
-        private readonly ScheduleService scheduleService;
-        private readonly FollowService followService;
-        private readonly EditService editService;
+        private readonly CookieService cookieService;
         private readonly ChatService chatService;
 
-        public UserLogin UserProfile { get; set; }
+        public DataModels.Profile CurrentUserProfile { get; set; }
         public string ChatId { get; set; }
         public string ChatInfo { get; set; }
-        public List<Chats> Chats { get; set; }
+        public List<DataModels.Chat> Chats { get; set; }
         public string ChatColor { get; set; }
         public bool IsLoggedIn { get; set; }
 
-        public LiveChat(StorageService storage, CookieService session, ProfileService profile, ScheduleService schedule, FollowService follow, EditService edit, ChatService chat)
+        public LiveChat(CookieService cookie, ChatService chat)
         {
-            storageService = storage;
-            sessionService = session;
-            profileService = profile;
-            scheduleService = schedule;
-            followService = follow;
-            editService = edit;
+            cookieService = cookie;
             chatService = chat;
         }
 
         public async Task<IActionResult> OnGet(string chatId, string chatInfo)
         {
-            UserProfile = await sessionService.GetCurrentUser();
+            CurrentUserProfile = await cookieService.GetCurrentUser();
             ChatId = chatId;
             ChatInfo = chatInfo;
             Chats = await chatService.GetAllChatsWithChatId(ChatId);
             ChatColor = chatService.GetRandomChatColor();
-            IsLoggedIn = true;
+
+            IsLoggedIn = CurrentUserProfile == null ? false : true;
 
             return Page();
         }

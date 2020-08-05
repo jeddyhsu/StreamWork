@@ -13,11 +13,11 @@ namespace StreamWork.Pages
         private readonly CookieService cookieService;
         private readonly EncryptionService encryptionService;
 
-        public UserLogin CurrentUserProfile { get; set; }
-        public UserLogin FeaturedTutor { get; set; }
-        public UserChannel FeaturedChannel { get; set; }
-        public UserArchivedStreams FeaturedArchivedStream { get; set; }
-        public List<UserArchivedStreams> ArchivedStreams { get; set; }
+        public Profile CurrentUserProfile { get; set; }
+        public Profile FeaturedTutor { get; set; }
+        public Channel FeaturedChannel { get; set; }
+        public Video FeaturedArchivedStream { get; set; }
+        public List<Video> ArchivedStreams { get; set; }
         public bool IsUserFollowingFeaturedTutor { get; set; }
         public string ChatInfo { get; set; }
 
@@ -43,35 +43,36 @@ namespace StreamWork.Pages
             };
 
             // List of the IDs of the streams to hardcode in
-            List<UserArchivedStreams> streamsByViews = await storageService.GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsInDescendingOrderByViews);
-            List<UserArchivedStreams> userArchivedStreams = new List<UserArchivedStreams>();
+            List<Video> videosByViews = await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsInDescendingOrderByViews);
+            List<Video> videos = new List<Video>();
 
             foreach (string streamWithPriority in streamsWithPriority) // Add hardcoded streams
             {
-                int streamIndex = streamsByViews.FindIndex(x => x.StreamID.Equals(streamWithPriority));
-                userArchivedStreams.Add(streamsByViews[streamIndex]);
-                streamsByViews.RemoveAt(streamIndex);
+                int streamIndex = videosByViews.FindIndex(x => x.StreamID.Equals(streamWithPriority));
+                videos.Add(videosByViews[streamIndex]);
+                videosByViews.RemoveAt(streamIndex);
             }
 
-            int toAdd = 12 - userArchivedStreams.Count; // Since Count changes while the loop is running
+            int toAdd = 12 - videos.Count; // Since Count changes while the loop is running
             for (int i = 0; i < toAdd; i++) // Fill the rest in with streams in order of view count
             {
-                userArchivedStreams.Add(streamsByViews[i]);
+                videos.Add(videosByViews[i]);
             }
-            ArchivedStreams = userArchivedStreams;
+            ArchivedStreams = videos;
 
-            UserChannel streamingChannel = await storageService.Get<UserChannel>(SQLQueries.GetAllUserChannelsThatAreStreaming);
+            Channel streamingChannel = await storageService.Get<Channel>(SQLQueries.GetAllUserChannelsThatAreStreaming);
             if (streamingChannel == null)
             {
-                FeaturedChannel = await storageService.Get<UserChannel>(SQLQueries.GetUserChannelWithUsername, "juliamkim");
-                FeaturedTutor = await storageService.Get<UserLogin>(SQLQueries.GetUserWithUsername, "juliamkim");
-                FeaturedArchivedStream = await storageService.Get<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, "juliamkim");
+                FeaturedChannel = await storageService.Get<Channel>(SQLQueries.GetUserChannelWithUsername, "juliamkim");
+                FeaturedTutor = await storageService.Get<DataModels.Profile>(SQLQueries.GetUserWithUsername, "juliamkim");
+                FeaturedArchivedStream = await storageService.Get<Video>(SQLQueries.GetArchivedStreamsWithUsername, "juliamkim");
                 FeaturedArchivedStream.StreamSubjectIcon = MiscHelperMethods.GetCorrespondingSubjectThumbnail(FeaturedArchivedStream.StreamSubject);
             }
             else
             {
                 FeaturedChannel = streamingChannel;
-                FeaturedTutor = await storageService.Get<UserLogin>(SQLQueries.GetUserWithUsername, streamingChannel.Username);
+                FeaturedTutor = await storageService.Get<DataModels.Profile>(SQLQueries.GetUserWithUsername, streamingChannel.Username);
+                FeaturedChannel.StreamSubjectIcon = MiscHelperMethods.GetCorrespondingSubjectThumbnail(FeaturedChannel.StreamSubject);
             }
 
             if (cookieService.Authenticated)

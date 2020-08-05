@@ -12,7 +12,7 @@ namespace StreamWork.Pages.Home
         private readonly CookieService session;
         private readonly StorageService storage;
 
-        public List<UserLogin> StreamTutors { get; set; }
+        public List<DataModels.Profile> StreamTutors { get; set; }
 
         public TutorModal(CookieService session, StorageService storage)
         {
@@ -22,7 +22,7 @@ namespace StreamWork.Pages.Home
 
         public async Task OnGet()
         {
-            StreamTutors = await storage.GetList<UserLogin>(SQLQueries.GetAllApprovedTutors);
+            StreamTutors = await storage.GetList<DataModels.Profile>(SQLQueries.GetAllApprovedTutors);
         }
     }
 }

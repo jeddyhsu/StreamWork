@@ -3,10 +3,10 @@ using StreamWork.DataModels;
 
 namespace StreamWork.ViewModels {
     public class SearchViewModel {
-        public List<UserLogin> PopularStreamTutors { get; set; }
-        public List<UserChannel> StreamResults { get; set; }
-        public List<UserArchivedStreams> ArchiveResults { get; set; }
-        public UserLogin UserProfile { get; set; }
+        public List<Profile> PopularStreamTutors { get; set; }
+        public List<Channel> StreamResults { get; set; }
+        public List<Video> ArchiveResults { get; set; }
+        public Profile UserProfile { get; set; }
 
         public string Subject { get; set; }
         public string SearchQuery { get; set; }

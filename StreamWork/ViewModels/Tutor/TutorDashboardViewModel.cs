@@ -6,10 +6,10 @@ namespace StreamWork.ViewModels.Tutor {
 
     public class TutorDashboardViewModel {
 
-        public UserLogin UserProfile { get; set; }
-        public UserChannel UserChannel { get; set; }
+        public Profile UserProfile { get; set; }
+        public Channel UserChannel { get; set; }
 
-        public List<UserArchivedStreams> UserArchivedStreams { get; set; }
+        public List<Video> UserArchivedStreams { get; set; }
 
         public int NumberOfStreams { get; set; }
         public int NumberOfFollowers { get; set; }

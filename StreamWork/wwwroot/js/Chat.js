@@ -17,7 +17,7 @@ connection.on("ReceiveMessage", function (chat) {
 
     if (chat.ChatId == chat.Username) {
         listName = ` <p class="chat-name" style="color:${chat.ChatColor}">${chat.Name.replace('|', ' ')}
-                        <span><img id="tutor-tip-${toolTipCount}" class="pl-1" src="/images/ChatAssets/Tutor.png" data-toggle="tooltip" data-placement="top" title="StreamTutor"></span>
+                        <span><img id="tutor-tip-${toolTipCount}" class="pl-1" style="width:28px" src="/images/ChatAssets/Tutor.svg" data-toggle="tooltip" data-placement="top" title="StreamTutor"></span>
                         <span class='chat-date'>${date}</span>
                      </p>`
     }
@@ -36,7 +36,7 @@ connection.on("ReceiveMessage", function (chat) {
     if ((chatCount + 1) % 2 != 0) colorWay = "chat-list-primary-color-way"
     else colorWay = "chat-list-secondary-color-way"
 
-    var listItem = `<li id="message-${chatCount}" class='list-group-item ${colorWay} border-left-0 border-right-0'>
+    var listItem = `<li id="message-${chatCount}" class='list-group-item ${colorWay} border-0'>
                             <div class="row">
                                 <div class="col-12">
                                     <input align="left" type="image" class="chat-profile-picture rounded" src=${chat.ProfilePicture} />
@@ -116,4 +116,15 @@ function PopoutChat(chatId, chatInfo) {
     var windowObjectRef;
     var windowFeatures = "menubar=no, toolbar=no,location=yes,resizable=yes,scrollbars=yes,status=yes, width=500, height=600";
     windowObjectRef = window.open('https://www.streamwork.live/chat/streamworkchat?chatId=' + chatId + "&chatInfo=" + chatInfo, 'StreamWork Chat', windowFeatures);
+}
+
+function CheckIfEmpty() {
+    if ($('#chatInput').val() == "") {
+        $('#sendQuestionButton').removeClass().addClass('streamWork-disabled')
+        document.getElementById('sendQuestionButton').disabled = true;
+    }
+    else {
+        $('#sendQuestionButton').removeClass().addClass('streamWork-primary')
+        document.getElementById('sendQuestionButton').disabled = false;
+    }
 }

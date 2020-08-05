@@ -30,11 +30,11 @@ namespace StreamWork.Pages.Home
             var username = Request.Form["Username"];
             var password = Request.Form["Password"];
 
-            var userProfile = await storage.Get<UserLogin>(SQLQueries.GetUserWithUsername, username);
+            var userProfile = await storage.Get<DataModels.Profile>(SQLQueries.GetUserWithUsername, username);
             if (userProfile == null)
             {
                 // User can also sign in with email address, in which case the username needs to be updated
-                userProfile = await storage.Get<UserLogin>(SQLQueries.GetUserWithEmailAddress, username);
+                userProfile = await storage.Get<DataModels.Profile>(SQLQueries.GetUserWithEmailAddress, username);
                 if (userProfile != null)
                 {
                     username = userProfile.Username;

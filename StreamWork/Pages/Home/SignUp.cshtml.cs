@@ -29,7 +29,7 @@ namespace StreamWork.Pages.Home
 
         public async Task<JsonResult> OnGetIsAddressAvailable(string emailAddress)
         {
-            return new JsonResult(await storage.Get<UserLogin>(SQLQueries.GetUserWithEmailAddress, emailAddress) == null);
+            return new JsonResult(await storage.Get<DataModels.Profile>(SQLQueries.GetUserWithEmailAddress, emailAddress) == null);
         }
 
         public JsonResult OnGetIsAddressValid(string emailAddress)
@@ -46,7 +46,7 @@ namespace StreamWork.Pages.Home
 
         public async Task<JsonResult> OnGetIsUsernameAvailable(string username)
         {
-            return new JsonResult(await storage.Get<UserLogin>(SQLQueries.GetUserWithUsername, username) == null);
+            return new JsonResult(await storage.Get<DataModels.Profile>(SQLQueries.GetUserWithUsername, username) == null);
         }
 
         public async Task OnPostSignUpStudent()
@@ -66,7 +66,7 @@ namespace StreamWork.Pages.Home
             }
             else
             {
-                UserLogin user = new UserLogin
+                DataModels.Profile user = new DataModels.Profile
                 {
                     Id = id,
                     Name = Request.Form["FirstName"] + "|" + Request.Form["LastName"],
@@ -108,7 +108,7 @@ namespace StreamWork.Pages.Home
             }
             else
             {
-                UserLogin user = new UserLogin
+                DataModels.Profile user = new DataModels.Profile
                 {
                     Id = id,
                     Name = Request.Form["FirstName"] + "|" + Request.Form["LastName"],
@@ -130,7 +130,7 @@ namespace StreamWork.Pages.Home
 
                 await cookieService.SignIn(Request.Form["Username"], encryption.DecryptPassword(user.Password, Request.Form["Password"]));
             }
-            
+
             await CreateChannel(Request.Form["Username"]);
             //need to email transcript and resume
         }
@@ -145,8 +145,8 @@ namespace StreamWork.Pages.Home
                 return
                     new Regex(@"^[A-Za-z0-9_-]+$").IsMatch(username) &&
                     new MailAddress(emailAddress).Address == emailAddress &&
-                    await storage.Get<UserLogin>(SQLQueries.GetUserWithUsername, username) == null &&
-                    await storage.Get<UserLogin>(SQLQueries.GetUserWithEmailAddress, emailAddress) == null;
+                    await storage.Get<DataModels.Profile>(SQLQueries.GetUserWithUsername, username) == null &&
+                    await storage.Get<DataModels.Profile>(SQLQueries.GetUserWithEmailAddress, emailAddress) == null;
             }
             catch
             {
@@ -160,10 +160,10 @@ namespace StreamWork.Pages.Home
             GoogleOauth oauthInfo = storage.Call<GoogleOauth>("https://oauth2.googleapis.com/tokeninfo?id_token=" + oauthRequestToken);
             var password = encryption.EncryptPassword("!!0_STREAMWORK_!!0");
 
-            await storage.Save(id, new UserLogin
+            await storage.Save(id, new DataModels.Profile
             {
                 Id = id,
-                Name = oauthInfo.Name.Contains(' ') ? oauthInfo.Name.Replace(' ','|') : oauthInfo.Name + "|",
+                Name = oauthInfo.Name.Contains(' ') ? oauthInfo.Name.Replace(' ', '|') : oauthInfo.Name + "|",
                 EmailAddress = oauthInfo.Email,
                 Username = Request.Form["Username"],
                 Password = password,
@@ -183,7 +183,7 @@ namespace StreamWork.Pages.Home
 
         public async Task<IActionResult> OnPostCheckIfOauthUserExists(string email)
         {
-            var userProfile = await storage.Get<UserLogin>(SQLQueries.GetUserWithEmailAddress, email);
+            var userProfile = await storage.Get<DataModels.Profile>(SQLQueries.GetUserWithEmailAddress, email);
             if (userProfile != null)
             {
                 await cookieService.SignIn(userProfile.Username, userProfile.Password);
@@ -196,7 +196,7 @@ namespace StreamWork.Pages.Home
         private async Task<bool> CreateChannel(string username)
         {
             string id = Guid.NewGuid().ToString();
-            return await storage.Save(id, new UserChannel
+            return await storage.Save(id, new Channel
             {
                 Id = Guid.NewGuid().ToString(),
                 Username = username,

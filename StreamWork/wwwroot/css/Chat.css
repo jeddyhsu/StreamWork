@@ -40,28 +40,37 @@
     padding-left: 40px;
 }
 
-.chat-list-view {
-    padding-top: 82px !important;
+.chat-list-view-archive {
+    padding-top: 72px !important;
+}
+
+.chat-list-view-live {
+    padding-top: 72px !important;
+    padding-bottom: 64px !important;
 }
 
 ::-webkit-input-placeholder {
-    padding-top:20px;
-    font-size:14px;
+    padding-top: 20px;
+    font-size: 14px;
+    font-family: 'Roboto', serif
 }
 
 :-moz-placeholder { /* Firefox 18- */
     padding-top: 20px;
     font-size: 14px;
+    font-family: 'Roboto', serif
 }
 
 ::-moz-placeholder { /* Firefox 19+ */
     padding-top: 20px;
     font-size: 14px;
+    font-family: 'Roboto', serif
 }
 
 :-ms-input-placeholder {
     padding-top: 20px;
     font-size: 14px;
+    font-family: 'Roboto', serif
 }
 
 .no-scroll-bar::-webkit-scrollbar {

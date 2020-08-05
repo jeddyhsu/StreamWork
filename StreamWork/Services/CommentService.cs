@@ -18,8 +18,8 @@ namespace StreamWork.Services
         {
             try
             {
-                var sender = await Get<UserLogin>(SQLQueries.GetUserWithUsername, senderUsername);
-                var receiver = await Get<UserLogin>(SQLQueries.GetUserWithUsername, receiverUsername);
+                var sender = await Get<Profile>(SQLQueries.GetUserWithUsername, senderUsername);
+                var receiver = await Get<Profile>(SQLQueries.GetUserWithUsername, receiverUsername);
 
                 Comment comment = new Comment
                 {

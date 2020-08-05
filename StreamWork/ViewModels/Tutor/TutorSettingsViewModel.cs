@@ -4,6 +4,6 @@ namespace StreamWork.ViewModels.Tutor
 {
     public class TutorSettingsViewModel
     {
-        public UserLogin UserProfile { get; set; }
+        public DataModels.Profile UserProfile { get; set; }
     }
 }

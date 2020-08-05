@@ -16,7 +16,7 @@
                                 <div class="row pt-3 pb-3">
                                     <div class="col-12">
                                         <img id="notification-delete-@follower.Id" src="~/images/GenericAssets/Trash.png" class="comment-remove mr-3 float-right" onclick="DeleteNotification('@follower.Id')" />
-                                        <input align="left" type="image" class="rounded" src="@follower.ProfilePicture" style="width:30px" onclick="window.location.href = '/Profile/@follower.ProfileType/@follower.Username'" />
+                                        <input align="left" type="image" class="rounded" src="@follower.ProfilePicture" style="width:30px" onclick="window.location.href = '/Profiles/@follower.ProfileType/@follower.Username'" />
                                         <p class="form-header mb-0" style="padding-left:40px;">
                                             <span style="color:@follower.ProfileColor">@follower.Name.Replace('|', ' ')</span> <span class="form-subheader roboto" style="font-size:10px">(@follower.ProfileType)</span>
                                         </p>

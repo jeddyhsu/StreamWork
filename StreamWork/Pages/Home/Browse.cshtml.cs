@@ -14,11 +14,11 @@ namespace StreamWork.Pages.Home
         private readonly CookieService cookieService;
         private readonly NotificationService notificationService;
 
-        public UserLogin CurrentUserProfile { get; set; }
-        public List<UserArchivedStreams> Videos { get; set; }
-        public List<UserLogin> PopularTutors { get; set; }
-        public List<UserChannel> LiveChannels { get; set; }
-        public List<UserLogin> AllTutors { get; set; }
+        public Profile CurrentUserProfile { get; set; }
+        public List<Video> Videos { get; set; }
+        public List<Profile> PopularTutors { get; set; }
+        public List <Channel> LiveChannels { get; set; }
+        public List<Profile> AllTutors { get; set; }
         public List<Notification> Notifications { get; set; }
         public bool AreThereUnseenNotifications { get; set; }
 
@@ -33,15 +33,18 @@ namespace StreamWork.Pages.Home
         {
             CurrentUserProfile = await cookieService.GetCurrentUser();
 
-            var tutors = await storageService.GetList<UserLogin>(SQLQueries.GetAllApprovedTutors, "");
+            var tutors = await storageService.GetList<Profile>(SQLQueries.GetAllApprovedTutors, "");
 
-            Videos = await storageService.GetList<UserArchivedStreams>(SQLQueries.GetAllArchivedStreams, "");
+            Videos = await storageService.GetList<Video>(SQLQueries.GetAllArchivedStreams, "");
             PopularTutors = tutors.GetRange(0,5);
-            LiveChannels = await storageService.GetList<UserChannel>(SQLQueries.GetAllUserChannelsThatAreStreaming, "");
+            LiveChannels = await storageService.GetList<Channel>(SQLQueries.GetAllUserChannelsThatAreStreaming, "");
             AllTutors = tutors;
 
-            Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
-            AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
+            if(CurrentUserProfile != null)
+            {
+                Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
+                AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
+            }
 
             return Page();
         }

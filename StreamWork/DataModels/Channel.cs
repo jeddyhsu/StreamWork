@@ -1,12 +1,17 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using StreamWork.Framework;
 
 namespace StreamWork.DataModels
 {
-    public class UserChannel : IStorageBase<UserChannel>
+    public class Channel : IStorageBase<Channel>
     {
+
+        [NotMapped]
+        public string StreamSubjectIcon { get; set; }
+
         //Tutors Only
         [Key]
         public string Id { get; set; }
@@ -27,7 +32,7 @@ namespace StreamWork.DataModels
         [Timestamp]
         public byte[] RowVersion { get; set; }
 
-        public virtual void Configure(EntityTypeBuilder<UserChannel> builder)
+        public virtual void Configure(EntityTypeBuilder<Channel> builder)
         {
 
         }

@@ -15,8 +15,8 @@ namespace StreamWork.Services
 
         public async Task<bool> SaveNotification(NotificationType notificationType, string senderUsername, string receiverUsername, string notficationInfo, string objectId)
         {
-            var sender = await Get<UserLogin>(SQLQueries.GetUserWithUsername, senderUsername);
-            var receiver = await Get<UserLogin>(SQLQueries.GetUserWithUsername, receiverUsername);
+            var sender = await Get<Profile>(SQLQueries.GetUserWithUsername, senderUsername);
+            var receiver = await Get<Profile>(SQLQueries.GetUserWithUsername, receiverUsername);
 
             try
             {

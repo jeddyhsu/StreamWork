@@ -12,11 +12,11 @@ namespace StreamWork.Services
     public class FollowService : StorageService
     {
         public FollowService([FromServices] IOptionsSnapshot<StorageConfig> config) : base(config) { }
-       
+
         public async Task<string[]> AddFollower(string followerId, string followeeId)
         {
-            var followerProfile = await Get<UserLogin>(SQLQueries.GetUserWithId, followerId);
-            var followeeProfile = await Get<UserLogin>(SQLQueries.GetUserWithId, followeeId);
+            var followerProfile = await Get<Profile>(SQLQueries.GetUserWithId, followerId);
+            var followeeProfile = await Get<Profile>(SQLQueries.GetUserWithId, followeeId);
 
             if (followerProfile != null && followeeProfile != null)
             {
@@ -33,7 +33,7 @@ namespace StreamWork.Services
 
                 await Save(followRequest.Id, followRequest);
 
-                return new string[] {followerProfile.Username, followeeProfile.Username, followRequest.Id};
+                return new string[] { followerProfile.Username, followeeProfile.Username, followRequest.Id };
             }
 
             return null;
@@ -49,43 +49,43 @@ namespace StreamWork.Services
             return false;
         }
 
-        public async Task<List<UserLogin>> GetAllFollowers(string followeeId) //all users that arent follwing the followee
+        public async Task<List<Profile>> GetAllFollowers(string followeeId) //all users that arent follwing the followee
         {
             var listOfFollowers = await GetList<Follow>(SQLQueries.GetAllFollowersWithId, new string[] { followeeId });
             if (listOfFollowers.Count != 0)
             {
                 List<string> idList = new List<string>();
                 foreach (var follower in listOfFollowers) idList.Add(follower.FollowerId);
-                return await GetList<UserLogin>(SQLQueries.GetAllUsersInTheList, new string[] { MiscHelperMethods.FormatQueryString(idList) });
+                return await GetList<Profile>(SQLQueries.GetAllUsersInTheList, new string[] { MiscHelperMethods.FormatQueryString(idList) });
             }
 
             return null;
         }
 
-        public async Task<List<UserLogin>> GetAllFollowees(string followerId)
+        public async Task<List<Profile>> GetAllFollowees(string followerId)
         {
             var listOfFollowees = await GetList<Follow>(SQLQueries.GetAllFolloweesWithId, new string[] { followerId });
             if (listOfFollowees.Count != 0)
             {
                 List<string> idList = new List<string>();
                 foreach (var followee in listOfFollowees) idList.Add(followee.FolloweeId);
-                return await GetList<UserLogin>(SQLQueries.GetAllUsersInTheList, new string[] { MiscHelperMethods.FormatQueryString(idList)});
+                return await GetList<Profile>(SQLQueries.GetAllUsersInTheList, new string[] { MiscHelperMethods.FormatQueryString(idList) });
             }
 
             return null;
         }
 
-        public async Task<List<UserLogin>> GetAllNonFollowees(string followerId) //all users that arent follwing the followee
+        public async Task<List<Profile>> GetAllNonFollowees(string followerId) //all users that arent follwing the followee
         {
             var listOfFollowees = await GetList<Follow>(SQLQueries.GetAllFollowersWithId, new string[] { followerId });
             if (listOfFollowees.Count != 0)
             {
                 List<string> idList = new List<string>();
                 foreach (var followee in listOfFollowees) idList.Add(followee.FolloweeId);
-                return await GetList<UserLogin>(SQLQueries.GetAllTutorsNotInTheList, MiscHelperMethods.FormatQueryString(idList));
+                return await GetList<Profile>(SQLQueries.GetAllTutorsNotInTheList, MiscHelperMethods.FormatQueryString(idList));
             }
 
-            return await GetList<UserLogin>(SQLQueries.GetAllApprovedTutors, null);
+            return await GetList<Profile>(SQLQueries.GetAllApprovedTutors, null);
         }
 
         public async Task<string> IsFollowingFollowee(string followerId, string followeeId)

@@ -21,9 +21,9 @@ else
                 <div id="player-row" class="card-body p-0">
                     <img class="p-3" align="left" src="/images/ChatAssets/Math.png" style="width:100%; height:100%; max-width:120px; max-height:120px; cursor:pointer" onclick="window.open('https://www.streamwork.live/Home/Search?s=@Model.UserChannel.StreamSubject&q=')" />
                     <div class="m-3" id="StreamInfo">
-                        <h3 style="color:black; font-family:'Roboto Slab', serif;">Welcome to @Model.UserProfile.Name.Replace('|', ' ')'s live stream page</h3>
-                        <p class="mb-1" style="padding-left:105px">It looks like @Model.UserProfile.Name.Replace('|', ' ') is not live at the moment</p>
-                        <p style="font-size:12px; padding-left:105px">Tutoring Mathematics</p>
+                        <h3 class="roboto-slab">@Model.UserChannel.StreamTitle</h3>
+                        <p class="mb-1" style="padding-left:105px">@Model.UserChannel.StreamDescription</p>
+                        <p style="font-size:12px; padding-left:105px">Tutoring @Model.UserChannel.StreamSubject</p>
                     </div>
                     <div class="border-top pt-3 pl-3 pr-3 pb-1" style="background-color:#FBFBFB">
                         <div class="d-lg-inline-block d-md-inline-block d-sm-none d-none float-right">
@@ -32,18 +32,25 @@ else
                             else if (Model.FollowValue.Equals("Follow"))
                             {<button id="follow-live" class="streamWork-primary stream-buttons m-1" onclick="Follow('@Model.CurrentUserProfile.Id', '@Model.UserProfile.Id', 'follow-archive')">Follow</button>}
                             <button class="streamWork-orange stream-buttons m-1">Donate</button>
-                            <button class="streamWork-secondary m-1 stream-buttons" onclick="window.location.href='/Profile/Tutor/@Model.UserProfile.Username'">Tutor Profile</button>
+                            <button class="streamWork-secondary m-1 stream-buttons" onclick="window.location.href='/Profiles/Tutor/@Model.UserProfile.Username'">Tutor Profile</button>
                         </div>
-                        <input align="left" type="image" class="rounded" style="width:30px" src=@Model.UserProfile.ProfilePicture />
-                        <h3 class="mb-0 form-header" style="font-size:20px; margin-left:40px; color:@Model.UserChannel.ChatColor">@Model.UserProfile.Name.Replace('|', ' ')</h3>
-                        <p class="form-sub-header" style="margin-left:40px; font-size:14px">@Model.UserProfile.ProfileCaption</p>
+                        <input align="left" type="image" class="rounded" style="width:40px" src=@Model.UserProfile.ProfilePicture />
+                        <h3 class="mb-0 form-header" style="font-size:20px; margin-left:50px; color:@Model.UserChannel.ChatColor">@Model.UserProfile.Name.Replace('|', ' ')</h3>
+                        @if (Model.UserProfile.ProfileCaption == null || @Model.UserProfile.ProfileCaption == "")
+                        {
+                            <p class="form-sub-header" style="margin-left:50px; font-size:14px">Occupation / Major</p>
+                        }
+                        else
+                        {
+                            <p class="form-sub-header" style="margin-left:50px; font-size:14px">@Model.UserProfile.ProfileCaption</p>
+                        }
                         <div class="d-lg-none d-md-none d-sm-inline-block d-inline-block">
                             @if (Model.FollowValue.Equals("Following"))
                             {<button id="following-live" onclick="Unfollow('@Model.CurrentUserProfile.Id', '@Model.UserProfile.Id', 'following-archive')" class="streamWork-primary stream-buttons">Following</button>}
                             else if (Model.FollowValue.Equals("Follow"))
                             {<button id="follow-live" onclick="Follow('@Model.CurrentUserProfile.Id', '@Model.UserProfile.Id', 'follow-archive')" class="streamWork-primary stream-buttons">Follow</button>}
                             <button class="streamWork-orange stream-buttons">Donate</button>
-                            <button class="streamWork-secondary stream-buttons m-1" onclick="window.location.href='/Profile/Tutor/@Model.UserProfile.Username'">Tutor Profile</button>
+                            <button class="streamWork-secondary stream-buttons m-1" onclick="window.location.href='/Profiles/Tutor/@Model.UserProfile.Username'">Tutor Profile</button>
                         </div>
                     </div>
                 </div>

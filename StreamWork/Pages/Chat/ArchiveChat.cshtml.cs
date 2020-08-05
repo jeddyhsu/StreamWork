@@ -18,8 +18,8 @@ namespace StreamWork.Pages.Chat
         private readonly ChatService chatService;
 
         public string ChatId { get; set; }
-        public List<Chats> Chats { get; set; }
-        public UserLogin UserProfile { get; set; }
+        public List<DataModels.Chat> Chats { get; set; }
+        public DataModels.Profile UserProfile { get; set; }
 
         public ArchiveChat(StorageService storage, CookieService session, ProfileService profile, ScheduleService schedule, FollowService follow, EditService edit, ChatService chat)
         {

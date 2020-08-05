@@ -15,8 +15,8 @@ namespace StreamWork.Pages.Tutor
         private readonly StreamService streamService;
         private readonly NotificationService notificationService;
 
-        public UserLogin CurrentUserProfile { get; set; }
-        public UserChannel UserChannel { get; set; }
+        public Profile CurrentUserProfile { get; set; }
+        public Channel UserChannel { get; set; }
         public string ChatInfo { get; set; }
         public List<Notification> Notifications { get; set; }
         public bool AreThereUnseenNotifications { get; set; }
@@ -37,7 +37,7 @@ namespace StreamWork.Pages.Tutor
             }
 
             CurrentUserProfile = await cookieService.GetCurrentUser();
-            UserChannel = await storageService.Get<UserChannel>(SQLQueries.GetUserChannelWithUsername, new string[] { CurrentUserProfile.Username });
+            UserChannel = await storageService.Get<Channel>(SQLQueries.GetUserChannelWithUsername, new string[] { CurrentUserProfile.Username });
             ChatInfo = "1234";
 
             Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
@@ -55,7 +55,7 @@ namespace StreamWork.Pages.Tutor
         public async Task<IActionResult> OnPostRegisterStream()
         {
             var userProfile = await cookieService.GetCurrentUser();
-            var userChannel = await storageService.Get<UserChannel>(SQLQueries.GetUserChannelWithUsername, userProfile.Username);
+            var userChannel = await storageService.Get<Channel>(SQLQueries.GetUserChannelWithUsername, userProfile.Username);
 
             if (streamService.StartStream(Request, userProfile, userChannel)) return new JsonResult(new { Message = JsonResponse.Success.ToString() });
             return new JsonResult(new { Message = JsonResponse.Failed.ToString() });

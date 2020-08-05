@@ -19,7 +19,7 @@ namespace StreamWork.Services
 
         public ProfileService([FromServices] IOptionsSnapshot<StorageConfig> config) : base(config) { }
 
-        public bool SaveSection(HttpRequest request, UserLogin userProfile)
+        public bool SaveSection(HttpRequest request, Profile userProfile)
         {
             try
             {
@@ -42,7 +42,7 @@ namespace StreamWork.Services
             }
         }
 
-        public List<Section> GetSections(UserLogin userProfile)
+        public List<Section> GetSections(Profile userProfile)
         {
             try
             {
@@ -79,7 +79,7 @@ namespace StreamWork.Services
 
         }
 
-        public bool SaveTopic(HttpRequest request, UserLogin userProfile)
+        public bool SaveTopic(HttpRequest request, Profile userProfile)
         {
             try
             {
@@ -102,7 +102,7 @@ namespace StreamWork.Services
             }
         }
 
-        public List<Topic> GetTopics(UserLogin userProfile)
+        public List<Topic> GetTopics(Profile userProfile)
         {
             try
             {
@@ -142,13 +142,13 @@ namespace StreamWork.Services
             if (request.Form.Files.Count > 0)
                 streamThumbnail = BlobMethods.SaveImageIntoBlobContainer(request.Form.Files[0], videoId, 1280, 720);
 
-            var archivedStream = await Get<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithId, videoId);
+            var archivedStream = await Get<Video>(SQLQueries.GetArchivedStreamsWithId, videoId);
             archivedStream.StreamTitle = streamTitle;
             archivedStream.StreamDescription = streamDescription;
             if (streamThumbnail != null)
                 archivedStream.StreamThumbnail = streamThumbnail;
 
-            await Save<UserArchivedStreams>(archivedStream.Id, archivedStream);
+            await Save<Video>(archivedStream.Id, archivedStream);
 
             return new List<string> { streamTitle, streamDescription, archivedStream.StreamThumbnail };
         }
@@ -173,20 +173,20 @@ namespace StreamWork.Services
 
         public async Task ChangeAllArchivedStreamAndUserChannelProfilePhotos(string user, string profilePicture) //changes all profile photos on streams if user has changed it
         {
-            var allArchivedStreamsByUser = await GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { user });
-            var userChannel = await Get<UserChannel>(SQLQueries.GetUserChannelWithUsername, new string[] { user });
+            var allArchivedStreamsByUser = await GetList<Video>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { user });
+            var userChannel = await Get<Channel>(SQLQueries.GetUserChannelWithUsername, new string[] { user });
             foreach (var stream in allArchivedStreamsByUser)
             {
                 stream.ProfilePicture = profilePicture;
-                await Save<UserArchivedStreams>(stream.Id, stream);
+                await Save<Video>(stream.Id, stream);
             }
             userChannel.ProfilePicture = profilePicture;
-            await Save<UserChannel>(userChannel.Id, userChannel);
+            await Save<Channel>(userChannel.Id, userChannel);
         }
 
         public async Task<bool> DeleteStream(string id)
         {
-            return await Delete<UserArchivedStreams>(id);
+            return await Delete<Video>(id);
         }
     }
 }

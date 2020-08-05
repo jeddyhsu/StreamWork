@@ -21,17 +21,17 @@ namespace StreamWork.Pages.Tutor
         private readonly SearchService searchService;
         private readonly NotificationService notificationService;
 
-        public UserLogin CurrentUserProfile { get; set; }
-        public UserChannel UserChannel { get; set; }
+        public Profile CurrentUserProfile { get; set; }
+        public Channel UserChannel { get; set; }
         public int NumberOfStreams { get; set; }
         public int NumberOfFollowers { get; set; }
         public int NumberOfViews { get; set; }
-        public List<UserArchivedStreams> UserArchivedStreams { get; set; }
+        public List<Video> UserArchivedStreams { get; set; }
         public List<Section> Sections { get; set; }
         public List<Topic> Topics { get; set; }
         public List<Schedule> Schedule { get; set; }
-        public List<UserLogin> Followers { get; set; }
-        public List<UserLogin> Followees { get; set; }
+        public List<Profile> Followers { get; set; }
+        public List<Profile> Followees { get; set; }
         public List<Notification> Notifications { get; set; }
         public bool AreThereUnseenNotifications { get; set; }
         public SearchViewModel SearchViewModel { get; set; }
@@ -55,9 +55,9 @@ namespace StreamWork.Pages.Tutor
             }
 
             CurrentUserProfile = await cookieService.GetCurrentUser();
-            UserChannel = await storageService.Get<UserChannel>(SQLQueries.GetUserChannelWithUsername, new string[] { CurrentUserProfile.Username });
+            UserChannel = await storageService.Get<Channel>(SQLQueries.GetUserChannelWithUsername, new string[] { CurrentUserProfile.Username });
 
-            UserArchivedStreams = await storageService.GetList<UserArchivedStreams>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { CurrentUserProfile.Username });
+            UserArchivedStreams = await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { CurrentUserProfile.Username });
             Sections = profileService.GetSections(CurrentUserProfile);
             Topics = profileService.GetTopics(CurrentUserProfile);
             Schedule = await scheduleService.GetSchedule(CurrentUserProfile.Username);
@@ -111,7 +111,7 @@ namespace StreamWork.Pages.Tutor
 
         public async Task<IActionResult> OnPostSearchArchivedStreams(string searchTerm, string filter)
         {
-            return new JsonResult(new { Message = JsonResponse.Success.ToString(), Results = await searchService.SearchArchivedStreams(filter, searchTerm) });
+            return new JsonResult(new { Message = JsonResponse.Success.ToString(), Results = await searchService.SearchVideos(filter, searchTerm) });
         }
     }
 }

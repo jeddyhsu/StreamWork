@@ -4,7 +4,7 @@ namespace StreamWork.ViewModels.Tutor
 {
     public class TutorWatchViewModel
     {
-        public UserLogin UserProfile { get; set; }
+        public DataModels.Profile UserProfile { get; set; }
         public SearchViewModel SearchViewModel { get; set; }
     }
 }

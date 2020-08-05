@@ -5,7 +5,7 @@ namespace StreamWork.ViewModels
 {
     public class DonateViewModel
     {
-        public UserLogin TutorUserProfile { get; set; }
-        public UserLogin GenericUserProfile { get; set; }
+        public DataModels.Profile TutorUserProfile { get; set; }
+        public DataModels.Profile GenericUserProfile { get; set; }
     }
 }
