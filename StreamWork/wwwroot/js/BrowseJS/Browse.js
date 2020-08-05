@@ -6,15 +6,23 @@ function ChangePlaceHolder(text) {
 
 function SliderStreams() {
     $('#streams-tab').tab('show');
-    $('#slider-object').css("transform", "translate3d(15px, 0px, 0px)")
+    $('#slider-object').css("transform", "translate3d(20px, 0px, 0px)")
     $('#search-form').attr("onkeyup", "SearchStreams(event, 'stream-row')")
     $('#search-form').attr("onsubmit", "SearchStreams(event, 'stream-row')")
     ChangePlaceHolder("🔎  Search Streams By Title")
 }
 
+function SliderSchedule() {
+    $('#videos-tab').tab('show');
+    $('#slider-object').css("transform", "translate3d(110px, 0px, 0px)")
+    $('#search-form').attr("onkeyup", "SearchStreams(event, 'video-row')")
+    $('#search-form').attr("onsubmit", "SearchStreams(event, 'video-row')")
+    ChangePlaceHolder("🔎  Search Upcomings Stream By Title")
+}
+
 function SliderVideos() {
     $('#videos-tab').tab('show');
-    $('#slider-object').css("transform", "translate3d(100px, 0px, 0px)")
+    $('#slider-object').css("transform", "translate3d(200px, 0px, 0px)")
     $('#search-form').attr("onkeyup", "SearchStreams(event, 'video-row')")
     $('#search-form').attr("onsubmit", "SearchStreams(event, 'video-row')")
     ChangePlaceHolder("🔎  Search Videos By Title")
@@ -22,7 +30,7 @@ function SliderVideos() {
 
 function SliderTutors() {
     $('#tutors-tab').tab('show');
-    $('#slider-object').css("transform", "translate3d(182px, 0px, 0px)")
+    $('#slider-object').css("transform", "translate3d(275px, 0px, 0px)")
     $('#search-form').attr("onkeyup", "SearchStreams(event, 'tutor-row')")
     $('#search-form').attr("onsubmit", "SearchStreams(event, 'tutor-row')")
     ChangePlaceHolder("🔎  Search Tutors By Name")

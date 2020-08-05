@@ -12,6 +12,7 @@ namespace StreamWork.Pages
         private readonly StorageService storageService;
         private readonly CookieService cookieService;
         private readonly EncryptionService encryptionService;
+        private readonly NotificationService notificationService;
 
         public Profile CurrentUserProfile { get; set; }
         public Profile FeaturedTutor { get; set; }
@@ -20,12 +21,15 @@ namespace StreamWork.Pages
         public List<Video> ArchivedStreams { get; set; }
         public bool IsUserFollowingFeaturedTutor { get; set; }
         public string ChatInfo { get; set; }
+        public List<Notification> Notifications { get; set; }
+        public bool AreThereUnseenNotifications { get; set; }
 
-        public IndexModel(StorageService storage, CookieService cookie, EncryptionService encryption)
+        public IndexModel(StorageService storage, CookieService cookie, EncryptionService encryption, NotificationService notification)
         {
             storageService = storage;
             cookieService = cookie;
             encryptionService = encryption;
+            notificationService = notification;
         }
 
         public async Task OnGet()
@@ -79,6 +83,8 @@ namespace StreamWork.Pages
             {
                 CurrentUserProfile = await cookieService.GetCurrentUser();
                 ChatInfo = encryptionService.EncryptString(CurrentUserProfile.Username + "|" + CurrentUserProfile.Id + "|" + CurrentUserProfile.EmailAddress);
+                Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
+                AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
             }
         }
     }

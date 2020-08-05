@@ -1,12 +1,12 @@
 ﻿@foreach (var tutor in Model.AllTutors)
 {
-    <div class="col-lg-4 mt-2 mb-2">
+    <div class="col-lg-6 col-md-12 mt-2 mb-2">
         <div class="card">
             <div class="card-body">
                 <div>
                     <img class="rounded" src="@tutor.ProfilePicture" style="width:50px" align="left" />
                     <div class="btn-group float-right">
-                        <button class="streamWork-secondary m-1 stream-buttons" onclick="window.location.href='/Profile/Tutor/@tutor.Username'">Profile</button>
+                        <button class="streamWork-secondary m-1 stream-buttons" onclick="window.location.href='/Profiles/Tutor/@tutor.Username'">Profile</button>
                     </div>
                     <p class="form-header mb-0" style="font-size:16px; padding-left:60px; color:@tutor.ProfileColor">@tutor.Name.Replace('|', ' ')</p>
                     <p class="form-sub-header mb-0" style="font-size:12px; padding-left:60px">@tutor.ProfileCaption</p>

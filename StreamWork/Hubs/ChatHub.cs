@@ -86,7 +86,7 @@ namespace StreamWork.Hubs
                 Message = message,
                 ProfilePicture = profilePicture,
                 Date = dateTime,
-                ChatColor = chatColor.Equals("") ? "#56C0E0" : chatColor,
+                ChatColor = chatColor,
                 TimeOffset = offset,
             };
 

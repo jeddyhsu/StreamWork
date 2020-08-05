@@ -167,70 +167,6 @@ lds-dual-ring {
     font-weight: bold;
 }
 
-.loaderTutor {
-    border: 16px solid white;
-    border-top: 16px solid #008080;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    animation: spin 1s linear infinite;
-}
-
-.loaderStudent {
-    border: 16px solid white;
-    border-top: 16px solid #008080;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    animation: spin 1s linear infinite;
-}
-
-.loader {
-    border: 16px solid black; /* Light grey */
-    border-top: 16px solid #008080; 
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 1s linear infinite;
-}
-
-.loaderStartStream {
-    border: 16px solid black; /* Light grey */
-    border-top: 16px solid #008080;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-.indexCaption {
-  font-size: 11px;
-}
-@media screen and (min-width: 1200px) {
-    .indexCaption {
-        font-size: 14px;
-    }
-}
-
-.indexCaption {
-    font-size: 11px;
-}
-
-@media screen and (min-width: 1200px) {
-    .indexCaption {
-        font-size: 14px;
-    }
-}
 
 /*Buttons*/
 .streamWork-primary {
@@ -385,6 +321,10 @@ lds-dual-ring {
 .navItem {
     color: #004643;
     font-family: 'Roboto Slab', serif;
+}
+
+.nav-logo{
+    padding-right:65px
 }
 
 /*Modals*/
@@ -548,7 +488,6 @@ lds-dual-ring {
 }
 
 /* Forms */
-
 .divider-text {
     font-size: 12px;
     color: #b1b1b1;
@@ -631,6 +570,7 @@ pre {
     padding-top:58px;
 }
 
+/*Text Colors*/
 .streamWork-white {
     color: white;
 }
@@ -642,4 +582,6 @@ pre {
 .streamWork-grey {
     color: #707070;
 }
+
+
 

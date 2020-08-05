@@ -80,22 +80,22 @@ else
                 <div id="bottomCard" class="card fixed-bottom border-top border-left-0 border-right-0 border-bottom-0 rounded-0" style="background-color:#FBFBFB;">
                     <div class="card-body p-0 m-0" style="margin-top:3px;">
                         <div id="questionBox" class="row">
-                            <div class="col-9 pr-0">
-                                <div>
+                            <div class="col-12">
+                                <div class="d-flex align-items-center justify-content-center">
                                     <textarea id="chatInput" onkeydown="pressed(event)" class="form-control form-textarea rounded-0 border-0" style="height:81px !important; resize:none; background-color:transparent" placeholder="Send question or message..."></textarea>
                                     <script>
                                             function pressed(event) {
                                                 if (event.keyCode == 13 && !event.shiftKey) {
-                                                    GetMessage('@Model.ChatId', '@Model.CurrentUserProfile.Username', '@Model.CurrentUserProfile.Name', '@Model.CurrentUserProfile.ProfilePicture', '@Model.ChatColor')
+                                                    GetMessage('@Model.ChatId', '@Model.CurrentUserProfile.Username', '@Model.CurrentUserProfile.Name', '@Model.CurrentUserProfile.ProfilePicture', '@Model.CurrentUserProfile.ProfileColor')
                                                     event.preventDefault();
                                                     return false;
                                                 }
                                             }
                                     </script>
+                                    <div >
+                                        <button type="button" id="sendQuestionButton" class="streamWork-primary ml-1 mr-1" style="font-size:12px;" onclick="GetMessage('@Model.ChatId','@Model.CurrentUserProfile.Username','@Model.CurrentUserProfile.Name', '@Model.CurrentUserProfile.ProfilePicture', '@Model.CurrentUserProfile.ProfileColor')">Send</button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-3 pl-3 pr-0">
-                                <button type="button" id="sendQuestionButton" class="streamWork-primary" style="font-size:12px; margin-top:20px; margin-left:5px;" onclick="GetMessage('@Model.ChatId','@Model.CurrentUserProfile.Username','@Model.CurrentUserProfile.Name', '@Model.CurrentUserProfile.ProfilePicture', '@Model.ChatColor')">Send</button>
                             </div>
                         </div>
                     </div>

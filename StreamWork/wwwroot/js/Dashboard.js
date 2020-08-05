@@ -64,7 +64,7 @@ function SaveProfile() {
         formData.append("ProfilePicture", totalFiles.files[0]);
 
     $.ajax({
-        url: '/Profile/Profile/?handler=SaveProfile',
+        url: '/Profiles/Profile/?handler=SaveProfile',
         type: 'POST',
         dataType: 'json',
         data: formData,
@@ -169,7 +169,7 @@ function SaveSection(event, type) {
 
     $.ajax({
         type: "POST",
-        url: "/Profile/Profile?handler=SaveSection",
+        url: "/Profiles/Profile?handler=SaveSection",
         dataType: 'json',
         data: serialize,
         beforeSend: function (xhr) {
@@ -271,7 +271,7 @@ function SaveTopic() {
     serialize = serialize.replace(/%0D%0A/g, '*--*');
 
     $.ajax({
-        url: '/Profile/Profile/?handler=SaveTopic',
+        url: '/Profiles/Profile/?handler=SaveTopic',
         type: 'post',
         dataType: 'json',
         data: serialize,
@@ -338,7 +338,7 @@ function SaveProfileBanner(image) {
     var formData = new FormData();
     formData.append("ProfileBanner", image.files[0]);
     $.ajax({
-        url: '/Profile/Profile/?handler=SaveBanner',
+        url: '/Profiles/Profile/?handler=SaveBanner',
         type: 'POST',
         dataType: 'json',
         data: formData,

@@ -253,6 +253,10 @@
       "StorageType": "SqlServer",
       "Queries": [
         {
+          "Query": "SELECT * FROM [dbo].[Schedule] ORDER BY DATE ASC",
+          "QueryId": "GetAllScheduledStreams"
+        },
+        {
           "Query": "SELECT * FROM [dbo].[Schedule] WHERE LOWER(Username) = LOWER('@x0') AND Date >= '@x1' ORDER BY DATE ASC",
           "QueryId": "GetScheduleWithUserUsername"
         },

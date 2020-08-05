@@ -23,6 +23,7 @@ namespace StreamWork.Services
         private string streamThumbnail;
         private string archivedVideoId;
         private string chatColor;
+        private string streamColor;
 
         private int initialCount = 0;
         private static int threadCount = 0;
@@ -34,7 +35,6 @@ namespace StreamWork.Services
         {
             try
             {
-                string streamThumbnail;
                 var notifyStudent = request.Form["NotifiyStudent"];
                 channel = userChannel;
                 profile = userProfile;   
@@ -43,6 +43,7 @@ namespace StreamWork.Services
                 streamDescription = request.Form["StreamDescription"];
                 archivedVideoId = Guid.NewGuid().ToString();
                 chatColor = profile.ProfileColor;
+                streamColor = GetCorrespondingStreamColor(streamSubject);
 
                 if (request.Form.Files.Count > 0)
                     streamThumbnail = BlobMethods.SaveImageIntoBlobContainer(request.Form.Files[0], archivedVideoId, 1280, 720);
@@ -102,7 +103,8 @@ namespace StreamWork.Services
                     channel.StreamDescription = streamDescription;
                     channel.StreamThumbnail = streamThumbnail;
                     channel.Views = 0;
-                    channel.ChatColor = chatColor;
+                    channel.StreamColor = streamColor;
+                    channel.Name = profile.Name;
                     await Save(channel.Id, channel);
                 }
                 catch (Microsoft.EntityFrameworkCore.DbUpdateException e)
@@ -233,7 +235,7 @@ namespace StreamWork.Services
                 channel.StreamSubject = null;
                 channel.StreamDescription = null;
                 channel.StreamThumbnail = null;
-                //await _chatHelperFunctions.DeleteAllChatsWithChatId(_storageConfig, _userChannel.Username);
+                channel.StreamColor = null;
                 await Save(channel.Id, channel);
             }
             catch (Exception ex)

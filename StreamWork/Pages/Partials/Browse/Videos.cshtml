@@ -10,7 +10,7 @@
                 <h5 class="text-truncate form-header mb-0">@video.StreamTitle</h5>
                 <input type="hidden" value="@video.StreamDescription" />
                 <p class="text-truncate form-header mb-1" style="font-size:12px">@video.StartTime.ToString("MMM dd yyyy")</p>
-                <p class="text-truncate form-header" style="font-size:10px">@video.Name.Replace('|', ' ')</p>
+                <p class="text-truncate form-header" style="font-size:10px"><a class="streamWork-green" href="/Profiles/Tutor/@video.Username">@video.Name.Replace('|', ' ')</a></p>
 
             </div>
             <div class="card-footer" style="background-color:@video.StreamColor; border-bottom-left-radius:20px; border-bottom-right-radius:20px;"></div>

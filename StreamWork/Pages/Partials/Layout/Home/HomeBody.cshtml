@@ -1,12 +1,10 @@
 ﻿@{var cacheRand = new Random().Next();}
+@Html.AntiForgeryToken()
 
 <div class="row">
-    <nav class="navbar navbar-expand-lg p-1 w-100 fixed-top" style="background-color:white">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse pl-3" id="navbarSupportedContent">
-            <ul class="navbar-nav">
+    <nav class="navbar navbar-expand-sm fixed-top p-1 w-100 navbar-custom" style="background-color:white;">
+        <div class="pl-3" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto d-lg-flex d-md-flex d-sm-none d-none">
                 <li class="nav-item active d-block mr-auto ml-auto">
                     <a class="navItem nav-link pl-3 pr-3" href="/Home/Tutor">Tutor</a>
                 </li>
@@ -14,44 +12,79 @@
                     <a class="navItem nav-link pl-3 pr-3" href="/Home/Browse">Browse</a>
                 </li>
                 <li class="nav-item active d-block mr-auto ml-auto">
-                    <a class="navItem nav-link pl-3" href="/Home/About">About</a>
+                    <a class="navItem nav-link pl-3 pr-3" href="/Home/About">About</a>
                 </li>
             </ul>
-            <div class="d-block mr-auto ml-auto">
-                <a class="navbar-brand" href="/">
-                    <img src="~/images/StreamWorkLogo.png" width="150" alt="">
-                </a>
+
+            <ul class="navbar-nav mr-auto d-lg-none d-md-none d-sm-block d-block">
+                <li class="nav-item active d-inline-block mr-auto ml-auto">
+                    <img class=" mr-2" src="~/images/streamWorkPencil.png" width="32" />
+                </li>
+                <li class="nav-item active d-inline-block mr-auto ml-auto">
+                    <img class="ml-2 mr-2" src="~/images/GenericAssets/Browse.svg" onclick="window.location.href='/Home/Browse'" width="25" />
+                </li>
+            </ul>
+        </div>
+
+        <div class="d-lg-block d-md-block d-sm-none d-none mr-auto ml-auto nav-logo">
+            <a class="navbar-brand" href="/">
+                <img src="~/images/StreamWorkLogo.png" width="150" alt="">
+            </a>
+        </div>
+
+        <div class="dropright mr-auto ml-2 d-lg-none d-md-none d-sm-block d-block">
+            <img id="dropdownMenuButton" data-toggle="dropdown" class="dropdown-toggle" src="~/images/GenericAssets/Elipses.svg" width="25" />
+            <div class="dropdown-menu mt-3" style="font-size:12px; min-width:0px !important">
+                <a class="dropdown-item" href="/Home/Tutor">Tutor</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" id="Settings" href="/Home/About">About</a>
             </div>
         </div>
-        @if (Model.CurrentUserProfile == null)
-        {
-            <div class="btn-group pr-3 float-right m-2">
-                <button class="streamWork-secondary mr-2" onclick="window.location.href='/Home/SignUp'">Sign Up</button>
-                <button class="streamWork-primary" onclick="window.location.href='/Home/SignIn/SW'">Sign In</button>
-            </div>
-        }
-        else
-        {
-            <div class="btn-group pr-3">
-                <input id="navbar-profile-picture" class="navbar-profile-picture" type="image" data-toggle="dropdown" src="@Model.CurrentUserProfile.ProfilePicture?@cacheRand" />
-                <button type="button" id="dropdown" class="btn btn-info dropdown-toggle border-0 navbar-dropdown-button" data-toggle="dropdown"></button>
-                <div class="dropdown-menu dropdown-menu-right" style="font-size:12px; min-width:0px !important">
-                    @if (Model.CurrentUserProfile.ProfileType == "tutor")
-                    {
-                        <a class="dropdown-item" href="/Tutor/TutorDashboard">Dashboard</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" id="Settings" href="/Tutor/TutorSettings">Settings</a>
-                    }
-                    else
-                    {
-                        <a class="dropdown-item" href="/Student/StudentDashboard">Dashboard</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" id="Settings" href="/Student/TutorSettings">Settings</a>
-                    }
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" onclick="SignOut()">Logout</a>
+
+        <div>
+            @if (Model.CurrentUserProfile == null)
+            {
+                <div class="btn-group pr-3 float-right m-2">
+                    <button class="streamWork-secondary mr-2" onclick="window.location.href='/Home/SignUp'">Sign Up</button>
+                    <button class="streamWork-primary" onclick="window.location.href='/Home/SignIn/SW'">Sign In</button>
                 </div>
-            </div>
-        }
+            }
+            else
+            {
+                @if (Model.Notifications.Count > 0 && Model.AreThereUnseenNotifications)
+                {
+                    <img id="notification-bell" class="float-right" src="~/images/GenericAssets/NotificationBell.svg" width="65" style="cursor:pointer" onclick="OpenModal('notification-modal'); UpdateToSeen('@Model.CurrentUserProfile.Username');  $('#notification-bell').attr('src', '/images/GenericAssets/Bell.svg')" />
+                }
+                else
+                {
+                    <img src="~/images/GenericAssets/Bell.svg" width="65" style="cursor:pointer" onclick="OpenModal('notification-modal')" />
+                }
+                <div class="btn-group pr-3">
+                    <input id="navbar-profile-picture" class="navbar-profile-picture" type="image" data-toggle="dropdown" src="@Model.CurrentUserProfile.ProfilePicture?@cacheRand" />
+                    <button type="button" id="dropdown" class="btn btn-info dropdown-toggle border-0 navbar-dropdown-button" data-toggle="dropdown"></button>
+                    <div class="dropdown-menu dropdown-menu-right" style="font-size:12px; min-width:0px !important">
+                        @if (Model.CurrentUserProfile.ProfileType == "tutor")
+                        {
+                            <a class="dropdown-item" href="/Tutor/TutorDashboard">Dashboard</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" id="Settings" href="/Tutor/TutorSettings">Settings</a>
+                        }
+                        else
+                        {
+                            <a class="dropdown-item" href="/Student/StudentDashboard">Dashboard</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" id="Settings" href="/Student/TutorSettings">Settings</a>
+                        }
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" onclick="SignOut()">Logout</a>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <script>$('#dropdown').dropdown()</script>
     </nav>
 </div>
+
+@await Html.PartialAsync("Partials/Modals/NotificationModal")
+
