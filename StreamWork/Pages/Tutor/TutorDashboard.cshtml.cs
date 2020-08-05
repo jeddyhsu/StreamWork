@@ -7,7 +7,6 @@ using StreamWork.DataModels;
 using StreamWork.HelperMethods;
 using StreamWork.Services;
 using StreamWork.ProfileObjects;
-using StreamWork.ViewModels;
 
 namespace StreamWork.Pages.Tutor
 {
@@ -34,7 +33,6 @@ namespace StreamWork.Pages.Tutor
         public List<Profile> Followees { get; set; }
         public List<Notification> Notifications { get; set; }
         public bool AreThereUnseenNotifications { get; set; }
-        public SearchViewModel SearchViewModel { get; set; }
 
         public TutorDashboard(StorageService storage, CookieService cookie, ProfileService profile, ScheduleService schedule, FollowService follow, SearchService search, NotificationService notification)
         {

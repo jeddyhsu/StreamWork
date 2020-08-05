@@ -63,7 +63,7 @@ namespace StreamWork.Services
         {
             try
             {
-                var response = Call<StreamHosterEndpoint>("https://a.streamhoster.com/v1/papi/media/stream/stat/realtime-stream?targetcustomerid=" + channelKey, "NjBjZDBjYzlkNTNlOGViZDc3YWYyZGE2ZDNhN2EyZjQ5YWNmODk1YTo=");
+                var response = CallJSON<StreamHosterEndpoint>("https://a.streamhoster.com/v1/papi/media/stream/stat/realtime-stream?targetcustomerid=" + channelKey, "NjBjZDBjYzlkNTNlOGViZDc3YWYyZGE2ZDNhN2EyZjQ5YWNmODk1YTo=");
                 foreach (var channel in response.Data)
                 {
                     if ((channel.MediaId + "_5").Equals(channelKey.Split("|")[0]))
@@ -149,7 +149,7 @@ namespace StreamWork.Services
             threadCount += 1;
             hashTable.Add(threadCount, archivedVideo);
 
-            StreamHosterRSSFeed initialResponse = Call<StreamHosterRSSFeed>("https://c.streamhoster.com/feed/WxsdDM/mAe0epZsixC/" + rssId + "?format=mrss");
+            StreamHosterRSSFeed initialResponse = CallXML<StreamHosterRSSFeed>("https://c.streamhoster.com/feed/WxsdDM/mAe0epZsixC/" + rssId + "?format=mrss");
             if (initialResponse.Channel.Item != null)
                 initialCount = initialResponse.Channel.Item.Length;
 
@@ -162,7 +162,7 @@ namespace StreamWork.Services
                         try
                         {
                             await Task.Delay(30000, cancellationToken);
-                            StreamHosterRSSFeed response = Call<StreamHosterRSSFeed>("https://c.streamhoster.com/feed/WxsdDM/mAe0epZsixC/" + rssId + "?format=mrss");
+                            StreamHosterRSSFeed response = CallXML<StreamHosterRSSFeed>("https://c.streamhoster.com/feed/WxsdDM/mAe0epZsixC/" + rssId + "?format=mrss");
                             if (response.Channel.Item != null && response.Channel.Item.Length == initialCount + threadCount)
                             {
                                 Console.WriteLine("Videos Found");

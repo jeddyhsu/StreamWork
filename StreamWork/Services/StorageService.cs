@@ -49,14 +49,19 @@ namespace StreamWork.Services
             return await DataStore.SaveAsync(connectionString, config.Value, new Dictionary<string, object> { { "Id", id } }, obj);
         }
 
-        public T Call<T>(string url, string authToken) where T: class
+        public T CallJSON<T>(string url, string authToken) where T: class
         {
             return DataStore.CallAPIJSON<T>(url, authToken);
         }
 
-        public T Call<T>(string url) where T : class
+        public T CallJSON<T>(string url) where T : class
         {
             return DataStore.CallAPIJSON<T>(url);
+        }
+
+        public T CallXML<T>(string url) where T : class
+        {
+            return (T)DataStore.CallAPIXML<T>(url);
         }
     }
 }

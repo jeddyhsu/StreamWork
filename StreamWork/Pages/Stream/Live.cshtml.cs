@@ -61,6 +61,7 @@ namespace StreamWork.Pages.Stream
             CurrentUserProfile = await cookieService.GetCurrentUser();
             UserProfile = await storageService.Get<DataModels.Profile>(SQLQueries.GetUserWithUsername, tutor);
             UserChannel = await storageService.Get<Channel>(SQLQueries.GetUserChannelWithUsername, tutor);
+            UserChannel.StreamSubjectIcon = MiscHelperMethods.GetCorrespondingSubjectThumbnail(UserChannel.StreamSubject);
             ChatInfo = "1234";
             FollowValue = await followService.IsFollowingFollowee(CurrentUserProfile.Id, UserProfile.Id);
 

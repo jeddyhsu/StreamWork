@@ -43,7 +43,6 @@ namespace StreamWork.Hubs
             {
                 var userProfile = await storageService.Get<Profile>(SQLQueries.GetUserWithUsername, userName);
                 Chat chat = new Chat
-
                 {
                     Id = Guid.NewGuid().ToString(),
                     ChatId = chatId,
@@ -80,7 +79,6 @@ namespace StreamWork.Hubs
         private string Serialize(string chatId, string userName, string name, string message, string profilePicture, DateTime dateTime, int offset, string chatColor, long questionCount)
         {
             Chat chat = new Chat
-
             {
                 ChatId = chatId,
                 Username = userName,

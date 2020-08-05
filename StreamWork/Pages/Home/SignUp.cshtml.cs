@@ -157,7 +157,7 @@ namespace StreamWork.Pages.Home
         public async Task SignUpOauth(HttpRequest request, string id, string type)
         {
             var oauthRequestToken = request.Form["Token"];
-            GoogleOauth oauthInfo = storage.Call<GoogleOauth>("https://oauth2.googleapis.com/tokeninfo?id_token=" + oauthRequestToken);
+            GoogleOauth oauthInfo = storage.CallJSON<GoogleOauth>("https://oauth2.googleapis.com/tokeninfo?id_token=" + oauthRequestToken);
             var password = encryption.EncryptPassword("!!0_STREAMWORK_!!0");
 
             await storage.Save(id, new DataModels.Profile
