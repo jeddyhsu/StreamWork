@@ -21,9 +21,9 @@
                 </label>
                 <br />
 
-                <button id="studentOrTutor-inHighSchool" class="streamWork-secondary mb-1" type="button" style="width: 100%" onclick="setInCollege(false);">In High School</button>
+                <button id="studentOrTutor-inCollege" class="streamWork-secondary mb-1 type="button" style="width: 100%" onclick="setInCollege(true);">In College</button>
                 <br />
-                <button id="studentOrTutor-inCollege" class="streamWork-secondary mb-3" type="button" style="width: 100%" onclick="setInCollege(true);">In College</button>
+                <button id="studentOrTutor-inHighSchool" class="streamWork-secondary mb-3" type="button" style="width: 100%" onclick="setInCollege(false);">In High School</button>
                 <br />
                 <br />
 
@@ -39,7 +39,7 @@
                 <br />
 
                 <div class="mt-6 pt-6 pr-3" style="color: #004643; position: absolute; bottom: 0; right: 0;">
-                    <p style="color: #004643; display: inline-block;">&#x25CF;</p><p style="color: #b1b1b1; display: inline-block;">&#x25CB;&#x25CB;</p>
+                    <p id="student-dots" style="color: #004643; display: inline-block;">&#x25CF;</p><p style="color: #b1b1b1; display: inline-block;">&#x25CB;&#x25CB;</p><p id="tutor-dot" style="color: #b1b1b1; display: none;">&#x25CB;</p>
                 </div>
             </div>
         </div>

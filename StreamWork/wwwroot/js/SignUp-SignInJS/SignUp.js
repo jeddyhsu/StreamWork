@@ -84,6 +84,24 @@ function emailNext() {
     }
 }
 
+function setIsTutor(isTutor) {
+    if (isTutor) {
+        $('#studentOrTutor-next').text('Sign Up As a StreamTutor');
+        $('#studentOrTutor-image-1').hide();
+        $('#studentOrTutor-image-2').show();
+        $('#tutor-dot').css('display', 'inline-block');
+    } else {
+        $('#studentOrTutor-next').text('Sign Up As a Student');
+        $('#studentOrTutor-image-2').hide();
+        $('#studentOrTutor-image-1').show();
+        $('#tutor-dot').hide();
+    }
+
+    if ($('#studentOrTutor-inCollege').hasClass('streamWork-primary') || $('#studentOrTutor-inHighSchool').hasClass('streamWork-primary')) {
+        $('#studentOrTutor-bottom').show();
+    }
+}
+
 function setInCollege(inCollege) {
     let primary;
     let secondary;
@@ -102,22 +120,6 @@ function setInCollege(inCollege) {
 
     let isTutor = $("input[name='profile-type']:checked").val()
     if (isTutor === 'true' || isTutor === 'false') {
-        $('#studentOrTutor-bottom').show();
-    }
-}
-
-function setIsTutor(isTutor) {
-    if (isTutor) {
-        $('#studentOrTutor-next').text('Sign Up As a StreamTutor');
-        $('#studentOrTutor-image-1').hide();
-        $('#studentOrTutor-image-2').show();
-    } else {
-        $('#studentOrTutor-next').text('Sign Up As a Student');
-        $('#studentOrTutor-image-2').hide();
-        $('#studentOrTutor-image-1').show();
-    }
-
-    if ($('#studentOrTutor-inCollege').hasClass('streamWork-primary') || $('#studentOrTutor-inHighSchool').hasClass('streamWork-primary')) {
         $('#studentOrTutor-bottom').show();
     }
 }
@@ -585,13 +587,6 @@ function Route() {
 }
 
 $(function () {
-    emailUpdateNext();
-    studentOrTutorUpdateNext();
-    studentProfileInfoUpdateNext();
-    studentProfileInfoOAuthUpdateNext();
-    tutorProfileInfoUpdateNext();
-    tutorProfileInfoOAuthUpdateNext();
-    tutorResumeTranscriptUpdateNext();
     $('#transcript').change(function (e) {
         $('#transcript-label').text('Transcript: "' + e.target.files[0].name + '"');
         transcriptUploaded = e.target.files.length > 0;
@@ -602,4 +597,11 @@ $(function () {
         resumeUploaded = e.target.files.length > 0;
         tutorResumeTranscriptUpdateNext();
     });
+    emailUpdateNext();
+    studentOrTutorUpdateNext();
+    studentProfileInfoUpdateNext();
+    studentProfileInfoOAuthUpdateNext();
+    tutorProfileInfoUpdateNext();
+    tutorProfileInfoOAuthUpdateNext();
+    tutorResumeTranscriptUpdateNext();
 });
