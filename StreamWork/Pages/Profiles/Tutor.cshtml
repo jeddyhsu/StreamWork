@@ -21,9 +21,23 @@ else
     </div>
     <div class="row">
         <div class="col-lg-3 col-md-4 order-lg-1 order-md-1 order-sm-2 order-2 pt-3">
-            <p class="form-header pt-3" style="font-size:16px">Most Recent Stream</p>
-            @if (Model.LatestStream != null)
+            @if (Model.UserChannel.StreamTitle != null && Model.UserChannel.StreamTitle != "")
             {
+                <p class="form-header pt-3" style="font-size:16px">Live</p>
+                <div class="card mt-3 border-0 d-block mr-auto ml-auto" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px;">
+                    <div class="card-title">
+                        <a href="/Stream/Live/@Model.UserChannel.Username"><img asp-append-version="true" id="stream-thumbnail-@Model.UserChannel.StreamThumbnail" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src="@Model.UserChannel.StreamThumbnail?@cacheRand"></a>
+                    </div>
+                    <div class="card-body pt-0 pb-1">
+                        <h5 id="stream-title-@Model.UserChannel.Id" class="text-truncate form-header">@Model.UserChannel.StreamTitle</h5>
+                        <p class="text-truncate form-header" style="font-size:10px">@Model.UserProfile.Name.Replace('|', ' ')</p>
+                    </div>
+                    <div class="card-footer" style="background-color:@Model.LatestStream.StreamColor; border-bottom-left-radius:20px; border-bottom-right-radius:20px;"></div>
+                </div>
+            }
+            else if (Model.LatestStream != null)
+            {
+                <p class="form-header pt-3" style="font-size:16px">Most Recent Stream</p>
                 <div class="card mt-3 border-0 d-block mr-auto ml-auto" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px;">
                     <div class="card-title">
                         <a href="/Stream/Archive/@Model.LatestStream.Username/@Model.LatestStream.StreamID/32169"><img asp-append-version="true" id="stream-thumbnail-@Model.LatestStream.Id" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src="@Model.LatestStream.StreamThumbnail?@cacheRand"></a>

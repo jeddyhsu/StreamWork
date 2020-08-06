@@ -18,6 +18,7 @@ namespace StreamWork.Pages.Home
         public List<Video> Videos { get; set; }
         public List<Profile> PopularTutors { get; set; }
         public List <Channel> LiveChannels { get; set; }
+        public List<Schedule> AllScheduledStreams { get; set; }
         public List<Profile> AllTutors { get; set; }
         public List<Notification> Notifications { get; set; }
         public bool AreThereUnseenNotifications { get; set; }
@@ -39,6 +40,7 @@ namespace StreamWork.Pages.Home
             PopularTutors = tutors.GetRange(0,5);
             LiveChannels = await storageService.GetList<Channel>(SQLQueries.GetAllUserChannelsThatAreStreaming, "");
             AllTutors = tutors;
+            AllScheduledStreams = await storageService.GetList<Schedule>(SQLQueries.GetAllScheduledStreams, "");
 
             if(CurrentUserProfile != null)
             {

@@ -21,10 +21,9 @@ namespace StreamWork.DataModels
         public string StreamTitle { get; set; }
         public string StreamThumbnail { get; set; }
         public string StreamDescription { get; set; }
-
         public string ProfilePicture { get; set; }
-        public string StreamTasks { get; set; }
-        public string ChatColor { get; set; }
+        public string Name { get; set; }
+        public string StreamColor { get; set; }
 
         public DateTime StartTime { get; set; }
         public int Views { get; set; }

@@ -35,7 +35,7 @@ else
                             <button class="streamWork-secondary m-1 stream-buttons" onclick="window.location.href='/Profiles/Tutor/@Model.UserProfile.Username'">Tutor Profile</button>
                         </div>
                         <input align="left" type="image" class="rounded" style="width:40px" src=@Model.UserProfile.ProfilePicture />
-                        <h3 class="mb-0 form-header" style="font-size:20px; margin-left:50px; color:@Model.UserChannel.ChatColor">@Model.UserProfile.Name.Replace('|', ' ')</h3>
+                        <h3 class="mb-0 form-header" style="font-size:20px; margin-left:50px; color:@Model.UserProfile.ProfileColor">@Model.UserProfile.Name.Replace('|', ' ')</h3>
                         @if (Model.UserProfile.ProfileCaption == null || @Model.UserProfile.ProfileCaption == "")
                         {
                             <p class="form-sub-header" style="margin-left:50px; font-size:14px">Occupation / Major</p>

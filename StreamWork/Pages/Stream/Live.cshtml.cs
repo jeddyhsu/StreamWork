@@ -65,8 +65,8 @@ namespace StreamWork.Pages.Stream
             ChatInfo = "1234";
             FollowValue = await followService.IsFollowingFollowee(CurrentUserProfile.Id, UserProfile.Id);
 
-            UserArchivedStreams = await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { CurrentUserProfile.Username });
-            RelatedTutors = (await storageService.GetList<DataModels.Profile>(SQLQueries.GetAllTutorsNotInTheList, new string[] { CurrentUserProfile.Id })).GetRange(0, 5);
+            UserArchivedStreams = await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { UserProfile.Username });
+            RelatedTutors = (await storageService.GetList<DataModels.Profile>(SQLQueries.GetAllTutorsNotInTheList, new string[] { UserProfile.Id })).GetRange(0, 5);
             Sections = profileService.GetSections(UserProfile);
             Schedule = await scheduleService.GetSchedule(UserProfile.Username);
 

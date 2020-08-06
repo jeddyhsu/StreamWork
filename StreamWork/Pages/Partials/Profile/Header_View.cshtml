@@ -65,14 +65,28 @@
                 <input id="header-twitter-url" type="hidden" value="@Model.UserProfile.TwitterUrl" />
             </div>
             <div class="d-lg-inline-block d-md-inline-block d-sm-none d-none pl-3">
-                <p class="mb-0 mt-2 form-sub-header d-inline-block" style="font-size:12px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
+                @if (Model.UserProfile.ProfileType == "tutor")
+                {
+                    <p class="mb-0 mt-2 form-sub-header d-inline-block" style="font-size:12px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
+                }
+                else
+                {
+                    <p class="mb-0 mt-2 form-sub-header d-inline-block" style="font-size:12px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Student since Jun, 2020</p>
+                }
                 @if (Model.UserProfile.Location == "" || Model.UserProfile.Location == null)
                 {<p id="header-location-mask" class="form-sub-header" style="font-size:12px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">City, State</span></p>}
                 else
                 {<p id="header-location-mask" class="form-sub-header" style="font-size:12px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">@Model.UserProfile.Location</span></p>}
             </div>
             <div class="d-lg-none d-md-none ">
-                <p class="mb-0 mt-2 form-sub-header header-padding" style="font-size:12px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
+                @if (Model.UserProfile.ProfileType == "tutor")
+                {
+                    <p class="mb-0 mt-2 form-sub-header d-inline-block" style="font-size:12px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
+                }
+                else
+                {
+                    <p class="mb-0 mt-2 form-sub-header d-inline-block" style="font-size:12px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Student since Jun, 2020</p>
+                }
                 @if (Model.UserProfile.Location == "" || Model.UserProfile.Location == null)
                 {<p id="header-location-mask" class="form-sub-header header-padding" style="font-size:12px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">City, State</span></p>}
                 else

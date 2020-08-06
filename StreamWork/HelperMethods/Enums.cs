@@ -108,6 +108,8 @@ namespace StreamWork.HelperMethods
         DeleteScheduleTaskWithId,
         DeletePastScheduledTasks,
         UpdateTimezonesOfScheduledTasks,
+        GetAllScheduledStreams,
+
         // Misc
         UserProfile,       //Use For Session
 
