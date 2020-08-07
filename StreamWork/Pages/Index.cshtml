@@ -78,11 +78,11 @@
                 <div class="col-lg-4 pl-lg-0 pl-md-3 pl-3">
                     @if (Model.FeaturedArchivedStream == null)
                     {
-                        <iframe class="border-bottom border-right-0 border-top-0 border-left-0 w-100 h-100" style="min-height:500px" src="http://localhost:58539/chat/LiveChat?chatId=@Model.FeaturedTutor.Username&chatInfo=@Model.ChatInfo"></iframe>
+                        <iframe class="border-bottom border-right-0 border-top-0 border-left-0 w-100 h-100" style="min-height:500px" src="/chat/LiveChat?chatId=@Model.FeaturedTutor.Username&chatInfo=@Model.ChatInfo"></iframe>
                     }
                     else
                     {
-                        <iframe class="border-bottom border-right-0 border-top-0 border-left-0 w-100 h-100" style="min-height:500px" src="http://localhost:58539/chat/ArchiveChat?chatId=@Model.FeaturedTutor.Username&chatInfo=@Model.ChatInfo"></iframe>
+                        <iframe class="border-bottom border-right-0 border-top-0 border-left-0 w-100 h-100" style="min-height:500px" src="/chat/ArchiveChat?chatId=@Model.FeaturedTutor.Username&chatInfo=@Model.ChatInfo"></iframe>
                     }
                 </div>
                 <div class="col-lg-12">
