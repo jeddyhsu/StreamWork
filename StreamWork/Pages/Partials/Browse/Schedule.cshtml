@@ -2,7 +2,7 @@
 {
     @foreach (var task in Model.AllScheduledStreams)
     {
-        <div class="col-lg-6 col-md-12 mt-2 w-100 @task.StreamSubject">
+        <div class="col-lg-6 col-md-12 mt-2 w-100 @task.StreamSubject-schedule">
             <div class="card mb-3 border-0">
                 <div class="card-body">
                     <div class="d-inline-flex">
@@ -28,19 +28,8 @@
 }
 else
 {
-    if (Model.CurrentUserProfile.Id == Model.UserProfile.Id)
-    {
-        <div class="col-12 p-3" style="height:200px">
-            <p class="form-sub-header p-0" style="font-size:22px">Nothing on your schedule...yet!</p>
-            <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">Schedule streams to let students know when you're going live!</p>
-            <button class="streamWork-primary mt-3" onclick="window.location.href ='/Tutor/TutorDashboard/#schedule'" style="font-size:14px; font-family:'Roboto', serif">Schedule Future Streams</button>
-        </div>
-    }
-    else
-    {
-        <div class="col-12 p-3" style="height:200px">
-            <p class="form-sub-header p-0" style="font-size:22px">Nothing on the schedule!</p>
-            <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">This tutor hasn't scheduled their streams yet!</p>
-        </div>
-    }
+    <div class="col-9" style="height:200px">
+        <p class="form-sub-header pl-3 pr-3 pt-3 pb-0" style="font-size:22px">No scheduled streams at the moment.</p>
+        <p class="form-sub-header pl-3 pr-3" style="font-size:14px; font-family:'Roboto', serif">Feel free to look at some past streams in the videos tab.</p>
+    </div>
 }

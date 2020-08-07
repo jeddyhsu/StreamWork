@@ -38,11 +38,11 @@
         <div class="ml-lg-auto ml-ms-auto ml-sm-auto ml-0">
             @if (Model.Notifications.Count > 0 && Model.AreThereUnseenNotifications)
             {
-                <img id="notification-bell" class="float-right" src="~/images/GenericAssets/NotificationBell.svg" width="65" style="cursor:pointer" onclick="OpenModal('notification-modal'); UpdateToSeen('@Model.CurrentUserProfile.Username');  $('#notification-bell').attr('src', '/images/GenericAssets/Bell.svg')" />
+                <img id="notification-bell"  src="~/images/GenericAssets/NotificationBell.svg" width="65" class="poiinter" onclick="OpenModal('notification-modal'); UpdateToSeen('@Model.CurrentUserProfile.Username');  $('#notification-bell').attr('src', '/images/GenericAssets/Bell.svg')" />
             }
             else
             {
-                <img src="~/images/GenericAssets/Bell.svg" width="65" style="cursor:pointer" onclick="OpenModal('notification-modal')" />
+                <img src="~/images/GenericAssets/Bell.svg" width="65" class="pointer" onclick="OpenModal('notification-modal')" />
             }
             <div class="btn-group pr-3">
                 <input id="navbar-profile-picture" class="navbar-profile-picture" type="image" data-toggle="dropdown" src="@Model.CurrentUserProfile.ProfilePicture?@cacheRand" />

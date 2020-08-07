@@ -13,6 +13,7 @@ namespace StreamWork.Pages.Home
         private readonly StorageService storageService;
         private readonly CookieService cookieService;
         private readonly NotificationService notificationService;
+        private readonly SearchService searchService;
 
         public Profile CurrentUserProfile { get; set; }
         public List<Video> Videos { get; set; }
@@ -23,11 +24,12 @@ namespace StreamWork.Pages.Home
         public List<Notification> Notifications { get; set; }
         public bool AreThereUnseenNotifications { get; set; }
 
-        public BrowseModel(CookieService cookie, StorageService storage, NotificationService notification)
+        public BrowseModel(CookieService cookie, StorageService storage, NotificationService notification, SearchService search)
         {
             cookieService = cookie;
             storageService = storage;
             notificationService = notification;
+            searchService = search;
         }
 
         public async Task<IActionResult> OnGet()
@@ -49,6 +51,26 @@ namespace StreamWork.Pages.Home
             }
 
             return Page();
+        }
+
+        public async Task<IActionResult> OnPostSearchStreams(string filter, string searchTerm)
+        {
+            return new JsonResult(new { Message = JsonResponse.Success.ToString(), Results = await searchService.SearchChannels(filter, searchTerm) });
+        }
+
+        public async Task<IActionResult> OnPostSearchSchedule(string filter, string searchTerm)
+        {
+            return new JsonResult(new { Message = JsonResponse.Success.ToString(), Results = await searchService.SearchSchedule(filter, searchTerm) });
+        }
+
+        public async Task<IActionResult> OnPostSearchVideos(string filter, string searchTerm)
+        {
+            return new JsonResult(new { Message = JsonResponse.Success.ToString(), Results = await searchService.SearchVideos(filter, searchTerm) });
+        }
+        
+        public async Task<IActionResult> OnPostSearchTutors(string filter, string searchTerm)
+        {
+            return new JsonResult(new { Message = JsonResponse.Success.ToString(), Results = await searchService.SearchTutors(filter, searchTerm) });
         }
     }
 }

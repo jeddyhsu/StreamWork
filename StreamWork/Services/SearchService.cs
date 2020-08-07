@@ -65,5 +65,48 @@ namespace StreamWork.Services
                 }
             }
         }
+
+        public async Task<List<Schedule>> SearchSchedule(string subject, string searchQuery)
+        {
+            if (string.IsNullOrEmpty(subject))
+            {
+                if (string.IsNullOrWhiteSpace(searchQuery))
+                {
+                    return await storage.GetList<Schedule>(SQLQueries.GetAllScheduledStreams);
+                }
+                else
+                {
+                    return await storage.GetList<Schedule>(SQLQueries.GetAllScheduledStreamsWithSearchTerm, searchQuery.ToLower());
+                }
+            }
+
+            return null;
+        }
+
+        public async Task<List<Video>> SearchTutors(string subject, string searchQuery)
+        {
+            if (string.IsNullOrEmpty(subject))
+            {
+                if (string.IsNullOrWhiteSpace(searchQuery))
+                {
+                    return await storage.GetList<Video>(SQLQueries.GetAllArchivedStreams);
+                }
+                else
+                {
+                    return await storage.GetList<Video>(SQLQueries.GetArchivedStreamsWithSearchTerm, searchQuery.ToLower());
+                }
+            }
+            else
+            {
+                if (string.IsNullOrWhiteSpace(searchQuery))
+                {
+                    return await storage.GetList<Video>(SQLQueries.GetArchivedStreamsWithSubject, subject);
+                }
+                else
+                {
+                    return await storage.GetList<Video>(SQLQueries.GetArchivedStreamsWithSubjectAndSearchTerm, subject, searchQuery.ToLower());
+                }
+            }
+        }
     }
 }

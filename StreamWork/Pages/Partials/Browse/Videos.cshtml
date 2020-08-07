@@ -1,7 +1,7 @@
 ﻿@{var cacheRand = new Random().Next();}
 @foreach (var video in Model.Videos)
 {
-    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 @video.StreamSubject">
+    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 @video.StreamSubject-video">
         <div class="card mt-3 border-0" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px">
             <div class="card-title">
                 <a href="/Stream/Archive/@video.Username/@video.StreamID/32169"><img asp-append-version="true" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src="@video.StreamThumbnail?@cacheRand"></a>

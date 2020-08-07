@@ -1,28 +1,37 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StreamWork.DataModels;
-using StreamWork.HelperMethods;
 using StreamWork.Services;
 
 namespace StreamWork.Pages.Home
 {
     public class TutorModal : PageModel
     {
-        private readonly CookieService session;
-        private readonly StorageService storage;
+        private readonly CookieService cookieService;
+        private readonly NotificationService notificationService;
 
-        public List<DataModels.Profile> StreamTutors { get; set; }
+        public Profile CurrentUserProfile { get; set; }
+        public List<Notification> Notifications { get; set; }
+        public bool AreThereUnseenNotifications { get; set; }
 
-        public TutorModal(CookieService session, StorageService storage)
+        public TutorModal(CookieService cookie, NotificationService notification)
         {
-            this.session = session;
-            this.storage = storage;
+            cookieService = cookie;
+            notificationService = notification;
         }
 
-        public async Task OnGet()
+        public async Task<IActionResult> OnGet()
         {
-            StreamTutors = await storage.GetList<DataModels.Profile>(SQLQueries.GetAllApprovedTutors);
+            CurrentUserProfile = await cookieService.GetCurrentUser();
+
+            if (CurrentUserProfile != null)
+            {
+                Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
+                AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
+            }
+            return Page();
         }
     }
 }

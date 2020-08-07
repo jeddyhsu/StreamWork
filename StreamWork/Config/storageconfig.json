@@ -34,6 +34,10 @@
         },
         {
           "Query": "SELECT * FROM [dbo].[Profile] WHERE ProfileType = 'tutor' AND AcceptedTutor = '1'",
+          "QueryId": "GetApprovedTutorsBySearchTerm"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Profile] WHERE ProfileType = 'tutor' AND AcceptedTutor = '1'",
           "QueryId": "GetApprovedTutorsByFollowers"
         },
         {
@@ -71,7 +75,7 @@
           "QueryId": "GetUserChannelWithId"
         },
         {
-          "Query": "SELECT * FROM [dbo].[Channel] WHERE LOWER(StreamTitle) LIKE '%@x0%'",
+          "Query": "SELECT * FROM [dbo].[Channel] WHERE LOWER(StreamTitle) LIKE '%@x0%' OR REPLACE (LOWER(Name), '|', ' ') LIKE '%@x0%' OR LOWER(StreamDescription) LIKE '%@x0%' OR LOWER(StreamSubject) LIKE '%@x0%'",
           "QueryId": "GetUserChannelsBySearchTerm"
         },
         {
@@ -106,7 +110,7 @@
           "QueryId": "GetArchivedStreamsWithStreamId"
         },
         {
-          "Query": "SELECT * FROM [dbo].[Video] WHERE LOWER(StreamTitle) LIKE '%@x0%'",
+          "Query": "SELECT * FROM [dbo].[Video] WHERE LOWER(StreamTitle) LIKE '%@x0%' OR REPLACE (LOWER(Name), '|', ' ') LIKE '%@x0%' OR LOWER(StreamDescription) LIKE '%@x0%' OR LOWER(StreamSubject) LIKE '%@x0%'",
           "QueryId": "GetArchivedStreamsWithSearchTerm"
         },
         {
@@ -255,6 +259,10 @@
         {
           "Query": "SELECT * FROM [dbo].[Schedule] ORDER BY DATE ASC",
           "QueryId": "GetAllScheduledStreams"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Schedule] WHERE LOWER(StreamSubject) LIKE '%@x0%' OR LOWER(StreamTitle) LIKE '%@x0%' OR REPLACE(LOWER(Name), '|', ' ') LIKE '%@x0%' ORDER BY DATE ASC",
+          "QueryId": "GetAllScheduledStreamsWithSearchTerm"
         },
         {
           "Query": "SELECT * FROM [dbo].[Schedule] WHERE LOWER(Username) = LOWER('@x0') AND Date >= '@x1' ORDER BY DATE ASC",

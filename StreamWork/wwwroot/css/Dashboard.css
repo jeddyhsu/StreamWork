@@ -85,7 +85,7 @@
     }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 575px) {
     .navbar-custom {
         width: calc(100% - 0px) !important;
         margin-left: auto
@@ -142,7 +142,7 @@
     }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 575px) {
     #sidebar-tablet {
         width: 0px;
         display: none;

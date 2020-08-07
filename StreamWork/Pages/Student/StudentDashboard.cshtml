@@ -282,7 +282,7 @@
                                                     {<button id="following-@Model.FollowedTutors[i].Tutor.Id" class="streamWork-primary stream-buttons m-1" onclick="Unfollow('@Model.CurrentUserProfile.Id', '@Model.FollowedTutors[i].Tutor.Id', 'following-@Model.FollowedTutors[i].Tutor.Id')">Following</button>}
                                                     else if (Model.FollowedTutors[i].FollowValue.Equals("Follow"))
                                                     {<button id="follow-@Model.FollowedTutors[i].Tutor.Id" class="streamWork-primary stream-buttons m-1" onclick="Follow('@Model.CurrentUserProfile.Id', '@Model.FollowedTutors[i].Tutor.Id', 'follow-@Model.FollowedTutors[i].Tutor.Id')">Follow</button>}
-                                                    <button class="streamWork-secondary m-1 stream-buttons" onclick="window.location.href='/Profile/Tutor/@Model.FollowedTutors[i].Tutor.Username'">Profile</button>
+                                                    <button class="streamWork-secondary m-1 stream-buttons" onclick="window.location.href='/Profiles/Tutor/@Model.FollowedTutors[i].Tutor.Username'">Profile</button>
                                                 </div>
                                                 <p class="form-header mb-0" style="font-size:16px; padding-left:60px; color:@Model.FollowedTutors[i].Tutor.ProfileColor">@Model.FollowedTutors[i].Tutor.Name.Replace('|', ' ')</p>
                                                 <p class="form-sub-header mb-0" style="font-size:12px; padding-left:60px">@Model.FollowedTutors[i].Tutor.ProfileCaption</p>
@@ -350,11 +350,9 @@
     <nav id="sidebar-tablet">
         <img class="logo-tablet" onclick="window.location.href ='/'" src="~/images/streamWorkPencilWhite.png" />
         <ul class="p-0">
-            <li class="sidebar-list-item-tablet" onclick="window.location.href ='/Home/Browse'"><img src="~/images/TutorAssets/TutorDashboard/StartStream2x.png" /></li>
+            <li class="sidebar-list-item-tablet" onclick="window.location.href ='/Home/Browse'"><img src="~/images/TutorAssets/TutorDashboard/WatchStream2x.png" /></li>
             <li class="sidebar-list-item-tablet" onclick="window.location.href ='/Home/Tutor'"><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/HowToStream2x.png" /></li>
             <li class="sidebar-list-item-tablet" onclick="window.location.href ='/Tutor/TutorWatch'"><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/WatchStream2x.png" /></li>
-
-            <li class="sidebar-list-item-tablet"><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/FollowerList2x.png" /></li>
         </ul>
     </nav>
 </div>
