@@ -29,7 +29,7 @@ namespace StreamWork.Pages.Home
 
         public async Task<JsonResult> OnGetIsAddressAvailable(string emailAddress)
         {
-            return new JsonResult(await storage.Get<DataModels.Profile>(SQLQueries.GetUserWithEmailAddress, emailAddress) == null);
+            return new JsonResult(await storage.Get<Profile>(SQLQueries.GetUserWithEmailAddress, emailAddress) == null);
         }
 
         public JsonResult OnGetIsAddressValid(string emailAddress)
@@ -46,7 +46,7 @@ namespace StreamWork.Pages.Home
 
         public async Task<JsonResult> OnGetIsUsernameAvailable(string username)
         {
-            return new JsonResult(await storage.Get<DataModels.Profile>(SQLQueries.GetUserWithUsername, username) == null);
+            return new JsonResult(await storage.Get<Profile>(SQLQueries.GetUserWithUsername, username) == null);
         }
 
         public async Task OnPostSignUpStudent()
@@ -66,7 +66,7 @@ namespace StreamWork.Pages.Home
             }
             else
             {
-                DataModels.Profile user = new DataModels.Profile
+                Profile user = new Profile
                 {
                     Id = id,
                     Name = Request.Form["FirstName"] + "|" + Request.Form["LastName"],
@@ -108,7 +108,7 @@ namespace StreamWork.Pages.Home
             }
             else
             {
-                DataModels.Profile user = new DataModels.Profile
+                Profile user = new Profile
                 {
                     Id = id,
                     Name = Request.Form["FirstName"] + "|" + Request.Form["LastName"],
@@ -140,13 +140,16 @@ namespace StreamWork.Pages.Home
         {
             string emailAddress = request.Form["EmailAddress"];
             string username = request.Form["Username"];
+            Regex nameRegex = new Regex(@"^[^0-9\t\n\/<>?;:""`!@#$%^&*()\[\]{}_+=|\\]+$");
             try
             {
                 return
+                    nameRegex.IsMatch(request.Form["FirstName"]) &&
+                    nameRegex.IsMatch(request.Form["LastName"]) &&
                     new Regex(@"^[A-Za-z0-9_-]+$").IsMatch(username) &&
                     new MailAddress(emailAddress).Address == emailAddress &&
-                    await storage.Get<DataModels.Profile>(SQLQueries.GetUserWithUsername, username) == null &&
-                    await storage.Get<DataModels.Profile>(SQLQueries.GetUserWithEmailAddress, emailAddress) == null;
+                    await storage.Get<Profile>(SQLQueries.GetUserWithUsername, username) == null &&
+                    await storage.Get<Profile>(SQLQueries.GetUserWithEmailAddress, emailAddress) == null;
             }
             catch
             {
@@ -160,7 +163,7 @@ namespace StreamWork.Pages.Home
             GoogleOauth oauthInfo = storage.CallJSON<GoogleOauth>("https://oauth2.googleapis.com/tokeninfo?id_token=" + oauthRequestToken);
             var password = encryption.EncryptPassword("!!0_STREAMWORK_!!0");
 
-            await storage.Save(id, new DataModels.Profile
+            await storage.Save(id, new Profile
             {
                 Id = id,
                 Name = oauthInfo.Name.Contains(' ') ? oauthInfo.Name.Replace(' ', '|') : oauthInfo.Name + "|",
@@ -183,7 +186,7 @@ namespace StreamWork.Pages.Home
 
         public async Task<IActionResult> OnPostCheckIfOauthUserExists(string email)
         {
-            var userProfile = await storage.Get<DataModels.Profile>(SQLQueries.GetUserWithEmailAddress, email);
+            var userProfile = await storage.Get<Profile>(SQLQueries.GetUserWithEmailAddress, email);
             if (userProfile != null)
             {
                 await cookieService.SignIn(userProfile.Username, userProfile.Password);

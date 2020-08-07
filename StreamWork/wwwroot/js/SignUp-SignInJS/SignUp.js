@@ -185,6 +185,12 @@ function studentTopicsNext() {
 }
 
 function studentProfileInfoUpdateNext() {
+    $('#student-firstName').removeClass('input-invalid');
+    $('#student-firstName').popover('hide');
+    $('#student-firstName').popover('disable');
+    $('#student-lastName').removeClass('input-invalid');
+    $('#student-lastName').popover('hide');
+    $('#student-lastName').popover('disable');
     $('#student-username').removeClass('input-invalid');
     $('#student-username').popover('hide');
     $('#student-username').popover('disable');
@@ -215,50 +221,62 @@ function studentProfileInfoNext() {
         $('#student-username').val().length > 0 &&
         $('#student-password').val().length > 0 &&
         $('#student-confirmPassword').val().length > 0) {
-        if (/^[A-Za-z0-9_-]+$/.test($('#student-username').val())) {
-            $.ajax({
-                url: '/Home/SignUp/?handler=IsUsernameAvailable',
-                type: 'GET',
-                data: {
-                    username: $('#student-username').val()
-                }
-            }).done(function (data) {
-                if (data) {
-                    const re = /^(?=.*[0-9])(?=.*[A-Za-z]).{8,}$/
-                    if (re.test($('#student-password').val())) {
-                        if ($('#student-password').val() === $('#student-confirmPassword').val()) {
-                            $('#student-username').removeClass('input-invalid');
-                            $('#student-username').popover('hide');
-                            $('#student-username').popover('disable');
-                            $('#student-username-wrapper').popover('hide');
-                            $('#student-username-wrapper').popover('disable');
-                            $('#student-password').removeClass('input-invalid');
-                            $('#student-password').popover('hide');
-                            $('#student-password').popover('disable');
-                            $('#student-confirmPassword').removeClass('input-invalid');
-                            $('#student-confirmPassword').popover('hide');
-                            $('#student-confirmPassword').popover('disable');
-                            signUpStudent();
-                        } else {
-                            $('#student-confirmPassword').addClass('input-invalid');
-                            $('#student-confirmPassword').popover('enable');
-                            $('#student-confirmPassword').popover('show');
+        if (/^[^0-9\t\n\/<>?;:"`!@#$%^&*()\[\]{}_+=|\\]+$/.test($('#student-firstName').val())) {
+            if (/^[^0-9\t\n\/<>?;:"`!@#$%^&*()\[\]{}_+=|\\]+$/.test($('#student-lastName').val())) {
+                if (/^[A-Za-z0-9_-]+$/.test($('#student-username').val())) {
+                    $.ajax({
+                        url: '/Home/SignUp/?handler=IsUsernameAvailable',
+                        type: 'GET',
+                        data: {
+                            username: $('#student-username').val()
                         }
-                    } else {
-                        $('#student-password').addClass('input-invalid');
-                        $('#student-password').popover('enable');
-                        $('#student-password').popover('show');
-                    }
+                    }).done(function (data) {
+                        if (data) {
+                            const re = /^(?=.*[0-9])(?=.*[A-Za-z]).{8,}$/
+                            if (re.test($('#student-password').val())) {
+                                if ($('#student-password').val() === $('#student-confirmPassword').val()) {
+                                    $('#student-username').removeClass('input-invalid');
+                                    $('#student-username').popover('hide');
+                                    $('#student-username').popover('disable');
+                                    $('#student-username-wrapper').popover('hide');
+                                    $('#student-username-wrapper').popover('disable');
+                                    $('#student-password').removeClass('input-invalid');
+                                    $('#student-password').popover('hide');
+                                    $('#student-password').popover('disable');
+                                    $('#student-confirmPassword').removeClass('input-invalid');
+                                    $('#student-confirmPassword').popover('hide');
+                                    $('#student-confirmPassword').popover('disable');
+                                    signUpStudent();
+                                } else {
+                                    $('#student-confirmPassword').addClass('input-invalid');
+                                    $('#student-confirmPassword').popover('enable');
+                                    $('#student-confirmPassword').popover('show');
+                                }
+                            } else {
+                                $('#student-password').addClass('input-invalid');
+                                $('#student-password').popover('enable');
+                                $('#student-password').popover('show');
+                            }
+                        } else {
+                            $('#student-username').addClass('input-invalid');
+                            $('#student-username-wrapper').popover('enable');
+                            $('#student-username-wrapper').popover('show');
+                        }
+                    });
                 } else {
                     $('#student-username').addClass('input-invalid');
-                    $('#student-username-wrapper').popover('enable');
-                    $('#student-username-wrapper').popover('show');
+                    $('#student-username').popover('enable');
+                    $('#student-username').popover('show');
                 }
-            });
+            } else {
+                $('#student-lastName').addClass('input-invalid');
+                $('#student-lastName').popover('enable');
+                $('#student-lastName').popover('show');
+            }
         } else {
-            $('#student-username').addClass('input-invalid');
-            $('#student-username').popover('enable');
-            $('#student-username').popover('show');
+            $('#student-firstName').addClass('input-invalid');
+            $('#student-firstName').popover('enable');
+            $('#student-firstName').popover('show');
         }
     }
 }
@@ -345,6 +363,12 @@ function tutorTopicsNext() {
 }
 
 function tutorProfileInfoUpdateNext() {
+    $('#tutor-firstName').removeClass('input-invalid');
+    $('#tutor-firstName').popover('hide');
+    $('#tutor-firstName').popover('disable');
+    $('#tutor-lastName').removeClass('input-invalid');
+    $('#tutor-lastName').popover('hide');
+    $('#tutor-lastName').popover('disable');
     $('#tutor-username').removeClass('input-invalid');
     $('#tutor-username').popover('hide');
     $('#tutor-username').popover('disable');
@@ -375,50 +399,61 @@ function tutorProfileInfoNext() {
         $('#tutor-username').val().length > 0 &&
         $('#tutor-password').val().length > 0 &&
         $('#tutor-confirmPassword').val().length > 0) {
-        const re = /^[A-Za-z0-9_-]+$/
-        if (re.test($('#tutor-username').val())) {
-            $.ajax({
-                url: '/Home/SignUp/?handler=IsUsernameAvailable',
-                type: 'GET',
-                data: {
-                    username: $('#tutor-username').val()
-                }
-            }).done(function (data) {
-                if (data) {
-                    if (/^(?=.*[0-9])(?=.*[A-Za-z]).{8,}$/.test($('#tutor-password').val())) {
-                        if ($('#tutor-password').val() === $('#tutor-confirmPassword').val()) {
-                            $('#tutor-username').removeClass('input-invalid');
-                            $('#tutor-username').popover('hide');
-                            $('#tutor-username').popover('disable');
-                            $('#tutor-username-wrapper').popover('hide');
-                            $('#tutor-username-wrapper').popover('disable');
-                            $('#tutor-password').removeClass('input-invalid');
-                            $('#tutor-password').popover('hide');
-                            $('#tutor-password').popover('disable');
-                            $('#tutor-confirmPassword').removeClass('input-invalid');
-                            $('#tutor-confirmPassword').popover('hide');
-                            $('#tutor-confirmPassword').popover('disable');
-                            goToTab('tutorResumeTranscript');
-                        } else {
-                            $('#tutor-confirmPassword').addClass('input-invalid');
-                            $('#tutor-confirmPassword').popover('enable');
-                            $('#tutor-confirmPassword').popover('show');
+        if (/^[^0-9\t\n\/<>?;:"`!@#$%^&*()\[\]{}_+=|\\]+$/.test($('#tutor-firstName').val())) {
+            if (/^[^0-9\t\n\/<>?;:"`!@#$%^&*()\[\]{}_+=|\\]+$/.test($('#tutor-lastName').val())) {
+                if (/^[A-Za-z0-9_-]+$/.test($('#tutor-username').val())) {
+                    $.ajax({
+                        url: '/Home/SignUp/?handler=IsUsernameAvailable',
+                        type: 'GET',
+                        data: {
+                            username: $('#tutor-username').val()
                         }
-                    } else {
-                        $('#tutor-password').addClass('input-invalid');
-                        $('#tutor-password').popover('enable');
-                        $('#tutor-password').popover('show');
-                    }
+                    }).done(function (data) {
+                        if (data) {
+                            if (/^(?=.*[0-9])(?=.*[A-Za-z]).{8,}$/.test($('#tutor-password').val())) {
+                                if ($('#tutor-password').val() === $('#tutor-confirmPassword').val()) {
+                                    $('#tutor-username').removeClass('input-invalid');
+                                    $('#tutor-username').popover('hide');
+                                    $('#tutor-username').popover('disable');
+                                    $('#tutor-username-wrapper').popover('hide');
+                                    $('#tutor-username-wrapper').popover('disable');
+                                    $('#tutor-password').removeClass('input-invalid');
+                                    $('#tutor-password').popover('hide');
+                                    $('#tutor-password').popover('disable');
+                                    $('#tutor-confirmPassword').removeClass('input-invalid');
+                                    $('#tutor-confirmPassword').popover('hide');
+                                    $('#tutor-confirmPassword').popover('disable');
+                                    goToTab('tutorResumeTranscript');
+                                } else {
+                                    $('#tutor-confirmPassword').addClass('input-invalid');
+                                    $('#tutor-confirmPassword').popover('enable');
+                                    $('#tutor-confirmPassword').popover('show');
+                                }
+                            } else {
+                                $('#tutor-password').addClass('input-invalid');
+                                $('#tutor-password').popover('enable');
+                                $('#tutor-password').popover('show');
+                            }
+                        } else {
+                            $('#tutor-username').addClass('input-invalid');
+                            $('#tutor-username-wrapper').popover('enable');
+                            $('#tutor-username-wrapper').popover('show');
+                        }
+                    });
                 } else {
                     $('#tutor-username').addClass('input-invalid');
-                    $('#tutor-username-wrapper').popover('enable');
-                    $('#tutor-username-wrapper').popover('show');
+                    $('#tutor-username').popover('enable');
+                    $('#tutor-username').popover('show');
                 }
-            });
+            } else {
+                $('#tutor-lastName').addClass('input-invalid');
+                $('#tutor-lastName').popover('enable');
+                $('#tutor-lastName').popover('show');
+            }
         } else {
-            $('#tutor-username').addClass('input-invalid');
-            $('#tutor-username').popover('enable');
-            $('#tutor-username').popover('show');
+            $('#tutor-firstName').addClass('input-invalid');
+            $('#tutor-firstName').popover('enable');
+            $('#tutor-firstName').popover('show');
         }
     }
 }
