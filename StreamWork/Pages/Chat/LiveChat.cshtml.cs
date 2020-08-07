@@ -11,26 +11,28 @@ namespace StreamWork.Pages.Chat
     {
         private readonly CookieService cookieService;
         private readonly ChatService chatService;
+        private readonly EncryptionService encryptionService;
 
-        public DataModels.Profile CurrentUserProfile { get; set; }
+        public Profile CurrentUserProfile { get; set; }
         public string ChatId { get; set; }
         public string ChatInfo { get; set; }
         public List<DataModels.Chat> Chats { get; set; }
         public string ChatColor { get; set; }
         public bool IsLoggedIn { get; set; }
 
-        public LiveChat(CookieService cookie, ChatService chat)
+        public LiveChat(CookieService cookie, ChatService chat, EncryptionService encryption)
         {
             cookieService = cookie;
             chatService = chat;
+            encryptionService = encryption;
         }
 
         public async Task<IActionResult> OnGet(string chatId, string chatInfo)
         {
             CurrentUserProfile = await cookieService.GetCurrentUser();
             ChatId = chatId;
-            ChatInfo = chatInfo;
-            Chats = await chatService.GetAllChatsWithChatId(ChatId);
+            ChatInfo = encryptionService.DecryptString(chatInfo);
+            Chats = await chatService.GetAllChatsWithChatId(ChatId, ChatInfo);
             ChatColor = chatService.GetRandomChatColor();
 
             IsLoggedIn = CurrentUserProfile == null ? false : true;

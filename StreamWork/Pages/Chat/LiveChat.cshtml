@@ -86,14 +86,14 @@ else
                                     <script>
                                             function pressed(event) {
                                                 if (event.keyCode == 13 && !event.shiftKey) {
-                                                    GetMessage('@Model.ChatId', '@Model.CurrentUserProfile.Username', '@Model.CurrentUserProfile.Name', '@Model.CurrentUserProfile.ProfilePicture', '@Model.CurrentUserProfile.ProfileColor')
+                                                    GetMessage('@Model.ChatId', '@Model.CurrentUserProfile.Username', '@Model.CurrentUserProfile.Name', '@Model.CurrentUserProfile.ProfilePicture', '@Model.CurrentUserProfile.ProfileColor', '@Model.ChatInfo')
                                                     event.preventDefault();
                                                     return false;
                                                 }
                                             }
                                     </script>
                                     <div >
-                                        <button type="button" id="sendQuestionButton" class="streamWork-primary ml-1 mr-1" style="font-size:12px;" onclick="GetMessage('@Model.ChatId','@Model.CurrentUserProfile.Username','@Model.CurrentUserProfile.Name', '@Model.CurrentUserProfile.ProfilePicture', '@Model.CurrentUserProfile.ProfileColor')">Send</button>
+                                        <button type="button" id="sendQuestionButton" class="streamWork-primary ml-1 mr-1" style="font-size:12px;" onclick="GetMessage('@Model.ChatId','@Model.CurrentUserProfile.Username','@Model.CurrentUserProfile.Name', '@Model.CurrentUserProfile.ProfilePicture', '@Model.CurrentUserProfile.ProfileColor', '@Model.ChatInfo')">Send</button>
                                     </div>
                                 </div>
                             </div>

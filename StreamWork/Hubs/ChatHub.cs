@@ -24,7 +24,7 @@ namespace StreamWork.Hubs
             return Groups.AddToGroupAsync(Context.ConnectionId, chatId);
         }
 
-        public async Task SendMessageToChatRoom(string chatId, string userName, string name, string message, string profilePicture, string chatColor, DateTime date, int offset)
+        public async Task SendMessageToChatRoom(string chatId, string userName, string name, string message, string profilePicture, string chatColor, DateTime date, int offset, string archivedVideoId)
         {
             message = URLIFY(message);
             string chat = Serialize(chatId, userName, name, message, profilePicture, date, offset, chatColor, _questionCount);
@@ -33,11 +33,11 @@ namespace StreamWork.Hubs
             {
                 _questionCount++;
                 var dbContext = scope.ServiceProvider.GetRequiredService<StorageService>();
-                await SaveMessage(dbContext, chatId, userName, name, message, profilePicture, date, offset, chatColor);
+                await SaveMessage(dbContext, chatId, userName, name, message, profilePicture, date, offset, chatColor, archivedVideoId);
             }
         }
 
-        private async Task<bool> SaveMessage(StorageService storageService, string chatId, string userName, string name, string message, string profilePicture, DateTime dateTime, int offset, string chatColor)
+        private async Task<bool> SaveMessage(StorageService storageService, string chatId, string userName, string name, string message, string profilePicture, DateTime dateTime, int offset, string chatColor, string archivedVideoId)
         {
             try
             {
@@ -53,6 +53,7 @@ namespace StreamWork.Hubs
                     Date = dateTime,
                     ChatColor = chatColor,
                     TimeOffset = offset,
+                    ArchivedVideoId = archivedVideoId
                 };
 
                 await storageService.Save(chat.Id, chat);

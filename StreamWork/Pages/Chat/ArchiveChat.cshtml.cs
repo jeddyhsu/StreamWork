@@ -9,34 +9,26 @@ namespace StreamWork.Pages.Chat
 {
     public class ArchiveChat : PageModel
     {
-        private readonly CookieService sessionService;
-        private readonly StorageService storageService;
-        private readonly ProfileService profileService;
-        private readonly ScheduleService scheduleService;
-        private readonly FollowService followService;
-        private readonly EditService editService;
+        private readonly CookieService cookieService;
         private readonly ChatService chatService;
+        private readonly EncryptionService encryptionService;
 
         public string ChatId { get; set; }
         public List<DataModels.Chat> Chats { get; set; }
-        public DataModels.Profile UserProfile { get; set; }
+        public Profile UserProfile { get; set; }
 
-        public ArchiveChat(StorageService storage, CookieService session, ProfileService profile, ScheduleService schedule, FollowService follow, EditService edit, ChatService chat)
+        public ArchiveChat(CookieService cookie, ChatService chat, EncryptionService encryption)
         {
-            storageService = storage;
-            sessionService = session;
-            profileService = profile;
-            scheduleService = schedule;
-            followService = follow;
-            editService = edit;
+            cookieService = cookie;
             chatService = chat;
+            encryptionService = encryption;
         }
 
-        public async Task<IActionResult> OnGet(string chatId)
+        public async Task<IActionResult> OnGet(string chatId, string chatInfo)
         {
             ChatId = chatId;
-            Chats = await chatService.GetAllChatsWithChatId(chatId);
-            UserProfile = await sessionService.GetCurrentUser();
+            Chats = await chatService.GetAllChatsWithChatId(chatId, encryptionService.DecryptString(chatInfo));
+            UserProfile = await cookieService.GetCurrentUser();
 
             return Page();
         }

@@ -17,6 +17,7 @@ namespace StreamWork.DataModels
         public DateTime Date { get; set; }
         public string ChatColor { get; set; }
         public int TimeOffset { get; set; }
+        public string ArchivedVideoId { get; set; }
 
         [Timestamp]
         public byte[] RowVersion { get; set; }

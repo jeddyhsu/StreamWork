@@ -215,8 +215,8 @@
           "QueryId": "GetAllChats"
         },
         {
-          "Query": "SELECT * FROM [dbo].[Chat] WHERE ChatId = '@x0' ORDER BY DATE ASC",
-          "QueryId": "GetAllChatsWithId"
+          "Query": "SELECT * FROM [dbo].[Chat] WHERE ChatId = '@x0' AND ArchivedVideoId = '@x1' ORDER BY DATE ASC",
+          "QueryId": "GetAllChatsWithIdAndVideoId"
         },
         {
           "Query": "DELETE FROM [dbo].[Chat] WHERE ChatId = '@x0'",

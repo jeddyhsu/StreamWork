@@ -24,6 +24,7 @@ namespace StreamWork.DataModels
         public string ProfilePicture { get; set; }
         public string Name { get; set; }
         public string StreamColor { get; set; }
+        public string ArchivedVideoId { get; set; }
 
         public DateTime StartTime { get; set; }
         public int Views { get; set; }

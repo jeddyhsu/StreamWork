@@ -65,6 +65,7 @@ function RegisterStream () {
         success: function (data) {
             if (data.message === "Success") {
                 CloseModal('register-stream-modal')
+                $('#live-chat').attr('src', '/chat/LiveChat?chatId=' + data.results[1] + '&chatInfo=' + data.results[0])
             }
         }
     });
