@@ -3,7 +3,7 @@ function IsLive(channelKey) {
     document.getElementById("GoLive").disabled = true;
 
     $.ajax({
-        url: '/Tutor/TutorStream?handler=IsLive',
+        url: '/Tutor/TutorStream/32169?handler=IsLive',
         type: 'post',
         dataType: 'json',
         data: {
@@ -52,7 +52,7 @@ function RegisterStream () {
     }
         
     $.ajax({
-        url: '/Tutor/TutorStream?handler=RegisterStream',
+        url: '/Tutor/TutorStream/32169?handler=RegisterStream',
         type: 'post',
         dataType: 'json',
         data: formData,

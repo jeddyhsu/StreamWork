@@ -63,9 +63,12 @@ namespace StreamWork.Pages.Profiles
             return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
         }
 
-        public static implicit operator ProfileModal(DataModels.Profile v)
+        public async Task<IActionResult> OnPostChangeColor(string color)
         {
-            throw new NotImplementedException();
+            var userProfile = await cookieService.GetCurrentUser();
+
+            if (await profileService.ChangeColor(userProfile, color)) return new JsonResult(new { Message = JsonResponse.Success.ToString() });
+            return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
         }
     }
 }

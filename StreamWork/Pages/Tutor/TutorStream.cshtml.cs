@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -21,6 +22,7 @@ namespace StreamWork.Pages.Tutor
         public string ChatInfo { get; set; }
         public List<Notification> Notifications { get; set; }
         public bool AreThereUnseenNotifications { get; set; }
+        public Schedule ScheduledStream { get; set; }
         
         public TutorStream(StorageService storage, CookieService cookie, StreamService stream, NotificationService notification, EncryptionService encryption)
         {
@@ -31,7 +33,7 @@ namespace StreamWork.Pages.Tutor
             encryptionService = encryption;
         }
 
-        public async Task<IActionResult> OnGet()
+        public async Task<IActionResult> OnGet(string scheduleId)
         {
             if (!cookieService.Authenticated || (await cookieService.GetCurrentUser()).ProfileType != "tutor")
             {
@@ -44,6 +46,8 @@ namespace StreamWork.Pages.Tutor
 
             Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
             AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
+
+            ScheduledStream = await storageService.Get<Schedule>(SQLQueries.GetScheduleWithId, new string[] { scheduleId, DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm") });
 
             return Page();
         }

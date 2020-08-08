@@ -178,15 +178,21 @@ namespace StreamWork.Services
             foreach (var stream in allArchivedStreamsByUser)
             {
                 stream.ProfilePicture = profilePicture;
-                await Save<Video>(stream.Id, stream);
+                await Save(stream.Id, stream);
             }
             userChannel.ProfilePicture = profilePicture;
-            await Save<Channel>(userChannel.Id, userChannel);
+            await Save(userChannel.Id, userChannel);
         }
 
         public async Task<bool> DeleteStream(string id)
         {
             return await Delete<Video>(id);
+        }
+
+        public async Task<bool> ChangeColor(Profile userProfile, string color) {
+            userProfile.ProfileColor = color;
+
+            return await Save(userProfile.Id, userProfile);
         }
     }
 }
