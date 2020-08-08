@@ -13,7 +13,7 @@ namespace StreamWork.Pages.Home
         private readonly StorageService storage;
         private readonly CookieService session;
         private readonly SearchService search;
-        private readonly SubjectService subjectService;
+        private readonly ImageService subjectService;
 
         public List<Profile> PopularStreamTutors { get; set; }
         public List<Channel> StreamResults { get; set; }
@@ -24,7 +24,7 @@ namespace StreamWork.Pages.Home
         public string SearchQuery { get; set; }
         public string SubjectIcon { get; set; }
 
-        public SearchModel(StorageService storage, CookieService session, SearchService search, SubjectService subjectService)
+        public SearchModel(StorageService storage, CookieService session, SearchService search, ImageService subjectService)
         {
             this.storage = storage;
             this.session = session;

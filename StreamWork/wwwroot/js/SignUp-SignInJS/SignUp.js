@@ -550,11 +550,11 @@ function signUpStudent() {
         $('#studentTopics-humanities').hasClass('streamWork-primary-rect') + "|" +
         $('#studentTopics-math').hasClass('streamWork-primary-rect') + "|" +
         $('#studentTopics-science').hasClass('streamWork-primary-rect') + "|" +
-        $('#studentTopic-art').hasClass('streamWork-primary-rect') + "|" +
+        $('#studentTopics-art').hasClass('streamWork-primary-rect') + "|" +
         $('#studentTopics-engineering').hasClass('streamWork-primary-rect') + "|" +
         $('#studentTopics-business').hasClass('streamWork-primary-rect') + "|" +
         $('#studentTopics-law').hasClass('streamWork-primary-rect') + "|" +
-        $('#studentTopics-other').hasClass('streamWork-primary-rect'))
+        $('#studentTopics-other').hasClass('streamWork-primary-rect'));
 
     try {
         $.ajax({
@@ -595,6 +595,16 @@ function signUpTutor() {
     formData.append('SchoolName', $('#schoolName').val());
     formData.append('Transcript', $('#transcript')[0].files[0]);
     formData.append('Resume', $('#resume')[0].files[0]);
+
+    formData.append('Topics',
+        $('#tutorTopics-humanities').hasClass('streamWork-primary-rect') + "|" +
+        $('#tutorTopics-math').hasClass('streamWork-primary-rect') + "|" +
+        $('#tutorTopics-science').hasClass('streamWork-primary-rect') + "|" +
+        $('#tutorTopics-art').hasClass('streamWork-primary-rect') + "|" +
+        $('#tutorTopics-engineering').hasClass('streamWork-primary-rect') + "|" +
+        $('#tutorTopics-business').hasClass('streamWork-primary-rect') + "|" +
+        $('#tutorTopics-law').hasClass('streamWork-primary-rect') + "|" +
+        $('#tutorTopics-other').hasClass('streamWork-primary-rect'));
 
     $.ajax({
         url: '/Home/SignUp/?handler=SignUpTutor',

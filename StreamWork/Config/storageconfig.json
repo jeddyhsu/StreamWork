@@ -81,7 +81,7 @@
         {
           "Query": "SELECT * FROM [dbo].[Channel] WHERE StreamSubject = '@x0' AND LOWER(StreamTitle) LIKE '%@x1%'",
           "QueryId": "GetUserChannelsBySubjectAndSearchTerm"
-        },
+        }
       ]
     },
 
@@ -137,19 +137,19 @@
     },
 
     {
-        "Name": "Payment",
-        "StorageType": "SqlServer",
-        "Queries": [
-            {
-                "Query": "SELECT * FROM [dbo].[Payment]",
-                "QueryId": "GetAllPayments"
-            },
+      "Name": "Payment",
+      "StorageType": "SqlServer",
+      "Queries": [
+        {
+          "Query": "SELECT * FROM [dbo].[Payment]",
+          "QueryId": "GetAllPayments"
+        },
 
-            {
-                "Query": "SELECT * FROM [dbo].[Payment] WHERE TransactionId = '@x0'",
-                "QueryId": "GetPaymentsById"
-            }
-        ]
+        {
+          "Query": "SELECT * FROM [dbo].[Payment] WHERE TransactionId = '@x0'",
+          "QueryId": "GetPaymentsById"
+        }
+      ]
     },
 
     {
@@ -248,6 +248,36 @@
         {
           "Query": "DELETE FROM [dbo].[Follow] WHERE FollowerId = '@x0' AND FolloweeId = '@x1'",
           "QueryId": "DeleteFollower"
+        }
+      ]
+    },
+
+    {
+      "Name": "TopicFollow",
+      "StorageType": "SqlServer",
+      "Queries": [
+        {
+          "Query": "SELECT * FROM [dbo].[TopicFollow] WHERE Follower = '@x0' ORDER BY Since ASC",
+          "QueryId": "GetTopicFollowsByFollower"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[TopicFollow] WHERE Subject = '@x0' ORDER BY Since ASC",
+          "QueryId": "GetTopicFollowsBySubject"
+        }
+      ]
+    },
+
+    {
+      "Name": "TopicTutor",
+      "StorageType": "SqlServer",
+      "Queries": [
+        {
+          "Query": "SELECT * FROM [dbo].[TopicTutor] WHERE Tutor = '@x0' ORDER BY Since ASC",
+          "QueryId": "GetTopicTutorsByTutor"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[TopicTutor] WHERE Subject = '@x0' ORDER BY Since ASC",
+          "QueryId": "GetTopicTutorsBySubject"
         }
       ]
     },

@@ -60,18 +60,18 @@ namespace StreamWork
 
             services.AddTransient<ChatService>();
             services.AddTransient<CommentService>();
+            services.AddTransient<CookieService>();
             services.AddTransient<EditService>();
             services.AddTransient<EncryptionService>();
             services.AddTransient<FollowService>();
+            services.AddTransient<NotificationService>();
             services.AddTransient<ProfileService>();
             services.AddTransient<ScheduleService>();
             services.AddTransient<SearchService>();
-            services.AddTransient<CookieService>();
-            services.AddTransient<CookieService>();
             services.AddTransient<StorageService>(); // Transient means it creates a new instance every time it's needed
             services.AddTransient<StreamService>(); // You should use Transient by default
-            services.AddTransient<NotificationService>();
-            services.AddSingleton<SubjectService>(); // Singleton creates a shared instance the first time it's needed
+            services.AddTransient<TopicService>();
+            services.AddSingleton<ImageService>(); // Singleton creates a shared instance the first time it's needed
 
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
 

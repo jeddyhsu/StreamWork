@@ -102,6 +102,14 @@ namespace StreamWork.HelperMethods
         GetNumberOfFollowers,
         DeleteFollower,
 
+        //TopicFollow
+        GetTopicFollowsByFollower,
+        GetTopicFollowsBySubject,
+
+        //TopicTutor
+        GetTopicTutorsByTutor,
+        GetTopicTutorsBySubject,
+
         //Schedule
         GetScheduleWithUserUsername,
         GetAllScheduledStreamsWithSearchTerm,

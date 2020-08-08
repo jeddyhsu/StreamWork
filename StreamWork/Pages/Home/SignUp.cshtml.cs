@@ -19,12 +19,14 @@ namespace StreamWork.Pages.Home
         private readonly CookieService cookieService;
         private readonly StorageService storage;
         private readonly EncryptionService encryption;
+        private readonly TopicService topics;
 
-        public SignUpModel(StorageService storage, EncryptionService encryption, CookieService cookie)
+        public SignUpModel(StorageService storage, EncryptionService encryption, CookieService cookie, TopicService topics)
         {
             this.storage = storage;
             this.encryption = encryption;
             cookieService = cookie;
+            this.topics = topics;
         }
 
         public async Task<JsonResult> OnGetIsAddressAvailable(string emailAddress)
@@ -89,7 +91,7 @@ namespace StreamWork.Pages.Home
                 await cookieService.SignIn(Request.Form["Username"], encryption.DecryptPassword(user.Password, Request.Form["Password"]));
             }
 
-            GetAllSelectedTopics(Request.Form["Topics"].ToString().Split('|')); //we need to save this somewhere
+            topics.FollowTopics(Request.Form["Username"], GetAllSelectedTopics(Request.Form["Topics"].ToString().Split('|')));
         }
 
         public async Task OnPostSignUpTutor()
@@ -133,6 +135,8 @@ namespace StreamWork.Pages.Home
 
             await CreateChannel(Request.Form["Username"]);
             //need to email transcript and resume
+
+            topics.TutorTopics(Request.Form["Username"], GetAllSelectedTopics(Request.Form["Topics"].ToString().Split('|')));
         }
 
         // Server-side security checks
@@ -215,23 +219,13 @@ namespace StreamWork.Pages.Home
         {
             List<string> selectedSubjects = new List<string>();
 
-            Hashtable table = new Hashtable
-            {
-                { 0, "Humanities" },
-                { 1, "Mathematics" },
-                { 2, "Science" },
-                { 3, "Art" },
-                { 4, "Engineering" },
-                { 5, "Business" },
-                { 6, "Law" },
-                { 7, "Other" }
-            };
+            string[] allSubjects = { "Humanities", "Mathematics", "Science", "Art", "Engineering", "Business", "Law", "Other" };
 
             for (int i = 0; i < subjects.Length; i++)
             {
                 if (subjects[i] == "true")
                 {
-                    selectedSubjects.Add((string)table[i]);
+                    selectedSubjects.Add(allSubjects[i]);
                 }
             }
 

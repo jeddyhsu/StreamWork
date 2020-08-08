@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using StreamWork.DataModels;
 
 namespace StreamWork.Services
 {
-    public class SubjectService
+    public class ImageService
     {
-        private Hashtable subjectIcons;
+        private readonly Hashtable subjectIcons;
 
-        public SubjectService()
+        public ImageService()
         {
             subjectIcons = new Hashtable
             {
