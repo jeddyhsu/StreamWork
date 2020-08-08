@@ -22,7 +22,7 @@
 
                         <div class="p-lg-4 pt-md-4 p-sm-3 p-3">
                             <input id="header-profile-picture" align="left" class="rounded header-picture" type="image" src="@Model.CurrentUserProfile.ProfilePicture?@cacheRand" />
-                            <p id="header-name" class="form-header m-0 header-padding" style="font-size:20px;">@Model.CurrentUserProfile.Name.Replace('|', ' ')</p>
+                            <p id="header-name" class="form-header m-0 header-padding" style="font-size:20px; color:@Model.CurrentUserProfile.ProfileColor">@Model.CurrentUserProfile.Name.Replace('|', ' ')</p>
                             @if (@Model.CurrentUserProfile.ProfileCaption == null || @Model.CurrentUserProfile.ProfileCaption == "") {<p id="header-occupation" class="form-header m-0" style="padding-left:100px; font-size:12px; color: #9F9F9F">Occupation / Major</p>}
                             else { <p id="header-occupation" class="form-header m-0 header-padding" style="font-size:12px;">@Model.CurrentUserProfile.ProfileCaption</p>}
                             <p class="mb-0 mt-2 form-sub-header header-padding"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
@@ -36,6 +36,7 @@
                             <input id="header-instagram-url" type="hidden" value="@Model.CurrentUserProfile.InstagramUrl" />
                             <input id="header-facebook-url" type="hidden" value="@Model.CurrentUserProfile.FacebookUrl" />
                             <input id="header-twitter-url" type="hidden" value="@Model.CurrentUserProfile.TwitterUrl" />
+                            <input id="profile-color" type="hidden" value="@Model.CurrentUserProfile.ProfileColor" />
                         </div>
 
                         <div class="btn-group d-lg-none d-md-none d-sm-block d-block pl-3 pr-3">
@@ -311,13 +312,13 @@
                                             @foreach (var task in Model.Schedule)
                                             {
                                                 <div class="col-lg-6 col-md-12 mt-2 w-100">
-                                                    <div class="card card-border" onmouseover=" $('#edit-schedule-icon-@task.Id').css('display','block')" onmouseout="$('#edit-schedule-icon-@task.Id').css('display','none')" onclick="EditScheduleTask('@task.Id')">
+                                                    <div class="card card-border" onmouseover=" $('#edit-schedule-icon-@task.Id').css('display','block')" onmouseout="$('#edit-schedule-icon-@task.Id').css('display','none')">
                                                         <div class="image-container w-100">
                                                             <div class="top-right">
                                                                 <img id="edit-schedule-icon-@task.Id" class="p-1" style="width:30px; cursor:pointer; display:none" src="~/images/TutorAssets/TutorDashboard/Edit.png" onclick="EditScheduleTask('@task.Id')" />
                                                             </div>
                                                         </div>
-                                                        <div class="card-body">
+                                                        <div class="card-body" onclick="window.location.href = '/Tutor/TutorStream/@task.Id'; $('#edit-schedule-icon-@task.Id').css('display','none')">
                                                             <input type="hidden" id="schedule-date-@task.Id" value="@task.Date" />
                                                             <div class="d-inline-flex">
                                                                 <img class="rounded m-1 schedule-image" src="@task.SubjectThumbnail" />
@@ -437,7 +438,7 @@
     <nav id="sidebar">
         <img class="logo-desktop" onclick="window.location.href ='/'" src="~/images/WhiteStreamWork.png" />
         <ul class="p-0">
-            <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Tutor/TutorStream'"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/StartStream.svg" /></span>Start Stream</li>
+            <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Tutor/TutorStream/32169'"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/StartStream.svg" /></span>Start Stream</li>
             <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Tutor/HowToStream'"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/HowToStream.svg" /></span>How To Stream</li>
             <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Home/Browse'"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/WatchStream.svg" /></span>Watch Streams</li>
             <li class="sidebar-list-item-desktop" onclick="OpenModal('followees-modal')"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/FollowingList.svg" /></span>Following List</li>

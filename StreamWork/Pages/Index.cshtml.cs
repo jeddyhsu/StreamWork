@@ -75,17 +75,18 @@ namespace StreamWork.Pages
             else
             {
                 FeaturedChannel = streamingChannel;
-                FeaturedTutor = await storageService.Get<DataModels.Profile>(SQLQueries.GetUserWithUsername, streamingChannel.Username);
+                FeaturedTutor = await storageService.Get<Profile>(SQLQueries.GetUserWithUsername, streamingChannel.Username);
                 FeaturedChannel.StreamSubjectIcon = MiscHelperMethods.GetCorrespondingSubjectThumbnail(FeaturedChannel.StreamSubject);
             }
 
             if (cookieService.Authenticated)
             {
                 CurrentUserProfile = await cookieService.GetCurrentUser();
-                ChatInfo = encryptionService.EncryptString(CurrentUserProfile.Username + "|" + CurrentUserProfile.Id + "|" + CurrentUserProfile.EmailAddress);
                 Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
                 AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
             }
+
+            ChatInfo = encryptionService.EncryptString(streamingChannel != null ? streamingChannel.ArchivedVideoId : FeaturedArchivedStream.Id);
         }
     }
 }

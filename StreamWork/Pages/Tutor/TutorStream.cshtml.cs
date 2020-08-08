@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -14,22 +15,25 @@ namespace StreamWork.Pages.Tutor
         private readonly StorageService storageService;
         private readonly StreamService streamService;
         private readonly NotificationService notificationService;
+        public EncryptionService encryptionService;
 
         public Profile CurrentUserProfile { get; set; }
         public Channel UserChannel { get; set; }
         public string ChatInfo { get; set; }
         public List<Notification> Notifications { get; set; }
         public bool AreThereUnseenNotifications { get; set; }
-
-        public TutorStream(StorageService storage, CookieService cookie, StreamService stream, NotificationService notification)
+        public Schedule ScheduledStream { get; set; }
+        
+        public TutorStream(StorageService storage, CookieService cookie, StreamService stream, NotificationService notification, EncryptionService encryption)
         {
             storageService = storage;
             cookieService = cookie;
             streamService = stream;
             notificationService = notification;
+            encryptionService = encryption;
         }
 
-        public async Task<IActionResult> OnGet()
+        public async Task<IActionResult> OnGet(string scheduleId)
         {
             if (!cookieService.Authenticated || (await cookieService.GetCurrentUser()).ProfileType != "tutor")
             {
@@ -38,10 +42,12 @@ namespace StreamWork.Pages.Tutor
 
             CurrentUserProfile = await cookieService.GetCurrentUser();
             UserChannel = await storageService.Get<Channel>(SQLQueries.GetUserChannelWithUsername, new string[] { CurrentUserProfile.Username });
-            ChatInfo = "1234";
+            ChatInfo = UserChannel.ArchivedVideoId != null ? encryptionService.EncryptString(UserChannel.ArchivedVideoId) : encryptionService.EncryptString("DEFAULT");
 
             Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
             AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
+
+            ScheduledStream = await storageService.Get<Schedule>(SQLQueries.GetScheduleWithId, new string[] { scheduleId, DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm") });
 
             return Page();
         }
@@ -57,7 +63,8 @@ namespace StreamWork.Pages.Tutor
             var userProfile = await cookieService.GetCurrentUser();
             var userChannel = await storageService.Get<Channel>(SQLQueries.GetUserChannelWithUsername, userProfile.Username);
 
-            if (streamService.StartStream(Request, userProfile, userChannel)) return new JsonResult(new { Message = JsonResponse.Success.ToString() });
+            var archivedVideoId = streamService.StartStream(Request, userProfile, userChannel);
+            if (archivedVideoId != null) return new JsonResult(new { Message = JsonResponse.Success.ToString(), Results = new string[] { encryptionService.EncryptString(archivedVideoId), userChannel.Username } }) ;
             return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
         }
     }

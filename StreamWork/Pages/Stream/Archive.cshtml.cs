@@ -61,11 +61,11 @@ namespace StreamWork.Pages.Stream
             }
 
             CurrentUserProfile = await cookieService.GetCurrentUser();
-            UserProfile = await storageService.Get<DataModels.Profile>(SQLQueries.GetUserWithUsername, tutor);
+            UserProfile = await storageService.Get<Profile>(SQLQueries.GetUserWithUsername, tutor);
             UserChannel = await storageService.Get<Channel>(SQLQueries.GetUserChannelWithUsername, tutor);
             ArchivedStream = await storageService.Get<Video>(SQLQueries.GetArchivedStreamsWithStreamId, id);
             UserChannel.StreamSubjectIcon = MiscHelperMethods.GetCorrespondingSubjectThumbnail(ArchivedStream.StreamSubject);
-            ChatInfo = "1234";
+            ChatInfo = encryptionService.EncryptString(ArchivedStream.Id);
             FollowValue = await followService.IsFollowingFollowee(CurrentUserProfile.Id, UserProfile.Id);
 
             UserArchivedStreams = await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { UserProfile.Username });

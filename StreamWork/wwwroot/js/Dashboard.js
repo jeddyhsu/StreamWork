@@ -1,5 +1,6 @@
 ﻿var sectionCount = 0; //used for sections
 var topicCount = 0; // //used for topics
+const colors = ['#D9534F', '#F0AD4E', '#56C0E0', '#5CB85C', '#1C7CD5', '#8B4FD9']
 
 //Sliders
 function SliderProfile() {
@@ -141,6 +142,7 @@ function EditProfile() {
     $('#instagram-url').val($('#header-instagram-url').val());
     $('#facebook-url').val($('#header-facebook-url').val());
     $('#twitter-url').val($('#header-twitter-url').val());
+    $($('#profile-color').val()).css('border-style', 'dotted')
 }
 
 //Sections
@@ -352,6 +354,32 @@ function SaveProfileBanner(image) {
             if (data.message === "Success") {
                 $('#preview-profile-banner').attr('src', data.banner + `?nocache=${new Date().valueOf()}`);
             }
+        }
+    });
+}
+
+function ChangeColor(event, color) {
+    event.preventDefault()
+    for (var i = 0; i < colors.length; i++) {
+        $(colors[i]).css('border-style', 'none');
+    }
+
+    $(color).css('border-style', 'dotted');
+    $('#profile-color').val(color)
+    $('#header-name').css('color', color)
+
+    $.ajax({
+        url: '/Profiles/Profile/?handler=ChangeColor',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            'color': color,
+        },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("XSRF-TOKEN",
+                $('input:hidden[name="__RequestVerificationToken"]').val());
+        },
+        success: function (data) {
         }
     });
 }

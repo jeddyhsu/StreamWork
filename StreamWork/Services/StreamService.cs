@@ -22,7 +22,6 @@ namespace StreamWork.Services
         private string streamDescription;
         private string streamThumbnail;
         private string archivedVideoId;
-        private string chatColor;
         private string streamColor;
 
         private int initialCount = 0;
@@ -31,7 +30,7 @@ namespace StreamWork.Services
 
         public StreamService([FromServices] IOptionsSnapshot<StorageConfig> config) : base(config) { }
 
-        public bool StartStream(HttpRequest request, Profile userProfile, DataModels.Channel userChannel)
+        public string StartStream(HttpRequest request, Profile userProfile, DataModels.Channel userChannel)
         {
             try
             {
@@ -42,7 +41,6 @@ namespace StreamWork.Services
                 streamSubject = request.Form["StreamSubject"];
                 streamDescription = request.Form["StreamDescription"];
                 archivedVideoId = Guid.NewGuid().ToString();
-                chatColor = profile.ProfileColor;
                 streamColor = GetCorrespondingStreamColor(streamSubject);
 
                 if (request.Form.Files.Count > 0)
@@ -51,12 +49,12 @@ namespace StreamWork.Services
                     streamThumbnail = GetCorrespondingDefaultThumbnail(streamSubject);
 
                 RunLiveThread();
-                return true;
+                return archivedVideoId;
             }
             catch (Exception e)
             {
                 Console.WriteLine("Error in TutorMethods: StartStream " + e.Message);
-                return false;
+                return null;
             }
         }
 
@@ -105,6 +103,7 @@ namespace StreamWork.Services
                     channel.Views = 0;
                     channel.StreamColor = streamColor;
                     channel.Name = profile.Name;
+                    channel.ArchivedVideoId = archivedVideoId;
                     await Save(channel.Id, channel);
                 }
                 catch (Microsoft.EntityFrameworkCore.DbUpdateException e)
@@ -236,6 +235,7 @@ namespace StreamWork.Services
                 channel.StreamDescription = null;
                 channel.StreamThumbnail = null;
                 channel.StreamColor = null;
+                channel.ArchivedVideoId = null;
                 await Save(channel.Id, channel);
             }
             catch (Exception ex)

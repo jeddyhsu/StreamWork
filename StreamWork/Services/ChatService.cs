@@ -13,9 +13,9 @@ namespace StreamWork.Services
     {
         public ChatService([FromServices] IOptionsSnapshot<StorageConfig> config) : base(config) { }
         
-        public async Task<List<Chat>> GetAllChatsWithChatId(string chatId)
+        public async Task<List<Chat>> GetAllChatsWithChatId(string chatId, string archivedVideoId)
         {
-            return await GetList<Chat>(SQLQueries.GetAllChatsWithId, new string[]{chatId});
+            return await GetList<Chat>(SQLQueries.GetAllChatsWithIdAndVideoId, new string[]{chatId, archivedVideoId});
         }
 
         public async Task DeleteAllChatsWithChatId(string chatId)
