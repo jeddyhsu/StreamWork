@@ -332,6 +332,7 @@
                                                                 <div class="m-1" style="height:75px;">
                                                                     <p id="schedule-stream-title-@task.Id" class="form-header m-0">@task.StreamTitle</p>
                                                                     <p id="schedule-stream-subject-@task.Id" class="mt-1 mb-0" style="font-size:10px">@task.StreamSubject</p>
+                                                                    <input id="schedule-stream-description-@task.Id" type="hidden" value="@task.StreamDescription">
                                                                     <p class="schedule-time">@task.TimeStart - @task.TimeStop [@task.TimeZone.ToString()]</p>
                                                                     <input type="hidden" id="schedule-time-start-@task.Id" value="@task.TimeStart" />
                                                                     <input type="hidden" id="schedule-time-stop-@task.Id" value="@task.TimeStop" />

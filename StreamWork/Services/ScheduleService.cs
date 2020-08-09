@@ -22,9 +22,10 @@ namespace StreamWork.Services
                 Schedule schedule = null;
                 var userProfile = await Get<Profile>(SQLQueries.GetUserWithUsername, new string[] { user });
 
-                var id = request.Form["Id"];
+                var id = request.Form["Id"]; //for edit
                 var streamTitle = request.Form["StreamTitle"];
                 var streamSubject = request.Form["StreamSubject"];
+                var streamDescription = request.Form["StreamDescription"];
                 var timeStop = request.Form["TimeStop"];
                 var timeZone = userProfile.TimeZone;
 
@@ -37,13 +38,15 @@ namespace StreamWork.Services
 
                 if (id.Equals("undefined"))
                 {
+                    var guid = Guid.NewGuid().ToString();
                     schedule = new Schedule
                     {
-                        Id = Guid.NewGuid().ToString(),
+                        Id = guid,
                         Name = userProfile.Name,
                         Username = userProfile.Username,
                         StreamTitle = streamTitle,
                         StreamSubject = streamSubject,
+                        StreamDescription = streamDescription,
                         TimeStart = timeStart.ToString("h:mm tt"),
                         TimeStop = timeStop,
                         TimeZone = timeZone,
@@ -56,6 +59,7 @@ namespace StreamWork.Services
                     schedule = (await GetList<Schedule>(SQLQueries.GetScheduleWithId, new string[] { id, DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm") }))[0];
                     schedule.StreamTitle = streamTitle;
                     schedule.StreamSubject = streamSubject;
+                    schedule.StreamDescription = streamDescription;
                     schedule.TimeStart = timeStart.ToString("h:mm tt");
                     schedule.TimeStop = timeStop;
                     schedule.TimeZone = timeZone;
@@ -63,7 +67,7 @@ namespace StreamWork.Services
                     schedule.SubjectThumbnail = MiscHelperMethods.GetCorrespondingSubjectThumbnail(streamSubject);
                 }
 
-                await Save<Schedule>(schedule.Id, schedule);
+                await Save(schedule.Id, schedule);
                 return await GetSchedule(user);
             }
             catch (Exception e)
