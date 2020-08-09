@@ -13,6 +13,8 @@ namespace StreamWork.DataModels
         public string Username { get; set; }
         public string StreamTitle { get; set; }
         public string StreamSubject { get; set; }
+        public string StreamDescription { get; set; }
+        public string StreamThumbnail { get; set; }
         public string TimeStart { get; set; }
         public string TimeStop { get; set; }
         public string TimeZone { get; set; }

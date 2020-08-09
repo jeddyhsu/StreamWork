@@ -23,6 +23,7 @@ namespace StreamWork.Services
         private string streamThumbnail;
         private string archivedVideoId;
         private string streamColor;
+        private string scheduleId;
 
         private int initialCount = 0;
         private static int threadCount = 0;
@@ -40,6 +41,7 @@ namespace StreamWork.Services
                 streamTitle = request.Form["StreamTitle"];
                 streamSubject = request.Form["StreamSubject"];
                 streamDescription = request.Form["StreamDescription"];
+                scheduleId = request.Form["ScheduleId"];
                 archivedVideoId = Guid.NewGuid().ToString();
                 streamColor = GetCorrespondingStreamColor(streamSubject);
 
@@ -47,6 +49,7 @@ namespace StreamWork.Services
                     streamThumbnail = BlobMethods.SaveImageIntoBlobContainer(request.Form.Files[0], archivedVideoId, 1280, 720);
                 else
                     streamThumbnail = GetCorrespondingDefaultThumbnail(streamSubject);
+
 
                 RunLiveThread();
                 return archivedVideoId;
@@ -104,6 +107,7 @@ namespace StreamWork.Services
                     channel.StreamColor = streamColor;
                     channel.Name = profile.Name;
                     channel.ArchivedVideoId = archivedVideoId;
+                    await DeleteFillScheduleTask();
                     await Save(channel.Id, channel);
                 }
                 catch (Microsoft.EntityFrameworkCore.DbUpdateException e)
@@ -278,5 +282,10 @@ namespace StreamWork.Services
             return (string)defaultPic[subject];
         }
 
+        private async Task DeleteFillScheduleTask()
+        {
+            if(scheduleId != null && scheduleId != "")
+                await Delete<Schedule>(scheduleId);
+        }
     }
 }

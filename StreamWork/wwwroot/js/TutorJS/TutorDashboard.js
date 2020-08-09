@@ -1,4 +1,7 @@
-﻿//Schedule
+﻿var pickedScheduleId = "";
+
+
+//Schedule
 $(function () {
     $('#schedule-date-picker').datetimepicker({
         format: 'L',
@@ -71,6 +74,7 @@ function SaveScheduleTask(id, type) {
     var formData = new FormData();
     formData.append("StreamTitle", $('#schedule-title').val());
     formData.append("StreamSubject", $('#schedule-subject').val());
+    formData.append("StreamDescription", $('#schedule-description').val());
     formData.append("TimeStart", $('#schedule-time-start-picker-value').val());
     formData.append("TimeStop", $('#schedule-time-stop-picker-value').val());
 
@@ -121,7 +125,7 @@ function SortTasks(data) {
                                         <img id="edit-schedule-icon-${data.sorted[i].id}" class="p-1" style="width:30px; cursor:pointer; display:none" src="/images/TutorAssets/TutorDashboard/Edit.png" onclick="EditScheduleTask('${data.sorted[i].id}')" />
                                     </div>
                                 </div>
-                                <div class="card-body">
+                                <div class="card-body" onclick="window.location.href = '/Tutor/TutorStream/${data.sorted[i].id}'; $('#edit-schedule-icon-${data.sorted[i].id}').css('display','none')">
                                     <input type="hidden" id="schedule-date-${data.sorted[i].id}" value="${data.sorted[i].date}" />
                                     <div class="d-inline-flex">
                                         <img class="rounded m-1" src="${data.sorted[i].subjectThumbnail}" style="width:75px; height:75px" />
@@ -135,6 +139,7 @@ function SortTasks(data) {
                                         <div class="m-1" style="height:75px;">
                                             <p id="schedule-stream-title-${data.sorted[i].id}" class="form-header m-0">${data.sorted[i].streamTitle}</p>
                                             <p id="schedule-stream-subject-${data.sorted[i].id}" class="mt-1 mb-0" style="font-size:10px">${data.sorted[i].streamSubject}</p>
+                                            <input id="schedule-stream-description-${data.sorted[i].id}" type="hidden" value="${data.sorted[i].streamDescription}">
                                             <p class="mt-1" style="font-size:14px">${data.sorted[i].timeStart} - ${data.sorted[i].timeStop} [${data.sorted[i].timeZone}]</p>
                                             <input type="hidden" id="schedule-time-start-${data.sorted[i].id}" value="${data.sorted[i].timeStart}" />
                                             <input type="hidden" id="schedule-time-stop-${data.sorted[i].id}" value="${data.sorted[i].timeStop}" />
@@ -174,6 +179,7 @@ function EditScheduleTask(id) {
     $('#schedule-date-picker').datetimepicker('viewDate', moment($('#schedule-date-' + id).val()))
     $('#schedule-title').val($('#schedule-stream-title-' + id).text());
     $('#schedule-subject').val($('#schedule-stream-subject-' + id).text());
+    $('#schedule-description').val($('#schedule-stream-description-' + id).val());
     $('#schedule-time-start-picker-value').val($('#schedule-time-start-' + id).val());
     $('#schedule-time-stop-picker-value').val($('#schedule-time-stop-' + id).val());
     $('#schedule-time-start-picker').val($('#schedule-time-start-' + id).val());
@@ -222,14 +228,12 @@ function DeleteScheduleTask(id) {
     })
 }
 
-
 //Streams
 function EditStream(id) {
     OpenModal("edit-stream-modal");
 
     $('#stream-title-edit').val($('#stream-title-' + id).text());
     $('#stream-description-edit').val($('#stream-description-' + id).val());
-    document.getElementById("preview-stream-thumbnail-edit").src = document.getElementById("stream-thumbnail-" + id).src
     document.getElementById("preview-stream-thumbnail-edit").src = document.getElementById("stream-thumbnail-" + id).src
     document.getElementById("archived-stream-edit-buttons").innerHTML = `<div class="row">
                                                                     <div class="col-6 pr-0">

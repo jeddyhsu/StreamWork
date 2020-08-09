@@ -52,7 +52,11 @@
                                 <option>Others</option>
                             </select>
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-8">
+                                    <label class="form-header pt-3">Stream Description</label>
+                                    <textarea class="form-control form-textarea border" type="text" id="schedule-description" placeholder="ex: Today we are going to be learning about how to do integrals using U-Substitution" required></textarea>
+                                </div>
+                                <div class="col-lg-4">
                                     <label class="form-header pt-3">Time Start</label>
                                     <div class="input-group date" id="schedule-time-start-picker" data-target-input="nearest">
                                         <input id="schedule-time-start-picker-value" type="text" class="form-control datetimepicker-input" data-target="#schedule-time-start-picker" required />
@@ -60,8 +64,6 @@
                                             <div class="input-group-text"><i class="fa fa-clock-o"></i></div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-6">
                                     <label class="form-header pt-3">Time Stop</label>
                                     <div class="input-group date" id="schedule-time-stop-picker" data-target-input="nearest">
                                         <input id="schedule-time-stop-picker-value" type="text" class="form-control datetimepicker-input" data-target="#schedule-time-stop-picker" required />

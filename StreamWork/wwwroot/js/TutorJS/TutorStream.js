@@ -1,4 +1,6 @@
-﻿//Streaming
+﻿var pickedScheduleId = "";
+
+//Streaming
 function IsLive(channelKey) {
     document.getElementById("GoLive").disabled = true;
 
@@ -40,6 +42,7 @@ function RegisterStream () {
     formData.append("StreamTitle", $('#stream-title').val());
     formData.append("StreamSubject", $('#stream-subject').val());
     formData.append("StreamDescription", $('#stream-description').val());
+    formData.append("ScheduleId", pickedScheduleId);
     //formData.append("NotifiyStudent", notifyStudent);
 
     if (totalFile.files.length > 0) {
@@ -69,6 +72,33 @@ function RegisterStream () {
             }
         }
     });
+}
+
+function FillFromSchedule(id) {
+    var streamTitle = $('#schedule-stream-title-' + id).text()
+    var streamSubject = $('#schedule-stream-subject-' + id).text()
+    var streamDescription = $('#schedule-stream-description-' + id).val()
+
+    $('#stream-title').val(streamTitle);
+    $('#stream-subject').val(streamSubject);
+    $('#stream-description').text(streamDescription);
+
+    $('.schedule-task').css("border-style", "none")
+    $('#schedule-task-' + id).css("border-style", "solid")
+    $('#schedule-fill-clear').css('display', 'block');
+
+    pickedScheduleId = id;
+}
+
+function ClearFill() {
+    $('#stream-title').val("");
+    $('#stream-subject').val("");
+    $('#stream-description').text("");
+
+    $('.schedule-task').css("border-style", "none")
+    $('#schedule-fill-clear').css('display', 'none');
+
+    pickedScheduleId = "";
 }
 
 function PopoutChat() {
