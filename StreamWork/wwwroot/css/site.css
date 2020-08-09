@@ -252,8 +252,12 @@ lds-dual-ring {
     color: #004643 !important;
     font-size: 14px;
     margin: 10px;
+    padding: 0px 10px 0px 10px;
     cursor: pointer !important;
     text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .streamWork-primary-rect {

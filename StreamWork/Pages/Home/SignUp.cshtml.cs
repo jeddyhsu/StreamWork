@@ -121,6 +121,7 @@ namespace StreamWork.Pages.Home
                     College = Request.Form["SchoolName"],
                     NotificationSubscribe = "True",
                     Expiration = DateTime.UtcNow,
+                    PayPalAddress = Request.Form["PayPalAddress"],
                     AcceptedTutor = false,
                     LastLogin = DateTime.UtcNow,
                     //ProfileSince = DateTime.UtcNow,
