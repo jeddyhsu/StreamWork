@@ -4,22 +4,28 @@
     .configureLogging(signalR.LogLevel.Information)
     .build();
 
-connection.on("ReceiveMessage", function () {
+connection.start().then(function () {
    
+}).catch(function (err) {
+    return console.error(err.toString());
 });
 
-function AddNotificationToPipeline() {
-    var notification = `<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+connection.on("ReceiveNotification", function (notification) {
+    AddNotificationToPipeline(notification);
+    AddNotificationToList(notification)
+});
+
+function AddNotificationToPipeline(notification) {
+    var notification = `<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
                             <div class="toast-header">
-                                <img src="..." class="rounded mr-2" alt="...">
-                                <strong class="mr-auto">Bootstrap</strong>
-                                <small class="text-muted">just now</small>
+                                <strong class="mr-auto">${notification.type} Alert!</strong>
+                                <small class="text-muted">${moment(notification.date).format('h:mm A')}</small>
                                 <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="toast-body">
-                                See? Just like this.
+                                ${notification.senderName.replace('|', ' ') + notification.message}
                             </div>
                         </div>`
 
@@ -27,12 +33,51 @@ function AddNotificationToPipeline() {
     $(".toast").toast('show');
 }
 
+function AddNotificationToList(notification) {
+    var notificationType = "";
+
+    if (notification.type == "Comment" || notification.type == "Reply") {
+        notificationType = `<p class="form-header mb-0" style="padding-left:40px;">
+                               <span style="color:${notification.profileColor}">${notification.senderName.replace('|', ' ')}</span> ${notification.message} (${notification.notificationInfo.split('|')[0]}) <span class="form-subheader roboto" style="font-size:10px;">${moment(notification.date).format('hh:mm A')}</span>
+                            </p>
+                            <p class="mb-0" style="padding-left:40px; font-size:12px;">
+                               ${notification.notificationInfo.split('|')[2]}
+                            </p>
+                            <a class="comment-replies" href="/Stream/Archive/${notification.receiverUsername}/${notification.notificationInfo.split('|')[1]}/${notification.objectId}" style="padding-left:10px"><b>Reply</b></a>`
+    }
+    else {
+    notificationType = `<p class="form-header mb-0" style="padding-left:40px;">
+                            <span style="color:@notification.ProfileColor">${notification.senderName.replace('|', ' ')}</span> ${notification.message} <span class="form-subheader roboto" style="font-size:10px;">${moment(notification.date).format('hh:mm A')}</span>
+                        </p>
+                        <a class="comment-replies" href="/Profiles/Student/${notification.senderUsername}" style="padding-left:10px"><b>Profile</b></a>`
+    }
+
+    var notification = ` <li id="notification-${notification.id}" class="border-bottom">
+                                <div class="row pt-3 pb-3">
+                                    <div class="col-12">
+                                        <img id="notification-delete-${notification.id}" src="/images/GenericAssets/Trash.png" class="comment-remove mr-3 float-right" onclick="DeleteNotification('${notification.id}')" />
+                                        <input align="left" type="image" class="rounded" src="${notification.senderProfilePicture}" style="width:30px" />
+                                        <script>
+                                            $('#notification-${notification.id}').hover(function () {
+                                                $('#notification-delete-${notification.id}').css('display', 'block')
+                                            }, function () {
+                                                $('#notification-delete-${notification.id}').css('display', 'none')
+                                            })
+                                        </script>
+                                         ${notificationType}
+                                    </div>
+                                </div>
+                            </li>`
+    if ($('#no-notification').length) {
+        $('#notification-list').html('')
+    }
+
+    $('#notification-list').append(notification)
+}
+
+
 function SendNotification(username, message) {
-    connection.start().then(function () {
-        connection.invoke("SendPrivateMessage", username, message).catch(function (err) {
-            return console.error(err.toString());
-        });
-    }).catch(function (err) {
+    connection.invoke("SendPrivateMessage", username, message).catch(function (err) {
         return console.error(err.toString());
     });
 }

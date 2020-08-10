@@ -2,16 +2,22 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Options;
 using StreamWork.Config;
 using StreamWork.DataModels;
 using StreamWork.HelperMethods;
+using StreamWork.Hubs;
 
 namespace StreamWork.Services
 {
     public class NotificationService : StorageService
     {
-        public NotificationService([FromServices] IOptionsSnapshot<StorageConfig> config) : base(config) { }
+        IHubContext<PushNotificationHub> hubContext;
+        public NotificationService([FromServices] IOptionsSnapshot<StorageConfig> config, IHubContext<PushNotificationHub> hub) : base(config)
+        {
+            hubContext = hub;
+        }
 
         public async Task<bool> SaveNotification(NotificationType notificationType, string senderUsername, string receiverUsername, string notficationInfo, string objectId)
         {
@@ -37,6 +43,7 @@ namespace StreamWork.Services
                     ProfileColor = sender.ProfileColor
                 };
 
+                await hubContext.Clients.User(notification.ReceiverUsername).SendAsync("ReceiveNotification", notification);
                 await Save(notification.Id, notification);
                 return true;
             }

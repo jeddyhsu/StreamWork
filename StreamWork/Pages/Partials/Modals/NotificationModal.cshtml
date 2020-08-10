@@ -7,9 +7,9 @@
         </div>
         <div class="row">
             <div id="notification-mask" class="col-12">
-                @if (Model.Notifications != null && Model.Notifications.Count > 0)
-                {
-                    <ul id="notification-list" class="pl-3 m-0" style="list-style-type:none">
+                 <ul id="notification-list" class="pl-3 m-0" style="list-style-type:none">
+                    @if (Model.Notifications != null && Model.Notifications.Count > 0)
+                    {
                         @foreach (var notification in Model.Notifications)
                         {
                             <li id="notification-@notification.Id" class="border-bottom">
@@ -32,7 +32,7 @@
                                             <p class="mb-0" style="padding-left:40px; font-size:12px;">
                                                 @Html.Raw(@notification.NotificationInfo.Split('|')[2])
                                             </p>
-                                            <a class="comment-replies" href="/Stream/Archive/rarunT/@notification.NotificationInfo.Split('|')[1]/@notification.ObjectId" style="padding-left:10px"><b>Reply</b></a>
+                                            <a class="comment-replies" href="/Stream/Archive/@notification.ReceiverUsername/@notification.NotificationInfo.Split('|')[1]/@notification.ObjectId" style="padding-left:10px"><b>Reply</b></a>
                                         }
                                         else
                                         {
@@ -45,13 +45,12 @@
                                 </div>
                             </li>
                         }
-                    </ul>
-                }
-                else
-                {
-                    <p class="form-header text-center p-3 mb-0" style="font-size:18px;">No notifications at this time!</p>
-                }
-
+                    }
+                    else
+                    {
+                        <li id="no-notification" class="form-header text-center p-3 mb-0" style="font-size:18px;">No notifications at this time!</li>
+                    }
+                </ul>
             </div>
         </div>
         <div id="stream-edit-buttons"></div>

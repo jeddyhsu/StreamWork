@@ -38,6 +38,7 @@ namespace StreamWork.Services
                 {
                     new Claim(ClaimTypes.Name, userProfile.Username),
                     new Claim(ClaimTypes.Email, userProfile.EmailAddress),
+                    new Claim(ClaimTypes.NameIdentifier, userProfile.Username)
                     //new Claim(ClaimTypes.UserData, MiscHelperMethods.GetRandomChatColor())
                 };
 
