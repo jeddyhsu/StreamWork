@@ -108,6 +108,7 @@ namespace StreamWork
                 endpoint.MapRazorPages();
                 endpoint.MapControllers();
                 endpoint.MapHub<ChatHub>("/chathub");
+                endpoint.MapHub<PushNotificationHub>("/pushnotificationhub");
             });
         }
     }
