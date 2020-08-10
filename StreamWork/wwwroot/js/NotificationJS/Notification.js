@@ -1,4 +1,5 @@
 ﻿function UpdateToSeen(username) {
+    $('#notification-bell-mask').html(`<img src="/images/GenericAssets/Bell.svg" width="65" class="pointer" onclick="OpenModal('notification-modal')" />`)
     $.ajax({
         url: '/Notifications/NotificationModal/?handler=UpdateToSeen',
         type: 'POST',

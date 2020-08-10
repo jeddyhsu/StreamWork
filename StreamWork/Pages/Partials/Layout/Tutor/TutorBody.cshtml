@@ -42,14 +42,16 @@
         </div>
 
         <div class="">
-            @if (Model.Notifications.Count > 0 && Model.AreThereUnseenNotifications)
-            {
-                <img id="notification-bell" class="pointer" src="~/images/GenericAssets/NotificationBell.svg" width="65" onclick="OpenModal('notification-modal'); UpdateToSeen('@Model.CurrentUserProfile.Username');  $('#notification-bell').attr('src', '/images/GenericAssets/Bell.svg')" />
-            }
-            else
-            {
-                <img src="~/images/GenericAssets/Bell.svg" class="pointer" width="65" onclick="OpenModal('notification-modal')" />
-            }
+           <div id="notification-bell-mask" class="d-inline-block">
+                 @if (Model.Notifications.Count > 0 && Model.AreThereUnseenNotifications)
+                 {
+                   <img src="~/images/GenericAssets/NotificationBell.svg" width="65" class="pointer" onclick="OpenModal('notification-modal'); UpdateToSeen('@Model.CurrentUserProfile.Username');" />
+                 }
+                 else
+                 {
+                   <img src="~/images/GenericAssets/Bell.svg" width="65" class="pointer" onclick="OpenModal('notification-modal')" />
+                 }
+            </div>
             <div class="btn-group pr-3">
                 <input id="navbar-profile-picture" class="navbar-profile-picture" type="image" data-toggle="dropdown" src="@Model.CurrentUserProfile.ProfilePicture?@cacheRand" />
                 <button type="button" id="dropdown" class="btn btn-info dropdown-toggle border-0 navbar-dropdown-button" data-toggle="dropdown"></button>

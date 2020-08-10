@@ -15,7 +15,7 @@
                             <li id="notification-@notification.Id" class="border-bottom">
                                 <div class="row pt-3 pb-3">
                                     <div class="col-12">
-                                        <img id="notification-delete-@notification.Id" src="~/images/GenericAssets/Trash.png" class="comment-remove mr-3 float-right" onclick="DeleteNotification('@notification.Id')" />
+                                        <img id="notification-delete-@notification.Id" src="~/images/GenericAssets/Trash.png" class="notification-remove mr-3 float-right" onclick="DeleteNotification('@notification.Id')" />
                                         <input align="left" type="image" class="rounded" src="@notification.SenderProfilePicture" style="width:30px" />
                                         <script>
                                             $('#notification-@notification.Id').hover(function () {
@@ -32,14 +32,14 @@
                                             <p class="mb-0" style="padding-left:40px; font-size:12px;">
                                                 @Html.Raw(@notification.NotificationInfo.Split('|')[2])
                                             </p>
-                                            <a class="comment-replies" href="/Stream/Archive/@notification.ReceiverUsername/@notification.NotificationInfo.Split('|')[1]/@notification.ObjectId" style="padding-left:10px"><b>Reply</b></a>
+                                            <a class="notification-destination" href="/Stream/Archive/@notification.ReceiverUsername/@notification.NotificationInfo.Split('|')[1]/@notification.ObjectId" style="padding-left:10px"><b>Reply</b></a>
                                         }
                                         else
                                         {
                                             <p class="form-header mb-0" style="padding-left:40px;">
                                                 <span style="color:@notification.ProfileColor">@notification.SenderName.Replace('|', ' ')</span> @notification.Message <span class="form-subheader roboto" style="font-size:10px;">@notification.Date.ToLocalTime().ToString("h:mm tt")</span>
                                             </p>
-                                            <a class="comment-replies" href="/Profiles/Student/@notification.SenderUsername" style="padding-left:10px"><b>Profile</b></a>
+                                            <a class="notification-destination" href="/Profiles/Student/@notification.SenderUsername" style="padding-left:10px"><b>Profile</b></a>
                                         }
                                     </div>
                                 </div>

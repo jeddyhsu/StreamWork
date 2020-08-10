@@ -81,6 +81,10 @@ else
     </script>
 }
 
-<script>ButtonEnabledDisabled('send', '')
+<script>
+    ButtonEnabledDisabled('send', '')
     ResizeStreamSection();
-    ResizeStreamInfoSectionArchivedStreams()</script>
+    ResizeStreamInfoSectionArchivedStreams()
+</script>
+
+@await Html.PartialAsync("Partials/Notification/PushNotifications")

@@ -23,12 +23,15 @@
                         <div class="p-lg-4 pt-md-4 p-sm-3 p-3">
                             <input id="header-profile-picture" align="left" class="rounded" type="image" src="@Model.CurrentUserProfile.ProfilePicture?@cacheRand" style="width:80px; cursor:text" />
                             <p id="header-name" class="form-header m-0" style="font-size:20px; padding-left:100px; color:@Model.CurrentUserProfile.ProfileColor">@Model.CurrentUserProfile.Name.Replace('|', ' ')</p>
-                            @if (@Model.CurrentUserProfile.ProfileCaption == null || @Model.CurrentUserProfile.ProfileCaption == "") {<p id="header-occupation" class="form-header m-0" style="padding-left:100px; font-size:12px; color: #9F9F9F">Occupation / Major</p>}
-                            else { <p id="header-occupation" class="form-header m-0 header-padding" style="font-size:12px;">@Model.CurrentUserProfile.ProfileCaption</p>}
+                            @if (@Model.CurrentUserProfile.ProfileCaption == null || @Model.CurrentUserProfile.ProfileCaption == "")
+                            {<p id="header-occupation" class="form-header m-0" style="padding-left:100px; font-size:12px; color: #9F9F9F">Occupation / Major</p>}
+                            else
+                            { <p id="header-occupation" class="form-header m-0 header-padding" style="font-size:12px;">@Model.CurrentUserProfile.ProfileCaption</p>}
                             <p class="mb-0 mt-2 form-sub-header" style="padding-left:100px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Student since Jun, 2020</p>
                             @if (Model.CurrentUserProfile.Location == "" || Model.CurrentUserProfile.Location == null)
                             {<p class="form-sub-header header-padding"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">City, State</span></p>}
-                            else{<p class="form-sub-header header-padding"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">@Model.CurrentUserProfile.Location</span></p>}
+                            else
+                            {<p class="form-sub-header header-padding"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">@Model.CurrentUserProfile.Location</span></p>}
                             <input id="header-first-name" type="hidden" value="@Model.CurrentUserProfile.Name.Split('|')[0]" />
                             <input id="header-last-name" type="hidden" value="@Model.CurrentUserProfile.Name.Split('|')[1]" />
                             <input id="header-timezone" type="hidden" value="@Model.CurrentUserProfile.TimeZone" />
@@ -36,7 +39,7 @@
                             <input id="header-instagram-url" type="hidden" value="@Model.CurrentUserProfile.InstagramUrl" />
                             <input id="header-facebook-url" type="hidden" value="@Model.CurrentUserProfile.FacebookUrl" />
                             <input id="header-twitter-url" type="hidden" value="@Model.CurrentUserProfile.TwitterUrl" />
-                             <input id="profile-color" type="hidden" value="@Model.CurrentUserProfile.ProfileColor" />
+                            <input id="profile-color" type="hidden" value="@Model.CurrentUserProfile.ProfileColor" />
                         </div>
 
                         <div class="btn-group d-lg-none d-md-none d-sm-block d-block" style="margin-left:110px;">
@@ -360,4 +363,5 @@
 
 @await Html.PartialAsync("Partials/Modals/ProfileModal")
 @await Html.PartialAsync("Partials/Modals/UniversityModal")
+@await Html.PartialAsync("Partials/Notification/PushNotifications")
 

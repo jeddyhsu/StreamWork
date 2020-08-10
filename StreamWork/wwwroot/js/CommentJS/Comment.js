@@ -1,13 +1,10 @@
 ﻿var commentCount = 0;
 
+
 function SaveComment(parentId, masterParent) {
     var message = "";
-    if (parentId == "" || parentId == null) {
-        message = GetStringWithoutAt('send', '');
-    }
-    else {
-        message = GetStringWithoutAt('reply', parentId);
-    }
+    if (parentId == "" || parentId == null) message = GetStringWithoutAt('send', '');
+    else message = GetStringWithoutAt('reply', parentId);
 
     $.ajax({
         url: '/Comments/CommentModel/?handler=SaveComment',
@@ -151,7 +148,7 @@ function EditComment(commentId) {
 function ShowEditBox(profilePicture, commentId) {
     var message = $('#comment-send-hidden-' + commentId).val();
     var edit = `<div class="d-flex flex-row">
-                    <div id="comment-save-${commentId}" class="form-control form-textarea comment-send-reply-textarea ml-2 mb-1" onkeydown="ButtonEnabledDisabled('save', '${commentId}')" onkeyup="ButtonEnabledDisabled('save', '${commentId}')" contenteditable="true">${message}</div>
+                    <div id="comment-save-${commentId}" class="form-control form-textarea comment-send-reply-textarea ml-2 mb-1" onkeydown="ButtonEnabledDisabled('save', '${commentId}'); pressed(event, '${commentId}',  '', 'Edit')" onkeyup="ButtonEnabledDisabled('save', '${commentId}')" contenteditable="true">${message}</div>
                     <button onclick="HideEditBox('${commentId}')" class="streamWork-secondary comment-cancel-button ml-2">Cancel</button>
                     <button id="save-comment-button-${commentId}" onclick="EditComment('${commentId}')" class="streamWork-primary comment-send-reply-button ml-2">Save</button>
                 </div>`
@@ -172,10 +169,10 @@ function HideEditBox(commentId) {
 
 function ShowReplyBox(profilePicture, id, senderName, parentId) {
     var reply = `<div class="card rounded-0 comment-send-reply-box mt-2">
-                    <div class="card-body w-100">
+                    <div class="card-body w-100"> 
                         <div class="d-flex flex-row">
                             <img class="comment-profile-picture" src="${profilePicture}" />
-                            <div id="comment-reply-${id}" class="form-control form-textarea comment-send-reply-textarea ml-2 mb-1" onkeydown="ButtonEnabledDisabled('reply', '${id}')" onkeyup="ButtonEnabledDisabled('reply', '${id}')" contenteditable="true">
+                            <div id="comment-reply-${id}" class="form-control form-textarea comment-send-reply-textarea ml-2 mb-1" onkeydown="ButtonEnabledDisabled('reply', '${id}'); pressed(event, '${id}', '${parentId}', 'Save')" onkeyup="ButtonEnabledDisabled('reply', '${id}')" contenteditable="true">
                                <span id="comment-at-${id}" class="comment-at" contenteditable="false"><b>@${senderName.replace('|', ' ')} </b></span>
                             </div>
                             <button onclick="CancelReply('${id}')" class="streamWork-secondary comment-cancel-button ml-2">Cancel</button>
@@ -249,4 +246,17 @@ function GoToComment(parentId, commentId) {
     $('html, body').animate({
         scrollTop: ($('#comment-' + commentId).offset().top)
     }, 500);
+}
+
+function pressed(event, id, parentId, type) {
+    if (event.keyCode == 13 && !event.shiftKey) {
+        if (type == "Edit") {
+            EditComment(id)
+        }
+        else {
+            SaveComment(id, parentId)
+        }
+        event.preventDefault();
+        return false;
+    }
 }

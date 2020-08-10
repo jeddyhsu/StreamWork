@@ -85,12 +85,13 @@
         <ul class="p-0">
             @foreach (var tutor in Model.PopularTutors)
             {
-                <li class="card d-flex align-items-center justify-content-center border-0" style="cursor:pointer; background-color:transparent" onclick="window.location.href ='/Profiles/Tutor/@tutor.Username'">
-                    <div class="card-body">
-                        <input align="left" class="rounded" type="image" src="@tutor.ProfilePicture" style="width:30px; cursor:text" />
-                    </div>
-                </li>
-            }
+<li class="card d-flex align-items-center justify-content-center border-0" style="cursor:pointer; background-color:transparent" onclick="window.location.href ='/Profiles/Tutor/@tutor.Username'">
+    <div class="card-body">
+        <input align="left" class="rounded" type="image" src="@tutor.ProfilePicture" style="width:30px; cursor:text" />
+    </div>
+</li>            }
         </ul>
     </nav>
 </div>
+
+@await Html.PartialAsync("Partials/Notification/PushNotifications")
