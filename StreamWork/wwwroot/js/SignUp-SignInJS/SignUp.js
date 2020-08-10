@@ -380,11 +380,15 @@ function tutorProfileInfoUpdateNext() {
     $('#tutor-confirmPassword').removeClass('input-invalid');
     $('#tutor-confirmPassword').popover('hide');
     $('#tutor-confirmPassword').popover('disable');
+    $('#tutor-payPal').removeClass('input-invalid');
+    $('#tutor-payPal').popover('hide');
+    $('#tutor-payPal').popover('disable');
     if ($('#tutor-firstName').val().length == 0 ||
         $('#tutor-lastName').val().length == 0 ||
         $('#tutor-username').val().length == 0 ||
         $('#tutor-password').val().length == 0 ||
-        $('#tutor-confirmPassword').val().length == 0) {
+        $('#tutor-confirmPassword').val().length == 0 ||
+        $('#tutor-payPal').val().length == 0) {
         $('#tutorProfileInfo-next').removeClass('streamWork-primary');
         $('#tutorProfileInfo-next').addClass('streamWork-disabled');
     } else {
@@ -412,18 +416,35 @@ function tutorProfileInfoNext() {
                         if (data) {
                             if (/^(?=.*[0-9])(?=.*[A-Za-z]).{8,}$/.test($('#tutor-password').val())) {
                                 if ($('#tutor-password').val() === $('#tutor-confirmPassword').val()) {
-                                    $('#tutor-username').removeClass('input-invalid');
-                                    $('#tutor-username').popover('hide');
-                                    $('#tutor-username').popover('disable');
-                                    $('#tutor-username-wrapper').popover('hide');
-                                    $('#tutor-username-wrapper').popover('disable');
-                                    $('#tutor-password').removeClass('input-invalid');
-                                    $('#tutor-password').popover('hide');
-                                    $('#tutor-password').popover('disable');
-                                    $('#tutor-confirmPassword').removeClass('input-invalid');
-                                    $('#tutor-confirmPassword').popover('hide');
-                                    $('#tutor-confirmPassword').popover('disable');
-                                    goToTab('tutorResumeTranscript');
+                                    $.ajax({
+                                        url: '/Home/SignUp/?handler=IsAddressValid',
+                                        type: 'GET',
+                                        data: {
+                                            emailAddress: $('#tutor-payPal').val()
+                                        }
+                                    }).done(function (data) {
+                                        if (data) {
+                                            $('#tutor-username').removeClass('input-invalid');
+                                            $('#tutor-username').popover('hide');
+                                            $('#tutor-username').popover('disable');
+                                            $('#tutor-username-wrapper').popover('hide');
+                                            $('#tutor-username-wrapper').popover('disable');
+                                            $('#tutor-password').removeClass('input-invalid');
+                                            $('#tutor-password').popover('hide');
+                                            $('#tutor-password').popover('disable');
+                                            $('#tutor-confirmPassword').removeClass('input-invalid');
+                                            $('#tutor-confirmPassword').popover('hide');
+                                            $('#tutor-confirmPassword').popover('disable');
+                                            $('#tutor-payPal').removeClass('input-invalid');
+                                            $('#tutor-payPal').popover('hide');
+                                            $('#tutor-payPal').popover('disable');
+                                            goToTab('tutorResumeTranscript');
+                                        } else {
+                                            $('#tutor-payPal').addClass('input-invalid');
+                                            $('#tutor-payPal').popover('enable');
+                                            $('#tutor-payPal').popover('show');
+                                        }
+                                    });
                                 } else {
                                     $('#tutor-confirmPassword').addClass('input-invalid');
                                     $('#tutor-confirmPassword').popover('enable');
@@ -484,7 +505,29 @@ function tutorProfileInfoOAuthNext() {
                 }
             }).done(function (data) {
                 if (data) {
-                    goToTab('tutorResumeTranscript');
+                    $.ajax({
+                        url: '/Home/SignUp/?handler=IsAddressValid',
+                        type: 'GET',
+                        data: {
+                            emailAddress: $('#tutor-payPal-oauth').val()
+                        }
+                    }).done(function (data) {
+                        if (data) {
+                            $('#tutor-username-oauth').removeClass('input-invalid');
+                            $('#tutor-username-oauth').popover('hide');
+                            $('#tutor-username-oauth').popover('disable');
+                            $('#tutor-username-wrapper-oauth').popover('hide');
+                            $('#tutor-username-wrapper-oauth').popover('disable');
+                            $('#tutor-payPal-oauth').removeClass('input-invalid');
+                            $('#tutor-payPal-oauth').popover('hide');
+                            $('#tutor-payPal-oauth').popover('disable');
+                            goToTab('tutorResumeTranscript');
+                        } else {
+                            $('#tutor-payPal-oauth').addClass('input-invalid');
+                            $('#tutor-payPal-oauth').popover('enable');
+                            $('#tutor-payPal-oauth').popover('show');
+                        }
+                    });
                 } else {
                     $('#tutor-username-oauth').addClass('input-invalid');
                     $('#tutor-username-oauth-wrapper').popover('enable');
@@ -585,9 +628,11 @@ function signUpTutor() {
         formData.append('LastName', $('#tutor-lastName').val());
         formData.append('Username', $('#tutor-username').val());
         formData.append('Password', $('#tutor-password').val());
+        formData.append('PayPalAddress', $('#tutor-payPal').val());
     }
     else {
         formData.append('Username', $('#tutor-username-oauth').val());
+        formData.append('PayPalAddress', $('#tutor-payPal-oauth').val());
         formData.append('Token', oauthToken);
     }
 
