@@ -73,11 +73,13 @@ function SaveComment(parentId, masterParent) {
                     $('#comment-list').append(comment);
                     $('#comment-send-').html(``)
                     $('#comment-send-').attr('style', '40px !important');
+                    GoToComment("", data.savedInfo[3])
                 }
                 else {
                     var id = masterParent == "undefined" ? parentId : masterParent;
                     $('#comment-reply-list-' + id).append(comment);
                     CancelReply(parentId)
+                    GoToComment(parentId, data.savedInfo[3])
                 }
             }
         }

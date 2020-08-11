@@ -82,7 +82,7 @@ else
                         <div id="questionBox" class="row">
                             <div class="col-12">
                                 <div class="d-flex align-items-center justify-content-center">
-                                    <textarea id="chatInput" onkeydown="pressed(event)" class="form-control form-textarea rounded-0 border-0" style="height:81px !important; resize:none; background-color:transparent" placeholder="Send question or message..."></textarea>
+                                    <div id="chatInput" onkeydown="pressed(event)" class="form-custom-textarea rounded-0 border-0 w-100 roboto chat-text" contentEditable=true data-text="Send a question or message..."></div>
                                     <script>
                                             function pressed(event) {
                                                 if (event.keyCode == 13 && !event.shiftKey) {
@@ -108,7 +108,7 @@ else
                         <div id="questionBox" class="row">
                             <div class="col-9 pr-0">
                                 <div>
-                                    <textarea id="chatInput" onkeydown="pressed(event)" class="form-control form-textarea rounded-0 border-0" style="height:81px !important; resize:none; background-color:transparent" placeholder="Send question or message..."></textarea>
+                                    <div id="chatInput" onkeydown="pressed(event)" class="form-custom-textarea rounded-0 border-0 w-100 roboto chat-text" contentEditable=true data-text="Send a question or message..."></div>
                                     <script>
                                         function pressed(event) {
                                             if (event.keyCode == 13 && !event.shiftKey) {

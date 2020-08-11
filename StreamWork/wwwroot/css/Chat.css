@@ -38,6 +38,7 @@
     border: thick;
     color: black;
     padding-left: 40px;
+    word-break: break-all
 }
 
 .chat-list-view-archive {
@@ -83,7 +84,12 @@
     scrollbar-width: none; /* Firefox */
 }
 
-
+.chat-text {
+    font-size: 14px !important;
+    min-height: 81px;
+    padding-top: 30px !important;
+    padding-left: 10px !important;
+}
 
 
 

@@ -90,7 +90,7 @@ function JoinChatRoom(chatId, userName) {
 }
 
 function GetMessage(chatId, userName, name, profilePicture, chatColor, archivedVideoId){
-    var message = document.getElementById("chatInput").value;
+    var message = $("#chatInput").text();
     if (message == "") return;
     CleanAndSendMessage(message, chatId, userName, name, profilePicture, chatColor, archivedVideoId);
 }
@@ -107,7 +107,7 @@ function CleanAndSendMessage(message, chatId, userName, name, profilePicture, ch
         }
     });
 
-    document.getElementById("chatInput").value = "";
+    $("#chatInput").text("");
     event.preventDefault();
 }
 
