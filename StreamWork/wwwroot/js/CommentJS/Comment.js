@@ -3,8 +3,14 @@
 
 function SaveComment(parentId, masterParent) {
     var message = "";
-    if (parentId == "" || parentId == null) message = GetStringWithoutAt('send', '');
-    else message = GetStringWithoutAt('reply', parentId);
+    if (parentId == "" || parentId == null) {
+        message = GetStringWithoutAt('send', '');
+        ButtonEnabledDisabled('send', '', true);
+    }
+    else {
+        message = GetStringWithoutAt('reply', parentId);
+        ButtonEnabledDisabled('reply', parentId, true);
+    }
 
     $.ajax({
         url: '/Comments/CommentModel/?handler=SaveComment',
@@ -65,15 +71,13 @@ function SaveComment(parentId, masterParent) {
                                 </li>`
                 if (parentId == "" || parentId == null) {
                     $('#comment-list').append(comment);
-                    $('#comment-send-').html(`<span id="comment-at-" class="comment-at" contenteditable="false"><b>@${data.savedInfo[4]} </b></span>`)
+                    $('#comment-send-').html(``)
                     $('#comment-send-').attr('style', '40px !important');
-                    ButtonEnabledDisabled('send', '');
                 }
                 else {
                     var id = masterParent == "undefined" ? parentId : masterParent;
                     $('#comment-reply-list-' + id).append(comment);
-                    $('#comment-reply-' + parentId).html(`<span id="comment-at-${parentId}" class="comment-at" contenteditable="false"><b>@${data.savedInfo[4]} </b></span>`)
-                    ButtonEnabledDisabled('reply', parentId);
+                    CancelReply(parentId)
                 }
             }
         }
@@ -139,7 +143,7 @@ function EditComment(commentId) {
             $('#comment-send-hidden-' + commentId).val(data.savedInfo[0]);
             $('#comment-edit-' + commentId).css("display", "block");
             $('#comment-remove-' + commentId).css("display", "block");
-            $('#comment-send-holder-' + commentId).html(`<p class="mb-1 comment-send" id="comment-send-${data.savedInfo[1]}">${data.savedInfo[0]}</p>`)
+            $('#comment-send-holder-' + commentId).html(`<p class="mb-1 comment-send" id="comment-send-${commentId}"> <span id="comment-at-${commentId}" class="comment-at" contenteditable="false"><b>@${data.savedInfo[2].replace('|', ' ')} </b></span>${data.savedInfo[0]}</p>`)
             $('#edited-holder-' + commentId).html(`(edited)`);
         }
     });
@@ -148,7 +152,7 @@ function EditComment(commentId) {
 function ShowEditBox(profilePicture, commentId) {
     var message = $('#comment-send-hidden-' + commentId).val();
     var edit = `<div class="d-flex flex-row">
-                    <div id="comment-save-${commentId}" class="form-control form-textarea comment-send-reply-textarea ml-2 mb-1" onkeydown="ButtonEnabledDisabled('save', '${commentId}'); pressed(event, '${commentId}',  '', 'Edit')" onkeyup="ButtonEnabledDisabled('save', '${commentId}')" contenteditable="true">${message}</div>
+                    <div id="comment-save-${commentId}" class="comment-send-reply-textarea form-custom-textarea ml-2 mb-1" onkeydown="ButtonEnabledDisabled('save', '${commentId}');" onkeyup="ButtonEnabledDisabled('save', '${commentId}')" contenteditable="true">${message}</div>
                     <button onclick="HideEditBox('${commentId}')" class="streamWork-secondary comment-cancel-button ml-2">Cancel</button>
                     <button id="save-comment-button-${commentId}" onclick="EditComment('${commentId}')" class="streamWork-primary comment-send-reply-button ml-2">Save</button>
                 </div>`
@@ -172,7 +176,7 @@ function ShowReplyBox(profilePicture, id, senderName, parentId) {
                     <div class="card-body w-100"> 
                         <div class="d-flex flex-row">
                             <img class="comment-profile-picture" src="${profilePicture}" />
-                            <div id="comment-reply-${id}" class="form-control form-textarea comment-send-reply-textarea ml-2 mb-1" onkeydown="ButtonEnabledDisabled('reply', '${id}'); pressed(event, '${id}', '${parentId}', 'Save')" onkeyup="ButtonEnabledDisabled('reply', '${id}')" contenteditable="true">
+                            <div id="comment-reply-${id}" class="comment-send-reply-textarea form-custom-textarea ml-2 mb-1" onkeydown="ButtonEnabledDisabled('reply', '${id}');" onkeyup="ButtonEnabledDisabled('reply', '${id}')" contenteditable="true">
                                <span id="comment-at-${id}" class="comment-at" contenteditable="false"><b>@${senderName.replace('|', ' ')} </b></span>
                             </div>
                             <button onclick="CancelReply('${id}')" class="streamWork-secondary comment-cancel-button ml-2">Cancel</button>
@@ -204,8 +208,8 @@ function HideReplyComments(parentId) {
     $('#comment-reply-list-' + parentId).css("display", "none")
 }
 
-function ButtonEnabledDisabled(type, id) {
-    if (GetStringWithoutAt(type, id) == "" || $('#comment-' + type + '-' + id).text() == "") {
+function ButtonEnabledDisabled(type, id, forceDisable) {
+    if (forceDisable == true || GetStringWithoutAt(type, id) == "" || $('#comment-' + type + '-' + id).text() == "") {
         document.getElementById(type + "-comment-button-" + id).disabled = true;
         $('#' + type + '-comment-button-' + id).css('border-color', 'transparent');
         $('#' + type + '-comment-button-' + id).css('background-color', 'grey');
@@ -246,17 +250,4 @@ function GoToComment(parentId, commentId) {
     $('html, body').animate({
         scrollTop: ($('#comment-' + commentId).offset().top)
     }, 500);
-}
-
-function pressed(event, id, parentId, type) {
-    if (event.keyCode == 13 && !event.shiftKey) {
-        if (type == "Edit") {
-            EditComment(id)
-        }
-        else {
-            SaveComment(id, parentId)
-        }
-        event.preventDefault();
-        return false;
-    }
 }

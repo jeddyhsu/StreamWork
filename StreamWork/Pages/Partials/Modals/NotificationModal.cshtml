@@ -7,7 +7,7 @@
         </div>
         <div class="row">
             <div id="notification-mask" class="col-12">
-                 <ul id="notification-list" class="pl-3 m-0" style="list-style-type:none">
+                 <ul id="notification-list" class="pl-3 m-0" style="list-style-type:none; max-height:435px; overflow:scroll">
                     @if (Model.Notifications != null && Model.Notifications.Count > 0)
                     {
                         @foreach (var notification in Model.Notifications)

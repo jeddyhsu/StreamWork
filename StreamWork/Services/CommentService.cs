@@ -54,7 +54,7 @@ namespace StreamWork.Services
                 comment.Message = MiscHelperMethods.URLIFY(message);
                 comment.Edited = "true";
                 await Save<Comment>(comment.Id, comment);
-                return new List<string> {comment.Message, comment.Id};
+                return new List<string> {comment.Message, comment.Id, comment.ReceiverName};
             }
             catch (Exception e)
             {

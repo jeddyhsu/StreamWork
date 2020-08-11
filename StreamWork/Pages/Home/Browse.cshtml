@@ -7,9 +7,17 @@
 <div class="container-fluid mr-0" style="padding-top:25px;">
     <div class="container-fluid inner-container-fluid custom-container-padding">
         <p class="form-header pl-3" style="font-size:38px">Browse</p>
-        <p class="form-header pl-3" style="font-size:22px">Subject Topics</p>
-        <hr />
-        @await Html.PartialAsync("Partials/Browse/Topics")
+        <select id="filter" name="filter" class="form-control form-control-sm rounded-0 ml-3 mt-3" onchange="SearchStreams()" style="width:175px">
+            <option value="">Filter</option>
+            <option value="Mathematics">Mathematics</option>
+            <option value="Science">Science</option>
+            <option value="Engineering">Engineering</option>
+            <option value="Business">Business</option>
+            <option value="Law">Law</option>
+            <option value="Art">Art</option>
+            <option value="Humanities">Humanities</option>
+            <option value="Other">Others</option>
+        </select>
         <ul class="nav nav-tabs pt-3" id="myTab" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active form-header" id="streams-tab" data-toggle="tab" href="#streams" onclick="SliderStreams()">Streams</a>
