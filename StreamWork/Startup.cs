@@ -55,9 +55,7 @@ namespace StreamWork
                 options.ClientSecret = "5pJv9d7UACsWWPkWKMjb-sTb";
             });
 
-
             services.Configure<StorageConfig>(Configuration);
-
             services.AddTransient<ChatService>();
             services.AddTransient<CommentService>();
             services.AddTransient<CookieService>();

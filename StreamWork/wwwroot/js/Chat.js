@@ -113,8 +113,8 @@ function CleanAndSendMessage(message, chatId, userName, name, profilePicture, ch
 
 function PopoutChat(chatId, chatInfo) {
     var windowObjectRef;
-    var windowFeatures = "menubar=no, toolbar=no,location=yes,resizable=yes,scrollbars=yes,status=yes, width=500, height=600";
-    windowObjectRef = window.open('https://www.streamwork.live/chat/streamworkchat?chatId=' + chatId + "&chatInfo=" + chatInfo, 'StreamWork Chat', windowFeatures);
+    var windowFeatures = "menubar=no, toolbar=no,location=yes,resizable=yes,scrollbars=yes,status=yes, width=300, height=600";
+    windowObjectRef = window.open('/chat/LiveChat?chatId=' + chatId + "&chatInfo=" + chatInfo, 'StreamWork Chat', windowFeatures);
 }
 
 function CheckIfEmpty() {
