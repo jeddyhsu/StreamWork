@@ -254,6 +254,6 @@ function GoToComment(parentId, commentId) {
     }
 
     $('html, body').animate({
-        scrollTop: ($('#comment-' + commentId).offset().top)
+        scrollTop: ($('#comment-' + commentId).position().top + 100)
     }, 500);
 }
