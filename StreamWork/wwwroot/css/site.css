@@ -475,7 +475,6 @@ select.form-control {
     padding: 5px 5px;
     outline: none;
     font-size: 12px;
-    white-space: pre-wrap;
 }
 
 .form-custom-textarea:focus {
@@ -484,7 +483,6 @@ select.form-control {
     padding: 5px 5px;
     outline: none;
     font-size:12px;
-    white-space: pre-wrap;
 }
 
 [contentEditable=true]:empty:not(:focus):before {

@@ -90,7 +90,7 @@ function JoinChatRoom(chatId, userName) {
 }
 
 function GetMessage(chatId, userName, name, profilePicture, chatColor, archivedVideoId){
-    var message = $("#chatInput").text();
+    var message = $("#chatInput").html().replace(/<div>/gi, '<br>').replace(/<\/div>/gi, '')
     if (message == "") return;
     CleanAndSendMessage(message, chatId, userName, name, profilePicture, chatColor, archivedVideoId);
 }

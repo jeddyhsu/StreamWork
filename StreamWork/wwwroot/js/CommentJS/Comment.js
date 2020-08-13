@@ -134,7 +134,7 @@ function EditComment(commentId) {
         type: 'POST',
         datatype: 'json',
         data: {
-            'message': $('#comment-save-' + commentId).text(),
+            'message': $('#comment-save-' + commentId).html().replace(/<div>/gi, '<br>').replace(/<\/div>/gi, ''),
             'commentId': commentId,
         },
         beforeSend: function (xhr) {
@@ -145,7 +145,8 @@ function EditComment(commentId) {
             $('#comment-send-hidden-' + commentId).val(data.savedInfo[0]);
             $('#comment-edit-' + commentId).css("display", "block");
             $('#comment-remove-' + commentId).css("display", "block");
-            $('#comment-send-holder-' + commentId).html(`<p class="mb-1 comment-send" id="comment-send-${commentId}"> <span id="comment-at-${commentId}" class="comment-at" contenteditable="false"><b>@${data.savedInfo[2].replace('|', ' ')} </b></span>${data.savedInfo[0]}</p>`)
+            var at = data.savedInfo[3] != null ? `<span id="comment-at-${commentId}" class="comment-at" contenteditable="false"><b>@${data.savedInfo[2].replace('|', ' ')}</b></span>` : ``
+            $('#comment-send-holder-' + commentId).html(`<p class="mb-1 comment-send" id="comment-send-${commentId}">${at}${data.savedInfo[0]}</p>`)
             $('#edited-holder-' + commentId).html(`(edited)`);
         }
     });
@@ -224,7 +225,10 @@ function ButtonEnabledDisabled(type, id, forceDisable) {
 
 function GetStringWithoutAt(type, id) {
     var commentAt = $('#comment-at-' + id).text()
-    var comment = $('#comment-' + type + '-' + id).text().trim() + " "
+    var clone = $('#comment-' + type + '-' + id).clone()
+    clone.find('.comment-at').remove();
+    var commentHtml = clone.html().replace(/<div>/gi, '<br>').replace(/<\/div>/gi, '')
+    var comment = commentHtml.trim() + " "
     var commentString = comment.replace(commentAt, '');
 
     return commentString;
