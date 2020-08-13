@@ -470,11 +470,12 @@ select.form-control {
 }
 
 .form-custom-textarea {
-    border: 1px solid lightgrey !important;
+    border: 1px solid transparent !important;
     border-radius: 5px;
     padding: 5px 5px;
     outline: none;
-    font-size:12px;
+    font-size: 12px;
+    white-space: pre-wrap;
 }
 
 .form-custom-textarea:focus {
@@ -483,6 +484,7 @@ select.form-control {
     padding: 5px 5px;
     outline: none;
     font-size:12px;
+    white-space: pre-wrap;
 }
 
 [contentEditable=true]:empty:not(:focus):before {

@@ -154,7 +154,7 @@ function EditComment(commentId) {
 function ShowEditBox(profilePicture, commentId) {
     var message = $('#comment-send-hidden-' + commentId).val();
     var edit = `<div class="d-flex flex-row">
-                    <div id="comment-save-${commentId}" class="comment-send-reply-textarea form-custom-textarea ml-2 mb-1" onkeydown="ButtonEnabledDisabled('save', '${commentId}');" onkeyup="ButtonEnabledDisabled('save', '${commentId}')" contenteditable="true">${message}</div>
+                    <div id="comment-save-${commentId}" class="comment-send-reply-textarea form-custom-textarea ml-2 mb-1 comment-text" onkeydown="ButtonEnabledDisabled('save', '${commentId}');" onkeyup="ButtonEnabledDisabled('save', '${commentId}')" contenteditable="true">${message}</div>
                     <button onclick="HideEditBox('${commentId}')" class="streamWork-secondary comment-cancel-button ml-2">Cancel</button>
                     <button id="save-comment-button-${commentId}" onclick="EditComment('${commentId}')" class="streamWork-primary comment-send-reply-button ml-2">Save</button>
                 </div>`
@@ -178,8 +178,8 @@ function ShowReplyBox(profilePicture, id, senderName, parentId) {
                     <div class="card-body w-100"> 
                         <div class="d-flex flex-row">
                             <img class="comment-profile-picture" src="${profilePicture}" />
-                            <div id="comment-reply-${id}" class="comment-send-reply-textarea form-custom-textarea ml-2 mb-1" onkeydown="ButtonEnabledDisabled('reply', '${id}');" onkeyup="ButtonEnabledDisabled('reply', '${id}')" contenteditable="true">
-                               <span id="comment-at-${id}" class="comment-at" contenteditable="false"><b>@${senderName.replace('|', ' ')} </b></span>
+                            <div id="comment-reply-${id}" class="comment-send-reply-textarea form-custom-textarea ml-2 mb-1 comment-text" onkeydown="ButtonEnabledDisabled('reply', '${id}');" onkeyup="ButtonEnabledDisabled('reply', '${id}')" contenteditable="true">
+                               <span id="comment-at-${id}" class="comment-at comment-text" contenteditable="false"><b>@${senderName.replace('|', ' ')} </b></span>
                             </div>
                             <button onclick="CancelReply('${id}')" class="streamWork-secondary comment-cancel-button ml-2">Cancel</button>
                             <button id="reply-comment-button-${id}" onclick="SaveComment('${id}', '${parentId}')" class="streamWork-primary comment-send-reply-button ml-2">Reply</button>

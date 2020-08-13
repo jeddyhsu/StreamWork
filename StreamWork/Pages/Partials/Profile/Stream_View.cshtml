@@ -7,12 +7,13 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                     <div class="card mt-3 border-0" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px">
                         <div class="card-title">
-                            <a href="/Stream/Archive/@streamInfo.Username/@streamInfo.StreamID"><img asp-append-version="true" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src="@streamInfo.StreamThumbnail?@cacheRand"></a>
+                            <a href="/Stream/Archive/@streamInfo.Username/@streamInfo.StreamID/32169"><img asp-append-version="true" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src="@streamInfo.StreamThumbnail?@cacheRand"></a>
                         </div>
                         <div class="card-body pt-0 pb-1">
-                            <h5 class="text-truncate form-header">@streamInfo.StreamTitle</h5>
-                            <input type="hidden" value="@streamInfo.StreamDescription" />
-                            <p class="text-truncate form-header" style="font-size:10px">@streamInfo.Username</p>
+                            <p id="stream-title-@streamInfo.Id" class="text-truncate form-header mb-0">@streamInfo.StreamTitle</p>
+                            <p id="stream-title-@streamInfo.Id" class="text-truncate form-header mb-1" style="font-size:12px">@streamInfo.StartTime.ToString("MMM dd yyyy")</p>
+                            <input id="stream-description-@streamInfo.Id" type="hidden" value="@streamInfo.StreamDescription" />
+                            <p class="text-truncate form-header" style="font-size:10px">@Model.CurrentUserProfile.Name.Replace('|', ' ')</p>
                         </div>
                         <div class="card-footer" style="background-color:@streamInfo.StreamColor; border-bottom-left-radius:20px; border-bottom-right-radius:20px;"></div>
                     </div>

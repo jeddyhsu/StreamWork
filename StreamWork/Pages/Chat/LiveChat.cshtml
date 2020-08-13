@@ -47,7 +47,7 @@ else
                                     <p class="chat-name" style='color:@Model.Chats[i].ChatColor'>
                                         @Model.Chats[i].Name.Replace('|', ' ')
                                         <span><img id="tutor-tip-@i" class="pl-1" style="width:28px" src="/images/ChatAssets/Tutor.svg" data-toggle="tooltip" data-placement="top" title="StreamTutor" /></span>
-                                        <span class='chat-date'>@Model.Chats[i].Date.AddMinutes(Model.Chats[i].TimeOffset * -1).ToString("HH:mm")</span>
+                                        <span class='chat-date'>@Model.Chats[i].Date.ToLocalTime().ToString("HH:mm")</span>
                                     </p>
                                     <script>$('#tutor-tip-@i').tooltip()</script>
                                 }
@@ -55,14 +55,14 @@ else
                                 {
                                     <h5 class="chat-name" style="color:@Model.Chats[i].ChatColor">
                                         @Model.Chats[i].Name.Replace('|', ' ') (you)
-                                        <span class="chat-date">@Model.Chats[i].Date.AddMinutes(Model.Chats[i].TimeOffset * -1).ToString("HH:mm")</span>
+                                        <span class="chat-date">@Model.Chats[i].Date.ToLocalTime().ToString("HH:mm")</span>
                                     </h5>
                                 }
                                 else
                                 {
                                     <h5 class="chat-name" style="color:@Model.Chats[i].ChatColor">
                                         @Model.Chats[i].Name.Replace('|', ' ')
-                                        <span class="chat-date">@Model.Chats[i].Date.AddMinutes(Model.Chats[i].TimeOffset * -1).ToString("HH:mm")</span>
+                                        <span class="chat-date">@Model.Chats[i].Date.ToLocalTime().ToString("HH:mm")</span>
                                     </h5>
                                 }
                                 <p id="chat-@i" class="chat-message">@Html.Raw(Model.Chats[i].Message)</p>
@@ -82,7 +82,7 @@ else
                         <div id="questionBox" class="row">
                             <div class="col-12">
                                 <div class="d-flex align-items-center justify-content-center">
-                                    <div id="chatInput" onkeydown="pressed(event)" class="form-custom-textarea rounded-0 border-0 w-100 roboto chat-text" contentEditable=true data-text="Send a question or message..."></div>
+                                    <div id="chatInput" onkeydown="pressed(event)" class="form-custom-textarea rounded border-0 w-100 roboto chat-text ml-2 mr-2" contentEditable=true data-text="Send a question or message..."></div>
                                     <script>
                                             function pressed(event) {
                                                 if (event.keyCode == 13 && !event.shiftKey) {
@@ -108,7 +108,7 @@ else
                         <div id="questionBox" class="row">
                             <div class="col-9 pr-0">
                                 <div>
-                                    <div id="chatInput" onkeydown="pressed(event)" class="form-custom-textarea rounded-0 border-0 w-100 roboto chat-text" contentEditable=true data-text="Send a question or message..."></div>
+                                    <div id="chatInput" onkeydown="pressed(event)" class="form-custom-textarea rounded border-0 w-100 roboto chat-text ml-2 mr-2" contentEditable=true data-text="Send a question or message..."></div>
                                     <script>
                                         function pressed(event) {
                                             if (event.keyCode == 13 && !event.shiftKey) {

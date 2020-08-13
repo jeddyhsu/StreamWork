@@ -17,7 +17,7 @@
 
 .comment-send {
     padding-left: 40px;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .comment-profile-picture {
@@ -50,7 +50,7 @@
 }
 
 .comment-cancel {
-    font-size: 12px;
+    font-size: 14px;
     cursor: pointer;
     display:none;
 }
@@ -79,4 +79,8 @@
     padding-top:5px;
     padding-bottom:5px;
     padding-right:5px;
+}
+
+.comment-text{
+    font-size:14px
 }

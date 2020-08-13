@@ -45,7 +45,9 @@ else
                         <button class="streamWork-secondary m-1 stream-buttons" onclick="window.location.href='/Profiles/Tutor/@Model.UserProfile.Username'">Profile</button>
                     </div>
                 </div>
-                <iframe id="player" style="width:100%;" src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.ArchivedStream.StreamID" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+                <div id="player-div" style="position: relative; padding-bottom: 56.25%; height: 0;">
+                    <iframe id="player" src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.ArchivedStream.StreamID" style="width: 100%; height: 100%;" frameborder="0" scrolling="no" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="autoplay; fullscreen;"></iframe>
+                </div>
                 <div id="player-row" class="card-body p-0">
                     <img class="p-3" align="left" src="@Model.UserChannel.StreamSubjectIcon" style="width:100%; height:100%; max-width:120px; max-height:120px; cursor:pointer" onclick="window.open('https://www.streamwork.live/Home/Search?s=@Model.UserChannel.StreamSubject&q=')" />
                     <div class="m-3" id="StreamInfo">
@@ -54,7 +56,9 @@ else
                         <p style="font-size:12px; padding-left:105px">Tutoring @Model.ArchivedStream.StreamSubject</p>
                     </div>
                 </div>
-                @await Html.PartialAsync("Partials/Comment/Comments", Model)
+                <div class="border-top">
+                    @await Html.PartialAsync("Partials/Comment/Comments", Model)
+                </div>
                 <div class="card-body" style="background-color:#FBFBFB">
                     <p class="form-header" style="font-size:18px"><b>Other Recent Streams</b></p>
                     <div class="row">
