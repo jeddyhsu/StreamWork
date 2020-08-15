@@ -3,7 +3,6 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{Layout = "Tutor/_LayoutTutorDashboard";}
 @Html.AntiForgeryToken()
-@{var cacheRand = new Random().Next();}
 
 <div class="container-fluid mr-0">
     <div class="container-fluid inner-container-fluid custom-container-padding">
@@ -19,7 +18,7 @@
                             <button type="button" class="streamWork-primary" onclick="window.location.href ='/Profiles/Tutor/@Model.CurrentUserProfile.Username'">View Profile</button>
                         </div>
                         <div class="p-lg-4 pt-md-4 p-sm-3 p-3">
-                            <input id="header-profile-picture" align="left" class="rounded header-picture" type="image" src="@Model.CurrentUserProfile.ProfilePicture?@cacheRand" />
+                            <img id="header-profile-picture" align="left" class="rounded header-picture" src="@Model.CurrentUserProfile.ProfilePicture"/>
                             <p id="header-name" class="form-header m-0 header-padding" style="font-size:20px; color:@Model.CurrentUserProfile.ProfileColor">@Model.CurrentUserProfile.Name.Replace('|', ' ')</p>
                             @if (@Model.CurrentUserProfile.ProfileCaption == null || @Model.CurrentUserProfile.ProfileCaption == "")
                             {<p id="header-occupation" class="form-header m-0" style="padding-left:100px; font-size:12px; color: #9F9F9F">Occupation / Major</p>}
@@ -65,7 +64,7 @@
                     </div>
                     <div class="col-lg-5 col-md-12 col-sm-12 col-12 order-lg-2 order-md-1 order-sm-1 order-1">
                         <div id="banner-upload" class="image-container" style="width:100%; height:100%;">
-                            <img class="banner" id="preview-profile-banner" src="@Model.CurrentUserProfile.ProfileBanner?@cacheRand" style="cursor:pointer; height:100%; object-fit:cover;" />
+                            <img class="banner" id="preview-profile-banner" src="@Model.CurrentUserProfile.ProfileBanner" style="cursor:pointer; height:100%; object-fit:cover;"  />
                             <div class="bottom-right mr-2" style="left:0px; bottom:0px;">
                                 <div class="card rounded-0" style="width:100%; height:40px; background-color:black; opacity:0.2">
                                     <i id="add-profile-banner" class="fa fa-camera d-block ml-auto mr-auto mt-2" style="font-size:24px;color:white"></i>
@@ -396,7 +395,7 @@
                                 <div id="streamInfo-@streamInfo.Id" class="col-lg-3 col-md-6 col-sm-6">
                                     <div class="card mt-3 border-0" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px;">
                                         <div class="card-title">
-                                            <a href="../Stream/Archive/rarunT/@streamInfo.StreamID/32169"><img asp-append-version="true" id="stream-thumbnail-@streamInfo.Id" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src="@streamInfo.StreamThumbnail?@cacheRand"></a>
+                                            <a href="../Stream/Archive/rarunT/@streamInfo.StreamID/32169"><img id="stream-thumbnail-@streamInfo.Id" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src="@streamInfo.StreamThumbnail" ></a>
                                         </div>
                                         <div class="card-body pt-0 pb-1">
                                             <p id="stream-title-@streamInfo.Id" class="text-truncate form-header mb-0">@streamInfo.StreamTitle</p>

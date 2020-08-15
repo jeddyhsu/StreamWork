@@ -1,5 +1,4 @@
-﻿@{var cacheRand = new Random().Next();}
-@Html.AntiForgeryToken()
+﻿@Html.AntiForgeryToken()
 
 <div class="row">
     <nav class="navbar navbar-expand-sm fixed-top p-1 w-100 navbar-custom" style="background-color:white;">
@@ -47,7 +46,7 @@
                 }
             </div>
             <div class="btn-group pr-3">
-                <input id="navbar-profile-picture" class="navbar-profile-picture" type="image" data-toggle="dropdown" src="@Model.CurrentUserProfile.ProfilePicture?@cacheRand" />
+                <img id="navbar-profile-picture" class="navbar-profile-picture" type="image" data-toggle="dropdown" src="@Model.CurrentUserProfile.ProfilePicture" asp-append-version="true" />
                 <button type="button" id="dropdown" class="btn btn-info dropdown-toggle border-0 navbar-dropdown-button" data-toggle="dropdown"></button>
                 <div class="dropdown-menu dropdown-menu-right" style="font-size:12px; min-width:0px !important">
                     <a class="dropdown-item pointer" href="/Student/StudentDashboard">Dashboard</a>

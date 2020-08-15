@@ -2,7 +2,7 @@
 {
     @foreach (var task in Model.AllScheduledStreams)
     {
-        <div class="col-lg-6 col-md-12 mt-2 w-100 @task.StreamSubject-schedule">
+        <div id="schedule-@task.Id" class="col-lg-6 col-md-12 mt-2 w-100 schedule @task.StreamSubject-schedule">
             <div class="card mb-3 border-0">
                 <div class="card-body">
                     <div class="d-inline-flex">
@@ -28,7 +28,7 @@
 }
 else
 {
-    <div class="col-9" style="height:200px">
+    <div id="schedule-none-found" class="col-9" style="height:200px">
         <p class="form-sub-header pl-3 pr-3 pt-3 pb-0" style="font-size:22px">No scheduled streams at the moment.</p>
         <p class="form-sub-header pl-3 pr-3" style="font-size:14px; font-family:'Roboto', serif">Feel free to look at some past streams in the videos tab.</p>
     </div>

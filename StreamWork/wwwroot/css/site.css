@@ -424,7 +424,11 @@ lds-dual-ring {
     outline: none;
     box-shadow: none !important;
     border: 3px solid transparent !important;
-    background-color: transparent
+    background-color: transparent;
+}
+
+.custom-form {
+    background-color: white;
 }
 
 .form-header {
@@ -630,6 +634,8 @@ pre {
 .pointer{
     cursor:pointer
 }
+
+
 
 
 

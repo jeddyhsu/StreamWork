@@ -47,7 +47,7 @@ namespace StreamWork.HelperMethods
                 }
             }
 
-            return blockBlob.Uri.AbsoluteUri;
+            return blockBlob.Uri.AbsoluteUri + "?" + DateTime.Now;
         }
 
         public static string SaveFileIntoBlobContainer(string reference, string content) //Tutor Section TXT Files

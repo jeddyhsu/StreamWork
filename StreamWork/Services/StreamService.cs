@@ -71,12 +71,33 @@ namespace StreamWork.Services
                     if ((channel.MediaId + "_5").Equals(channelKey.Split("|")[0]))
                     {
                         Console.WriteLine("Live");
+                        StartRecording(channelKey);
                         return true;
                     }
                     else
                     {
                         Console.WriteLine("Not Live");
                     }
+                }
+
+                return false;
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+                Console.WriteLine("Error in IsLive: " + ex.Message);
+                return false;
+            }
+        }
+
+
+        private bool StartRecording(string channelKey)
+        {
+            try
+            {
+                var response = CallJSON<StreamHosterEndpoint>("https://a.streamhoster.com/v1/papi/media/stream/" + channelKey + "/record", "NjBjZDBjYzlkNTNlOGViZDc3YWYyZGE2ZDNhN2EyZjQ5YWNmODk1YTo=");
+                foreach (var channel in response.Data)
+                {
+                   
                 }
 
                 return false;

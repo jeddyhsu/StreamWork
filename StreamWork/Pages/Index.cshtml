@@ -3,7 +3,6 @@
 @{
     Layout = "Home/_LayoutHome";
     ViewData["title"] = "Home";
-    var cacheRand = new Random().Next();
 }
 @Html.AntiForgeryToken()
 
@@ -125,11 +124,9 @@
                             <button class="streamWork-teal mt-3 mb-3">Learn More</button>
                         </div>
                         <div class="col-lg-8">
-                            <div class="mt-4">
-                                <video class="w-100" controls>
-                                    <source src="StreamWorkVideo.mp4" type="video/mp4">
-                                </video>
-                            </div>
+                            <video class="w-100" controls>
+                                <source src="StreamWorkVideo.mp4" type="video/mp4">
+                            </video>
                         </div>
                     </div>
                 </div>
@@ -240,8 +237,8 @@
             $('#blob-card').css('background-position-x', '25%')
             newWW = 310;
         }
-        else if (newWW < 90) {
-            newWW = 100;
+        else if (newWW < 100) {
+            newWW = 105;
         }
 
         $('#blob-card').css('background-size', newWW + 'vw')

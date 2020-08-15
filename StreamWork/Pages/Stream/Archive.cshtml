@@ -10,7 +10,6 @@ else
 }
 @{ViewData["Title"] = "StreamPlaybackPage";}
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@{var cacheRand = new Random().Next();}
 @Html.AntiForgeryToken()
 
 <div class="container-fluid" style="overflow-y:hidden">
