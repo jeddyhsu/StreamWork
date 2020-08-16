@@ -20,13 +20,15 @@ namespace StreamWork.Pages.Home
         private readonly StorageService storage;
         private readonly EncryptionService encryption;
         private readonly TopicService topics;
+        private readonly EmailService email;
 
-        public SignUpModel(StorageService storage, EncryptionService encryption, CookieService cookie, TopicService topics)
+        public SignUpModel(StorageService storage, EncryptionService encryption, CookieService cookie, TopicService topics, EmailService email)
         {
             this.storage = storage;
             this.encryption = encryption;
             cookieService = cookie;
             this.topics = topics;
+            this.email = email;
         }
 
         public async Task<JsonResult> OnGetIsAddressAvailable(string emailAddress)
@@ -86,8 +88,9 @@ namespace StreamWork.Pages.Home
                     ProfileBanner = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_Banner_svg_SW.svg",
                 };
 
-                storage.Save(user.Id, user).Wait(); // Can't SignIn until user has been created
+                await email.SendTemplateToUser("test", user);
 
+                storage.Save(user.Id, user).Wait(); // Can't SignIn until user has been created
                 await cookieService.SignIn(Request.Form["Username"], encryption.DecryptPassword(user.Password, Request.Form["Password"]));
             }
 
