@@ -10,11 +10,10 @@ else
     { Layout = "Student/_LayoutStudent"; }
 }
 @Html.AntiForgeryToken()
-@{var cacheRand = new Random().Next();}
 
 
 <div class="container">
-    <img class="banner" id="preview-profile-banner" src="@Model.UserProfile.ProfileBanner?@cacheRand" />
+    <img class="banner" id="preview-profile-banner" src="@Model.UserProfile.ProfileBanner" />
     <div class="card border-0">
         <div class="card-body p-0 mb-4">
             @await Html.PartialAsync("Partials/Profile/Header_View", Model)
@@ -73,3 +72,4 @@ else
 </div>
 
 @await Html.PartialAsync("Partials/Modals/ProfileModal")
+@await Html.PartialAsync("Partials/Notification/PushNotifications")

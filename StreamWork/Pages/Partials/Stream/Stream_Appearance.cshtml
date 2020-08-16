@@ -1,9 +1,8 @@
-﻿@{var cacheRand = new Random().Next();}
-@model StreamWork.DataModels.Video
+﻿@model StreamWork.DataModels.Video
 
-    <div class="card mt-3 border-0" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px">
+ <div class="card mt-3 border-0" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px">
         <div class="card-title">
-            <a href="/Stream/Archive/@Model.Username/@Model.StreamID/32169"><img asp-append-version="true" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src="@Model.StreamThumbnail?@cacheRand"></a>
+            <a href="/Stream/Archive/@Model.Username/@Model.StreamID/32169"><img style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src="@Model.StreamThumbnail"></a>
         </div>
         <div class="card-body pt-0 pb-1">
             <h5 class="text-truncate form-header mb-0">@Model.StreamTitle</h5>

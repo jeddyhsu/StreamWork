@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
@@ -44,5 +45,12 @@ namespace StreamWork.HelperMethods
             return result;
         }
 
+        public static string GetRandomColor()
+        {
+            var random = new Random();
+            var list = new List<string> { "#D9534F", "#F0AD4E", "#56C0E0", "#5CB85C", "#1C7CD5", "#8B4FD9" };
+            int index = random.Next(list.Count);
+            return list[index];
+        }
     }
 }

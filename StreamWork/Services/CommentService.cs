@@ -53,8 +53,8 @@ namespace StreamWork.Services
                 var comment = await Get<Comment>(SQLQueries.GetCommentWithId, new string[] { commentId });
                 comment.Message = MiscHelperMethods.URLIFY(message);
                 comment.Edited = "true";
-                await Save<Comment>(comment.Id, comment);
-                return new List<string> {comment.Message, comment.Id};
+                await Save(comment.Id, comment);
+                return new List<string> {comment.Message, comment.Id, comment.ReceiverName, comment.ParentId};
             }
             catch (Exception e)
             {

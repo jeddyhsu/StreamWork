@@ -17,9 +17,9 @@ namespace StreamWork.Pages.Profiles
         private readonly NotificationService notificationService;
         private readonly EncryptionService encryptionService;
 
-        public DataModels.Profile CurrentUserProfile { get; set; }
-        public DataModels.Profile UserProfile { get; set; }
-        public List<DataModels.Profile> RelatedTutors { get; set; }
+        public Profile CurrentUserProfile { get; set; }
+        public Profile UserProfile { get; set; }
+        public List<Profile> RelatedTutors { get; set; }
         public List<Section> Sections { get; set; }
         public List<Topic> Topics { get; set; }
         public List<Comment> Comments { get; set; }
@@ -39,18 +39,18 @@ namespace StreamWork.Pages.Profiles
         {
             if (!cookieService.Authenticated)
             {
-                return Redirect(cookieService.Url("/Home/SignIn/" + encryptionService.EncryptString("/Profile/Tutor/" + student)));
+                return Redirect(cookieService.Url("/Home/SignIn/" + encryptionService.EncryptString("/Profiles/Tutor/" + student)));
             }
 
             if (!await cookieService.ValidateUserType(student, "student")) //checks for 
             {
-                return Redirect("/Profile/Tutor/" + student);
+                return Redirect("/Profiles/Tutor/" + student);
             }
 
             CurrentUserProfile = await cookieService.GetCurrentUser();
-            UserProfile = await storageService.Get<DataModels.Profile>(SQLQueries.GetUserWithUsername, student);
+            UserProfile = await storageService.Get<Profile>(SQLQueries.GetUserWithUsername, student);
 
-            RelatedTutors = (await storageService.GetList<DataModels.Profile>(SQLQueries.GetAllTutorsNotInTheList, new string[] { UserProfile.Id })).GetRange(0, 5);
+            RelatedTutors = (await storageService.GetList<Profile>(SQLQueries.GetAllTutorsNotInTheList, new string[] { UserProfile.Id })).GetRange(0, 5);
             Sections = profileService.GetSections(UserProfile);
             Topics = profileService.GetTopics(UserProfile);
 

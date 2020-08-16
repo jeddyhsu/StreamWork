@@ -17,7 +17,11 @@ else
     <div class="row" style="padding-top:71px">
         <div class="d-flex flex-column col-lg-9 col-md-12 col-sm-12 col-12 p-0 border-right ">
             <div id="player-card" class="card border-0">
-                <iframe id="player" style="width:100%;" src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.UserChannel.ChannelKey.Split('|')[0]" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+
+                <div id="player-div" style="position: relative; padding-bottom: 56.25%; height: 0;">
+                    <iframe id="player" src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.UserChannel.ChannelKey.Split('|')[0]" style="width: 100%; height: 100%;" frameborder="0" scrolling="no" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="autoplay; fullscreen;"></iframe>
+                </div>
+
                 <div id="player-row" class="card-body p-0">
                     <img class="p-3" align="left" src="@Model.UserChannel.StreamSubjectIcon" style="width:100%; height:100%; max-width:120px; max-height:120px; cursor:pointer" onclick="window.open('https://www.streamwork.live/Home/Search?s=@Model.UserChannel.StreamSubject&q=')" />
                     <div class="m-3" id="StreamInfo">
@@ -54,6 +58,7 @@ else
                         </div>
                     </div>
                 </div>
+
                 <div class="card-body" style="background-color:#FBFBFB">
                     <div class="row">
                         <div class="col-lg-4 col-md-4 col-sm-12 col-12 custom-column-4 order-lg-1 order-md-2 custom-order-2">
@@ -113,5 +118,9 @@ else
     </div>
 </div>
 
-<script>ResizeStreamInfoSection();
-    ResizeStreamSection();</script>
+<script>
+    ResizeStreamInfoSection();
+    ResizeStreamSection();
+</script>
+
+@await Html.PartialAsync("Partials/Notification/PushNotifications")

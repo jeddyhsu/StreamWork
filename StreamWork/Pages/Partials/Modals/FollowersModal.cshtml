@@ -6,13 +6,13 @@
             <div class="slider-object" style="width:110px;"></div>
         </div>
         <div class="row">
-            <div id="notification-mask" class="col-12">
+            <div class="col-12">
                 @if (Model.Followers != null && Model.Followers.Count > 0)
                 {
                     <ul id="followers-list" class="pl-3 m-0" style="list-style-type:none; height:435px; overflow:scroll">
                         @foreach (var follower in Model.Followers)
                         {
-                            <li id="follower-@follower.Id" class="border-bottom" onclick="window.location.href = '/Profile/@follower.ProfileType/@follower.Username'" style="cursor:pointer">
+                            <li id="follower-@follower.Id" class="border-bottom" onclick="window.location.href = '/Profiles/@follower.ProfileType/@follower.Username'" style="cursor:pointer">
                                 <div class="row pt-3 pb-3">
                                     <div class="col-12">
                                         <img id="notification-delete-@follower.Id" src="~/images/GenericAssets/Trash.png" class="comment-remove mr-3 float-right" onclick="DeleteNotification('@follower.Id')" />

@@ -1,4 +1,5 @@
 ﻿function UpdateToSeen(username) {
+    $('#notification-bell-mask').html(`<img src="/images/GenericAssets/Bell.svg" width="65" class="pointer" onclick="OpenModal('notification-modal')" />`)
     $.ajax({
         url: '/Notifications/NotificationModal/?handler=UpdateToSeen',
         type: 'POST',
@@ -29,7 +30,7 @@ function DeleteNotification(id) {
             if (data.message === "Success") {
                 $('#notification-' + id).remove();
                 if ($('#notification-list li').length == 0) {
-                    $('#notification-mask').html(`<p class="form-header text-center p-3 mb-0" style="font-size:18px;">No notifications at this time!</p>`)
+                    $('#notification-list').append(`<li id="no-notification" class="form-header text-center p-3 mb-0" style="font-size:18px;">No notifications at this time!</p>`)
                 }
             }
         }

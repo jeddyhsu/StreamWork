@@ -35,12 +35,7 @@
 
 .custom-container-padding {
     padding-top: 75px !important;
-}
-
-@media screen and (max-width: 600px) {
-    .custom-container-padding {
-        padding-top: 50px !important;
-    }
+    overflow:hidden
 }
 
 /*Navigation Slider Tabs*/
@@ -56,6 +51,14 @@
     background-color: transparent !important;
     border: none;
     font-family: 'Roboto Slab', serif;
+}
+
+.tab-content {
+       
+    overflow: auto;
+    height: calc(100vh - 250px);
+    height: -webkit-calc(100vh - 250px);
+    height: -moz-calc(100vh - 250px);
 }
 
 /*Bootstrap Column Resposive Widths*/
@@ -200,12 +203,12 @@
 }
 
 .logo-desktop {
-    width: 165px;
+    width: 180px;
     display: block;
     margin-left: auto;
     margin-right: auto;
-    padding: 10px;
-    cursor:pointer;
+    padding: 15px;
+    cursor: pointer;
 }
 
 .logo-tablet {
@@ -248,5 +251,4 @@
 
 .subject-card{
     cursor:pointer;
-
 }

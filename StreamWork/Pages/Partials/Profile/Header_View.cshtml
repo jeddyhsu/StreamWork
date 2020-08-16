@@ -1,6 +1,4 @@
-﻿@{var cacheRand = new Random().Next();}
-
-<div class="row">
+﻿<div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="p-3">
             <!--Desktop-->
@@ -48,7 +46,7 @@
             }
 
             <div class="profile-picture-overlap-container">
-                <input id="header-profile-picture" align="left" class="rounded" type="image" src="@Model.UserProfile.ProfilePicture?@cacheRand" style="width:90px; cursor:text" />
+                <img id="header-profile-picture" align="left" class="rounded" src="@Model.UserProfile.ProfilePicture" style="width:90px;"  />
             </div>
             <div class="d-inline-block">
                 <p id="header-name" class="form-header m-0 header-padding" style="font-size:22px;">@Model.UserProfile.Name.Replace('|', ' ')</p>

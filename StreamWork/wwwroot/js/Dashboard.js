@@ -314,7 +314,7 @@ function SaveUniversityInfo() {
     container.innerHTML = htmlString;
 
     $.ajax({
-        url: '/Profile/Profile/?handler=SaveUniversity',
+        url: '/Profiles/Profile/?handler=SaveUniversity',
         type: 'post',
         datatype: 'json',
         data: {

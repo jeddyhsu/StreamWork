@@ -1,5 +1,5 @@
 ﻿.comment-send-reply-textarea {
-    height: 40px !important;
+    width:100%;
     min-height: 40px !important;
     background-color: transparent;
     overflow:hidden
@@ -17,7 +17,7 @@
 
 .comment-send {
     padding-left: 40px;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .comment-profile-picture {
@@ -50,7 +50,7 @@
 }
 
 .comment-cancel {
-    font-size: 12px;
+    font-size: 14px;
     cursor: pointer;
     display:none;
 }
@@ -75,4 +75,12 @@
 
 .comment-at {
     color: #004643;
+    display: inline-block;
+    padding-top:5px;
+    padding-bottom:5px;
+    padding-right:5px;
+}
+
+.comment-text{
+    font-size:14px
 }

@@ -17,7 +17,7 @@ namespace StreamWork.Services
     public class CookieService : StorageService
     {
         public static bool devEnvironment;
-        public readonly string host = devEnvironment ? "http://localhost:58539" : "https://www.streamwork.live";
+        public readonly string host = devEnvironment ? "http://localhost:58539" : "https://streamworktest.azurewebsites.net";
         private readonly IHttpContextAccessor httpContext;
         public bool Authenticated;
 
@@ -38,6 +38,7 @@ namespace StreamWork.Services
                 {
                     new Claim(ClaimTypes.Name, userProfile.Username),
                     new Claim(ClaimTypes.Email, userProfile.EmailAddress),
+                    new Claim(ClaimTypes.NameIdentifier, userProfile.Username)
                     //new Claim(ClaimTypes.UserData, MiscHelperMethods.GetRandomChatColor())
                 };
 

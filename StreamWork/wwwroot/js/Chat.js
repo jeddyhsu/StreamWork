@@ -90,7 +90,7 @@ function JoinChatRoom(chatId, userName) {
 }
 
 function GetMessage(chatId, userName, name, profilePicture, chatColor, archivedVideoId){
-    var message = document.getElementById("chatInput").value;
+    var message = $("#chatInput").html().replace(/<div>/gi, '<br>').replace(/<\/div>/gi, '')
     if (message == "") return;
     CleanAndSendMessage(message, chatId, userName, name, profilePicture, chatColor, archivedVideoId);
 }
@@ -107,14 +107,14 @@ function CleanAndSendMessage(message, chatId, userName, name, profilePicture, ch
         }
     });
 
-    document.getElementById("chatInput").value = "";
+    $("#chatInput").text("");
     event.preventDefault();
 }
 
 function PopoutChat(chatId, chatInfo) {
     var windowObjectRef;
-    var windowFeatures = "menubar=no, toolbar=no,location=yes,resizable=yes,scrollbars=yes,status=yes, width=500, height=600";
-    windowObjectRef = window.open('https://www.streamwork.live/chat/streamworkchat?chatId=' + chatId + "&chatInfo=" + chatInfo, 'StreamWork Chat', windowFeatures);
+    var windowFeatures = "menubar=no, toolbar=no,location=yes,resizable=yes,scrollbars=yes,status=yes, width=300, height=600";
+    windowObjectRef = window.open('/chat/LiveChat?chatId=' + chatId + "&chatInfo=" + chatInfo, 'StreamWork Chat', windowFeatures);
 }
 
 function CheckIfEmpty() {

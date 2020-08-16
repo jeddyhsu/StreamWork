@@ -38,6 +38,7 @@
     border: thick;
     color: black;
     padding-left: 40px;
+    word-break: break-all
 }
 
 .chat-list-view-archive {
@@ -55,24 +56,6 @@
     font-family: 'Roboto', serif
 }
 
-:-moz-placeholder { /* Firefox 18- */
-    padding-top: 20px;
-    font-size: 14px;
-    font-family: 'Roboto', serif
-}
-
-::-moz-placeholder { /* Firefox 19+ */
-    padding-top: 20px;
-    font-size: 14px;
-    font-family: 'Roboto', serif
-}
-
-:-ms-input-placeholder {
-    padding-top: 20px;
-    font-size: 14px;
-    font-family: 'Roboto', serif
-}
-
 .no-scroll-bar::-webkit-scrollbar {
     display: none;
 }
@@ -83,7 +66,11 @@
     scrollbar-width: none; /* Firefox */
 }
 
-
+.chat-text {
+    font-size: 14px !important;
+    margin-top: 22px !important;
+    margin-bottom: 22px !important
+}
 
 
 

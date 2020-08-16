@@ -45,7 +45,7 @@ namespace StreamWork
             })
             .AddCookie(options =>
             {
-                options.Cookie.SameSite = SameSiteMode.None;
+                options.Cookie.SameSite = SameSiteMode.Strict;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.None;
                 options.LoginPath = "/Home/SignIn";
             })
@@ -55,9 +55,7 @@ namespace StreamWork
                 options.ClientSecret = "5pJv9d7UACsWWPkWKMjb-sTb";
             });
 
-
             services.Configure<StorageConfig>(Configuration);
-
             services.AddTransient<ChatService>();
             services.AddTransient<CommentService>();
             services.AddTransient<CookieService>();

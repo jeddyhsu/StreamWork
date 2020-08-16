@@ -4,27 +4,46 @@
 
 .custom-container {
     max-width: 1500px;
-    margin-top: 100px
+    margin-top: 20px
 }
 
-
 .header {
-    font-size: 52px;
-    color: white;
+    font-size: 42px;
+    color: black;
 }
 
 .home-background {
     background: linear-gradient(to bottom, #004643 65%, #F3F3F3 25%);
 }
 
+.graphic {
+    position: relative;
+    left: 25%;
+    bottom: -70px;
+    width: 24%;
+    min-width: 280px
+}
+
 @media (max-width: 800px){
     .header {
-        font-size: 42px;
-        color: white;
+        font-size: 38px;
+        color: black;
     }
 
     .home-background {
         background: linear-gradient(to bottom, #004643 100%);
+    }
+
+    .graphic {
+        position: relative;
+        left: 18%;
+        bottom: -70px;
+        width: 24%;
+        min-width: 240px
+    }
+
+    .container-padding {
+        padding-top: 40px;
     }
 }
 

@@ -16,8 +16,8 @@ namespace StreamWork.Pages.Chat
         public Profile CurrentUserProfile { get; set; }
         public string ChatId { get; set; }
         public string ChatInfo { get; set; }
+        public string ChatInfoEncrypted { get; set; }
         public List<DataModels.Chat> Chats { get; set; }
-        public string ChatColor { get; set; }
         public bool IsLoggedIn { get; set; }
 
         public LiveChat(CookieService cookie, ChatService chat, EncryptionService encryption)
@@ -32,8 +32,8 @@ namespace StreamWork.Pages.Chat
             CurrentUserProfile = await cookieService.GetCurrentUser();
             ChatId = chatId;
             ChatInfo = encryptionService.DecryptString(chatInfo);
+            ChatInfoEncrypted = chatInfo;
             Chats = await chatService.GetAllChatsWithChatId(ChatId, ChatInfo);
-            ChatColor = chatService.GetRandomChatColor();
 
             IsLoggedIn = CurrentUserProfile == null ? false : true;
 

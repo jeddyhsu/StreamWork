@@ -1,40 +1,40 @@
-﻿@{var cacheRand = new Random().Next();}
-    <div id="stream-row" class="row p-3">
-        @if (Model.UserArchivedStreams.Count != 0)
+﻿<div id="stream-row" class="row p-3">
+    @if (Model.UserArchivedStreams.Count != 0)
+    {
+        @foreach (var streamInfo in Model.UserArchivedStreams)
         {
-            @foreach (var streamInfo in Model.UserArchivedStreams)
-            {
-                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                    <div class="card mt-3 border-0" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px">
-                        <div class="card-title">
-                            <a href="/Stream/Archive/@streamInfo.Username/@streamInfo.StreamID"><img asp-append-version="true" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src="@streamInfo.StreamThumbnail?@cacheRand"></a>
-                        </div>
-                        <div class="card-body pt-0 pb-1">
-                            <h5 class="text-truncate form-header">@streamInfo.StreamTitle</h5>
-                            <input type="hidden" value="@streamInfo.StreamDescription" />
-                            <p class="text-truncate form-header" style="font-size:10px">@streamInfo.Username</p>
-                        </div>
-                        <div class="card-footer" style="background-color:@streamInfo.StreamColor; border-bottom-left-radius:20px; border-bottom-right-radius:20px;"></div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-6">
+                <div class="card mt-3 border-0" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px">
+                    <div class="card-title">
+                        <a href="/Stream/Archive/@streamInfo.Username/@streamInfo.StreamID/32169"><img style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src="@streamInfo.StreamThumbnail"></a>
                     </div>
+                    <div class="card-body pt-0 pb-1">
+                        <p id="stream-title-@streamInfo.Id" class="text-truncate form-header mb-0">@streamInfo.StreamTitle</p>
+                        <p id="stream-title-@streamInfo.Id" class="text-truncate form-header mb-1" style="font-size:12px">@streamInfo.StartTime.ToString("MMM dd yyyy")</p>
+                        <input id="stream-description-@streamInfo.Id" type="hidden" value="@streamInfo.StreamDescription" />
+                        <p class="text-truncate form-header" style="font-size:10px">@streamInfo.Name.Replace('|', ' ')</p>
+                    </div>
+                    <div class="card-footer" style="background-color:@streamInfo.StreamColor; border-bottom-left-radius:20px; border-bottom-right-radius:20px;"></div>
                 </div>
-            }
+            </div>
+        }
+    }
+    else
+    {
+        if (Model.CurrentUserProfile.Id == Model.UserProfile.Id)
+        {
+            <div class="col-12 text-center">
+                <p class="form-sub-header p-0" style="font-size:22px">Looks like you don't have any videos yet...</p>
+                <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">Help other students find the help they need by putting up content!</p>
+                <button class="streamWork-primary mt-3" onclick="window.location.href ='/Tutor/TutorStream'" style="font-size:14px; font-family:'Roboto', serif">Start your first stream</button>
+            </div>
         }
         else
         {
-            if (Model.CurrentUserProfile.Id == Model.UserProfile.Id)
-            {
-                <div class="col-12 text-center">
-                    <p class="form-sub-header p-0" style="font-size:22px">Looks like you don't have any videos yet...</p>
-                    <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">Help other students find the help they need by putting up content!</p>
-                    <button class="streamWork-primary mt-3" onclick="window.location.href ='/Tutor/TutorStream'" style="font-size:14px; font-family:'Roboto', serif">Start your first stream</button>
-                </div>
-            }
-            else
-            {
-                <div class="col-12 text-center">
-                    <p class="form-sub-header p-0" style="font-size:22px">No Streams</p>
-                    <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">This tutor hasn't streamed yet!</p>
-                </div>
-            }
+            <div class="col-12 text-center">
+                <p class="form-sub-header p-0" style="font-size:22px">No Streams</p>
+                <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">This tutor hasn't streamed yet!</p>
+            </div>
         }
-    </div>
+    }
+</div>

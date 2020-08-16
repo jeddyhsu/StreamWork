@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
@@ -83,6 +82,7 @@ namespace StreamWork.Pages.Home
                     Expiration = DateTime.UtcNow,
                     AcceptedTutor = false,
                     LastLogin = DateTime.UtcNow,
+                    ProfileColor = MiscHelperMethods.GetRandomColor(),
                     //ProfileSince = DateTime.UtcNow,
                     ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_pfp_SW.png",
                     ProfileBanner = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_Banner_svg_SW.svg",
