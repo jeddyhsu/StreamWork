@@ -41,7 +41,7 @@ else
                     <li id="message-@i" class='list-group-item @colorWay border-0'>
                         <div class="row">
                             <div class="col-12">
-                                <input align="left" type="image" class="chat-profile-picture rounded" src=@Model.Chats[i].ProfilePicture />
+                                <input align="left" type="image" class="chat-profile-picture rounded pointer" src=@Model.Chats[i].ProfilePicture onclick="window.parent.location.href='/Profiles/Student/@Model.Chats[i].Username'" />
                                 @if (Model.ChatId == Model.Chats[i].Username)
                                 {
                                     <p class="chat-name" style='color:@Model.Chats[i].ChatColor'>
@@ -93,7 +93,7 @@ else
                                             }
                                     </script>
                                     <div >
-                                        <button type="button" id="sendQuestionButton" class="streamWork-primary ml-1 mr-1" style="font-size:12px;" onclick="GetMessage('@Model.ChatId','@Model.CurrentUserProfile.Username','@Model.CurrentUserProfile.Name', '@Model.CurrentUserProfile.ProfilePicture', '@Model.CurrentUserProfile.ProfileColor', '@Model.ChatInfo')">Send</button>
+                                        <button type="button" id="sendQuestionButton" class="streamWork-primary mr-2" style="font-size:12px;" onclick="GetMessage('@Model.ChatId','@Model.CurrentUserProfile.Username','@Model.CurrentUserProfile.Name', '@Model.CurrentUserProfile.ProfilePicture', '@Model.CurrentUserProfile.ProfileColor', '@Model.ChatInfo')">Send</button>
                                     </div>
                                 </div>
                             </div>

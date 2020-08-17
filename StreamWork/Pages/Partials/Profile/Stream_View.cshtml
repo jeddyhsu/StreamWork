@@ -3,7 +3,7 @@
     {
         @foreach (var streamInfo in Model.UserArchivedStreams)
         {
-            <div class="col-lg-4 col-md-6 col-sm-6 col-6">
+            <div id="streamInfo-@streamInfo.Id" class="col-lg-4 col-md-6 col-sm-6 col-6 video">
                 <div class="card mt-3 border-0" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px">
                     <div class="card-title">
                         <a href="/Stream/Archive/@streamInfo.Username/@streamInfo.StreamID/32169"><img style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src="@streamInfo.StreamThumbnail"></a>
@@ -16,6 +16,11 @@
                     </div>
                     <div class="card-footer" style="background-color:@streamInfo.StreamColor; border-bottom-left-radius:20px; border-bottom-right-radius:20px;"></div>
                 </div>
+            </div>
+
+            <div id="no-videos" class="col-12 text-center d-none">
+                <p class="form-sub-header pl-3 pr-3 pt-3 pb-0" style="font-size:22px">No videos with the currrent search term.</p>
+                <p class="form-sub-header pl-3 pr-3" style="font-size:14px; font-family:'Roboto', serif">Try using a different search term.</p>
             </div>
         }
     }

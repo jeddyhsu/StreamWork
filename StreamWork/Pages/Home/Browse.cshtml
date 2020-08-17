@@ -6,12 +6,12 @@
 <div class="container-fluid mr-0" style="padding-top:25px;">
     <div class="container-fluid inner-container-fluid custom-container-padding">
         <p class="form-header pl-3" style="font-size:44px">Browse</p>
-        <div class="d-flex pl-3">
-            <form id="search-form" class="p-1 border w-100 rounded d-inline-block custom-form" onkeyup="SearchStreams(event, 'stream-row')" onsubmit="SearchStreams(event, 'stream-row')">
+        <div class="d-flex pl-3 pr-3">
+            <form id="search-form" class="p-1 border w-100 rounded d-inline-block custom-form" onkeyup="SearchStreams(event)" onsubmit="SearchStreams(event)">
                 <div class="d-flex">
-                    <i class="fa fa-search justify-content-center align-items-center ml-3" style="font-size:24px; margin-top:12px" aria-hidden="true"></i>
+                    <input class="mt-1 ml-2" type="image" src="~/images/GenericAssets/Search.svg" width="30" height="40"/>
                     <input id="searchQuery" class="form-control-lg mainLoginInput mt-1" type="search" placeholder="Search Streams" style="border: none; font-size:14px;">
-                    <select id="filter" name="filter" class="form-control form-control-sm rounded m-2 h-100 float-right" onchange="SearchStreams()" style="max-width:175px;">
+                    <select id="filter" name="filter" class="form-control form-control-sm rounded m-2 h-100 float-right" onchange="SearchStreams(event)" style="max-width:175px;">
                         <option value="">Filter</option>
                         <option value="Mathematics">Mathematics</option>
                         <option value="Science">Science</option>

@@ -112,20 +112,25 @@ else
                     <div class="container-fluid pt-3" style="width:100%">
                         <div class="row p-3">
                             <div class="col-12">
-                                <form class="p-1 border rounded" style="background-color:white" onkeyup="SearchStreams(event, '@Model.UserProfile.Name', '@Model.UserProfile.Username', 'col-lg-6')" onsubmit="SearchStreams(event, '@Model.UserProfile.Name', '@Model.UserProfile.Username', 'col-lg-6')">
-                                    <input id="searchQuery" class="form-control-lg" type="search" placeholder="🔎 Search Past Streams" style="border: none; font-size:12px;">
-                                </form>
-                                <select id="filter" name="filter" class="form-control form-control-sm rounded-0 mt-3" onchange="SearchStreams(event, '@Model.UserProfile.Name', '@Model.UserProfile.Username')" style="width:175px">
-                                    <option value="">Filter</option>
-                                    <option value="Mathematics">Mathematics</option>
-                                    <option value="Science">Science</option>
-                                    <option value="Engineering">Engineering</option>
-                                    <option value="Business">Business</option>
-                                    <option value="Law">Law</option>
-                                    <option value="Art">Art</option>
-                                    <option value="Humanities">Humanities</option>
-                                    <option value="Other">Others</option>
-                                </select>
+                                <div class="d-flex">
+                                    <form id="search-form" class="p-1 border w-100 rounded d-inline-block custom-form" onkeyup="SearchStreams(event, '@Model.UserProfile.Username')" onsubmit="SearchStreams(event, '@Model.UserProfile.Username')">
+                                        <div class="d-flex">
+                                            <input class="mt-1 ml-2" type="image" src="~/images/GenericAssets/Search.svg" width="30" height="40" />
+                                            <input id="searchQuery" class="form-control-lg mt-1" type="search" placeholder="Search Videos" style="border: none; font-size:14px;">
+                                            <select id="filter" name="filter" class="form-control form-control-sm rounded m-2 h-100 float-right" onchange="SearchStreams(event, '@Model.UserProfile.Username')" style="max-width:175px;">
+                                                <option value="">Filter</option>
+                                                <option value="Mathematics">Mathematics</option>
+                                                <option value="Science">Science</option>
+                                                <option value="Engineering">Engineering</option>
+                                                <option value="Business">Business</option>
+                                                <option value="Law">Law</option>
+                                                <option value="Art">Art</option>
+                                                <option value="Humanities">Humanities</option>
+                                                <option value="Other">Others</option>
+                                            </select>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                         <div class="divider"></div>

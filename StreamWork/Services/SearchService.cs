@@ -40,28 +40,56 @@ namespace StreamWork.Services
             }
         }
 
-        public async Task<List<Video>> SearchVideos(string subject, string searchQuery)
+        public async Task<List<Video>> SearchVideos(string subject, string searchQuery, string username = null) 
         {
             if (string.IsNullOrEmpty(subject))
             {
-                if (string.IsNullOrWhiteSpace(searchQuery))
+                if(string.IsNullOrWhiteSpace(searchQuery))
                 {
-                    return await storage.GetList<Video>(SQLQueries.GetAllArchivedStreams);
+                    if (string.IsNullOrWhiteSpace(username))
+                    {
+                        return await storage.GetList<Video>(SQLQueries.GetAllArchivedStreams);
+                    }
+                    else
+                    {
+                        return await storage.GetList<Video>(SQLQueries.GetArchivedStreamsWithUsername, username);
+                    }
                 }
-                else
+                else 
                 {
-                    return await storage.GetList<Video>(SQLQueries.GetArchivedStreamsWithSearchTerm, searchQuery.ToLower());
+                    if (string.IsNullOrWhiteSpace(username))
+                    {
+                        return await storage.GetList<Video>(SQLQueries.GetArchivedStreamsWithSearchTerm, searchQuery.ToLower());
+                    }
+                    else
+                    {
+                        return await storage.GetList<Video>(SQLQueries.GetArchivedStreamsWithSearchTermAndUsername, searchQuery.ToLower(), username);
+                    }
                 }
             }
             else
             {
                 if (string.IsNullOrWhiteSpace(searchQuery))
                 {
-                    return await storage.GetList<Video>(SQLQueries.GetArchivedStreamsWithSubject, subject);
+                    if (string.IsNullOrWhiteSpace(username))
+                    {
+                        return await storage.GetList<Video>(SQLQueries.GetArchivedStreamsWithSubject, subject);
+                    }
+                    else
+                    {
+                        return await storage.GetList<Video>(SQLQueries.GetArchivedStreamsWithSubjectAndUsername, subject, username);
+                    }
                 }
                 else
                 {
-                    return await storage.GetList<Video>(SQLQueries.GetArchivedStreamsWithSubjectAndSearchTerm, subject, searchQuery.ToLower());
+                    if (string.IsNullOrWhiteSpace(username))
+                    {
+                        return await storage.GetList<Video>(SQLQueries.GetArchivedStreamsWithSubjectAndSearchTerm, subject, searchQuery.ToLower());
+                    }
+                    else
+                    {
+                        return await storage.GetList<Video>(SQLQueries.GetArchivedStreamsWithSubjectAndSearchTermAndUsername, subject, searchQuery.ToLower(), username);
+                    }
                 }
             }
         }

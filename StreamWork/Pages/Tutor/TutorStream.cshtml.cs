@@ -68,7 +68,7 @@ namespace StreamWork.Pages.Tutor
             var userChannel = await storageService.Get<Channel>(SQLQueries.GetUserChannelWithUsername, userProfile.Username);
 
             var archivedVideoId = streamService.StartStream(Request, userProfile, userChannel);
-            if (archivedVideoId != null) return new JsonResult(new { Message = JsonResponse.Success.ToString(), Results = new string[] { encryptionService.EncryptString(archivedVideoId), userChannel.Username } }) ;
+            if (archivedVideoId != null) return new JsonResult(new { Message = JsonResponse.Success.ToString(), Results = new string[] { encryptionService.EncryptString(archivedVideoId), userChannel.Username } }) ; //for chatbox
             return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
         }
     }

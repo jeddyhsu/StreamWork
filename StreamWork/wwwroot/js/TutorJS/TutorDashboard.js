@@ -309,7 +309,7 @@ function DeleteStream(id) {
     });
 }
 
-function SearchStreams(event, name, username, columnPreference) { //filters by username
+function SearchStreams(event, username) { //filters by username
     event.preventDefault();
     var searchTerm = $('#searchQuery').val();
     var filter = $('#filter').val();
@@ -320,33 +320,23 @@ function SearchStreams(event, name, username, columnPreference) { //filters by u
         data: {
             'searchTerm': searchTerm,
             'filter': filter,
+            'username': username,
         },
         beforeSend: function (xhr) {
             xhr.setRequestHeader("XSRF-TOKEN",
                 $('input:hidden[name="__RequestVerificationToken"]').val());
         },
         success: function (data) {
-            document.getElementById("stream-row").innerHTML = "";
-            var element = "";
-            for (var i = 0; i < data.results.length; i++) {
-                if (data.results[i].username == username) {
-                    element += `<div id="streamInfo-${data.results[i].id}" class="${columnPreference} col-md-6 col-sm-6">
-                                <div class="card mt-3 border-0" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px;">
-                                    <div class="card-title">
-                                        <a href="../Stream/Archive/${data.results[i].username}/${data.results[i].streamID}/32169"><img id="stream-thumbnail-${data.results[i].id}" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src=${data.results[i].streamThumbnail}?nocache=${new Date().valueOf()}></a>
-                                    </div>
-                                    <div class="card-body pt-0 pb-1">
-                                        <h5 id="stream-title-${data.results[i].id}" class="text-truncate form-header">${data.results[i].streamTitle}</h5>
-                                        <input id="stream-description-${data.results[i].id}" type="hidden" value="${data.results[i].streamDescription}" />
-                                        <p class="text-truncate form-header" style="font-size:10px">${name.replace("|", " ")}</p>
-                                    </div>
-                                    <div class="card-footer p-0" style="background-color:${data.results[i].streamColor}; border-bottom-left-radius:20px; border-bottom-right-radius:20px;"><span style="color:white; cursor:pointer; float:right; padding-right:10px" onclick="EditStream('${data.results[i].id}')">&#8943;</span></div>
-                                </div>
-                            </div>`
+            $('.video').hide();
+            $('#no-videos').removeClass('d-block').addClass('d-none')
+            if (data.results.length > 0) {
+                for (var i = 0; i < data.results.length; i++) {
+                    $('#streamInfo-' + data.results[i].id).show()
                 }
             }
-
-            document.getElementById("stream-row").innerHTML = element;
+            else {
+                $('#no-videos').removeClass('d-none').addClass('d-block')
+            }
         }
     });
 }

@@ -2,7 +2,6 @@
 using MimeKit;
 using StreamWork.DataModels;
 using System.Collections;
-using System;
 using Google.Apis.Auth.OAuth2;
 using System.Threading.Tasks;
 using MailKit.Security;

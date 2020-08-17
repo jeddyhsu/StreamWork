@@ -28,7 +28,7 @@
                         <li id="message-@i" class='list-group-item @colorWay border-0'>
                             <div class="row">
                                 <div class="col-12">
-                                    <input align="left" type="image" class="chat-profile-picture rounded" src=@Model.Chats[i].ProfilePicture />
+                                    <img align="left" class="chat-profile-picture rounded pointer" src=@Model.Chats[i].ProfilePicture onclick="window.parent.location.href='/Profiles/Student/@Model.Chats[i].Username'" />
                                     @if (Model.ChatId == Model.Chats[i].Username)
                                     {
                                         <p class="chat-name" style='color:@Model.Chats[i].ChatColor'>

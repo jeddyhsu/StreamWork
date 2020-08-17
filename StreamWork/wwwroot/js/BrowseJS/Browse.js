@@ -10,6 +10,7 @@ function SliderStreams() {
     $('#slider-object').css("transform", "translate3d(20px, 0px, 0px)")
     $('#search-form').attr("onkeyup", "SearchStreams(event)")
     $('#search-form').attr("onsubmit", "SearchStreams(event)")
+    $('#filter').attr("onchange", "SearchStreams(event)")
     ChangePlaceHolder("Search Streams")
     page = "stream"
 }
@@ -19,6 +20,7 @@ function SliderSchedule() {
     $('#slider-object').css("transform", "translate3d(110px, 0px, 0px)")
     $('#search-form').attr("onkeyup", "SearchSchedule(event)")
     $('#search-form').attr("onsubmit", "SearchSchedule(event)")
+    $('#filter').attr("onchange", "SearchSchedule(event)")
     ChangePlaceHolder("Search Upcoming Streams")
     page = "schedule"
 }
@@ -28,6 +30,7 @@ function SliderVideos() {
     $('#slider-object').css("transform", "translate3d(200px, 0px, 0px)")
     $('#search-form').attr("onkeyup", "SearchVideos(event)")
     $('#search-form').attr("onsubmit", "SearchVideos(event)")
+    $('#filter').attr("onchange", "SearchVideos(event)")
     ChangePlaceHolder("Search Videos")
     page = "video"
 }
@@ -37,7 +40,9 @@ function SliderTutors() {
     $('#slider-object').css("transform", "translate3d(275px, 0px, 0px)")
     $('#search-form').attr("onkeyup", "SearchTutors(event)")
     $('#search-form').attr("onsubmit", "SearchTutors(event)")
+    $('#filter').attr("onchange", "SearchTutors(event)")
     ChangePlaceHolder("Search Tutors")
+    page = "tutor"
 }
 
 function FilterByCards(subject) {

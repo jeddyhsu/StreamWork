@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -71,7 +74,6 @@ namespace StreamWork.Services
                     if ((channel.MediaId + "_5").Equals(channelKey.Split("|")[0]))
                     {
                         Console.WriteLine("Live");
-                        StartRecording(channelKey);
                         return true;
                     }
                     else
@@ -89,18 +91,32 @@ namespace StreamWork.Services
             }
         }
 
-
-        private bool StartRecording(string channelKey)
+        private async Task<bool> StartRecording(string channelKey)
         {
             try
             {
-                var response = CallJSON<StreamHosterEndpoint>("https://a.streamhoster.com/v1/papi/media/stream/" + channelKey + "/record", "NjBjZDBjYzlkNTNlOGViZDc3YWYyZGE2ZDNhN2EyZjQ5YWNmODk1YTo=");
-                foreach (var channel in response.Data)
-                {
-                   
-                }
-
+                var client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", "NjBjZDBjYzlkNTNlOGViZDc3YWYyZGE2ZDNhN2EyZjQ5YWNmODk1YTo=");
+                var resp = await client.PostAsync("https://a.streamhoster.com/v1/papi/media/stream/" + channelKey.Split('|')[0].Remove(channelKey.Split('|')[0].Length - 2) + "/record", new StringContent("{\"recordMode\":\"manual_on\"}", Encoding.UTF8, "application/json"));
+                var response = await resp.Content.ReadAsByteArrayAsync();
+                return true;
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+                Console.WriteLine("Error in IsLive: " + ex.Message);
                 return false;
+            }
+        }
+
+        private async Task<bool> StopRecording(string channelKey)
+        {
+            try
+            {
+                var client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", "NjBjZDBjYzlkNTNlOGViZDc3YWYyZGE2ZDNhN2EyZjQ5YWNmODk1YTo=");
+                var resp = await client.PostAsync("https://a.streamhoster.com/v1/papi/media/stream/" + channelKey.Split('|')[0].Remove(channelKey.Split('|')[0].Length - 2) + "/record", new StringContent("{\"recordMode\":\"manual_off\"}", Encoding.UTF8, "application/json"));
+                var response = await resp.Content.ReadAsByteArrayAsync();
+                return true;
             }
             catch (IndexOutOfRangeException ex)
             {
@@ -118,6 +134,8 @@ namespace StreamWork.Services
 
             Task.Factory.StartNew(async () =>
             {
+                await StartRecording(channelKey);
+
                 try
                 {
                     channel.StreamSubject = streamSubject;
@@ -147,7 +165,8 @@ namespace StreamWork.Services
                         else
                         {
                             Console.WriteLine("Not Live");
-                            await Task.Delay(25000, cancellationToken);
+                            await StopRecording(channelKey);
+                            await Task.Delay(15000, cancellationToken);
                             await ClearChannelStreamInfo();
                             RunVideoThread();
                             break;
@@ -189,7 +208,7 @@ namespace StreamWork.Services
                         {
                             await Task.Delay(30000, cancellationToken);
                             StreamHosterRSSFeed response = CallXML<StreamHosterRSSFeed>("https://c.streamhoster.com/feed/WxsdDM/mAe0epZsixC/" + rssId + "?format=mrss");
-                            if (response.Channel.Item != null && response.Channel.Item.Length == initialCount + threadCount)
+                            if (response.Channel.Item != null && response.Channel.Item.Length >= initialCount + threadCount)
                             {
                                 Console.WriteLine("Videos Found");
                                 await ArchiveVideo(response);

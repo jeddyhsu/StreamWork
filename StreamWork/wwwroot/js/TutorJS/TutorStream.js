@@ -18,7 +18,7 @@ function IsLive(channelKey) {
         success: function (data) {
             if (data.message === "Success") {
                 RegisterStream();
-                document.getElementById("GoLive").disabled = false;
+                document.getElementById("GoLive").disabled = true;
             }
             else {
                 $("#tutor-stream-error-notification").html(`<b>It looks like you haven't started on your encoder!</b> Please start on your encoder to continue.`)

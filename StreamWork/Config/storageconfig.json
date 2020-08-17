@@ -106,6 +106,10 @@
           "QueryId": "GetArchivedStreamsWithSubject"
         },
         {
+          "Query": "SELECT * FROM [dbo].[Video] WHERE StreamSubject = '@x0' AND Username = '@x1'",
+          "QueryId": "GetArchivedStreamsWithSubjectAndUsername"
+        },
+        {
           "Query": "SELECT * FROM [dbo].[Video] WHERE StreamId = '@x0'",
           "QueryId": "GetArchivedStreamsWithStreamId"
         },
@@ -114,8 +118,16 @@
           "QueryId": "GetArchivedStreamsWithSearchTerm"
         },
         {
-          "Query": "SELECT * FROM [dbo].[Video] WHERE StreamSubject = '@x0' AND LOWER(StreamTitle) LIKE '%@x1%'",
+          "Query": "SELECT * FROM [dbo].[Video] WHERE LOWER(StreamTitle) LIKE '%@x0%' OR REPLACE (LOWER(Name), '|', ' ') LIKE '%@x0%' OR LOWER(StreamDescription) LIKE '%@x0%' OR LOWER(StreamSubject) LIKE '%@x0%' AND Username = '@x1'",
+          "QueryId": "GetArchivedStreamsWithSearchTermAndUsername"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Video] WHERE StreamSubject = '@x0' AND (LOWER(StreamTitle) LIKE '%@x1%' OR REPLACE (LOWER(Name), '|', ' ') LIKE '%@x1%' OR LOWER(StreamDescription) LIKE '%@x1%' OR LOWER(StreamSubject) LIKE '%@x1%')",
           "QueryId": "GetArchivedStreamsWithSubjectAndSearchTerm"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Video] WHERE StreamSubject = '@x0' AND LOWER(StreamTitle) LIKE '%@x1%' OR REPLACE (LOWER(Name), '|', ' ') LIKE '%@x1%' OR LOWER(StreamDescription) LIKE '%@x1%' OR LOWER(StreamSubject) LIKE '%@x1%' AND Username = '@x1'",
+          "QueryId": "GetArchivedStreamsWithSubjectAndSearchTermAndUsername"
         },
         {
           "Query": "SELECT * FROM [dbo].[Video] WHERE StreamId in ('@x0')",
