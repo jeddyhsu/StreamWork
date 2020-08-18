@@ -37,6 +37,20 @@
     padding: 7px;
 }
 
+@media screen and (max-width: 800px) {
+    .count-outer-object {
+        font-size: 10px;
+        word-spacing: 8px;
+        padding-top: 8px
+    }
+
+    .count-inner-object {
+        font-size: 14px;
+        font-family: 'Roboto Slab', serif;
+        padding: 7px;
+    }
+}
+
 .banner {
     width: 100%;
     object-fit: cover;

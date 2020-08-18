@@ -12,7 +12,7 @@
                     <input class="mt-1 ml-2" type="image" src="~/images/GenericAssets/Search.svg" width="30" height="40"/>
                     <input id="searchQuery" class="form-control-lg mainLoginInput mt-1" type="search" placeholder="Search Streams" style="border: none; font-size:14px;">
                     <select id="filter" name="filter" class="form-control form-control-sm rounded m-2 h-100 float-right" onchange="SearchStreams(event)" style="max-width:175px;">
-                        <option value="">Filter</option>
+                        <option value="">Filter Topic</option>
                         <option value="Mathematics">Mathematics</option>
                         <option value="Science">Science</option>
                         <option value="Engineering">Engineering</option>
@@ -34,9 +34,6 @@
                 <a class="nav-link form-header" id="schedule-tab" data-toggle="tab" href="#schedule" onclick="SliderSchedule()">Schedule</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link form-header" id="videos-tab" data-toggle="tab" href="#videos" onclick="SliderVideos()">Videos</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link form-header" id="tutors-tab" data-toggle="tab" href="#tutors" onclick="SliderTutors()">Tutors</a>
             </li>
         </ul>
@@ -44,11 +41,17 @@
             <div id="slider-object" class="slider-object"></div>
         </div>
         <div class="tab-content">
-            <div class="tab-pane active" id="streams" role="tabpanel" aria-labelledby="streams-tab" style="height:300px">
+            <div class="tab-pane active" id="streams" role="tabpanel" aria-labelledby="streams-tab">
                 <div class="container-fluid pt-3" style="width:100%">
                     <p class="form-header pl-3" style="font-size:22px">Live Streams</p>
                     <div id="stream-row" class="row p-3">
                         @await Html.PartialAsync("Partials/Browse/LiveChannels", Model)
+                        <input id="live-channel-count" type="hidden" value="@Model.LiveChannels.Count" />
+                    </div>
+                    <hr />
+                    <p class="form-header pl-3" style="font-size:22px">Videos</p>
+                    <div id="video-row" class="row p-3">
+                        @await Html.PartialAsync("Partials/Browse/Videos", Model)
                     </div>
                 </div>
             </div>
@@ -58,15 +61,6 @@
                     <p class="form-header pl-3" style="font-size:22px">Scheduled Streams</p>
                     <div id="schedule-row" class="row p-3">
                         @await Html.PartialAsync("Partials/Browse/Schedule", Model)
-                    </div>
-                </div>
-            </div>
-
-            <div class="tab-pane" id="videos" role="tabpanel" aria-labelledby="videos-tab">
-                <div class="container-fluid pt-3" style="width:100%;">
-                    <p class="form-header pl-3" style="font-size:22px">Videos</p>
-                    <div id="video-row" class="row p-3">
-                        @await Html.PartialAsync("Partials/Browse/Videos", Model)
                     </div>
                 </div>
             </div>

@@ -2,10 +2,10 @@
 {
     @foreach (var stream in Model.LiveChannels)
     {
-        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 @stream.StreamSubject-stream">
+        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 stream @stream.StreamSubject-stream">
             <div class="card mt-3 border-0" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px">
                 <div class="card-title">
-                    <a href="/Stream/Live/@stream.Username"><img style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src="@stream.StreamThumbnail"  ></a>
+                    <a href="/Stream/Live/@stream.Username"><img style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src="@stream.StreamThumbnail"></a>
                 </div>
                 <div class="card-body pt-0 pb-1">
                     <h5 class="text-truncate form-header mb-0">@stream.StreamTitle</h5>
@@ -15,11 +15,16 @@
                 <div class="card-footer" style="background-color:@stream.StreamColor; border-bottom-left-radius:20px; border-bottom-right-radius:20px;"></div>
             </div>
         </div>
+
+        <div id="stream-none-found" class="col-9 d-none" style="height:200px">
+            <p class="form-sub-header pl-3 pr-3 pt-3 pb-0" style="font-size:22px">No streams with the currrent search term.</p>
+            <p class="form-sub-header pl-3 pr-3" style="font-size:14px; font-family:'Roboto', serif">Try using a different search term.</p>
+        </div>
     }
 }
 else
 {
-    <div class="col-9" style="height:200px">
+    <div class="col-9">
         <p class="form-sub-header pl-3 pr-3 pt-3 pb-0" style="font-size:22px">No live streams at the moment.</p>
         <p class="form-sub-header pl-3 pr-3" style="font-size:14px; font-family:'Roboto', serif">Feel free to look at some past streams in the videos tab.</p>
     </div>

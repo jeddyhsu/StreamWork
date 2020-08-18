@@ -55,7 +55,7 @@ namespace StreamWork.Pages.Home
 
         public async Task<IActionResult> OnPostSearchStreams(string filter, string searchTerm)
         {
-            return new JsonResult(new { Message = JsonResponse.Success.ToString(), Results = await searchService.SearchChannels(filter, searchTerm) });
+            return new JsonResult(new { Message = JsonResponse.Success.ToString(), Channels = await searchService.SearchChannels(filter, searchTerm), Videos = await searchService.SearchVideos(filter, searchTerm) });
         }
 
         public async Task<IActionResult> OnPostSearchSchedule(string filter, string searchTerm)
@@ -63,11 +63,6 @@ namespace StreamWork.Pages.Home
             return new JsonResult(new { Message = JsonResponse.Success.ToString(), Results = await searchService.SearchSchedule(filter, searchTerm) });
         }
 
-        public async Task<IActionResult> OnPostSearchVideos(string filter, string searchTerm)
-        {
-            return new JsonResult(new { Message = JsonResponse.Success.ToString(), Results = await searchService.SearchVideos(filter, searchTerm) });
-        }
-        
         public async Task<IActionResult> OnPostSearchTutors(string filter, string searchTerm)
         {
             return new JsonResult(new { Message = JsonResponse.Success.ToString(), Results = await searchService.SearchTutors(filter, searchTerm) });
