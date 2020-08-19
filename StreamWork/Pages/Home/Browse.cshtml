@@ -9,7 +9,7 @@
         <div class="d-flex pl-3 pr-3">
             <form id="search-form" class="p-1 border w-100 rounded d-inline-block custom-form" onkeyup="SearchStreams(event)" onsubmit="SearchStreams(event)">
                 <div class="d-flex">
-                    <input class="mt-1 ml-2" type="image" src="~/images/GenericAssets/Search.svg" width="30" height="40"/>
+                    <input class="mt-1 ml-2" type="image" src="~/images/GenericAssets/Search.svg" width="30" height="40" />
                     <input id="searchQuery" class="form-control-lg mainLoginInput mt-1" type="search" placeholder="Search Streams" style="border: none; font-size:14px;">
                     <select id="filter" name="filter" class="form-control form-control-sm rounded m-2 h-100 float-right" onchange="SearchStreams(event)" style="max-width:175px;">
                         <option value="">Filter Topic</option>
@@ -25,7 +25,6 @@
                 </div>
             </form>
         </div>
-
         <ul class="nav nav-tabs pt-3" id="myTab" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active form-header" id="streams-tab" data-toggle="tab" href="#streams" onclick="SliderStreams()">Streams</a>
@@ -37,6 +36,7 @@
                 <a class="nav-link form-header" id="tutors-tab" data-toggle="tab" href="#tutors" onclick="SliderTutors()">Tutors</a>
             </li>
         </ul>
+
         <div class="slider">
             <div id="slider-object" class="slider-object"></div>
         </div>

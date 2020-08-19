@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StreamWork.DataModels;
+using StreamWork.DataModels.Joins;
 using StreamWork.HelperMethods;
 using StreamWork.Services;
 
@@ -17,10 +18,10 @@ namespace StreamWork.Pages.Home
 
         public Profile CurrentUserProfile { get; set; }
         public List<Video> Videos { get; set; }
-        public List<Profile> PopularTutors { get; set; }
+        public List<TutorSubject> PopularTutors { get; set; }
         public List <Channel> LiveChannels { get; set; }
         public List<Schedule> AllScheduledStreams { get; set; }
-        public List<Profile> AllTutors { get; set; }
+        public List<TutorSubject> AllTutors { get; set; }
         public List<Notification> Notifications { get; set; }
         public bool AreThereUnseenNotifications { get; set; }
 
@@ -36,7 +37,7 @@ namespace StreamWork.Pages.Home
         {
             CurrentUserProfile = await cookieService.GetCurrentUser();
 
-            var tutors = await storageService.GetList<Profile>(SQLQueries.GetAllApprovedTutors, "");
+            var tutors = await storageService.GetList<TutorSubject>(SQLQueries.GetApprovedTutorSubjects, "");
 
             Videos = await storageService.GetList<Video>(SQLQueries.GetAllArchivedStreams, "");
             PopularTutors = tutors.GetRange(0,5);

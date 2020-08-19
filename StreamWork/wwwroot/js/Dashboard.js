@@ -101,7 +101,7 @@ function CheckSMUrls(linkden, insta, facebook, twitter) {
     if (linkden != null && linkden != "") {
         if (/(ftp|http|https):\/\/?(?:www\.)?linkedin.com(\w+:{0,1}\w*@)?(\S+)(:([0-9])+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/.test(linkden)) {
         }else {
-            return "Linkden";
+            return "LinkedIn";
         }
     }
 

@@ -3,12 +3,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StreamWork.DataModels;
+using StreamWork.HelperMethods;
 using StreamWork.Services;
 
 namespace StreamWork.Pages.Chat
 {
     public class LiveChat : PageModel
     {
+        private readonly StorageService storageService;
         private readonly CookieService cookieService;
         private readonly ChatService chatService;
         private readonly EncryptionService encryptionService;
@@ -20,21 +22,22 @@ namespace StreamWork.Pages.Chat
         public List<DataModels.Chat> Chats { get; set; }
         public bool IsLoggedIn { get; set; }
 
-        public LiveChat(CookieService cookie, ChatService chat, EncryptionService encryption)
+        public LiveChat(StorageService storage, CookieService cookie, ChatService chat, EncryptionService encryption)
         {
+            storageService = storage;
             cookieService = cookie;
             chatService = chat;
             encryptionService = encryption;
         }
 
-        public async Task<IActionResult> OnGet(string chatId, string chatInfo)
+        public async Task<IActionResult> OnGet(string chatId)
         {
+            var channel = await storageService.Get<Channel>(SQLQueries.GetUserChannelWithUsername, chatId);
+
             CurrentUserProfile = await cookieService.GetCurrentUser();
             ChatId = chatId;
-            ChatInfo = encryptionService.DecryptString(chatInfo);
-            ChatInfoEncrypted = chatInfo;
+            ChatInfo = channel.ArchivedVideoId ?? "DEFAULT";
             Chats = await chatService.GetAllChatsWithChatId(ChatId, ChatInfo);
-
             IsLoggedIn = CurrentUserProfile == null ? false : true;
 
             return Page();

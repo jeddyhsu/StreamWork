@@ -353,6 +353,30 @@
           "Query": "SELECT * FROM [dbo].[Notification] WHERE LOWER(ReceiverUsername) = LOWER('@x0') AND Seen = 'false'",
           "QueryId": "GetUnseenNotifications"
         }
+
+      ]
+    },
+
+    {
+      "Name": "TutorSubject",
+      "StorageType": "SqlServer",
+      "Queries": [
+        {
+          "Query": "SELECT Profile.Username, Profile.Name, Profile.ProfileCaption, Profile.ProfilePicture, Profile.ProfileColor, TopicTutor.Topic, Profile.RowVersion FROM Profile INNER JOIN TopicTutor ON Profile.Username = TopicTutor.Tutor Where AcceptedTutor = '1'",
+          "QueryId": "GetApprovedTutorSubjects"
+        },
+        {
+          "Query": "SELECT Profile.Username, Profile.Name, Profile.ProfileCaption, Profile.ProfilePicture, Profile.ProfileColor, TopicTutor.Topic, Profile.RowVersion FROM Profile INNER JOIN TopicTutor ON Profile.Username = TopicTutor.Tutor Where AcceptedTutor = '1' AND (LOWER(Profile.ProfileCaption) LIKE '%@x0%' OR REPLACE (LOWER(Profile.Name), '|', ' ') LIKE '%@x0%' OR LOWER(TopicTutor.Topic) LIKE '%@x0%' OR LOWER(Profile.Username) LIKE '%@x0%')",
+          "QueryId": "GetApprovedTutorSubjectsWithSearchTerm"
+        },
+        {
+          "Query": "SELECT Profile.Username, Profile.Name, Profile.ProfileCaption, Profile.ProfilePicture, Profile.ProfileColor, TopicTutor.Topic, Profile.RowVersion FROM Profile INNER JOIN TopicTutor ON Profile.Username = TopicTutor.Tutor Where AcceptedTutor = '1' AND TopicTutor.Topic = '@x0'",
+          "QueryId": "GetApprovedTutorSubjectsWithSubject"
+        },
+        {
+          "Query": "SELECT Profile.Username, Profile.Name, Profile.ProfileCaption, Profile.ProfilePicture, Profile.ProfileColor, TopicTutor.Topic, Profile.RowVersion FROM Profile INNER JOIN TopicTutor ON Profile.Username = TopicTutor.Tutor Where AcceptedTutor = '1' AND TopicTutor.Topic = '@x0' AND (LOWER(Profile.ProfileCaption) LIKE '%@x1%' OR REPLACE (LOWER(Profile.Name), '|', ' ') LIKE '%@x1%' OR LOWER(TopicTutor.Topic) LIKE '%@x1%' OR LOWER(Profile.Username) LIKE '%@x1%')",
+          "QueryId": "GetApprovedTutorSubjectsWithSubjectAndSearchTerm"
+        }
       ]
     }
   ]

@@ -130,6 +130,14 @@ namespace StreamWork.HelperMethods
         DeleteNotificationWithId,
         DeleteNotificationWithObjectId,
         UpdateNotificationToSeen,
-        GetUnseenNotifications
+        GetUnseenNotifications,
+
+        //JOINS
+
+        //ApprovedTutorSubjects
+        GetApprovedTutorSubjects,
+        GetApprovedTutorSubjectsWithSearchTerm,
+        GetApprovedTutorSubjectsWithSubject,
+        GetApprovedTutorSubjectsWithSubjectAndSearchTerm
     }
 }

@@ -2,7 +2,7 @@
 {
     @foreach (var stream in Model.LiveChannels)
     {
-        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 stream @stream.StreamSubject-stream">
+        <div id="stream-@stream.Id" class="col-xl-2 col-lg-3 col-md-4 col-sm-6 stream">
             <div class="card mt-3 border-0" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px">
                 <div class="card-title">
                     <a href="/Stream/Live/@stream.Username"><img style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src="@stream.StreamThumbnail"></a>

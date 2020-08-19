@@ -1,6 +1,6 @@
 ﻿@foreach (var tutor in Model.AllTutors)
 {
-    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mt-2 mb-2">
+    <div id="tutor-@tutor.Username" class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mt-2 mb-2 tutor">
         <div class="card rounded pointer" style="min-height:350px;" onclick="window.location.href='/Profiles/Tutor/@tutor.Username'">
             <img class="card-img-top" src="@tutor.ProfilePicture" height="250" style="object-fit:cover; object-position:top">
             <div class="card-body">
@@ -8,5 +8,10 @@
                 <p class="form-sub-header mb-0" style="font-size:12px;">@tutor.ProfileCaption</p>
             </div>
         </div>
+    </div>
+
+    <div id="tutor-none-found" class="col-9 d-none" style="height:200px">
+        <p class="form-sub-header pl-3 pr-3 pt-3 pb-0" style="font-size:22px">No tutors with the currrent search term.</p>
+        <p class="form-sub-header pl-3 pr-3" style="font-size:14px; font-family:'Roboto', serif">Try using a different search term.</p>
     </div>
 }

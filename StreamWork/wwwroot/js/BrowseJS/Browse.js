@@ -111,6 +111,33 @@ function SearchSchedule(event) {
 }
 
 function SearchTutors(event) {
-    //TODO
+    event.preventDefault();
+    var searchTerm = $('#searchQuery').val();
+    var filter = $('#filter').val();
+    $.ajax({
+        url: '/Home/Browse/?handler=SearchTutors',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            'searchTerm': searchTerm,
+            'filter': filter,
+        },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("XSRF-TOKEN",
+                $('input:hidden[name="__RequestVerificationToken"]').val());
+        },
+        success: function (data) {
+            $('.tutor').hide();
+            $('#tutor-none-found').removeClass('d-block').addClass('d-none');
+            if (data.results.length > 0) {
+                for (var i = 0; i < data.results.length; i++) {
+                    $('#tutor-' + data.results[i].username).show();
+                }
+            }
+            else {
+                $('#tutor-none-found').removeClass('d-none').addClass('d-block');
+            }
+        }
+    });
 }
 

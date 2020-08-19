@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using StreamWork.DataModels;
+using StreamWork.DataModels.Joins;
 using StreamWork.HelperMethods;
 
 namespace StreamWork.Services
@@ -111,28 +112,28 @@ namespace StreamWork.Services
             return null;
         }
 
-        public async Task<List<Video>> SearchTutors(string subject, string searchQuery)
+        public async Task<List<TutorSubject>> SearchTutors(string subject, string searchQuery)
         {
             if (string.IsNullOrEmpty(subject))
             {
                 if (string.IsNullOrWhiteSpace(searchQuery))
                 {
-                    return await storage.GetList<Video>(SQLQueries.GetAllArchivedStreams);
+                    return await storage.GetList<TutorSubject>(SQLQueries.GetApprovedTutorSubjects);
                 }
                 else
                 {
-                    return await storage.GetList<Video>(SQLQueries.GetArchivedStreamsWithSearchTerm, searchQuery.ToLower());
+                    return await storage.GetList<TutorSubject>(SQLQueries.GetApprovedTutorSubjectsWithSearchTerm, searchQuery.ToLower());
                 }
             }
             else
             {
                 if (string.IsNullOrWhiteSpace(searchQuery))
                 {
-                    return await storage.GetList<Video>(SQLQueries.GetArchivedStreamsWithSubject, subject);
+                    return await storage.GetList<TutorSubject>(SQLQueries.GetApprovedTutorSubjectsWithSubject, subject);
                 }
                 else
                 {
-                    return await storage.GetList<Video>(SQLQueries.GetArchivedStreamsWithSubjectAndSearchTerm, subject, searchQuery.ToLower());
+                    return await storage.GetList<TutorSubject>(SQLQueries.GetApprovedTutorSubjectsWithSubjectAndSearchTerm, subject, searchQuery.ToLower());
                 }
             }
         }

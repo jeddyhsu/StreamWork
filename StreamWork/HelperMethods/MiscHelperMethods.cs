@@ -18,7 +18,7 @@ namespace StreamWork.HelperMethods
                 { "Law", "/images/ChatAssets/Law.png" },
                 { "Art", "/images/ChatAssets/Art.png" },
                 { "Humanities", "/images/ChatAssets/Humanities.png" },
-                { "Other", "/images/ChatAssets/Other.png" }
+                { "Others", "/images/ChatAssets/Other.png" }
             };
 
             return (string)table[subject];
