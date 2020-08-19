@@ -49,7 +49,7 @@ namespace StreamWork.Services
                 {
                     if (string.IsNullOrWhiteSpace(username))
                     {
-                        return null;
+                        return await storage.GetList<Video>(SQLQueries.GetAllArchivedStreams); ;
                     }
                     else
                     {
@@ -60,7 +60,7 @@ namespace StreamWork.Services
                 {
                     if (string.IsNullOrWhiteSpace(username))
                     {
-                        return null;
+                        return await storage.GetList<Video>(SQLQueries.GetArchivedStreamsWithSearchTerm, searchQuery.ToLower());
                     }
                     else
                     {
@@ -74,7 +74,7 @@ namespace StreamWork.Services
                 {
                     if (string.IsNullOrWhiteSpace(username))
                     {
-                        return null;
+                        return await storage.GetList<Video>(SQLQueries.GetArchivedStreamsWithSubject, subject);
                     }
                     else
                     {
@@ -85,7 +85,7 @@ namespace StreamWork.Services
                 {
                     if (string.IsNullOrWhiteSpace(username))
                     {
-                        return null;
+                        return await storage.GetList<Video>(SQLQueries.GetArchivedStreamsWithSubjectAndSearchTerm, subject, searchQuery.ToLower());
                     }
                     else
                     {
