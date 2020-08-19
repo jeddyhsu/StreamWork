@@ -335,6 +335,46 @@ function SaveUniversityInfo() {
     })
 }
 
+//Seach Streams
+function SearchStreams(event, username) { //filters by username
+    event.preventDefault();
+    var searchTerm = $('#searchQuery').val();
+    var filter = $('#filter').val()
+    if (filter != "") $('#clear-filter').show();
+    $.ajax({
+        url: '/Tutor/TutorDashboard/?handler=SearchArchivedStreams',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            'searchTerm': searchTerm,
+            'filter': filter,
+            'username': username,
+        },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("XSRF-TOKEN",
+                $('input:hidden[name="__RequestVerificationToken"]').val());
+        },
+        success: function (data) {
+            $('.video').hide();
+            $('#no-videos').removeClass('d-block').addClass('d-none')
+            if (data.results != null && data.results.length > 0) {
+                for (var i = 0; i < data.results.length; i++) {
+                    $('#streamInfo-' + data.results[i].id).show()
+                }
+            }
+            else {
+                $('#no-videos').removeClass('d-none').addClass('d-block')
+            }
+        }
+    });
+}
+
+function ClearFilter(event, username) {
+    $('#filter').val('')
+    SearchStreams(event, username)
+    $('#clear-filter').hide();
+}
+
 //Banner
 function SaveProfileBanner(image) {
     var formData = new FormData();

@@ -11,6 +11,7 @@ function SliderStreams() {
     $('#search-form').attr("onkeyup", "SearchStreams(event)")
     $('#search-form').attr("onsubmit", "SearchStreams(event)")
     $('#filter').attr("onchange", "SearchStreams(event)")
+    ClearFilter()
     ChangePlaceHolder("Search Streams")
     page = "stream"
 }
@@ -21,6 +22,7 @@ function SliderSchedule() {
     $('#search-form').attr("onkeyup", "SearchSchedule(event)")
     $('#search-form').attr("onsubmit", "SearchSchedule(event)")
     $('#filter').attr("onchange", "SearchSchedule(event)")
+    ClearFilter()
     ChangePlaceHolder("Search Upcoming Streams")
     page = "schedule"
 }
@@ -31,14 +33,31 @@ function SliderTutors() {
     $('#search-form').attr("onkeyup", "SearchTutors(event)")
     $('#search-form').attr("onsubmit", "SearchTutors(event)")
     $('#filter').attr("onchange", "SearchTutors(event)")
+    ClearFilter()
     ChangePlaceHolder("Search Tutors")
     page = "tutor"
+}
+
+function ClearFilter() {
+    $('#filter').val('')
+    if (page == "stream") {
+        SearchStreams(event)
+    }
+    else if (page == "schedule") {
+        SearchSchedule(event)
+    }
+    else {
+        SearchTutors(event)
+    }
+
+    $('#clear-filter').hide();
 }
 
 function SearchStreams(event) {
     event.preventDefault();
     var searchTerm = $('#searchQuery').val();
     var filter = $('#filter').val();
+    if (filter != "") $('#clear-filter').show();
     $.ajax({
         url: '/Home/Browse/?handler=SearchStreams',
         type: 'POST',
@@ -83,6 +102,7 @@ function SearchSchedule(event) {
     event.preventDefault();
     var searchTerm = $('#searchQuery').val();
     var filter = $('#filter').val();
+    if (filter != "") $('#clear-filter').show();
     $.ajax({
         url: '/Home/Browse/?handler=SearchSchedule',
         type: 'POST',
@@ -114,6 +134,7 @@ function SearchTutors(event) {
     event.preventDefault();
     var searchTerm = $('#searchQuery').val();
     var filter = $('#filter').val();
+    if (filter != "") $('#clear-filter').show();
     $.ajax({
         url: '/Home/Browse/?handler=SearchTutors',
         type: 'POST',
