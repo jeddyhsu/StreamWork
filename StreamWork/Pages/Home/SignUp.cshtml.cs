@@ -52,6 +52,16 @@ namespace StreamWork.Pages.Home
             return new JsonResult(await storage.Get<Profile>(SQLQueries.GetUserWithUsername, username) == null);
         }
 
+        public async Task OnPostSendVerificationEmail(string emailAddress)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<JsonResult> OnGetCheckVerificationCode(string emailAddress, string verificationCode)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task OnPostSignUpStudent()
         {
             if (!await VerifyRequest(Request))
