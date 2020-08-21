@@ -24,11 +24,11 @@
                             {<p id="header-occupation" class="form-header m-0" style="padding-left:100px; font-size:12px; color: #9F9F9F">Occupation / Major</p>}
                             else
                             { <p id="header-occupation" class="form-header m-0 header-padding" style="font-size:12px;">@Model.CurrentUserProfile.ProfileCaption</p>}
-                            <p class="mb-0 mt-2 form-sub-header header-padding"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
+                            <p class="mb-1 mt-2 form-sub-header header-padding"><span><img width="10" class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.svg" /></span>Tutor since Jun, 2020</p>
                             @if (Model.CurrentUserProfile.Location == "" || Model.CurrentUserProfile.Location == null)
-                            {<p class="form-sub-header header-padding"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">City, State</span></p>}
+                            {<p class="form-sub-header header-padding"><span><img width="10" class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.svg" /></span><span id="header-location">City, State</span></p>}
                             else
-                            {<p class="form-sub-header header-padding"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.png" /></span><span id="header-location">@Model.CurrentUserProfile.Location</span></p>}
+                            {<p class="form-sub-header header-padding"><span><img width="8" class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.svg" /></span><span id="header-location">@Model.CurrentUserProfile.Location</span></p>}
                             <input id="header-first-name" type="hidden" value="@Model.CurrentUserProfile.Name.Split('|')[0]" />
                             <input id="header-last-name" type="hidden" value="@Model.CurrentUserProfile.Name.Split('|')[1]" />
                             <input id="header-timezone" type="hidden" value="@Model.CurrentUserProfile.TimeZone" />
@@ -125,7 +125,7 @@
                                 <form class="pl-4 pr-4 pb-4" id="form-section-tutor">
                                     <div class="form-row" id="form-row-section">
                                         <div class="form-group col-lg-3">
-                                            <label class="form-header">University</label>
+                                            <label class="form-header">Academic Institution</label>
                                             <div class="card rounded-0">
                                                 <div class="image-container">
                                                     <div class="top-right">
@@ -182,7 +182,7 @@
                                         @if (Model.Sections != null && Model.Sections.Count > 1)
                                         {
                                             <div class="form-group col-lg-9 pl-lg-3 pl-0">
-                                                <label class="form-header">Section 1 Title</label>
+                                                <label class="form-header">Headline 1</label>
                                                 <input name="section-title-1" id="section-title-1" class="form-control border rounded-0 form-input" placeholder="Title of section one!" value="@Model.Sections[1].SectionTitle">
                                                 <label class="form-header pt-3">Description</label>
                                                 <textarea name="section-description-1" id="section-description-1" class="form-control border rounded-0 form-textarea" style="height:145px !important" placeholder="Tell us what you're studying, concentrations, passions, and other extra curricular activities here!">@Model.Sections[1].SectionDescription</textarea>
@@ -193,7 +193,7 @@
                                                 {
                                                     <div id="divider-@i" class="divider"></div>
                                                     <div id="form-section-@i" class="form-group col-lg-12">
-                                                        <label id="section-label-title-@i" class="form-header d-inline-block">Section @i Title</label>
+                                                        <label id="section-label-title-@i" class="form-header d-inline-block">Headline @i</label>
                                                         <img id="remove-section-icon-@i" src="~/images/TutorAssets/TutorDashboard/Remove.svg" class="d-inline-block form-icon float-right" onclick="RemoveSection(@i)" />
                                                         <input name="section-title-@i" id="section-title-@i" class="form-control border rounded-0 form-input" placeholder="Title of section @i!" value="@Model.Sections[i].SectionTitle">
                                                         <label class="form-header pt-3">Description</label>
@@ -437,7 +437,7 @@
 
 <div class="wrapper">
     <nav id="sidebar">
-        <img class="logo-desktop" onclick="window.location.href ='/'" src="~/images/WhiteStreamWork.png" />
+        <img class="logo-desktop" onclick="window.location.href ='/'" src="~/images/GenericAssets/StreamWork-Medium-White.svg" />
         <ul class="p-0">
             <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Tutor/TutorStream/32169'"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/StartStream.svg" /></span>Start Stream</li>
             <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Tutor/HowToStream'"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/HowToStream.svg" /></span>How To Stream</li>
@@ -450,7 +450,7 @@
 
 <div class="wrapper">
     <nav id="sidebar-tablet">
-        <img class="logo-tablet" onclick="window.location.href ='/'" src="~/images/streamWorkPencilWhite.png" />
+        <img class="logo-tablet" onclick="window.location.href ='/'" src="~/images/GenericAssets/StreamWork-Icon-White.svg" />
         <ul class="p-0">
             <li class="sidebar-list-item-tablet" onclick="window.location.href ='/Tutor/TutorStream'"><img src="~/images/TutorAssets/TutorDashboard/StartStream2x.png" /></li>
             <li class="sidebar-list-item-tablet" onclick="window.location.href ='/Tutor/HowToStream'"><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/HowToStream2x.png" /></li>

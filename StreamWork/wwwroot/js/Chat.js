@@ -13,21 +13,26 @@ connection.on("ReceiveMessage", function (chat) {
     chat = JSON.parse(chat);
     var date = moment(chat.Date).format("HH:mm")
     var listName = "";
+    var isStreamOnline = ""
+
+    if (chat.ArchivedVideoId == null) {
+        isStreamOnline = "(stream offline - chat not saved)"
+    }
 
     if (chat.ChatId == chat.Username) {
         listName = ` <p class="chat-name" style="color:${chat.ChatColor}">${chat.Name.replace('|', ' ')}
                         <span><img id="tutor-tip-${toolTipCount}" class="pl-1" style="width:28px" src="/images/ChatAssets/Tutor.svg" data-toggle="tooltip" data-placement="top" title="StreamTutor"></span>
-                        <span class='chat-date'>${date}</span>
+                        <span class='chat-date'>${date} ${isStreamOnline}</span>
                      </p>`
     }
     else if (clientUsername == chat.Username) {
         listName = `<p class="chat-name" style="color:${chat.ChatColor}">${chat.Name.replace('|', ' ')} (you)
-                         <span class="chat-date">${date}</span>
+                         <span class="chat-date">${date} ${isStreamOnline}</span>
                     </p>`
     }
     else {
         listName = `<p class="chat-name" style="color:${chat.ChatColor}">${chat.Name.replace('|', ' ')}
-                        <span class="chat-date">${date}</span>
+                        <span class="chat-date">${date} ${isStreamOnline}</span>
                     </p>`
     }
 

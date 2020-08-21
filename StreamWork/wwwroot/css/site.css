@@ -328,7 +328,7 @@ lds-dual-ring {
 }
 
 .nav-logo{
-    padding-right:65px
+    padding-right:95px
 }
 
 .nav-search-bar {
@@ -339,7 +339,7 @@ lds-dual-ring {
 .custom-modal {
     display: none;
     position: fixed;
-    z-index: 999;
+    z-index: 998;
     padding-top: 100px;
     left: 0;
     top: 0;
@@ -394,6 +394,10 @@ lds-dual-ring {
     .custom-modal-content {
         width: 350px;
     }
+}
+
+.modal-on-modal{
+    z-index:999
 }
 
 .close {
@@ -459,6 +463,11 @@ select.form-control {
 .form-textarea {
     font-size: 12px !important;
     height: 125px !important;
+}
+
+.form-textarea-resize {
+    font-size: 12px
+    height: 125px
 }
 
 .form-university-header { /*Created due to appending html string in js*/
@@ -642,6 +651,38 @@ pre {
     cursor:pointer
 }
 
+/*Loader*/
+.loader {
+    margin-top: 2px;
+    border: 4px solid white;
+    border-radius: 50%;
+    border-top: 4px solid #f9bc60;
+    width: 20px;
+    height: 20px;
+    -webkit-animation: spin 1s linear infinite; /* Safari */
+    animation: spin 1s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
 
 
 

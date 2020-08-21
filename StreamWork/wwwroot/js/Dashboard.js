@@ -151,7 +151,7 @@ function AddSection(event) {
     event.preventDefault();
     var section = ` <div id="divider-${sectionCount}" class="divider"></div>
                     <div id="form-section-${sectionCount}" class="form-group col-lg-12">
-                        <label id="section-label-title-${sectionCount}" class="form-header d-inline-block">Section ${sectionCount} Title</label>
+                        <label id="section-label-title-${sectionCount}" class="form-header d-inline-block">Headline ${sectionCount}</label>
                         <img id="remove-section-icon-${sectionCount}" src="/images/TutorAssets/TutorDashboard/Remove.svg" class="d-inline-block form-icon float-right" onclick="RemoveSection(${sectionCount})" />
                         <input name="section-title-${sectionCount}" id="section-title-${sectionCount}" class="form-control border rounded-0 form-input" placeholder="Title of section ${sectionCount}!">
                         <label class="form-header pt-3">Description</label>
@@ -205,7 +205,7 @@ function RemoveSection(sectionNumber) {
 
         var label = document.getElementById("section-label-title-" + i);
         label.id = "section-label-title-" + (i - 1);
-        label.textContent = "Section " + (i - 1) + " Title"
+        label.textContent = "Headline " + (i - 1)
 
         var removeIcon = document.getElementById("remove-section-icon-" + i)
         removeIcon.id = "remove-section-icon-" + (i - 1);

@@ -8,7 +8,7 @@ using StreamWork.Services;
 
 namespace StreamWork.Pages.Chat
 {
-    public class LiveChat : PageModel
+    public class Live : PageModel
     {
         private readonly StorageService storageService;
         private readonly CookieService cookieService;
@@ -22,7 +22,7 @@ namespace StreamWork.Pages.Chat
         public List<DataModels.Chat> Chats { get; set; }
         public bool IsLoggedIn { get; set; }
 
-        public LiveChat(StorageService storage, CookieService cookie, ChatService chat, EncryptionService encryption)
+        public Live(StorageService storage, CookieService cookie, ChatService chat, EncryptionService encryption)
         {
             storageService = storage;
             cookieService = cookie;

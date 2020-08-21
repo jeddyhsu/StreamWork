@@ -1,9 +1,9 @@
 ﻿@page "{chatId}"
-@model StreamWork.Pages.Chat.LiveChat
+@model StreamWork.Pages.Chat.Live
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @Html.AntiForgeryToken()
 @{Layout = "_LayoutChat";}
-@{ViewData["Title"] = "LiveChat";}
+@{ViewData["Title"] = "Live";}
 
 @if (Model.IsLoggedIn)
 {
