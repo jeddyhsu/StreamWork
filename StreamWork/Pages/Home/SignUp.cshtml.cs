@@ -98,8 +98,6 @@ namespace StreamWork.Pages.Home
                     ProfileBanner = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_Banner_svg_SW.svg",
                 };
 
-                await email.SendTemplateToUser("test", user);
-
                 storage.Save(user.Id, user).Wait(); // Can't SignIn until user has been created
                 await cookieService.SignIn(Request.Form["Username"], encryption.DecryptPassword(user.Password, Request.Form["Password"]));
             }
