@@ -12,20 +12,16 @@ function ResizeStreamInfoSectionAlgo() {
 
     if ($(window).width() - 500 < $(window).height()) {
         $('#player').css('height', '100%')
+        $('#player').attr('style', 'position: absolute; top: 0; left: 0; width: 100%; height: 100%;')
         $('#player-div').attr('style', 'position: relative; padding-bottom: 56.25%; height: 0;')
-        return;
     }
-
-    if ($('#player').height() + height + 71 >= $(window).height()) {
+    else {
         var height = $('#player-row').height();
         var offest = height + 71;
         $('#player-div').attr('style', '')
+        $('#player').attr('style', 'width:100%')
         $('#player').css('height', 'calc(100vh - ' + offest + 'px)')
         console.log("Greater: " + $(window).height() + ": " + ($('#player').height() + height + 71))
-    }
-    else {
-        $('#player').css('height', '100%')
-        $('#player-div').attr('style', 'position: relative; padding-bottom: 56.25%; height: 0;')
     }
 }
 
@@ -43,20 +39,16 @@ function ResizeStreamInfoSectionArchivedStreamsAlgo() {
 
     if ($(window).width() - 500 < $(window).height()) {
         $('#player').css('height', '100%')
+        $('#player').attr('style', 'position: absolute; top: 0; left: 0; width: 100%; height: 100%;')
         $('#player-div').attr('style', 'position: relative; padding-bottom: 56.25%; height: 0;')
-        return;
     }
-
-    if ($('#player').height() + height + 71 + $('#tutor-info').height() + 21 >= $(window).height()) {
+    else {
         var height = $('#player-row').height();
         var offest = height + 71 + $('#tutor-info').height() + 21;
         $('#player-div').attr('style', '')
+        $('#player').attr('style', 'width:100%')
         $('#player').css('height', 'calc(100vh - ' + offest + 'px)')
         console.log("Greater: " + $(window).height() + ": " + ($('#player').height() + height + 71))
-    }
-    else {
-        $('#player').css('height', '100%')
-        $('#player-div').attr('style', 'position: relative; padding-bottom: 56.25%; height: 0;')
     }
 }
 

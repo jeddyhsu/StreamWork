@@ -25,13 +25,13 @@
                 {
                     <p class="form-header">Stream Status: <span id="stream-status" class="form-header streamWork-green">Live To Viewers</span></p>
                 }
-                <div style="position: relative; padding-bottom: 56.25%; height: 0;"><iframe id="frame" src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.UserChannel.ChannelKey.Split('|')[0]" style=" width:100%; max-width: 521px; max-height: 283px; height: 100%;" frameborder="0" scrolling="no" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="autoplay; fullscreen;"></iframe></div>
+                <div style="position: relative; padding-bottom: 56.25%; height: 0;"><iframe id="frame" src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.UserChannel.ChannelKey.Split('|')[0]" style=" position:absolute; width:100%; max-width: 521px; max-height: 283px; height: 100%;" frameborder="0" scrolling="no" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="autoplay; fullscreen;"></iframe></div>
                 <p class="form-header mt-3 mb-0">Chat URL: <span><a class="streamWork-green" target="_blank" href="/Chat/Live/@Model.CurrentUserProfile.Username">URL</a></span></p>
                 <p class="mb-0" style="font-size:10px;">Click this link to open your chatbox in another tab to view comments from your viewers</p>
                 <p class="divider-text mt-2 mb-2">or</p>
                 <p class="form-header mb-0">Chatbox via Smartphone: <span><a class="streamWork-green" onclick="ShowQRCode(event)" href="">QR Code</a></span></p>
                 <p class="mb-3" style="font-size:10px;">Click above to scan a QR code using your device’s camera app, allowing you to view StreamWork’s chatbox from your phone or tablet</p>
-                <div id="qr-code" class="mb-3">@Html.Raw(Model.ChatQrCode)</div>
+                <img id="qr-code" width="200" class="mb-3" src="@Model.ChatQrCode" />
                 <p id="hide-qr-code" class="streamWork-green pointer" style="font-size:12px;" onclick="HideQRCode()">Hide QR Code</p>
                 <script>$('#qr-code').hide(); $('#hide-qr-code').hide();</script>
             </div>

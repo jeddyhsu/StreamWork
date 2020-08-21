@@ -92,7 +92,7 @@ else
                                                 }
                                             }
                                     </script>
-                                    <div >
+                                    <div>
                                         <button type="button" id="sendQuestionButton" class="streamWork-primary mr-2" style="font-size:12px;" onclick="GetMessage('@Model.ChatId','@Model.CurrentUserProfile.Username','@Model.CurrentUserProfile.Name', '@Model.CurrentUserProfile.ProfilePicture', '@Model.CurrentUserProfile.ProfileColor', '@Model.ChatInfo')">Send</button>
                                     </div>
                                 </div>
@@ -106,23 +106,22 @@ else
                 <div id="bottomCard" class="card fixed-bottom border-top border-left-0 border-right-0 border-bottom-0 rounded-0" style="background-color:#FBFBFB;">
                     <div class="card-body p-0 m-0" style="margin-top:3px;">
                         <div id="questionBox" class="row">
-                            <div class="col-9 pr-0">
-                                <div>
-                                    <div id="chatInput" onkeydown="pressed(event)" class="form-custom-textarea rounded border-0 w-100 roboto chat-text ml-2 mr-2" contentEditable=true data-text="Send a question or message..."></div>
-                                    <script>
-                                        function pressed(event) {
+                            <div class="col-12">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <div id="chatInput" onkeydown="openModal(event)" class="form-custom-textarea rounded border-0 w-100 roboto chat-text ml-2 mr-2" contentEditable=true data-text="Send a question or message..."></div>
+                                    <script>function openModal(event) {
                                             if (event.keyCode == 13 && !event.shiftKey) {
                                                 Modal()
                                                 event.preventDefault();
                                                 return false;
                                             }
-                                        }
-                                    </script>
+                                        }</script>
+                                    <div>
+                                        <button type="button" id="sendQuestionButton" class="streamWork-disabled mr-2" onclick="openModal(event)">Send</button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-3 pl-3 pr-0">
-                                <button type="button" id="sendQuestionButton" class="streamWork-disabled" style="font-size:12px; margin-top:20px; margin-left:5px;" onclick="Modal()">Send</button>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -132,8 +131,12 @@ else
     </div>
 </div>
 
+
+
 <script>
     function Modal() {
         window.parent.$('#signin-signup-modal').css('display', 'block')
     }
 </script>
+
+@await Html.PartialAsync("Partials/Modals/SignIn-SignUpModal")

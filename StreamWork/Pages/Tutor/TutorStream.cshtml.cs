@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Threading.Tasks;
-using IronBarCode;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using QRCoder;
 using StreamWork.DataModels;
 using StreamWork.HelperMethods;
 using StreamWork.Services;
@@ -55,9 +58,25 @@ namespace StreamWork.Pages.Tutor
             ScheduledStream = await storageService.Get<Schedule>(SQLQueries.GetScheduleWithId, new string[] { scheduleId, DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm") });
             Schedule = await scheduleService.GetSchedule(CurrentUserProfile.Username);
 
-            ChatQrCode = QRCodeWriter.CreateQrCode(cookieService.host + "/Chat/Live/" + CurrentUserProfile.Username, 200, QRCodeWriter.QrErrorCorrectionLevel.Medium).ToHtmlTag();
+            GenerateQRCode(cookieService.Url("/Chat/Live/" + CurrentUserProfile.Username));
+            //ChatQrCode = QRCodeWriter.CreateQrCode(cookieService.Url("/Chat/Live/" + CurrentUserProfile.Username), 200, QRCodeWriter.QrErrorCorrectionLevel.Medium).ToHtmlTag();
 
             return Page();
+        }
+
+        private void GenerateQRCode(string url)
+        {
+            using(MemoryStream ms = new MemoryStream())
+            {
+                QRCodeGenerator qrGenerator = new QRCodeGenerator();
+                QRCodeData qrData = qrGenerator.CreateQrCode(url, QRCodeGenerator.ECCLevel.Q);
+                QRCode qrCode = new QRCode(qrData);
+                using(Bitmap bitmap = qrCode.GetGraphic(20))
+                {
+                    bitmap.Save(ms, ImageFormat.Png);
+                    ChatQrCode = "data:image/png/;base64," + Convert.ToBase64String(ms.ToArray());
+                }
+            }
         }
 
         public IActionResult OnPostIsLive(string channelKey)
