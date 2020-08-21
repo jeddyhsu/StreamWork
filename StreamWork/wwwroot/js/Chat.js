@@ -73,11 +73,11 @@ function PlayAudio() {
 
 function ToggleMuteAndUnmute() {
     if (!muted) {
-        document.getElementById("sound").src = '/images/ChatAssets/Mute.png';
+        document.getElementById("sound").src = '/images/ChatAssets/Mute.svg';
         muted = true;
     }
     else {
-        document.getElementById("sound").src = '/images/ChatAssets/Unmute.png';
+        document.getElementById("sound").src = '/images/ChatAssets/Unmute.svg';
         muted = false;
         PlayAudio();
     }

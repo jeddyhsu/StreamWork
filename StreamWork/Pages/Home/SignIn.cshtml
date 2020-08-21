@@ -5,10 +5,10 @@
 @Html.AntiForgeryToken()
 
 <br />
-<div style="background-color: #f3f3f3; padding-top:100px; overflow-x: hidden;">
+<div class="sign-in-sign-up-padding" style="background-color: #f3f3f3;  overflow-x: hidden;">
     <br />
     <div class="row my-4 " style="display: block; text-align: center;">
-        <a href="/"><img src="~/images/GenericAssets/StreamWork-Full.svg" width="450" /></a>
+        <a href="/"><img class="sign-in-sign-up-logo" src="~/images/GenericAssets/StreamWork-Full.svg" /></a>
     </div>
 
     @* Email *@
@@ -93,3 +93,6 @@
             SignIn();
         }
     }</script>
+
+<style>
+</style>
