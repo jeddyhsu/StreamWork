@@ -71,12 +71,12 @@ function SearchStreams(event) {
                 $('input:hidden[name="__RequestVerificationToken"]').val());
         },
         success: function (data) {
-            if ($('#live-channel-count') > 0) {
+            if ($('#live-channel-count').val() > 0) {
                 $('.stream').hide();
                 $('#stream-none-found').removeClass('d-block').addClass('d-none');
-                if (data.streams.length > 0) {
-                    for (var i = 0; i < data.streams.length; i++) {
-                        $('#stream-' + data.streams[i].id).show();
+                if (data.channels.length > 0) {
+                    for (var i = 0; i < data.channels.length; i++) {
+                        $('#stream-' + data.channels[i].id).show();
                     }
                 }
                 else {

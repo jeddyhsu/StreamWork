@@ -1,5 +1,5 @@
 ﻿<div id="signin-signup-modal" class="custom-modal">
-    <div class="custom-modal-content" style="width:550px">
+    <div class="custom-modal-content" style="max-width:550px">
         <div class="close ml-auto" onclick="DiscardChangesAndCloseModal('signin-signup-modal', 'signin-signup-modal')">&times;</div>
         <ul class="nav nav-tabs ml-1" id="myTab" role="tablist">
             <li class="nav-item">
@@ -43,7 +43,7 @@
                                         </span>
                                     </div>
                                 </div>
-                                <button id="sign-in-button" type="button" class="streamWork-primary mb-3" style="width: 100%;" onclick="SignInModal('Stream/Live/@Model.FeaturedTutor.Username');">Sign-in</button>
+                                <button id="sign-in-button" type="button" class="streamWork-primary mb-3" style="width: 100%;" onclick="SignInModal(window.location);">Sign-in</button>
                                 <br />
 
                                 <p class="divider-text">or</p>
@@ -73,12 +73,13 @@
 CheckIfBothFieldsAreEmpty()
     document.getElementById('username').onkeydown = function (event) {
         if (event.keyCode == 13) {
-            SignInModal('Stream/Live/@Model.FeaturedTutor.Username')
+            SignInModal(window.location)
         }
     }
     document.getElementById('password').onkeydown = function (event) {
         if (event.keyCode == 13) {
-            SignInModal('Stream/Live/@Model.FeaturedTutor.Username')
+            SignInModal(window.location)
         }
-    }</script>
+    }
+</script>
 

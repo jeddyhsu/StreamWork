@@ -17,8 +17,6 @@ namespace StreamWork.Pages.Stream
         private readonly ProfileService profileService;
         private readonly ScheduleService scheduleService;
         private readonly FollowService followService;
-        private readonly EditService editService;
-        private readonly ChatService chatService;
         private readonly NotificationService notificationService;
         private readonly EncryptionService encryptionService;
 
@@ -38,15 +36,13 @@ namespace StreamWork.Pages.Stream
         public List<Notification> Notifications { get; set; }
         public bool AreThereUnseenNotifications { get; set; }
 
-        public Live(StorageService storage, CookieService cookie, ProfileService profile, ScheduleService schedule, FollowService follow, EditService edit, ChatService chat, NotificationService notification, EncryptionService encryption)
+        public Live(StorageService storage, CookieService cookie, ProfileService profile, ScheduleService schedule, FollowService follow, NotificationService notification, EncryptionService encryption)
         {
             storageService = storage;
             cookieService = cookie;
             profileService = profile;
             scheduleService = schedule;
             followService = follow;
-            editService = edit;
-            chatService = chat;
             notificationService = notification;
             encryptionService = encryption;
         }
@@ -61,6 +57,12 @@ namespace StreamWork.Pages.Stream
             CurrentUserProfile = await cookieService.GetCurrentUser();
             UserProfile = await storageService.Get<DataModels.Profile>(SQLQueries.GetUserWithUsername, tutor);
             UserChannel = await storageService.Get<Channel>(SQLQueries.GetUserChannelWithUsername, tutor);
+
+            if(UserChannel.StreamTitle == null)
+            {
+                return Redirect(cookieService.Url("/Profiles/Tutor/" + UserProfile.Username));
+            }
+
             UserChannel.StreamSubjectIcon = MiscHelperMethods.GetCorrespondingSubjectThumbnail(UserChannel.StreamSubject);
             ChatInfo = encryptionService.EncryptString(UserChannel.ArchivedVideoId);
             FollowValue = await followService.IsFollowingFollowee(CurrentUserProfile.Id, UserProfile.Id);

@@ -11,12 +11,15 @@ namespace StreamWork.Hubs
 {
     public class ChatHub : Hub
     {
+        private StorageService storageService;
         private readonly IServiceProvider _sp;
         private static long _questionCount = 1;
 
         public ChatHub(IServiceProvider sp)
         {
-            _sp = sp; 
+            _sp = sp;
+            using var scope = _sp.CreateScope();
+            storageService = scope.ServiceProvider.GetRequiredService<StorageService>();
         }
 
         public Task JoinChatRoom(string chatId)
@@ -26,37 +29,37 @@ namespace StreamWork.Hubs
 
         public async Task SendMessageToChatRoom(string chatId, string userName, string name, string message, string profilePicture, string chatColor, DateTime date, int offset, string archivedVideoId)
         {
+            archivedVideoId = (await storageService.Get<Channel>(SQLQueries.GetUserChannelWithUsername, userName)).ArchivedVideoId;
             message = URLIFY(message);
-            string chat = Serialize(chatId, userName, name, message, profilePicture, date, offset, chatColor, _questionCount);
+            string chat = Serialize(chatId, userName, name, message, profilePicture, date, offset, chatColor, archivedVideoId);
             await Clients.Group(chatId).SendAsync("ReceiveMessage", chat);
-            using (var scope = _sp.CreateScope())
-            {
-                _questionCount++;
-                var dbContext = scope.ServiceProvider.GetRequiredService<StorageService>();
-                await SaveMessage(dbContext, chatId, userName, name, message, profilePicture, date, offset, chatColor, archivedVideoId);
-            }
+            _questionCount++;
+            await SaveMessage(chatId, userName, name, message, profilePicture, date, offset, chatColor, archivedVideoId);
         }
 
-        private async Task<bool> SaveMessage(StorageService storageService, string chatId, string userName, string name, string message, string profilePicture, DateTime dateTime, int offset, string chatColor, string archivedVideoId)
+        private async Task<bool> SaveMessage(string chatId, string userName, string name, string message, string profilePicture, DateTime dateTime, int offset, string chatColor, string archivedVideoId)
         {
             try
             {
-                var userProfile = await storageService.Get<Profile>(SQLQueries.GetUserWithUsername, userName);
-                Chat chat = new Chat
+                if(archivedVideoId != null)
                 {
-                    Id = Guid.NewGuid().ToString(),
-                    ChatId = chatId,
-                    Username = userProfile.Username,
-                    Name = name,
-                    Message = message,
-                    ProfilePicture = profilePicture,
-                    Date = dateTime,
-                    ChatColor = chatColor,
-                    TimeOffset = offset,
-                    ArchivedVideoId = archivedVideoId
-                };
+                    var userProfile = await storageService.Get<Profile>(SQLQueries.GetUserWithUsername, userName);
+                    Chat chat = new Chat
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        ChatId = chatId,
+                        Username = userProfile.Username,
+                        Name = name,
+                        Message = message,
+                        ProfilePicture = profilePicture,
+                        Date = dateTime,
+                        ChatColor = chatColor,
+                        TimeOffset = offset,
+                        ArchivedVideoId = archivedVideoId,
+                    };
 
-                await storageService.Save(chat.Id, chat);
+                    await storageService.Save(chat.Id, chat);
+                }
                 return true;
             }
             catch (Exception e)
@@ -77,7 +80,7 @@ namespace StreamWork.Hubs
             return result;
         }
 
-        private string Serialize(string chatId, string userName, string name, string message, string profilePicture, DateTime dateTime, int offset, string chatColor, long questionCount)
+        private string Serialize(string chatId, string userName, string name, string message, string profilePicture, DateTime dateTime, int offset, string chatColor, string archivedVideoId)
         {
             Chat chat = new Chat
             {
@@ -89,6 +92,7 @@ namespace StreamWork.Hubs
                 Date = dateTime,
                 ChatColor = chatColor,
                 TimeOffset = offset,
+                ArchivedVideoId = archivedVideoId
             };
 
             return Newtonsoft.Json.JsonConvert.SerializeObject(chat);

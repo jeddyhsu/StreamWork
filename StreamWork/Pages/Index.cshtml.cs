@@ -62,6 +62,7 @@ namespace StreamWork.Pages
             {
                 videos.Add(videosByViews[i]);
             }
+
             ArchivedStreams = videos;
 
             Channel streamingChannel = await storageService.Get<Channel>(SQLQueries.GetAllUserChannelsThatAreStreaming);

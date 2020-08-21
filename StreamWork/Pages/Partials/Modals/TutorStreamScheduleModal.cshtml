@@ -1,0 +1,48 @@
+﻿<div id="tutor-stream-schedule-modal" class="custom-modal modal-on-modal">
+    <div class="custom-modal-content" style="width:500px">
+        <div class="close ml-auto" onclick="DiscardChangesAndCloseModal('no-form', 'tutor-stream-schedule-modal')">&times;</div>
+        <h5 class="form-header" style="padding-left:20px; padding-top:10px; font-size:16px;">Your Schedule</h5>
+        <div class="slider">
+            <div class="slider-object" style="width:110px;"></div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <ul class="pl-0 mb-0" style="list-style:none; max-height:250px !important; overflow-y:scroll">
+                    @if (Model.Schedule.Count > 0)
+                    {
+                        @foreach (var task in Model.Schedule)
+                        {
+                            <li class="pointer" onclick="FillFromSchedule('@task.Id')">
+                                <div id="schedule-task-@task.Id" class="card schedule-task rounded-0 pl-2 pr-2" style="border-style:none">
+                                    <div class="card-body">
+                                        <input type="hidden" id="schedule-date-@task.Id" value="@task.Date" />
+                                        <div class="d-inline-flex">
+                                            <img class="rounded m-1 schedule-image" src="@task.SubjectThumbnail" />
+                                            <div class="text-center m-1 schedule-image schedule-border">
+                                                <p id="schedule-month-@task.Id" class="form-header schedule-month">@task.Date.ToString("MMM")</p>
+                                            </div>
+                                            <div class="text-center m-1 schedule-image schedule-border">
+                                                <p id="schedule-day-@task.Id" class="form-header schedule-day">@task.Date.Day</p>
+                                                <p id="schedule-dow-@task.Id" class="form-header schedule-dow">@task.Date.ToString("ddd")</p>
+                                            </div>
+                                            <div class="m-1" style="height:75px;">
+                                                <p id="schedule-stream-title-@task.Id" class="form-header m-0">@task.StreamTitle</p>
+                                                <p id="schedule-stream-subject-@task.Id" class="mt-1 mb-0" style="font-size:10px">@task.StreamSubject</p>
+                                                <input id="schedule-stream-description-@task.Id" type="hidden" value="@task.StreamDescription">
+                                                <p class="schedule-time">@task.TimeStart - @task.TimeStop [@task.TimeZone.ToString()]</p>
+                                                <input type="hidden" id="schedule-time-start-@task.Id" value="@task.TimeStart" />
+                                                <input type="hidden" id="schedule-time-stop-@task.Id" value="@task.TimeStop" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+        <div id="stream-edit-buttons"></div>
+    </div>
+</div>

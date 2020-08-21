@@ -44,8 +44,8 @@ else
                         <button class="streamWork-secondary m-1 stream-buttons" onclick="window.location.href='/Profiles/Tutor/@Model.UserProfile.Username'">Profile</button>
                     </div>
                 </div>
-                <div id="player-div" style="position: relative; padding-bottom: 56.25%; height: 0;">
-                    <iframe id="player" src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.ArchivedStream.StreamID" style="width: 100%; height: 100%;" frameborder="0" scrolling="no" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="autoplay; fullscreen;"></iframe>
+                <div id="player-div">
+                    <iframe id="player" src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.ArchivedStream.StreamID" style="width:100%; height:100%" frameborder="0" scrolling="no" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="autoplay; fullscreen;"></iframe>
                 </div>
                 <div id="player-row" class="card-body p-0">
                     <img class="p-3" align="left" src="@Model.UserChannel.StreamSubjectIcon" style="width:100%; height:100%; max-width:120px; max-height:120px; cursor:pointer" onclick="window.open('https://www.streamwork.live/Home/Search?s=@Model.UserChannel.StreamSubject&q=')" />
@@ -72,7 +72,7 @@ else
             </div>
         </div>
         <div id="chat-card" class="d-flex flex-column fixed archived-chats col-lg-3 col-md-12 col-sm-12 col-12 p-0 border-top-0">
-            <iframe class="border-0" style="width:100%; height:100%" src="/chat/ArchiveChat?chatId=@Model.UserChannel.Username&chatInfo=@Model.ChatInfo"></iframe>
+            <iframe class="border-0" style="width:100%; height:100%" src="/Chat/Archive/@Model.ArchivedStream.Id"></iframe>
         </div>
     </div>
 </div>
