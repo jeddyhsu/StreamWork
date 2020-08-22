@@ -7,7 +7,7 @@
         </div>
         <div class="row">
             <div class="col-12">
-                @if (Model.Followers != null && Model.Followers.Count > 0)
+                @if (Model.Followees != null && Model.Followees.Count > 0)
                 {
                     <ul id="followers-list" class="pl-3 m-0" style="list-style-type:none; height:435px; overflow:scroll">
                         @foreach (var followee in Model.Followees)
