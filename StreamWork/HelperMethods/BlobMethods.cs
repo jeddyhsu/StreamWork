@@ -71,5 +71,18 @@ namespace StreamWork.HelperMethods
             CloudBlockBlob blob = blobContainer.GetBlockBlobReference(reference);
             return blob;
         }
+
+        public static string Log(string reference, string content) //Tutor Section TXT Files
+        {
+            CloudStorageAccount cloudStorage = CloudStorageAccount.Parse(_blobconnectionString);
+            CloudBlobClient blobClient = cloudStorage.CreateCloudBlobClient();
+            CloudBlobContainer blobContainer = blobClient.GetContainerReference("streamworksectionsandtopics");
+            CloudBlockBlob blob = blobContainer.GetBlockBlobReference(reference);
+            blob.DeleteIfExists();
+
+            blob.UploadText(content);
+
+            return blob.Uri.AbsoluteUri;
+        }
     }
 }
