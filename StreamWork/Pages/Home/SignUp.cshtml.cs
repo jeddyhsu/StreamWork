@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -54,12 +55,22 @@ namespace StreamWork.Pages.Home
 
         public async Task OnPostSendVerificationEmail(string emailAddress)
         {
-            throw new NotImplementedException();
+            string verificationCode = new Random().Next(10000000, 99999999).ToString();
+
+            string id = Guid.NewGuid().ToString();
+            await storage.Save(id, new EmailVerification
+            {
+                Id = id,
+                EmailAddress = emailAddress,
+                VerificationCode = verificationCode
+            });
+
+            await email.SendEmailVerification(emailAddress, verificationCode);
         }
 
         public async Task<JsonResult> OnGetCheckVerificationCode(string emailAddress, string verificationCode)
         {
-            throw new NotImplementedException();
+            return new JsonResult(await storage.Get<EmailVerification>(SQLQueries.GetEmailVerificationWithAddressAndCode, emailAddress, verificationCode) != null);
         }
 
         public async Task OnPostSignUpStudent()
@@ -98,11 +109,12 @@ namespace StreamWork.Pages.Home
                     ProfileBanner = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_Banner_svg_SW.svg",
                 };
 
-                storage.Save(user.Id, user).Wait(); // Can't SignIn until user has been created
+                await storage.Save(user.Id, user);
                 await cookieService.SignIn(Request.Form["Username"], encryption.DecryptPassword(user.Password, Request.Form["Password"]));
             }
 
             topics.FollowTopics(Request.Form["Username"], GetAllSelectedTopics(Request.Form["Topics"].ToString().Split('|')));
+            await email.SendTemplateToStreamwork("studentSignUp", await storage.Get<Profile>(SQLQueries.GetUserWithUsername, Request.Form["Username"]), new List<MemoryStream>());
         }
 
         public async Task OnPostSignUpTutor()
@@ -140,15 +152,22 @@ namespace StreamWork.Pages.Home
                     ProfileBanner = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_Banner_svg_SW.svg",
                 };
 
-                storage.Save(user.Id, user).Wait(); // Can't SignIn until user has been created
-
+                await storage.Save(user.Id, user);
                 await cookieService.SignIn(Request.Form["Username"], encryption.DecryptPassword(user.Password, Request.Form["Password"]));
             }
 
             await CreateChannel(Request.Form["Username"]);
-            //need to email transcript and resume
-
             topics.TutorTopics(Request.Form["Username"], GetAllSelectedTopics(Request.Form["Topics"].ToString().Split('|')));
+
+            List<MemoryStream> files = new List<MemoryStream>();
+            IEnumerator<IFormFile> iFiles = Request.Form.Files.GetEnumerator();
+            do
+            {
+                using MemoryStream memoryStream = new MemoryStream();
+                iFiles.Current.CopyTo(memoryStream);
+                files.Add(memoryStream);
+            } while (iFiles.MoveNext());
+            await email.SendTemplateToStreamwork("tutorSignUp", await storage.Get<Profile>(SQLQueries.GetUserWithUsername, Request.Form["Username"]), files);
         }
 
         // Server-side security checks

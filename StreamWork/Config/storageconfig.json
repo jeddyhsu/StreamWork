@@ -358,6 +358,17 @@
     },
 
     {
+      "Name": "EmailVerification",
+      "StorageType": "SqlServer",
+      "Queries": [
+        {
+          "Query": "SELECT * FROM [dbo].[EmailVerification] WHERE LOWER(EmailAddress) = LOWER('@x0') AND VerificationCode = '@x1'",
+          "QueryId": "GetEmailVerificationWithAddressAndCode"
+        }
+      ]
+    },
+
+    {
       "Name": "TutorSubject",
       "StorageType": "SqlServer",
       "Queries": [
@@ -378,6 +389,6 @@
           "QueryId": "GetApprovedTutorSubjectsWithSubjectAndSearchTerm"
         }
       ]
-    }
+    },
   ]
 }

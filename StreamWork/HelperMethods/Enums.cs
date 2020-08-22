@@ -132,6 +132,9 @@ namespace StreamWork.HelperMethods
         UpdateNotificationToSeen,
         GetUnseenNotifications,
 
+        //EmailVerifications
+        GetEmailVerificationWithAddressAndCode,
+
         //JOINS
 
         //ApprovedTutorSubjects
