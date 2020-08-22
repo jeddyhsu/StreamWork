@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -29,8 +31,7 @@ namespace StreamWork.Services
         private string scheduleId;
 
         private int initialCount = 0;
-        private static int threadCount = 0;
-        private static Hashtable hashTable = new Hashtable();
+        private static ConcurrentDictionary<string, List<Video>> streamHandler = new ConcurrentDictionary<string, List<Video>>(); //concurrent dict will provide a pipeline where we can store username associated with the videos that they are streaming (thread safe)
 
         public StreamService([FromServices] IOptionsSnapshot<StorageConfig> config) : base(config) { }
 
@@ -168,7 +169,7 @@ namespace StreamWork.Services
                             await StopRecording(channelKey);
                             await Task.Delay(15000, cancellationToken);
                             await ClearChannelStreamInfo();
-                            RunVideoThread();
+                            await RunVideoThread();
                             break;
                         }
                     }
@@ -183,45 +184,39 @@ namespace StreamWork.Services
             return tryAPI;
         }
 
-        private void RunVideoThread() //This thread handles checking if the stream is still live
+        private async Task RunVideoThread() //This thread handles checking if the stream is still live
         {
-            bool tryAPI = true;
-            var cancellationToken = new CancellationToken();
             var channelIds = channel.ChannelKey;
             var rssId = channelIds.Split("|")[1];
 
             var archivedVideo = GetVideo();
-            threadCount += 1;
-            hashTable.Add(threadCount, archivedVideo);
 
-            StreamHosterRSSFeed initialResponse = CallXML<StreamHosterRSSFeed>("https://c.streamhoster.com/feed/WxsdDM/mAe0epZsixC/" + rssId + "?format=mrss");
-            if (initialResponse.Channel.Item != null)
-                initialCount = initialResponse.Channel.Item.Length;
-
-            if (threadCount <= 1)
+            if (streamHandler.ContainsKey(channel.Username)) //check if the concurrent dict has the key with the specified username, if it does this means that a thread has already been spawned looking for this video in the rss feed
             {
-                Task.Factory.StartNew(async () =>
+                streamHandler[channel.Username].Add(archivedVideo); //add the video info to the list of videos in the concurrent dictionary
+            }
+            else
+            {
+                streamHandler[channel.Username] = new List<Video> {archivedVideo}; //create a new list and add the archived video info into the list
+                StreamHosterRSSFeed initialResponse = CallXML<StreamHosterRSSFeed>("https://c.streamhoster.com/feed/WxsdDM/mAe0epZsixC/" + rssId + "?format=mrss"); //feed contains all the archived videos and we use it to get the stream id for each video
+                if (initialResponse.Channel.Item != null)
+                    initialCount = initialResponse.Channel.Item.Length; //check for initial count of the rss feed
+
+                await Task.Factory.StartNew(async () => //spawns a new thread looking for the initial count of the feed + how many items are in the video list. The video list is retreived by the username of the current user
                 {
-                    while (tryAPI)
+                    while (true)
                     {
-                        try
+                        await Task.Delay(30000);
+                        StreamHosterRSSFeed response = CallXML<StreamHosterRSSFeed>("https://c.streamhoster.com/feed/WxsdDM/mAe0epZsixC/" + rssId + "?format=mrss");
+                        if (response.Channel.Item != null && (response.Channel.Item.Length >= initialCount + streamHandler[channel.Username].Count)) // we keep polling until the feed is updated to the number of videos (the initial count & concurrent dict count)
                         {
-                            await Task.Delay(30000, cancellationToken);
-                            StreamHosterRSSFeed response = CallXML<StreamHosterRSSFeed>("https://c.streamhoster.com/feed/WxsdDM/mAe0epZsixC/" + rssId + "?format=mrss");
-                            if (response.Channel.Item != null && response.Channel.Item.Length >= initialCount + threadCount)
-                            {
-                                Console.WriteLine("Videos Found");
-                                await ArchiveVideo(response);
-                                break;
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine("Error in RunVideoThread: " + ex.Message);
-                            tryAPI = true;
+                            Console.WriteLine("Videos Found");
+                            await ArchiveVideo(response);
+                            break;
                         }
                     }
-                }, TaskCreationOptions.LongRunning);
+
+                }, new CancellationToken());
             }
         }
 
@@ -238,6 +233,7 @@ namespace StreamWork.Services
                 StreamThumbnail = streamThumbnail,
                 ProfilePicture = profile.ProfilePicture,
                 StreamColor = GetCorrespondingStreamColor(streamSubject),
+                StartTime = DateTime.UtcNow,
                 Name = profile.Name
             };
 
@@ -246,26 +242,26 @@ namespace StreamWork.Services
 
         private async Task<bool> ArchiveVideo(StreamHosterRSSFeed response)
         {
-            for (int i = 1; i < hashTable.Count + 1; i++)
+           
+            try
             {
-                var archivedStream = (Video)hashTable[i];
-                archivedStream.StreamID = response.Channel.Item[threadCount - i].MediaContentId;
-                archivedStream.Views = channel.Views;
-                archivedStream.StartTime = DateTime.UtcNow;
+                streamHandler[channel.Username].Reverse(); //reverse list content
 
-                try
+                for (int i = 0; i < streamHandler[channel.Username].Count; i++) //go thorugh the response as well as the dict and associate each stream to its object
                 {
-                    await Save(archivedStream.Id, archivedStream);
+                    var video = streamHandler[channel.Username][i];
+                    video.StreamID = response.Channel.Item[i].MediaContentId;
+                    video.Views = channel.Views;
+                    await Save(video.Id, video);
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Error in GetArchiveStream: " + ex.Message);
-                }
+
+                initialCount = 0;
+                streamHandler.Remove(channel.Username, out _);
             }
-
-            threadCount = 0;
-            initialCount = 0;
-            hashTable.Clear();
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error in GetArchiveStream: " + ex.Message);
+            }
 
             return true;
         }
