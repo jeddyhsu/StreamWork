@@ -1,10 +1,17 @@
 ﻿<div class="row" id="emailVerification" style="display: none;">
     <div class="col-lg-4 col-md-3"></div>
     <div class="col-lg-4 col-md-6 py-4 px-5" style="background-color: white; border-style: solid; border-width: 1px; border-color: #b1b1b1;">
-        <p class="text-center my-3" style="font-family: 'Roboto Slab'; font-size: 50px; font-weight: bold;">EmailVerification</p>
-        <p class="text-center mb-4" style="color: #707070; font-size: 13px;">This tab isn't done yet!</p>
+        <p class="text-center my-3" style="font-family: 'Roboto Slab'; font-size: 40px; font-weight: bold;">Email Confirmation</p>
+        <p class="text-center mb-4" style="color: #707070; font-size: 13px;">Please check your email to confirm.</p>
 
-        <button id="emailVerification-next" type="button" class="streamWork-primary mb-3" style="width: 100%;" onclick="goToTab('studentOrTutor');">Next</button>
+        <img class="px-5" src="~/images/SignUpAssets/Email_Emoji.png" style="width: 100%;" />
+
+        <input id="emailVerificationCode" type="text" class="mb-3" style="width: 100%;" onkeyup="emailVerificationUpdateNext();" data-container="body" data-toggle="popover" data-placement="top" data-content="Incorrect verification code" />
+        <button id="emailVerification-next" type="button" class="streamWork-disabled mb-3" style="width: 100%;" onclick="emailVerificationNext();">Confirm Email Address</button>
+
+        <p class="divider-text">Didn't get the email?</p>
+
+        <button type="button" class="streamWork-primary mb-3" style="width: 100%;" onclick="sendVerificationEmail();">Re-Send Confirmation Email</button>
     </div>
     <div class="col-lg-4 col-md-3"></div>
 </div>

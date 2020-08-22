@@ -53,19 +53,27 @@ namespace StreamWork.Pages.Home
             return new JsonResult(await storage.Get<Profile>(SQLQueries.GetUserWithUsername, username) == null);
         }
 
-        public async Task OnPostSendVerificationEmail(string emailAddress)
+        public async Task OnGetSendVerificationEmail(string emailAddress)
         {
-            string verificationCode = new Random().Next(10000000, 99999999).ToString();
-
-            string id = Guid.NewGuid().ToString();
-            await storage.Save(id, new EmailVerification
+            EmailVerification emailVerification = await storage.Get<EmailVerification>(SQLQueries.GetEmailVerificationWithAddress, emailAddress);
+            if (emailVerification == null)
             {
-                Id = id,
-                EmailAddress = emailAddress,
-                VerificationCode = verificationCode
-            });
+                string verificationCode = new Random().Next(10000000, 99999999).ToString();
 
-            await email.SendEmailVerification(emailAddress, verificationCode);
+                string id = Guid.NewGuid().ToString();
+                await storage.Save(id, new EmailVerification
+                {
+                    Id = id,
+                    EmailAddress = emailAddress,
+                    VerificationCode = verificationCode
+                });
+
+                await email.SendEmailVerification(emailAddress, verificationCode);
+            }
+            else
+            {
+                await email.SendEmailVerification(emailAddress, emailVerification.VerificationCode);
+            }
         }
 
         public async Task<JsonResult> OnGetCheckVerificationCode(string emailAddress, string verificationCode)

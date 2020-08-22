@@ -68,6 +68,7 @@ function emailNext() {
                         $('#emailAddress').popover('disable');
                         $('#emailAddress-wrapper').popover('hide');
                         $('#emailAddress-wrapper').popover('disable');
+                        sendVerificationEmail();
                         goToTab('emailVerification');
                     } else {
                         $('#emailAddress').addClass('input-invalid');
@@ -79,6 +80,59 @@ function emailNext() {
                 $('#emailAddress').addClass('input-invalid');
                 $('#emailAddress').popover('enable');
                 $('#emailAddress').popover('show');
+            }
+        });
+    }
+}
+
+function sendVerificationEmail() {
+    $.ajax({
+        url: '/Home/SignUp/?handler=SendVerificationEmail',
+        type: 'GET',
+        datatype: 'json',
+        data: {
+            emailAddress: $('#emailAddress').val()
+        }
+    }).done(function (data) {
+        $('#emailVerificationCode').removeClass('input-invalid');
+        $('#emailVerificationCode').popover('hide');
+        $('#emailVerificationCode').popover('disable');
+    });
+}
+
+function emailVerificationUpdateNext() {
+    $('#emailVerificationCode').removeClass('input-invalid');
+    $('#emailVerificationCode').popover('hide');
+    $('#emailVerificationCode').popover('disable');
+    if ($('#emailVerificationCode').val().length == 0) {
+        $('#emailVerification-next').removeClass('streamWork-primary');
+        $('#emailVerification-next').addClass('streamWork-disabled');
+    } else {
+        $('#emailVerification-next').removeClass('streamWork-disabled');
+        $('#emailVerification-next').addClass('streamWork-primary');
+    }
+}
+
+function emailVerificationNext() {
+    if ($('#emailVerificationCode').val().length > 0) {
+        $.ajax({
+            url: '/Home/SignUp/?handler=CheckVerificationCode',
+            type: 'GET',
+            datatype: 'json',
+            data: {
+                emailAddress: $('#emailAddress').val(),
+                verificationCode: $('#emailVerificationCode').val()
+            }
+        }).done(function (data) {
+            if (data) {
+                $('#emailVerificationCode').removeClass('input-invalid');
+                $('#emailVerificationCode').popover('hide');
+                $('#emailVerificationCode').popover('disable');
+                goToTab('studentOrTutor');
+            } else {
+                $('#emailVerificationCode').addClass('input-invalid');
+                $('#emailVerificationCode').popover('enable');
+                $('#emailVerificationCode').popover('show');
             }
         });
     }
@@ -688,6 +742,7 @@ $(function () {
         tutorResumeTranscriptUpdateNext();
     });
     emailUpdateNext();
+    emailVerificationUpdateNext();
     studentOrTutorUpdateNext();
     studentProfileInfoUpdateNext();
     studentProfileInfoOAuthUpdateNext();

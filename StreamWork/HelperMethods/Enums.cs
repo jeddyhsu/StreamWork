@@ -133,6 +133,7 @@ namespace StreamWork.HelperMethods
         GetUnseenNotifications,
 
         //EmailVerifications
+        GetEmailVerificationWithAddress,
         GetEmailVerificationWithAddressAndCode,
 
         //JOINS
