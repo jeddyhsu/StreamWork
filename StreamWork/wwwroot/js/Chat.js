@@ -16,7 +16,7 @@ connection.on("ReceiveMessage", function (chat) {
     var isStreamOnline = ""
 
     if (chat.ArchivedVideoId == null) {
-        isStreamOnline = "(stream offline - chat not saved)"
+        isStreamOnline = "(stream offline - not saved)"
     }
 
     if (chat.ChatId == chat.Username) {

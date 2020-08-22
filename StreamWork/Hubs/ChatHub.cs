@@ -29,7 +29,7 @@ namespace StreamWork.Hubs
 
         public async Task SendMessageToChatRoom(string chatId, string userName, string name, string message, string profilePicture, string chatColor, DateTime date, int offset, string archivedVideoId)
         {
-            archivedVideoId = (await storageService.Get<Channel>(SQLQueries.GetUserChannelWithUsername, userName)).ArchivedVideoId;
+            archivedVideoId = (await storageService.Get<Channel>(SQLQueries.GetUserChannelWithUsername, chatId)).ArchivedVideoId;
             message = URLIFY(message);
             string chat = Serialize(chatId, userName, name, message, profilePicture, date, offset, chatColor, archivedVideoId);
             await Clients.Group(chatId).SendAsync("ReceiveMessage", chat);
