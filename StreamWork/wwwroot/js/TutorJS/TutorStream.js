@@ -5,7 +5,8 @@ $(document).ready(function () {
 });
 
 //Streaming
-function IsLive(channelKey) {
+function IsLive(channelKey, event) {
+    event.preventDefault()
     document.getElementById("GoLive").disabled = true;
 
     $.ajax({

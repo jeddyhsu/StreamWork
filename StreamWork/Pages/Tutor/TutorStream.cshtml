@@ -160,7 +160,7 @@
                 </div>
                 @if (Model.UserChannel.StreamTitle == null)
                 {
-                    <button id="GoLive" class="btn border-0 rounded-0 p-3 mt-4 w-100 d-flex justify-content-center align-items-middle" style="background-color:#004643; color:white" onclick="IsLive('@Model.UserChannel.ChannelKey')">Go Live!</button>
+                    <button id="GoLive" class="btn border-0 rounded-0 p-3 mt-4 w-100 d-flex justify-content-center align-items-middle" style="background-color:#004643; color:white" onclick="IsLive('@Model.UserChannel.ChannelKey', event)">Go Live!</button>
                 }
             </form>
         </div>

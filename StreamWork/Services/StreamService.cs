@@ -193,11 +193,13 @@ namespace StreamWork.Services
 
             if (streamHandler.ContainsKey(channel.Username)) //check if the concurrent dict has the key with the specified username, if it does this means that a thread has already been spawned looking for this video in the rss feed
             {
-                streamHandler[channel.Username].Add(archivedVideo); //add the video info to the list of videos in the concurrent dictionary
+                var currenList = streamHandler[channel.Username];  //add the video info to the list of videos in the concurrent dictionary
+                currenList.Add(archivedVideo);
+                streamHandler.TryUpdate(channel.Username, currenList, streamHandler[channel.Username]);
             }
             else
             {
-                streamHandler[channel.Username] = new List<Video> {archivedVideo}; //create a new list and add the archived video info into the list
+                streamHandler.TryAdd(channel.Username, new List<Video> { archivedVideo });//create a new list and add the archived video info into the list
                 StreamHosterRSSFeed initialResponse = CallXML<StreamHosterRSSFeed>("https://c.streamhoster.com/feed/WxsdDM/mAe0epZsixC/" + rssId + "?format=mrss"); //feed contains all the archived videos and we use it to get the stream id for each video
                 if (initialResponse.Channel.Item != null)
                     initialCount = initialResponse.Channel.Item.Length; //check for initial count of the rss feed
@@ -216,7 +218,7 @@ namespace StreamWork.Services
                         }
                     }
 
-                }, new CancellationToken());
+                },  new CancellationToken());
             }
         }
 
@@ -256,7 +258,7 @@ namespace StreamWork.Services
                 }
 
                 initialCount = 0;
-                streamHandler.Remove(channel.Username, out _);
+                streamHandler.TryRemove(channel.Username, out _);
             }
             catch (Exception ex)
             {
