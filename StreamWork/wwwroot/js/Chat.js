@@ -101,15 +101,11 @@ function GetMessage(chatId, userName, name, profilePicture, chatColor, archivedV
 }
 
 function CleanAndSendMessage(message, chatId, userName, name, profilePicture, chatColor, archivedVideoId) {
-    $.getJSON('https://api.dillilabs.com:8084/79c76f03-8337-4430-b6ed-b42787c3e82a/devil/isprofane?text=' + message, function (data) {
-        if (!data) {
-            var date = new moment();
-            var offset = 420;
-            connection.invoke("SendMessageToChatRoom", chatId, userName, name, message, profilePicture, chatColor, date, offset, archivedVideoId).catch(function (err) {
-                return console.error(err.toString());
-                
-            });
-        }
+    var date = new moment();
+    var offset = 420;
+    connection.invoke("SendMessageToChatRoom", chatId, userName, name, message, profilePicture, chatColor, date, offset, archivedVideoId).catch(function (err) {
+        return console.error(err.toString());
+
     });
 
     $("#chatInput").text("");
