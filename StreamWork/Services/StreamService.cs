@@ -193,9 +193,12 @@ namespace StreamWork.Services
 
             if (streamHandler.ContainsKey(channel.Username)) //check if the concurrent dict has the key with the specified username, if it does this means that a thread has already been spawned looking for this video in the rss feed
             {
-                var currenList = streamHandler[channel.Username];  //add the video info to the list of videos in the concurrent dictionary
-                currenList.Add(archivedVideo);
-                streamHandler.TryUpdate(channel.Username, currenList, streamHandler[channel.Username]);
+                List<Video> oldvideos = new List<Video>();
+                List<Video> videos = new List<Video>();
+                streamHandler.TryGetValue(channel.Username, out videos);  //add the video info to the list of videos in the concurrent dictionary
+                streamHandler.TryGetValue(channel.Username, out oldvideos);
+                videos.Add(archivedVideo);
+                streamHandler.TryUpdate(channel.Username, videos, oldvideos);
             }
             else
             {
