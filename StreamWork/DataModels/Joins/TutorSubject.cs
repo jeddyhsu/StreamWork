@@ -7,6 +7,7 @@ namespace StreamWork.DataModels.Joins
     public class TutorSubject : IStorageBase<TutorSubject> //i am going to find another way to do this, but doins
     {
         [Key]
+        public string Id { get; set; }
         public string Username { get; set; }
         public string Name { get; set; }
         public string ProfileCaption { get; set; }

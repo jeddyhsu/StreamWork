@@ -28,7 +28,7 @@
                 }
             </div>
         </div>
-        @if (Model.Sections != null && Model.Sections.Count > 1 && (Model.Sections[1].SectionTitle != "" || Model.Sections[1].SectionDescription != ""))
+        @if (Model.Sections != null && Model.Sections.Count > 1 && (Model.Sections[1].SectionTitle != "" || Model.Sections[1].SectionDescription != "" || Model.Sections.Count > 2))
         {
             <div class="form-group col-lg-9 p-4">
                 <p class="form-header" style="font-size: 16px">@Model.Sections[1].SectionTitle</p>
@@ -54,15 +54,15 @@
                 {
                     <div class="col-9 p-3" style="height:200px">
                         <p class="form-sub-header p-0" style="font-size:22px">No Info...yet!</p>
-                        <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">Help students know more about you and your background in education</p>
-                        <button class="streamWork-primary mt-3" onclick="window.location.href ='/Tutor/TutorDashboard'" style="font-size:14px; font-family:'Roboto', serif">Edit Profile</button>
+                        <p class="form-sub-header p-0 roboto" style="font-size:14px;">Help students know more about you and your background in education</p>
+                        <button class="streamWork-primary mt-3 roboto" onclick="window.location.href ='/Tutor/TutorDashboard'" style="font-size:14px">Edit Profile</button>
                     </div>
                 }
                 else
                 {
                     <div class="col-9 p-3" style="height:200px">
                         <p class="form-sub-header p-0" style="font-size:22px">Welcome To My Tutor Profile!</p>
-                        <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">This tutor hasn't filled out any information about themselves yet!</p>
+                        <p class="form-sub-header p-0 roboto" style="font-size:14px;">This tutor hasn't filled out any information about themselves yet!</p>
                     </div>
                 }
             }
@@ -73,14 +73,14 @@
                     <div class="col-9 p-3" style="height:200px">
                         <p class="form-sub-header p-0" style="font-size:22px">No Info...yet!</p>
                         <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">Help other students and tutors know a little bit about you and your intrests!</p>
-                        <button class="streamWork-primary mt-3" onclick="" style="font-size:14px; font-family:'Roboto', serif">Edit Profile</button>
+                        <button class="streamWork-primary mt-3 roboto" onclick="window.location.href ='/Student/StudentDashboard'" style="font-size:14px">Edit Profile</button>
                     </div>
                 }
                 else
                 {
                     <div class="col-9 p-3" style="height:200px">
                         <p class="form-sub-header p-0" style="font-size:22px">Welcome To My Student Profile!</p>
-                        <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">This student hasn't filled out any information about themselves yet!</p>
+                        <p class="form-sub-header p-0 roboto" style="font-size:14px;">This student hasn't filled out any information about themselves yet!</p>
                     </div>
                 }
             }

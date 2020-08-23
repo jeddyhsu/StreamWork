@@ -106,9 +106,4 @@
     <Content Remove="wwwroot\StreamWork enc 1.mp4" />
     <Content Remove="wwwroot\images\GenericAssets\Screen Shot 2020-08-03 at 7.47.22 AM.png" />
   </ItemGroup>
-  <ItemGroup>
-    <None Update="Config\streamwork-284417-96b6d91c8931.p12">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
 </Project>

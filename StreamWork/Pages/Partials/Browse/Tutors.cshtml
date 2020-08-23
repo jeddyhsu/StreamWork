@@ -1,6 +1,6 @@
 ﻿@foreach (var tutor in Model.AllTutors)
 {
-    <div id="tutor-@tutor.Username" class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mt-2 mb-2 tutor">
+    <div id="tutor-@tutor.Id" class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mt-2 mb-2 tutor">
         <div class="card rounded pointer" style="min-height:350px;" onclick="window.location.href='/Profiles/Tutor/@tutor.Username'">
             <img class="card-img-top" src="@tutor.ProfilePicture" height="250" style="object-fit:cover; object-position:top">
             <div class="card-body">

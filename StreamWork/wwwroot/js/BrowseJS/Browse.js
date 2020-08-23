@@ -39,6 +39,7 @@ function SliderTutors() {
 }
 
 function ClearFilter() {
+    $('#searchQuery').val('')
     $('#filter').val('')
     if (page == "stream") {
         SearchStreams(event)
@@ -152,7 +153,7 @@ function SearchTutors(event) {
             $('#tutor-none-found').removeClass('d-block').addClass('d-none');
             if (data.results.length > 0) {
                 for (var i = 0; i < data.results.length; i++) {
-                    $('#tutor-' + data.results[i].username).show();
+                    $('#tutor-' + data.results[i].id).show();
                 }
             }
             else {

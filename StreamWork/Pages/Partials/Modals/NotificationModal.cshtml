@@ -32,7 +32,7 @@
                                             <p class="mb-0" style="padding-left:40px; font-size:12px;">
                                                 @Html.Raw(@notification.NotificationInfo.Split('|')[2])
                                             </p>
-                                            <a class="notification-destination" href="/Stream/Archive/@notification.ReceiverUsername/@notification.NotificationInfo.Split('|')[1]/@notification.ObjectId" style="padding-left:10px"><b>Reply</b></a>
+                                            <a class="notification-destination" href="/Stream/Archive/@notification.NotificationInfo.Split('|')[1]/@notification.ObjectId" style="padding-left:10px"><b>Reply</b></a>
                                         }
                                         else
                                         {

@@ -53,17 +53,17 @@ namespace StreamWork.Pages.Stream
             encryptionService = encryption;
         }
 
-        public async Task<IActionResult> OnGet(string tutor, string id, string commentId)
+        public async Task<IActionResult> OnGet(string id, string commentId)
         {
             if (!cookieService.Authenticated)
             {
-                return Redirect(cookieService.Url("/Home/SignIn/" + encryptionService.EncryptString("/Stream/Archive/" + tutor + "/" + id + "/" + commentId)));
+                return Redirect(cookieService.Url("/Home/SignIn/" + encryptionService.EncryptString("/Stream/Archive/" + id + "/" + commentId)));
             }
 
             CurrentUserProfile = await cookieService.GetCurrentUser();
-            UserProfile = await storageService.Get<Profile>(SQLQueries.GetUserWithUsername, tutor);
-            UserChannel = await storageService.Get<Channel>(SQLQueries.GetUserChannelWithUsername, tutor);
             ArchivedStream = await storageService.Get<Video>(SQLQueries.GetArchivedStreamsWithStreamId, id);
+            UserProfile = await storageService.Get<Profile>(SQLQueries.GetUserWithUsername, ArchivedStream.Username);
+            UserChannel = await storageService.Get<Channel>(SQLQueries.GetUserChannelWithUsername, ArchivedStream.Username);
             UserChannel.StreamSubjectIcon = MiscHelperMethods.GetCorrespondingSubjectThumbnail(ArchivedStream.StreamSubject);
             ChatInfo = encryptionService.EncryptString(ArchivedStream.Id);
             FollowValue = await followService.IsFollowingFollowee(CurrentUserProfile.Id, UserProfile.Id);
