@@ -252,7 +252,7 @@ namespace StreamWork.Services
             {
                 streamHandler[channel.Username].Reverse(); //reverse list content
 
-                for (int i = 0; i < streamHandler[channel.Username].Count; i++) //go thorugh the response as well as the dict and associate each stream to its object
+                for (int i = 0; i < streamHandler[channel.Username].Count; i++) //go through the response as well as the dict and associate each stream to its object
                 {
                     var video = streamHandler[channel.Username][i];
                     video.StreamID = response.Channel.Item[i].MediaContentId;
