@@ -466,7 +466,7 @@ select.form-control {
 }
 
 .form-textarea-resize {
-    font-size: 12px
+    font-size: 12px;
     height: 125px
 }
 
@@ -504,6 +504,7 @@ select.form-control {
 
 div[contenteditable] {
     border: 1px solid black;
+    min-height: 33px;
     max-height: 200px;
     overflow: auto;
     cursor:text
