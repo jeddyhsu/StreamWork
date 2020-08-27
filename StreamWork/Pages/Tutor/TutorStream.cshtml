@@ -113,6 +113,12 @@
                             {
                                 <img id="preview-stream-thumbnail" src="@Model.UserChannel.StreamThumbnail" style="width:100%; border-radius:10px">
                             }
+                            <div class="form-check mt-4">
+                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                <label class="form-check-label form-header" for="defaultCheck1">
+                                    Notify Followers
+                                </label>
+                            </div>
                         </div>
                         @if (Model.UserChannel.StreamTitle == null)
                         {
