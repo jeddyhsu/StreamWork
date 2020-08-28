@@ -43,7 +43,9 @@ namespace StreamWork.Services
         private static readonly string gmailSmtp = "smtp.gmail.com";
         private static readonly int gmailPort = 587;
 
-        public EmailService() {
+        private readonly StorageService TEMP;
+
+        public EmailService(StorageService storage) {
             templates = new Hashtable
             {
                 {"test", new EmailTemplate(
@@ -78,6 +80,8 @@ namespace StreamWork.Services
                     }
                 )}
             };
+
+            TEMP = storage;
         }
 
         public async Task SendTemplateToUser(string templateName, Profile user, List<MemoryStream> attachments)
@@ -138,23 +142,36 @@ namespace StreamWork.Services
 
         private async Task SendEmail(MimeMessage message)
         {
-            var credential = new ServiceAccountCredential(new ServiceAccountCredential.Initializer(serviceAccountEmail)
+            try
             {
-                Scopes = scopes,
-                User = streamworkEmailAddress
-            }.FromCertificate(new X509Certificate2(certificatePath, privateKeyPassword, X509KeyStorageFlags.Exportable)));
+                var credential = new ServiceAccountCredential(new ServiceAccountCredential.Initializer(serviceAccountEmail)
+                {
+                    Scopes = scopes,
+                    User = streamworkEmailAddress
+                }.FromCertificate(new X509Certificate2(certificatePath, privateKeyPassword, X509KeyStorageFlags.Exportable)));
 
-            // Token gets put inside credential. At least cross your fucking fingers that it does.
-            await credential.RequestAccessTokenAsync(CancellationToken.None);
+                // Token gets put inside credential. At least cross your fucking fingers that it does.
+                await credential.RequestAccessTokenAsync(CancellationToken.None);
 
-            using var client = new SmtpClient();
-            client.Connect(gmailSmtp, gmailPort);
+                using var client = new SmtpClient();
+                client.Connect(gmailSmtp, gmailPort);
 
-            var oauth2 = new SaslMechanismOAuth2(streamworkEmailAddress, credential.Token.AccessToken);
-            client.Authenticate(oauth2);
+                var oauth2 = new SaslMechanismOAuth2(streamworkEmailAddress, credential.Token.AccessToken);
+                client.Authenticate(oauth2);
 
-            client.Send(message);
-            client.Disconnect(true);
+                client.Send(message);
+                client.Disconnect(true);
+            }
+            catch (Exception e)
+            {
+                Debug debug = new Debug
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Timestamp = DateTime.UtcNow,
+                    Message = e.Message,
+                };
+                await TEMP.Save(debug.Id, debug);
+            }
         }
     }
 }
