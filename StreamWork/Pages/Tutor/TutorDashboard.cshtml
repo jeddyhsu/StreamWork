@@ -68,7 +68,7 @@
                             <div class="bottom-right mr-2" style="left:0px; bottom:0px;">
                                 <div class="card rounded-0" style="width:100%; height:40px; background-color:black; opacity:0.2">
                                     <i id="add-profile-banner" class="fa fa-camera d-block ml-auto mr-auto mt-2" style="font-size:24px;color:white"></i>
-                                    <input id="upload-profile-banner" style="cursor:pointer; display:none" type='file' onchange="ReadImageUrl(this, 'Banner')" onclick="this.value=null;" />
+                                    <input id="upload-profile-banner" class="pointer" style="display:none" type='file' onchange="ReadImageUrl(this, 'Banner')" />
                                     <script>$('#preview-profile-banner').click(function () {
                                             $('#upload-profile-banner').click();
                                         })</script>
