@@ -49,7 +49,7 @@ namespace StreamWork.Services
                 //await _tutorMethods.ChangeAllArchivedStreamAndUserChannelProfilePhotos(storageConfig, userProfile.Username, userProfile.ProfilePicture); //only if tutor
             }
 
-            await Save<Profile>(userProfile.Id, userProfile);
+            await Save(userProfile.Id, userProfile);
 
             return new List<string> { firstName, lastName, occupation, location, timeZone, linkedInUrl, userProfile.ProfilePicture };
         }

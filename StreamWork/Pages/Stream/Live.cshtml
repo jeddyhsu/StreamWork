@@ -68,7 +68,7 @@ else
                                         <div class="card-body p-1 mb-2">
                                             <p class="form-header pl-3 pt-3 m-0" style="font-size:14px"><span><img style="width:24px" class="m-1" src="/images/StreamAssets/Followers.svg" /></span>Followers: @Model.NumberOfFollowers</p>
                                             <p class="form-header pl-3 m-0" style="font-size:14px"><span><img style="width:24px" class="m-1" src="/images/StreamAssets/Views.svg" /></span>Views: @Model.NumberOfViews</p>
-                                            <p class="form-header pl-3 m-0" style="font-size:14px"><span><img style="width:24px" class="m-1" src="/images/StreamAssets/Calendar.svg" /></span>Tutor Since June, 2017</p>
+                                            <p class="form-header pl-3 m-0" style="font-size:14px"><span><img style="width:24px" class="m-1" src="/images/StreamAssets/Calendar.svg" /></span>Tutor Since @Model.CurrentUserProfile.ProfileSince.ToString("MMM, yyyy")</p>
                                         </div>
                                     </div>
                                     <div class="card mt-3">

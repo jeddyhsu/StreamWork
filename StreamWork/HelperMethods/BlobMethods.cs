@@ -40,7 +40,7 @@ namespace StreamWork.HelperMethods
                         int resizeWidth = (int)((float)currWidth / currHeight * height);
                         image.Mutate(i => i.Resize(resizeWidth, height).Crop(new Rectangle(Math.Abs(resizeWidth - width) / 2, 0, width - 1, height - 1)));
                     }
-                     
+
                     image.Save(output, encoder);
                     output.Position = 0;
                     blockBlob.UploadFromStream(output);

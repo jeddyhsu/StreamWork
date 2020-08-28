@@ -18,13 +18,13 @@
                             <button type="button" class="streamWork-primary" onclick="window.location.href ='/Profiles/Tutor/@Model.CurrentUserProfile.Username'">View Profile</button>
                         </div>
                         <div class="p-lg-4 pt-md-4 p-sm-3 p-3">
-                            <img id="header-profile-picture" align="left" class="rounded header-picture" src="@Model.CurrentUserProfile.ProfilePicture"/>
+                            <img id="header-profile-picture" align="left" class="rounded header-picture" src="@Model.CurrentUserProfile.ProfilePicture" />
                             <p id="header-name" class="form-header m-0 header-padding" style="font-size:20px; color:@Model.CurrentUserProfile.ProfileColor">@Model.CurrentUserProfile.Name.Replace('|', ' ')</p>
                             @if (@Model.CurrentUserProfile.ProfileCaption == null || @Model.CurrentUserProfile.ProfileCaption == "")
                             {<p id="header-occupation" class="form-header m-0" style="padding-left:100px; font-size:12px; color: #9F9F9F">Occupation / Major</p>}
                             else
                             { <p id="header-occupation" class="form-header m-0 header-padding" style="font-size:12px;">@Model.CurrentUserProfile.ProfileCaption</p>}
-                            <p class="mb-1 mt-2 form-sub-header header-padding"><span><img width="10" class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.svg" /></span>Tutor since Jun, 2020</p>
+                            <p class="mb-1 mt-2 form-sub-header header-padding"><span><img width="10" class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.svg" /></span>Tutor since @Model.CurrentUserProfile.ProfileSince.ToString("MMM, yyyy")</p>
                             @if (Model.CurrentUserProfile.Location == "" || Model.CurrentUserProfile.Location == null)
                             {<p class="form-sub-header header-padding"><span><img width="10" class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.svg" /></span><span id="header-location">City, State</span></p>}
                             else
@@ -64,11 +64,11 @@
                     </div>
                     <div class="col-lg-5 col-md-12 col-sm-12 col-12 order-lg-2 order-md-1 order-sm-1 order-1">
                         <div id="banner-upload" class="image-container" style="width:100%; height:100%;">
-                            <img class="banner" id="preview-profile-banner" src="@Model.CurrentUserProfile.ProfileBanner" style="cursor:pointer; height:100%; object-fit:cover;"  />
+                            <img class="banner" id="preview-profile-banner" src="@Model.CurrentUserProfile.ProfileBanner" style="cursor:pointer; height:100%; object-fit:cover;" />
                             <div class="bottom-right mr-2" style="left:0px; bottom:0px;">
                                 <div class="card rounded-0" style="width:100%; height:40px; background-color:black; opacity:0.2">
                                     <i id="add-profile-banner" class="fa fa-camera d-block ml-auto mr-auto mt-2" style="font-size:24px;color:white"></i>
-                                    <input id="upload-profile-banner" style="cursor:pointer; display:none" type='file' onchange="SaveProfileBanner(this)" />
+                                    <input id="upload-profile-banner" style="cursor:pointer; display:none" type='file' onchange="ReadImageUrl(this, 'Banner')" onclick="this.value=null;" />
                                     <script>$('#preview-profile-banner').click(function () {
                                             $('#upload-profile-banner').click();
                                         })</script>
@@ -461,6 +461,7 @@
     </nav>
 </div>
 
+@await Html.PartialAsync("Partials/Modals/ImageCropper")
 @await Html.PartialAsync("Partials/Modals/ProfileModal")
 @await Html.PartialAsync("Partials/Modals/ScheduleModal")
 @await Html.PartialAsync("Partials/Modals/UniversityModal")

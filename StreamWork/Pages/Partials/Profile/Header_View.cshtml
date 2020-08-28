@@ -65,11 +65,11 @@
             <div class="d-lg-inline-block d-md-inline-block d-sm-none d-none pl-3">
                 @if (Model.UserProfile.ProfileType == "tutor")
                 {
-                    <p class="mb-0 mt-2 form-sub-header d-inline-block" style="font-size:12px"><span><img width="10" class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.svg" /></span>Tutor since Jun, 2020</p>
+                    <p class="mb-0 mt-2 form-sub-header d-inline-block" style="font-size:12px"><span><img width="10" class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.svg" /></span>Tutor since @Model.UserProfile.ProfileSince.ToString("MMM, yyyy")</p>
                 }
                 else
                 {
-                    <p class="mb-0 mt-2 form-sub-header d-inline-block" style="font-size:12px"><span><img width="10" class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.svg" /></span>Student since Jun, 2020</p>
+                    <p class="mb-0 mt-2 form-sub-header d-inline-block" style="font-size:12px"><span><img width="10" class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.svg" /></span>Student since @Model.UserProfile.ProfileSince.ToString("MMM, yyyy")</p>
                 }
                 @if (Model.UserProfile.Location == "" || Model.UserProfile.Location == null)
                 {<p id="header-location-mask" class="form-sub-header" style="font-size:12px"><span><img width="8" class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.svg" /></span><span id="header-location">City, State</span></p>}
@@ -79,11 +79,11 @@
             <div class="d-lg-none d-md-none ">
                 @if (Model.UserProfile.ProfileType == "tutor")
                 {
-                    <p class="mb-0 mt-2 form-sub-header d-inline-block header-padding" style="font-size:12px"><span><img width="10" class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.svg" /></span>Tutor since Jun, 2020</p>
+                    <p class="mb-0 mt-2 form-sub-header d-inline-block header-padding" style="font-size:12px"><span><img width="10" class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.svg" /></span>Tutor since @Model.UserProfile.ProfileSince.ToString("MMM, yyyy")</p>
                 }
                 else
                 {
-                    <p class="mb-0 mt-2 form-sub-header d-inline-block header-padding" style="font-size:12px"><span><img width="10" class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.svg" /></span>Student since Jun, 2020</p>
+                    <p class="mb-0 mt-2 form-sub-header d-inline-block header-padding" style="font-size:12px"><span><img width="10" class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.svg" /></span>Student since @Model.UserProfile.ProfileSince.ToString("MMM, yyyy")</p>
                 }
                 @if (Model.UserProfile.Location == "" || Model.UserProfile.Location == null)
                 {<p id="header-location-mask" class="form-sub-header header-padding" style="font-size:12px"><span><img width="8" class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.svg" /></span><span id="header-location">City, State</span></p>}

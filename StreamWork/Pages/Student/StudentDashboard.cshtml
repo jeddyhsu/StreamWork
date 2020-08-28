@@ -24,7 +24,7 @@
                             {<p id="header-occupation" class="form-header m-0" style="padding-left:100px; font-size:12px; color: #9F9F9F">Occupation / Major</p>}
                             else
                             { <p id="header-occupation" class="form-header m-0 header-padding" style="font-size:12px;">@Model.CurrentUserProfile.ProfileCaption</p>}
-                            <p class="mb-0 mt-2 form-sub-header" style="padding-left:100px"><span><img class="mb-1 mr-1" width="10" src="~/images/TutorAssets/TutorDashboard/TutorSince.svg" /></span>Student since Jun, 2020</p>
+                            <p class="mb-0 mt-2 form-sub-header" style="padding-left:100px"><span><img class="mb-1 mr-1" width="10" src="~/images/TutorAssets/TutorDashboard/TutorSince.svg" /></span>Student since @Model.CurrentUserProfile.ProfileSince.ToString("MMM, yyyy")</p>
                             @if (Model.CurrentUserProfile.Location == "" || Model.CurrentUserProfile.Location == null)
                             {<p class="form-sub-header header-padding"><span><img class="mb-1 mt-1 mr-1"  width="8" src="~/images/TutorAssets/TutorDashboard/Location.svg" /></span><span id="header-location">City, State</span></p>}
                             else

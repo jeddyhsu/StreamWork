@@ -51,7 +51,7 @@ function RegisterStream() {
     formData.append("ScheduleId", pickedScheduleId);
     //formData.append("NotifiyStudent", notifyStudent);
 
-    if (totalFile.files.length > 0) {
+    if (cropperBlob != null) {
         formData.append("StreamThumbnail", totalFile.files[0]);
     }
     else {

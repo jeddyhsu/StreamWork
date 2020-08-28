@@ -30,6 +30,7 @@ namespace StreamWork.Pages.Tutor
         public Schedule ScheduledStream { get; set; }
         public List<Schedule> Schedule { get; set; }
         public string ChatQrCode { get; set; }
+        public string Host { get; set; }
 
         public TutorStream(StorageService storage, CookieService cookie, StreamService stream, NotificationService notification, EncryptionService encryption, ScheduleService schedule)
         {
@@ -59,7 +60,7 @@ namespace StreamWork.Pages.Tutor
             Schedule = await scheduleService.GetSchedule(CurrentUserProfile.Username);
 
             GenerateQRCode(cookieService.Url("/Chat/Live/" + CurrentUserProfile.Username));
-            //ChatQrCode = QRCodeWriter.CreateQrCode(cookieService.Url("/Chat/Live/" + CurrentUserProfile.Username), 200, QRCodeWriter.QrErrorCorrectionLevel.Medium).ToHtmlTag();
+            Host = cookieService.host;
 
             return Page();
         }
