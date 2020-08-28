@@ -1,7 +1,11 @@
 ﻿@page "{student}"
 @model StreamWork.Pages.Profiles.Student
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@if (Model.CurrentUserProfile.ProfileType == "tutor")
+@if (Model.CurrentUserProfile == null)
+{
+    { Layout = "Home/_LayoutHome"; }
+}
+else if (Model.CurrentUserProfile.ProfileType == "tutor")
 {
     { Layout = "Tutor/_LayoutTutor"; }
 }

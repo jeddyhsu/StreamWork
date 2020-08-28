@@ -49,11 +49,6 @@ namespace StreamWork.Pages.Profiles
 
         public async Task<IActionResult> OnGet(string tutor)
         {
-            if (!cookieService.Authenticated)
-            {
-                return Redirect(cookieService.Url("/Home/SignIn/" + encryptionService.EncryptString("/Profiles/Tutor/" + tutor)));
-            }
-
             if (!await cookieService.ValidateUserType(tutor, "tutor")) //checks for 
             {
                 return Redirect("/Profiles/Student/" + tutor);
@@ -74,10 +69,13 @@ namespace StreamWork.Pages.Profiles
             NumberOfViews = UserArchivedStreams.Sum(x => x.Views);
             NumberOfFollowers = await followService.GetNumberOfFollowers(UserProfile.Id);
 
-            Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
-            AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
+            if (CurrentUserProfile != null)
+            {
+                Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
+                AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
 
-            FollowValue = await followService.IsFollowingFollowee(CurrentUserProfile.Id, UserProfile.Id);
+                FollowValue = await followService.IsFollowingFollowee(CurrentUserProfile.Id, UserProfile.Id);
+            }
 
             return Page();
         }

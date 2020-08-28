@@ -50,7 +50,7 @@
         {
             @if (Model.UserProfile.ProfileType == "tutor")
             {
-                if (Model.CurrentUserProfile.Id == Model.UserProfile.Id)
+                if (Model.CurrentUserProfile != null && Model.CurrentUserProfile.Id == Model.UserProfile.Id)
                 {
                     <div class="col-9 p-3" style="height:200px">
                         <p class="form-sub-header p-0" style="font-size:22px">No Info...yet!</p>
@@ -68,7 +68,7 @@
             }
             else
             {
-                if (Model.CurrentUserProfile.Id == Model.UserProfile.Id)
+                if (Model.CurrentUserProfile != null && Model.CurrentUserProfile.Id == Model.UserProfile.Id)
                 {
                     <div class="col-9 p-3" style="height:200px">
                         <p class="form-sub-header p-0" style="font-size:22px">No Info...yet!</p>

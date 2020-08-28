@@ -21,7 +21,8 @@
 
     @if ((Model.UserProfile.LinkedInUrl == null || Model.UserProfile.LinkedInUrl == "") && (Model.UserProfile.InstagramUrl == null || Model.UserProfile.InstagramUrl == "") && (Model.UserProfile.FacebookUrl == null || Model.UserProfile.FacebookUrl == "") && (Model.UserProfile.TwitterUrl == null || Model.UserProfile.TwitterUrl == ""))
     {
-        if (Model.CurrentUserProfile.Id == Model.UserProfile.Id)
+
+        if (Model.CurrentUserProfile != null && Model.CurrentUserProfile.Id == Model.UserProfile.Id)
         {
             <p class="form-sub-header" style="font-size:14px;"><b>Add links to social media!</b></p>
         }

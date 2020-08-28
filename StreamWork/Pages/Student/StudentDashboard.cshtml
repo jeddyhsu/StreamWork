@@ -26,9 +26,9 @@
                             { <p id="header-occupation" class="form-header m-0 header-padding" style="font-size:12px;">@Model.CurrentUserProfile.ProfileCaption</p>}
                             <p class="mb-0 mt-2 form-sub-header" style="padding-left:100px"><span><img class="mb-1 mr-1" width="10" src="~/images/TutorAssets/TutorDashboard/TutorSince.svg" /></span>Student since @Model.CurrentUserProfile.ProfileSince.ToString("MMM, yyyy")</p>
                             @if (Model.CurrentUserProfile.Location == "" || Model.CurrentUserProfile.Location == null)
-                            {<p class="form-sub-header header-padding"><span><img class="mb-1 mt-1 mr-1"  width="8" src="~/images/TutorAssets/TutorDashboard/Location.svg" /></span><span id="header-location">City, State</span></p>}
+                            {<p class="form-sub-header header-padding"><span><img class="mb-1 mt-1 mr-1" width="8" src="~/images/TutorAssets/TutorDashboard/Location.svg" /></span><span id="header-location">City, State</span></p>}
                             else
-                            {<p class="form-sub-header header-padding"><span><img class="mb-1 mt-1 mr-1"  width="8" src="~/images/TutorAssets/TutorDashboard/Location.svg" /></span><span id="header-location">@Model.CurrentUserProfile.Location</span></p>}
+                            {<p class="form-sub-header header-padding"><span><img class="mb-1 mt-1 mr-1" width="8" src="~/images/TutorAssets/TutorDashboard/Location.svg" /></span><span id="header-location">@Model.CurrentUserProfile.Location</span></p>}
                             <input id="header-first-name" type="hidden" value="@Model.CurrentUserProfile.Name.Split('|')[0]" />
                             <input id="header-last-name" type="hidden" value="@Model.CurrentUserProfile.Name.Split('|')[1]" />
                             <input id="header-timezone" type="hidden" value="@Model.CurrentUserProfile.TimeZone" />
@@ -49,7 +49,7 @@
                             <div class="bottom-right mr-2" style="left:0px; bottom:0px;">
                                 <div class="card rounded-0" style="width:100%; height:40px; background-color:black; opacity:0.2">
                                     <i id="add-profile-banner" class="fa fa-camera d-block ml-auto mr-auto mt-2" style="font-size:24px;color:white"></i>
-                                    <input id="upload-profile-banner" style="cursor:pointer; display:none" type='file' onchange="SaveProfileBanner(this)" />
+                                    <input id="upload-profile-banner" style="cursor:pointer; display:none" type='file' onchange="ReadImageUrl(this, 'Banner')" />
                                     <script>$('#preview-profile-banner').click(function () {
                                             $('#upload-profile-banner').click();
                                         })</script>
@@ -353,6 +353,7 @@
     </nav>
 </div>
 
+@await Html.PartialAsync("Partials/Modals/ImageCropper")
 @await Html.PartialAsync("Partials/Modals/ProfileModal")
 @await Html.PartialAsync("Partials/Modals/UniversityModal")
 @await Html.PartialAsync("Partials/Notification/PushNotifications")
