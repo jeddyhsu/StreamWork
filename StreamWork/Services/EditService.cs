@@ -62,7 +62,7 @@ namespace StreamWork.Services
                 IFormFile profileBanner = request.Form.Files[0];
                 var banner = BlobMethods.SaveImageIntoBlobContainer(profileBanner, userProfile.Username + "-" + userProfile.Id + "-profilebanner", 720, 242);
                 userProfile.ProfileBanner = banner;
-                await Save<Profile>(userProfile.Id, userProfile);
+                await Save(userProfile.Id, userProfile);
                 return banner;
             }
             catch (Exception e)
@@ -78,7 +78,7 @@ namespace StreamWork.Services
             {
                 var userProfile = await Get<Profile>(SQLQueries.GetUserWithUsername, user);
                 userProfile.College = abbr + "|" + name;
-                await Save<Profile>(userProfile.Id, userProfile);
+                await Save(userProfile.Id, userProfile);
                 return true;
             }
             catch (Exception e)
