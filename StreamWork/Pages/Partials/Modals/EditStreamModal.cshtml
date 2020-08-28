@@ -29,9 +29,10 @@
                                 <label class="form-header">Thumbnail</label>
                                 <div class="image-container mr-auto ml-auto">
                                     <img id="preview-stream-thumbnail-edit" class="mt-1" style="width:100%; border-radius:10px">
-                                    <input id="stream-thumbnail-edit" type="image" class="bottom-right" src="~/images/TutorAssets/TutorDashboard/Upload.png" style="bottom:-5px" />
-                                    <input id="upload-thumbnail-edit" name="upload-thumbnail-edit" class="d-none" type="file" value="~/images/MathDefault.png" onchange="ReadImageUrl(this,'preview-stream-thumbnail-edit');">
-                                    <script>$("#stream-thumbnail-edit").click(function (e) {
+                                    <input id="stream-thumbnail-edit" type="image" class="bottom-right" src="~/images/TutorAssets/TutorDashboard/Add.svg" width="20" style="bottom:-5px" />
+                                    <input id="upload-thumbnail-edit" name="upload-thumbnail-edit" class="d-none" type="file" value="~/images/MathDefault.png" onchange="ReadImageUrl(this,'Thumbnail Edit');">
+                                    <script>
+                                        $("#stream-thumbnail-edit").click(function (e) {
                                             e.preventDefault()
                                             $("input[id='upload-thumbnail-edit']").click();
                                         })</script>

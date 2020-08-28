@@ -51,8 +51,8 @@ function RegisterStream() {
     formData.append("ScheduleId", pickedScheduleId);
     //formData.append("NotifiyStudent", notifyStudent);
 
-    if (totalFile.files.length > 0) {
-        formData.append("StreamThumbnail", totalFile.files[0]);
+    if (cropperBlob != null) {
+        formData.append("StreamThumbnail", cropperBlob);
     }
     else {
         $("#tutor-stream-error-notification").html(`<b>Thumbnail required!</b> Thumbnails make your streams more attractive to click on.`)

@@ -1,7 +1,11 @@
 ﻿@page "{student}"
 @model StreamWork.Pages.Profiles.Student
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@if (Model.CurrentUserProfile.ProfileType == "tutor")
+@if (Model.CurrentUserProfile == null)
+{
+    { Layout = "Home/_LayoutHome"; }
+}
+else if (Model.CurrentUserProfile.ProfileType == "tutor")
 {
     { Layout = "Tutor/_LayoutTutor"; }
 }
@@ -12,7 +16,7 @@ else
 @Html.AntiForgeryToken()
 
 
-<div class="container">
+<div class="container custom-profile-container">
     <img class="banner" id="preview-profile-banner" src="@Model.UserProfile.ProfileBanner" />
     <div class="card border-0">
         <div class="card-body p-0 mb-4">

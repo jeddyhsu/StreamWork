@@ -43,7 +43,7 @@ connection.on("ReceiveMessage", function (chat) {
     var listItem = `<li id="message-${chatCount}" class='list-group-item ${colorWay} border-0'>
                             <div class="row">
                                 <div class="col-12">
-                                    <input align="left" type="image" class="chat-profile-picture rounded" src=${chat.ProfilePicture} />
+                                    <input align="left" type="image" class="chat-profile-picture rounded pointer" onclick="window.parent.location.href='/Profiles/Student/${chat.Username}'" src=${chat.ProfilePicture} />
                                     ${listName}
                                     <p id="chat-${chatCount}" class="chat-message">${chat.Message}</p>
                                 </div>

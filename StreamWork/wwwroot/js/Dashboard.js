@@ -1,6 +1,9 @@
 ﻿var sectionCount = 0; //used for sections
 var topicCount = 0; // //used for topics
 const colors = ['#D9534F', '#F0AD4E', '#56C0E0', '#5CB85C', '#1C7CD5', '#8B4FD9']
+var cropper = null; // cropper object
+var cropperType = "";   //type of cropper ie: profile pic, banner
+var cropperBlob = null; //blob that gets saved for profile pictures that are uploded in a modal
 
 //Sliders
 function SliderProfile() {
@@ -42,7 +45,6 @@ function SliderSocialMedia() {
 //Profile
 function SaveProfile() {
     var formData = new FormData();
-    var totalFiles = document.getElementById("upload-profile-picture");
     formData.append("FirstName", $('#first-name').val());
     formData.append("LastName", $('#last-name').val());
     formData.append("Occupation", $('#occupation-major').val());
@@ -61,8 +63,10 @@ function SaveProfile() {
     formData.append("FacebookURL", $('#facebook-url').val());
     formData.append("TwitterURL", $('#twitter-url').val());
 
-    if (totalFiles.files.length > 0)
-        formData.append("ProfilePicture", totalFiles.files[0]);
+    if (cropperBlob != null)
+        formData.append("ProfilePicture", cropperBlob);
+
+    cropperBlob == null;
 
     $.ajax({
         url: '/Profiles/Profile/?handler=SaveProfile',
@@ -77,6 +81,8 @@ function SaveProfile() {
         },
         success: function (data) {
             if (data.message === "Success") {
+                ShowBannerNotification("profile-information-notification")
+
                 $('#header-name').text(data.savedInfo[0] + " " + data.savedInfo[1]);
                 $('#header-first-name').val(data.savedInfo[0]);
                 $('#header-last-name').val(data.savedInfo[1]);
@@ -87,11 +93,9 @@ function SaveProfile() {
                 $('#header-timezone').val(data.savedInfo[4]);
                 $('#header-linkedin-url').val(data.savedInfo[5])
 
-                var c = new Date().valueOf();
-                $("#header-profile-picture").attr('src', data.savedInfo[6] + `?nocache=${c}`);
-                $("#navbar-profile-picture").attr('src', data.savedInfo[6] + `?nocache=${c}`);
-
-                ShowBannerNotification("profile-information-notification")
+                var cacheDate = new Date().valueOf();
+                $("#header-profile-picture").attr('src', data.savedInfo[6] + `?nocache=${cacheDate}`);
+                $("#navbar-profile-picture").attr('src', data.savedInfo[6] + `?nocache=${cacheDate}`);
             }
         }
     })
@@ -378,7 +382,7 @@ function ClearFilter(event, username) {
 //Banner
 function SaveProfileBanner(image) {
     var formData = new FormData();
-    formData.append("ProfileBanner", image.files[0]);
+    formData.append("ProfileBanner", image);
     $.ajax({
         url: '/Profiles/Profile/?handler=SaveBanner',
         type: 'POST',
@@ -422,4 +426,66 @@ function ChangeColor(event, color) {
         success: function (data) {
         }
     });
+}
+
+//Cropper Tool
+
+function OpenCropper(minCropBoxW, minCropBoxH, viewMode) {
+    var image = document.getElementById('imagecropper-image');
+    cropper = new Cropper(image, {
+        viewMode: viewMode,
+        dragMode: 'move',
+        minCropBoxWidth: minCropBoxW,
+        minCropBoxHeight: minCropBoxH,
+        toggleDragModeOnDblclick: false,
+        cropBoxResizable: false,
+        rotatable: false,
+        zoomable: false,
+        zoomOnTouch: false,
+        zoomOnWheel: false,
+        background: false,
+        data: {
+            width: minCropBoxW,
+            height: minCropBoxH,
+        }
+    });
+
+    $('.cropper-modal').css('background-color', 'red')
+}
+
+function DestroyCropper() {
+    cropper.destroy()
+}
+
+function SendCroppedImage() {
+    cropper.getCroppedCanvas();
+
+    cropper.getCroppedCanvas({
+        imageSmoothingEnabled: false,
+        imageSmoothingQuality: 'high',
+    });
+
+    cropper.getCroppedCanvas().toBlob((blob) => {
+        if (cropperType == "Banner") {
+            SaveProfileBanner(blob)
+        }
+        else if (cropperType == "Profile Picture") {
+            var url = URL.createObjectURL(blob);
+            $('#preview-profile-picture').attr('src', url)
+            cropperBlob = blob
+        }
+        else if (cropperType == "Thumbnail Edit") {
+            var url = URL.createObjectURL(blob);
+            $('#preview-stream-thumbnail-edit').attr('src', url)
+            cropperBlob = blob
+        }
+        else if (cropperType == "Thumbnail") {
+            var url = URL.createObjectURL(blob);
+            $('#preview-stream-thumbnail').attr('src', url)
+            cropperBlob = blob
+        }
+   })
+
+   CloseModal('imagecropper-modal')
+   DestroyCropper()
 }

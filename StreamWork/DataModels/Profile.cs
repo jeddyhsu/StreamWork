@@ -29,8 +29,7 @@ namespace StreamWork.DataModels
         public string FacebookUrl { get; set; }
         public string TwitterUrl { get; set; }
         public string ProfileColor { get; set; }
-        //public DateTime ProfileSince { get; set; }
-
+      
         //Students
         public decimal Balance { get; set; }
         public DateTime Expiration { get; set; }
@@ -41,6 +40,7 @@ namespace StreamWork.DataModels
         public bool AcceptedTutor { get; set; }
 
         public DateTime LastLogin { get; set; }
+        public DateTime ProfileSince { get; set; }
 
         [Timestamp]
         public byte[] RowVersion { get; set; }

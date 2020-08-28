@@ -12,7 +12,7 @@
 
 }
 
-<div class="container" style="max-width:1200px !important;">
+<div class="container custom-stream-container-padding custom-stream-container" style="">
     <p class="text-center form-header" style="font-size:22px">Stream Information</p>
     <div class="row border p-4" style="background-color:white">
         <div class="d-flex flex-column col-lg-4 col-md-12 col-sm-12 col-12 p-0 border-0">
@@ -26,7 +26,7 @@
                     <p class="form-header">Stream Status: <span id="stream-status" class="form-header streamWork-green">Live To Viewers</span></p>
                 }
                 <div style="position: relative; padding-bottom: 56.25%; height: 0;"><iframe id="frame" src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.UserChannel.ChannelKey.Split('|')[0]" style=" position:absolute; width:100%; max-width: 521px; max-height: 283px; height: 100%;" frameborder="0" scrolling="no" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="autoplay; fullscreen;"></iframe></div>
-                <p class="form-header mt-3 mb-0">Chat URL: <span><a class="streamWork-green" target="_blank" href="/Chat/Live/@Model.CurrentUserProfile.Username">URL</a></span></p>
+                <p class="form-header mt-3 mb-0">Chatbox URL: <span><a class="streamWork-green" target="_blank" href="/Chat/Live/@Model.CurrentUserProfile.Username">Chat/Live/@Model.CurrentUserProfile.Username</a></span></p>
                 <p class="mb-0" style="font-size:10px;">Click this link to open your chatbox in another tab to view comments from your viewers</p>
                 <p class="divider-text mt-2 mb-2">or</p>
                 <p class="form-header mb-0">Chatbox via Smartphone: <span><a class="streamWork-green" onclick="ShowQRCode(event)" href="">QR Code</a></span></p>
@@ -101,7 +101,7 @@
                             @if (Model.UserChannel.StreamThumbnail == null)
                             {
                                 <img id="preview-stream-thumbnail" src="~/images/MathDefault.png" class="rounded" style="width:100%; border-radius:10px">
-                                <input id="upload-stream-thumbnail" type="file" class="d-none" value="~/images/MathDefault.png" onchange="ReadImageUrl(this,'preview-stream-thumbnail');">
+                                <input id="upload-stream-thumbnail" type="file" class="d-none" value="~/images/MathDefault.png" onchange="ReadImageUrl(this,'Thumbnail');">
                                 <p id="upload-stream-thumbnail-button" class="pt-2 mb-0" style="cursor:pointer; font-size:12px; color:#004643">Upload an Image</p>
                                 <p id="upload-stream-thumbnail-button-info" class="mb-0" style="font-size:10px;">Upload must be either in jpg or png formats and less than 1 MB</p>
                                 <script>$("#upload-stream-thumbnail-button").click(function (e) {
@@ -113,6 +113,12 @@
                             {
                                 <img id="preview-stream-thumbnail" src="@Model.UserChannel.StreamThumbnail" style="width:100%; border-radius:10px">
                             }
+                            <div class="form-check mt-4">
+                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                <label class="form-check-label form-header" for="defaultCheck1">
+                                    Notify Followers
+                                </label>
+                            </div>
                         </div>
                         @if (Model.UserChannel.StreamTitle == null)
                         {
@@ -148,7 +154,7 @@
                                             <div class="d-inline-flex">
                                                 <div class="m-1">
                                                     <p id="schedule-stream-title" class="form-header m-0">No streams scheduled at the moment.</p>
-                                                    <p id="schedule-stream-subject" class="form-sub-header p-0 mt-1 mb-0" style="font-size:10px; font-family:'Roboto', serif">Scheduling streams before hand allows you to select them and automatically populate the information for you stream.</p>
+                                                    <p id="schedule-stream-subject" class="form-sub-header p-0 mt-1 mb-0" style="font-size:10px; font-family:'Roboto', serif">Scheduling streams before hand allows you to select them and automatically populate the information for your stream.</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -169,6 +175,7 @@
 
 <script>ResizeStreamSection()</script>
 
+@await Html.PartialAsync("Partials/Modals/ImageCropper")
 @await Html.PartialAsync("Partials/Modals/TutorStreamScheduleModal")
 @await Html.PartialAsync("Partials/Modals/TutorStreamModal")
 @await Html.PartialAsync("Partials/Notification/PushNotifications")

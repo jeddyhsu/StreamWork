@@ -49,7 +49,7 @@ namespace StreamWork.Services
                 //await _tutorMethods.ChangeAllArchivedStreamAndUserChannelProfilePhotos(storageConfig, userProfile.Username, userProfile.ProfilePicture); //only if tutor
             }
 
-            await Save<Profile>(userProfile.Id, userProfile);
+            await Save(userProfile.Id, userProfile);
 
             return new List<string> { firstName, lastName, occupation, location, timeZone, linkedInUrl, userProfile.ProfilePicture };
         }
@@ -62,7 +62,7 @@ namespace StreamWork.Services
                 IFormFile profileBanner = request.Form.Files[0];
                 var banner = BlobMethods.SaveImageIntoBlobContainer(profileBanner, userProfile.Username + "-" + userProfile.Id + "-profilebanner", 720, 242);
                 userProfile.ProfileBanner = banner;
-                await Save<Profile>(userProfile.Id, userProfile);
+                await Save(userProfile.Id, userProfile);
                 return banner;
             }
             catch (Exception e)
@@ -78,7 +78,7 @@ namespace StreamWork.Services
             {
                 var userProfile = await Get<Profile>(SQLQueries.GetUserWithUsername, user);
                 userProfile.College = abbr + "|" + name;
-                await Save<Profile>(userProfile.Id, userProfile);
+                await Save(userProfile.Id, userProfile);
                 return true;
             }
             catch (Exception e)

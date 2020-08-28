@@ -34,6 +34,14 @@
     }
 }
 
+.custom-stream-container-padding {
+    padding-top: 100px !important;
+}
+
+.custom-stream-container {
+    max-width: 1200px !important;
+}
+
 /*Custom Columns For Stream Page*/
 @media screen and (max-width:1250px){
     .custom-column-4 {

@@ -9,7 +9,7 @@
     }
     else
     {
-        if (Model.CurrentUserProfile.Id == Model.UserProfile.Id)
+        if (Model.CurrentUserProfile != null && Model.CurrentUserProfile.Id == Model.UserProfile.Id)
         {
             <p class="form-sub-header" style="font-size:14px;"><b>Fill out Academic Experience!</b></p>
         }

@@ -37,11 +37,6 @@ namespace StreamWork.Pages.Profiles
 
         public async Task<IActionResult> OnGet(string student)
         {
-            if (!cookieService.Authenticated)
-            {
-                return Redirect(cookieService.Url("/Home/SignIn/" + encryptionService.EncryptString("/Profiles/Tutor/" + student)));
-            }
-
             if (!await cookieService.ValidateUserType(student, "student")) //checks for 
             {
                 return Redirect("/Profiles/Tutor/" + student);
@@ -54,8 +49,11 @@ namespace StreamWork.Pages.Profiles
             Sections = profileService.GetSections(UserProfile);
             Topics = profileService.GetTopics(UserProfile);
 
-            Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
-            AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
+            if (CurrentUserProfile != null)
+            {
+                Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
+                AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
+            }
 
             return Page();
         }

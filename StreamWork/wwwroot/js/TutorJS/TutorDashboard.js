@@ -259,12 +259,13 @@ function ShowDeleteStreamTaskBanner(id) {
 
 function SaveEditedStream(id) {
     var formData = new FormData()
-    var totalFile = document.getElementById("upload-thumbnail-edit")
 
     formData.append("StreamId", id);
     formData.append("StreamTitle", $('#stream-title-edit').val());
     formData.append("StreamDescription", $('#stream-description-edit').val());
-    if (totalFile.files.length > 0) formData.append("StreamThumbnail", totalFile.files[0]);
+    if (cropperBlob != null) formData.append("StreamThumbnail", cropperBlob);
+
+    cropperBlob == null;
 
     $.ajax({
         url: '/Tutor/TutorDashboard/?handler=SaveEditedStream',
