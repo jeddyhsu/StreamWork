@@ -69,9 +69,11 @@ namespace StreamWork
             services.AddTransient<StorageService>(); // Transient means it creates a new instance every time it's needed
             services.AddTransient<StreamService>(); // You should use Transient by default
             services.AddTransient<TopicService>();
-            services.AddSingleton<EmailService>(); // Singleton creates a shared instance the first time it's needed
-            services.AddSingleton<ImageService>(); // You should use them if their constructor builds a lot of data ex. a hashmap
+            services.AddTransient<EmailService>(); // Singleton creates a shared instance the first time it's needed
+            services.AddTransient<ImageService>(); // You should use them if their constructor builds a lot of data ex. a hashmap
             // Singletons can't use transient services, so be careful about how you structure your services
+
+            // TODO TEMP Last two should be Singleton, not Transient
 
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
 

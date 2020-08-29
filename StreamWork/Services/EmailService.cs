@@ -36,10 +36,10 @@ namespace StreamWork.Services
         //private static readonly string clientSecret = "iG7E63BHxtCMAxwXv2jg1eD8";
         private static readonly string name = "StreamWork";
         private static readonly string streamworkEmailAddress = "hey@streamwork.live";
-        private static readonly string serviceAccountEmail = "streamworkhey@streamwork-284417.iam.gserviceaccount.com";
+        private static readonly string serviceAccountEmail = "eat-my-ass-google@streamwork-286021.iam.gserviceaccount.com";
         private static readonly string[] scopes = new[] { "https://mail.google.com/" };
         private static readonly string privateKeyPassword = "notasecret"; // Standard password for all Google-issued private keys
-        private static readonly string certificatePath = Path.Combine(Environment.CurrentDirectory, "Config", "streamwork-284417-96b6d91c8931.p12");
+        private static readonly string certificatePath = Path.Combine(Environment.CurrentDirectory, "Config", "streamwork-286021-a06875f20a26.p12");
         private static readonly string gmailSmtp = "smtp.gmail.com";
         private static readonly int gmailPort = 587;
 
