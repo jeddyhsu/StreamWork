@@ -13,7 +13,7 @@ namespace StreamWork.Pages.Home
         private readonly NotificationService notificationService;
 
         public Profile CurrentUserProfile { get; set; }
-        public List<Notification> Notifications { get; set; }
+        public List<string> Notifications { get; set; }
         public bool AreThereUnseenNotifications { get; set; }
 
         public AboutModel(CookieService cookie, NotificationService notification)

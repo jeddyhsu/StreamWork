@@ -37,7 +37,7 @@ namespace StreamWork.Pages.Stream
         public int NumberOfStreams { get; set; }
         public int NumberOfFollowers { get; set; }
         public int NumberOfViews { get; set; }
-        public List<Notification> Notifications { get; set; }
+        public List<string> Notifications { get; set; }
         public Comment NotificationRequestComment { get; set; }
         public bool AreThereUnseenNotifications { get; set; }
 
@@ -73,7 +73,7 @@ namespace StreamWork.Pages.Stream
             RelatedTutors = (await storageService.GetList<DataModels.Profile>(SQLQueries.GetAllTutorsNotInTheList, new string[] { UserProfile.Id })).GetRange(0, 5);
             Sections = profileService.GetSections(UserProfile);
             Schedule = await scheduleService.GetSchedule(UserProfile.Username);
-            Comments = await commentService.GetAllComments(ArchivedStream.StreamID);
+            Comments = await commentService.GetAllComments(ArchivedStream.Id);
 
             NumberOfStreams = UserArchivedStreams.Count;
             NumberOfFollowers = await followService.GetNumberOfFollowers(UserProfile.Id);

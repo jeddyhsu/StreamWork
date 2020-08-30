@@ -38,6 +38,7 @@ namespace StreamWork.Services
                     Tutor = username,
                     Topic = x,
                     Since = DateTime.UtcNow,
+                    TopicColor = MiscHelperMethods.GetCorrespondingStreamColor(x)
                 });
             });
         }

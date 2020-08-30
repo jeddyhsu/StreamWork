@@ -22,7 +22,7 @@ namespace StreamWork.Pages.Home
         public List <Channel> LiveChannels { get; set; }
         public List<Schedule> AllScheduledStreams { get; set; }
         public List<TutorSubject> AllTutors { get; set; }
-        public List<Notification> Notifications { get; set; }
+        public List<string> Notifications { get; set; }
         public bool AreThereUnseenNotifications { get; set; }
 
         public BrowseModel(CookieService cookie, StorageService storage, NotificationService notification, SearchService search)

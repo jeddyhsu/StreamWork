@@ -11,9 +11,11 @@ namespace StreamWork.Services
 {
     public class FollowService : StorageService
     {
-        public FollowService([FromServices] IOptionsSnapshot<StorageConfig> config) : base(config) { }
+        NotificationService notificationService; //only this service is allowed in other service classes
 
-        public async Task<string[]> AddFollower(string followerId, string followeeId)
+        public FollowService([FromServices] IOptionsSnapshot<StorageConfig> config, NotificationService notification) : base(config) { notificationService = notification; }
+
+        public async Task<bool> AddFollower(string followerId, string followeeId)
         {
             var followerProfile = await Get<Profile>(SQLQueries.GetUserWithId, followerId);
             var followeeProfile = await Get<Profile>(SQLQueries.GetUserWithId, followeeId);
@@ -33,10 +35,11 @@ namespace StreamWork.Services
 
                 await Save(followRequest.Id, followRequest);
 
-                return new string[] { followerProfile.Username, followeeProfile.Username, followRequest.Id };
+                await notificationService.SaveNotification(NotificationType.Follow, followerProfile.Username, followeeProfile.Username, followRequest.Id);
+                return true;
             }
 
-            return null;
+            return false;
         }
 
         public async Task<bool> RemoveFollower(string followerId, string followeeId)

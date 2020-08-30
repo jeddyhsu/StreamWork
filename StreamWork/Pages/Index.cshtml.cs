@@ -17,11 +17,11 @@ namespace StreamWork.Pages
         public Profile CurrentUserProfile { get; set; }
         public Profile FeaturedTutor { get; set; }
         public Channel FeaturedChannel { get; set; }
-        public Video FeaturedArchivedStream { get; set; }
-        public List<Video> ArchivedStreams { get; set; }
+        public Video FeaturedArchivedVideo { get; set; }
+        public List<Video> ArchivedVideos { get; set; }
         public bool IsUserFollowingFeaturedTutor { get; set; }
         public string ChatInfo { get; set; }
-        public List<Notification> Notifications { get; set; }
+        public List<string> Notifications { get; set; }
         public bool AreThereUnseenNotifications { get; set; }
 
         public IndexModel(StorageService storage, CookieService cookie, EncryptionService encryption, NotificationService notification)
@@ -63,15 +63,15 @@ namespace StreamWork.Pages
                 videos.Add(videosByViews[i]);
             }
 
-            ArchivedStreams = videos;
+            ArchivedVideos = videos;
 
             Channel streamingChannel = await storageService.Get<Channel>(SQLQueries.GetAllUserChannelsThatAreStreaming);
             if (streamingChannel == null)
             {
                 FeaturedChannel = await storageService.Get<Channel>(SQLQueries.GetUserChannelWithUsername, "juliamkim");
                 FeaturedTutor = await storageService.Get<DataModels.Profile>(SQLQueries.GetUserWithUsername, "juliamkim");
-                FeaturedArchivedStream = await storageService.Get<Video>(SQLQueries.GetArchivedStreamsWithUsername, "juliamkim");
-                FeaturedArchivedStream.StreamSubjectIcon = MiscHelperMethods.GetCorrespondingSubjectThumbnail(FeaturedArchivedStream.StreamSubject);
+                FeaturedArchivedVideo = await storageService.Get<Video>(SQLQueries.GetArchivedStreamsWithUsername, "juliamkim");
+                FeaturedArchivedVideo.StreamSubjectIcon = MiscHelperMethods.GetCorrespondingSubjectThumbnail(FeaturedArchivedVideo.StreamSubject);
             }
             else
             {
@@ -87,7 +87,7 @@ namespace StreamWork.Pages
                 AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
             }
 
-            ChatInfo = encryptionService.EncryptString(streamingChannel != null ? streamingChannel.ArchivedVideoId : FeaturedArchivedStream.Id);
+            ChatInfo = encryptionService.EncryptString(streamingChannel != null ? streamingChannel.ArchivedVideoId : FeaturedArchivedVideo.Id);
         }
     }
 }

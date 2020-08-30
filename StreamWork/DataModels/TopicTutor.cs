@@ -12,6 +12,7 @@ namespace StreamWork.DataModels
         public string Tutor { get; set; }
         public string Topic { get; set; }
         public DateTime Since { get; set; }
+        public string TopicColor { get; set; }
 
         [Timestamp]
         public byte[] RowVersion { get; set; }

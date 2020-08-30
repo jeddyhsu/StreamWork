@@ -18,8 +18,7 @@ namespace StreamWork.Pages.Follows
 
         public async Task OnPostFollow(string followerId, string followeeId)
         {
-            var savedInfo = await followService.AddFollower(followerId, followeeId);
-            await notificationService.SaveNotification(NotificationType.Follow, savedInfo[0], savedInfo[1], "", savedInfo[2]);
+            await followService.AddFollower(followerId, followeeId);
         }
 
         public async Task OnPostUnfollow(string followerId, string followeeId)

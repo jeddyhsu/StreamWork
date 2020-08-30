@@ -20,7 +20,7 @@ namespace StreamWork.Pages.Comments
             notificationService = notification;
         }
 
-        public async Task<IActionResult> OnPostSaveComment(string senderUsername, string receiverUsername, string message, string parentId, string masterParent, string streamId)
+        public async Task<IActionResult> OnPostSaveComment(string senderUsername, string receiverUsername, string message, string parentId, string masterParent, string streamId) //streamId is videos actaul Id
         {
             if (parentId != null)
             {
@@ -28,17 +28,21 @@ namespace StreamWork.Pages.Comments
                 receiverUsername = (await storageService.Get<Profile>(SQLQueries.GetUserWithUsername, parentComment.SenderUsername)).Username; //this could be a reply to a reply so receiver could change
             }
 
-            var savedInfo = await commentService.SaveComment(senderUsername, receiverUsername, message, masterParent == "undefined" ? parentId: masterParent, streamId);
-            var savedNotification = await  notificationService.SaveNotification(parentId  == null ? NotificationType.Comment : NotificationType.Reply, senderUsername, receiverUsername, parentId == null ? (await storageService.Get<Video>(SQLQueries.GetArchivedStreamsWithStreamId, streamId )).StreamTitle + "|" + streamId + "|" + savedInfo[2] : (await storageService.Get<Comment>(SQLQueries.GetCommentWithId, parentId)).Message +  "|" + streamId + "|" + savedInfo[2], savedInfo[3]); //savedInfo[2] == comment message
-            if (savedInfo != null && savedNotification) return new JsonResult(new { Message = JsonResponse.Success.ToString(), SavedInfo = savedInfo});
+            var savedComment = await commentService.SaveComment(senderUsername, receiverUsername, message, masterParent == "undefined" ? parentId: masterParent, streamId);
+            var savedNotification = await notificationService.SaveNotification(parentId  == null ? NotificationType.Comment : NotificationType.Reply,
+                                                                                senderUsername,
+                                                                                receiverUsername,
+                                                                                savedComment.Id);
+
+            if (savedComment != null && savedNotification) return new JsonResult(new { Message = JsonResponse.Success.ToString(), Comment = savedComment});
 
             return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
         }
 
         public async Task<IActionResult> OnPostEditComment(string message, string commentId)
         {
-            var savedInfo = await commentService.EditComment(message, commentId);
-            if (savedInfo != null) return new JsonResult(new { Message = JsonResponse.Success.ToString(), SavedInfo = savedInfo });
+            var editedComment = await commentService.EditComment(message, commentId);
+            if (editedComment != null) return new JsonResult(new { Message = JsonResponse.Success.ToString(), Comment = editedComment });
 
             return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
         }

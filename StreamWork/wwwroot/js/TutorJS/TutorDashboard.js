@@ -229,46 +229,46 @@ function DeleteScheduleTask(id) {
 }
 
 //Streams
-function EditStream(id) {
-    OpenModal("edit-stream-modal");
+function EditVideo(id) {
+    OpenModal("edit-video-modal");
 
-    $('#stream-title-edit').val($('#stream-title-' + id).text());
-    $('#stream-description-edit').val($('#stream-description-' + id).val());
-    document.getElementById("preview-stream-thumbnail-edit").src = document.getElementById("stream-thumbnail-" + id).src
-    document.getElementById("archived-stream-edit-buttons").innerHTML = `<div class="row">
+    $('#video-title-edit').val($('#video-title-' + id).text());
+    $('#video-description-edit').val($('#video-description-' + id).val());
+    document.getElementById("preview-video-thumbnail-edit").src = document.getElementById("video-thumbnail-" + id).src
+    document.getElementById("archived-video-edit-buttons").innerHTML = `<div class="row">
                                                                     <div class="col-6 pr-0">
-                                                                        <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#6B6B6B; color:white" onclick="ShowDeleteStreamTaskBanner('${id}')">Delete Stream</button>
+                                                                        <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#6B6B6B; color:white" onclick="ShowDeleteVideoTaskBanner('${id}')">Delete Video</button>
                                                                     </div>
                                                                     <div class="col-6 pl-0">
-                                                                        <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="SaveEditedStream('${id}')">Save Changes</button>
+                                                                        <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="SaveEditedVideo('${id}')">Save Changes</button>
                                                                     </div>
                                                                 </div>`
 }
 
-function ShowDeleteStreamTaskBanner(id) {
-    $('#edit-stream-modal-delete-stream-notification').show()
-    document.getElementById("archived-stream-edit-buttons").innerHTML = `<div class="row">
+function ShowDeleteVideoTaskBanner(id) {
+    $('#edit-video-modal-delete-video-notification').show()
+    document.getElementById("archived-video-edit-buttons").innerHTML = `<div class="row">
                                                                 <div class="col-6 pr-0">
-                                                                    <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#AC0001; color:white" onclick="DeleteStream('${id}')">Confirm Delete</button>
+                                                                    <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#AC0001; color:white" onclick="DeleteVideo('${id}')">Confirm Delete</button>
                                                                 </div>
                                                                 <div class="col-6 pl-0">
-                                                                    <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white; height:100%" onclick="SaveEditedStream('${id}')">Save Changes</button>
+                                                                    <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white; height:100%" onclick="SaveEditedVideo('${id}')">Save Changes</button>
                                                                 </div>
                                                              </div>`
 }
 
-function SaveEditedStream(id) {
+function SaveEditedVideo(id) {
     var formData = new FormData()
 
-    formData.append("StreamId", id);
-    formData.append("StreamTitle", $('#stream-title-edit').val());
-    formData.append("StreamDescription", $('#stream-description-edit').val());
-    if (cropperBlob != null) formData.append("StreamThumbnail", cropperBlob);
+    formData.append("VideoId", id);
+    formData.append("VideoTitle", $('#video-title-edit').val());
+    formData.append("VideoDescription", $('#video-description-edit').val());
+    if (cropperBlob != null) formData.append("VideoThumbnail", cropperBlob);
 
     cropperBlob == null;
 
     $.ajax({
-        url: '/Tutor/TutorDashboard/?handler=SaveEditedStream',
+        url: '/Tutor/TutorDashboard/?handler=SaveEditedVideo',
         type: 'POST',
         dataType: 'json',
         data: formData,
@@ -280,19 +280,19 @@ function SaveEditedStream(id) {
         },
         success: function (data) {
             if (data.message === "Success") {
-                $("#stream-title-" + id).text(data.savedInfo[0]); 
-                $("#stream-description-" + id).val(data.savedInfo[1]) 
-                $("#stream-thumbnail-" + id).attr('src', data.savedInfo[2] + `?nocache=${new Date().valueOf()}`);
+                $("#video-title-" + id).text(data.savedInfo[0]); 
+                $("#video-description-" + id).val(data.savedInfo[1]) 
+                $("#video-thumbnail-" + id).attr('src', data.savedInfo[2] + `?nocache=${new Date().valueOf()}`);
 
-                ShowBannerNotification("edit-stream-modal-notification")
+                ShowBannerNotification("edit-video-modal-notification")
             }
         }
     });
 }
 
-function DeleteStream(id) {
+function DeleteVideo(id) {
     $.ajax({
-        url: '/Tutor/TutorDashboard/?handler=DeleteStream',
+        url: '/Tutor/TutorDashboard/?handler=DeleteVideo',
         type: 'POST',
         dataType: 'json',
         data: {
@@ -303,9 +303,9 @@ function DeleteStream(id) {
                 $('input:hidden[name="__RequestVerificationToken"]').val());
         },
         success: function (data) {
-            DiscardChangesAndCloseModal('edit-stream-modal-form', 'edit-stream-modal')
-            $('#edit-stream-modal-delete-stream-notification').hide()
-            $('#streamInfo-' + id).hide();
+            DiscardChangesAndCloseModal('edit-video-modal-form', 'edit-video-modal')
+            $('#edit-video-modal-delete-video-notification').hide()
+            $('#videoInfo-' + id).hide();
         }
     });
 }

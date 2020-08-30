@@ -339,14 +339,14 @@ function SaveUniversityInfo() {
     })
 }
 
-//Seach Streams
-function SearchStreams(event, username) { //filters by username
+//Seach Videos
+function SearchVideos(event, username) { //filters by username
     event.preventDefault();
     var searchTerm = $('#searchQuery').val();
     var filter = $('#filter').val()
     if (filter != "") $('#clear-filter').show();
     $.ajax({
-        url: '/Tutor/TutorDashboard/?handler=SearchArchivedStreams',
+        url: '/Tutor/TutorDashboard/?handler=SearchVideos',
         type: 'POST',
         dataType: 'json',
         data: {
@@ -363,7 +363,7 @@ function SearchStreams(event, username) { //filters by username
             $('#no-videos').removeClass('d-block').addClass('d-none')
             if (data.results != null && data.results.length > 0) {
                 for (var i = 0; i < data.results.length; i++) {
-                    $('#streamInfo-' + data.results[i].id).show()
+                    $('#videoInfo-' + data.results[i].id).show()
                 }
             }
             else {
@@ -382,6 +382,7 @@ function ClearFilter(event, username) {
 //Banner
 function SaveProfileBanner(image) {
     var formData = new FormData();
+    alert(image.size)
     formData.append("ProfileBanner", image);
     $.ajax({
         url: '/Profiles/Profile/?handler=SaveBanner',

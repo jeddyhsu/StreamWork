@@ -53,5 +53,22 @@ namespace StreamWork.HelperMethods
             int index = random.Next(list.Count);
             return list[index];
         }
+
+        public static string GetCorrespondingStreamColor(string subject)
+        {
+            Hashtable table = new Hashtable
+            {
+                { "Mathematics", "#AEE8FE" },
+                { "Science", "#A29CFE" },
+                { "Business", "#46A86E" },
+                { "Engineering", "#74B9FF" },
+                { "Law", "#F0AD4E" },
+                { "Art", "#F8C5DC" },
+                { "Humanities", "#FF7775" },
+                { "Other", "#FECA6E" }
+            };
+
+            return (string)table[subject];
+        }
     }
 }

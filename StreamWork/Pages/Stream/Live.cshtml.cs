@@ -33,7 +33,7 @@ namespace StreamWork.Pages.Stream
         public int NumberOfStreams { get; set; }
         public int NumberOfFollowers { get; set; }
         public int NumberOfViews { get; set; }
-        public List<Notification> Notifications { get; set; }
+        public List<string> Notifications { get; set; }
         public bool AreThereUnseenNotifications { get; set; }
 
         public Live(StorageService storage, CookieService cookie, ProfileService profile, ScheduleService schedule, FollowService follow, NotificationService notification, EncryptionService encryption)

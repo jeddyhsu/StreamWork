@@ -25,7 +25,7 @@ namespace StreamWork.Pages.Student
         public List<Section> Sections { get; set; }
         public List<Topic> Topics { get; set; }
         public List<Comment> Comments { get; set; }
-        public List<Notification> Notifications { get; set; }
+        public List<string> Notifications { get; set; }
         public bool AreThereUnseenNotifications { get; set; }
 
         public StudentDashboard(StorageService storage, CookieService cookie, ProfileService profile, NotificationService notification, FollowService follow, ScheduleService schedule)

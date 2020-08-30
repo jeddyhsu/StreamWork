@@ -14,6 +14,9 @@ namespace StreamWork.DataModels.Joins
         public string ProfilePicture { get; set; }
         public string ProfileColor{ get; set; }
         public string Topic { get; set; }
+        public string ProfileBanner { get; set; }
+        public string College { get; set; }
+        public string TopicColor { get; set; }
 
         [Timestamp]
         public byte[] RowVersion { get; set; }

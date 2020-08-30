@@ -1,0 +1,20 @@
+﻿<li id="notification-{NotificationId}" class="border-bottom">
+    <div class="row pt-3 pb-3">
+        <div class="col-12">
+            <img id="notification-delete-{NotificationId}" src="/images/GenericAssets/Trash.png" class="notification-remove mr-3 float-right" onclick="DeleteNotification('{NotificationId}')" />
+            <input align="left" type="image" class="rounded" src="{SenderProfilePicture}" style="width:30px" />
+            <script>$('#notification-{NotificationId}').hover(function () {
+                    $('#notification-delete-{NotificationId}').css('display', 'block')
+                }, function () {
+                    $('#notification-delete-{NotificationId}').css('display', 'none')
+                })</script>
+            <p class="form-header mb-0" style="padding-left:40px;">
+                <span style="color:{ProfileColor}">{SenderName}</span> {NotificationMessage} <span class="form-subheader roboto" style="font-size:10px;">{NotificationDate}</span>
+            </p>
+            <p class="mb-0" style="padding-left:40px; font-size:12px;">
+                {CommentMessage}
+            </p>
+            <a class="notification-destination" href="/Stream/Archive/{VideoId}/{CommentId}" style="padding-left:10px"><b>Reply</b></a>
+        </div>
+    </div>
+</li>

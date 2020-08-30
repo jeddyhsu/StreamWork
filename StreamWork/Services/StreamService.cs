@@ -284,7 +284,7 @@ namespace StreamWork.Services
             }
         }
 
-        public string GetCorrespondingStreamColor(string subject)
+        private string GetCorrespondingStreamColor(string subject)
         {
             Hashtable table = new Hashtable
             {

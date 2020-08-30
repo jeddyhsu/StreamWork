@@ -17,6 +17,7 @@
     <PackageReference Include="MailKit" Version="2.8.0" />
     <PackageReference Include="MailChimp.Net.V3" Version="4.2.1" />
     <PackageReference Include="QRCoder" Version="1.3.9" />
+    <PackageReference Include="Microsoft.Azure.SignalR" Version="1.1.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -87,6 +88,8 @@
     <Folder Include="Pages\Partials\Home\" />
     <Folder Include="Pages\Partials\Layout\Chat\" />
     <Folder Include="DataModels\Joins\" />
+    <Folder Include="NotificationTemplates\" />
+    <Folder Include="NotificationTemplates\PushNotifications\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove=".DS_Store" />

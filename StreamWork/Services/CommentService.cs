@@ -14,7 +14,7 @@ namespace StreamWork.Services
     {
         public CommentService([FromServices] IOptionsSnapshot<StorageConfig> config) : base(config) { }
 
-        public async Task<List<string>> SaveComment(string senderUsername, string receiverUsername, string message, string parentId, string streamId)
+        public async Task<Comment> SaveComment(string senderUsername, string receiverUsername, string message, string parentId, string streamId)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace StreamWork.Services
                 };
 
                 await Save(comment.Id, comment);
-                return new List<string> { sender.ProfilePicture, sender.Name.Replace('|', ' '), comment.Message, comment.Id, comment.ReceiverName.Replace('|', ' '), comment.ProfileColor };
+                return comment;
             }
             catch(Exception e)
             {
@@ -46,7 +46,7 @@ namespace StreamWork.Services
             }
         }
 
-        public async Task<List<string>> EditComment(string message, string commentId)
+        public async Task<Comment> EditComment(string message, string commentId)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace StreamWork.Services
                 comment.Message = MiscHelperMethods.URLIFY(message);
                 comment.Edited = "true";
                 await Save(comment.Id, comment);
-                return new List<string> {comment.Message, comment.Id, comment.ReceiverName, comment.ParentId};
+                return comment;
             }
             catch (Exception e)
             {

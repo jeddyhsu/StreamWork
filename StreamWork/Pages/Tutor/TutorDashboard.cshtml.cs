@@ -24,6 +24,7 @@ namespace StreamWork.Pages.Tutor
         public Channel UserChannel { get; set; }
         public int NumberOfStreams { get; set; }
         public int NumberOfFollowers { get; set; }
+        public int NumberOfFollowees { get; set; }
         public int NumberOfViews { get; set; }
         public List<Video> UserArchivedStreams { get; set; }
         public List<Section> Sections { get; set; }
@@ -31,7 +32,7 @@ namespace StreamWork.Pages.Tutor
         public List<Schedule> Schedule { get; set; }
         public List<Profile> Followers { get; set; }
         public List<Profile> Followees { get; set; }
-        public List<Notification> Notifications { get; set; }
+        public List<string> Notifications { get; set; }
         public bool AreThereUnseenNotifications { get; set; }
 
         public TutorDashboard(StorageService storage, CookieService cookie, ProfileService profile, ScheduleService schedule, FollowService follow, SearchService search, NotificationService notification)
@@ -66,6 +67,7 @@ namespace StreamWork.Pages.Tutor
             NumberOfStreams = UserArchivedStreams.Count;
             NumberOfViews = UserArchivedStreams.Sum(x => x.Views);
             NumberOfFollowers = Followers == null ? 0 : Followers.Count;
+            NumberOfFollowees = Followees == null ? 0 : Followers.Count;
 
             Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
             AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
@@ -91,7 +93,7 @@ namespace StreamWork.Pages.Tutor
             return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
         }
 
-        public async Task<IActionResult> OnPostSaveEditedStream()
+        public async Task<IActionResult> OnPostSaveEditedVideo()
         {
             var savedInfo = await profileService.SaveEditedArchivedStream(Request);
 
@@ -99,7 +101,7 @@ namespace StreamWork.Pages.Tutor
             return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
         }
 
-        public async Task<IActionResult> OnPostDeleteStream(string id)
+        public async Task<IActionResult> OnPostDeleteVideo(string id)
         {
             var savedInfo = await profileService.DeleteStream(id);
 
@@ -107,7 +109,7 @@ namespace StreamWork.Pages.Tutor
             return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
         }
 
-        public async Task<IActionResult> OnPostSearchArchivedStreams(string searchTerm, string filter, string username)
+        public async Task<IActionResult> OnPostSearchVideos(string searchTerm, string filter, string username)
         {
             return new JsonResult(new { Message = JsonResponse.Success.ToString(), Results = await searchService.SearchVideos(filter, searchTerm, username) });
         }

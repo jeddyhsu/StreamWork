@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
-using StreamWork.DataModels;
 
 namespace StreamWork.Hubs
 {
@@ -14,9 +13,9 @@ namespace StreamWork.Hubs
             this.sp = sp;
         }
 
-        public Task SendPrivateMessage(string user, Notification notification)
+        public Task SendPrivateMessage(string user, string notificationTemplate, string pushNotificationTemplate, string notificationId)
         {
-            return Clients.User(user).SendAsync("ReceiveNotification", notification);
+            return Clients.User(user).SendAsync("ReceiveNotification", notificationTemplate, pushNotificationTemplate, notificationId);
         }
     }
 }

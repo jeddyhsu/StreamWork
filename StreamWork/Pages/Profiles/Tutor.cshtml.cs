@@ -32,7 +32,7 @@ namespace StreamWork.Pages.Profiles
         public int NumberOfStreams { get; set; }
         public int NumberOfFollowers { get; set; }
         public int NumberOfViews { get; set; }
-        public List<Notification> Notifications { get; set; }
+        public List<string> Notifications { get; set; }
         public bool AreThereUnseenNotifications { get; set; }
         public string FollowValue { get; set; }
 

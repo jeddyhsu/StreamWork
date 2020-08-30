@@ -215,8 +215,8 @@
                                         }
                                     </div>
                                     <div class="mt-4">
-                                        <a class="d-inline-block" style="cursor:pointer; color:#004643" onclick="AddSection(event)"><span><img class="form-icon" src="~/images/TutorAssets/TutorDashboard/Add.svg" /></span>Add Section</a>
-                                        <a class="d-inline-block" style="cursor:pointer; float:right; color:#004643" onclick="SaveSection(event)"><span><img class="form-icon" src="~/images/TutorAssets/TutorDashboard/Save.svg" /></span>Save</a>
+                                        <a class="d-inline-block pointer" style="color:#004643" onclick="AddSection(event)"><span><img class="form-icon" src="~/images/TutorAssets/TutorDashboard/Add.svg" /></span>Add Section</a>
+                                        <a class="d-inline-block pointer" style="float:right; color:#004643" onclick="SaveSection(event)"><span><img class="form-icon" src="~/images/TutorAssets/TutorDashboard/Save.svg" /></span>Save</a>
                                     </div>
                                 </form>
                             </div>
@@ -305,7 +305,7 @@
                                             @foreach (var task in Model.Schedule)
                                             {
                                                 <div class="col-lg-6 col-md-12 mt-2 w-100">
-                                                    <div class="card card-border" onmouseover=" $('#edit-schedule-icon-@task.Id').css('display','block')" onmouseout="$('#edit-schedule-icon-@task.Id').css('display','none')">
+                                                    <div class="card card-border" onmouseover="$('#edit-schedule-icon-@task.Id').css('display','block')" onmouseout="$('#edit-schedule-icon-@task.Id').css('display','none')">
                                                         <div class="image-container w-100">
                                                             <div class="top-right">
                                                                 <img id="edit-schedule-icon-@task.Id" class="p-1" style="width:30px; cursor:pointer; display:none" src="~/images/TutorAssets/TutorDashboard/Edit.png" onclick="EditScheduleTask('@task.Id')" />
@@ -371,11 +371,11 @@
                     <div class="row">
                         <div class="col-12 p-4">
                             <div class="d-flex">
-                                <form id="search-form" class="p-1 border w-100 rounded d-inline-block custom-form" onkeyup="SearchStreams(event, '@Model.CurrentUserProfile.Username')" onsubmit="SearchStreams(event, '@Model.CurrentUserProfile.Username')">
+                                <form id="search-form" class="p-1 border w-100 rounded d-inline-block custom-form" onkeyup="SearchVideos(event, '@Model.CurrentUserProfile.Username')" onsubmit="SearchVideos(event, '@Model.CurrentUserProfile.Username')">
                                     <div class="d-flex">
                                         <input class="mt-1 ml-2" type="image" src="~/images/GenericAssets/Search.svg" width="30" height="40" />
                                         <input id="searchQuery" class="form-control-lg mt-1" type="search" placeholder="Search Videos" style="border: none; font-size:14px;">
-                                        <select id="filter" name="filter" class="form-control form-control-sm rounded m-2 h-100 float-right" onchange="SearchStreams(event, '@Model.CurrentUserProfile.Username')" style="max-width:175px;">
+                                        <select id="filter" name="filter" class="form-control form-control-sm rounded m-2 h-100 float-right" onchange="SearchVideos(event, '@Model.CurrentUserProfile.Username')" style="max-width:175px;">
                                             <option value="">Filter Topic</option>
                                             <option value="Mathematics">Mathematics</option>
                                             <option value="Science">Science</option>
@@ -397,20 +397,20 @@
                     <div id="stream-row" class="row p-3">
                         @if (Model.UserArchivedStreams.Count != 0)
                         {
-                            @foreach (var streamInfo in Model.UserArchivedStreams)
+                            @foreach (var video in Model.UserArchivedStreams)
                             {
-                                <div id="streamInfo-@streamInfo.Id" class="col-lg-3 col-md-6 col-sm-6 video">
+                                <div id="videoInfo-@video.Id" class="col-lg-3 col-md-6 col-sm-6 video">
                                     <div class="card mt-3 border-0" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px;">
                                         <div class="card-title">
-                                            <a href="../Stream/Archive/@streamInfo.StreamID/32169"><img id="stream-thumbnail-@streamInfo.Id" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src="@streamInfo.StreamThumbnail"></a>
+                                            <a href="../Stream/Archive/@video.StreamID/32169"><img id="video-thumbnail-@video.Id" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src="@video.StreamThumbnail"></a>
                                         </div>
                                         <div class="card-body pt-0 pb-1">
-                                            <p id="stream-title-@streamInfo.Id" class="text-truncate form-header mb-0">@streamInfo.StreamTitle</p>
-                                            <p id="stream-title-@streamInfo.Id" class="text-truncate form-header mb-1" style="font-size:12px">@streamInfo.StartTime.ToString("MMM dd yyyy")</p>
-                                            <input id="stream-description-@streamInfo.Id" type="hidden" value="@streamInfo.StreamDescription" />
+                                            <p id="video-title-@video.Id" class="text-truncate form-header mb-0">@video.StreamTitle</p>
+                                            <p id="video-title-@video.Id" class="text-truncate form-header mb-1" style="font-size:12px">@video.StartTime.ToString("MMM dd yyyy")</p>
+                                            <input id="video-description-@video.Id" type="hidden" value="@video.StreamDescription" />
                                             <p class="text-truncate form-header" style="font-size:10px">@Model.CurrentUserProfile.Name.Replace('|', ' ')</p>
                                         </div>
-                                        <div class="card-footer p-0" style="background-color:@streamInfo.StreamColor; border-bottom-left-radius:20px; border-bottom-right-radius:20px;"><span style="color:white; cursor:pointer; float:right; padding-right:10px" onclick="EditStream('@streamInfo.Id')">&#8943;</span></div>
+                                        <div class="card-footer p-0" style="background-color:@video.StreamColor; border-bottom-left-radius:20px; border-bottom-right-radius:20px;"><span style="color:white; cursor:pointer; float:right; padding-right:10px" onclick="EditVideo('@video.Id')">&#8943;</span></div>
                                     </div>
                                 </div>
 
@@ -465,7 +465,7 @@
 @await Html.PartialAsync("Partials/Modals/ProfileModal")
 @await Html.PartialAsync("Partials/Modals/ScheduleModal")
 @await Html.PartialAsync("Partials/Modals/UniversityModal")
-@await Html.PartialAsync("Partials/Modals/EditStreamModal")
+@await Html.PartialAsync("Partials/Modals/EditVideoModal")
 @await Html.PartialAsync("Partials/Modals/FollowersModal")
 @await Html.PartialAsync("Partials/Modals/FolloweesModal")
 @await Html.PartialAsync("Partials/Notification/PushNotifications")

@@ -35,27 +35,27 @@
                     <p class="form-header text-center mt-3 mb-0 ml-3 mr-3" style="font-size:18px">@Model.FeaturedTutor.Name.Replace('|', ' ')</p>
                     <p class="form-sub-header text-center mb-0 ml-3 mr-3" style="font-size:12px">@Model.FeaturedTutor.ProfileCaption</p>
                     <button class="streamWork-primary d-block mr-auto ml-auto mt-3 mb-2 w-75" onclick="window.location.href = '/Profiles/Tutor/@Model.FeaturedTutor.Username'">Profile</button>
-                    @if (Model.FeaturedArchivedStream == null)
+                    @if (Model.FeaturedArchivedVideo == null)
                     {
                         <button class="streamWork-secondary d-block mr-auto ml-auto w-75 mb-3" onclick="window.location.href ='/Stream/Live/@Model.FeaturedTutor.Username'">Watch</button>
                     }
                     else
                     {
-                        <button class="streamWork-secondary d-block mr-auto ml-auto w-75 mb-3" onclick="window.location.href = '/Stream/Archive/@Model.FeaturedArchivedStream.StreamID/32169'">Watch</button>
+                        <button class="streamWork-secondary d-block mr-auto ml-auto w-75 mb-3" onclick="window.location.href = '/Stream/Archive/@Model.FeaturedArchivedVideo.StreamID/32169'">Watch</button>
                     }
                 </div>
                 <div class="col-lg-6 col-md-12 col-sm-12 p-lg-0 pl-md-3 pr-md-3 pt-md-3 pt-3">
                     <div class="embed-responsive embed-responsive-16by9">
-                        @if (Model.FeaturedArchivedStream == null)
+                        @if (Model.FeaturedArchivedVideo == null)
                         {
                             <iframe class="border-0" src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.FeaturedChannel.ChannelKey.Split('|')[0]"></iframe>
                         }
                         else
                         {
-                            <iframe class="border-0" src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.FeaturedArchivedStream.StreamID"></iframe>
+                            <iframe class="border-0" src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.FeaturedArchivedVideo.StreamID"></iframe>
                         }
                     </div>
-                    @if (Model.FeaturedArchivedStream == null)
+                    @if (Model.FeaturedArchivedVideo == null)
                     {
                         <div class="card border-bottom border-right border-top-0 border-left rounded-0">
                             <div class="card-body m-1 p-1">
@@ -72,28 +72,113 @@
                     {
                         <div class="card border-bottom border-right-0 border-top-0 border-left-0 rounded-0">
                             <div class="card-body m-1 p-1">
-                                <img class="p-3 featured-subject-icon" align="left" src="@Model.FeaturedArchivedStream.StreamSubjectIcon" />
+                                <img class="p-3 featured-subject-icon" align="left" src="@Model.FeaturedArchivedVideo.StreamSubjectIcon" />
                                 <div class="m-3" id="StreamInfo">
-                                    <h3 class="roboto-slab streamWork-green">@Model.FeaturedArchivedStream.StreamTitle<span></span></h3>
-                                    <p class="mb-1" style="padding-left:105px">@Model.FeaturedArchivedStream.StreamDescription</p>
-                                    <p style="font-size:12px; padding-left:105px">Tutoring @Model.FeaturedArchivedStream.StreamSubject</p>
+                                    <h3 class="roboto-slab streamWork-green">@Model.FeaturedArchivedVideo.StreamTitle<span></span></h3>
+                                    <p class="mb-1" style="padding-left:105px">@Model.FeaturedArchivedVideo.StreamDescription</p>
+                                    <p style="font-size:12px; padding-left:105px">Tutoring @Model.FeaturedArchivedVideo.StreamSubject</p>
                                 </div>
                             </div>
                         </div>
                     }
                 </div>
                 <div class="col-lg-4 pl-lg-0 pl-md-3 pl-3">
-                    @if (Model.FeaturedArchivedStream == null)
+                    @if (Model.FeaturedArchivedVideo == null)
                     {
                         <iframe class="border-bottom border-right-0 border-top-0 border-left-0 w-100 h-100" style="min-height:500px" src="/Chat/Live/@Model.FeaturedTutor.Username"></iframe>
                     }
                     else
                     {
-                        <iframe class="border-bottom border-right-0 border-top-0 border-left-0 w-100 h-100" style="min-height:500px" src="/Chat/Archive/@Model.FeaturedArchivedStream.Id"></iframe>
+                        <iframe class="border-bottom border-right-0 border-top-0 border-left-0 w-100 h-100" style="min-height:500px" src="/Chat/Archive/@Model.FeaturedArchivedVideo.Id"></iframe>
                     }
                 </div>
                 <div class="col-lg-12">
-                    @await Html.PartialAsync("Partials/Home/Carousel")
+                    <div id="home-carousel-lg-md" class="carousel slide d-lg-block d-md-block d-sm-none d-none" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="row p-3">
+                                    <div class="col-lg-3 col-md-3 mt-3 mb-3 subject-card">
+                                        @await Html.PartialAsync("Partials/Stream/StreamAppearance", @Model.ArchivedVideos[0])
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 mt-3 mb-3 subject-card">
+                                        @await Html.PartialAsync("Partials/Stream/StreamAppearance", @Model.ArchivedVideos[1])
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 mt-3 mb-3 subject-card">
+                                        @await Html.PartialAsync("Partials/Stream/StreamAppearance", @Model.ArchivedVideos[2])
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 mt-3 mb-3 subject-card">
+                                        @await Html.PartialAsync("Partials/Stream/StreamAppearance", @Model.ArchivedVideos[3])
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row p-3">
+                                    <div class="col-lg-3 col-md-3 mt-3 mb-3 subject-card">
+                                        @await Html.PartialAsync("Partials/Stream/StreamAppearance", @Model.ArchivedVideos[4])
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 mt-3 mb-3 subject-card">
+                                        @await Html.PartialAsync("Partials/Stream/StreamAppearance", @Model.ArchivedVideos[5])
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 mt-3 mb-3 subject-card">
+                                        @await Html.PartialAsync("Partials/Stream/StreamAppearance", @Model.ArchivedVideos[6])
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 mt-3 mb-3 subject-card">
+                                        @await Html.PartialAsync("Partials/Stream/StreamAppearance", @Model.ArchivedVideos[7])
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="d-inline-block p-3" style="color:#004643" href="#home-carousel-lg-md" data-slide="prev">Previous</a>
+                        <a class="d-inline-block float-right p-3" style="color:#004643" href="#home-carousel-lg-md" data-slide="next">Next</a>
+                    </div>
+
+
+                    <div id="home-carousel-sm-xs" class="carousel slide d-lg-none d-md-none d-sm-block d-block" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="row p-3">
+                                    <div class="col-sm-6 col-6 mt-3 mb-3 subject-card">
+                                        @await Html.PartialAsync("Partials/Stream/StreamAppearance", @Model.ArchivedVideos[0])
+                                    </div>
+                                    <div class="col-sm-6 col-6 mt-3 mb-3 subject-card">
+                                        @await Html.PartialAsync("Partials/Stream/StreamAppearance", @Model.ArchivedVideos[1])
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row p-3">
+                                    <div class="col-sm-6 col-6 mt-3 mb-3 subject-card">
+                                        @await Html.PartialAsync("Partials/Stream/StreamAppearance", @Model.ArchivedVideos[2])
+                                    </div>
+                                    <div class="col-sm-6 col-6 mt-3 mb-3 subject-card">
+                                        @await Html.PartialAsync("Partials/Stream/StreamAppearance", @Model.ArchivedVideos[3])
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row p-3">
+                                    <div class="col-sm-6 col-6 mt-3 mb-3 subject-card">
+                                        @await Html.PartialAsync("Partials/Stream/StreamAppearance", @Model.ArchivedVideos[4])
+                                    </div>
+                                    <div class="col-sm-6 col-6 mt-3 mb-3 subject-card">
+                                        @await Html.PartialAsync("Partials/Stream/StreamAppearance", @Model.ArchivedVideos[5])
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row p-3">
+                                    <div class="col-sm-6 col-6 mt-3 mb-3 subject-card">
+                                        @await Html.PartialAsync("Partials/Stream/StreamAppearance", @Model.ArchivedVideos[6])
+                                    </div>
+                                    <div class="col-sm-6 col-6 mt-3 mb-3 subject-card">
+                                        @await Html.PartialAsync("Partials/Stream/StreamAppearance", @Model.ArchivedVideos[7])
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="d-inline-block p-3" style="color:#004643" href="#home-carousel-sm-xs" data-slide="prev">Previous</a>
+                        <a class="d-inline-block float-right p-3" style="color:#004643" href="#home-carousel-sm-xs" data-slide="next">Next</a>
+                    </div>
                 </div>
             </div>
         </div>

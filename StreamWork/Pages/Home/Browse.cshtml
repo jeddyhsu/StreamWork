@@ -53,7 +53,18 @@
                     <hr />
                     <p class="form-header pl-3" style="font-size:22px">Videos</p>
                     <div id="video-row" class="row p-3">
-                        @await Html.PartialAsync("Partials/Browse/Videos", Model)
+                        @foreach (var video in Model.Videos)
+                        {
+                            <div id="video-@video.Id" class="col-xl-2 col-lg-3 col-md-4 col-sm-6 video">
+                                @await Html.PartialAsync("Partials/Stream/StreamAppearance", video)
+                            </div>
+
+
+                            <div id="video-none-found" class="col-9 d-none" style="height:200px">
+                                <p class="form-sub-header pl-3 pr-3 pt-3 pb-0" style="font-size:22px">No videos with the currrent search term.</p>
+                                <p class="form-sub-header pl-3 pr-3" style="font-size:14px; font-family:'Roboto', serif">Try using a different search term.</p>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

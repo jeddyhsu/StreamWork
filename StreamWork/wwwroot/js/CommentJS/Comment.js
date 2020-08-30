@@ -1,6 +1,4 @@
 ﻿var commentCount = 0;
-
-
 function SaveComment(parentId, masterParent) {
     var message = "";
     if (parentId == "" || parentId == null) {
@@ -33,39 +31,39 @@ function SaveComment(parentId, masterParent) {
                 var reply = ``;
                 var at = ``;
                 if (parentId == "" || parentId == null) {
-                    reply = `<a class="comment-replies" onclick="ShowReplyBox('${data.savedInfo[0]}', '${data.savedInfo[3]}', '${data.savedInfo[1]}')"><b>Reply</b></a>`
+                    reply = `<a class="comment-replies" onclick="ShowReplyBox('${data.comment.senderProfilePicture}', '${data.comment.id}', '${data.comment.senderName.replace('|', ' ')}')"><b>Reply</b></a>`
                 }
                 else {
-                    IncrementDecrementComments(data.savedInfo[0], data.savedInfo[3], data.savedInfo[4], masterParent == "undefined" ? parentId : masterParent)
-                    reply = `<a class="comment-replies" onclick="ShowReplyBox('${data.savedInfo[0]}', '${data.savedInfo[3]}', '${data.savedInfo[1]}', '${masterParent == "undefined" ? parentId : masterParent}')"><b>Reply</b></a>`
-                    at = `<span id="comment-at-${parentId}" class="comment-at" contenteditable="false"><b>@${data.savedInfo[4]} </b></span>`
+                    IncrementDecrementComments(data.comment.senderProfilePicture, data.comment.id, data.comment.receiverName.replace('|', ' '), masterParent == "undefined" ? parentId : masterParent)
+                    reply = `<a class="comment-replies" onclick="ShowReplyBox('${data.comment.senderProfilePicture}', '${data.comment.id}', '${data.comment.senderName.replace('|', ' ')}', '${masterParent == "undefined" ? parentId : masterParent}')"><b>Reply</b></a>`
+                    at = `<span id="comment-at-${parentId}" class="comment-at" contenteditable="false"><b>@${data.comment.receiverName.replace('|', ' ')} </b></span>`
                 }
                 var date = moment().format("MMM DD YYYY");
-                var comment = `<li id="comment-${data.savedInfo[3]}" class="border-bottom border-left border-right" style="background-color:white">
+                var comment = `<li id="comment-${data.comment.id}" class="border-bottom border-left border-right" style="background-color:white">
                                     <div class="card border-0">
                                         <div class="card-body">
-                                            <img class="comment-profile-picture" align="left" src="${data.savedInfo[0]}"/>
-                                            <img src="/images/GenericAssets/Trash.png" class="comment-remove pl-1 float-right" id="comment-remove-${data.savedInfo[3]}" onclick="OpenDeleteConfirmation('${data.savedInfo[3]}', '${parentId}')" />
-                                            <img src="/images/GenericAssets/Edit.png" class="comment-edit pl-1 float-right" id="comment-edit-${data.savedInfo[3]}" onclick="ShowEditBox('${data.savedInfo[0]}', '${data.savedInfo[3]}')" />
+                                            <img class="comment-profile-picture" align="left" src="${data.comment.senderProfilePicture}"/>
+                                            <img src="/images/GenericAssets/Trash.png" class="comment-remove pl-1 float-right" id="comment-remove-${data.comment.id}" onclick="OpenDeleteConfirmation('${data.comment.id}', '${parentId}')" />
+                                            <img src="/images/GenericAssets/Edit.png" class="comment-edit pl-1 float-right" id="comment-edit-${data.comment.id}" onclick="ShowEditBox('${data.comment.senderProfilePicture}', '${data.comment.id}')" />
                                             <script>
-                                                $('#comment-${data.savedInfo[3]}').hover(function () {
-                                                    $('#comment-edit-${data.savedInfo[3]}').css('display', 'block')
-                                                    $('#comment-remove-${data.savedInfo[3]}').css('display', 'block')
+                                                $('#comment-${data.comment.id}').hover(function () {
+                                                    $('#comment-edit-${data.comment.id}').css('display', 'block')
+                                                    $('#comment-remove-${data.comment.id}').css('display', 'block')
                                                 }, function () {
-                                                    $('#comment-edit-${data.savedInfo[3]}').css('display', 'none')
-                                                    $('#comment-remove-${data.savedInfo[3]}').css('display', 'none')
+                                                    $('#comment-edit-${data.comment.id}').css('display', 'none')
+                                                    $('#comment-remove-${data.comment.id}').css('display', 'none')
                                                 })
                                             </script>
-                                            <p class="form-header comment-name mb-0" style="color:${data.savedInfo[5]}">${data.savedInfo[1]}<span class="form-sub-header ml-2" style="font-size:10px; font-family:'Roboto', serif">${date}<span id="edited-holder-${data.savedInfo[3]}" class="ml-2"></span></span></p>
-                                            <input type="hidden" id="comment-send-hidden-${data.savedInfo[3]}" value="${message}" />
-                                            <div id="comment-send-holder-${data.savedInfo[3]}">
-                                                <p class="mb-1 comment-send" id="comment-send-${data.savedInfo[3]}">${at}${data.savedInfo[2]}</p>
+                                            <p class="form-header comment-name mb-0" style="color:${data.comment.profileColor}">${data.comment.senderName.replace('|', ' ')}<span class="form-sub-header ml-2" style="font-size:10px; font-family:'Roboto', serif">${date}<span id="edited-holder-${data.comment.id}" class="ml-2"></span></span></p>
+                                            <input type="hidden" id="comment-send-hidden-${data.comment.id}" value="${message}" />
+                                            <div id="comment-send-holder-${data.comment.id}">
+                                                <p class="mb-1 comment-send" id="comment-send-${data.comment.id}">${at}${data.comment.message}</p>
                                             </div>
                                             ${reply}
-                                            <input id="comment-replies-count-${data.savedInfo[3]}" type="hidden" value="0" />
-                                            <a class="comment-replies pl-1" id="show-replies-${data.savedInfo[3]}" style="display:none" onclick="ShowReplyComments('${data.savedInfo[3]}')"><b>Show 0 Replies</b></a>
-                                            <div style="padding-left:40px" id="reply-box-${data.savedInfo[3]}"></div>
-                                            <ul class="comment-list" style="display:none" class="mt-2" id="comment-reply-list-${data.savedInfo[3]}"></ul>
+                                            <input id="comment-replies-count-${data.comment.id}" type="hidden" value="0" />
+                                            <a class="comment-replies pl-1" id="show-replies-${data.comment.id}" style="display:none" onclick="ShowReplyComments('${data.comment.id}')"><b>Show 0 Replies</b></a>
+                                            <div style="padding-left:40px" id="reply-box-${data.comment.id}"></div>
+                                            <ul class="comment-list" style="display:none" class="mt-2" id="comment-reply-list-${data.comment.id}"></ul>
                                         </div>
                                     </div>
                                 </li>`
@@ -73,13 +71,13 @@ function SaveComment(parentId, masterParent) {
                     $('#comment-list').append(comment);
                     $('#comment-send-').html(``)
                     $('#comment-send-').attr('style', '40px !important');
-                    GoToComment("", data.savedInfo[3])
+                    GoToComment("", data.comment.id)
                 }
                 else {
                     var id = masterParent == "undefined" ? parentId : masterParent;
                     $('#comment-reply-list-' + id).append(comment);
                     CancelReply(parentId)
-                    GoToComment(parentId, data.savedInfo[3])
+                    GoToComment(parentId, data.comment.id)
                 }
             }
         }
@@ -142,12 +140,12 @@ function EditComment(commentId) {
                 $('input:hidden[name="__RequestVerificationToken"]').val());
         },
         success: function (data) {
-            $('#comment-send-hidden-' + commentId).val(data.savedInfo[0]);
-            $('#comment-edit-' + commentId).css("display", "block");
-            $('#comment-remove-' + commentId).css("display", "block");
-            var at = data.savedInfo[3] != null ? `<span id="comment-at-${commentId}" class="comment-at" contenteditable="false"><b>@${data.savedInfo[2].replace('|', ' ')}</b></span>` : ``
-            $('#comment-send-holder-' + commentId).html(`<p class="mb-1 comment-send" id="comment-send-${commentId}">${at}${data.savedInfo[0]}</p>`)
-            $('#edited-holder-' + commentId).html(`(edited)`);
+            $('#comment-send-hidden-' + data.comment.id).val(data.comment.message);
+            $('#comment-edit-' + data.comment.id).css("display", "block");
+            $('#comment-remove-' + data.comment.id).css("display", "block");
+            var at = data.comment.parentId != null ? `<span id="comment-at-${data.comment.id}" class="comment-at" contenteditable="false"><b>@${data.comment.receiverName.replace('|', ' ')}</b></span>` : ``
+            $('#comment-send-holder-' + data.comment.id).html(`<p class="mb-1 comment-send" id="comment-send-${data.comment.id}">${at}${data.comment.message}</p>`)
+            $('#edited-holder-' + data.comment.id).html(`(edited)`);
         }
     });
 }

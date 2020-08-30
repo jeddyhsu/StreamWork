@@ -25,7 +25,7 @@ namespace StreamWork.Pages.Tutor
         public Profile CurrentUserProfile { get; set; }
         public Channel UserChannel { get; set; }
         public string ChatInfo { get; set; }
-        public List<Notification> Notifications { get; set; }
+        public List<string> Notifications { get; set; }
         public bool AreThereUnseenNotifications { get; set; }
         public Schedule ScheduledStream { get; set; }
         public List<Schedule> Schedule { get; set; }

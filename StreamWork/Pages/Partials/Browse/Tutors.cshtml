@@ -1,13 +1,18 @@
 ﻿@foreach (var tutor in Model.AllTutors)
 {
-    <div id="tutor-@tutor.Id" class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mt-2 mb-2 tutor">
-        <div class="card rounded pointer" style="min-height:350px;" onclick="window.location.href='/Profiles/Tutor/@tutor.Username'">
-            <img class="card-img-top" src="@tutor.ProfilePicture" height="250" style="object-fit:cover; object-position:top">
-            <div class="card-body">
-                <p class="form-header mb-0" style="font-size:16px; color:@tutor.ProfileColor">@tutor.Name.Replace('|', ' ')</p>
-                <p class="form-sub-header mb-0" style="font-size:12px;">@tutor.ProfileCaption</p>
+    <div id="tutor-@tutor.Id" class="col-lg-3 col-md-6 col-sm-12 mt-2 mb-2 tutor">
+        <div class="card rounded pointer border-0" style="min-height:250px;" onclick="window.location.href='/Profiles/Tutor/@tutor.Username'">
+            <img class="card-img-top" src="@tutor.ProfileBanner" height="150" style="object-fit:cover">
+            <div class="profile-picture-overlap-container">
+                <img id="header-profile-picture" align="left" class="rounded" src="@tutor.ProfilePicture" style="width:70px;" />
             </div>
+            <div class="d-inline-block">
+                <p class="form-header header-padding mb-0 mt-2" style="font-size:16px; color:@tutor.ProfileColor">@tutor.Name.Replace('|', ' ')</p>
+                <p class="form-sub-header header-padding mb-0" style="font-size:12px;">@tutor.ProfileCaption</p>
+            </div>
+
         </div>
+        <div class="card-footer" style="background-color:@tutor.TopicColor;"></div>
     </div>
 
     <div id="tutor-none-found" class="col-9 d-none" style="height:200px">
