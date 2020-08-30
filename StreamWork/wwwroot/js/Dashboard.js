@@ -63,10 +63,10 @@ function SaveProfile() {
     formData.append("FacebookURL", $('#facebook-url').val());
     formData.append("TwitterURL", $('#twitter-url').val());
 
-    if (cropperBlob != null)
+    if (cropper != null)
         formData.append("ProfilePicture", cropperBlob);
 
-    cropperBlob == null;
+    cropper = null; //makes sure that cropper object is destroyed once we upload is an image
 
     $.ajax({
         url: '/Profiles/Profile/?handler=SaveProfile',
@@ -382,7 +382,7 @@ function ClearFilter(event, username) {
 //Banner
 function SaveProfileBanner(image) {
     var formData = new FormData();
-    alert(image.size)
+    //alert(image.size)
     formData.append("ProfileBanner", image);
     $.ajax({
         url: '/Profiles/Profile/?handler=SaveBanner',
@@ -477,7 +477,7 @@ function SendCroppedImage() {
         }
         else if (cropperType == "Thumbnail Edit") {
             var url = URL.createObjectURL(blob);
-            $('#preview-stream-thumbnail-edit').attr('src', url)
+            $('#preview-video-thumbnail-edit').attr('src', url)
             cropperBlob = blob
         }
         else if (cropperType == "Thumbnail") {

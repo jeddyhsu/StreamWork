@@ -136,9 +136,9 @@ namespace StreamWork.Services
         public async Task<List<string>> SaveEditedArchivedStream(HttpRequest request)
         {
             string streamThumbnail = null;
-            var videoId = request.Form["StreamId"];
-            var streamTitle = request.Form["StreamTitle"];
-            var streamDescription = request.Form["StreamDescription"];
+            var videoId = request.Form["VideoId"];
+            var streamTitle = request.Form["VideoTitle"];
+            var streamDescription = request.Form["VideoDescription"];
             if (request.Form.Files.Count > 0)
                 streamThumbnail = BlobMethods.SaveImageIntoBlobContainer(request.Form.Files[0], videoId, 1280, 720);
 
@@ -148,7 +148,7 @@ namespace StreamWork.Services
             if (streamThumbnail != null)
                 archivedStream.StreamThumbnail = streamThumbnail;
 
-            await Save<Video>(archivedStream.Id, archivedStream);
+            await Save(archivedStream.Id, archivedStream);
 
             return new List<string> { streamTitle, streamDescription, archivedStream.StreamThumbnail };
         }

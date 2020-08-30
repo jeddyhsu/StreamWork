@@ -263,9 +263,10 @@ function SaveEditedVideo(id) {
     formData.append("VideoId", id);
     formData.append("VideoTitle", $('#video-title-edit').val());
     formData.append("VideoDescription", $('#video-description-edit').val());
-    if (cropperBlob != null) formData.append("VideoThumbnail", cropperBlob);
 
-    cropperBlob == null;
+    if (cropper != null) formData.append("VideoThumbnail", cropperBlob);
+
+    cropper = null; //makes sure that cropper object is destroyed once we upload is an image
 
     $.ajax({
         url: '/Tutor/TutorDashboard/?handler=SaveEditedVideo',

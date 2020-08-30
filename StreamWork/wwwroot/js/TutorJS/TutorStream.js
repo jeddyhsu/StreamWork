@@ -51,8 +51,9 @@ function RegisterStream() {
     formData.append("ScheduleId", pickedScheduleId);
     //formData.append("NotifiyStudent", notifyStudent);
 
-    if (cropperBlob != null) {
+    if (cropper != null) {
         formData.append("StreamThumbnail", cropperBlob);
+        cropper = null; //makes sure that cropper object is destroyed once we upload is an image
     }
     else {
         $("#tutor-stream-error-notification").html(`<b>Thumbnail required!</b> Thumbnails make your streams more attractive to click on.`)
