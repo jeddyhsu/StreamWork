@@ -69,8 +69,12 @@ namespace StreamWork.Services
            var notifications = await GetList<Notification>(SQLQueries.GetNotificationsWithReceiver,username);
            List<string> notificationTemplates = new List<string>();
 
-           foreach(var notification in notifications) notificationTemplates.Add(await CreateNotificationTemplate(notification, false));
-
+            foreach (var notification in notifications) {
+                var notififcation = await CreateNotificationTemplate(notification, false);
+                if (notififcation != null)
+                    notificationTemplates.Add(notififcation);
+            }
+           
            return notificationTemplates;
         }
 
@@ -119,6 +123,7 @@ namespace StreamWork.Services
                 else template = "NotificationTemplates/PushNotifications/CommentPushNotification.html";
 
                 var comment = await Get<Comment>(SQLQueries.GetCommentWithId, notification.ObjectId);
+                if (comment == null) return null;
                 var video = await Get<Video>(SQLQueries.GetArchivedStreamsWithId, comment.StreamId);
 
                 using (StreamReader streamReader = new StreamReader(template))
@@ -130,6 +135,35 @@ namespace StreamWork.Services
                     reader = reader.Replace("{SenderName}", notification.SenderName.Replace('|', ' '));
                     reader = reader.Replace("{NotificationMessage}", " commented on your stream (" + video.StreamTitle + ")");
                     reader = reader.Replace("{CommentMessage}", comment.Message);
+                    reader = reader.Replace("{VideoId}", video.StreamID); //we need to use videos Id rather than streamId becasue we cahnge streaming later it will be hard to manage
+                    reader = reader.Replace("{CommentId}", comment.Id);
+                    reader = reader.Replace("{NotificationDate}", notification.Date.ToLocalTime().ToShortTimeString());
+                    reader = reader.Replace("{SenderUsername}", notification.SenderUsername);
+                    reader = reader.Replace("{NotificationType}", notification.Type);
+                }
+            }
+            else if (notification.Type == NotificationType.Reply.ToString())
+            {
+                string template;
+
+                if (!isPush) template = "NotificationTemplates/ReplyNotification.html";
+                else template = "NotificationTemplates/PushNotifications/ReplyPushNotification.html";
+
+                var comment = await Get<Comment>(SQLQueries.GetCommentWithId, notification.ObjectId);
+                if (comment == null) return null;
+                var parentComment = await Get<Comment>(SQLQueries.GetCommentWithId, comment.ParentId);
+                var video = await Get<Video>(SQLQueries.GetArchivedStreamsWithId, comment.StreamId);
+                
+                using (StreamReader streamReader = new StreamReader(template))
+                {
+                    reader = streamReader.ReadToEnd();
+                    reader = reader.Replace("{NotificationId}", notification.Id);
+                    reader = reader.Replace("{SenderProfilePicture}", notification.SenderProfilePicture);
+                    reader = reader.Replace("{ProfileColor}", notification.ProfileColor);
+                    reader = reader.Replace("{SenderName}", notification.SenderName.Replace('|', ' '));
+                    reader = reader.Replace("{NotificationMessage}", " replied to your comment");
+                    reader = reader.Replace("{CommentReply}", comment.Message);
+                    reader = reader.Replace("{CommentMessage}", parentComment.Message);
                     reader = reader.Replace("{VideoId}", video.StreamID); //we need to use videos Id rather than streamId becasue we cahnge streaming later it will be hard to manage
                     reader = reader.Replace("{CommentId}", comment.Id);
                     reader = reader.Replace("{NotificationDate}", notification.Date.ToLocalTime().ToShortTimeString());

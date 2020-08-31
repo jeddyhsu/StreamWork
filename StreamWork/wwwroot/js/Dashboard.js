@@ -2,7 +2,7 @@
 var topicCount = 0; // //used for topics
 const colors = ['#D9534F', '#F0AD4E', '#56C0E0', '#5CB85C', '#1C7CD5', '#8B4FD9']
 var cropper = null; // cropper object
-var cropperType = "";   //type of cropper ie: profile pic, banner
+var cropperType = ""; //type of cropper ie: profile pic, banner
 var cropperBlob = null; //blob that gets saved for profile pictures that are uploded in a modal
 
 //Sliders

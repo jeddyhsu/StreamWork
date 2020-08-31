@@ -29,7 +29,7 @@ namespace StreamWork.Services
                     SenderProfilePicture = sender.ProfilePicture,
                     ReceiverName = receiver.Name,
                     ReceiverUsername = receiver.Username,
-                    Message = MiscHelperMethods.URLIFY(message),
+                    Message =  MiscHelperMethods.URLIFY(MiscHelperMethods.RemoveAllStyleTags(message)),
                     ParentId = parentId,
                     Date = DateTime.UtcNow,
                     StreamId = streamId,

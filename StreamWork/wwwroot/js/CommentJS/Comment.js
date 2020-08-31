@@ -55,7 +55,7 @@ function SaveComment(parentId, masterParent) {
                                                 })
                                             </script>
                                             <p class="form-header comment-name mb-0" style="color:${data.comment.profileColor}">${data.comment.senderName.replace('|', ' ')}<span class="form-sub-header ml-2" style="font-size:10px; font-family:'Roboto', serif">${date}<span id="edited-holder-${data.comment.id}" class="ml-2"></span></span></p>
-                                            <input type="hidden" id="comment-send-hidden-${data.comment.id}" value="${message}" />
+                                            <input type="hidden" id="comment-send-hidden-${data.comment.id}" value="" />
                                             <div id="comment-send-holder-${data.comment.id}">
                                                 <p class="mb-1 comment-send" id="comment-send-${data.comment.id}">${at}${data.comment.message}</p>
                                             </div>
@@ -69,6 +69,7 @@ function SaveComment(parentId, masterParent) {
                                 </li>`
                 if (parentId == "" || parentId == null) {
                     $('#comment-list').append(comment);
+                    $('#comment-send-hidden-' + data.comment.id).val(data.comment.message)
                     $('#comment-send-').html(``)
                     $('#comment-send-').attr('style', '40px !important');
                     GoToComment("", data.comment.id)
@@ -76,6 +77,7 @@ function SaveComment(parentId, masterParent) {
                 else {
                     var id = masterParent == "undefined" ? parentId : masterParent;
                     $('#comment-reply-list-' + id).append(comment);
+                    $('#comment-send-hidden-' + data.comment.id).val(data.comment.message)
                     CancelReply(parentId)
                     GoToComment(parentId, data.comment.id)
                 }

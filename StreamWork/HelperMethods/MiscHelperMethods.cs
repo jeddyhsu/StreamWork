@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace StreamWork.HelperMethods
@@ -38,12 +39,35 @@ namespace StreamWork.HelperMethods
 
         public static string URLIFY(string message)
         {
-            string pattern = "(https?://([^ ]+))";
-            string replacement = "<a target=\"_blank\" href=\"$1\">$1</a>";
-            Regex rgx = new Regex(pattern);
-            string result = rgx.Replace(message, replacement);
+            var regex = new Regex(@"<a [^>]*?>(?<text>.*?)</a>", RegexOptions.Singleline);
 
-            return result;
+            if (!regex.Match(message).Success)
+            {
+                string pattern = "(https?://([^ ]+))";
+                string replacement = "<a target=\"_blank\" href=\"$1\">$1</a>";
+                Regex rgx = new Regex(pattern);
+                string result = rgx.Replace(message, replacement);
+
+                return result;
+            }
+
+            return message;
+        }
+
+        public static string RemoveAllStyleTags(string html)
+        {
+            HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+            doc.LoadHtml(html);
+
+            var x = doc.DocumentNode.Descendants();
+
+            foreach(var t in x)
+            {
+                if(t.Attributes.Contains("style"))
+                    t.Attributes["style"].Remove();
+            }
+
+            return doc.DocumentNode.InnerHtml;
         }
 
         public static string GetRandomColor()
