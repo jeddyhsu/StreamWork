@@ -1,4 +1,5 @@
 ﻿var commentCount = 0;
+
 function SaveComment(parentId, masterParent) {
     var message = "";
     if (parentId == "" || parentId == null) {
@@ -228,6 +229,8 @@ function GetStringWithoutAt(type, id) {
     var clone = $('#comment-' + type + '-' + id).clone()
     clone.find('.comment-at').remove();
     var commentHtml = clone.html().replace(/<div>/gi, '<br>').replace(/<\/div>/gi, '')
+    if (commentHtml.substring(0, 4) == "<br>")
+        commentHtml = commentHtml.replace('<br>', '')
     var comment = commentHtml.trim() + " "
     var commentString = comment.replace(commentAt, '');
 
