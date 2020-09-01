@@ -29,13 +29,15 @@ namespace StreamWork.Pages.Comments
             }
 
             var savedComment = await commentService.SaveComment(senderUsername, receiverUsername, message, masterParent == "undefined" ? parentId: masterParent, streamId);
-            var savedNotification = await notificationService.SaveNotification(parentId  == null ? NotificationType.Comment : NotificationType.Reply,
-                                                                                senderUsername,
-                                                                                receiverUsername,
-                                                                                savedComment.Id);
-
-            if (savedComment != null && savedNotification) return new JsonResult(new { Message = JsonResponse.Success.ToString(), Comment = savedComment});
-
+            if(savedComment != null)
+            {
+                await notificationService.SaveNotification(parentId == null ? NotificationType.Comment : NotificationType.Reply,
+                                                                                   senderUsername,
+                                                                                   receiverUsername,
+                                                                                   savedComment.Id);
+                return new JsonResult(new { Message = JsonResponse.Success.ToString(), Comment = savedComment });
+            }
+                
             return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
         }
 

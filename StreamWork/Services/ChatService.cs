@@ -21,6 +21,11 @@ namespace StreamWork.Services
         public async Task DeleteAllChatsWithChatId(string chatId)
         {
             await Run<Chat>(SQLQueries.DeleteAllChatsWithId, new string[] { chatId });
-        } 
+        }
+
+        public async Task DeleteAllChatsWithArchiveVideoId(string archiveVideoId)
+        {
+            await Run<Chat>(SQLQueries.DeleteAllChatsWithArchivedVideoId, new string[] { archiveVideoId });
+        }
     }
 }

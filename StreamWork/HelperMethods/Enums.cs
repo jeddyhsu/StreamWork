@@ -97,6 +97,7 @@ namespace StreamWork.HelperMethods
         GetAllChats,
         GetAllChatsWithIdAndVideoId,
         DeleteAllChatsWithId,
+        DeleteAllChatsWithArchivedVideoId,
 
         //Follow
         GetAllFolloweesWithId,

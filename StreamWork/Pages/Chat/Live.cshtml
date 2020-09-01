@@ -18,6 +18,7 @@ else
     </script>
 }
 
+<base target="_blank"> 
 <div class="container-fluid  p-0">
     <div class="row">
         <div class="col-lg-12">
@@ -27,7 +28,6 @@ else
                     <p class="d-inline-block form-header p-3 mb-0" style="font-size:20px">Live Chat</p>
                     <img class="float-right m-2" src="~/images/ChatAssets/Popout.svg" style="cursor:pointer; width:50px" onclick="PopoutChat('@Model.ChatId', '@Model.ChatInfoEncrypted')" />
                     <img class="float-right pt-2" id="sound" src="~/images/ChatAssets/Mute.svg" style="cursor:pointer; width:50px" onclick="ToggleMuteAndUnmute()" />
-                    <script>PlayAudio()</script>
                 </div>
             </div>
 
@@ -109,16 +109,18 @@ else
                             <div class="col-12">
                                 <div class="d-flex align-items-center justify-content-center">
                                     <div id="chatInput" onkeydown="openModal(event)" class="form-custom-textarea rounded border-0 w-100 roboto chat-text ml-2 mr-2" contentEditable=true data-text="Send a question or message..."></div>
-                                    <script>function openModal(event) {
+                                    <div>
+                                        <button type="button" id="sendQuestionButton" class="streamWork-primary mr-2" onclick="Modal()">Send</button>
+                                    </div>
+                                    <script>
+                                        function openModal(event) {
                                             if (event.keyCode == 13 && !event.shiftKey) {
                                                 Modal()
                                                 event.preventDefault();
                                                 return false;
                                             }
-                                        }</script>
-                                    <div>
-                                        <button type="button" id="sendQuestionButton" class="streamWork-disabled mr-2" onclick="openModal(event)">Send</button>
-                                    </div>
+                                        }
+                                    </script>
                                 </div>
                             </div>
 
@@ -137,6 +139,6 @@ else
     function Modal() {
         window.parent.$('#signin-signup-modal').css('display', 'block')
     }
+    window.scroll(0, document.documentElement.offsetHeight);
 </script>
-
 @await Html.PartialAsync("Partials/Modals/SignIn-SignUpModal")

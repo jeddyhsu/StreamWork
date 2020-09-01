@@ -19,6 +19,7 @@ namespace StreamWork.Pages.Tutor
         private readonly FollowService followService;
         private readonly SearchService searchService;
         private readonly NotificationService notificationService;
+        private readonly ChatService chatService;
 
         public Profile CurrentUserProfile { get; set; }
         public Channel UserChannel { get; set; }
@@ -35,7 +36,7 @@ namespace StreamWork.Pages.Tutor
         public List<string> Notifications { get; set; }
         public bool AreThereUnseenNotifications { get; set; }
 
-        public TutorDashboard(StorageService storage, CookieService cookie, ProfileService profile, ScheduleService schedule, FollowService follow, SearchService search, NotificationService notification)
+        public TutorDashboard(StorageService storage, CookieService cookie, ProfileService profile, ScheduleService schedule, FollowService follow, SearchService search, NotificationService notification, ChatService chat)
         {
             storageService = storage;
             cookieService = cookie;
@@ -44,6 +45,7 @@ namespace StreamWork.Pages.Tutor
             followService = follow;
             searchService = search;
             notificationService = notification;
+            chatService = chat;
         }
 
         public async Task<IActionResult> OnGet()
@@ -103,6 +105,7 @@ namespace StreamWork.Pages.Tutor
 
         public async Task<IActionResult> OnPostDeleteVideo(string id)
         {
+            await chatService.DeleteAllChatsWithArchiveVideoId(id);
             var savedInfo = await profileService.DeleteStream(id);
 
             if (savedInfo) return new JsonResult(new { Message = JsonResponse.Success.ToString() });

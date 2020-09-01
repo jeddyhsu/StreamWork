@@ -55,7 +55,7 @@ connection.on("ReceiveMessage", function (chat) {
     $("#tutor-tip-" + toolTipCount).tooltip();
     toolTipCount++;
     window.scroll(0, document.documentElement.offsetHeight);
-    if (!muted && initialUserName != userName) PlayAudio();
+    if (!muted && clientUsername != chat.Username) PlayAudio();
 });
 
 function PlayAudio() {
@@ -94,16 +94,16 @@ function JoinChatRoom(chatId, userName) {
     });
 }
 
-function GetMessage(chatId, userName, name, profilePicture, chatColor, archivedVideoId){
+function GetMessage(chatId, userName, name, profilePicture, chatColor){
     var message = $("#chatInput").html().replace(/<div>/gi, '<br>').replace(/<\/div>/gi, '')
     if (message == "") return;
-    CleanAndSendMessage(message, chatId, userName, name, profilePicture, chatColor, archivedVideoId);
+    CleanAndSendMessage(message, chatId, userName, name, profilePicture, chatColor);
 }
 
-function CleanAndSendMessage(message, chatId, userName, name, profilePicture, chatColor, archivedVideoId) {
+function CleanAndSendMessage(message, chatId, userName, name, profilePicture, chatColor) {
     var date = new moment();
     var offset = 420;
-    connection.invoke("SendMessageToChatRoom", chatId, userName, name, message, profilePicture, chatColor, date, offset, archivedVideoId).catch(function (err) {
+    connection.invoke("SendMessageToChatRoom", chatId, userName, name, message, profilePicture, chatColor, date, offset).catch(function (err) {
         return console.error(err.toString());
 
     });

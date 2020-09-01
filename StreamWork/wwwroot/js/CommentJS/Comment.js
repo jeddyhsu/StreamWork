@@ -83,6 +83,9 @@ function SaveComment(parentId, masterParent) {
                     GoToComment(parentId, data.comment.id)
                 }
             }
+            else {
+                OpenInvalidComment(parentId);
+            }
         }
     });
 }
@@ -234,6 +237,8 @@ function GetStringWithoutAt(type, id) {
     var comment = commentHtml.trim() + " "
     var commentString = comment.replace(commentAt, '');
 
+    if (commentString.length > 12000) OpenInvalidComment(id)
+
     return commentString;
 }
 
@@ -249,6 +254,22 @@ function OpenDeleteConfirmation(commentId, parentId) {
     $('#notification-delete-comment-modal').html(confirmation);
     OpenNotificationModal('Are you sure you want to delete? This is a irreverible action!', 'notification-delete-comment-modal')
 
+}
+
+function OpenInvalidComment(parentId) {
+    if (parentId == "" || parentId == null) {
+        $('#comment-send-').html(``)
+    }
+    else {
+        CancelReply(parentId)
+    }
+    var confirmation = ` <div class="custom-modal-content" style="width:300px; height:200px" >
+                            <div class="close ml-auto" onclick="CloseModal('notification-invalid-comment-modal')">&times;</div>
+                            <h5 id="notification-message" class="form-header text-center pl-3 pr-3" style="padding-top:50px; font-size:16px;">Notification</h5>
+                            <button class="btn d-block mr-auto ml-auto mt-3 w-50" style="background-color:#004643; color:white" onclick="CloseModal('notification-invalid-comment-modal')">Ok</button>
+                        </div>`
+    $('#notification-invalid-comment-modal').html(confirmation);
+    OpenNotificationModal('The comment you have entered is invalid!', 'notification-invalid-comment-modal')
 }
 
 function GoToComment(parentId, commentId) {

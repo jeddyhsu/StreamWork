@@ -233,6 +233,10 @@
         {
           "Query": "DELETE FROM [dbo].[Chat] WHERE ChatId = '@x0'",
           "QueryId": "DeleteAllChatsWithId"
+        },
+        {
+          "Query": "DELETE FROM [dbo].[Chat] WHERE ArchivedVideoId = '@x0'",
+          "QueryId": "DeleteAllChatsWithArchivedVideoId"
         }
       ]
     },
