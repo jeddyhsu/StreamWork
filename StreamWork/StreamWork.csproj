@@ -111,9 +111,6 @@
     <Content Remove="wwwroot\images\GenericAssets\Screen Shot 2020-08-03 at 7.47.22 AM.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="Config\streamwork-286021-a06875f20a26.p12">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="NotificationTemplates\ReplyNotification.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -130,6 +127,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="NotificationTemplates\PushNotifications\CommentPushNotification.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Config\streamwork-286021-a06875f20a26.p12">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

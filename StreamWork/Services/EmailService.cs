@@ -8,9 +8,8 @@ using MailKit.Security;
 using System.Threading;
 using System.Security.Cryptography.X509Certificates;
 using System.IO;
-using System;
-using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Hosting;
 
 namespace StreamWork.Services
 {
@@ -39,13 +38,11 @@ namespace StreamWork.Services
         private static readonly string serviceAccountEmail = "eat-my-ass-google@streamwork-286021.iam.gserviceaccount.com";
         private static readonly string[] scopes = new[] { "https://mail.google.com/" };
         private static readonly string privateKeyPassword = "notasecret"; // Standard password for all Google-issued private keys
-        private static readonly string certificatePath = Path.Combine(Environment.CurrentDirectory, "Config", "streamwork-286021-a06875f20a26.p12");
+        private readonly string certificatePath;
         private static readonly string gmailSmtp = "smtp.gmail.com";
         private static readonly int gmailPort = 587;
 
-        private readonly StorageService TEMP;
-
-        public EmailService(StorageService storage) {
+        public EmailService(IWebHostEnvironment environment) {
             templates = new Hashtable
             {
                 {"test", new EmailTemplate(
@@ -81,7 +78,7 @@ namespace StreamWork.Services
                 )}
             };
 
-            TEMP = storage;
+            certificatePath = Path.Combine(Directory.GetParent(environment.WebRootPath).FullName, "Config", "streamwork-286021-a06875f20a26.p12"); // HACK Not much I can do to change it though
         }
 
         public async Task SendTemplateToUser(string templateName, Profile user, List<MemoryStream> attachments)
@@ -142,36 +139,23 @@ namespace StreamWork.Services
 
         private async Task SendEmail(MimeMessage message)
         {
-            try
+            var credential = new ServiceAccountCredential(new ServiceAccountCredential.Initializer(serviceAccountEmail)
             {
-                var credential = new ServiceAccountCredential(new ServiceAccountCredential.Initializer(serviceAccountEmail)
-                {
-                    Scopes = scopes,
-                    User = streamworkEmailAddress
-                }.FromCertificate(new X509Certificate2(certificatePath, privateKeyPassword, X509KeyStorageFlags.Exportable)));
+                Scopes = scopes,
+                User = streamworkEmailAddress
+            }.FromCertificate(new X509Certificate2(certificatePath, privateKeyPassword, X509KeyStorageFlags.MachineKeySet)));
 
-                // Token gets put inside credential. At least cross your fucking fingers that it does.
-                await credential.RequestAccessTokenAsync(CancellationToken.None);
+            // Token gets put inside credential. At least cross your fucking fingers that it does.
+            await credential.RequestAccessTokenAsync(CancellationToken.None);
 
-                using var client = new SmtpClient();
-                client.Connect(gmailSmtp, gmailPort);
+            using var client = new SmtpClient();
+            client.Connect(gmailSmtp, gmailPort);
 
-                var oauth2 = new SaslMechanismOAuth2(streamworkEmailAddress, credential.Token.AccessToken);
-                client.Authenticate(oauth2);
+            var oauth2 = new SaslMechanismOAuth2(streamworkEmailAddress, credential.Token.AccessToken);
+            client.Authenticate(oauth2);
 
-                client.Send(message);
-                client.Disconnect(true);
-            }
-            catch (Exception e)
-            {
-                Debug debug = new Debug
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    Timestamp = DateTime.UtcNow,
-                    Message = e.Message,
-                };
-                await TEMP.Save(debug.Id, debug);
-            }
+            client.Send(message);
+            client.Disconnect(true);
         }
     }
 }
