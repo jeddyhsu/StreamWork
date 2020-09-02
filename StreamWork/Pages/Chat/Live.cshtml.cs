@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -21,6 +22,7 @@ namespace StreamWork.Pages.Chat
         public string ChatInfoEncrypted { get; set; }
         public List<DataModels.Chat> Chats { get; set; }
         public bool IsLoggedIn { get; set; }
+        public double Offset { get; set; }
 
         public Live(StorageService storage, CookieService cookie, ChatService chat, EncryptionService encryption)
         {
@@ -38,7 +40,9 @@ namespace StreamWork.Pages.Chat
             ChatId = chatId;
             ChatInfo = channel.ArchivedVideoId ?? "DEFAULT";
             Chats = await chatService.GetAllChatsWithChatId(ChatId, ChatInfo);
-            IsLoggedIn = CurrentUserProfile == null ? false : true;
+            IsLoggedIn = CurrentUserProfile != null;
+
+            Offset = CurrentUserProfile != null && CurrentUserProfile.TimeZone != null && CurrentUserProfile.TimeZone != "" ? MiscHelperMethods.GetOffsetBasedOfTimeZone(CurrentUserProfile.TimeZone) : -1.0;
 
             return Page();
         }

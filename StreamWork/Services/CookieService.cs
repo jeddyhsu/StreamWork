@@ -85,5 +85,25 @@ namespace StreamWork.Services
 
             return false;
         }
+
+        public JsonResult Route(Profile userProfile, string route, EncryptionService encryptionService)
+        {
+            if (userProfile != null)
+            {
+                if (route != "SW")
+                {
+                    var decryptedRoute = encryptionService.DecryptString(route);
+                    return new JsonResult(new { Message = "Route", Route = decryptedRoute });
+                }
+                else if (userProfile.ProfileType == "tutor")
+                    return new JsonResult(new { Message = JsonResponse.Tutor.ToString() });
+                else
+                    return new JsonResult(new { Message = JsonResponse.Student.ToString() });
+            }
+            else
+            {
+                return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
+            }
+        }
     }
 }

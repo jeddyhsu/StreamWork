@@ -94,5 +94,35 @@ namespace StreamWork.HelperMethods
 
             return (string)table[subject];
         }
+
+        public static string GetTimeZoneBasedOfOffset(string offset)
+        {
+            Hashtable table = new Hashtable
+            {
+                { "-420", "PST" },
+                { "-360", "MST" },
+                { "-300", "CST" },
+                { "-240", "EST" },
+                { "-600", "Hawaii" },
+                { "-480", "Alaska" },
+            };
+
+            return (string)table[offset];
+        }
+
+        public static double GetOffsetBasedOfTimeZone(string timezone)
+        {
+            Hashtable table = new Hashtable
+            {
+                { "PST", -420.0 },
+                { "MST", -360.0 },
+                { "CST", -300.0 },
+                { "EST", -240.0 },
+                { "Hawaii", -600.0 },
+                { "Alaska", -480.0 },
+            };
+
+            return (double)table[timezone];
+        }
     }
 }

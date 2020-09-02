@@ -9,13 +9,13 @@ namespace StreamWork.Pages.Home
 {
     public class SignInModel : PageModel
     {
-        private readonly StorageService storage;
+        private readonly StorageService storageService;
         private readonly EncryptionService encryptionService;
         private readonly CookieService cookieService;
 
         public SignInModel(StorageService storage, EncryptionService encryption, CookieService cookie)
         {
-            this.storage = storage;
+            this.storageService = storage;
             encryptionService = encryption;
             cookieService = cookie;
         }
@@ -29,12 +29,13 @@ namespace StreamWork.Pages.Home
         {
             var username = Request.Form["Username"];
             var password = Request.Form["Password"];
+            var time = Request.Form["Time"]; //gets time offset
 
-            var userProfile = await storage.Get<Profile>(SQLQueries.GetUserWithUsername, username);
+            var userProfile = await storageService.Get<Profile>(SQLQueries.GetUserWithUsername, username);
             if (userProfile == null)
             {
                 // User can also sign in with email address, in which case the username needs to be updated
-                userProfile = await storage.Get<Profile>(SQLQueries.GetUserWithEmailAddress, username);
+                userProfile = await storageService.Get<Profile>(SQLQueries.GetUserWithEmailAddress, username);
                 if (userProfile != null)
                 {
                     username = userProfile.Username;
@@ -43,23 +44,15 @@ namespace StreamWork.Pages.Home
 
             if (userProfile != null)
             {
+                if (time != "")
+                {
+                    userProfile.TimeZone = MiscHelperMethods.GetTimeZoneBasedOfOffset(time);
+                    await storageService.Save(userProfile.Id, userProfile);
+                }
+
                 var signInProfile = await cookieService.SignIn(username, encryptionService.DecryptPassword(userProfile.Password, password));
                 if (signInProfile != null)
-                {
-                    if(route != "SW")
-                    {
-                        var decryptedRoute = encryptionService.DecryptString(route);
-                        return new JsonResult(new { Message = "Route", Route = decryptedRoute });
-                    }
-                    else if(signInProfile.ProfileType == "tutor")
-                        return new JsonResult(new { Message = JsonResponse.Tutor.ToString() });
-                    else
-                        return new JsonResult(new { Message = JsonResponse.Student.ToString() });
-                }
-                else
-                {
-                    return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
-                }
+                    return cookieService.Route(signInProfile, route, encryptionService);
             }
 
             return new JsonResult(new { Message = JsonResponse.Failed.ToString() });

@@ -1,9 +1,11 @@
 ﻿function onSignIn(googleProfile) {
+    var currentURL = document.location.href
     $.ajax({
         url: '/Home/SignUp/?handler=CheckIfOauthUserExists',
         type: 'POST',
         data: {
-            email: googleProfile.getBasicProfile().getEmail()
+            email: googleProfile.getBasicProfile().getEmail(),
+            route: currentURL,
         },
         beforeSend: function (xhr) {
             xhr.setRequestHeader("XSRF-TOKEN",
@@ -16,7 +18,7 @@
             goToTab('studentOrTutor');
         }
         else {
-            window.location.href = '/' + data + '/' + data + 'Dashboard'
+            RouteToPage(data)
         }
     });
 }
@@ -41,6 +43,7 @@ function SignIn(route) {
     var formData = new FormData();
     formData.append('Username', $('#username').val())
     formData.append('Password', $('#password').val())
+    formData.append('Time', moment().utcOffset())
 
     var currentURL = document.location.href
 
@@ -56,18 +59,7 @@ function SignIn(route) {
                 $('input:hidden[name="__RequestVerificationToken"]').val());
         },
         success: function (data) {
-            if (data.message === "Tutor") {
-                window.location.href = '/' + data.message + '/' + data.message + 'Dashboard'
-            }
-            else if (data.message === "Student") {
-                window.location.href = '/Home/Browse'
-            }
-            else if (data.message === "Route") {
-                window.location.href = data.route
-            }
-            else {
-                ShowBannerNotification('invalid-username-password-notification')
-            }
+            RouteToPage(data)
         }
     })
 }
@@ -136,5 +128,20 @@ function togglePasswordVisibility() {
         passwordField.attr('type', 'text');
     } else {
         passwordField.attr('type', 'password');
+    }
+}
+
+function RouteToPage(data) {
+    if (data.message === "Tutor") {
+        window.location.href = '/' + data.message + '/' + data.message + 'Dashboard'
+    }
+    else if (data.message === "Student") {
+        window.location.href = '/Home/Browse'
+    }
+    else if (data.message === "Route") {
+        window.location.href = data.route
+    }
+    else {
+        ShowBannerNotification('invalid-username-password-notification')
     }
 }

@@ -233,16 +233,18 @@ namespace StreamWork.Pages.Home
             await cookieService.SignIn(Request.Form["Username"], encryptionService.DecryptPassword(password, "!!0_STREAMWORK_!!0"));
         }
 
-        public async Task<IActionResult> OnPostCheckIfOauthUserExists(string email)
+        public async Task<IActionResult> OnPostCheckIfOauthUserExists(string email, string route)
         {
             var userProfile = await storageService.Get<Profile>(SQLQueries.GetUserWithEmailAddress, email);
             if (userProfile != null)
             {
-                await cookieService.SignIn(userProfile.Username, userProfile.Password);
-                return new JsonResult(userProfile.ProfileType);
+                var signInProfile = await cookieService.SignIn(userProfile.Username, userProfile.Password);
+                var routeSplit = route.Split('/'); //keep in mind in future when adding more params!!
+                if (signInProfile != null)
+                    return cookieService.Route(signInProfile, routeSplit[routeSplit.Length - 1], encryptionService);
             }
 
-            return new JsonResult(null);
+            return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
         }
 
         private async Task<bool> CreateChannel(string username)
