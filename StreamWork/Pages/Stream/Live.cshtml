@@ -105,7 +105,35 @@ else
                                 <div class="card-title p-3 mb-0">
                                     <p class="form-header d-inline-block mb-0" style="font-size:18px">Previous Streams</p>
                                 </div>
-                                @await Html.PartialAsync("Partials/Profile/Stream_View", Model)
+                                <div class="row">
+                                    @if (Model.UserArchivedStreams.Count != 0)
+                                    {
+                                        @foreach (var video in Model.UserArchivedStreams)
+                                        {
+                                            <div id="videoInfo-@video.Id" class="col-lg-4 col-md-6 col-sm-6 col-6 mb-3 video">
+                                                @await Html.PartialAsync("Partials/Stream/VideoAppearance", video)
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (Model.CurrentUserProfile != null && Model.CurrentUserProfile.Id == Model.UserProfile.Id)
+                                        {
+                                            <div class="col-12 text-center">
+                                                <p class="form-sub-header p-0" style="font-size:22px">Looks like you don't have any videos yet...</p>
+                                                <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">Help other students find the help they need by putting up content!</p>
+                                                <button class="streamWork-primary mt-3" onclick="window.location.href ='/Tutor/TutorStream'" style="font-size:14px; font-family:'Roboto', serif">Start your first stream</button>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="col-12 text-center">
+                                                <p class="form-sub-header p-0" style="font-size:22px">No Streams</p>
+                                                <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">This tutor hasn't streamed yet!</p>
+                                            </div>
+                                        }
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -47,7 +47,27 @@
                 <div class="container-fluid pt-3" style="width:100%">
                     <p class="form-header pl-3" style="font-size:22px">Live Streams</p>
                     <div id="stream-row" class="row p-3">
-                        @await Html.PartialAsync("Partials/Browse/LiveChannels", Model)
+                        @if (Model.LiveChannels.Count > 0)
+                        {
+                            @foreach (var stream in Model.LiveChannels)
+                            {
+                                <div id="stream-@stream.Id" class="col-xl-2 col-lg-3 col-md-4 col-sm-6 stream">
+                                    @await Html.PartialAsync("Partials/Stream/StreamAppearance", stream)
+                                </div>
+
+                                <div id="stream-none-found" class="col-9 d-none">
+                                    <p class="form-sub-header pl-3 pr-3 pt-3 pb-0" style="font-size:22px">No streams with the currrent search term.</p>
+                                    <p class="form-sub-header pl-3 pr-3" style="font-size:14px; font-family:'Roboto', serif">Try using a different search term.</p>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="col-9">
+                                <p class="form-sub-header pl-3 pr-3 pt-3 pb-0" style="font-size:22px">No live streams at the moment.</p>
+                                <p class="form-sub-header pl-3 pr-3" style="font-size:14px; font-family:'Roboto', serif">Feel free to look at some past streams in the videos tab.</p>
+                            </div>
+                        }
                         <input id="live-channel-count" type="hidden" value="@Model.LiveChannels.Count" />
                     </div>
                     <hr />
@@ -55,8 +75,8 @@
                     <div id="video-row" class="row p-3">
                         @foreach (var video in Model.Videos)
                         {
-                            <div id="video-@video.Id" class="col-xl-2 col-lg-3 col-md-4 col-sm-6 video">
-                                @await Html.PartialAsync("Partials/Stream/StreamAppearance", video)
+                            <div id="video-@video.Id" class="col-xl-3 col-lg-3 col-md-4 col-sm-6 mb-3 video">
+                                @await Html.PartialAsync("Partials/Stream/VideoAppearance", video)
                             </div>
 
 

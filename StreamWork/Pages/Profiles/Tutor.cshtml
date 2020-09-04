@@ -27,22 +27,18 @@ else
             @if (Model.UserChannel.StreamTitle != null && Model.UserChannel.StreamTitle != "")
             {
                 <p class="form-header pt-3" style="font-size:16px">Live</p>
-                <div class="card mt-3 border-0 d-block mr-auto ml-auto" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px;">
-                    <div class="card-title">
-                        <a href="/Stream/Live/@Model.UserChannel.Username"><img id="stream-thumbnail-@Model.UserChannel.StreamThumbnail" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src="@Model.UserChannel.StreamThumbnail"></a>
-                    </div>
-                    <div class="card-body pt-0 pb-1">
-                        <h5 id="stream-title-@Model.UserChannel.Id" class="text-truncate form-header">@Model.UserChannel.StreamTitle</h5>
-                        <p class="text-truncate form-header" style="font-size:10px">@Model.UserProfile.Name.Replace('|', ' ')</p>
-                    </div>
-                    <div class="card-footer" style="background-color:@Model.LatestStream.StreamColor; border-bottom-left-radius:20px; border-bottom-right-radius:20px;"></div>
+                <div>
+                    @await Html.PartialAsync("Partials/Stream/StreamAppearance", Model.UserChannel)
                 </div>
 
             }
             else if (Model.LatestStream != null)
             {
                 <p class="form-header pt-3" style="font-size:16px">Most Recent Stream</p>
-                @await Html.PartialAsync("Partials/Stream/StreamAppearance", Model.LatestStream)
+                <div>
+                    @await Html.PartialAsync("Partials/Stream/VideoAppearance", Model.LatestStream)
+                </div>
+                
             }
             <div class="card mt-3">
                 <div class="card-title">
@@ -132,7 +128,40 @@ else
                             </div>
                         </div>
                         <div class="divider"></div>
-                        @await Html.PartialAsync("Partials/Profile/Stream_View", Model)
+                        <div id="stream-row" class="row p-3">
+                            @if (Model.UserArchivedStreams.Count != 0)
+                            {
+                                @foreach (var video in Model.UserArchivedStreams)
+                                {
+                                    <div id="videoInfo-@video.Id" class="col-lg-4 col-md-6 col-sm-6 col-6 mb-3 video">
+                                        @await Html.PartialAsync("Partials/Stream/VideoAppearance", video)
+                                    </div>
+
+                                    <div id="no-videos" class="col-12 text-center d-none">
+                                        <p class="form-sub-header pl-3 pr-3 pt-3 pb-0" style="font-size:22px">No videos with the currrent search term.</p>
+                                        <p class="form-sub-header pl-3 pr-3" style="font-size:14px; font-family:'Roboto', serif">Try using a different search term.</p>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                if (Model.CurrentUserProfile != null && Model.CurrentUserProfile.Id == Model.UserProfile.Id)
+                                {
+                                    <div class="col-12 text-center">
+                                        <p class="form-sub-header p-0" style="font-size:22px">Looks like you don't have any videos yet...</p>
+                                        <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">Help other students find the help they need by putting up content!</p>
+                                        <button class="streamWork-primary mt-3" onclick="window.location.href ='/Tutor/TutorStream'" style="font-size:14px; font-family:'Roboto', serif">Start your first stream</button>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-12 text-center">
+                                        <p class="form-sub-header p-0" style="font-size:22px">No Streams</p>
+                                        <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">This tutor hasn't streamed yet!</p>
+                                    </div>
+                                }
+                            }
+                        </div>
                     </div>
                 </div>
             </div>

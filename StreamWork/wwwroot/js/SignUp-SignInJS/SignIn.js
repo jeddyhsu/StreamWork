@@ -68,6 +68,7 @@ function SignInModal(route) {
     var formData = new FormData();
     formData.append('Username', $('#username').val())
     formData.append('Password', $('#password').val())
+    formData.append('Time', moment().utcOffset())
 
     $.ajax({
         url: '/Home/SignIn/SW?handler=SignIn',

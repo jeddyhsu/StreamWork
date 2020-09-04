@@ -1,13 +1,14 @@
-﻿@model StreamWork.DataModels.Video
+﻿@model StreamWork.DataModels.Channel
 
-<div class="card mt-3 border" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px; min-height:228px">
+<div class="card mt-3 border h-100" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px;">
     <div class="card-title">
-        <a href="/Stream/Archive/@Model.StreamID/32169"><img style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src="@Model.StreamThumbnail"></a>
+        <a href="/Stream/Live/@Model.Username"><img style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src="@Model.StreamThumbnail"></a>
     </div>
     <div class="card-body pt-0 pb-1">
         <h5 class="form-header multiline-truncate mb-0">@Model.StreamTitle</h5>
-        <p class="form-header mt-1 mb-0" style="font-size:10px"><a class="streamWork-green" href="/Profiles/Tutor/@Model.Username">@Model.Name.Replace('|', ' ')</a></p>
-        <p class="form-header mt-1 mb-1 roboto" style="font-size:10px">Tutoring @Model.StreamSubject</p>
+        <p class="form-header mb-1 mt-1" style="font-size:10px"><a class="streamWork-green" href="/Profiles/Tutor/@Model.Username">@Model.Name.Replace('|', ' ')</a></p>
     </div>
-    <div class="card-footer" style="background-color:@Model.StreamColor; border-bottom-left-radius:20px; border-bottom-right-radius:20px;"></div>
+    <div class="card-footer pt-1 pb-1" style="background-color:@Model.StreamColor; border-bottom-left-radius:20px; border-bottom-right-radius:20px;">
+        <p class="form-header p-0 m-0 streamWork-white roboto float-right" style="font-size:12px"><b>@Model.StreamSubject</b></p>
+    </div>
 </div>

@@ -240,8 +240,9 @@ namespace StreamWork.Pages.Home
             {
                 var signInProfile = await cookieService.SignIn(userProfile.Username, userProfile.Password);
                 var routeSplit = route.Split('/'); //keep in mind in future when adding more params!!
-                if (signInProfile != null)
-                    return cookieService.Route(signInProfile, routeSplit[routeSplit.Length - 1], encryptionService);
+                if (signInProfile != null && routeSplit.Length >=6)
+                    return cookieService.Route(signInProfile, routeSplit[^1], encryptionService);
+                else return new JsonResult(new { Message = "Route", Route = route }); //they are signing in using the signup modal
             }
 
             return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
