@@ -69,7 +69,7 @@ namespace StreamWork.Pages.Tutor
             NumberOfStreams = UserArchivedStreams.Count;
             NumberOfViews = UserArchivedStreams.Sum(x => x.Views);
             NumberOfFollowers = Followers == null ? 0 : Followers.Count;
-            NumberOfFollowees = Followees == null ? 0 : Followers.Count;
+            NumberOfFollowees = Followees == null ? 0 : Followees.Count;
 
             Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
             AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);

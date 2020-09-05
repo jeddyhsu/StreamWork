@@ -1,6 +1,6 @@
 ﻿const connection = new signalR.HubConnectionBuilder()
     .withUrl("/chathub")
-    .withAutomaticReconnect([0, 1000, 5000, 10000, 15000, 20000, 30000, 45000, 60000, null])
+    .withAutomaticReconnect([0, 1000, 5000, 10000, 15000, 20000, 30000, 45000, 60000, 70000, 80000, 93000, 100000, null])
     .configureLogging(signalR.LogLevel.Information)
     .build();
 
@@ -8,6 +8,13 @@ var clientUsername = "";
 var toolTipCount = 0;
 var chatCount = 0;
 var muted = true;
+
+connection.onreconnected(connectionId => {
+    console.log("Reconnected!!")
+    var chatId = $('#chat-id').val();
+    var username = $('#current-username').val();
+    JoinChat(chatId, connectionId);
+});
 
 connection.on("ReceiveMessage", function (chat) {
     chat = JSON.parse(chat);
@@ -83,13 +90,17 @@ function ToggleMuteAndUnmute() {
     }
 }
 
-function JoinChatRoom(chatId, userName) {
+function JoinChatRoom(chatId, userName, connectionId) {
     clientUsername = userName;
     connection.start().then(function () {
-        connection.invoke("JoinChatRoom", chatId).catch(function (err) {
-            return console.error(err.toString());
-        });
+        JoinChat(chatId, connectionId)
     }).catch(function (err) {
+        return console.error(err.toString());
+    });
+}
+
+function JoinChat(chatId, connectionId) {
+    connection.invoke("JoinChatRoom", chatId, connectionId != null ? connectionId : null).catch(function (err) {
         return console.error(err.toString());
     });
 }
@@ -102,7 +113,7 @@ function GetMessage(chatId, userName, name, profilePicture, chatColor){
 
 function CleanAndSendMessage(message, chatId, userName, name, profilePicture, chatColor) {
     var date = new moment();
-    var offset = 420;
+    var offset = moment().utcOffset();
     connection.invoke("SendMessageToChatRoom", chatId, userName, name, message, profilePicture, chatColor, date, offset).catch(function (err) {
         return console.error(err.toString());
 

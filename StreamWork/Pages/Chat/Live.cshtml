@@ -31,6 +31,9 @@ else
                 </div>
             </div>
 
+            <input type="hidden" id="chat-id" value="@Model.ChatId" />
+            <input type="hidden" id="current-username" value="@Model.CurrentUserProfile.Username" />
+
             <ul id="chat-field" class="chat-list-view-live pl-0 pr-0">
                 @for (int i = 0; i < Model.Chats.Count; i++)
                 {
@@ -47,7 +50,7 @@ else
                                     <p class="chat-name" style='color:@Model.Chats[i].ChatColor'>
                                         @Model.Chats[i].Name.Replace('|', ' ')
                                         <span><img id="tutor-tip-@i" class="pl-1" style="width:28px" src="/images/ChatAssets/Tutor.svg" data-toggle="tooltip" data-placement="top" title="StreamTutor" /></span>
-                                        @if(Model.Offset != -1.0)
+                                        @if (Model.Offset != -1.0)
                                         {
                                             <span class="chat-date">@Model.Chats[i].Date.AddMinutes(Model.Offset).ToString("HH:mm")</span>
                                         }
@@ -58,7 +61,7 @@ else
                                 {
                                     <h5 class="chat-name" style="color:@Model.Chats[i].ChatColor">
                                         @Model.Chats[i].Name.Replace('|', ' ') (you)
-                                        @if(Model.Offset != -1.0)
+                                        @if (Model.Offset != -1.0)
                                         {
                                             <span class="chat-date">@Model.Chats[i].Date.AddMinutes(Model.Offset).ToString("HH:mm")</span>
                                         }
@@ -68,7 +71,7 @@ else
                                 {
                                     <h5 class="chat-name" style="color:@Model.Chats[i].ChatColor">
                                         @Model.Chats[i].Name.Replace('|', ' ')
-                                        @if(Model.Offset != -1.0)
+                                        @if (Model.Offset != -1.0)
                                         {
                                             <span class="chat-date">@Model.Chats[i].Date.AddMinutes(Model.Offset).ToString("HH:mm")</span>
                                         }
@@ -121,15 +124,13 @@ else
                                     <div>
                                         <button type="button" id="sendQuestionButton" class="streamWork-primary mr-2" onclick="Modal()">Send</button>
                                     </div>
-                                    <script>
-                                        function openModal(event) {
+                                    <script>function openModal(event) {
                                             if (event.keyCode == 13 && !event.shiftKey) {
                                                 Modal()
                                                 event.preventDefault();
                                                 return false;
                                             }
-                                        }
-                                    </script>
+                                        }</script>
                                 </div>
                             </div>
 

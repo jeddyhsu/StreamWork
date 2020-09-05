@@ -20,9 +20,9 @@ namespace StreamWork.Hubs
             storageService = scope.ServiceProvider.GetRequiredService<StorageService>();
         }
 
-        public Task JoinChatRoom(string chatId)
+        public Task JoinChatRoom(string chatId, string connectionId = null)
         {
-            return Groups.AddToGroupAsync(Context.ConnectionId, chatId);
+            return Groups.AddToGroupAsync(connectionId ?? Context.ConnectionId, chatId) ;
         }
 
         public async Task SendMessageToChatRoom(string chatId, string userName, string name, string message, string profilePicture, string chatColor, DateTime date, int offset)
@@ -75,7 +75,7 @@ namespace StreamWork.Hubs
                 Name = name,
                 Message = message,
                 ProfilePicture = profilePicture,
-                Date = dateTime,
+                Date = dateTime.AddMinutes(offset),
                 ChatColor = chatColor,
                 TimeOffset = offset,
                 ArchivedVideoId = archivedVideoId
