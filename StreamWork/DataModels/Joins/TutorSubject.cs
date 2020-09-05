@@ -4,7 +4,8 @@ using StreamWork.Framework;
 
 namespace StreamWork.DataModels.Joins
 {
-    public class TutorSubject : IStorageBase<TutorSubject> //i am going to find another way to do this, but doins
+    //the queries for this sorts tutors from MOST followers to LEAST
+    public class TutorSubject : IStorageBase<TutorSubject> //i am going to find another way to do this, but doing this for beta launch
     {
         [Key]
         public string Id { get; set; }
@@ -17,6 +18,7 @@ namespace StreamWork.DataModels.Joins
         public string ProfileBanner { get; set; }
         public string College { get; set; }
         public string TopicColor { get; set; }
+        public int FollowerCount { get; set; }
 
         [Timestamp]
         public byte[] RowVersion { get; set; }

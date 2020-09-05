@@ -74,6 +74,7 @@ namespace StreamWork.HelperMethods
         GetLatestArchivedStreamByUser,
         GetArchivedStreamsInDescendingOrderByDate,
         GetArchivedStreamsInDescendingOrderByViews,
+        GetRandomArchivedStreams,
 
         // Payment
         GetAllPayments,
@@ -143,6 +144,6 @@ namespace StreamWork.HelperMethods
         GetApprovedTutorSubjects,
         GetApprovedTutorSubjectsWithSearchTerm,
         GetApprovedTutorSubjectsWithSubject,
-        GetApprovedTutorSubjectsWithSubjectAndSearchTerm
+        GetApprovedTutorSubjectsWithSubjectAndSearchTerm,
     }
 }
