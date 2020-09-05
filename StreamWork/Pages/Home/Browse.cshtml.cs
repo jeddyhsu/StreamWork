@@ -40,7 +40,7 @@ namespace StreamWork.Pages.Home
             var tutors = await storageService.GetList<TutorSubject>(SQLQueries.GetApprovedTutorSubjects, "");
 
             Videos = await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsInDescendingOrderByViews, "");
-            PopularTutors = tutors.GetRange(0,5);
+            PopularTutors = tutors.GetRange(0,3);
             LiveChannels = await storageService.GetList<Channel>(SQLQueries.GetAllUserChannelsThatAreStreaming, "");
             AllTutors = tutors;
             AllScheduledStreams = await storageService.GetList<Schedule>(SQLQueries.GetAllScheduledStreams, "");
