@@ -239,10 +239,10 @@ namespace StreamWork.Pages.Home
             if (userProfile != null)
             {
                 var signInProfile = await cookieService.SignIn(userProfile.Username, userProfile.Password);
-                var routeSplit = route.Split('/'); //keep in mind in future when adding more params!!
-                if (signInProfile != null && routeSplit.Length >=6)
-                    return cookieService.Route(signInProfile, routeSplit[^1], encryptionService);
-                else return new JsonResult(new { Message = "Route", Route = route }); //they are signing in using the signup modal (chat)
+                if (signInProfile != null)
+                    if (route.Contains("Chat") || route.Contains("chat") || route == "/")
+                        return new JsonResult(new { Message = "Route", Route = route });
+                    else return cookieService.Route(signInProfile, route.Split("/")[3], encryptionService);
             }
 
             return new JsonResult(new { Message = JsonResponse.Failed.ToString() });

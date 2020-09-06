@@ -25,8 +25,9 @@ namespace StreamWork.Hubs
             return Groups.AddToGroupAsync(connectionId ?? Context.ConnectionId, chatId) ;
         }
 
-        public async Task SendMessageToChatRoom(string chatId, string userName, string name, string message, string profilePicture, string chatColor, DateTime date, int offset)
+        public async Task SendMessageToChatRoom(string chatId, string userName, string name, string message, string profilePicture, string chatColor, int offset)
         {
+            var date = DateTime.UtcNow;
             string archivedVideoId = (await storageService.Get<Channel>(SQLQueries.GetUserChannelWithUsername, chatId)).ArchivedVideoId;
             message = MiscHelperMethods.URLIFY(MiscHelperMethods.RemoveAllStyleTags(message));
             string chat = Serialize(chatId, userName, name, message, profilePicture, date, offset, chatColor, archivedVideoId);
@@ -75,7 +76,7 @@ namespace StreamWork.Hubs
                 Name = name,
                 Message = message,
                 ProfilePicture = profilePicture,
-                Date = dateTime.AddMinutes(offset),
+                DateString = dateTime.AddMinutes(offset).ToString("HH:mm"),
                 ChatColor = chatColor,
                 TimeOffset = offset,
                 ArchivedVideoId = archivedVideoId

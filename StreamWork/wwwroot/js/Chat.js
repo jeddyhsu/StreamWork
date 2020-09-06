@@ -18,7 +18,6 @@ connection.onreconnected(connectionId => {
 
 connection.on("ReceiveMessage", function (chat) {
     chat = JSON.parse(chat);
-    var date = moment(chat.Date).format("HH:mm")
     var listName = "";
     var isStreamOnline = ""
 
@@ -29,17 +28,17 @@ connection.on("ReceiveMessage", function (chat) {
     if (chat.ChatId == chat.Username) {
         listName = ` <p class="chat-name" style="color:${chat.ChatColor}">${chat.Name.replace('|', ' ')}
                         <span><img id="tutor-tip-${toolTipCount}" class="pl-1" style="width:28px" src="/images/ChatAssets/Tutor.svg" data-toggle="tooltip" data-placement="top" title="StreamTutor"></span>
-                        <span class='chat-date'>${date} ${isStreamOnline}</span>
+                        <span class='chat-date'>${chat.DateString} ${isStreamOnline}</span>
                      </p>`
     }
     else if (clientUsername == chat.Username) {
         listName = `<p class="chat-name" style="color:${chat.ChatColor}">${chat.Name.replace('|', ' ')} (you)
-                         <span class="chat-date">${date} ${isStreamOnline}</span>
+                         <span class="chat-date">${chat.DateString} ${isStreamOnline}</span>
                     </p>`
     }
     else {
         listName = `<p class="chat-name" style="color:${chat.ChatColor}">${chat.Name.replace('|', ' ')}
-                        <span class="chat-date">${date} ${isStreamOnline}</span>
+                        <span class="chat-date">${chat.DateString} ${isStreamOnline}</span>
                     </p>`
     }
 
@@ -112,9 +111,8 @@ function GetMessage(chatId, userName, name, profilePicture, chatColor){
 }
 
 function CleanAndSendMessage(message, chatId, userName, name, profilePicture, chatColor) {
-    var date = new moment();
     var offset = moment().utcOffset();
-    connection.invoke("SendMessageToChatRoom", chatId, userName, name, message, profilePicture, chatColor, date, offset).catch(function (err) {
+    connection.invoke("SendMessageToChatRoom", chatId, userName, name, message, profilePicture, chatColor, offset).catch(function (err) {
         return console.error(err.toString());
 
     });

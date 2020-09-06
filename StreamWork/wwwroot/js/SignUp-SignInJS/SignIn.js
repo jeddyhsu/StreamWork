@@ -1,5 +1,5 @@
 ﻿function onSignIn(googleProfile) {
-    var currentURL = document.location.href
+    var currentURL = window.location.pathname
     $.ajax({
         url: '/Home/SignUp/?handler=CheckIfOauthUserExists',
         type: 'POST',

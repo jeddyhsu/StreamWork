@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using StreamWork.Framework;
 
@@ -18,6 +19,9 @@ namespace StreamWork.DataModels
         public string ChatColor { get; set; }
         public int TimeOffset { get; set; }
         public string ArchivedVideoId { get; set; }
+
+        [NotMapped]
+        public string DateString { get; set; }
 
         [Timestamp]
         public byte[] RowVersion { get; set; }
