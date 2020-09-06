@@ -5,7 +5,6 @@
 
 <div class="container-fluid mr-0" style="padding-top:25px;">
     <div class="container-fluid inner-container-fluid custom-container-padding">
-        <p class="form-header pl-3" style="font-size:44px">Browse</p>
         <div class="d-flex pl-3 pr-3">
             <form id="search-form" class="p-1 border w-100 rounded d-inline-block custom-form" onkeyup="SearchStreams(event)" onsubmit="SearchStreams(event)">
                 <div class="d-flex">
@@ -51,7 +50,7 @@
                         {
                             @foreach (var stream in Model.LiveChannels)
                             {
-                                <div id="stream-@stream.Id" class="col-xl-2 col-lg-3 col-md-4 col-sm-6 stream">
+                                <div id="stream-@stream.Id" class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-3 stream">
                                     @await Html.PartialAsync("Partials/Stream/StreamAppearance", stream)
                                 </div>
 

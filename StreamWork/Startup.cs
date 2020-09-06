@@ -1,12 +1,10 @@
-﻿using System.IO;
-using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using StreamWork.Config;
 using StreamWork.Hubs;
@@ -56,6 +54,14 @@ namespace StreamWork
                 options.ClientId = "200781052449-1vbbl8k9t6g2hr3hd5c2ve8natdjsk9s.apps.googleusercontent.com";
                 options.ClientSecret = "5pJv9d7UACsWWPkWKMjb-sTb";
             });
+
+            services.AddCors(options => options.AddPolicy("CorsPolicy",
+            builder =>
+            {
+                builder.AllowAnyMethod().AllowAnyHeader()
+                       .WithOrigins("http://localhost:58539", "https://streamworktest.azurewebsites.net", "https://www.streamwork.live")
+                       .AllowCredentials();
+            }));
 
             services.Configure<StorageConfig>(Configuration);
             services.AddTransient<ChatService>();
