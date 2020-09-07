@@ -42,12 +42,15 @@ namespace StreamWork.Pages.Home
                 user = await storage.Get<Profile>(SQLQueries.GetUserWithEmailAddress, username);
             }
 
-            // Should take about 9 years to brute force, if each test takes 0.06 sec
-            user.ChangePasswordKey = RandomLong(1000000000, 9999999999).ToString();
-            await storage.Save(user.Id, user);
+            if (user != null)
+            {
+                // Should take about 9 years to brute force, if each test takes 0.06 sec
+                user.ChangePasswordKey = RandomLong(1000000000, 9999999999).ToString();
+                await storage.Save(user.Id, user);
 
-            await email.SendTemplateToUser("changePassword", user, new List<System.IO.MemoryStream>());
-
+                await email.SendTemplateToUser("changePassword", user, new List<System.IO.MemoryStream>());
+            }
+            
             return new JsonResult(true);
         }
 
@@ -60,7 +63,7 @@ namespace StreamWork.Pages.Home
                 user = await storage.Get<Profile>(SQLQueries.GetUserWithEmailAddress, username);
             }
 
-            return new JsonResult(user.ChangePasswordKey == changePasswordCode);
+            return new JsonResult(user != null && user.ChangePasswordKey == changePasswordCode);
         }
 
         public async Task<JsonResult> OnGetChangePassword(string username, string changePasswordCode, string password)
@@ -72,7 +75,7 @@ namespace StreamWork.Pages.Home
                 user = await storage.Get<Profile>(SQLQueries.GetUserWithEmailAddress, username);
             }
 
-            if (user.ChangePasswordKey == changePasswordCode)
+            if (user != null && user.ChangePasswordKey == changePasswordCode)
             {
                 user.Password = encryption.EncryptPassword(password);
                 await storage.Save(user.Id, user);

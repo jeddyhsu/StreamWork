@@ -26,9 +26,23 @@
                     <input id="student-username" class="mb-3" style="width: 100%;" onkeyup="studentProfileInfoUpdateNext();" data-toggle="popover" data-placement="top" data-content="Usernames may only include letters, numbers, underscores, and hyphens" />
                 </div>
                 <p style="color: #707070; margin-bottom: 0; font-family: 'Roboto Slab'; font-size: 12px;">Password</p>
-                <input id="student-password" type="password" class="mb-3" style="width: 100%;" onkeyup="studentProfileInfoUpdateNext();" data-toggle="popover" data-placement="top" data-content="Passwords must be at least 8 characters long, including at least one letter and number" />
+                <div class="mb-3 input-group">
+                    <input id="student-password" type="password" class="form-control" style="border-radius: 0px;" onkeyup="studentProfileInfoUpdateNext();" data-toggle="popover" data-placement="top" data-content="Passwords must be at least 8 characters long, including at least one letter and number" />
+                    <div class="input-group-append">
+                        <span class="input-group-text" style="background-color: white; cursor: pointer; border-radius: 0px;" onclick="togglePasswordVisibility('student-password');">
+                            <i id="student-password-eye" class="fa fa-eye-slash"></i>
+                        </span>
+                    </div>
+                </div>
                 <p style="color: #707070; margin-bottom: 0; font-family: 'Roboto Slab'; font-size: 12px;">Re-Enter Password</p>
-                <input id="student-confirmPassword" type="password" class="mb-3" style="width: 100%;" onkeyup="studentProfileInfoUpdateNext();" data-toggle="popover" data-placement="top" data-content="Passwords must match" />
+                <div class="mb-3 input-group">
+                    <input id="student-confirmPassword" type="password" class="form-control" style="border-radius: 0px;" onkeyup="studentProfileInfoUpdateNext();" data-toggle="popover" data-placement="top" data-content="Passwords must match" />
+                    <div class="input-group-append">
+                        <span class="input-group-text" style="background-color: white; cursor: pointer; border-radius: 0px;" onclick="togglePasswordVisibility('student-confirmPassword');">
+                            <i id="student-confirmPassword-eye" class="fa fa-eye-slash"></i>
+                        </span>
+                    </div>
+                </div>
                 <br />
                 <br />
 

@@ -122,9 +122,9 @@ function CheckIfBothFieldsAreEmpty() {
     }
 }
 
-function togglePasswordVisibility() {
-    $('#password-eye').toggleClass('fa-eye fa-eye-slash');
-    let passwordField = $('#password');
+function togglePasswordVisibility(field) {
+    $('#' + field + '-eye').toggleClass('fa-eye fa-eye-slash');
+    let passwordField = $('#' + field);
     if (passwordField.attr('type') == 'password') {
         passwordField.attr('type', 'text');
     } else {

@@ -36,9 +36,9 @@
                                 <p class="d-inline-block form-header mb-0">Password</p>
                                 <a class="d-inline-block float-right roboto pb-0" style="font-size:14px; color:#00A0A0 ">Forgot Password?</a>
                                 <div class="mb-3 input-group">
-                                    <input id="password" type="password" class="form-control" onkeydown="CheckIfBothFieldsAreEmpty()" onkeyup="CheckIfBothFieldsAreEmpty();" required />
+                                    <input id="password" type="password" class="form-control" style="border-radius: 0px;" onkeydown="CheckIfBothFieldsAreEmpty()" onkeyup="CheckIfBothFieldsAreEmpty();" required />
                                     <div class="input-group-append">
-                                        <span class="input-group-text" style="background-color: white; cursor: pointer;" onclick="togglePasswordVisibility();">
+                                        <span class="input-group-text" style="background-color: white; cursor: pointer; border-radius: 0px;" onclick="togglePasswordVisibility('password');">
                                             <i id="password-eye" class="fa fa-eye-slash"></i>
                                         </span>
                                     </div>
