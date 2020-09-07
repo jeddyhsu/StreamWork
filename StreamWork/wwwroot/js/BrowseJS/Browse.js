@@ -1,5 +1,9 @@
 ﻿const subjectArray = ["Mathematics", "Science", "Engineering", "Business", "Law", "Art", "Humanities", "Other"]
 var page = "stream";
+var parameterTable = {} //saves params in the browse page
+parameterTable["Stream"] = ["", ""]
+parameterTable["Schedule"] = ["", ""]
+parameterTable["Tutor"] = ["", ""]
 
 function ChangePlaceHolder(text) {
     $('#searchQuery').attr('placeholder', text);
@@ -11,8 +15,11 @@ function SliderStreams() {
     $('#search-form').attr("onkeyup", "SearchStreams(event)")
     $('#search-form').attr("onsubmit", "SearchStreams(event)")
     $('#filter').attr("onchange", "SearchStreams(event)")
-    ClearFilter()
     ChangePlaceHolder("Search Streams")
+    $('#searchQuery').val((parameterTable["Stream"])[0])
+    $('#filter').val((parameterTable["Stream"])[1])
+    if ((parameterTable["Stream"])[1] == "") $('#clear-filter').hide();
+    else $('#clear-filter').show();
     page = "stream"
 }
 
@@ -22,8 +29,11 @@ function SliderSchedule() {
     $('#search-form').attr("onkeyup", "SearchSchedule(event)")
     $('#search-form').attr("onsubmit", "SearchSchedule(event)")
     $('#filter').attr("onchange", "SearchSchedule(event)")
-    ClearFilter()
     ChangePlaceHolder("Search Upcoming Streams")
+    $('#searchQuery').val((parameterTable["Schedule"])[0])
+    $('#filter').val((parameterTable["Schedule"])[1])
+    if ((parameterTable["Schedule"])[1] == "") $('#clear-filter').hide();
+    else $('#clear-filter').show();
     page = "schedule"
 }
 
@@ -33,13 +43,20 @@ function SliderTutors() {
     $('#search-form').attr("onkeyup", "SearchTutors(event)")
     $('#search-form').attr("onsubmit", "SearchTutors(event)")
     $('#filter').attr("onchange", "SearchTutors(event)")
-    ClearFilter()
     ChangePlaceHolder("Search Tutors")
+    $('#searchQuery').val((parameterTable["Tutor"])[0])
+    $('#filter').val((parameterTable["Tutor"])[1])
+    if ((parameterTable["Tutor"])[1] == "") $('#clear-filter').hide();
+    else $('#clear-filter').show();
     page = "tutor"
 }
 
-function ClearFilter() {
+function ClearSearchAndFilter() {
     $('#searchQuery').val('')
+    ClearFilter();
+}
+
+function ClearFilter() {
     $('#filter').val('')
     if (page == "stream") {
         SearchStreams(event)
@@ -55,12 +72,14 @@ function ClearFilter() {
 }
 
 function SearchStreams(event) {
-    event.preventDefault();
+    if (event != undefined)
+        event.preventDefault();
     var searchTerm = $('#searchQuery').val();
     var filter = $('#filter').val();
+    parameterTable["Stream"] = [searchTerm, filter]
     if (filter != "") $('#clear-filter').show();
     $.ajax({
-        url: '/Home/Browse/?handler=SearchStreams',
+        url: '/Home/Browse/SW/?handler=SearchStreams',
         type: 'POST',
         dataType: 'json',
         data: {
@@ -99,13 +118,15 @@ function SearchStreams(event) {
     });
 }
 
-function SearchSchedule(event) { 
-    event.preventDefault();
+function SearchSchedule(event) {
+    if (event != undefined)
+        event.preventDefault();
     var searchTerm = $('#searchQuery').val();
+    parameterTable["Schedule"] = [searchTerm, filter]
     var filter = $('#filter').val();
     if (filter != "") $('#clear-filter').show();
     $.ajax({
-        url: '/Home/Browse/?handler=SearchSchedule',
+        url: '/Home/Browse/SW/?handler=SearchSchedule',
         type: 'POST',
         dataType: 'json',
         data: {
@@ -132,12 +153,14 @@ function SearchSchedule(event) {
 }
 
 function SearchTutors(event) {
-    event.preventDefault();
+    if (event != undefined)
+        event.preventDefault();
     var searchTerm = $('#searchQuery').val();
     var filter = $('#filter').val();
+    parameterTable["Tutor"] = [searchTerm, filter]
     if (filter != "") $('#clear-filter').show();
     $.ajax({
-        url: '/Home/Browse/?handler=SearchTutors',
+        url: '/Home/Browse/SW/?handler=SearchTutors',
         type: 'POST',
         dataType: 'json',
         data: {
@@ -161,5 +184,11 @@ function SearchTutors(event) {
             }
         }
     });
+}
+
+function SearchAll(event) {
+    SearchStreams(event)
+    SearchSchedule(event)
+    SearchTutors(event)
 }
 

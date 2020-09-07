@@ -137,7 +137,7 @@ function RouteToPage(data) {
         window.location.href = '/' + data.message + '/' + data.message + 'Dashboard'
     }
     else if (data.message === "Student") {
-        window.location.href = '/Home/Browse'
+        window.location.href = '/Home/Browse/SW'
     }
     else if (data.message === "Route") {
         window.location.href = data.route
