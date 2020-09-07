@@ -78,7 +78,7 @@ namespace StreamWork.Services
                 )}
             };
 
-            certificatePath = Path.Combine(Directory.GetParent(environment.WebRootPath).FullName, "Config", "streamwork-286021-a06875f20a26.p12"); // HACK Not much I can do to change it though
+            certificatePath = Path.Combine(Directory.GetParent(environment.WebRootPath).FullName, "Config", "streamwork-286021-a06875f20a26.p12"); // HACK Completely fixable, but I really don't want to touch this system anymore.
         }
 
         public async Task SendTemplateToUser(string templateName, Profile user, List<MemoryStream> attachments)
@@ -131,7 +131,7 @@ namespace StreamWork.Services
             message.Subject = "Verify Your Email Address";
             message.Body = new TextPart("plain")
             {
-                Text = $"Thank you for signing up for StreamWork! Type this code into the verification page: {verificationCode}"
+                Text = $"Thanks for using StreamWork! Type this code into the sign up form to verify your email: {verificationCode}"
             };
 
             await SendEmail(message);
