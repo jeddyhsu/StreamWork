@@ -16,14 +16,22 @@
     <div class="container custom-home-container pl-sm-0 pr-sm-0 pl-md-0 pr-md-0 pl-0 pr-0">
         <div id="blob-card" class="card blob-background-banner-1">
             <div class="card-body">
-                <div style="padding-top:50px; padding-bottom:50px; padding-left:25px; padding-right:25px">
-                    <p class="form-header header">End your homework <br /> procrastination TONIGHT!</p>
-                    <p class="d-lg-block d-md-block d-sm-block d-none">StreamWork is an academic platform where hundreds of students <br />  come together to live-stream their studies, tutor their friends, <br />  and learn from A+ classmates all for free.</p>
-                    <p class="d-lg-none d-md-none d-sm-none d-block">StreamWork is an academic platform where  hundreds of students come together to live-stream their studies, tutor their friends, and learn from A+ classmates  all for free.</p>
-                    <img class="d-lg-none d-md-block d-sm-block d-block graphic" src="~/images/HomeAssets/Graphic.svg" />
-                    <div style="position:relative">
-                        <img class="d-lg-block d-md-none d-sm-none d-none" src="~/images/HomeAssets/Graphic.svg" style="position:absolute; right:14%; bottom:-70px; width:24%; min-width:280px" />
+                <div class="banner-container">
+                    <p class="form-header header line-height d-block mb-0">End your homework <span class="d-block">procrastination TONIGHT!</span></p>
+                    <p class="d-lg-block d-md-block d-sm-block d-none mt-4 mb-0">StreamWork is an academic platform where hundreds of students <br />  come together to live-stream their studies, tutor their friends, <br />  and learn from A+ classmates all for free.</p>
+                    <p class="d-lg-none d-md-none d-sm-none d-block mt-4 mb-0">StreamWork is an academic platform where  hundreds of students come together to live-stream their studies, tutor their friends, and learn from A+ classmates  all for free.</p>
+                    <div class="d-flex align-items-middle justify-content-start">
+                        <form id="search-form" class="p-2 mt-4 border rounded custom-form drop-shadow w-100" onkeyup="SearchStreams(event)" onsubmit="SearchStreams(event)">
+                            <div class="d-flex">
+                                <input class="mt-1 ml-2" type="image" src="~/images/GenericAssets/Search.svg" width="30" height="40" />
+                                <input id="searchQuery" class="form-control-lg mainLoginInput mt-1" type="search" placeholder="What Subject is your homework about?" style="border: none; font-size:14px;">
+                            </div>
+                        </form>
                     </div>
+                </div>
+                <img class="d-lg-none d-md-block d-sm-block d-block graphic" src="~/images/HomeAssets/Graphic.svg" />
+                <div style="position:relative;">
+                    <img class="d-lg-block d-md-none d-sm-none d-none graphic-lg" src="~/images/HomeAssets/Graphic.svg"/>
                 </div>
             </div>
         </div>
@@ -71,8 +79,8 @@
                     else
                     {
                         <div class="card border-bottom border-right-0 border-top-0 border-left-0 rounded-0">
-                            <div class="card-body m-1 p-1">
-                                <img class="p-3 featured-subject-icon" align="left" src="@Model.FeaturedArchivedVideo.StreamSubjectIcon" />
+                            <div class="card-body mt-1 mb-1 mr-1 pt-1 pb-1 pr-1 ml-0 pl-0">
+                                <img class="pt-3 pb-3 pr-3 featured-subject-icon" align="left" src="@Model.FeaturedArchivedVideo.StreamSubjectIcon" />
                                 <div class="m-3" id="StreamInfo">
                                     <h3 class="roboto-slab streamWork-green">@Model.FeaturedArchivedVideo.StreamTitle<span></span></h3>
                                     <p class="mb-1" style="padding-left:105px">@Model.FeaturedArchivedVideo.StreamDescription</p>
@@ -182,12 +190,45 @@
             </div>
         </div>
 
-        <div id="blob-card-2" class="card mt-4 blob-background-banner-2"">
+        <div id="blob-card-2" class="card mt-4 blob-background-banner-2">
             <div class="card-body">
-                <div style="padding-top:50px; padding-bottom:50px; padding-left:25px; padding-right:25px">
-                    <p class="form-header header">Tutor, study, and learn with students <br /> from over 30 universities nationwide!</p>
-                    <p class="d-lg-block d-md-block d-sm-block d-none">By providing 24/7 live, interactive homework help, students looking to study alongside <br /> an A-grade student have the ability to do so on StreamWork. We provide accessibility <br /> to both the academically proficient and struggling students to learn collaboratively online</p>
-                    <p class="d-lg-none d-md-none d-sm-none d-block">By providing 24/7 live, interactive homework help, students looking to study alongside an A-grade student have the ability to do so on StreamWork. We provide accessibility to both the academically proficient and struggling students to learn collaboratively online</p>
+                <div class="banner2-container">
+                    <p class="form-header line-height header mt-4 mb-0 d-lg-block d-md-block d-sm-none d-none">Tutor, study, and learn <br />  with students from over <br /> 30 universities nationwide!</p>
+                    <p class="form-header line-height header mt-4 mb-0 d-lg-none d-md-none d-sm-block d-block">Tutor, study, and learn with students from over 30 universities nationwide!</p>
+                    <p class="d-lg-block d-md-none d-sm-none d-none mt-4 mb-4">By providing 24/7 live, interactive homework help, students looking to study alongside <br /> an A-grade student have the ability to do so on StreamWork. We provide accessibility <br /> to both the academically proficient and struggling students to learn collaboratively online</p>
+                    <p class="d-lg-none d-md-block d-sm-block d-block mt-4 mb-4">By providing 24/7 live, interactive homework help, students looking to study alongside an A-grade student have the ability to do so on StreamWork. We provide accessibility to both the academically proficient and struggling students to learn collaboratively online</p>
+                    <div class="row">
+                        <div class="col-lg-2 col-4 mb-3">
+                            <div class="card drop-shadow">
+                                <img class="p-2 d-block mr-auto ml-auto brown-logo" src="/images/CollegeAssets/BrownLogo.svg"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-4 mb-3">
+                            <div class="card drop-shadow">
+                                <img class="p-2 d-block mr-auto ml-auto ucsd-logo" src="/images/CollegeAssets/UCSDLogo.svg" />
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-4 mb-3">
+                            <div class="card drop-shadow">
+                                <img class="p-2 d-block mr-auto ml-auto stanford-logo" src="/images/CollegeAssets/StanfordLogo.svg" />
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-4 mb-3">
+                            <div class="card drop-shadow">
+                                <img class="p-2 d-block mr-auto ml-auto atm-logo" src="/images/CollegeAssets/ATMLogo.svg"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-4 mb-3">
+                            <div class="card drop-shadow">
+                                <img class="p-2 d-block mr-auto ml-auto asu-logo" src="/images/CollegeAssets/ASULogo.svg" />
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-4 mb-3">
+                            <div class="card drop-shadow">
+                                <img class="p-2 d-block mr-auto ml-auto uw-logo" src="/images/CollegeAssets/UWLogo.svg"/>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -202,8 +243,8 @@
                             <button class="streamWork-teal mt-3 mb-3">Learn More</button>
                         </div>
                         <div class="col-lg-8">
-                            <video class="w-100" controls>
-                                <source src="StreamWorkVideo.mp4" type="video/mp4">
+                            <video class="w-100" poster="/images/GenericAssets/StreamWorkAdPoster.png" controls>
+                                <source src="StreamWorkAdVideo.mp4" type="video/mp4">
                             </video>
                         </div>
                     </div>
@@ -215,11 +256,11 @@
 </div>
 
 
-<div class="container-fluid mt-3 pb-5" style="background-color:#004643; height:100%; color:white">
+<div class="container-fluid mt-4 pb-5" style="background-color:#004643; height:100%; color:white">
     <div class="row pb-5 pt-4">
         <div class="col-lg-1"></div>
         <div class="col-lg-3">
-            <a href="/"><img class="mt-3 mb-3" src="~/images/WhiteStreamWork.png" height="50" /></a>
+            <a href="/"><img class="mt-3 mb-3" src="~/images/GenericAssets/StreamWork-Full-White.svg" width="225" /></a>
             <p>StreamWork is an online tutoring center that brings the minds of students together, building upon each other’s knowledge to reach scholastic success. 📚👩🏽‍🎓✨<br /><br />Study smarter, not harder. Get schooled with StreamWork.</p>
             <a href="/Home/About"><button class="streamWork-teal">Learn More</button></a>
         </div>
@@ -229,31 +270,31 @@
                     <h5 class="mt-4 mb-3" style="font-weight: bold;">StreamWork</h5>
                     <a href="/Home/About" style="color: white;">About Us</a><br />
                     <a href="/Home/SignUp" style="color: white;">Sign Up</a><br />
-                    <a href="/Home/Login" style="color: white;">Login</a>
+                    <a href="/Home/SignIn/SW" style="color: white;">Sign In</a>
                 </div>
                 <div class="col-md-3">
                     <h5 class="mt-4 mb-3" style="font-weight: bold;">StreamTutors</h5>
-                    <a href="/Home/BecomeTutor" style="color: white;">Become a StreamTutor</a><br />
+                    <a href="/Home/Tutor" style="color: white;">Become a StreamTutor</a><br />
                     <a href="/Home/HowToStream" style="color: white;">How to Stream</a>
                 </div>
                 <div class="col-md-3">
                     <h5 class="mt-4 mb-3" style="font-weight: bold;">Education</h5>
                     <div class="row">
                         <div class="col-sm-6">
-                            <a href="/Home/Search?s=Mathematics&q=" style="color: white;">Mathematics</a><br />
-                            <a href="/Home/Search?s=Science&q=" style="color: white;">Science</a><br />
-                            <a href="/Home/Search?s=Engineering&q=" style="color: white;">Engineering</a><br />
-                            <a href="/Home/Search?s=Business&q=" style="color: white;">Business</a><br />
+                            <a href="/Home/Browse/Mathematics" style="color: white;">Mathematics</a><br />
+                            <a href="/Home/Browse/Science" style="color: white;">Science</a><br />
+                            <a href="/Home/Browse/Engineering" style="color: white;">Engineering</a><br />
+                            <a href="/Home/Browse/Business" style="color: white;">Business</a><br />
                         </div>
                         <div class="col-sm-6">
-                            <a href="/Home/Search?s=Law&q=" style="color: white;">Law</a><br />
-                            <a href="/Home/Search?s=Art&q=" style="color: white;">Art</a><br />
-                            <a href="/Home/Search?s=Humanities&q=" style="color: white;">Humanities</a><br />
-                            <a href="/Home/Search?s=Other&q=" style="color: white;">Other</a><br />
+                            <a href="/Home/Browse/Law" style="color: white;">Law</a><br />
+                            <a href="/Home/Browse/Art" style="color: white;">Art</a><br />
+                            <a href="/Home/Browse/Humanities" style="color: white;">Humanities</a><br />
+                            <a href="/Home/Browse/Other" style="color: white;">Other</a><br />
                         </div>
                     </div>
                     <br />
-                    <a href="/Home/Search" style="color: white;">Browse</a>
+                    <a href="/Home/Browse/SW" style="color: white;">Browse</a>
                 </div>
                 <div class="col-md-3">
                     <h5 class="mt-4 mb-3" style="font-weight: bold;">Follow Us</h5>

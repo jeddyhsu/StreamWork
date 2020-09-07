@@ -24,6 +24,7 @@ namespace StreamWork.Pages.Home
         public List<TutorSubject> AllTutors { get; set; }
         public List<string> Notifications { get; set; }
         public bool AreThereUnseenNotifications { get; set; }
+        public string SearchTerm{ get; set; }
 
         public BrowseModel(CookieService cookie, StorageService storage, NotificationService notification, SearchService search)
         {
@@ -33,17 +34,21 @@ namespace StreamWork.Pages.Home
             searchService = search;
         }
 
-        public async Task<IActionResult> OnGet()
+        public async Task<IActionResult> OnGet(string searchTerm)
         {
-            CurrentUserProfile = await cookieService.GetCurrentUser();
-
             var tutors = await storageService.GetList<TutorSubject>(SQLQueries.GetApprovedTutorSubjects, "");
 
+            CurrentUserProfile = await cookieService.GetCurrentUser();
             Videos = await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsInDescendingOrderByViews, "");
             PopularTutors = tutors.GetRange(0,3);
             LiveChannels = await storageService.GetList<Channel>(SQLQueries.GetAllUserChannelsThatAreStreaming, "");
             AllTutors = tutors;
             AllScheduledStreams = await storageService.GetList<Schedule>(SQLQueries.GetAllScheduledStreams, "");
+
+            if(searchTerm != "SW")
+            {
+                SearchTerm = searchTerm;
+            }
 
             if(CurrentUserProfile != null)
             {
