@@ -31,8 +31,6 @@ namespace StreamWork.Services
 
         private readonly Hashtable templates;
 
-        //private static readonly string clientId = "41418326736-v947g93sja94pq5pmcn41vo6cj66tgv3.apps.googleusercontent.com";
-        //private static readonly string clientSecret = "iG7E63BHxtCMAxwXv2jg1eD8";
         private static readonly string name = "StreamWork";
         private static readonly string streamworkEmailAddress = "hey@streamwork.live";
         private static readonly string serviceAccountEmail = "eat-my-ass-google@streamwork-286021.iam.gserviceaccount.com";
@@ -75,7 +73,17 @@ namespace StreamWork.Services
                     {
                         return $"We've just recieved a new tutor application from {user.Name.Replace('|', ' ')}, aka {user.Username}. They go to {user.College}, and they are interested in the following topics: (I still need to edit the email system to allow for this). You can contact them at {user.EmailAddress} and pay them at {user.PayPalAddress}. See the attachments for more information.\nAlternatively this is a test account, in which case, you should ignore it.";
                     }
-                )}
+                )},
+                {"changePassword", new EmailTemplate(
+                    user =>
+                    {
+                        return "Recover Your Password";
+                    },
+                    user =>
+                    {
+                        return $"Your password recovery code is: {user.ChangePasswordKey}. If you did not request to change your password, please ignore this email.";
+                    }
+                )},
             };
 
             certificatePath = Path.Combine(Directory.GetParent(environment.WebRootPath).FullName, "Config", "streamwork-286021-a06875f20a26.p12"); // HACK Completely fixable, but I really don't want to touch this system anymore.
