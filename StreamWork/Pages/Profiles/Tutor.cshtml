@@ -102,7 +102,7 @@ else
 
                 <div class="tab-pane" id="video" role="tabpanel" aria-labelledby="video-tab">
                     <div class="container-fluid pt-3" style="width:100%">
-                        <div class="row p-3">
+                        <div class="row">
                             <div class="col-12">
                                 <div class="d-flex">
                                     <form id="search-form" class="p-1 border w-100 rounded d-inline-block custom-form" onkeyup="SearchVideos(event, '@Model.UserProfile.Username')" onsubmit="SearchVideos(event, '@Model.UserProfile.Username')">
@@ -128,12 +128,12 @@ else
                             </div>
                         </div>
                         <div class="divider"></div>
-                        <div id="stream-row" class="row p-3">
+                        <div id="stream-row" class="row">
                             @if (Model.UserArchivedStreams.Count != 0)
                             {
                                 @foreach (var video in Model.UserArchivedStreams)
                                 {
-                                    <div id="videoInfo-@video.Id" class="col-lg-4 col-md-6 col-sm-6 col-6 mb-3 video">
+                                    <div id="videoInfo-@video.Id" class="col-lg-4 col-md-6 col-sm-6 col-12 mb-3 video">
                                         @await Html.PartialAsync("Partials/Stream/VideoAppearance", video)
                                     </div>
 

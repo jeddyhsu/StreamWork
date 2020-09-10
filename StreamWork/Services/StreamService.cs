@@ -107,7 +107,7 @@ namespace StreamWork.Services
 
                  while (true)
                  {
-                     await Task.Delay(5000, cancellationToken);
+                     await Task.Delay(30000, cancellationToken);
                      try
                      {
                          var response = IsLive(channel.ChannelKey);

@@ -43,7 +43,7 @@
         </div>
         <div class="tab-content">
             <div class="tab-pane active" id="streams" role="tabpanel" aria-labelledby="streams-tab">
-                <div class="container-fluid pt-3" style="width:100%">
+                <div class="pt-3">
                     <p class="form-header pl-3" style="font-size:22px">Live Streams</p>
                     <div id="stream-row" class="row p-3">
                         @if (Model.LiveChannels.Count > 0)
@@ -74,7 +74,7 @@
                     <div id="video-row" class="row p-3">
                         @foreach (var video in Model.Videos)
                         {
-                            <div id="video-@video.Id" class="col-xl-3 col-lg-3 col-md-4 col-sm-6 mb-3 video">
+                            <div id="video-@video.Id" class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-3 video">
                                 @await Html.PartialAsync("Partials/Stream/VideoAppearance", video)
                             </div>
 

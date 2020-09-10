@@ -9,6 +9,13 @@
     max-width: 1500px
 }
 
+.custom-padding {
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
 .p-margins {
     margin-left: 75px;
     margin-right: 75px
@@ -30,7 +37,8 @@
 .blob-banner {
     background-image: url('/images/HomeAssets/ColorBlobs.svg');
     background-size: 155vw;
-    background-position-x: 30%;
+    background-position-x: 50%;
+    background-position-y: 70%;
 }
 
 .blob-banner-inverted {
@@ -56,4 +64,11 @@
 
 .roboto-slab-lower-weight {
     font-family: 'Roboto Slab', serif;
+}
+
+@media (max-width: 500px) {
+    .custom-padding {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
 }

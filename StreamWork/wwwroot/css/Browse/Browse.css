@@ -65,11 +65,11 @@
 }
 
 .tab-content {
-       
+    overflow-x:hidden!important;
     overflow: auto;
-    height: calc(100vh - 250px);
-    height: -webkit-calc(100vh - 250px);
-    height: -moz-calc(100vh - 250px);
+    height: calc(100vh - 220px);
+    height: -webkit-calc(100vh - 220px);
+    height: -moz-calc(100vh - 220px);
 }
 
 /*Bootstrap Column Resposive Widths*/
@@ -137,6 +137,14 @@
 
     .d-sm-block {
         display: block !important;
+    }
+}
+
+@media (max-width: 500px) {
+    .col-12 {
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
     }
 }
 

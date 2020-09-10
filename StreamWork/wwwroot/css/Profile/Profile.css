@@ -49,6 +49,12 @@
         font-family: 'Roboto Slab', serif;
         padding: 7px;
     }
+
+    .profile-picture-overlap-container {
+        position: absolute;
+        top: 8%;
+        left: 35px;
+    }
 }
 
 .banner {
