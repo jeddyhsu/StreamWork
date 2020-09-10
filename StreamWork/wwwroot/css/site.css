@@ -619,7 +619,13 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .roboto-slab {
-    font-family: 'Roboto Slab', serif
+    font-family: 'Roboto Slab', serif;
+    font-weight:500;
+}
+
+.roboto-slab-200 {
+    font-family: 'Roboto Slab', serif;
+    font-weight: 200;
 }
 
 pre {

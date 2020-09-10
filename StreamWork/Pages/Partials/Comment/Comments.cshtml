@@ -45,8 +45,8 @@
                                     </span>
                                 </p>
                                 <input type="hidden" id="comment-send-hidden-@Model.Comments[i].Id" value="@Model.Comments[i].Message" />
-                                <div id="comment-send-holder-@Model.Comments[i].Id">
-                                    <p class="mb-1 comment-send" id="comment-send-@Model.Comments[i].Id">@Html.Raw(Model.Comments[i].Message)</p>
+                                <div id="comment-send-holder-@Model.Comments[i].Id" class="comment-send">
+                                    <p class="mb-1" id="comment-send-@Model.Comments[i].Id">@Html.Raw(Model.Comments[i].Message)</p>
                                 </div>
                                 <a class="comment-replies" onclick="ShowReplyBox('@Model.CurrentUserProfile.ProfilePicture', '@Model.Comments[i].Id', '@Model.Comments[i].SenderName')"><b>Reply</b></a>
                                 @{string replyWord = "Replies";}
@@ -93,8 +93,8 @@
                                                 </span>
                                             </p>
                                             <input type="hidden" id="comment-send-hidden-@Model.Comments[i].Replies[e].Id" value="@Model.Comments[i].Replies[e].Message" />
-                                            <div id="comment-send-holder-@Model.Comments[i].Replies[e].Id">
-                                                <p class="mb-1 comment-send" id="comment-send-@Model.Comments[i].Replies[e].Id"><span id="comment-at-@Model.Comments[i].Replies[e].Message" class="comment-at" contenteditable="false"><b>@@@Model.Comments[i].Replies[e].ReceiverName.Replace('|', ' ') </b></span>@Html.Raw(Model.Comments[i].Replies[e].Message)</p>
+                                            <div id="comment-send-holder-@Model.Comments[i].Replies[e].Id" class="comment-send">
+                                                <p class="mb-1" id="comment-send-@Model.Comments[i].Replies[e].Id"><span id="comment-at-@Model.Comments[i].Replies[e].Message" class="comment-at" contenteditable="false"><b>@@@Model.Comments[i].Replies[e].ReceiverName.Replace('|', ' ') </b></span>@Html.Raw(Model.Comments[i].Replies[e].Message)</p>
                                             </div>
                                             <a class="comment-replies" onclick="ShowReplyBox('@Model.CurrentUserProfile.ProfilePicture', '@Model.Comments[i].Replies[e].Id', '@Model.Comments[i].Replies[e].SenderName','@Model.Comments[i].Id', true)"><b>Reply</b></a>
                                             <div style="padding-left:40px" id="reply-box-@Model.Comments[i].Replies[e].Id"></div>

@@ -128,6 +128,7 @@ namespace StreamWork.Services
                      }
                  }
                  log.Write(Serilog.Events.LogEventLevel.Information, "Thread Finished|" + channel.Username);
+                 Console.WriteLine("Thread Finished|" + channel.Username);
              }, TaskCreationOptions.LongRunning);
         }
 

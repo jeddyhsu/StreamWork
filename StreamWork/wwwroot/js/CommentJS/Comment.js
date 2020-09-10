@@ -57,8 +57,8 @@ function SaveComment(parentId, masterParent) {
                                             </script>
                                             <p class="form-header comment-name mb-0" style="color:${data.comment.profileColor}">${data.comment.senderName.replace('|', ' ')}<span class="form-sub-header ml-2" style="font-size:10px; font-family:'Roboto', serif">${date}<span id="edited-holder-${data.comment.id}" class="ml-2"></span></span></p>
                                             <input type="hidden" id="comment-send-hidden-${data.comment.id}" value="" />
-                                            <div id="comment-send-holder-${data.comment.id}">
-                                                <p class="mb-1 comment-send" id="comment-send-${data.comment.id}">${at}${data.comment.message}</p>
+                                            <div id="comment-send-holder-${data.comment.id}" class="comment-send">
+                                                <p class="mb-1" id="comment-send-${data.comment.id}">${at}${data.comment.message}</p>
                                             </div>
                                             ${reply}
                                             <input id="comment-replies-count-${data.comment.id}" type="hidden" value="0" />
@@ -150,7 +150,7 @@ function EditComment(commentId) {
             $('#comment-edit-' + data.comment.id).css("display", "block");
             $('#comment-remove-' + data.comment.id).css("display", "block");
             var at = data.comment.parentId != null ? `<span id="comment-at-${data.comment.id}" class="comment-at" contenteditable="false"><b>@${data.comment.receiverName.replace('|', ' ')}</b></span>` : ``
-            $('#comment-send-holder-' + data.comment.id).html(`<p class="mb-1 comment-send" id="comment-send-${data.comment.id}">${at}${data.comment.message}</p>`)
+            $('#comment-send-holder-' + data.comment.id).html(`<p class="mb-1" id="comment-send-${data.comment.id}">${at}${data.comment.message}</p>`)
             $('#edited-holder-' + data.comment.id).html(`(edited)`);
         }
     });
@@ -175,7 +175,7 @@ function HideEditBox(commentId) {
     var message = $('#comment-send-hidden-' + commentId).val();
     $('#comment-edit-' + commentId).css("display", "block");
     $('#comment-remove-' + commentId).css("display", "block");
-    $('#comment-send-holder-' + commentId).html(`<p class="mb-1 comment-send" id="comment-send-${commentId}">${message}</p>`);
+    $('#comment-send-holder-' + commentId).html(`<p class="mb-1" id="comment-send-${commentId}">${message}</p>`);
 }
 
 function ShowReplyBox(profilePicture, id, senderName, parentId) {
