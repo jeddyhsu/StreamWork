@@ -43,7 +43,7 @@ namespace StreamWork.Services
                 await DeleteFillScheduleTask(request.Form["ScheduleId"]);
                 
                 if (request.Form.Files.Count > 0)
-                    channel.StreamThumbnail =  BlobMethods.SaveImageIntoBlobContainer(request.Form.Files[0], channel.ArchivedVideoId, 1280, 720);
+                    channel.StreamThumbnail =  await BlobMethods.SaveImageIntoBlobContainer(request.Form.Files[0], channel.ArchivedVideoId, 1280, 720);
                 else
                     channel.StreamThumbnail = GetCorrespondingDefaultThumbnail(channel.StreamSubject);
 

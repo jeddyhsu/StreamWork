@@ -140,7 +140,7 @@ namespace StreamWork.Services
             var streamTitle = request.Form["VideoTitle"];
             var streamDescription = request.Form["VideoDescription"];
             if (request.Form.Files.Count > 0)
-                streamThumbnail = BlobMethods.SaveImageIntoBlobContainer(request.Form.Files[0], videoId, 1280, 720);
+                streamThumbnail = await BlobMethods.SaveImageIntoBlobContainer(request.Form.Files[0], videoId, 1280, 720);
 
             var archivedStream = await Get<Video>(SQLQueries.GetArchivedStreamsWithId, videoId);
             archivedStream.StreamTitle = streamTitle;

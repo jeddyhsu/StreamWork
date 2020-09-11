@@ -1,0 +1,328 @@
+2020-09-11 00:00:32.232 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/About  
+2020-09-11 00:00:32.402 -07:00 [INF] Executing endpoint '/Home/About'
+2020-09-11 00:00:32.404 -07:00 [INF] Route matched with {page = "/Home/About"}. Executing page /Home/About
+2020-09-11 00:00:32.405 -07:00 [INF] Executing handler method StreamWork.Pages.Home.AboutModel.OnGet - ModelState is "Valid"
+2020-09-11 00:00:32.756 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-11 00:00:32.761 -07:00 [INF] Executed page /Home/About in 356.9151ms
+2020-09-11 00:00:32.762 -07:00 [INF] Executed endpoint '/Home/About'
+2020-09-11 00:00:32.762 -07:00 [INF] Request finished in 529.6129000000001ms 200 text/html; charset=utf-8
+2020-09-11 00:00:32.766 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-11 00:00:32.766 -07:00 [INF] Request finished in 49838.388900000005ms 101 
+2020-09-11 00:00:32.774 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/About-Tutor-Hts.css?v=snmtpcneL7TZHgkzq7M0dFdkqTB8l1-B25o8C01l314  
+2020-09-11 00:00:32.774 -07:00 [INF] The file /css/About-Tutor-Hts.css was not modified
+2020-09-11 00:00:32.775 -07:00 [INF] Request finished in 0.5511ms 304 text/css
+2020-09-11 00:00:32.800 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-11 00:00:32.804 -07:00 [INF] CORS policy execution successful.
+2020-09-11 00:00:32.804 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-11 00:00:32.805 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-11 00:00:32.805 -07:00 [INF] Request finished in 4.6744ms 200 application/json
+2020-09-11 00:00:33.064 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=4LByoHKIlHymtkHqK6zYvg  
+2020-09-11 00:00:33.064 -07:00 [INF] CORS policy execution successful.
+2020-09-11 00:00:33.065 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-11 00:00:49.756 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/About  
+2020-09-11 00:00:49.971 -07:00 [INF] Executing endpoint '/Home/About'
+2020-09-11 00:00:49.974 -07:00 [INF] Route matched with {page = "/Home/About"}. Executing page /Home/About
+2020-09-11 00:00:49.974 -07:00 [INF] Executing handler method StreamWork.Pages.Home.AboutModel.OnGet - ModelState is "Valid"
+2020-09-11 00:00:50.245 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-11 00:00:50.251 -07:00 [INF] Executed page /Home/About in 276.9404ms
+2020-09-11 00:00:50.251 -07:00 [INF] Executed endpoint '/Home/About'
+2020-09-11 00:00:50.251 -07:00 [INF] Request finished in 494.867ms 200 text/html; charset=utf-8
+2020-09-11 00:00:50.255 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-11 00:00:50.255 -07:00 [INF] Request finished in 17190.9417ms 101 
+2020-09-11 00:00:50.264 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-11 00:00:50.266 -07:00 [INF] CORS policy execution successful.
+2020-09-11 00:00:50.266 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-11 00:00:50.266 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-11 00:00:50.267 -07:00 [INF] Request finished in 2.6678ms 200 application/json
+2020-09-11 00:00:50.306 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=8eiZH_vNSgo36xZNFQtswA  
+2020-09-11 00:00:50.307 -07:00 [INF] CORS policy execution successful.
+2020-09-11 00:00:50.307 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-11 00:01:36.998 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/About  
+2020-09-11 00:01:37.146 -07:00 [INF] Executing endpoint '/Home/About'
+2020-09-11 00:01:37.149 -07:00 [INF] Route matched with {page = "/Home/About"}. Executing page /Home/About
+2020-09-11 00:01:37.149 -07:00 [INF] Executing handler method StreamWork.Pages.Home.AboutModel.OnGet - ModelState is "Valid"
+2020-09-11 00:01:37.398 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-11 00:01:37.404 -07:00 [INF] Executed page /Home/About in 254.92340000000002ms
+2020-09-11 00:01:37.404 -07:00 [INF] Executed endpoint '/Home/About'
+2020-09-11 00:01:37.404 -07:00 [INF] Request finished in 406.93460000000005ms 200 text/html; charset=utf-8
+2020-09-11 00:01:37.438 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/About-Tutor-Hts.css?v=snmtpcneL7TZHgkzq7M0dFdkqTB8l1-B25o8C01l314  
+2020-09-11 00:01:37.439 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-11 00:01:37.439 -07:00 [INF] Request finished in 47132.181800000006ms 101 
+2020-09-11 00:01:37.439 -07:00 [INF] The file /css/About-Tutor-Hts.css was not modified
+2020-09-11 00:01:37.439 -07:00 [INF] Request finished in 0.8535ms 304 text/css
+2020-09-11 00:01:37.453 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-11 00:01:37.455 -07:00 [INF] CORS policy execution successful.
+2020-09-11 00:01:37.455 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-11 00:01:37.456 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-11 00:01:37.456 -07:00 [INF] Request finished in 2.6411000000000002ms 200 application/json
+2020-09-11 00:01:37.486 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=IwJ--8upLsHHo34NOx5ikQ  
+2020-09-11 00:01:37.486 -07:00 [INF] CORS policy execution successful.
+2020-09-11 00:01:37.486 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-11 00:01:45.730 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/About  
+2020-09-11 00:01:45.851 -07:00 [INF] Executing endpoint '/Home/About'
+2020-09-11 00:01:45.854 -07:00 [INF] Route matched with {page = "/Home/About"}. Executing page /Home/About
+2020-09-11 00:01:45.854 -07:00 [INF] Executing handler method StreamWork.Pages.Home.AboutModel.OnGet - ModelState is "Valid"
+2020-09-11 00:01:46.106 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-11 00:01:46.111 -07:00 [INF] Executed page /Home/About in 257.3729ms
+2020-09-11 00:01:46.111 -07:00 [INF] Executed endpoint '/Home/About'
+2020-09-11 00:01:46.112 -07:00 [INF] Request finished in 381.6003ms 200 text/html; charset=utf-8
+2020-09-11 00:01:46.115 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-11 00:01:46.115 -07:00 [INF] Request finished in 8629.7152ms 101 
+2020-09-11 00:01:46.124 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-11 00:01:46.126 -07:00 [INF] CORS policy execution successful.
+2020-09-11 00:01:46.127 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-11 00:01:46.127 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-11 00:01:46.127 -07:00 [INF] Request finished in 2.3704ms 200 application/json
+2020-09-11 00:01:46.171 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=8wyU65WVDsOcqcnvkBWz-g  
+2020-09-11 00:01:46.172 -07:00 [INF] CORS policy execution successful.
+2020-09-11 00:01:46.172 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-11 00:01:53.969 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/About  
+2020-09-11 00:01:53.971 -07:00 [INF] Executing endpoint '/Home/About'
+2020-09-11 00:01:53.971 -07:00 [INF] Route matched with {page = "/Home/About"}. Executing page /Home/About
+2020-09-11 00:01:53.971 -07:00 [INF] Executing handler method StreamWork.Pages.Home.AboutModel.OnGet - ModelState is "Valid"
+2020-09-11 00:01:54.231 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-11 00:01:54.233 -07:00 [INF] Executed page /Home/About in 262.023ms
+2020-09-11 00:01:54.233 -07:00 [INF] Executed endpoint '/Home/About'
+2020-09-11 00:01:54.233 -07:00 [INF] Request finished in 263.8662ms 200 text/html; charset=utf-8
+2020-09-11 00:01:54.237 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-11 00:01:54.237 -07:00 [INF] Request finished in 8066.084900000001ms 101 
+2020-09-11 00:01:54.247 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-11 00:01:54.247 -07:00 [INF] CORS policy execution successful.
+2020-09-11 00:01:54.247 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-11 00:01:54.248 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-11 00:01:54.248 -07:00 [INF] Request finished in 0.8166ms 200 application/json
+2020-09-11 00:01:54.293 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=3l2Ng3OEeAEwNNq2gF7a0w  
+2020-09-11 00:01:54.293 -07:00 [INF] CORS policy execution successful.
+2020-09-11 00:01:54.294 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-11 00:01:57.650 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/About  
+2020-09-11 00:01:57.724 -07:00 [INF] Executing endpoint '/Home/About'
+2020-09-11 00:01:57.724 -07:00 [INF] Route matched with {page = "/Home/About"}. Executing page /Home/About
+2020-09-11 00:01:57.725 -07:00 [INF] Executing handler method StreamWork.Pages.Home.AboutModel.OnGet - ModelState is "Valid"
+2020-09-11 00:01:58.005 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-11 00:01:58.014 -07:00 [INF] Executed page /Home/About in 289.10810000000004ms
+2020-09-11 00:01:58.014 -07:00 [INF] Executed endpoint '/Home/About'
+2020-09-11 00:01:58.014 -07:00 [INF] Request finished in 388.18690000000004ms 200 text/html; charset=utf-8
+2020-09-11 00:01:58.067 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/About-Tutor-Hts.css?v=snmtpcneL7TZHgkzq7M0dFdkqTB8l1-B25o8C01l314  
+2020-09-11 00:01:58.089 -07:00 [INF] Sending file. Request path: '/css/About-Tutor-Hts.css'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/css/About-Tutor-Hts.css'
+2020-09-11 00:01:58.089 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/site.css?v=Mjyqk_p0NxY8_s2qw3olPwVtHplxGwGjeyWmgsQ05iI  
+2020-09-11 00:01:58.089 -07:00 [INF] Request finished in 21.867700000000003ms 200 text/css
+2020-09-11 00:01:58.117 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/NotificationJS/PushNotification.js?v=jCv8UdrkpA87V_e0s5xIzMtkLARereToyX7A4Aq5w9A  
+2020-09-11 00:01:58.118 -07:00 [INF] The file /css/site.css was not modified
+2020-09-11 00:01:58.118 -07:00 [INF] The file /js/NotificationJS/PushNotification.js was not modified
+2020-09-11 00:01:58.118 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/Profile/Profile.css?v=esbrp4GdG5MkO3wUI6kEpdykqQ2VrWoiaLCBFVx0Ze4  
+2020-09-11 00:01:58.118 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/Home/Home.css?v=WIommamay4oXVbAUk0rD85X9dHe2oKIp5gp0fR5L3WQ  
+2020-09-11 00:01:58.118 -07:00 [INF] Request finished in 29.3196ms 304 text/css
+2020-09-11 00:01:58.118 -07:00 [INF] Request finished in 1.2246000000000001ms 304 application/javascript
+2020-09-11 00:01:58.165 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/Notification/Notification.css?v=3vrbSQ97hFVhVNC8TbxIGaRR45QQdVrC2VINPoc0diM  
+2020-09-11 00:01:58.165 -07:00 [INF] The file /css/Profile/Profile.css was not modified
+2020-09-11 00:01:58.165 -07:00 [INF] The file /css/Home/Home.css was not modified
+2020-09-11 00:01:58.207 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/SignUp-SignInJS/SignIn.js?v=VOC87TWwNIwGaJ7eMcKJnFzdY80-_um9xjJD1YbnbwM  
+2020-09-11 00:01:58.207 -07:00 [INF] Request finished in 89.4931ms 304 text/css
+2020-09-11 00:01:58.207 -07:00 [INF] The file /css/Notification/Notification.css was not modified
+2020-09-11 00:01:58.207 -07:00 [INF] Request finished in 89.5108ms 304 text/css
+2020-09-11 00:01:58.208 -07:00 [INF] Request finished in 64.74980000000001ms 304 text/css
+2020-09-11 00:01:58.233 -07:00 [INF] The file /js/SignUp-SignInJS/SignIn.js was not modified
+2020-09-11 00:01:58.233 -07:00 [INF] Request finished in 25.9828ms 304 application/javascript
+2020-09-11 00:01:58.238 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-11 00:01:58.238 -07:00 [INF] CORS policy execution successful.
+2020-09-11 00:01:58.238 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-11 00:01:58.238 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-11 00:01:58.239 -07:00 [INF] Request finished in 0.6980000000000001ms 200 application/json
+2020-09-11 00:01:58.334 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=sRMp7eUSBfbjV8IWVJjH6g  
+2020-09-11 00:01:58.335 -07:00 [INF] CORS policy execution successful.
+2020-09-11 00:01:58.335 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-11 00:02:11.734 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/About  
+2020-09-11 00:02:11.848 -07:00 [INF] Executing endpoint '/Home/About'
+2020-09-11 00:02:11.851 -07:00 [INF] Route matched with {page = "/Home/About"}. Executing page /Home/About
+2020-09-11 00:02:11.851 -07:00 [INF] Executing handler method StreamWork.Pages.Home.AboutModel.OnGet - ModelState is "Valid"
+2020-09-11 00:02:12.107 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-11 00:02:12.112 -07:00 [INF] Executed page /Home/About in 261.1369ms
+2020-09-11 00:02:12.112 -07:00 [INF] Executed endpoint '/Home/About'
+2020-09-11 00:02:12.112 -07:00 [INF] Request finished in 378.3449ms 200 text/html; charset=utf-8
+2020-09-11 00:02:12.122 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-11 00:02:12.123 -07:00 [INF] Request finished in 13788.3443ms 101 
+2020-09-11 00:02:12.239 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-11 00:02:12.242 -07:00 [INF] CORS policy execution successful.
+2020-09-11 00:02:12.243 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-11 00:02:12.243 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-11 00:02:12.244 -07:00 [INF] Request finished in 4.3041ms 200 application/json
+2020-09-11 00:02:12.292 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=hpeb7SHmpvtF4Kxz9H9yiw  
+2020-09-11 00:02:12.292 -07:00 [INF] CORS policy execution successful.
+2020-09-11 00:02:12.292 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-11 00:02:29.210 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/About  
+2020-09-11 00:02:29.327 -07:00 [INF] Executing endpoint '/Home/About'
+2020-09-11 00:02:29.330 -07:00 [INF] Route matched with {page = "/Home/About"}. Executing page /Home/About
+2020-09-11 00:02:29.330 -07:00 [INF] Executing handler method StreamWork.Pages.Home.AboutModel.OnGet - ModelState is "Valid"
+2020-09-11 00:02:29.574 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-11 00:02:29.579 -07:00 [INF] Executed page /Home/About in 249.8317ms
+2020-09-11 00:02:29.580 -07:00 [INF] Executed endpoint '/Home/About'
+2020-09-11 00:02:29.580 -07:00 [INF] Request finished in 369.3841ms 200 text/html; charset=utf-8
+2020-09-11 00:02:29.587 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-11 00:02:29.587 -07:00 [INF] Request finished in 17295.5724ms 101 
+2020-09-11 00:02:29.615 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/About-Tutor-Hts.css?v=snmtpcneL7TZHgkzq7M0dFdkqTB8l1-B25o8C01l314  
+2020-09-11 00:02:29.615 -07:00 [INF] The file /css/About-Tutor-Hts.css was not modified
+2020-09-11 00:02:29.615 -07:00 [INF] Request finished in 0.6684ms 304 text/css
+2020-09-11 00:02:29.692 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-11 00:02:29.695 -07:00 [INF] CORS policy execution successful.
+2020-09-11 00:02:29.695 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-11 00:02:29.696 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-11 00:02:29.696 -07:00 [INF] Request finished in 3.4956ms 200 application/json
+2020-09-11 00:02:29.705 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=V0manoKDJ8e8er62n-59qw  
+2020-09-11 00:02:29.705 -07:00 [INF] CORS policy execution successful.
+2020-09-11 00:02:29.706 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-11 00:02:44.345 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/About  
+2020-09-11 00:02:44.439 -07:00 [INF] Executing endpoint '/Home/About'
+2020-09-11 00:02:44.441 -07:00 [INF] Route matched with {page = "/Home/About"}. Executing page /Home/About
+2020-09-11 00:02:44.441 -07:00 [INF] Executing handler method StreamWork.Pages.Home.AboutModel.OnGet - ModelState is "Valid"
+2020-09-11 00:02:44.692 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-11 00:02:44.697 -07:00 [INF] Executed page /Home/About in 256.20660000000004ms
+2020-09-11 00:02:44.697 -07:00 [INF] Executed endpoint '/Home/About'
+2020-09-11 00:02:44.698 -07:00 [INF] Request finished in 352.3697ms 200 text/html; charset=utf-8
+2020-09-11 00:02:44.726 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-11 00:02:44.726 -07:00 [INF] Request finished in 15020.3168ms 101 
+2020-09-11 00:02:44.811 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-11 00:02:44.813 -07:00 [INF] CORS policy execution successful.
+2020-09-11 00:02:44.813 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-11 00:02:44.814 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-11 00:02:44.814 -07:00 [INF] Request finished in 3.14ms 200 application/json
+2020-09-11 00:02:44.841 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=6AuT0nDjDuAA9E5L9YH-eA  
+2020-09-11 00:02:44.841 -07:00 [INF] CORS policy execution successful.
+2020-09-11 00:02:44.841 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-11 00:03:03.945 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/About  
+2020-09-11 00:03:04.071 -07:00 [INF] Executing endpoint '/Home/About'
+2020-09-11 00:03:04.073 -07:00 [INF] Route matched with {page = "/Home/About"}. Executing page /Home/About
+2020-09-11 00:03:04.073 -07:00 [INF] Executing handler method StreamWork.Pages.Home.AboutModel.OnGet - ModelState is "Valid"
+2020-09-11 00:03:04.340 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-11 00:03:04.346 -07:00 [INF] Executed page /Home/About in 272.6695ms
+2020-09-11 00:03:04.346 -07:00 [INF] Executed endpoint '/Home/About'
+2020-09-11 00:03:04.346 -07:00 [INF] Request finished in 400.97180000000003ms 200 text/html; charset=utf-8
+2020-09-11 00:03:04.350 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-11 00:03:04.350 -07:00 [INF] Request finished in 70056.7765ms 101 
+2020-09-11 00:03:04.359 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/About-Tutor-Hts.css?v=snmtpcneL7TZHgkzq7M0dFdkqTB8l1-B25o8C01l314  
+2020-09-11 00:03:04.359 -07:00 [INF] The file /css/About-Tutor-Hts.css was not modified
+2020-09-11 00:03:04.359 -07:00 [INF] Request finished in 0.44210000000000005ms 304 text/css
+2020-09-11 00:03:04.383 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-11 00:03:04.385 -07:00 [INF] CORS policy execution successful.
+2020-09-11 00:03:04.385 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-11 00:03:04.385 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-11 00:03:04.386 -07:00 [INF] Request finished in 3.0107ms 200 application/json
+2020-09-11 00:03:04.414 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=rcOVcNEwQedtNDQrRNozYg  
+2020-09-11 00:03:04.414 -07:00 [INF] CORS policy execution successful.
+2020-09-11 00:03:04.414 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-11 00:03:06.703 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/About  
+2020-09-11 00:03:06.705 -07:00 [INF] Executing endpoint '/Home/About'
+2020-09-11 00:03:06.705 -07:00 [INF] Route matched with {page = "/Home/About"}. Executing page /Home/About
+2020-09-11 00:03:06.706 -07:00 [INF] Executing handler method StreamWork.Pages.Home.AboutModel.OnGet - ModelState is "Valid"
+2020-09-11 00:03:06.958 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-11 00:03:06.959 -07:00 [INF] Executed page /Home/About in 253.5697ms
+2020-09-11 00:03:06.959 -07:00 [INF] Executed endpoint '/Home/About'
+2020-09-11 00:03:06.959 -07:00 [INF] Request finished in 256.3131ms 200 text/html; charset=utf-8
+2020-09-11 00:03:06.988 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-11 00:03:06.988 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-11 00:03:06.991 -07:00 [INF] Request finished in 2576.5332000000003ms 101 
+2020-09-11 00:03:06.991 -07:00 [INF] CORS policy execution successful.
+2020-09-11 00:03:06.991 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-11 00:03:06.991 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-11 00:03:06.991 -07:00 [INF] Request finished in 3.3312ms 200 application/json
+2020-09-11 00:03:07.015 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=nKF-_525wp1c1cdyAoPxjA  
+2020-09-11 00:03:07.015 -07:00 [INF] CORS policy execution successful.
+2020-09-11 00:03:07.015 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-11 00:03:17.591 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/About  
+2020-09-11 00:03:17.726 -07:00 [INF] Executing endpoint '/Home/About'
+2020-09-11 00:03:17.728 -07:00 [INF] Route matched with {page = "/Home/About"}. Executing page /Home/About
+2020-09-11 00:03:17.728 -07:00 [INF] Executing handler method StreamWork.Pages.Home.AboutModel.OnGet - ModelState is "Valid"
+2020-09-11 00:03:17.974 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-11 00:03:17.979 -07:00 [INF] Executed page /Home/About in 251.8033ms
+2020-09-11 00:03:17.980 -07:00 [INF] Executed endpoint '/Home/About'
+2020-09-11 00:03:17.980 -07:00 [INF] Request finished in 388.45320000000004ms 200 text/html; charset=utf-8
+2020-09-11 00:03:18.004 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-11 00:03:18.005 -07:00 [INF] Request finished in 10989.415200000001ms 101 
+2020-09-11 00:03:18.004 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-11 00:03:18.006 -07:00 [INF] CORS policy execution successful.
+2020-09-11 00:03:18.007 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-11 00:03:18.007 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-11 00:03:18.007 -07:00 [INF] Request finished in 2.3066ms 200 application/json
+2020-09-11 00:03:18.040 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=nD0iSNGTnzdTiXyqrqQ2OQ  
+2020-09-11 00:03:18.040 -07:00 [INF] CORS policy execution successful.
+2020-09-11 00:03:18.040 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-11 00:03:20.229 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/About  
+2020-09-11 00:03:20.230 -07:00 [INF] Executing endpoint '/Home/About'
+2020-09-11 00:03:20.231 -07:00 [INF] Route matched with {page = "/Home/About"}. Executing page /Home/About
+2020-09-11 00:03:20.231 -07:00 [INF] Executing handler method StreamWork.Pages.Home.AboutModel.OnGet - ModelState is "Valid"
+2020-09-11 00:03:20.480 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-11 00:03:20.481 -07:00 [INF] Executed page /Home/About in 250.47250000000003ms
+2020-09-11 00:03:20.482 -07:00 [INF] Executed endpoint '/Home/About'
+2020-09-11 00:03:20.482 -07:00 [INF] Request finished in 253.25740000000002ms 200 text/html; charset=utf-8
+2020-09-11 00:03:20.492 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-11 00:03:20.492 -07:00 [INF] Request finished in 35651.038700000005ms 101 
+2020-09-11 00:03:20.517 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/About-Tutor-Hts.css?v=snmtpcneL7TZHgkzq7M0dFdkqTB8l1-B25o8C01l314  
+2020-09-11 00:03:20.517 -07:00 [INF] The file /css/About-Tutor-Hts.css was not modified
+2020-09-11 00:03:20.517 -07:00 [INF] Request finished in 0.6691ms 304 text/css
+2020-09-11 00:03:20.602 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-11 00:03:20.603 -07:00 [INF] CORS policy execution successful.
+2020-09-11 00:03:20.603 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-11 00:03:20.603 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-11 00:03:20.603 -07:00 [INF] Request finished in 0.8208000000000001ms 200 application/json
+2020-09-11 00:03:20.610 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=uppzGr-9m0mWsU1S7Az1MA  
+2020-09-11 00:03:20.611 -07:00 [INF] CORS policy execution successful.
+2020-09-11 00:03:20.611 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-11 00:03:48.622 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/About  
+2020-09-11 00:03:48.745 -07:00 [INF] Executing endpoint '/Home/About'
+2020-09-11 00:03:48.748 -07:00 [INF] Route matched with {page = "/Home/About"}. Executing page /Home/About
+2020-09-11 00:03:48.748 -07:00 [INF] Executing handler method StreamWork.Pages.Home.AboutModel.OnGet - ModelState is "Valid"
+2020-09-11 00:03:49.002 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-11 00:03:49.008 -07:00 [INF] Executed page /Home/About in 259.92670000000004ms
+2020-09-11 00:03:49.008 -07:00 [INF] Executed endpoint '/Home/About'
+2020-09-11 00:03:49.008 -07:00 [INF] Request finished in 385.5563ms 200 text/html; charset=utf-8
+2020-09-11 00:03:49.017 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-11 00:03:49.017 -07:00 [INF] Request finished in 28406.8037ms 101 
+2020-09-11 00:03:49.132 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-11 00:03:49.135 -07:00 [INF] CORS policy execution successful.
+2020-09-11 00:03:49.135 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-11 00:03:49.136 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-11 00:03:49.136 -07:00 [INF] Request finished in 3.8938ms 200 application/json
+2020-09-11 00:03:49.176 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=s5VhBOWcBFVNi_q11PJJLQ  
+2020-09-11 00:03:49.176 -07:00 [INF] CORS policy execution successful.
+2020-09-11 00:03:49.177 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-11 00:03:53.610 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/About  
+2020-09-11 00:03:53.612 -07:00 [INF] Executing endpoint '/Home/About'
+2020-09-11 00:03:53.612 -07:00 [INF] Route matched with {page = "/Home/About"}. Executing page /Home/About
+2020-09-11 00:03:53.612 -07:00 [INF] Executing handler method StreamWork.Pages.Home.AboutModel.OnGet - ModelState is "Valid"
+2020-09-11 00:03:53.865 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-11 00:03:53.866 -07:00 [INF] Executed page /Home/About in 254.1157ms
+2020-09-11 00:03:53.866 -07:00 [INF] Executed endpoint '/Home/About'
+2020-09-11 00:03:53.866 -07:00 [INF] Request finished in 256.092ms 200 text/html; charset=utf-8
+2020-09-11 00:03:53.897 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/About-Tutor-Hts.css?v=snmtpcneL7TZHgkzq7M0dFdkqTB8l1-B25o8C01l314  
+2020-09-11 00:03:53.898 -07:00 [INF] The file /css/About-Tutor-Hts.css was not modified
+2020-09-11 00:03:53.898 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-11 00:03:53.898 -07:00 [INF] Request finished in 1.1192ms 304 text/css
+2020-09-11 00:03:53.898 -07:00 [INF] Request finished in 35858.124800000005ms 101 
+2020-09-11 00:03:53.911 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-11 00:03:53.911 -07:00 [INF] CORS policy execution successful.
+2020-09-11 00:03:53.911 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-11 00:03:53.912 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-11 00:03:53.912 -07:00 [INF] Request finished in 0.5763ms 200 application/json
+2020-09-11 00:03:54.061 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=doLvu4d8Fw7XkUsShXhSJg  
+2020-09-11 00:03:54.061 -07:00 [INF] CORS policy execution successful.
+2020-09-11 00:03:54.062 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-11 00:04:35.396 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/About  
+2020-09-11 00:04:35.504 -07:00 [INF] Executing endpoint '/Home/About'
+2020-09-11 00:04:35.506 -07:00 [INF] Route matched with {page = "/Home/About"}. Executing page /Home/About
+2020-09-11 00:04:35.506 -07:00 [INF] Executing handler method StreamWork.Pages.Home.AboutModel.OnGet - ModelState is "Valid"
+2020-09-11 00:04:35.754 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-11 00:04:35.760 -07:00 [INF] Executed page /Home/About in 253.4233ms
+2020-09-11 00:04:35.760 -07:00 [INF] Executed endpoint '/Home/About'
+2020-09-11 00:04:35.760 -07:00 [INF] Request finished in 363.995ms 200 text/html; charset=utf-8
+2020-09-11 00:04:35.867 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/About-Tutor-Hts.css?v=snmtpcneL7TZHgkzq7M0dFdkqTB8l1-B25o8C01l314  
+2020-09-11 00:04:35.868 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-11 00:04:35.868 -07:00 [INF] Request finished in 46691.5622ms 101 
+2020-09-11 00:04:35.868 -07:00 [INF] The file /css/About-Tutor-Hts.css was not modified
+2020-09-11 00:04:35.868 -07:00 [INF] Request finished in 0.8878ms 304 text/css
+2020-09-11 00:04:35.897 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-11 00:04:35.899 -07:00 [INF] CORS policy execution successful.
+2020-09-11 00:04:35.900 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-11 00:04:35.900 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-11 00:04:35.900 -07:00 [INF] Request finished in 3.4335ms 200 application/json
+2020-09-11 00:04:35.937 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=nb4Vs-VZ5MXaf8HqtpSoDg  
+2020-09-11 00:04:35.938 -07:00 [INF] CORS policy execution successful.
+2020-09-11 00:04:35.938 -07:00 [INF] Executing endpoint '/pushnotificationhub'
