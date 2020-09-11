@@ -64,7 +64,7 @@
                         {
                             <div class="col-9">
                                 <p class="form-sub-header pl-3 pr-3 pt-3 pb-0" style="font-size:22px">No live streams at the moment.</p>
-                                <p class="form-sub-header pl-3 pr-3" style="font-size:14px; font-family:'Roboto', serif">Feel free to look at some past streams in the videos tab.</p>
+                                <p class="form-sub-header pl-3 pr-3" style="font-size:14px; font-family:'Roboto', serif">Feel free to look at some past streams in the videos section.</p>
                             </div>
                         }
                         <input id="live-channel-count" type="hidden" value="@Model.LiveChannels.Count" />
@@ -89,7 +89,7 @@
             </div>
 
             <div class="tab-pane" id="schedule" role="tabpanel" aria-labelledby="schedule-tab">
-                <div class="container-fluid pt-3" style="width:100%; max-height:calc(100%-500px);">
+                <div class="pt-3">
                     <p class="form-header pl-3" style="font-size:22px">Scheduled Streams</p>
                     <div id="schedule-row" class="row p-3">
                         @await Html.PartialAsync("Partials/Browse/Schedule", Model)
@@ -98,7 +98,7 @@
             </div>
 
             <div class="tab-pane" id="tutors" role="tabpanel" aria-labelledby="tutors-tab">
-                <div class="container-fluid pt-3" style="width:100%">
+                <div class="pt-3">
                     <p class="form-header pl-3" style="font-size:22px">Tutors</p>
                     <div id="tutor-row" class="row p-3">
                         @await Html.PartialAsync("Partials/Browse/Tutors", Model)

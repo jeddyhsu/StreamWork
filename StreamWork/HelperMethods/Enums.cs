@@ -118,6 +118,8 @@ namespace StreamWork.HelperMethods
         //Schedule
         GetScheduleWithUserUsername,
         GetAllScheduledStreamsWithSearchTerm,
+        GetAllScheduledStreamsWithSubject,
+        GetAllScheduledStreamsWithSearchTermAndSubject,
         GetScheduleWithId,
         DeleteScheduleTaskWithId,
         DeletePastScheduledTasks,
