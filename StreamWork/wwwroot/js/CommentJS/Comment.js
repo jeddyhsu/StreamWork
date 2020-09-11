@@ -265,7 +265,7 @@ function OpenInvalidComment(parentId) {
     }
     var confirmation = ` <div class="custom-modal-content" style="width:300px; height:200px" >
                             <div class="close ml-auto" onclick="CloseModal('notification-invalid-comment-modal')">&times;</div>
-                            <h5 id="notification-message" class="form-header text-center pl-3 pr-3" style="padding-top:50px; font-size:16px;">Notification</h5>
+                            <h5 id="notification-message" class="form-header text-center pl-3 pr-3" style="padding-top:50px; font-size:16px;">Invalid Comment</h5>
                             <button class="btn d-block mr-auto ml-auto mt-3 w-50" style="background-color:#004643; color:white" onclick="CloseModal('notification-invalid-comment-modal')">Ok</button>
                         </div>`
     $('#notification-invalid-comment-modal').html(confirmation);

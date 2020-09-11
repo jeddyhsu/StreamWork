@@ -397,6 +397,7 @@ function SaveProfileBanner(image) {
         },
         success: function (data) {
             if (data.message === "Success") {
+                CloseModal('notification-loading-image-modal')
                 $('#preview-profile-banner').attr('src', data.banner + `?nocache=${new Date().valueOf()}`);
             }
         }
@@ -469,6 +470,7 @@ function SendCroppedImage() {
     cropper.getCroppedCanvas().toBlob((blob) => {
         if (cropperType == "Banner") {
             SaveProfileBanner(blob)
+            OpenModal('notification-loading-image-modal')
         }
         else if (cropperType == "Profile Picture") {
             var url = URL.createObjectURL(blob);

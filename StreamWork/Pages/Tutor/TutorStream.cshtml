@@ -39,11 +39,11 @@
         <div class="d-flex flex-column col-lg-8 col-md-12 col-sm-12 col-12 p-0">
             <form id="register-stream-form" class="pl-3 pr-3">
                 <div id="tutor-stream-error-notification" class="alert notification-warning" style="padding-left:25px" role="alert">
-                    
+
                 </div>
                 <script>$('#tutor-stream-error-notification').hide()</script>
                 <div id="tutor-live-success-notification" class="alert notification-success" style="padding-left:25px" role="alert">
-                    
+
                 </div>
                 <script>$('#tutor-live-success-notification').hide()</script>
                 <div class="form-group">
@@ -179,7 +179,9 @@
 
 <script>ResizeStreamSection()</script>
 
-@await Html.PartialAsync("Partials/Modals/ImageCropper")
+@await Html.PartialAsync("Partials/Modals/LoaderModal")
+@await Html.PartialAsync("Partials/Modals/ImageTooBigModal")
+@await Html.PartialAsync("Partials/Modals/ImageCropperModal")
 @await Html.PartialAsync("Partials/Modals/TutorStreamScheduleModal")
 @await Html.PartialAsync("Partials/Modals/TutorStreamModal")
 @await Html.PartialAsync("Partials/Notification/PushNotifications")

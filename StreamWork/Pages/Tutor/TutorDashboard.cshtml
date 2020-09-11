@@ -461,7 +461,9 @@
     </nav>
 </div>
 
-@await Html.PartialAsync("Partials/Modals/ImageCropper")
+@await Html.PartialAsync("Partials/Modals/LoaderModal")
+@await Html.PartialAsync("Partials/Modals/ImageTooBigModal")
+@await Html.PartialAsync("Partials/Modals/ImageCropperModal")
 @await Html.PartialAsync("Partials/Modals/ProfileModal")
 @await Html.PartialAsync("Partials/Modals/ScheduleModal")
 @await Html.PartialAsync("Partials/Modals/UniversityModal")

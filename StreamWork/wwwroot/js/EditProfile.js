@@ -1,6 +1,18 @@
-﻿function ReadImageUrl(image, type) {
+﻿const acceptedImageTypes = ['image/jpeg', 'image/png'];
+
+function ReadImageUrl(image, type) {
     cropperType = type;
     if (image != null && image.files.length > 0) {
+        if (!acceptedImageTypes.includes(image.files[0].type)) {
+            OpenNotificationModal('File must be either PNG or JPG.', 'notification-image-invalid-modal');
+            return;
+        }
+
+        if ((image.files[0].size / 1024) > 4098) {
+            OpenNotificationModal('Image too large. 4MB max.', 'notification-image-invalid-modal');
+            return;
+        }
+
         var reader = new FileReader();
         reader.onload = function (e) {
             if (type == "Banner") {
