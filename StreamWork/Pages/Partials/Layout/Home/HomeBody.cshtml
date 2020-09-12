@@ -5,13 +5,21 @@
         <div class="pl-3" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto d-lg-flex d-md-flex d-sm-none d-none">
                 <li class="nav-item active d-block mr-auto ml-auto">
-                    <a class="navItem nav-link pl-3 pr-3" href="/Home/Tutor">Tutor</a>
+                    <a class="navItem nav-link pl-3 pr-3 pb-0" href="/Home/Tutor">Tutor</a>
+                    @if (@ViewData.ContainsKey("Title") && @ViewData["Title"].Equals("Tutor"))
+                    {
+                        <div class="slider-object mt-0" style="width:48px"></div>
+                    }
                 </li>
                 <li class="nav-item active d-block mr-auto ml-auto">
                     <a class="navItem nav-link pl-3 pr-3" href="/Home/Browse/SW">Browse</a>
                 </li>
                 <li class="nav-item active d-block mr-auto ml-auto">
-                    <a class="navItem nav-link pl-3 pr-3" href="/Home/About">About</a>
+                    <a class="navItem nav-link pl-3 pr-3 pb-0" href="/Home/About">About</a>
+                    @if (@ViewData.ContainsKey("Title") && @ViewData["Title"].Equals("About"))
+                    {
+                        <div class="slider-object mt-0" style="width:48px"></div>
+                    }
                 </li>
             </ul>
 
