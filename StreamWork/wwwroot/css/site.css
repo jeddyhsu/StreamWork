@@ -700,6 +700,30 @@ pre {
     overflow: hidden;
 }
 
+/*Dropdowns*/
+.dropdown-menu {
+    padding: 0px
+}
+
+.dropdown-divider{
+    margin:0px
+}
+
+.dropdown-item {
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+}
+
+.dropdown-item:hover {
+    background-color: #004643;
+    color:white;
+}
+
+.dropdown-item:active{
+    background-color: #004643;
+}
 
 
 
