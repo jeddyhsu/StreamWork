@@ -38,22 +38,47 @@
 }
 
 @media screen and (max-width: 800px) {
+    .col-sm-6 {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 50%;
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+
     .count-outer-object {
-        font-size: 10px;
+        font-size: 11px;
         word-spacing: 8px;
         padding-top: 8px
     }
 
     .count-inner-object {
-        font-size: 14px;
+        font-size: 15px;
         font-family: 'Roboto Slab', serif;
         padding: 7px;
     }
+}
 
+@media screen and (max-width: 767px) {
     .profile-picture-overlap-container {
         position: absolute;
         top: 8%;
         left: 35px;
+    }
+}
+
+@media screen and (max-width: 500px){
+    .custom-profile-container {
+        padding-left:0px;
+        padding-right:0px;
+        padding-top:70px
+    }
+}
+
+@media (max-width: 400px) {
+    .col-12 {
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
     }
 }
 

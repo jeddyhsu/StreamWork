@@ -1,6 +1,7 @@
 ﻿.stream-buttons{
     width:110px;
 }
+
 .row-style {
     background-color: white;
     position: absolute;
@@ -161,6 +162,10 @@
         -ms-flex: 0 0 100%;
         flex: 0 0 100%;
         max-width: 100%;
+    }
+
+    .stream-buttons {
+        width: 100px;
     }
 }
 

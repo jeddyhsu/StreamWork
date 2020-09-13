@@ -138,51 +138,114 @@
                         <a class="d-inline-block float-right p-3" style="color:#004643" href="#home-carousel-lg-md" data-slide="next">Next</a>
                     </div>
 
-                    <div id="home-carousel-sm-xs" class="carousel slide d-lg-none d-md-none d-sm-block d-block" data-ride="carousel">
+                    <div id="home-carousel-sm" class="carousel slide d-lg-none d-md-none d-sm-none d-none d-custom-sm-block" data-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
                                 <div class="row p-3">
-                                    <div class="col-sm-6 col-6 mt-3 mb-3 subject-card">
+                                    <div class="col-sm-6 mt-3 mb-3 subject-card">
                                         @await Html.PartialAsync("Partials/Stream/VideoAppearance", @Model.ArchivedVideos[0])
                                     </div>
-                                    <div class="col-sm-6 col-6 mt-3 mb-3 subject-card">
+                                    <div class="col-sm-6 mt-3 mb-3 subject-card">
                                         @await Html.PartialAsync("Partials/Stream/VideoAppearance", @Model.ArchivedVideos[1])
                                     </div>
                                 </div>
                             </div>
                             <div class="carousel-item">
                                 <div class="row p-3">
-                                    <div class="col-sm-6 col-6 mt-3 mb-3 subject-card">
+                                    <div class="col-sm-6 mt-3 mb-3 subject-card">
                                         @await Html.PartialAsync("Partials/Stream/VideoAppearance", @Model.ArchivedVideos[2])
                                     </div>
-                                    <div class="col-sm-6 col-6 mt-3 mb-3 subject-card">
+                                    <div class="col-sm-6 mt-3 mb-3 subject-card">
                                         @await Html.PartialAsync("Partials/Stream/VideoAppearance", @Model.ArchivedVideos[3])
                                     </div>
                                 </div>
                             </div>
                             <div class="carousel-item">
                                 <div class="row p-3">
-                                    <div class="col-sm-6 col-6 mt-3 mb-3 subject-card">
+                                    <div class="col-sm-6 mt-3 mb-3 subject-card">
                                         @await Html.PartialAsync("Partials/Stream/VideoAppearance", @Model.ArchivedVideos[4])
                                     </div>
-                                    <div class="col-sm-6 col-6 mt-3 mb-3 subject-card">
+                                    <div class="col-sm-6 mt-3 mb-3 subject-card">
                                         @await Html.PartialAsync("Partials/Stream/VideoAppearance", @Model.ArchivedVideos[5])
                                     </div>
                                 </div>
                             </div>
                             <div class="carousel-item">
                                 <div class="row p-3">
-                                    <div class="col-sm-6 col-6 mt-3 mb-3 subject-card">
+                                    <div class="col-sm-6 mt-3 mb-3 subject-card">
                                         @await Html.PartialAsync("Partials/Stream/VideoAppearance", @Model.ArchivedVideos[6])
                                     </div>
-                                    <div class="col-sm-6 col-6 mt-3 mb-3 subject-card">
+                                    <div class="col-sm-6 mt-3 mb-3 subject-card">
                                         @await Html.PartialAsync("Partials/Stream/VideoAppearance", @Model.ArchivedVideos[7])
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <a class="d-inline-block p-3" style="color:#004643" href="#home-carousel-sm-xs" data-slide="prev">Previous</a>
-                        <a class="d-inline-block float-right p-3" style="color:#004643" href="#home-carousel-sm-xs" data-slide="next">Next</a>
+                        <a class="d-inline-block p-3" style="color:#004643" href="#home-carousel-sm" data-slide="prev">Previous</a>
+                        <a class="d-inline-block float-right p-3" style="color:#004643" href="#home-carousel-sm" data-slide="next">Next</a>
+                    </div>
+
+                    <div id="home-carousel-xs" class="carousel slide d-lg-none d-md-none d-md-none d-sm-none d-none d-custom-block" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="row p-3">
+                                    <div class="col-12 mt-3 mb-3 subject-card">
+                                        @await Html.PartialAsync("Partials/Stream/VideoAppearance", @Model.ArchivedVideos[0])
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row p-3">
+                                    <div class="col-12 mt-3 mb-3 subject-card">
+                                        @await Html.PartialAsync("Partials/Stream/VideoAppearance", @Model.ArchivedVideos[1])
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row p-3">
+                                    <div class="col-12 mt-3 mb-3 subject-card">
+                                        @await Html.PartialAsync("Partials/Stream/VideoAppearance", @Model.ArchivedVideos[2])
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row p-3">
+                                    <div class="col-12 mt-3 mb-3 subject-card">
+                                        @await Html.PartialAsync("Partials/Stream/VideoAppearance", @Model.ArchivedVideos[3])
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row p-3">
+                                    <div class="col-12 mt-3 mb-3 subject-card">
+                                        @await Html.PartialAsync("Partials/Stream/VideoAppearance", @Model.ArchivedVideos[4])
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row p-3">
+                                    <div class="col-12 mt-3 mb-3 subject-card">
+                                        @await Html.PartialAsync("Partials/Stream/VideoAppearance", @Model.ArchivedVideos[5])
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row p-3">
+                                    <div class="col-12 mt-3 mb-3 subject-card">
+                                        @await Html.PartialAsync("Partials/Stream/VideoAppearance", @Model.ArchivedVideos[6])
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row p-3">
+                                    <div class="col-12 mt-3 mb-3 subject-card">
+                                        @await Html.PartialAsync("Partials/Stream/VideoAppearance", @Model.ArchivedVideos[7])
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="d-inline-block p-3" style="color:#004643" href="#home-carousel-xs" data-slide="prev">Previous</a>
+                        <a class="d-inline-block float-right p-3" style="color:#004643" href="#home-carousel-xs" data-slide="next">Next</a>
                     </div>
                 </div>
             </div>

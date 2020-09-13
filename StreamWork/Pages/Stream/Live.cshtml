@@ -53,7 +53,7 @@ else
                             {<button id="following-live" onclick="Unfollow('@Model.CurrentUserProfile.Id', '@Model.UserProfile.Id', 'following-archive')" class="streamWork-primary stream-buttons">Following</button>}
                             else if (Model.FollowValue.Equals("Follow"))
                             {<button id="follow-live" onclick="Follow('@Model.CurrentUserProfile.Id', '@Model.UserProfile.Id', 'follow-archive')" class="streamWork-primary stream-buttons">Follow</button>}
-                            <button class="streamWork-orange stream-buttons">Donate</button>
+                            <button class="streamWork-orange stream-buttons m-1">Donate</button>
                             <button class="streamWork-secondary stream-buttons m-1" onclick="window.location.href='/Profiles/Tutor/@Model.UserProfile.Username'">Profile</button>
                         </div>
                     </div>

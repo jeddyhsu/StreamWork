@@ -18,7 +18,7 @@ else
 <div class="container custom-profile-container">
     <img class="banner" id="preview-profile-banner" src="@Model.UserProfile.ProfileBanner" />
     <div class="card border-0">
-        <div class="card-body p-0 ">
+        <div class="card-body p-0">
             @await Html.PartialAsync("Partials/Profile/Header_View", Model)
         </div>
     </div>
@@ -34,23 +34,22 @@ else
             }
             else if (Model.LatestStream != null)
             {
-                <p class="form-header pt-3" style="font-size:16px">Most Recent Stream</p>
-                <div>
+                <div class="mt-2 pl-lg-0 pr-lg-0 pl-md-0 pr-md-0 pl-sm-3 pr-sm-3 pl-3 pr-3">
+                    <p class="form-header" style="font-size:16px">Most Recent Stream</p>
                     @await Html.PartialAsync("Partials/Stream/VideoAppearance", Model.LatestStream)
                 </div>
-                
             }
-            <div class="card mt-3">
+            <div class="card mt-4 ml-lg-0 mr-lg-0 ml-md-0 mr-md-0 ml-sm-3 mr-sm-3 ml-3 mr-3">
                 <div class="card-title">
-                    <p class="form-header p-3" style="font-size:18px">Academic Experience</p>
-                    @await Html.PartialAsync("Partials/Profile/Topics_View", Model)
+                    <p class="form-header pl-3 pr-3 pt-3 pb-1 mb-0" style="font-size:18px">Academic Experience</p>
                 </div>
+                @await Html.PartialAsync("Partials/Profile/Topics_View", Model)
             </div>
-            <div class="card mt-3">
+            <div class="card mt-4 ml-lg-0 mr-lg-0 ml-md-0 mr-md-0 ml-sm-3 mr-sm-3 ml-3 mr-3">
                 <div class="card-title">
-                    <p class="form-header p-3" style="font-size:18px">Social Media Links</p>
-                    @await Html.PartialAsync("Partials/Profile/SocialMedia_View", Model)
+                    <p class="form-header pl-3 pr-3 pt-3 pb-1 mb-0" style="font-size:18px">Social Media Links</p>
                 </div>
+                @await Html.PartialAsync("Partials/Profile/SocialMedia_View", Model)
             </div>
 
         </div>
@@ -168,6 +167,7 @@ else
         </div>
     </div>
 </div>
+@await Html.PartialAsync("Partials/Home/Footer")
 
 @await Html.PartialAsync("Partials/Modals/ProfileModal")
 @await Html.PartialAsync("Partials/Notification/PushNotifications")
