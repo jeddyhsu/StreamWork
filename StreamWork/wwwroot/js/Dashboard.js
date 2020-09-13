@@ -41,7 +41,6 @@ function SliderSocialMedia() {
     $('#slider-object-profile-edit-modal').css("transform", "translate3d(110px, 0px, 0px)")
 }
 
-
 //Profile
 function SaveProfile() {
     var formData = new FormData();
