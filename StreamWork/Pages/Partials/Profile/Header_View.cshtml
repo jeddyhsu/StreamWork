@@ -52,7 +52,7 @@
                 <img id="header-profile-picture" align="left" class="rounded" src="@Model.UserProfile.ProfilePicture" style="width:90px;" />
             </div>
             <div class="d-inline-block">
-                <p id="header-name" class="form-header m-0 header-padding" style="font-size:22px;">@Model.UserProfile.Name.Replace('|', ' ')</p>
+                <p id="header-name" class="form-header m-0 header-padding" style="font-size:22px; color:@Model.UserProfile.ProfileColor">@Model.UserProfile.Name.Replace('|', ' ')</p>
                 @if (@Model.UserProfile.ProfileCaption == null || @Model.UserProfile.ProfileCaption == "")
                 {<p id="header-occupation" class="form-sub-header m-0 header-padding" style="font-size:16px;">Occupation / Major</p>}
                 else

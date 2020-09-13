@@ -26,8 +26,9 @@ else
         <div class="col-lg-3 col-md-4 order-lg-1 order-md-1 order-sm-2 order-2 pt-3">
             @if (Model.UserChannel.StreamTitle != null && Model.UserChannel.StreamTitle != "")
             {
-                <p class="form-header pt-3" style="font-size:16px">Live</p>
-                <div>
+                
+                <div class="mt-2 pl-lg-0 pr-lg-0 pl-md-0 pr-md-0 pl-sm-3 pr-sm-3 pl-3 pr-3">
+                    <p class="form-header" style="font-size:16px">Live</p>
                     @await Html.PartialAsync("Partials/Stream/StreamAppearance", Model.UserChannel)
                 </div>
 
@@ -51,7 +52,6 @@ else
                 </div>
                 @await Html.PartialAsync("Partials/Profile/SocialMedia_View", Model)
             </div>
-
         </div>
         <div class="col-lg-9 col-md-8 order-lg-2 order-md-2 order-sm-1 order-1">
             <ul class="nav nav-tabs pt-3" id="myTab" role="tablist">
