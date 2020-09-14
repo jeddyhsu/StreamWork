@@ -10,26 +10,15 @@ using System.Security.Cryptography.X509Certificates;
 using System.IO;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Hosting;
+using StreamWork.HelperMethods;
+using System.Linq;
 
 namespace StreamWork.Services
 {
     public class EmailService
     {
-        private class EmailTemplate
-        {
-            public delegate string Builder(Profile user);
-
-            public readonly Builder BuildSubject;
-            public readonly Builder BuildBody;
-
-            public EmailTemplate(Builder BuildSubject, Builder BuildBody)
-            {
-                this.BuildSubject = BuildSubject;
-                this.BuildBody = BuildBody; // Email is a strength-intensive job.
-            }
-        }
-
-        private readonly Hashtable templates;
+        private readonly StorageService storage;
+        private readonly EmailTemplateService templates;
 
         private static readonly string name = "StreamWork";
         private static readonly string streamworkEmailAddress = "hey@streamwork.live";
@@ -40,51 +29,9 @@ namespace StreamWork.Services
         private static readonly string gmailSmtp = "smtp.gmail.com";
         private static readonly int gmailPort = 587;
 
-        public EmailService(IWebHostEnvironment environment) {
-            templates = new Hashtable
-            {
-                {"test", new EmailTemplate(
-                    user =>
-                    {
-                        return "Test Email";
-                    },
-                    user =>
-                    {
-                        string[] names = user.Name.Split('|');
-                        return $"Hello {names[0]} {names[1]}! How are you doing today? Your email address is {user.EmailAddress} and your username is {user.Username}!";
-                    }
-                )},
-                {"studentSignUp", new EmailTemplate(
-                    user =>
-                    {
-                        return $"Student Signed Up: {user.Username}";
-                    },
-                    user =>
-                    {
-                        return $"A new student, named {user.Name.Replace('|', ' ')} signed up! Their username is {user.Username}. They go to {user.College}, and you can contact them at {user.EmailAddress}.\nIf these emails get annoying, let Tom know, and he'll turn them off sooner or later.";
-                    }
-                )},
-                {"tutorSignUp", new EmailTemplate(
-                    user =>
-                    {
-                        return $"Tutor Application: {user.Username}";
-                    },
-                    user =>
-                    {
-                        return $"We've just recieved a new tutor application from {user.Name.Replace('|', ' ')}, aka {user.Username}. They go to {user.College}, and they are interested in the following topics: (I still need to edit the email system to allow for this). You can contact them at {user.EmailAddress} and pay them at {user.PayPalAddress}. See the attachments for more information.\nAlternatively this is a test account, in which case, you should ignore it.";
-                    }
-                )},
-                {"changePassword", new EmailTemplate(
-                    user =>
-                    {
-                        return "Recover Your Password";
-                    },
-                    user =>
-                    {
-                        return $"Your password recovery code is: {user.ChangePasswordKey}. If you did not request to change your password, please ignore this email.";
-                    }
-                )},
-            };
+        public EmailService(StorageService storage, EmailTemplateService templates, IWebHostEnvironment environment) {
+            this.storage = storage;
+            this.templates = templates;
 
             certificatePath = Path.Combine(Directory.GetParent(environment.WebRootPath).FullName, "Config", "streamwork-286021-a06875f20a26.p12"); // HACK Completely fixable, but I really don't want to touch this system anymore.
         }
@@ -109,7 +56,7 @@ namespace StreamWork.Services
         // Internal, to reduce repetition in code
         private async Task SendTemplateToAddress(string templateName, Profile user, List<MemoryStream> attachments, MimeMessage message)
         {
-            EmailTemplate template = (EmailTemplate)templates[templateName];
+            EmailTemplate template = templates.GetTemplate(templateName);
 
             message.From.Add(new MailboxAddress(name, streamworkEmailAddress));
             message.Subject = template.BuildSubject(user);
@@ -143,6 +90,59 @@ namespace StreamWork.Services
             };
 
             await SendEmail(message);
+        }
+
+        public async Task NotifyAllFollowers(Profile user, Channel channel)
+        {
+            // Start both tasks
+            Task<List<Follow>> userFollowsTask = storage.GetList<Follow>(SQLQueries.GetAllFollowersWithId, user.Id);
+            Task<List<TopicFollow>> topicFollowsTask = storage.GetList<TopicFollow>(SQLQueries.GetTopicFollowsBySubject, channel.StreamSubject);
+
+            await Task.WhenAll(userFollowsTask, topicFollowsTask); // Wait for both to complete
+
+            // Remove overlapping followers
+            IEnumerable<TopicFollow> topicFollows = from TopicFollow topicFollow
+                                                    in topicFollowsTask.Result.AsParallel()
+                                                    where userFollowsTask.Result.AsParallel().FirstOrDefault(userFollow => topicFollow.Follower == userFollow.FollowerUsername) == null
+                                                    select topicFollow;
+
+            Parallel.Invoke(
+                () => userFollowsTask.Result.AsParallel().ForAll(async userFollow => {
+                    Profile userFollower = await storage.Get<Profile>(SQLQueries.GetUserWithUsername, userFollow.FollowerUsername);
+                    if (userFollower.NotificationSubscribe == "True")
+                    {
+                        MimeMessage message = new MimeMessage();
+
+                        message.From.Add(new MailboxAddress(name, streamworkEmailAddress));
+                        message.To.Add(MailboxAddress.Parse(userFollower.EmailAddress));
+                        message.Subject = $"{user.Username} is now streaming \"{channel.StreamTitle}\" in {channel.StreamSubject}!";
+                        message.Body = new TextPart("plain")
+                        {
+                            Text = $"A user you follow, {user.Username}, is now streaming \"{channel.StreamTitle}\" in {channel.StreamSubject}.\n\nYou can unsubscribe from these emails in your user settings."
+                        };
+
+                        await SendEmail(message);
+                    }
+                }),
+                () => topicFollows.AsParallel().ForAll(async topicFollow =>
+                {
+                    Profile userFollower = await storage.Get<Profile>(SQLQueries.GetUserWithUsername, topicFollow.Follower);
+                    if (userFollower.NotificationSubscribe == "True")
+                    {
+                        MimeMessage message = new MimeMessage();
+
+                        message.From.Add(new MailboxAddress(name, streamworkEmailAddress));
+                        message.To.Add(MailboxAddress.Parse(userFollower.EmailAddress));
+                        message.Subject = $"{user.Username} is now streaming \"{channel.StreamTitle}\" in {channel.StreamSubject}!";
+                        message.Body = new TextPart("plain")
+                        {
+                            Text = $"{user.Username} is now streaming \"{channel.StreamTitle}\" in a topic you follow, {channel.StreamSubject}.\n\nYou can unsubscribe from these emails in your user settings."
+                        };
+
+                        await SendEmail(message);
+                    }
+                })
+            );
         }
 
         private async Task SendEmail(MimeMessage message)

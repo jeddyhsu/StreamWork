@@ -21,6 +21,7 @@ namespace StreamWork.Pages.Tutor
         private readonly NotificationService notificationService;
         private readonly EncryptionService encryptionService;
         private readonly ScheduleService scheduleService;
+        private readonly EmailService emailService;
 
         public Profile CurrentUserProfile { get; set; }
         public Channel UserChannel { get; set; }
@@ -32,7 +33,7 @@ namespace StreamWork.Pages.Tutor
         public string ChatQrCode { get; set; }
         public string Host { get; set; }
 
-        public TutorStream(StorageService storage, CookieService cookie, StreamService stream, NotificationService notification, EncryptionService encryption, ScheduleService schedule)
+        public TutorStream(StorageService storage, CookieService cookie, StreamService stream, NotificationService notification, EncryptionService encryption, ScheduleService schedule, EmailService email)
         {
             storageService = storage;
             cookieService = cookie;
@@ -40,6 +41,7 @@ namespace StreamWork.Pages.Tutor
             notificationService = notification;
             encryptionService = encryption;
             scheduleService = schedule;
+            emailService = email;
         }
 
         public async Task<IActionResult> OnGet(string scheduleId)
@@ -92,6 +94,11 @@ namespace StreamWork.Pages.Tutor
             var userChannel = await storageService.Get<Channel>(SQLQueries.GetUserChannelWithUsername, userProfile.Username);
 
             var archivedVideoId = streamService.StartStream(Request, userProfile, userChannel);
+            if (Request.Form["NotifyStudent"] == true)
+            {
+                emailService.NotifyAllFollowers(userProfile, userChannel).Start();
+            }
+            
             if (archivedVideoId != null) return new JsonResult(new { Message = JsonResponse.Success.ToString(), Results = new string[] { userChannel.Username } }) ; //for chatbox
             return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
         }

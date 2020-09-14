@@ -49,7 +49,7 @@ function RegisterStream() {
     formData.append("StreamSubject", $('#stream-subject').val());
     formData.append("StreamDescription", $('#stream-description').val());
     formData.append("ScheduleId", pickedScheduleId);
-    //formData.append("NotifiyStudent", notifyStudent);
+    formData.append("NotifyStudent", $('#defaultCheck1').is(":checked"));
 
     if (cropper != null) {
         formData.append("StreamThumbnail", cropperBlob);

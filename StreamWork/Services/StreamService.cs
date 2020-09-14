@@ -39,7 +39,7 @@ namespace StreamWork.Services
         {
             try
             {
-                var notifyStudent = request.Form["NotifiyStudent"];
+                var notifyStudent = request.Form["NotifyStudent"];
                 channel = userChannel;
                 profile = userProfile;   
                 streamTitle = request.Form["StreamTitle"];
