@@ -112,7 +112,7 @@ namespace StreamWork.Services
             Parallel.Invoke(
                 () => userFollowsTask.Result.AsParallel().ForAll(async userFollow => {
                     Profile userFollower = await storage.Get<Profile>(SQLQueries.GetUserWithUsername, userFollow.FollowerUsername);
-                    if (userFollower.NotificationSubscribe == "True")
+                    if (userFollower != null && userFollower.NotificationSubscribe == "True")
                     {
                         MimeMessage message = new MimeMessage();
 
@@ -130,7 +130,7 @@ namespace StreamWork.Services
                 () => topicFollows.AsParallel().ForAll(async topicFollow =>
                 {
                     Profile userFollower = await storage.Get<Profile>(SQLQueries.GetUserWithUsername, topicFollow.Follower);
-                    if (userFollower.NotificationSubscribe == "True")
+                    if (userFollower != null && userFollower.NotificationSubscribe == "True")
                     {
                         MimeMessage message = new MimeMessage();
 
