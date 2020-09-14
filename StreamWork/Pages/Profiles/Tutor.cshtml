@@ -18,7 +18,7 @@ else
 <div class="container custom-profile-container">
     <img class="banner" id="preview-profile-banner" src="@Model.UserProfile.ProfileBanner" />
     <div class="card border-0">
-        <div class="card-body p-0 ">
+        <div class="card-body p-0">
             @await Html.PartialAsync("Partials/Profile/Header_View", Model)
         </div>
     </div>
@@ -26,33 +26,32 @@ else
         <div class="col-lg-3 col-md-4 order-lg-1 order-md-1 order-sm-2 order-2 pt-3">
             @if (Model.UserChannel.StreamTitle != null && Model.UserChannel.StreamTitle != "")
             {
-                <p class="form-header pt-3" style="font-size:16px">Live</p>
-                <div>
+                
+                <div class="mt-2 pl-lg-0 pr-lg-0 pl-md-0 pr-md-0 pl-sm-3 pr-sm-3 pl-3 pr-3">
+                    <p class="form-header" style="font-size:16px">Live</p>
                     @await Html.PartialAsync("Partials/Stream/StreamAppearance", Model.UserChannel)
                 </div>
 
             }
             else if (Model.LatestStream != null)
             {
-                <p class="form-header pt-3" style="font-size:16px">Most Recent Stream</p>
-                <div>
+                <div class="mt-2 pl-lg-0 pr-lg-0 pl-md-0 pr-md-0 pl-sm-3 pr-sm-3 pl-3 pr-3">
+                    <p class="form-header" style="font-size:16px">Most Recent Stream</p>
                     @await Html.PartialAsync("Partials/Stream/VideoAppearance", Model.LatestStream)
                 </div>
-                
             }
-            <div class="card mt-3">
+            <div class="card mt-4 ml-lg-0 mr-lg-0 ml-md-0 mr-md-0 ml-sm-3 mr-sm-3 ml-3 mr-3">
                 <div class="card-title">
-                    <p class="form-header p-3" style="font-size:18px">Academic Experience</p>
-                    @await Html.PartialAsync("Partials/Profile/Topics_View", Model)
+                    <p class="form-header pl-3 pr-3 pt-3 pb-1 mb-0" style="font-size:18px">Academic Experience</p>
                 </div>
+                @await Html.PartialAsync("Partials/Profile/Topics_View", Model)
             </div>
-            <div class="card mt-3">
+            <div class="card mt-4 ml-lg-0 mr-lg-0 ml-md-0 mr-md-0 ml-sm-3 mr-sm-3 ml-3 mr-3">
                 <div class="card-title">
-                    <p class="form-header p-3" style="font-size:18px">Social Media Links</p>
-                    @await Html.PartialAsync("Partials/Profile/SocialMedia_View", Model)
+                    <p class="form-header pl-3 pr-3 pt-3 pb-1 mb-0" style="font-size:18px">Social Media Links</p>
                 </div>
+                @await Html.PartialAsync("Partials/Profile/SocialMedia_View", Model)
             </div>
-
         </div>
         <div class="col-lg-9 col-md-8 order-lg-2 order-md-2 order-sm-1 order-1">
             <ul class="nav nav-tabs pt-3" id="myTab" role="tablist">
@@ -102,7 +101,7 @@ else
 
                 <div class="tab-pane" id="video" role="tabpanel" aria-labelledby="video-tab">
                     <div class="container-fluid pt-3" style="width:100%">
-                        <div class="row p-3">
+                        <div class="row">
                             <div class="col-12">
                                 <div class="d-flex">
                                     <form id="search-form" class="p-1 border w-100 rounded d-inline-block custom-form" onkeyup="SearchVideos(event, '@Model.UserProfile.Username')" onsubmit="SearchVideos(event, '@Model.UserProfile.Username')">
@@ -128,12 +127,12 @@ else
                             </div>
                         </div>
                         <div class="divider"></div>
-                        <div id="stream-row" class="row p-3">
+                        <div id="stream-row" class="row">
                             @if (Model.UserArchivedStreams.Count != 0)
                             {
                                 @foreach (var video in Model.UserArchivedStreams)
                                 {
-                                    <div id="videoInfo-@video.Id" class="col-lg-4 col-md-6 col-sm-6 col-6 mb-3 video">
+                                    <div id="videoInfo-@video.Id" class="col-lg-4 col-md-6 col-sm-6 col-12 mb-3 video">
                                         @await Html.PartialAsync("Partials/Stream/VideoAppearance", video)
                                     </div>
 
@@ -168,6 +167,7 @@ else
         </div>
     </div>
 </div>
+@await Html.PartialAsync("Partials/Home/Footer")
 
 @await Html.PartialAsync("Partials/Modals/ProfileModal")
 @await Html.PartialAsync("Partials/Notification/PushNotifications")

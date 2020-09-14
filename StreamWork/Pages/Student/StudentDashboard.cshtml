@@ -87,12 +87,12 @@
         <script>$('#schedule-timezone-notification').hide()</script>
         <div class="tab-content">
             <div class="tab-pane active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <div class="container-fluid pt-3" style="width:100%">
+                <div class="container-fluid p-3" style="width:100%">
                     <div class="row">
-                        <div class="col-lg-8 col-md-12 col-sm-12 col-12">
+                        <div class="col-lg-8 col-md-12 col-sm-12 col-12 pb-3">
                             <div class="card">
                                 <div class="card-title p-3">
-                                    <p class="form-header d-inline-block" style="font-size:18px">Basic Information</p>
+                                    <p class="form-header d-inline-block mb-0" style="font-size:18px">Basic Information</p>
                                     <a class="d-inline-block pr-3" style="cursor:pointer; float:right; color:#004643" onclick="SaveSection(event)"><span><img class="p-1" style="width:28px" src="~/images/TutorAssets/TutorDashboard/Save.svg" /></span>Save</a>
                                     <form>
                                     </form>
@@ -261,15 +261,15 @@
             </div>
 
             <div class="tab-pane" id="following" role="tabpanel" aria-labelledby="following-tab">
-                <p class="form-header p-3 mb-0" style="font-size:16px">Tutors you are following</p>
-                <div class="container-fluid" style="width:100%">
+                <div class="container-fluid p-3" style="width:100%;">
+                    <p class="form-header mb-0" style="font-size:16px">Tutors you are following</p>
                     <div class="row">
                         @if (Model.FollowedTutors != null && Model.FollowedTutors.Count > 0)
                         {
                             @for (int i = 0; i < Model.FollowedTutors.Count; i++)
                             {
                                 <div class="col-lg-6 col-md-12 p-3">
-                                    <div class="card">
+                                    <div class="card h-100">
                                         <div class="card-body">
                                             <div>
                                                 <img class="rounded" src="@Model.FollowedTutors[i].Tutor.ProfilePicture" style="width:50px" align="left" />
@@ -285,16 +285,16 @@
                                                 <p class="mb-0 mt-1 form-sub-header" style="padding-left:60px"><span><img class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.png" /></span>Tutor since Jun, 2020</p>
                                             </div>
                                         </div>
-                                        <div class="card-body pt-0">
+                                        <div class="card-body pt-0 mb-3">
                                             <p class="form-header mb-3 d-inline-block">Previous streams:</p>
                                             <div class="row">
                                                 @if (@Model.FollowedTutors[i].PreviousStreams.Count > 0)
                                                 {
                                                     @foreach (var stream in Model.FollowedTutors[i].PreviousStreams)
                                                     {
-                                                <div class="col-lg-4">
-                                                    @await Html.PartialAsync("Partials/Stream/VideoAppearance", stream)
-                                                </div>
+                                                        <div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-3">
+                                                            @await Html.PartialAsync("Partials/Stream/VideoAppearance", stream)
+                                                        </div>
                                                     }
                                                 }
                                             </div>
@@ -343,7 +343,9 @@
     </nav>
 </div>
 
-@await Html.PartialAsync("Partials/Modals/ImageCropper")
+@await Html.PartialAsync("Partials/Modals/LoaderModal")
+@await Html.PartialAsync("Partials/Modals/ImageTooBigModal")
+@await Html.PartialAsync("Partials/Modals/ImageCropperModal")
 @await Html.PartialAsync("Partials/Modals/ProfileModal")
 @await Html.PartialAsync("Partials/Modals/UniversityModal")
 @await Html.PartialAsync("Partials/Notification/PushNotifications")

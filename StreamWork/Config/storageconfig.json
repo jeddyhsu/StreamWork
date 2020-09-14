@@ -311,8 +311,16 @@
           "QueryId": "GetAllScheduledStreams"
         },
         {
-          "Query": "SELECT * FROM [dbo].[Schedule] WHERE LOWER(StreamSubject) LIKE '%@x0%' OR LOWER(StreamTitle) LIKE '%@x0%' OR REPLACE(LOWER(Name), '|', ' ') LIKE '%@x0%' ORDER BY DATE ASC",
+          "Query": "SELECT * FROM [dbo].[Schedule] WHERE LOWER(StreamSubject) LIKE '%@x0%' OR LOWER(StreamTitle) LIKE '%@x0%' OR REPLACE(LOWER(Name), '|', ' ') LIKE '%@x0%' OR LOWER(StreamDescription) LIKE '%@x0%' ORDER BY DATE ASC",
           "QueryId": "GetAllScheduledStreamsWithSearchTerm"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Schedule] WHERE StreamSubject = '@x0' ORDER BY DATE ASC",
+          "QueryId": "GetAllScheduledStreamsWithSubject"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Schedule] WHERE (LOWER(StreamSubject) LIKE '%@x0%' OR LOWER(StreamTitle) LIKE '%@x0%' OR REPLACE(LOWER(Name), '|', ' ') LIKE '%@x0%' OR LOWER(StreamDescription) LIKE '%@x0%') AND StreamSubject = '@x1' ORDER BY DATE ASC",
+          "QueryId": "GetAllScheduledStreamsWithSearchTermAndSubject"
         },
         {
           "Query": "SELECT * FROM [dbo].[Schedule] WHERE LOWER(Username) = LOWER('@x0') AND Date >= '@x1' ORDER BY DATE ASC",

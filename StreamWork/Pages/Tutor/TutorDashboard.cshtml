@@ -112,12 +112,12 @@
 
         <div class="tab-content">
             <div class="tab-pane active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <div class="container-fluid pt-3" style="width:100%">
+                <div class="container-fluid p-3" style="width:100%">
                     <div class="row">
-                        <div class="col-lg-8 col-md-12 col-sm-12 col-12 pt-4">
+                        <div class="col-lg-8 col-md-12 col-sm-12 col-12 pb-3">
                             <div class="card">
                                 <div class="card-title p-3">
-                                    <p class="form-header d-inline-block" style="font-size:18px">Basic Information</p>
+                                    <p class="form-header d-inline-block mb-0" style="font-size:18px">Basic Information</p>
                                     <a class="d-inline-block pr-3" style="cursor:pointer; float:right; color:#004643" onclick="SaveSection(event)"><span><img class="p-1" style="width:28px" src="~/images/TutorAssets/TutorDashboard/Save.svg" /></span>Save</a>
                                     <form>
                                     </form>
@@ -221,7 +221,7 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-12 col-sm-12 col-12 pt-4">
+                        <div class="col-lg-4 col-md-12 col-sm-12 col-12">
                             <div class="card">
                                 <div class="card-title p-3 form-header" style="font-size:18px">Academic Experience</div>
                                 @if (Model.Topics != null)
@@ -293,12 +293,12 @@
 
 
             <div class="tab-pane" id="schedule" role="tabpanel" aria-labelledby="schedule-tab">
-                <div class="container-fluid pt-3" style="width:100%">
+                <div class="container-fluid p-3" style="width:100%">
                     <div class="row">
-                        <div class="col-12 pt-4">
+                        <div class="col-12">
                             <div class="card">
                                 <div class="card-title p-3 m-0 form-header" style="font-size:18px">Stream Schedule</div>
-                                <div class="card-body">
+                                <div class="card-body pt-0">
                                     <div class="row" id="taskRow">
                                         @if (Model.Schedule.Count > 0)
                                         {
@@ -367,9 +367,9 @@
 
 
             <div class="tab-pane" id="video" role="tabpanel" aria-labelledby="video-tab">
-                <div class="container-fluid pt-3" style="width:100%">
+                <div class="container-fluid p-3" style="width:100%">
                     <div class="row">
-                        <div class="col-12 p-4">
+                        <div class="col-12">
                             <div class="d-flex">
                                 <form id="search-form" class="p-2 border w-100 rounded d-inline-block custom-form" onkeyup="SearchVideos(event, '@Model.CurrentUserProfile.Username')" onsubmit="SearchVideos(event, '@Model.CurrentUserProfile.Username')">
                                     <div class="d-flex">
@@ -394,21 +394,20 @@
                         </div>
                     </div>
                     <div class="divider"></div>
-                    <div id="stream-row" class="row p-3">
+                    <div id="stream-row" class="row">
                         @if (Model.UserArchivedStreams.Count != 0)
                         {
                             @foreach (var video in Model.UserArchivedStreams)
                             {
-                                <div id="videoInfo-@video.Id" class="col-lg-3 col-md-6 col-sm-6 video">
-                                    <div class="card mt-3 border-0" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px;">
+                                <div id="videoInfo-@video.Id" class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-3 video">
+                                    <div class="card h-100 mt-3 border-0" style="border-bottom-left-radius:20px; border-bottom-right-radius:20px; border-top-left-radius:20px; border-top-right-radius:20px;">
                                         <div class="card-title">
                                             <a href="../Stream/Archive/@video.StreamID/32169"><img id="video-thumbnail-@video.Id" style="width:100%; height:100%; border-top-left-radius:20px; border-top-right-radius:20px;" src="@video.StreamThumbnail"></a>
                                         </div>
                                         <div class="card-body pt-0 pb-1">
-                                            <p id="video-title-@video.Id" class="text-truncate form-header mb-0">@video.StreamTitle</p>
-                                            <p id="video-title-@video.Id" class="text-truncate form-header mb-1" style="font-size:12px">@video.StartTime.ToString("MMM dd yyyy")</p>
+                                            <h5 id="video-title-@video.Id" class="form-header multiline-truncate mb-0">@video.StreamTitle</h5>
+                                            <p class="form-header mb-1 mt-1" style="font-size:10px">@video.StreamSubject</p>
                                             <input id="video-description-@video.Id" type="hidden" value="@video.StreamDescription" />
-                                            <p class="text-truncate form-header" style="font-size:10px">@Model.CurrentUserProfile.Name.Replace('|', ' ')</p>
                                         </div>
                                         <div class="card-footer p-0" style="background-color:@video.StreamColor; border-bottom-left-radius:20px; border-bottom-right-radius:20px;"><span style="color:white; cursor:pointer; float:right; padding-right:10px" onclick="EditVideo('@video.Id')">&#8943;</span></div>
                                     </div>
@@ -461,7 +460,9 @@
     </nav>
 </div>
 
-@await Html.PartialAsync("Partials/Modals/ImageCropper")
+@await Html.PartialAsync("Partials/Modals/LoaderModal")
+@await Html.PartialAsync("Partials/Modals/ImageTooBigModal")
+@await Html.PartialAsync("Partials/Modals/ImageCropperModal")
 @await Html.PartialAsync("Partials/Modals/ProfileModal")
 @await Html.PartialAsync("Partials/Modals/ScheduleModal")
 @await Html.PartialAsync("Partials/Modals/UniversityModal")

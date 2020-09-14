@@ -122,8 +122,8 @@ function SearchSchedule(event) {
     if (event != undefined)
         event.preventDefault();
     var searchTerm = $('#searchQuery').val();
-    parameterTable["Schedule"] = [searchTerm, filter]
     var filter = $('#filter').val();
+    parameterTable["Schedule"] = [searchTerm, filter]
     if (filter != "") $('#clear-filter').show();
     $.ajax({
         url: '/Home/Browse/SW/?handler=SearchSchedule',

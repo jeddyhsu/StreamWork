@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Ganss.XSS;
 
 namespace StreamWork.HelperMethods
 {
@@ -67,7 +68,18 @@ namespace StreamWork.HelperMethods
                     t.Attributes["style"].Remove();
             }
 
-            return doc.DocumentNode.InnerHtml;
+            var san = new HtmlSanitizer();
+            san.AllowedTags.Remove("img");
+            san.AllowedTags.Remove("button");
+            san.AllowedTags.Remove("textarea");
+            san.AllowedTags.Remove("select");
+            san.AllowedTags.Remove("nav");
+            san.AllowedTags.Remove("input");
+            var sanatized = san.Sanitize(doc.DocumentNode.InnerHtml);
+
+            if (string.IsNullOrEmpty(sanatized)) return null;
+
+            return sanatized;
         }
 
         public static string GetRandomColor()

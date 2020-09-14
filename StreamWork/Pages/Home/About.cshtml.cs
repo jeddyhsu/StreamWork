@@ -31,6 +31,7 @@ namespace StreamWork.Pages.Home
                 Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
                 AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
             }
+
             return Page();
         }
     }

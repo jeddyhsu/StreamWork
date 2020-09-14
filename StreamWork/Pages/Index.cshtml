@@ -6,11 +6,9 @@
 }
 @Html.AntiForgeryToken()
 
-<script>
-    $(window).on('popstate', function () {
+<script>$(window).on('popstate', function () {
         location.reload(true);
-    });
-</script>
+    });</script>
 
 <div class="container-fluid pl-sm-0 pr-sm-0 pl-md-0 pr-md-0 pl-0 pr-0 container-padding" style="overflow-x:hidden !important">
     <div class="container custom-home-container pl-sm-0 pr-sm-0 pl-md-0 pr-md-0 pl-0 pr-0">
@@ -31,7 +29,7 @@
                 </div>
                 <img class="d-lg-none d-md-block d-sm-block d-block graphic" src="~/images/HomeAssets/Graphic.svg" />
                 <div style="position:relative;">
-                    <img class="d-lg-block d-md-none d-sm-none d-none graphic-lg" src="~/images/HomeAssets/Graphic.svg"/>
+                    <img class="d-lg-block d-md-none d-sm-none d-none graphic-lg" src="~/images/HomeAssets/Graphic.svg" />
                 </div>
             </div>
         </div>
@@ -83,8 +81,8 @@
                                 <img class="pt-3 pb-3 pr-3 featured-subject-icon" align="left" src="@Model.FeaturedArchivedVideo.StreamSubjectIcon" />
                                 <div class="m-3" id="StreamInfo">
                                     <h3 class="roboto-slab streamWork-green">@Model.FeaturedArchivedVideo.StreamTitle<span></span></h3>
-                                    <p class="mb-1" style="padding-left:105px">@Model.FeaturedArchivedVideo.StreamDescription</p>
-                                    <p style="font-size:12px; padding-left:105px">Tutoring @Model.FeaturedArchivedVideo.StreamSubject</p>
+                                    <p class="mb-1" style="padding-left:90px">@Model.FeaturedArchivedVideo.StreamDescription</p>
+                                    <p style="font-size:12px; padding-left:95px">Tutoring @Model.FeaturedArchivedVideo.StreamSubject</p>
                                 </div>
                             </div>
                         </div>
@@ -140,51 +138,114 @@
                         <a class="d-inline-block float-right p-3" style="color:#004643" href="#home-carousel-lg-md" data-slide="next">Next</a>
                     </div>
 
-                    <div id="home-carousel-sm-xs" class="carousel slide d-lg-none d-md-none d-sm-block d-block" data-ride="carousel">
+                    <div id="home-carousel-sm" class="carousel slide d-lg-none d-md-none d-sm-none d-none d-custom-sm-block" data-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
                                 <div class="row p-3">
-                                    <div class="col-sm-6 col-6 mt-3 mb-3 subject-card">
+                                    <div class="col-sm-6 mt-3 mb-3 subject-card">
                                         @await Html.PartialAsync("Partials/Stream/VideoAppearance", @Model.ArchivedVideos[0])
                                     </div>
-                                    <div class="col-sm-6 col-6 mt-3 mb-3 subject-card">
+                                    <div class="col-sm-6 mt-3 mb-3 subject-card">
                                         @await Html.PartialAsync("Partials/Stream/VideoAppearance", @Model.ArchivedVideos[1])
                                     </div>
                                 </div>
                             </div>
                             <div class="carousel-item">
                                 <div class="row p-3">
-                                    <div class="col-sm-6 col-6 mt-3 mb-3 subject-card">
+                                    <div class="col-sm-6 mt-3 mb-3 subject-card">
                                         @await Html.PartialAsync("Partials/Stream/VideoAppearance", @Model.ArchivedVideos[2])
                                     </div>
-                                    <div class="col-sm-6 col-6 mt-3 mb-3 subject-card">
+                                    <div class="col-sm-6 mt-3 mb-3 subject-card">
                                         @await Html.PartialAsync("Partials/Stream/VideoAppearance", @Model.ArchivedVideos[3])
                                     </div>
                                 </div>
                             </div>
                             <div class="carousel-item">
                                 <div class="row p-3">
-                                    <div class="col-sm-6 col-6 mt-3 mb-3 subject-card">
+                                    <div class="col-sm-6 mt-3 mb-3 subject-card">
                                         @await Html.PartialAsync("Partials/Stream/VideoAppearance", @Model.ArchivedVideos[4])
                                     </div>
-                                    <div class="col-sm-6 col-6 mt-3 mb-3 subject-card">
+                                    <div class="col-sm-6 mt-3 mb-3 subject-card">
                                         @await Html.PartialAsync("Partials/Stream/VideoAppearance", @Model.ArchivedVideos[5])
                                     </div>
                                 </div>
                             </div>
                             <div class="carousel-item">
                                 <div class="row p-3">
-                                    <div class="col-sm-6 col-6 mt-3 mb-3 subject-card">
+                                    <div class="col-sm-6 mt-3 mb-3 subject-card">
                                         @await Html.PartialAsync("Partials/Stream/VideoAppearance", @Model.ArchivedVideos[6])
                                     </div>
-                                    <div class="col-sm-6 col-6 mt-3 mb-3 subject-card">
+                                    <div class="col-sm-6 mt-3 mb-3 subject-card">
                                         @await Html.PartialAsync("Partials/Stream/VideoAppearance", @Model.ArchivedVideos[7])
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <a class="d-inline-block p-3" style="color:#004643" href="#home-carousel-sm-xs" data-slide="prev">Previous</a>
-                        <a class="d-inline-block float-right p-3" style="color:#004643" href="#home-carousel-sm-xs" data-slide="next">Next</a>
+                        <a class="d-inline-block p-3" style="color:#004643" href="#home-carousel-sm" data-slide="prev">Previous</a>
+                        <a class="d-inline-block float-right p-3" style="color:#004643" href="#home-carousel-sm" data-slide="next">Next</a>
+                    </div>
+
+                    <div id="home-carousel-xs" class="carousel slide d-lg-none d-md-none d-md-none d-sm-none d-none d-custom-block" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="row p-3">
+                                    <div class="col-12 mt-3 mb-3 subject-card">
+                                        @await Html.PartialAsync("Partials/Stream/VideoAppearance", @Model.ArchivedVideos[0])
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row p-3">
+                                    <div class="col-12 mt-3 mb-3 subject-card">
+                                        @await Html.PartialAsync("Partials/Stream/VideoAppearance", @Model.ArchivedVideos[1])
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row p-3">
+                                    <div class="col-12 mt-3 mb-3 subject-card">
+                                        @await Html.PartialAsync("Partials/Stream/VideoAppearance", @Model.ArchivedVideos[2])
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row p-3">
+                                    <div class="col-12 mt-3 mb-3 subject-card">
+                                        @await Html.PartialAsync("Partials/Stream/VideoAppearance", @Model.ArchivedVideos[3])
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row p-3">
+                                    <div class="col-12 mt-3 mb-3 subject-card">
+                                        @await Html.PartialAsync("Partials/Stream/VideoAppearance", @Model.ArchivedVideos[4])
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row p-3">
+                                    <div class="col-12 mt-3 mb-3 subject-card">
+                                        @await Html.PartialAsync("Partials/Stream/VideoAppearance", @Model.ArchivedVideos[5])
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row p-3">
+                                    <div class="col-12 mt-3 mb-3 subject-card">
+                                        @await Html.PartialAsync("Partials/Stream/VideoAppearance", @Model.ArchivedVideos[6])
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row p-3">
+                                    <div class="col-12 mt-3 mb-3 subject-card">
+                                        @await Html.PartialAsync("Partials/Stream/VideoAppearance", @Model.ArchivedVideos[7])
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="d-inline-block p-3" style="color:#004643" href="#home-carousel-xs" data-slide="prev">Previous</a>
+                        <a class="d-inline-block float-right p-3" style="color:#004643" href="#home-carousel-xs" data-slide="next">Next</a>
                     </div>
                 </div>
             </div>
@@ -200,12 +261,12 @@
                     <div class="row">
                         <div class="col-lg-2 col-4 mb-3">
                             <div class="card drop-shadow">
-                                <img class="p-2 d-block mr-auto ml-auto brown-logo" src="/images/CollegeAssets/BrownLogo.svg"/>
+                                <img class="p-2 d-block mr-auto ml-auto asu-logo" src="/images/CollegeAssets/ASULogo.svg" />
                             </div>
                         </div>
                         <div class="col-lg-2 col-4 mb-3">
                             <div class="card drop-shadow">
-                                <img class="p-2 d-block mr-auto ml-auto ucsd-logo" src="/images/CollegeAssets/UCSDLogo.svg" />
+                                <img class="p-2 d-block mr-auto ml-auto atm-logo" src="/images/CollegeAssets/ATMLogo.svg" />
                             </div>
                         </div>
                         <div class="col-lg-2 col-4 mb-3">
@@ -215,17 +276,17 @@
                         </div>
                         <div class="col-lg-2 col-4 mb-3">
                             <div class="card drop-shadow">
-                                <img class="p-2 d-block mr-auto ml-auto atm-logo" src="/images/CollegeAssets/ATMLogo.svg"/>
+                                <img class="p-2 d-block mr-auto ml-auto brown-logo" src="/images/CollegeAssets/BrownLogo.svg" />
                             </div>
                         </div>
                         <div class="col-lg-2 col-4 mb-3">
                             <div class="card drop-shadow">
-                                <img class="p-2 d-block mr-auto ml-auto asu-logo" src="/images/CollegeAssets/ASULogo.svg" />
+                                <img class="p-2 d-block mr-auto ml-auto ucsd-logo" src="/images/CollegeAssets/UCSDLogo.svg" />
                             </div>
                         </div>
                         <div class="col-lg-2 col-4 mb-3">
                             <div class="card drop-shadow">
-                                <img class="p-2 d-block mr-auto ml-auto uw-logo" src="/images/CollegeAssets/UWLogo.svg"/>
+                                <img class="p-2 d-block mr-auto ml-auto uw-logo" src="/images/CollegeAssets/UWLogo.svg" />
                             </div>
                         </div>
                     </div>
@@ -250,75 +311,16 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </div>
 </div>
-
-
-<div class="container-fluid mt-4 pb-5" style="background-color:#004643; height:100%; color:white">
-    <div class="row pb-5 pt-4">
-        <div class="col-lg-1"></div>
-        <div class="col-lg-3">
-            <a href="/"><img class="mt-3 mb-3" src="~/images/GenericAssets/StreamWork-Full-White.svg" width="225" /></a>
-            <p>StreamWork is an online tutoring center that brings the minds of students together, building upon each other’s knowledge to reach scholastic success. 📚👩🏽‍🎓✨<br /><br />Study smarter, not harder. Get schooled with StreamWork.</p>
-            <a href="/Home/About"><button class="streamWork-teal">Learn More</button></a>
-        </div>
-        <div class="col-lg-7 mr-5">
-            <div class="row">
-                <div class="col-md-3">
-                    <h5 class="mt-4 mb-3" style="font-weight: bold;">StreamWork</h5>
-                    <a href="/Home/About" style="color: white;">About Us</a><br />
-                    <a href="/Home/SignUp" style="color: white;">Sign Up</a><br />
-                    <a href="/Home/SignIn/SW" style="color: white;">Sign In</a>
-                </div>
-                <div class="col-md-3">
-                    <h5 class="mt-4 mb-3" style="font-weight: bold;">StreamTutors</h5>
-                    <a href="/Home/Tutor" style="color: white;">Become a StreamTutor</a><br />
-                    <a href="/Home/HowToStream" style="color: white;">How to Stream</a>
-                </div>
-                <div class="col-md-3">
-                    <h5 class="mt-4 mb-3" style="font-weight: bold;">Education</h5>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <a href="/Home/Browse/Mathematics" style="color: white;">Mathematics</a><br />
-                            <a href="/Home/Browse/Science" style="color: white;">Science</a><br />
-                            <a href="/Home/Browse/Engineering" style="color: white;">Engineering</a><br />
-                            <a href="/Home/Browse/Business" style="color: white;">Business</a><br />
-                        </div>
-                        <div class="col-sm-6">
-                            <a href="/Home/Browse/Law" style="color: white;">Law</a><br />
-                            <a href="/Home/Browse/Art" style="color: white;">Art</a><br />
-                            <a href="/Home/Browse/Humanities" style="color: white;">Humanities</a><br />
-                            <a href="/Home/Browse/Other" style="color: white;">Other</a><br />
-                        </div>
-                    </div>
-                    <br />
-                    <a href="/Home/Browse/SW" style="color: white;">Browse</a>
-                </div>
-                <div class="col-md-3">
-                    <h5 class="mt-4 mb-3" style="font-weight: bold;">Follow Us</h5>
-                    <a href="https://www.facebook.com/streamwork.live/"><img class="mr-3" src="~/images/facebook.png" style="width: 30px; height: 30px;" /></a>
-                    <a href="https://twitter.com/StreamWorkLive"><img class="mr-3" src="~/images/twitter.png" style="width: 30px; height: 30px;" /></a>
-                    <a href="https://www.linkedin.com/company/streamwork"><img src="~/images/linkedin.png" style="width: 30px; height: 30px;" /></a>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-1"></div>
-    </div>
-    <br />
-    <div style="text-align: center;">
-        Copyright © 2020 StreamWork LLC. All rights reserved.
-    </div>
-</div>
+@await Html.PartialAsync("Partials/Home/Footer")
 
 @await Html.PartialAsync("Partials/Modals/SignIn-SignUpModal")
 @await Html.PartialAsync("Partials/Notification/PushNotifications")
 
-
-
-<script>
-    function ResizeBackground() {
+<script>function ResizeBackground() {
         $(document).ready(function () {
             ResizeAlgo()
         })
@@ -363,5 +365,4 @@
         $('#blob-card').css('background-size', newWW + 'vw')
         $('#blob-card-2').css('background-size', newWW + 'vw')
     }
-    ResizeBackground()
-</script>
+    ResizeBackground()</script>

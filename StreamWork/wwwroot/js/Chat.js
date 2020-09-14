@@ -51,7 +51,9 @@ connection.on("ReceiveMessage", function (chat) {
                                 <div class="col-12">
                                     <input align="left" type="image" class="chat-profile-picture rounded pointer" onclick="window.parent.location.href='/Profiles/Student/${chat.Username}'" src=${chat.ProfilePicture} />
                                     ${listName}
-                                    <p id="chat-${chatCount}" class="chat-message">${chat.Message}</p>
+                                    <div class="chat-message mt-0 pt-0">
+                                        ${chat.Message}
+                                    </div>
                                 </div>
                             </div>
                         </li>`
@@ -104,9 +106,17 @@ function JoinChat(chatId, connectionId) {
     });
 }
 
-function GetMessage(chatId, userName, name, profilePicture, chatColor){
+function GetMessage(chatId, userName, name, profilePicture, chatColor) {
+    if ($("#chatInput").text() > 500) {
+        OpenInvalidComment()
+        return;
+    }
+
     var message = $("#chatInput").html().replace(/<div>/gi, '<br>').replace(/<\/div>/gi, '')
+    if (message.substring(0, 4) == "<br>")
+        message = message.replace('<br>', '')
     if (message == "") return;
+
     CleanAndSendMessage(message, chatId, userName, name, profilePicture, chatColor);
 }
 
@@ -121,19 +131,40 @@ function CleanAndSendMessage(message, chatId, userName, name, profilePicture, ch
     event.preventDefault();
 }
 
-function PopoutChat(chatId, chatInfo) {
+function PopoutChat(chatId) {
     var windowObjectRef;
-    var windowFeatures = "menubar=no, toolbar=no,location=yes,resizable=yes,scrollbars=yes,status=yes, width=300, height=600";
-    windowObjectRef = window.open('/chat/LiveChat?chatId=' + chatId + "&chatInfo=" + chatInfo, 'StreamWork Chat', windowFeatures);
+    var windowFeatures = "menubar=no, toolbar=no,location=yes,resizable=yes,scrollbars=yes,status=yes, width=600, height=600";
+    windowObjectRef = window.open('/Chat/Live/' + chatId, 'StreamWork Chat', windowFeatures);
 }
 
 function CheckIfEmpty() {
-    if ($('#chatInput').val() == "") {
-        $('#sendQuestionButton').removeClass().addClass('streamWork-disabled')
+    if ($('#chatInput').text() == "") {
+        $('#sendQuestionButton').removeClass('streamWork-primary').addClass('streamWork-disabled')
         document.getElementById('sendQuestionButton').disabled = true;
     }
     else {
-        $('#sendQuestionButton').removeClass().addClass('streamWork-primary')
+        $('#sendQuestionButton').removeClass('streamWork-disabled').addClass('streamWork-primary')
         document.getElementById('sendQuestionButton').disabled = false;
     }
+
+    if ($('#chatInput').text().length > 500) {
+        $('#too-long').removeClass('d-none').addClass('d-block')
+        $('#sendQuestionButton').removeClass('streamWork-primary').addClass('streamWork-disabled')
+        document.getElementById('sendQuestionButton').disabled = true;
+    }
+    else {
+        $('#too-long').removeClass('d-block').addClass('d-none')
+    }
+}
+
+function OpenInvalidComment() {
+    var confirmation = ` <div class="custom-modal-content" style="width:300px; height:200px" >
+                            <div class="close ml-auto" onclick="CloseModal('notification-invalid-comment-modal')">&times;</div>
+                            <h5 id="notification-message" class="form-header text-center pl-3 pr-3" style="padding-top:50px; font-size:16px;">Notification</h5>
+                            <button class="btn d-block mr-auto ml-auto mt-3 w-50" style="background-color:#004643; color:white" onclick="CloseModal('notification-invalid-comment-modal')">Ok</button>
+                        </div>`
+    $('#notification-invalid-comment-modal').html(confirmation);
+    OpenNotificationModal('The comment you have entered is invalid!', 'notification-invalid-comment-modal')
+    $('#chatInput').text('')
+    CheckIfEmpty()
 }

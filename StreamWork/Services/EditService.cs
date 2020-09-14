@@ -44,7 +44,7 @@ namespace StreamWork.Services
 
             if (profilePicture != null)
             {
-                userProfile.ProfilePicture = BlobMethods.SaveImageIntoBlobContainer(profilePicture, userProfile.Id, 240, 320);
+                userProfile.ProfilePicture = await BlobMethods.SaveImageIntoBlobContainer(profilePicture, userProfile.Id, 240, 320);
                 //if (userProfile.ProfileType == "tutor")
                 //await _tutorMethods.ChangeAllArchivedStreamAndUserChannelProfilePhotos(storageConfig, userProfile.Username, userProfile.ProfilePicture); //only if tutor
             }
@@ -60,7 +60,7 @@ namespace StreamWork.Services
             {
                 var userProfile = await Get<Profile>(SQLQueries.GetUserWithUsername, user);
                 IFormFile profileBanner = request.Form.Files[0];
-                var banner = BlobMethods.SaveImageIntoBlobContainer(profileBanner, userProfile.Username + "-" + userProfile.Id + "-profilebanner", 720, 242);
+                var banner = await BlobMethods.SaveImageIntoBlobContainer(profileBanner, userProfile.Username + "-" + userProfile.Id + "-profilebanner", 720, 242);
                 userProfile.ProfileBanner = banner;
                 await Save(userProfile.Id, userProfile);
                 return banner;
