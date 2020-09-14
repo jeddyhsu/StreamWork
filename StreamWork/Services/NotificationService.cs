@@ -125,6 +125,7 @@ namespace StreamWork.Services
                 var comment = await Get<Comment>(SQLQueries.GetCommentWithId, notification.ObjectId);
                 if (comment == null) return null;
                 var video = await Get<Video>(SQLQueries.GetArchivedStreamsWithId, comment.StreamId);
+                if (video == null) return null;
 
                 using (StreamReader streamReader = new StreamReader(template))
                 {
@@ -153,7 +154,8 @@ namespace StreamWork.Services
                 if (comment == null) return null;
                 var parentComment = await Get<Comment>(SQLQueries.GetCommentWithId, comment.ParentId);
                 var video = await Get<Video>(SQLQueries.GetArchivedStreamsWithId, comment.StreamId);
-                
+                if (video == null) return null;
+
                 using (StreamReader streamReader = new StreamReader(template))
                 {
                     reader = streamReader.ReadToEnd();
