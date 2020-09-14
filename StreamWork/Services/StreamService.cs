@@ -53,6 +53,12 @@ namespace StreamWork.Services
             }
             catch (Exception e)
             {
+                Debug d = new Debug();
+                d.Id = Guid.NewGuid().ToString();
+                d.Timestamp = DateTime.UtcNow;
+                d.Message = "Error in TutorMethods: StartStream " + e.Message + " | " + e.InnerException;
+                await Save(d.Id, d);
+
                 Console.WriteLine("Error in TutorMethods: StartStream " + e.Message);
                 return null;
             }
@@ -166,7 +172,8 @@ namespace StreamWork.Services
 
                     Debug d = new Debug();
                     d.Id = Guid.NewGuid().ToString();
-                    d.Message = channel.Username + "|" + (GetNumberOfVideosWithId(channel.ChannelKey, response));
+                    d.Timestamp = DateTime.UtcNow;
+                    d.Message = channel.Username + " | " + (GetNumberOfVideosWithId(channel.ChannelKey, response));
                     await Save(d.Id, d);
 
                     log.Write(Serilog.Events.LogEventLevel.Information, channel.Username + " is still in the while loop");
@@ -175,7 +182,7 @@ namespace StreamWork.Services
                     {
                         Debug d1 = new Debug();
                         d1.Id = Guid.NewGuid().ToString();
-                        d1.Message = channel.Username + "Videos Found";
+                        d1.Message = channel.Username + " | Videos Found | " + channel.InitialStreamCount + videos.Count;
                         await Save(d1.Id, d1);
 
                         Console.WriteLine("Videos Found");
