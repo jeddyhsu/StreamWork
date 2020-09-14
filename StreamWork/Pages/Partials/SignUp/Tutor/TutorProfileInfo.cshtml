@@ -14,20 +14,20 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <p style="color: #707070; margin-bottom: 0; font-family: 'Roboto Slab'; font-size: 12px;">First Name</p>
-                        <input id="tutor-firstName" class="mb-3" style="width: 100%;" onkeyup="tutorProfileInfoUpdateNext();" data-toggle="popover" data-placement="top" data-content="Names may not contain numbers or special characters" />
+                        <input id="tutor-firstName" class="mb-3 form-control rounded-0" style="width: 100%;" onkeyup="tutorProfileInfoUpdateNext();" data-toggle="popover" data-placement="top" data-content="Names may not contain numbers or special characters" />
                     </div>
                     <div class="col-sm-6">
                         <p style="color: #707070; margin-bottom: 0; font-family: 'Roboto Slab'; font-size: 12px;">Last Name</p>
-                        <input id="tutor-lastName" class="mb-3" style="width: 100%;" onkeyup="tutorProfileInfoUpdateNext();" data-toggle="popover" data-placement="top" data-content="Names may not contain numbers or special characters" />
+                        <input id="tutor-lastName" class="mb-3 form-control rounded-0" style="width: 100%;" onkeyup="tutorProfileInfoUpdateNext();" data-toggle="popover" data-placement="top" data-content="Names may not contain numbers or special characters" />
                     </div>
                 </div>
                 <p style="color: #707070; margin-bottom: 0; font-family: 'Roboto Slab'; font-size: 12px;">Username</p>
                 <div id="tutor-username-wrapper" data-container="body" data-toggle="popover" data-placement="top" data-content="This username is taken">
-                    <input id="tutor-username" class="mb-3" style="width: 100%;" onkeyup="tutorProfileInfoUpdateNext();" data-toggle="popover" data-placement="top" data-content="Usernames may only include letters, numbers, underscores, and hyphens" />
+                    <input id="tutor-username" class="mb-3 form-control rounded-0" style="width: 100%;" onkeyup="tutorProfileInfoUpdateNext();" data-toggle="popover" data-placement="top" data-content="Usernames may only include letters, numbers, underscores, and hyphens" />
                 </div>
                 <p style="color: #707070; margin-bottom: 0; font-family: 'Roboto Slab'; font-size: 12px;">Password</p>
                 <div class="mb-3 input-group">
-                    <input id="tutor-password" type="password" class="form-control" style="border-radius: 0px;" onkeyup="tutorProfileInfoUpdateNext();" data-toggle="popover" data-placement="top" data-content="Passwords must be at least 8 characters long, including at least one letter and number" />
+                    <input id="tutor-password" type="password" class="form-control rounded-0" onkeyup="tutorProfileInfoUpdateNext();" data-toggle="popover" data-placement="top" data-content="Passwords must be at least 8 characters long, including at least one letter and number" />
                     <div class="input-group-append">
                         <span class="input-group-text" style="background-color: white; cursor: pointer; border-radius: 0px;" onclick="togglePasswordVisibility('tutor-password');">
                             <i id="tutor-password-eye" class="fa fa-eye-slash"></i>
@@ -36,7 +36,7 @@
                 </div>
                 <p style="color: #707070; margin-bottom: 0; font-family: 'Roboto Slab'; font-size: 12px;">Re-Enter Password</p>
                 <div class="mb-3 input-group">
-                    <input id="tutor-confirmPassword" type="password" class="form-control" style="border-radius: 0px;" onkeyup="tutorProfileInfoUpdateNext();" data-toggle="popover" data-placement="top" data-content="Passwords must match" />
+                    <input id="tutor-confirmPassword" type="password" class="form-control rounded-0" onkeyup="tutorProfileInfoUpdateNext();" data-toggle="popover" data-placement="top" data-content="Passwords must match" />
                     <div class="input-group-append">
                         <span class="input-group-text" style="background-color: white; cursor: pointer; border-radius: 0px;" onclick="togglePasswordVisibility('tutor-confirmPassword');">
                             <i id="tutor-confirmPassword-eye" class="fa fa-eye-slash"></i>
@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <p style="color: #707070; margin-bottom: 0; font-family: 'Roboto Slab'; font-size: 12px;">PayPal Email Address</p>
-                <input id="tutor-payPal" class="mb-3" style="width: 100%;" onkeyup="tutorProfileInfoUpdateNext();" data-toggle="popover" data-placement="top" data-content="Please enter a valid email address" />
+                <input id="tutor-payPal" class="mb-3 form-control rounded-0" style="width: 100%;" onkeyup="tutorProfileInfoUpdateNext();" data-toggle="popover" data-placement="top" data-content="Please enter a valid email address" />
                 <br />
                 <br />
 
