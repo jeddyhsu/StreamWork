@@ -3073,3 +3073,114 @@ Microsoft.CSharp.RuntimeBinder.RuntimeBinderException: 'StreamWork.Pages.Home.Si
 2020-09-13 21:41:38.918 -07:00 [INF] Request finished in 1072.8558ms 200 text/html; charset=utf-8
 2020-09-13 21:41:39.352 -07:00 [INF] Request finished in 957.0447ms 206 video/mp4
 2020-09-13 21:41:39.352 -07:00 [INF] Request finished in 1187.8304ms 206 video/mp4
+2020-09-13 21:47:14.342 -07:00 [INF] User profile is available. Using '/Users/rithvik/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2020-09-13 21:47:14.607 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-09-13 21:47:14.614 -07:00 [WRN] Failed to determine the https port for redirect.
+2020-09-13 21:47:14.729 -07:00 [INF] Executing endpoint '/Index'
+2020-09-13 21:47:14.782 -07:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-09-13 21:47:14.793 -07:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-09-13 21:47:16.719 -07:00 [INF] Executed handler method OnGet, returned result .
+2020-09-13 21:47:16.723 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-13 21:47:16.723 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:47:17.086 -07:00 [INF] Executed page /Index in 2299.7611ms
+2020-09-13 21:47:17.088 -07:00 [INF] Executed endpoint '/Index'
+2020-09-13 21:47:17.093 -07:00 [INF] Request finished in 2489.0329ms 200 text/html; charset=utf-8
+2020-09-13 21:47:17.665 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-09-13 21:47:17.678 -07:00 [INF] Executing endpoint '/Index'
+2020-09-13 21:47:17.679 -07:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-09-13 21:47:17.681 -07:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-09-13 21:47:17.963 -07:00 [INF] Executed handler method OnGet, returned result .
+2020-09-13 21:47:17.963 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-13 21:47:17.963 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:47:17.968 -07:00 [INF] Executed page /Index in 288.01480000000004ms
+2020-09-13 21:47:17.968 -07:00 [INF] Executed endpoint '/Index'
+2020-09-13 21:47:17.968 -07:00 [INF] Request finished in 303.52750000000003ms 200 text/html; charset=utf-8
+2020-09-13 21:47:18.338 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-09-13 21:47:18.342 -07:00 [INF] Executing endpoint '/Index'
+2020-09-13 21:47:18.342 -07:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-09-13 21:47:18.344 -07:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-09-13 21:47:18.626 -07:00 [INF] Executed handler method OnGet, returned result .
+2020-09-13 21:47:18.626 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-13 21:47:18.626 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:47:18.631 -07:00 [INF] Executed page /Index in 288.5364ms
+2020-09-13 21:47:18.632 -07:00 [INF] Executed endpoint '/Index'
+2020-09-13 21:47:18.632 -07:00 [INF] Request finished in 294.1804ms 200 text/html; charset=utf-8
+2020-09-13 21:47:18.744 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-13 21:47:18.748 -07:00 [INF] CORS policy execution successful.
+2020-09-13 21:47:18.750 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-13 21:47:18.760 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-13 21:47:18.760 -07:00 [INF] Request finished in 15.727400000000001ms 200 application/json
+2020-09-13 21:47:18.853 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Chat/Archive/e9c04960-604b-47bc-abc0-15bba95bc28c  
+2020-09-13 21:47:18.885 -07:00 [INF] Executing endpoint '/Chat/Archive'
+2020-09-13 21:47:18.895 -07:00 [INF] Route matched with {page = "/Chat/Archive"}. Executing page /Chat/Archive
+2020-09-13 21:47:18.903 -07:00 [INF] Executing handler method StreamWork.Pages.Chat.ArchiveChat.OnGet - ModelState is "Valid"
+2020-09-13 21:47:18.982 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=k3faZy-_1fMopQcPIcd6yQ  
+2020-09-13 21:47:18.982 -07:00 [INF] CORS policy execution successful.
+2020-09-13 21:47:18.983 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-13 21:47:18.994 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/StreamWorkAdVideo.mp4  
+2020-09-13 21:47:19.005 -07:00 [INF] Sending ["bytes 0-1/84089809"] of file /Users/rithvik/C#/StreamWork/StreamWork/wwwroot/StreamWorkAdVideo.mp4
+2020-09-13 21:47:19.011 -07:00 [INF] Request finished in 17.4972ms 206 video/mp4
+2020-09-13 21:47:19.013 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/StreamWorkAdVideo.mp4  
+2020-09-13 21:47:19.014 -07:00 [INF] Sending ["bytes 0-84089808/84089809"] of file /Users/rithvik/C#/StreamWork/StreamWork/wwwroot/StreamWorkAdVideo.mp4
+2020-09-13 21:47:19.168 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:47:19.516 -07:00 [INF] Executed page /Chat/Archive in 620.5598ms
+2020-09-13 21:47:19.516 -07:00 [INF] Executed endpoint '/Chat/Archive'
+2020-09-13 21:47:19.538 -07:00 [INF] Request finished in 663.9464ms 200 text/html; charset=utf-8
+2020-09-13 21:47:19.682 -07:00 [INF] Request finished in 668.3932ms 206 video/mp4
+2020-09-13 21:58:27.587 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignIn/SW  
+2020-09-13 21:58:27.617 -07:00 [INF] Executing endpoint '/Home/SignIn'
+2020-09-13 21:58:27.622 -07:00 [INF] Route matched with {page = "/Home/SignIn"}. Executing page /Home/SignIn
+2020-09-13 21:58:27.623 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignInModel.OnGet - ModelState is "Valid"
+2020-09-13 21:58:27.623 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:58:27.712 -07:00 [INF] Executed page /Home/SignIn in 89.5556ms
+2020-09-13 21:58:27.712 -07:00 [INF] Executed endpoint '/Home/SignIn'
+2020-09-13 21:58:27.712 -07:00 [INF] Request finished in 125.5262ms 200 text/html; charset=utf-8
+2020-09-13 21:58:27.992 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/SignUp-SignIn/SignUp-SignIn.css?v=S76d5KcsEb7EUBsCbTSjEsJ-3rHANfUzcPQ2cDZOR3E  
+2020-09-13 21:58:28.032 -07:00 [INF] Sending file. Request path: '/css/SignUp-SignIn/SignUp-SignIn.css'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/css/SignUp-SignIn/SignUp-SignIn.css'
+2020-09-13 21:58:28.033 -07:00 [INF] Request finished in 65.6902ms 200 text/css
+2020-09-13 21:58:28.036 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-13 21:58:28.036 -07:00 [INF] Request finished in 669042.7311ms 101 
+2020-09-13 21:58:30.536 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-09-13 21:58:30.537 -07:00 [INF] Executing endpoint '/Index'
+2020-09-13 21:58:30.537 -07:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-09-13 21:58:30.538 -07:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-09-13 21:58:31.450 -07:00 [INF] Executed handler method OnGet, returned result .
+2020-09-13 21:58:31.451 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-13 21:58:31.451 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:58:31.455 -07:00 [INF] Executed page /Index in 917.7505ms
+2020-09-13 21:58:31.455 -07:00 [INF] Executed endpoint '/Index'
+2020-09-13 21:58:31.456 -07:00 [INF] Request finished in 920.0616ms 200 text/html; charset=utf-8
+2020-09-13 21:58:31.473 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-13 21:58:31.474 -07:00 [INF] CORS policy execution successful.
+2020-09-13 21:58:31.474 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-13 21:58:31.475 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-13 21:58:31.475 -07:00 [INF] Request finished in 2.0011ms 200 application/json
+2020-09-13 21:58:31.584 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/StreamWorkAdVideo.mp4  
+2020-09-13 21:58:31.609 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=q6ERKnvgQ4xMvw4_d26YIA  
+2020-09-13 21:58:31.609 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Chat/Archive/e9c04960-604b-47bc-abc0-15bba95bc28c  
+2020-09-13 21:58:31.609 -07:00 [INF] CORS policy execution successful.
+2020-09-13 21:58:31.609 -07:00 [INF] Sending ["bytes 0-1/84089809"] of file /Users/rithvik/C#/StreamWork/StreamWork/wwwroot/StreamWorkAdVideo.mp4
+2020-09-13 21:58:31.609 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-13 21:58:31.631 -07:00 [INF] Request finished in 46.9191ms 206 video/mp4
+2020-09-13 21:58:31.652 -07:00 [INF] Executing endpoint '/Chat/Archive'
+2020-09-13 21:58:31.652 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/StreamWorkAdVideo.mp4  
+2020-09-13 21:58:31.653 -07:00 [INF] Sending ["bytes 0-84089808/84089809"] of file /Users/rithvik/C#/StreamWork/StreamWork/wwwroot/StreamWorkAdVideo.mp4
+2020-09-13 21:58:31.654 -07:00 [INF] Route matched with {page = "/Chat/Archive"}. Executing page /Chat/Archive
+2020-09-13 21:58:31.771 -07:00 [INF] Executing handler method StreamWork.Pages.Chat.ArchiveChat.OnGet - ModelState is "Valid"
+2020-09-13 21:58:32.329 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:58:32.428 -07:00 [INF] Executed page /Chat/Archive in 774.1054ms
+2020-09-13 21:58:32.428 -07:00 [INF] Executed endpoint '/Chat/Archive'
+2020-09-13 21:58:32.429 -07:00 [INF] Request finished in 819.9118000000001ms 200 text/html; charset=utf-8
+2020-09-13 21:58:32.445 -07:00 [INF] Request finished in 793.4583ms 206 video/mp4
+2020-09-13 21:58:35.008 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-09-13 21:58:35.008 -07:00 [INF] Executing endpoint '/Index'
+2020-09-13 21:58:35.009 -07:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-09-13 21:58:35.009 -07:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-09-13 21:58:35.311 -07:00 [INF] Executed handler method OnGet, returned result .
+2020-09-13 21:58:35.311 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-13 21:58:35.311 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:58:35.316 -07:00 [INF] Executed page /Index in 307.0156ms
+2020-09-13 21:58:35.316 -07:00 [INF] Executed endpoint '/Index'
+2020-09-13 21:58:35.316 -07:00 [INF] Request finished in 308.6822ms 200 text/html; charset=utf-8
+2020-09-13 22:01:00.653 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-13 22:01:00.654 -07:00 [INF] Request finished in 149067.7352ms 101 
