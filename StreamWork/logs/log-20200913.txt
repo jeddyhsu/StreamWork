@@ -2548,3 +2548,528 @@
 2020-09-13 21:21:16.139 -07:00 [INF] Executed page /Home/SignUp in 64.00370000000001ms
 2020-09-13 21:21:16.139 -07:00 [INF] Executed endpoint '/Home/SignUp'
 2020-09-13 21:21:16.139 -07:00 [INF] Request finished in 64.5759ms 200 application/json; charset=utf-8
+2020-09-13 21:34:19.044 -07:00 [INF] User profile is available. Using '/Users/rithvik/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2020-09-13 21:34:19.310 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-09-13 21:34:19.317 -07:00 [WRN] Failed to determine the https port for redirect.
+2020-09-13 21:34:19.435 -07:00 [INF] Executing endpoint '/Index'
+2020-09-13 21:34:19.485 -07:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-09-13 21:34:19.497 -07:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-09-13 21:34:21.620 -07:00 [INF] Executed handler method OnGet, returned result .
+2020-09-13 21:34:21.625 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-13 21:34:21.625 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:34:22.097 -07:00 [INF] Executed page /Index in 2607.3535ms
+2020-09-13 21:34:22.099 -07:00 [INF] Executed endpoint '/Index'
+2020-09-13 21:34:22.106 -07:00 [INF] Request finished in 2799.0768000000003ms 200 text/html; charset=utf-8
+2020-09-13 21:34:23.242 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-09-13 21:34:23.245 -07:00 [INF] Executing endpoint '/Index'
+2020-09-13 21:34:23.246 -07:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-09-13 21:34:23.246 -07:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-09-13 21:34:23.520 -07:00 [INF] Executed handler method OnGet, returned result .
+2020-09-13 21:34:23.520 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-13 21:34:23.520 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:34:23.528 -07:00 [INF] Executed page /Index in 281.7253ms
+2020-09-13 21:34:23.528 -07:00 [INF] Executed endpoint '/Index'
+2020-09-13 21:34:23.528 -07:00 [INF] Request finished in 286.92490000000004ms 200 text/html; charset=utf-8
+2020-09-13 21:34:23.664 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-13 21:34:23.668 -07:00 [INF] CORS policy execution successful.
+2020-09-13 21:34:23.672 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-13 21:34:23.683 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-13 21:34:23.683 -07:00 [INF] Request finished in 18.782ms 200 application/json
+2020-09-13 21:34:23.836 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Chat/Archive/e9c04960-604b-47bc-abc0-15bba95bc28c  
+2020-09-13 21:34:23.844 -07:00 [INF] Executing endpoint '/Chat/Archive'
+2020-09-13 21:34:23.857 -07:00 [INF] Route matched with {page = "/Chat/Archive"}. Executing page /Chat/Archive
+2020-09-13 21:34:23.868 -07:00 [INF] Executing handler method StreamWork.Pages.Chat.ArchiveChat.OnGet - ModelState is "Valid"
+2020-09-13 21:34:24.001 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:34:24.010 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=sNDr0HRojGRKQbjQaitBsQ  
+2020-09-13 21:34:24.011 -07:00 [INF] CORS policy execution successful.
+2020-09-13 21:34:24.011 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-13 21:34:24.061 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/StreamWorkAdVideo.mp4  
+2020-09-13 21:34:24.108 -07:00 [INF] Executed page /Chat/Archive in 251.17520000000002ms
+2020-09-13 21:34:24.109 -07:00 [INF] Executed endpoint '/Chat/Archive'
+2020-09-13 21:34:24.109 -07:00 [INF] Request finished in 272.9728ms 200 text/html; charset=utf-8
+2020-09-13 21:34:24.120 -07:00 [INF] Sending ["bytes 0-1/84089809"] of file /Users/rithvik/C#/StreamWork/StreamWork/wwwroot/StreamWorkAdVideo.mp4
+2020-09-13 21:34:24.218 -07:00 [INF] Request finished in 156.75740000000002ms 206 video/mp4
+2020-09-13 21:34:24.307 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/StreamWorkAdVideo.mp4  
+2020-09-13 21:34:24.308 -07:00 [INF] Sending ["bytes 0-84089808/84089809"] of file /Users/rithvik/C#/StreamWork/StreamWork/wwwroot/StreamWorkAdVideo.mp4
+2020-09-13 21:34:24.574 -07:00 [INF] Request finished in 266.7294ms 206 video/mp4
+2020-09-13 21:34:24.630 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/StreamWorkAdVideo.mp4  
+2020-09-13 21:34:24.631 -07:00 [INF] Sending ["bytes 14483456-84089808/84089809"] of file /Users/rithvik/C#/StreamWork/StreamWork/wwwroot/StreamWorkAdVideo.mp4
+2020-09-13 21:34:24.884 -07:00 [INF] Request finished in 254.43200000000002ms 206 video/mp4
+2020-09-13 21:34:41.366 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-09-13 21:34:41.368 -07:00 [INF] Executing endpoint '/Index'
+2020-09-13 21:34:41.369 -07:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-09-13 21:34:41.370 -07:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-09-13 21:34:41.651 -07:00 [INF] Executed handler method OnGet, returned result .
+2020-09-13 21:34:41.651 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-13 21:34:41.651 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:34:41.655 -07:00 [INF] Executed page /Index in 286.0412ms
+2020-09-13 21:34:41.656 -07:00 [INF] Executed endpoint '/Index'
+2020-09-13 21:34:41.656 -07:00 [INF] Request finished in 290.06350000000003ms 200 text/html; charset=utf-8
+2020-09-13 21:34:41.855 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-13 21:34:41.856 -07:00 [INF] CORS policy execution successful.
+2020-09-13 21:34:41.856 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-13 21:34:41.857 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-13 21:34:41.857 -07:00 [INF] Request finished in 2.2824ms 200 application/json
+2020-09-13 21:34:41.860 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-13 21:34:41.860 -07:00 [INF] Request finished in 17849.8921ms 101 
+2020-09-13 21:34:41.920 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Chat/Archive/e9c04960-604b-47bc-abc0-15bba95bc28c  
+2020-09-13 21:34:41.922 -07:00 [INF] Executing endpoint '/Chat/Archive'
+2020-09-13 21:34:41.990 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=YNIbbTiwUcM_yzctXUsN1A  
+2020-09-13 21:34:41.990 -07:00 [INF] Route matched with {page = "/Chat/Archive"}. Executing page /Chat/Archive
+2020-09-13 21:34:41.990 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/StreamWorkAdVideo.mp4  
+2020-09-13 21:34:41.991 -07:00 [INF] CORS policy execution successful.
+2020-09-13 21:34:41.991 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-13 21:34:41.993 -07:00 [INF] Sending ["bytes 0-1/84089809"] of file /Users/rithvik/C#/StreamWork/StreamWork/wwwroot/StreamWorkAdVideo.mp4
+2020-09-13 21:34:41.994 -07:00 [INF] Executing handler method StreamWork.Pages.Chat.ArchiveChat.OnGet - ModelState is "Valid"
+2020-09-13 21:34:42.105 -07:00 [INF] Request finished in 114.16770000000001ms 206 video/mp4
+2020-09-13 21:34:42.169 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/StreamWorkAdVideo.mp4  
+2020-09-13 21:34:42.239 -07:00 [INF] Sending ["bytes 0-84089808/84089809"] of file /Users/rithvik/C#/StreamWork/StreamWork/wwwroot/StreamWorkAdVideo.mp4
+2020-09-13 21:34:43.448 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:34:43.482 -07:00 [INF] Executed page /Chat/Archive in 1491.5417ms
+2020-09-13 21:34:43.482 -07:00 [INF] Executed endpoint '/Chat/Archive'
+2020-09-13 21:34:43.483 -07:00 [INF] Request finished in 1562.5671ms 200 text/html; charset=utf-8
+2020-09-13 21:34:43.493 -07:00 [INF] Request finished in 1344.6479000000002ms 206 video/mp4
+2020-09-13 21:34:45.012 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignIn/SW  
+2020-09-13 21:34:45.020 -07:00 [INF] Executing endpoint '/Home/SignIn'
+2020-09-13 21:34:45.026 -07:00 [INF] Route matched with {page = "/Home/SignIn"}. Executing page /Home/SignIn
+2020-09-13 21:34:45.026 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignInModel.OnGet - ModelState is "Valid"
+2020-09-13 21:34:45.027 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:34:45.125 -07:00 [INF] Executed page /Home/SignIn in 99.03240000000001ms
+2020-09-13 21:34:45.125 -07:00 [INF] Executed endpoint '/Home/SignIn'
+2020-09-13 21:34:45.125 -07:00 [INF] Request finished in 113.31880000000001ms 200 text/html; charset=utf-8
+2020-09-13 21:34:45.336 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-13 21:34:45.336 -07:00 [INF] Request finished in 3366.6632ms 101 
+2020-09-13 21:34:48.587 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignUp  
+2020-09-13 21:34:48.597 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-13 21:34:48.606 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-13 21:34:48.608 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-13 21:34:48.608 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:34:49.575 -07:00 [INF] Executed page /Home/SignUp in 968.8495ms
+2020-09-13 21:34:49.575 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-13 21:34:49.576 -07:00 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.CSharp.RuntimeBinder.RuntimeBinderException: 'StreamWork.Pages.Home.SignUpModel' does not contain a definition for 'CurrentUserProfile'
+   at CallSite.Target(Closure , CallSite , Object )
+   at System.Dynamic.UpdateDelegates.UpdateAndExecute1[T0,TRet](CallSite site, T0 arg0)
+   at AspNetCore.Pages_Partials_Layout_Home_HomeBody.ExecuteAsync() in /Users/rithvik/C#/StreamWork/StreamWork/Pages/Partials/Layout/Home/HomeBody.cshtml:line 52
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageCoreAsync(IRazorPage page, ViewContext context)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageAsync(IRazorPage page, ViewContext context, Boolean invokeViewStarts)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderAsync(ViewContext context)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.HtmlHelper.RenderPartialCoreAsync(String partialViewName, Object model, ViewDataDictionary viewData, TextWriter writer)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.HtmlHelper.PartialAsync(String partialViewName, Object model, ViewDataDictionary viewData)
+   at AspNetCore.Pages_Shared_Home__LayoutHome.<ExecuteAsync>b__9_1() in /Users/rithvik/C#/StreamWork/StreamWork/Pages/Shared/Home/_LayoutHome.cshtml:line 15
+   at Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext.SetOutputContentAsync()
+   at AspNetCore.Pages_Shared_Home__LayoutHome.ExecuteAsync()
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageCoreAsync(IRazorPage page, ViewContext context)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageAsync(IRazorPage page, ViewContext context, Boolean invokeViewStarts)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderLayoutAsync(ViewContext context, ViewBufferTextWriter bodyWriter)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderAsync(ViewContext context)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ViewContext viewContext, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|29_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2020-09-13 21:34:49.679 -07:00 [INF] Request finished in 1091.4091ms 500 text/html; charset=utf-8
+2020-09-13 21:35:53.927 -07:00 [INF] User profile is available. Using '/Users/rithvik/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2020-09-13 21:35:54.118 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-09-13 21:35:54.123 -07:00 [WRN] Failed to determine the https port for redirect.
+2020-09-13 21:35:54.215 -07:00 [INF] Executing endpoint '/Index'
+2020-09-13 21:35:54.252 -07:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-09-13 21:35:54.261 -07:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-09-13 21:36:08.345 -07:00 [INF] Executed handler method OnGet, returned result .
+2020-09-13 21:36:08.348 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-13 21:36:08.348 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:36:08.596 -07:00 [INF] Executed page /Index in 14339.544ms
+2020-09-13 21:36:08.597 -07:00 [INF] Executed endpoint '/Index'
+2020-09-13 21:36:08.602 -07:00 [INF] Request finished in 14486.091900000001ms 200 text/html; charset=utf-8
+2020-09-13 21:36:09.661 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-09-13 21:36:09.671 -07:00 [INF] Executing endpoint '/Index'
+2020-09-13 21:36:09.672 -07:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-09-13 21:36:09.673 -07:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-09-13 21:36:09.938 -07:00 [INF] Executed handler method OnGet, returned result .
+2020-09-13 21:36:09.939 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-13 21:36:09.939 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:36:09.943 -07:00 [INF] Executed page /Index in 271.34270000000004ms
+2020-09-13 21:36:09.944 -07:00 [INF] Executed endpoint '/Index'
+2020-09-13 21:36:09.944 -07:00 [INF] Request finished in 283.22540000000004ms 200 text/html; charset=utf-8
+2020-09-13 21:36:10.028 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-13 21:36:10.031 -07:00 [INF] CORS policy execution successful.
+2020-09-13 21:36:10.034 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-13 21:36:10.042 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-13 21:36:10.043 -07:00 [INF] Request finished in 15.244100000000001ms 200 application/json
+2020-09-13 21:36:10.251 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Chat/Archive/e9c04960-604b-47bc-abc0-15bba95bc28c  
+2020-09-13 21:36:10.264 -07:00 [INF] Executing endpoint '/Chat/Archive'
+2020-09-13 21:36:10.275 -07:00 [INF] Route matched with {page = "/Chat/Archive"}. Executing page /Chat/Archive
+2020-09-13 21:36:10.285 -07:00 [INF] Executing handler method StreamWork.Pages.Chat.ArchiveChat.OnGet - ModelState is "Valid"
+2020-09-13 21:36:10.412 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:36:10.446 -07:00 [INF] Executed page /Chat/Archive in 170.2834ms
+2020-09-13 21:36:10.446 -07:00 [INF] Executed endpoint '/Chat/Archive'
+2020-09-13 21:36:10.447 -07:00 [INF] Request finished in 196.2062ms 200 text/html; charset=utf-8
+2020-09-13 21:36:10.476 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=gk7FvqiJD4jPTna6Cdadmw  
+2020-09-13 21:36:10.477 -07:00 [INF] CORS policy execution successful.
+2020-09-13 21:36:10.478 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-13 21:36:10.478 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/StreamWorkAdVideo.mp4  
+2020-09-13 21:36:10.507 -07:00 [INF] Sending ["bytes 0-1/84089809"] of file /Users/rithvik/C#/StreamWork/StreamWork/wwwroot/StreamWorkAdVideo.mp4
+2020-09-13 21:36:10.515 -07:00 [INF] Request finished in 36.404ms 206 video/mp4
+2020-09-13 21:36:10.622 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/StreamWorkAdVideo.mp4  
+2020-09-13 21:36:10.623 -07:00 [INF] Sending ["bytes 0-84089808/84089809"] of file /Users/rithvik/C#/StreamWork/StreamWork/wwwroot/StreamWorkAdVideo.mp4
+2020-09-13 21:36:11.012 -07:00 [INF] Request finished in 389.5847ms 206 video/mp4
+2020-09-13 21:36:12.121 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignUp  
+2020-09-13 21:36:12.127 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-13 21:36:12.135 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-13 21:36:12.137 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-13 21:36:12.137 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:36:13.216 -07:00 [INF] Executed page /Home/SignUp in 1080.1253000000002ms
+2020-09-13 21:36:13.216 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-13 21:36:13.217 -07:00 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.CSharp.RuntimeBinder.RuntimeBinderException: 'StreamWork.Pages.Home.SignUpModel' does not contain a definition for 'CurrentUserProfile'
+   at CallSite.Target(Closure , CallSite , Object )
+   at System.Dynamic.UpdateDelegates.UpdateAndExecute1[T0,TRet](CallSite site, T0 arg0)
+   at AspNetCore.Pages_Partials_Layout_Home_HomeBody.ExecuteAsync() in /Users/rithvik/C#/StreamWork/StreamWork/Pages/Partials/Layout/Home/HomeBody.cshtml:line 52
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageCoreAsync(IRazorPage page, ViewContext context)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageAsync(IRazorPage page, ViewContext context, Boolean invokeViewStarts)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderAsync(ViewContext context)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.HtmlHelper.RenderPartialCoreAsync(String partialViewName, Object model, ViewDataDictionary viewData, TextWriter writer)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.HtmlHelper.PartialAsync(String partialViewName, Object model, ViewDataDictionary viewData)
+   at AspNetCore.Pages_Shared_Home__LayoutHome.<ExecuteAsync>b__9_1() in /Users/rithvik/C#/StreamWork/StreamWork/Pages/Shared/Home/_LayoutHome.cshtml:line 15
+   at Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext.SetOutputContentAsync()
+   at AspNetCore.Pages_Shared_Home__LayoutHome.ExecuteAsync()
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageCoreAsync(IRazorPage page, ViewContext context)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageAsync(IRazorPage page, ViewContext context, Boolean invokeViewStarts)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderLayoutAsync(ViewContext context, ViewBufferTextWriter bodyWriter)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderAsync(ViewContext context)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ViewContext viewContext, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|29_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2020-09-13 21:36:13.289 -07:00 [INF] Request finished in 1167.9852ms 500 text/html; charset=utf-8
+2020-09-13 21:37:59.335 -07:00 [INF] User profile is available. Using '/Users/rithvik/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2020-09-13 21:37:59.582 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-09-13 21:37:59.588 -07:00 [WRN] Failed to determine the https port for redirect.
+2020-09-13 21:37:59.680 -07:00 [INF] Executing endpoint '/Index'
+2020-09-13 21:37:59.727 -07:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-09-13 21:37:59.737 -07:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-09-13 21:38:01.516 -07:00 [INF] Executed handler method OnGet, returned result .
+2020-09-13 21:38:01.520 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-13 21:38:01.520 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:38:01.893 -07:00 [INF] Executed page /Index in 2161.1115ms
+2020-09-13 21:38:01.895 -07:00 [INF] Executed endpoint '/Index'
+2020-09-13 21:38:01.901 -07:00 [INF] Request finished in 2322.5381ms 200 text/html; charset=utf-8
+2020-09-13 21:38:02.270 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-13 21:38:02.275 -07:00 [INF] CORS policy execution successful.
+2020-09-13 21:38:02.277 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-13 21:38:02.289 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-13 21:38:02.289 -07:00 [INF] Request finished in 19.2799ms 200 application/json
+2020-09-13 21:38:02.294 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=rSIgM8KXicmB7vgDo26BKA  
+2020-09-13 21:38:02.297 -07:00 [INF] CORS policy execution successful.
+2020-09-13 21:38:02.299 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-13 21:38:02.343 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-13 21:38:02.348 -07:00 [INF] Request finished in 53.5107ms 101 
+2020-09-13 21:38:03.017 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-09-13 21:38:03.018 -07:00 [INF] Executing endpoint '/Index'
+2020-09-13 21:38:03.018 -07:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-09-13 21:38:03.020 -07:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-09-13 21:38:03.290 -07:00 [INF] Executed handler method OnGet, returned result .
+2020-09-13 21:38:03.290 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-13 21:38:03.291 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:38:03.296 -07:00 [INF] Executed page /Index in 277.6609ms
+2020-09-13 21:38:03.296 -07:00 [INF] Executed endpoint '/Index'
+2020-09-13 21:38:03.297 -07:00 [INF] Request finished in 280.24690000000004ms 200 text/html; charset=utf-8
+2020-09-13 21:38:03.403 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-13 21:38:03.403 -07:00 [INF] CORS policy execution successful.
+2020-09-13 21:38:03.403 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-13 21:38:03.404 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-13 21:38:03.404 -07:00 [INF] Request finished in 1.9092ms 200 application/json
+2020-09-13 21:38:03.475 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Chat/Archive/e9c04960-604b-47bc-abc0-15bba95bc28c  
+2020-09-13 21:38:03.504 -07:00 [INF] Executing endpoint '/Chat/Archive'
+2020-09-13 21:38:03.505 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=Um40l7aoiUmRKaJGuAjHHw  
+2020-09-13 21:38:03.505 -07:00 [INF] CORS policy execution successful.
+2020-09-13 21:38:03.505 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-13 21:38:03.518 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/StreamWorkAdVideo.mp4  
+2020-09-13 21:38:03.523 -07:00 [INF] Route matched with {page = "/Chat/Archive"}. Executing page /Chat/Archive
+2020-09-13 21:38:03.534 -07:00 [INF] Sending ["bytes 0-1/84089809"] of file /Users/rithvik/C#/StreamWork/StreamWork/wwwroot/StreamWorkAdVideo.mp4
+2020-09-13 21:38:03.538 -07:00 [INF] Executing handler method StreamWork.Pages.Chat.ArchiveChat.OnGet - ModelState is "Valid"
+2020-09-13 21:38:03.589 -07:00 [INF] Request finished in 71.295ms 206 video/mp4
+2020-09-13 21:38:03.589 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/StreamWorkAdVideo.mp4  
+2020-09-13 21:38:03.590 -07:00 [INF] Sending ["bytes 0-84089808/84089809"] of file /Users/rithvik/C#/StreamWork/StreamWork/wwwroot/StreamWorkAdVideo.mp4
+2020-09-13 21:38:04.266 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:38:04.760 -07:00 [INF] Executed page /Chat/Archive in 1237.2675000000002ms
+2020-09-13 21:38:04.761 -07:00 [INF] Executed endpoint '/Chat/Archive'
+2020-09-13 21:38:04.761 -07:00 [INF] Request finished in 1285.55ms 200 text/html; charset=utf-8
+2020-09-13 21:38:04.791 -07:00 [INF] Request finished in 1202.0032ms 206 video/mp4
+2020-09-13 21:38:05.186 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignIn/SW  
+2020-09-13 21:38:05.194 -07:00 [INF] Executing endpoint '/Home/SignIn'
+2020-09-13 21:38:05.199 -07:00 [INF] Route matched with {page = "/Home/SignIn"}. Executing page /Home/SignIn
+2020-09-13 21:38:05.200 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignInModel.OnGet - ModelState is "Valid"
+2020-09-13 21:38:05.200 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:38:05.282 -07:00 [INF] Executed page /Home/SignIn in 82.5986ms
+2020-09-13 21:38:05.282 -07:00 [INF] Executed endpoint '/Home/SignIn'
+2020-09-13 21:38:05.282 -07:00 [INF] Request finished in 96.1709ms 200 text/html; charset=utf-8
+2020-09-13 21:38:05.432 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-13 21:38:05.432 -07:00 [INF] Request finished in 1927.4748000000002ms 101 
+2020-09-13 21:38:07.297 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignUp  
+2020-09-13 21:38:07.308 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-13 21:38:07.316 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-13 21:38:07.318 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-13 21:38:07.318 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:38:08.360 -07:00 [INF] Executed page /Home/SignUp in 1043.1725000000001ms
+2020-09-13 21:38:08.360 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-13 21:38:08.361 -07:00 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.CSharp.RuntimeBinder.RuntimeBinderException: 'StreamWork.Pages.Home.SignUpModel' does not contain a definition for 'Notifications'
+   at CallSite.Target(Closure , CallSite , Object )
+   at System.Dynamic.UpdateDelegates.UpdateAndExecute1[T0,TRet](CallSite site, T0 arg0)
+   at AspNetCore.Pages_Partials_Modals_NotificationModal.ExecuteAsync() in /Users/rithvik/C#/StreamWork/StreamWork/Pages/Partials/Modals/NotificationModal.cshtml:line 11
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageCoreAsync(IRazorPage page, ViewContext context)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageAsync(IRazorPage page, ViewContext context, Boolean invokeViewStarts)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderAsync(ViewContext context)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.HtmlHelper.RenderPartialCoreAsync(String partialViewName, Object model, ViewDataDictionary viewData, TextWriter writer)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.HtmlHelper.PartialAsync(String partialViewName, Object model, ViewDataDictionary viewData)
+   at AspNetCore.Pages_Partials_Layout_Home_HomeBody.ExecuteAsync() in /Users/rithvik/C#/StreamWork/StreamWork/Pages/Partials/Layout/Home/HomeBody.cshtml:line 98
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageCoreAsync(IRazorPage page, ViewContext context)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageAsync(IRazorPage page, ViewContext context, Boolean invokeViewStarts)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderAsync(ViewContext context)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.HtmlHelper.RenderPartialCoreAsync(String partialViewName, Object model, ViewDataDictionary viewData, TextWriter writer)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.HtmlHelper.PartialAsync(String partialViewName, Object model, ViewDataDictionary viewData)
+   at AspNetCore.Pages_Shared_Home__LayoutHome.<ExecuteAsync>b__9_1() in /Users/rithvik/C#/StreamWork/StreamWork/Pages/Shared/Home/_LayoutHome.cshtml:line 15
+   at Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext.SetOutputContentAsync()
+   at AspNetCore.Pages_Shared_Home__LayoutHome.ExecuteAsync()
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageCoreAsync(IRazorPage page, ViewContext context)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageAsync(IRazorPage page, ViewContext context, Boolean invokeViewStarts)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderLayoutAsync(ViewContext context, ViewBufferTextWriter bodyWriter)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderAsync(ViewContext context)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ViewContext viewContext, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|29_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2020-09-13 21:38:08.427 -07:00 [INF] Request finished in 1129.7715ms 500 text/html; charset=utf-8
+2020-09-13 21:39:51.856 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignUp  
+2020-09-13 21:39:54.369 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-13 21:39:54.376 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-13 21:39:54.377 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-13 21:39:54.377 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:39:54.596 -07:00 [INF] Executed page /Home/SignUp in 219.97240000000002ms
+2020-09-13 21:39:54.596 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-13 21:39:54.596 -07:00 [INF] Request finished in 2741.0815000000002ms 200 text/html; charset=utf-8
+2020-09-13 21:40:37.542 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignUp  
+2020-09-13 21:40:37.548 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-13 21:40:37.555 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-13 21:40:37.556 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-13 21:40:37.556 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:40:37.717 -07:00 [INF] Executed page /Home/SignUp in 161.0932ms
+2020-09-13 21:40:37.717 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-13 21:40:37.717 -07:00 [INF] Request finished in 175.0797ms 200 text/html; charset=utf-8
+2020-09-13 21:40:52.231 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignUp  
+2020-09-13 21:40:52.235 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-13 21:40:52.241 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-13 21:40:52.241 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-13 21:40:52.241 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:40:52.400 -07:00 [INF] Executed page /Home/SignUp in 158.7939ms
+2020-09-13 21:40:52.400 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-13 21:40:52.400 -07:00 [INF] Request finished in 168.87380000000002ms 200 text/html; charset=utf-8
+2020-09-13 21:41:11.302 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignUp  
+2020-09-13 21:41:11.307 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-13 21:41:11.308 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-13 21:41:11.309 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-13 21:41:11.309 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:41:14.101 -07:00 [INF] Executed page /Home/SignUp in 2793.3125ms
+2020-09-13 21:41:14.101 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-13 21:41:14.102 -07:00 [INF] Request finished in 2799.3230000000003ms 200 text/html; charset=utf-8
+2020-09-13 21:41:18.170 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/Browse/SW  
+2020-09-13 21:41:18.177 -07:00 [INF] Executing endpoint '/Home/Browse'
+2020-09-13 21:41:18.181 -07:00 [INF] Route matched with {page = "/Home/Browse"}. Executing page /Home/Browse
+2020-09-13 21:41:18.182 -07:00 [INF] Executing handler method StreamWork.Pages.Home.BrowseModel.OnGet - ModelState is "Valid"
+2020-09-13 21:41:18.431 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:41:18.543 -07:00 [INF] Executed page /Home/Browse in 361.89430000000004ms
+2020-09-13 21:41:18.543 -07:00 [INF] Executed endpoint '/Home/Browse'
+2020-09-13 21:41:18.543 -07:00 [INF] Request finished in 373.57550000000003ms 200 text/html; charset=utf-8
+2020-09-13 21:41:18.598 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/Browse/Browse.css?v=QjqHqTp27PfwNwD3n2DCSUhBZxJdnlChCDTSeZgOpHc  
+2020-09-13 21:41:18.603 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/BrowseJS/Browse.js?v=HaVptp9QdwRKAu-sPZWt_V8IIBYh63oU0bfVhKZZ4Qs  
+2020-09-13 21:41:18.672 -07:00 [INF] Sending file. Request path: '/js/BrowseJS/Browse.js'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/js/BrowseJS/Browse.js'
+2020-09-13 21:41:18.672 -07:00 [INF] Sending file. Request path: '/css/Browse/Browse.css'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/css/Browse/Browse.css'
+2020-09-13 21:41:18.672 -07:00 [INF] Request finished in 74.3546ms 200 text/css
+2020-09-13 21:41:18.672 -07:00 [INF] Request finished in 68.56230000000001ms 200 application/javascript
+2020-09-13 21:41:18.672 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/StreamWork-Icon-White.svg  
+2020-09-13 21:41:18.694 -07:00 [INF] Sending file. Request path: '/images/GenericAssets/StreamWork-Icon-White.svg'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/images/GenericAssets/StreamWork-Icon-White.svg'
+2020-09-13 21:41:18.694 -07:00 [INF] Request finished in 21.5658ms 200 image/svg+xml
+2020-09-13 21:41:18.729 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-13 21:41:18.731 -07:00 [INF] CORS policy execution successful.
+2020-09-13 21:41:18.731 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-13 21:41:18.732 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-13 21:41:18.732 -07:00 [INF] Request finished in 3.4467000000000003ms 200 application/json
+2020-09-13 21:41:18.764 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/Home/Browse/SW/?handler=SearchStreams application/x-www-form-urlencoded; charset=UTF-8 19
+2020-09-13 21:41:18.766 -07:00 [INF] CORS policy execution successful.
+2020-09-13 21:41:18.766 -07:00 [INF] Executing endpoint '/Home/Browse'
+2020-09-13 21:41:18.766 -07:00 [INF] Route matched with {page = "/Home/Browse"}. Executing page /Home/Browse
+2020-09-13 21:41:18.783 -07:00 [INF] Executing handler method StreamWork.Pages.Home.BrowseModel.OnPostSearchStreams - ModelState is "Valid"
+2020-09-13 21:41:18.830 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=tbzw63wpl4FSZqvnyxjgJw  
+2020-09-13 21:41:18.830 -07:00 [INF] CORS policy execution successful.
+2020-09-13 21:41:18.830 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-13 21:41:19.191 -07:00 [INF] Executed handler method OnPostSearchStreams, returned result Microsoft.AspNetCore.Mvc.JsonResult.
+2020-09-13 21:41:19.193 -07:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType2`3[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[StreamWork.DataModels.Channel, StreamWork, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[StreamWork.DataModels.Video, StreamWork, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2020-09-13 21:41:19.218 -07:00 [INF] Executed page /Home/Browse in 451.8629ms
+2020-09-13 21:41:19.218 -07:00 [INF] Executed endpoint '/Home/Browse'
+2020-09-13 21:41:19.218 -07:00 [INF] Request finished in 454.1383ms 200 application/json; charset=utf-8
+2020-09-13 21:41:21.951 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignIn/SW  
+2020-09-13 21:41:21.952 -07:00 [INF] Executing endpoint '/Home/SignIn'
+2020-09-13 21:41:21.954 -07:00 [INF] Route matched with {page = "/Home/SignIn"}. Executing page /Home/SignIn
+2020-09-13 21:41:21.955 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignInModel.OnGet - ModelState is "Valid"
+2020-09-13 21:41:21.955 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:41:21.957 -07:00 [INF] Executed page /Home/SignIn in 2.4890000000000003ms
+2020-09-13 21:41:21.957 -07:00 [INF] Executed endpoint '/Home/SignIn'
+2020-09-13 21:41:21.957 -07:00 [INF] Request finished in 6.5012ms 200 text/html; charset=utf-8
+2020-09-13 21:41:21.963 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-13 21:41:21.963 -07:00 [INF] Request finished in 3133.2666ms 101 
+2020-09-13 21:41:23.013 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignUp  
+2020-09-13 21:41:23.014 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-13 21:41:23.018 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-13 21:41:23.018 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-13 21:41:23.019 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:41:23.021 -07:00 [INF] Executed page /Home/SignUp in 2.2139ms
+2020-09-13 21:41:23.021 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-13 21:41:23.021 -07:00 [INF] Request finished in 8.014700000000001ms 200 text/html; charset=utf-8
+2020-09-13 21:41:24.695 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignIn/SW  
+2020-09-13 21:41:24.696 -07:00 [INF] Executing endpoint '/Home/SignIn'
+2020-09-13 21:41:24.696 -07:00 [INF] Route matched with {page = "/Home/SignIn"}. Executing page /Home/SignIn
+2020-09-13 21:41:24.696 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignInModel.OnGet - ModelState is "Valid"
+2020-09-13 21:41:24.696 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:41:24.699 -07:00 [INF] Executed page /Home/SignIn in 2.952ms
+2020-09-13 21:41:24.699 -07:00 [INF] Executed endpoint '/Home/SignIn'
+2020-09-13 21:41:24.700 -07:00 [INF] Request finished in 4.6699ms 200 text/html; charset=utf-8
+2020-09-13 21:41:25.474 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignUp  
+2020-09-13 21:41:25.475 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-13 21:41:25.475 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-13 21:41:25.475 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-13 21:41:25.475 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:41:25.477 -07:00 [INF] Executed page /Home/SignUp in 1.863ms
+2020-09-13 21:41:25.477 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-13 21:41:25.478 -07:00 [INF] Request finished in 3.1118ms 200 text/html; charset=utf-8
+2020-09-13 21:41:27.111 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignIn/SW  
+2020-09-13 21:41:27.112 -07:00 [INF] Executing endpoint '/Home/SignIn'
+2020-09-13 21:41:27.112 -07:00 [INF] Route matched with {page = "/Home/SignIn"}. Executing page /Home/SignIn
+2020-09-13 21:41:27.112 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignInModel.OnGet - ModelState is "Valid"
+2020-09-13 21:41:27.112 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:41:27.114 -07:00 [INF] Executed page /Home/SignIn in 1.9135000000000002ms
+2020-09-13 21:41:27.114 -07:00 [INF] Executed endpoint '/Home/SignIn'
+2020-09-13 21:41:27.114 -07:00 [INF] Request finished in 3.5519000000000003ms 200 text/html; charset=utf-8
+2020-09-13 21:41:28.806 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignUp  
+2020-09-13 21:41:28.806 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-13 21:41:28.806 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-13 21:41:28.806 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-13 21:41:28.806 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:41:28.808 -07:00 [INF] Executed page /Home/SignUp in 1.3895ms
+2020-09-13 21:41:28.808 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-13 21:41:28.808 -07:00 [INF] Request finished in 2.3996ms 200 text/html; charset=utf-8
+2020-09-13 21:41:29.527 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignIn/SW  
+2020-09-13 21:41:29.528 -07:00 [INF] Executing endpoint '/Home/SignIn'
+2020-09-13 21:41:29.528 -07:00 [INF] Route matched with {page = "/Home/SignIn"}. Executing page /Home/SignIn
+2020-09-13 21:41:29.528 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignInModel.OnGet - ModelState is "Valid"
+2020-09-13 21:41:29.528 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:41:29.529 -07:00 [INF] Executed page /Home/SignIn in 1.5536ms
+2020-09-13 21:41:29.529 -07:00 [INF] Executed endpoint '/Home/SignIn'
+2020-09-13 21:41:29.530 -07:00 [INF] Request finished in 2.6479ms 200 text/html; charset=utf-8
+2020-09-13 21:41:30.202 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignUp  
+2020-09-13 21:41:30.202 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-13 21:41:30.203 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-13 21:41:30.203 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-13 21:41:30.203 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:41:30.204 -07:00 [INF] Executed page /Home/SignUp in 1.5413000000000001ms
+2020-09-13 21:41:30.204 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-13 21:41:30.205 -07:00 [INF] Request finished in 2.439ms 200 text/html; charset=utf-8
+2020-09-13 21:41:30.880 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignIn/SW  
+2020-09-13 21:41:30.880 -07:00 [INF] Executing endpoint '/Home/SignIn'
+2020-09-13 21:41:30.880 -07:00 [INF] Route matched with {page = "/Home/SignIn"}. Executing page /Home/SignIn
+2020-09-13 21:41:30.881 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignInModel.OnGet - ModelState is "Valid"
+2020-09-13 21:41:30.881 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:41:30.882 -07:00 [INF] Executed page /Home/SignIn in 1.2155ms
+2020-09-13 21:41:30.882 -07:00 [INF] Executed endpoint '/Home/SignIn'
+2020-09-13 21:41:30.882 -07:00 [INF] Request finished in 2.2389ms 200 text/html; charset=utf-8
+2020-09-13 21:41:37.398 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-09-13 21:41:37.400 -07:00 [INF] Executing endpoint '/Index'
+2020-09-13 21:41:37.402 -07:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-09-13 21:41:37.403 -07:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-09-13 21:41:37.668 -07:00 [INF] Executed handler method OnGet, returned result .
+2020-09-13 21:41:37.668 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-13 21:41:37.668 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:41:37.670 -07:00 [INF] Executed page /Index in 267.76550000000003ms
+2020-09-13 21:41:37.670 -07:00 [INF] Executed endpoint '/Index'
+2020-09-13 21:41:37.671 -07:00 [INF] Request finished in 272.5171ms 200 text/html; charset=utf-8
+2020-09-13 21:41:37.672 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/site.css?v=Mvjznd4O7OYmE_3WRTfcQFkQ6TSCzS6Pb5x-RnbhweQ  
+2020-09-13 21:41:37.724 -07:00 [INF] Sending file. Request path: '/css/site.css'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/css/site.css'
+2020-09-13 21:41:37.724 -07:00 [INF] Request finished in 51.515800000000006ms 200 text/css
+2020-09-13 21:41:37.724 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-13 21:41:37.776 -07:00 [INF] CORS policy execution successful.
+2020-09-13 21:41:37.798 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/Profile/Profile.css?v=a_TmnDEEq1LWCw1avRo7v5k_0bxqqxmdlLsWgFMhxTc  
+2020-09-13 21:41:37.819 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/About-Tutor-Hts.css?v=zVV7EBFNmnk4_UfNueI4QX9moyiIM-NwRwauq-JoWCo  
+2020-09-13 21:41:37.845 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Chat/Archive/e9c04960-604b-47bc-abc0-15bba95bc28c  
+2020-09-13 21:41:37.846 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-13 21:41:37.932 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/Home/Home.css?v=6-8qiDZ8F6_O8o8e7C05rhElxHkfSDDbEKzs27I-z9k  
+2020-09-13 21:41:37.933 -07:00 [INF] Sending file. Request path: '/css/Profile/Profile.css'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/css/Profile/Profile.css'
+2020-09-13 21:41:37.933 -07:00 [INF] Sending file. Request path: '/css/About-Tutor-Hts.css'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/css/About-Tutor-Hts.css'
+2020-09-13 21:41:37.975 -07:00 [INF] Request finished in 176.67430000000002ms 200 text/css
+2020-09-13 21:41:37.998 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/ProfileJS/Profile.js?v=yrfkSdwlOYIkWDIAUIRiUAj5wE9TlyRK4gr854VRYaA  
+2020-09-13 21:41:37.999 -07:00 [INF] Request finished in 200.68540000000002ms 200 text/css
+2020-09-13 21:41:38.020 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-13 21:41:38.020 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/StreamWorkAdVideo.mp4  
+2020-09-13 21:41:38.045 -07:00 [INF] Request finished in 296.2246ms 200 application/json
+2020-09-13 21:41:38.045 -07:00 [INF] Sending file. Request path: '/css/Home/Home.css'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/css/Home/Home.css'
+2020-09-13 21:41:38.090 -07:00 [INF] Sending file. Request path: '/js/ProfileJS/Profile.js'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/js/ProfileJS/Profile.js'
+2020-09-13 21:41:38.090 -07:00 [INF] Request finished in 179.6685ms 200 text/css
+2020-09-13 21:41:38.116 -07:00 [INF] Request finished in 117.01230000000001ms 200 application/javascript
+2020-09-13 21:41:38.138 -07:00 [INF] Sending ["bytes 0-1/84089809"] of file /Users/rithvik/C#/StreamWork/StreamWork/wwwroot/StreamWorkAdVideo.mp4
+2020-09-13 21:41:38.138 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=oPclA48AGL5WLSWl-vrQSQ  
+2020-09-13 21:41:38.138 -07:00 [INF] CORS policy execution successful.
+2020-09-13 21:41:38.161 -07:00 [INF] Executing endpoint '/Chat/Archive'
+2020-09-13 21:41:38.161 -07:00 [INF] Request finished in 141.67860000000002ms 206 video/mp4
+2020-09-13 21:41:38.161 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-13 21:41:38.165 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/StreamWorkAdVideo.mp4  
+2020-09-13 21:41:38.232 -07:00 [INF] Sending ["bytes 0-84089808/84089809"] of file /Users/rithvik/C#/StreamWork/StreamWork/wwwroot/StreamWorkAdVideo.mp4
+2020-09-13 21:41:38.235 -07:00 [INF] Route matched with {page = "/Chat/Archive"}. Executing page /Chat/Archive
+2020-09-13 21:41:38.237 -07:00 [INF] Executing handler method StreamWork.Pages.Chat.ArchiveChat.OnGet - ModelState is "Valid"
+2020-09-13 21:41:38.395 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/StreamWorkAdVideo.mp4  
+2020-09-13 21:41:38.396 -07:00 [INF] Sending ["bytes 1507328-84089808/84089809"] of file /Users/rithvik/C#/StreamWork/StreamWork/wwwroot/StreamWorkAdVideo.mp4
+2020-09-13 21:41:38.914 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-13 21:41:38.918 -07:00 [INF] Executed page /Chat/Archive in 682.6645000000001ms
+2020-09-13 21:41:38.918 -07:00 [INF] Executed endpoint '/Chat/Archive'
+2020-09-13 21:41:38.918 -07:00 [INF] Request finished in 1072.8558ms 200 text/html; charset=utf-8
+2020-09-13 21:41:39.352 -07:00 [INF] Request finished in 957.0447ms 206 video/mp4
+2020-09-13 21:41:39.352 -07:00 [INF] Request finished in 1187.8304ms 206 video/mp4
