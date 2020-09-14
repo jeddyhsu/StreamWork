@@ -94,9 +94,9 @@ namespace StreamWork.Pages.Tutor
             var userChannel = await storageService.Get<Channel>(SQLQueries.GetUserChannelWithUsername, userProfile.Username);
 
             var archivedVideoId = await streamService.StartStream(Request, userProfile);
-            if (Request.Form["NotifyStudent"] == true)
+            if (Request.Form["NotifyStudent"] == "true")
             {
-                emailService.NotifyAllFollowers(userProfile, userChannel).Start();
+                emailService.NotifyAllFollowers(userProfile).Start();
             }
 
             if (archivedVideoId != null) return new JsonResult(new { Message = JsonResponse.Success.ToString(), Results = new string[] { userChannel.Username } }) ; //for chatbox

@@ -49,7 +49,7 @@ namespace StreamWork.Services
             return await DataStore.SaveAsync(connectionString, config.Value, new Dictionary<string, object> { { "Id", id } }, obj);
         }
 
-        public T CallJSON<T>(string url, string authToken) where T: class
+        public T CallJSON<T>(string url, string authToken) where T : class
         {
             return DataStore.CallAPIJSON<T>(url, authToken);
         }

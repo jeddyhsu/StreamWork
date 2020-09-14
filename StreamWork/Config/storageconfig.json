@@ -281,7 +281,7 @@
           "QueryId": "GetTopicFollowsByFollower"
         },
         {
-          "Query": "SELECT * FROM [dbo].[TopicFollow] WHERE Subject = '@x0' ORDER BY Since ASC",
+          "Query": "SELECT * FROM [dbo].[TopicFollow] WHERE Topic = '@x0' ORDER BY Since ASC",
           "QueryId": "GetTopicFollowsBySubject"
         }
       ]

@@ -92,8 +92,11 @@ namespace StreamWork.Services
             await SendEmail(message);
         }
 
-        public async Task NotifyAllFollowers(Profile user, Channel channel)
+        public async Task NotifyAllFollowers(Profile user)
         {
+            // Can't get channel externally, since it's out of date once the stream has started and info is updated.
+            Channel channel = await storage.Get<Channel>(SQLQueries.GetUserChannelWithUsername, user.Username);
+
             // Start both tasks
             Task<List<Follow>> userFollowsTask = storage.GetList<Follow>(SQLQueries.GetAllFollowersWithId, user.Id);
             Task<List<TopicFollow>> topicFollowsTask = storage.GetList<TopicFollow>(SQLQueries.GetTopicFollowsBySubject, channel.StreamSubject);
@@ -118,7 +121,7 @@ namespace StreamWork.Services
                         message.Subject = $"{user.Username} is now streaming \"{channel.StreamTitle}\" in {channel.StreamSubject}!";
                         message.Body = new TextPart("plain")
                         {
-                            Text = $"A user you follow, {user.Username}, is now streaming \"{channel.StreamTitle}\" in {channel.StreamSubject}.\n\nYou can unsubscribe from these emails in your user settings."
+                            Text = $"A StreamTutor you follow, {user.Username}, is now streaming \"{channel.StreamTitle}\" in {channel.StreamSubject}.\n\nYou can unsubscribe from these emails in your user settings."
                         };
 
                         await SendEmail(message);
