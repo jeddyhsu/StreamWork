@@ -73,8 +73,7 @@ function SliderTutors() {
 
 function Filter() {
     if (page == "stream") {
-        SearchStreamsAlgo();
-        SearchVideoAlgo();
+        SearchStreams()
     }
     else if (page == "schedule") {
         SearchSchedule(event)

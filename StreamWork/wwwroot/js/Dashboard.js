@@ -445,10 +445,15 @@ function SearchVideoAlgo(event, usersname) {
     else $('#video-none-found').removeClass('d-block').addClass('d-none');
 }
 
+function Filter(event, username) {
+    $('#clear-filter').show();
+    SearchVideos(event, username)
+}
+
 function ClearFilter(event, username) {
     $('#filter').val('')
-    SearchVideos(event, username)
     $('#clear-filter').hide();
+    SearchVideos(event, username)
 }
 
 //Banner

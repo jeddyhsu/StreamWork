@@ -102,12 +102,12 @@ else
                     <div class="container-fluid pt-3" style="width:100%">
                         @if (Model.UserArchivedStreams.Count > 0)
                         {
-                            <div class="col-12">
+                            <div class="col-12 pl-0 pr-0">
                                 <div class="d-flex">
                                     <form id="search-form" class="p-2 border w-100 rounded d-inline-block custom-form" onsubmit="SearchVideos(event, '@Model.UserProfile.Username')">
                                         <div class="d-flex">
                                             <input id="searchQuery" class="form-control-lg mainLoginInput mt-1" type="search" placeholder="Search Streams" style="border: none; font-size:14px;">
-                                            <select id="filter" name="filter" class="form-control form-control-sm rounded m-2 h-100 float-right" onchange="SearchVideos(event, '@Model.UserProfile.Username')" style="max-width:175px;">
+                                            <select id="filter" name="filter" class="form-control form-control-sm rounded m-2 h-100 float-right" onchange="Filter(event, '@Model.UserProfile.Username')" style="max-width:175px;">
                                                 <option value="">Filter Topic</option>
                                                 <option value="Mathematics">Mathematics</option>
                                                 <option value="Science">Science</option>
@@ -122,9 +122,9 @@ else
                                     </form>
                                     <button class="streamWork-search" onclick="SearchVideos(event, '@Model.UserProfile.Username')"><input class="mt-1" type="image" src="~/images/GenericAssets/Search.svg" width="30" height="40" /></button>
                                 </div>
-                                <p id="clear-filter" class="float-right mr-4 mb-0 pointer mt-2" style="font-size:12px; color:#004643" onclick="ClearFilter(event, '@Model.UserProfile.Username')">Clear Filter</p>
+                                <p id="clear-filter" class="float-right mr-1 pointer mt-2" style="font-size:12px; color:#004643" onclick="ClearFilter(event, '@Model.UserProfile.Username')">Clear Filter</p>
                                 <script>$('#clear-filter').hide();</script>
-                                <div class="divider"></div>
+                                <div class="divider" style="margin-top:35px; margin-bottom:20px"></div>
                             </div>
                         }
 
