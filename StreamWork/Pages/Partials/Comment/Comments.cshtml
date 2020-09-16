@@ -24,8 +24,8 @@
                                 <img class="comment-profile-picture" align="left" src="@Model.Comments[i].SenderProfilePicture" />
                                 @if (@Model.Comments[i].SenderUsername.Equals(Model.CurrentUserProfile.Username))
                                 {
-                                    <img src="~/images/GenericAssets/Trash.png" class="comment-remove pl-1 float-right" id="comment-remove-@Model.Comments[i].Id" onclick="OpenDeleteConfirmation('@Model.Comments[i].Id')" />
-                                    <img src="~/images/GenericAssets/Edit.png" class="comment-edit pl-1 float-right" id="comment-edit-@Model.Comments[i].Id" onclick="ShowEditBox('@Model.Comments[i].SenderProfilePicture', '@Model.Comments[i].Id')" />
+                                    <img src="~/images/GenericAssets/Trash.svg" class="comment-remove pl-1 float-right" id="comment-remove-@Model.Comments[i].Id" onclick="OpenDeleteConfirmation('@Model.Comments[i].Id')" />
+                                    <img src="~/images/GenericAssets/Edit.svg" class="comment-edit pl-1 float-right" id="comment-edit-@Model.Comments[i].Id" onclick="ShowEditBox('@Model.Comments[i].SenderProfilePicture', '@Model.Comments[i].Id')" />
                                     <script>
                                 $('#comment-@Model.Comments[i].Id').hover(function () {
                                     $('#comment-edit-@Model.Comments[i].Id').css('display', 'block')
@@ -71,8 +71,8 @@
                                             <img class="comment-profile-picture" align="left" src="@Model.Comments[i].Replies[e].SenderProfilePicture" />
                                             @if (@Model.Comments[i].Replies[e].SenderUsername.Equals(Model.CurrentUserProfile.Username))
                                             {
-                                                <img src="~/images/GenericAssets/Trash.png" class="comment-remove pl-1 float-right" id="comment-remove-@Model.Comments[i].Replies[e].Id" onclick="OpenDeleteConfirmation('@Model.Comments[i].Replies[e].Id', '@Model.Comments[i].Id')" />
-                                                <img src="~/images/GenericAssets/Edit.png" class="comment-edit pl-1 float-right" id="comment-edit-@Model.Comments[i].Replies[e].Id" onclick="ShowEditBox('@Model.Comments[i].Replies[e].SenderProfilePicture', '@Model.Comments[i].Replies[e].Id')" />
+                                                <img src="~/images/GenericAssets/Trash.svg" class="comment-remove pl-1 float-right" id="comment-remove-@Model.Comments[i].Replies[e].Id" onclick="OpenDeleteConfirmation('@Model.Comments[i].Replies[e].Id', '@Model.Comments[i].Id')" />
+                                                <img src="~/images/GenericAssets/Edit.svg" class="comment-edit pl-1 float-right" id="comment-edit-@Model.Comments[i].Replies[e].Id" onclick="ShowEditBox('@Model.Comments[i].Replies[e].SenderProfilePicture', '@Model.Comments[i].Replies[e].Id')" />
                                                 <script>
                                                 $('#comment-@Model.Comments[i].Replies[e].Id').hover(function () {
                                                     $('#comment-edit-@Model.Comments[i].Replies[e].Id').css('display', 'block')

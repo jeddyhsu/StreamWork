@@ -5,10 +5,16 @@
     cursor: pointer;
 }
 
-.notification-remove {
-    width: 24px;
+.notification-destination-follow {
+    padding-left: 10px !important;
+    font-size: 14px;
+    color: #004643 !important;
     cursor: pointer;
-    padding-top: 2px;
+}
+
+.notification-remove {
+    width: 28px;
+    cursor: pointer;
     display: none;
 }
 

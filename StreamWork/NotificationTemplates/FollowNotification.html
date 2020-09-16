@@ -1,7 +1,7 @@
 ﻿<li id="notification-{NotificationId}" class="border-bottom">
     <div class="row pt-3 pb-3">
         <div class="col-12">
-            <img id="notification-delete-{NotificationId}" src="/images/GenericAssets/Trash.png" class="notification-remove mr-3 float-right" onclick="DeleteNotification('{NotificationId}')" />
+            <img id="notification-delete-{NotificationId}" src="/images/GenericAssets/Trash.svg" class="notification-remove mr-3 float-right" onclick="DeleteNotification('{NotificationId}')" />
             <input align="left" type="image" class="rounded" src="{SenderProfilePicture}" style="width:30px" />
             <script>
                 $('#notification-{NotificationId}').hover(function () {
@@ -13,7 +13,7 @@
             <p class="form-header mb-0" style="padding-left:40px;">
                 <span style="color:{ProfileColor}">{SenderName}</span> {NotificationMessage} <span class="form-subheader roboto" style="font-size:10px;">{NotificationDate}</span>
             </p>
-            <a class="notification-destination" href="/Profiles/Student/{SenderUsername}" style="padding-left:10px"><b>Profile</b></a>
+            <a class="notification-destination-follow" href="/Profiles/Student/{SenderUsername}"><b>Profile</b></a>
         </div>
     </div>
 </li>

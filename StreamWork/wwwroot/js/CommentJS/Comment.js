@@ -44,8 +44,8 @@ function SaveComment(parentId, masterParent) {
                                     <div class="card border-0">
                                         <div class="card-body">
                                             <img class="comment-profile-picture" align="left" src="${data.comment.senderProfilePicture}"/>
-                                            <img src="/images/GenericAssets/Trash.png" class="comment-remove pl-1 float-right" id="comment-remove-${data.comment.id}" onclick="OpenDeleteConfirmation('${data.comment.id}', '${parentId}')" />
-                                            <img src="/images/GenericAssets/Edit.png" class="comment-edit pl-1 float-right" id="comment-edit-${data.comment.id}" onclick="ShowEditBox('${data.comment.senderProfilePicture}', '${data.comment.id}')" />
+                                            <img src="/images/GenericAssets/Trash.svg" class="comment-remove pl-1 float-right" id="comment-remove-${data.comment.id}" onclick="OpenDeleteConfirmation('${data.comment.id}', '${parentId}')" />
+                                            <img src="/images/GenericAssets/Edit.svg" class="comment-edit pl-1 float-right" id="comment-edit-${data.comment.id}" onclick="ShowEditBox('${data.comment.senderProfilePicture}', '${data.comment.id}')" />
                                             <script>
                                                 $('#comment-${data.comment.id}').hover(function () {
                                                     $('#comment-edit-${data.comment.id}').css('display', 'block')

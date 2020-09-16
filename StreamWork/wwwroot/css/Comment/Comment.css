@@ -56,15 +56,14 @@
 }
 
 .comment-edit {
-    width:30px;
+    width:28px;
     cursor: pointer;
     display:none;
 }
 
 .comment-remove {
-    width: 24px;
+    width: 28px;
     cursor: pointer;
-    padding-top: 2px;
     display: none;
 }
 
@@ -77,7 +76,7 @@
     color: #004643;
     display: inline-block;
     padding-top:5px;
-    padding-bottom:5px;
+    padding-bottom:0px;
     padding-right:5px;
 }
 
