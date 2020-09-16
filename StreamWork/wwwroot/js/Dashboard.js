@@ -360,7 +360,7 @@ function SaveUniversityInfo() {
 
 //Seach Videos
 
-function SearchVideos(event, username) {
+function SearchVideos(event, username, dash) { //dash is for the tutor dashboard vdieos since they have a different video template (they can edit)
     if (event != undefined)
         event.preventDefault();
     $.ajax({
@@ -377,12 +377,12 @@ function SearchVideos(event, username) {
         success: function (data) {
             if (data.videos.length > 0) videoJson = data.videos
 
-            SearchVideoAlgo(event);
+            SearchVideoAlgo(event, dash);
         }
     });
 }
 
-function SearchVideoAlgo(event, usersname) {
+function SearchVideoAlgo(event, dash) {
     if (event != undefined)
         event.preventDefault();
 
@@ -398,16 +398,34 @@ function SearchVideoAlgo(event, usersname) {
             if (filter != "") {
                 if (filter != videoJson[i].streamSubject) { continue; }
             }
-            var video = GetVideoTemplate(videoJson[i].id,
-                videoJson[i].streamSubject,
-                videoJson[i].streamID,
-                videoJson[i].streamThumbnail,
-                videoJson[i].streamTitle,
-                videoJson[i].streamColor,
-                videoJson[i].name,
-                videoJson[i].username)
 
-            var rowForVideo = `<div id="video-${videoJson[i].id}" class="col-lg-4 col-md-6 col-sm-6 col-12 mb-3 video video-subject-${videoJson[i].streamSubject}">${video}</div>`
+            var video = ""
+            var rowForVideo = ""
+
+            if (dash) {
+                video = GetTutoDashVideoTemplate(videoJson[i].id,
+                    videoJson[i].streamSubject,
+                    videoJson[i].streamID,
+                    videoJson[i].streamThumbnail,
+                    videoJson[i].streamTitle,
+                    videoJson[i].streamColor,
+                    videoJson[i].streamDescription)
+
+                rowForVideo = `<div id="video-${videoJson[i].id}" class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-3 video video-subject-${videoJson[i].streamSubject}">${video}</div>`
+            }
+            else {
+                video = GetVideoTemplate(videoJson[i].id,
+                    videoJson[i].streamSubject,
+                    videoJson[i].streamID,
+                    videoJson[i].streamThumbnail,
+                    videoJson[i].streamTitle,
+                    videoJson[i].streamColor,
+                    videoJson[i].name,
+                    videoJson[i].username)
+
+                rowForVideo = `<div id="video-${videoJson[i].id}" class="col-lg-4 col-md-6 col-sm-6 col-12 mb-3 video video-subject-${videoJson[i].streamSubject}">${video}</div>`
+            }
+           
             $('#video-row').append(rowForVideo);
         }
 
@@ -427,16 +445,35 @@ function SearchVideoAlgo(event, usersname) {
             if (filter != "") {
                 if (filter != output[i].item.streamSubject) { continue; }
             }
-            var video = GetVideoTemplate(output[i].item.id,
-                output[i].item.streamSubject,
-                output[i].item.streamID,
-                output[i].item.streamThumbnail,
-                output[i].item.streamTitle,
-                output[i].item.streamColor,
-                output[i].item.name,
-                output[i].item.username)
 
-            var rowForVideo = `<div id="video-${videoJson[i].id}" class="col-lg-4 col-md-6 col-sm-6 col-12 mb-3 video video-subject-${videoJson[i].streamSubject}">${video}</div>`
+            var video = ""
+            var rowForVideo = ""
+
+            if (dash) {
+                video = GetTutoDashVideoTemplate(videoJson[i].id,
+                    output[i].item.streamSubject,
+                    output[i].item.streamID,
+                    output[i].item.streamThumbnail,
+                    output[i].item.streamTitle,
+                    output[i].item.streamColor,
+                    output[i].item.streamDescription)
+
+                rowForVideo = `<div id="video-${output[i].item.id}" class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-3 video video-subject-${output[i].item.streamSubject}">${video}</div>`
+            }
+            else {
+                video = GetVideoTemplate(output[i].item.id,
+                    output[i].item.streamSubject,
+                    output[i].item.streamID,
+                    output[i].item.streamThumbnail,
+                    output[i].item.streamTitle,
+                    output[i].item.streamColor,
+                    output[i].item.name,
+                    output[i].item.username)
+
+                rowForVideo = `<div id="video-${output[i].item.id}" class="col-lg-4 col-md-6 col-sm-6 col-12 mb-3 video video-subject-${output[i].item.streamSubject}">${video}</div>`
+            }
+
+             
             $('#video-row').append(rowForVideo);
         }
     }
@@ -445,15 +482,15 @@ function SearchVideoAlgo(event, usersname) {
     else $('#video-none-found').removeClass('d-block').addClass('d-none');
 }
 
-function Filter(event, username) {
+function Filter(event, username, dash) {
     $('#clear-filter').show();
-    SearchVideos(event, username)
+    SearchVideos(event, username, dash)
 }
 
-function ClearFilter(event, username) {
+function ClearFilter(event, username, dash) {
     $('#filter').val('')
     $('#clear-filter').hide();
-    SearchVideos(event, username)
+    SearchVideos(event, username, dash)
 }
 
 //Banner

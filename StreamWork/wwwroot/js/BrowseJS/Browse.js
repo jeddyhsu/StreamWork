@@ -33,7 +33,7 @@ function ChangePlaceHolder(text) {
 function SliderStreams() {
     $('#streams-tab').tab('show');
     $('#slider-object').css("transform", "translate3d(20px, 0px, 0px)")
-    $('#search-form').attr("onsubmit", "SearchStreamsAlgo()")
+    $('#search-form').attr("onsubmit", "SearchStreams(event)")
     $('#filter').attr("onchange", "Filter()")
     ChangePlaceHolder("Search Streams")
     $('#searchQuery').val((parameterTable["Stream"])[0])
@@ -46,7 +46,6 @@ function SliderStreams() {
 function SliderSchedule() {
     $('#videos-tab').tab('show');
     $('#slider-object').css("transform", "translate3d(110px, 0px, 0px)")
-    $('#search-form').attr("onkeyup", "SearchSchedule(event)")
     $('#search-form').attr("onsubmit", "SearchSchedule(event)")
     $('#filter').attr("onchange", "SearchSchedule(event)")
     ChangePlaceHolder("Search Upcoming Streams")
@@ -60,7 +59,6 @@ function SliderSchedule() {
 function SliderTutors() {
     $('#tutors-tab').tab('show');
     $('#slider-object').css("transform", "translate3d(196px, 0px, 0px)")
-    $('#search-form').attr("onkeyup", "SearchTutors(event)")
     $('#search-form').attr("onsubmit", "SearchTutors(event)")
     $('#filter').attr("onchange", "SearchTutors(event)")
     ChangePlaceHolder("Search Tutors")

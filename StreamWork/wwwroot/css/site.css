@@ -763,5 +763,9 @@ pre {
     border-bottom-right-radius: 20px !important;
 }
 
+input::placeholder {
+    color: #C8C8C8;
+    font-size: 1.2em;
+}
 
 
