@@ -1,8 +1,12 @@
 ﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.Storage;
 using Microsoft.Azure.Storage.Blob;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Png;
+using SixLabors.ImageSharp.Processing;
 
 namespace StreamWork.HelperMethods
 {
@@ -25,12 +29,33 @@ namespace StreamWork.HelperMethods
             CloudBlockBlob blockBlob = blobContainer.GetBlockBlobReference(reference);
             blockBlob.DeleteIfExists();
 
+            var encoder = new PngEncoder();
+
             using (var stream = file.OpenReadStream())
             {
-                await blockBlob.UploadFromStreamAsync(stream);
-            }
+                using (var output = new MemoryStream())
+                using (Image image = Image.Load(stream))
+                {
+                    int currWidth = image.Width;
+                    int currHeight = image.Height;
+                    if ((float)width / height > (float)currWidth / currHeight) // image is too tall relative to its width
+                    {
+                        int resizeHeight = (int)((float)currHeight / currWidth * width);
+                        image.Mutate(i => i.Resize(width, resizeHeight).Crop(new Rectangle(0, Math.Abs(resizeHeight - height) / 2, width - 1, height - 1)));
+                    }
+                    else // image is too wide relative to its height, or perfect
+                    {
+                        int resizeWidth = (int)((float)currWidth / currHeight * height);
+                        image.Mutate(i => i.Resize(resizeWidth, height).Crop(new Rectangle(Math.Abs(resizeWidth - width) / 2, 0, width - 1, height - 1)));
+                    }
 
-            return blockBlob.Uri.AbsoluteUri + "?" + DateTime.Now;
+                    image.Save(output, encoder);
+                    output.Position = 0;
+                    await blockBlob.UploadFromStreamAsync(output);
+                }
+
+                return blockBlob.Uri.AbsoluteUri + "?" + DateTime.Now;
+            }
         }
 
         public static string SaveFileIntoBlobContainer(string reference, string content) //Tutor Section TXT Files

@@ -6,11 +6,10 @@
 <div class="container-fluid mr-0" style="padding-top:25px;">
     <div class="container-fluid inner-container-fluid custom-container-padding">
         <div class="d-flex pl-3 pr-3">
-            <form id="search-form" class="p-2 border w-100 rounded d-inline-block custom-form" onkeyup="SearchStreams(event)" onsubmit="SearchAll(event)">
+            <form id="search-form" class="p-2 border w-100 rounded d-inline-block custom-form" onsubmit="SearchStreams(event)">
                 <div class="d-flex">
-                    <input class="mt-1 ml-2" type="image" src="~/images/GenericAssets/Search.svg" width="30" height="40" />
                     <input id="searchQuery" class="form-control-lg mainLoginInput mt-1" type="search" placeholder="Search Streams" style="border: none; font-size:14px;">
-                    <select id="filter" name="filter" class="form-control form-control-sm rounded m-2 h-100 float-right" onchange="SearchStreams(event)" style="max-width:175px;">
+                    <select id="filter" name="filter" class="form-control form-control-sm rounded m-2 h-100 float-right" onchange="Filter()" style="max-width:175px;">
                         <option value="">Filter Topic</option>
                         <option value="Mathematics">Mathematics</option>
                         <option value="Science">Science</option>
@@ -23,6 +22,7 @@
                     </select>
                 </div>
             </form>
+            <button class="streamWork-search" onclick="SearchStreamsAlgo(event)"><input class="mt-1" type="image" src="~/images/GenericAssets/Search.svg" width="30" height="40" /></button>
         </div>
         <p id="clear-filter" class="float-right mr-4 pointer mt-2" style="font-size:12px; color:#004643" onclick="ClearFilter()">Clear Filter</p>
         <script>$('#clear-filter').hide();</script>
@@ -53,11 +53,6 @@
                                 <div id="stream-@stream.Id" class="col-xl-3 col-lg-3 col-md-4 col-sm-6 mb-3 stream">
                                     @await Html.PartialAsync("Partials/Stream/StreamAppearance", stream)
                                 </div>
-
-                                <div id="stream-none-found" class="col-9 d-none">
-                                    <p class="form-sub-header pl-3 pr-3 pt-3 pb-0" style="font-size:22px">No streams with the currrent search term.</p>
-                                    <p class="form-sub-header pl-3 pr-3" style="font-size:14px; font-family:'Roboto', serif">Try using a different search term.</p>
-                                </div>
                             }
                         }
                         else
@@ -67,6 +62,12 @@
                                 <p class="form-sub-header pl-3 pr-3" style="font-size:14px; font-family:'Roboto', serif">Feel free to look at some past streams in the videos section.</p>
                             </div>
                         }
+
+                        <div id="stream-none-found" class="col-9 d-none">
+                            <p class="form-sub-header pl-3 pr-3 pt-3 pb-0" style="font-size:22px">No streams with the currrent search term.</p>
+                            <p class="form-sub-header pl-3 pr-3" style="font-size:14px; font-family:'Roboto', serif">Try using a different search term.</p>
+                        </div>
+
                         <input id="live-channel-count" type="hidden" value="@Model.LiveChannels.Count" />
                     </div>
                     <hr />
@@ -77,13 +78,11 @@
                             <div id="video-@video.Id" class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-3 video">
                                 @await Html.PartialAsync("Partials/Stream/VideoAppearance", video)
                             </div>
-
-
-                            <div id="video-none-found" class="col-9 d-none" style="height:200px">
-                                <p class="form-sub-header pl-3 pr-3 pt-3 pb-0" style="font-size:22px">No videos with the currrent search term.</p>
-                                <p class="form-sub-header pl-3 pr-3" style="font-size:14px; font-family:'Roboto', serif">Try using a different search term.</p>
-                            </div>
                         }
+                    </div>
+                    <div id="video-none-found" class="col-9 d-none" style="height:200px">
+                        <p class="form-sub-header pl-3 pr-3 pt-3 pb-0" style="font-size:22px">No videos with the currrent search term.</p>
+                        <p class="form-sub-header pl-3 pr-3" style="font-size:14px; font-family:'Roboto', serif">Try using a different search term.</p>
                     </div>
                 </div>
             </div>
@@ -134,12 +133,24 @@
     </nav>
 </div>
 
-@if (Model.SearchTerm != null || Model.SearchTerm != "")
+@if (Model.SearchTerm != null && Model.SearchTerm != "")
 {
-<script>
-    $('#searchQuery').val('@Model.SearchTerm')
-    SearchStreams()
-</script>
+
+    if (Model.isFilterTerm == false)
+    {
+        <script>
+            $('#searchQuery').val('@Model.SearchTerm')
+            SearchStreams()
+        </script>
+    }
+    else
+    {
+        <script>
+            $('#filter').val('@Model.SearchTerm')
+            $('#clear-filter').show();
+            SearchStreams()
+        </script>
+    }
 }
 
 @await Html.PartialAsync("Partials/Notification/PushNotifications")

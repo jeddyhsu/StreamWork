@@ -5,6 +5,26 @@ var cropper = null; // cropper object
 var cropperType = ""; //type of cropper ie: profile pic, banner
 var cropperBlob = null; //blob that gets saved for profile pictures that are uploded in a modal
 
+const options = {
+    isCaseSensitive: false,
+    // includeScore: false,
+    shouldSort: true,
+    // includeMatches: false,
+    // findAllMatches: false,
+    // minMatchCharLength: 1,
+    // location: 0,
+    // threshold: 0.6,
+    // distance: 100,
+    // useExtendedSearch: false,
+    // ignoreLocation: false,
+    // ignoreFieldNorm: false,
+    keys: [
+        "streamTitle",
+        "streamDescription",
+        "streamSubject",
+    ]
+};
+
 //Sliders
 function SliderProfile() {
     $('#profile-tab').tab('show');
@@ -339,42 +359,95 @@ function SaveUniversityInfo() {
 }
 
 //Seach Videos
-function SearchVideos(event, username) { //filters by username
-    event.preventDefault();
-    var searchTerm = $('#searchQuery').val();
-    var filter = $('#filter').val()
-    if (filter != "") $('#clear-filter').show();
+
+function SearchVideos(event, username) {
+    if (event != undefined)
+        event.preventDefault();
     $.ajax({
-        url: '/Tutor/TutorDashboard/?handler=SearchVideos',
+        url: '/Profiles/Profile/?handler=SearchVideos',
         type: 'POST',
         dataType: 'json',
         data: {
-            'searchTerm': searchTerm,
-            'filter': filter,
-            'username': username,
+            'username': username
         },
         beforeSend: function (xhr) {
             xhr.setRequestHeader("XSRF-TOKEN",
                 $('input:hidden[name="__RequestVerificationToken"]').val());
         },
         success: function (data) {
-            $('.video').hide();
-            $('#no-videos').removeClass('d-block').addClass('d-none')
-            if (data.results != null && data.results.length > 0) {
-                for (var i = 0; i < data.results.length; i++) {
-                    $('#videoInfo-' + data.results[i].id).show()
-                }
-            }
-            else {
-                $('#no-videos').removeClass('d-none').addClass('d-block')
-            }
+            if (data.videos.length > 0) videoJson = data.videos
+
+            SearchVideoAlgo(event);
         }
     });
 }
 
+function SearchVideoAlgo(event, usersname) {
+    if (event != undefined)
+        event.preventDefault();
+
+    var pattern = $('#searchQuery').val();
+    var filter = $('#filter').val();
+
+    var fuse = null;
+    var output = null;
+
+    if (pattern == "") {  //if pattern is empty then show all videos
+        $('#video-row').html("");
+        for (var i = 0; i < videoJson.length; i++) {
+            if (filter != "") {
+                if (filter != videoJson[i].streamSubject) { continue; }
+            }
+            var video = GetVideoTemplate(videoJson[i].id,
+                videoJson[i].streamSubject,
+                videoJson[i].streamID,
+                videoJson[i].streamThumbnail,
+                videoJson[i].streamTitle,
+                videoJson[i].streamColor,
+                videoJson[i].name,
+                videoJson[i].username)
+
+            var rowForVideo = `<div id="video-${videoJson[i].id}" class="col-lg-4 col-md-6 col-sm-6 col-12 mb-3 video video-subject-${videoJson[i].streamSubject}">${video}</div>`
+            $('#video-row').append(rowForVideo);
+        }
+
+        if ($('.video').length <= 0) $('#video-none-found').removeClass('d-none').addClass('d-block');  //notification that says there are no videos with that search term (check is there are any video classes)
+        else $('#video-none-found').removeClass('d-block').addClass('d-none');
+
+        return;
+    }
+
+    fuse = new Fuse(videoJson, options);
+    output = fuse.search(pattern);
+
+    $('#video-row').html("");
+    $('#video-none-found').removeClass('d-block').addClass('d-none');
+    if (output.length > 0) { //if pattern is not empty then show all videos with the fuzzy search
+        for (var i = 0; i < output.length; i++) {
+            if (filter != "") {
+                if (filter != output[i].item.streamSubject) { continue; }
+            }
+            var video = GetVideoTemplate(output[i].item.id,
+                output[i].item.streamSubject,
+                output[i].item.streamID,
+                output[i].item.streamThumbnail,
+                output[i].item.streamTitle,
+                output[i].item.streamColor,
+                output[i].item.name,
+                output[i].item.username)
+
+            var rowForVideo = `<div id="video-${videoJson[i].id}" class="col-lg-4 col-md-6 col-sm-6 col-12 mb-3 video video-subject-${videoJson[i].streamSubject}">${video}</div>`
+            $('#video-row').append(rowForVideo);
+        }
+    }
+
+    if ($('.video').length <= 0) $('#video-none-found').removeClass('d-none').addClass('d-block');  //notification that says there are no videos with that search term (check is there are any video classes)
+    else $('#video-none-found').removeClass('d-block').addClass('d-none');
+}
+
 function ClearFilter(event, username) {
     $('#filter').val('')
-    SearchStreams(event, username)
+    SearchVideos(event, username)
     $('#clear-filter').hide();
 }
 

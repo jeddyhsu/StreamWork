@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using StreamWork.DataModels;
 using StreamWork.HelperMethods;
 using StreamWork.Services;
 
@@ -10,12 +11,14 @@ namespace StreamWork.Pages.Profiles
 {
     public class ProfileModal : PageModel
     {
+        private readonly StorageService storageService;
         private readonly CookieService cookieService;
         private readonly ProfileService profileService;
         private readonly EditService editService;
 
-        public ProfileModal(CookieService cookie, ProfileService profile, EditService edit)
+        public ProfileModal(StorageService storage, CookieService cookie, ProfileService profile, EditService edit)
         {
+            storageService = storage;
             cookieService = cookie;
             profileService = profile;
             editService = edit;
@@ -69,6 +72,11 @@ namespace StreamWork.Pages.Profiles
 
             if (await profileService.ChangeColor(userProfile, color)) return new JsonResult(new { Message = JsonResponse.Success.ToString() });
             return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
+        }
+
+        public async Task<IActionResult> OnPostSearchVideos(string username)
+        {
+            return new JsonResult(new { Message = JsonResponse.Success.ToString(), Videos = await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsWithUsername, username) });
         }
     }
 }

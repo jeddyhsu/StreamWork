@@ -112,9 +112,9 @@ namespace StreamWork.Pages.Tutor
             return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
         }
 
-        public async Task<IActionResult> OnPostSearchVideos(string searchTerm, string filter, string username)
+        public async Task<IActionResult> OnPostSearchVideos(string username)
         {
-            return new JsonResult(new { Message = JsonResponse.Success.ToString(), Results = await searchService.SearchVideos(filter, searchTerm, username) });
+            return new JsonResult(new { Message = JsonResponse.Success.ToString(), Results = await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { username }) });
         }
     }
 }

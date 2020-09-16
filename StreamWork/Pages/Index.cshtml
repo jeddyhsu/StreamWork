@@ -6,9 +6,11 @@
 }
 @Html.AntiForgeryToken()
 
-<script>$(window).on('popstate', function () {
+<script>
+    $(window).on('popstate', function () {
         location.reload(true);
-    });</script>
+    });
+</script>
 
 <div class="container-fluid pl-sm-0 pr-sm-0 pl-md-0 pr-md-0 pl-0 pr-0 container-padding" style="overflow-x:hidden !important">
     <div class="container custom-home-container pl-sm-0 pr-sm-0 pl-md-0 pr-md-0 pl-0 pr-0">
@@ -18,13 +20,13 @@
                     <p class="form-header header line-height d-block mb-0">End your homework <span class="d-block">procrastination TONIGHT!</span></p>
                     <p class="d-lg-block d-md-block d-sm-block d-none mt-4 mb-0">StreamWork is an academic platform where hundreds of students <br />  come together to live-stream their studies, tutor their friends, <br />  and learn from A+ classmates all for free.</p>
                     <p class="d-lg-none d-md-none d-sm-none d-block mt-4 mb-0">StreamWork is an academic platform where  hundreds of students come together to live-stream their studies, tutor their friends, and learn from A+ classmates  all for free.</p>
-                    <div class="d-flex align-items-middle justify-content-start">
-                        <form id="search-form" class="p-2 mt-4 border rounded custom-form drop-shadow w-100" onkeyup="SearchStreams(event)" onsubmit="SearchStreams(event)">
+                    <div class="d-flex mt-3">
+                        <form id="search-form" class="p-2 border w-100 rounded d-inline-block custom-form drop-shadow" onsubmit="SearchFromIndex(event)">
                             <div class="d-flex">
-                                <input class="mt-1 ml-2" type="image" src="~/images/GenericAssets/Search.svg" width="30" height="40" />
-                                <input id="searchQuery" class="form-control-lg mainLoginInput mt-1" type="search" placeholder="What Subject is your homework about?" style="border: none; font-size:14px;">
+                                <input id="searchQuery" class="form-control-lg mainLoginInput mt-1" type="search" placeholder="Search for subjects, topics, and interests" style="border: none; font-size:14px;">
                             </div>
                         </form>
+                        <button class="streamWork-search drop-shadow-search" onclick="SearchFromIndex(event)"><input class="mt-1" type="image" src="~/images/GenericAssets/Search.svg" width="30" height="40" /></button>
                     </div>
                 </div>
                 <img class="d-lg-none d-md-block d-sm-block d-block graphic" src="~/images/HomeAssets/Graphic.svg" />
@@ -320,7 +322,9 @@
 @await Html.PartialAsync("Partials/Modals/SignIn-SignUpModal")
 @await Html.PartialAsync("Partials/Notification/PushNotifications")
 
-<script>function ResizeBackground() {
+<!--Need to move this soon to seperate JS page!!!!!-->
+<script>
+    function ResizeBackground() {
         $(document).ready(function () {
             ResizeAlgo()
         })
@@ -365,4 +369,13 @@
         $('#blob-card').css('background-size', newWW + 'vw')
         $('#blob-card-2').css('background-size', newWW + 'vw')
     }
-    ResizeBackground()</script>
+    ResizeBackground()
+</script>
+
+<script>
+    function SearchFromIndex(event) {
+        event.preventDefault();
+        var searchQuery = $('#searchQuery').val();
+        window.location.href = '/Home/Browse/' + (searchQuery == "" ? "SW" : searchQuery);
+    }
+</script>

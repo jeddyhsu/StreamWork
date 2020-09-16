@@ -92,6 +92,7 @@ namespace StreamWork.HelperMethods
 
         public static string GetCorrespondingStreamColor(string subject)
         {
+            
             Hashtable table = new Hashtable
             {
                 { "Mathematics", "#AEE8FE" },
@@ -104,7 +105,13 @@ namespace StreamWork.HelperMethods
                 { "Other", "#FECA6E" }
             };
 
-            return (string)table[subject];
+            if (table.ContainsKey(subject))
+            {
+                return (string)table[subject];
+            }
+
+            return null;
+            
         }
 
         public static string GetTimeZoneBasedOfOffset(string offset)
@@ -119,7 +126,12 @@ namespace StreamWork.HelperMethods
                 { "-480", "Alaska" },
             };
 
-            return (string)table[offset];
+            if (table.ContainsKey(offset))
+            {
+                return (string)table[offset];
+            }
+
+            return null;
         }
 
         public static double GetOffsetBasedOfTimeZone(string timezone)
@@ -134,7 +146,12 @@ namespace StreamWork.HelperMethods
                 { "Alaska", -480.0 },
             };
 
-            return (double)table[timezone];
+            if (table.ContainsKey(timezone))
+            {
+                return (double)table[timezone];
+            }
+
+            return 0.00;
         }
     }
 }

@@ -7,7 +7,7 @@
                 <div class="card-body w-100">
                     <div class="d-flex flex-row">
                         <img class="comment-profile-picture rounded" src="@Model.CurrentUserProfile.ProfilePicture" />
-                        <div id="comment-send-" class="comment-send-reply-textarea form-custom-textarea ml-2 mb-1 comment-text" onkeydown="ButtonEnabledDisabled('send', '');" onkeyup="ButtonEnabledDisabled('send', '')" contentEditable=true data-text="Send question or message..."></div>
+                        <div id="comment-send-" class="comment-send-reply-textarea form-custom-textarea ml-2 mb-1 comment-text" onkeydown="ButtonEnabledDisabled('send', '');" onkeyup="ButtonEnabledDisabled('send', '')" contentEditable=true data-text="Send question or message..." onmousedown="$('#comment-send-').focus()"></div>
                         <button id="send-comment-button-" onclick="SaveComment()" class="streamWork-primary comment-send-reply-button ml-2">Send</button>
                         <input id="comment-tutor-username" type="hidden" value="@Model.UserProfile.Username" />
                         <input id="comment-username" type="hidden" value="@Model.CurrentUserProfile.Username" />

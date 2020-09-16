@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using StreamWork.DataModels;
 using StreamWork.DataModels.Joins;
 using StreamWork.HelperMethods;
@@ -24,7 +27,8 @@ namespace StreamWork.Pages.Home
         public List<TutorSubject> AllTutors { get; set; }
         public List<string> Notifications { get; set; }
         public bool AreThereUnseenNotifications { get; set; }
-        public string SearchTerm{ get; set; }
+        public string SearchTerm { get; set; }
+        public bool isFilterTerm { get; set; }
 
         public BrowseModel(CookieService cookie, StorageService storage, NotificationService notification, SearchService search)
         {
@@ -48,6 +52,10 @@ namespace StreamWork.Pages.Home
             if(searchTerm != "SW")
             {
                 SearchTerm = searchTerm;
+                if(MiscHelperMethods.GetCorrespondingStreamColor(SearchTerm) != null)
+                {
+                    isFilterTerm = true;
+                }
             }
 
             if(CurrentUserProfile != null)
@@ -59,9 +67,9 @@ namespace StreamWork.Pages.Home
             return Page();
         }
 
-        public async Task<IActionResult> OnPostSearchStreams(string filter, string searchTerm)
+        public async Task<IActionResult> OnPostSearchStreams()
         {
-            return new JsonResult(new { Message = JsonResponse.Success.ToString(), Channels = await searchService.SearchChannels(filter, searchTerm), Videos = await searchService.SearchVideos(filter, searchTerm) });
+            return new JsonResult(new { Message = JsonResponse.Success.ToString(), Channels = await storageService.GetList<Channel>(SQLQueries.GetAllUserChannelsThatAreStreaming, ""), Videos = await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsInDescendingOrderByViews, "") });
         }
 
         public async Task<IActionResult> OnPostSearchSchedule(string filter, string searchTerm)

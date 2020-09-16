@@ -100,7 +100,7 @@ else
                             <div class="col-12">
                                 <p id="too-long" class="ml-2 mb-0 p-0 mt-2 roboto-slab d-none" style="color: #AC0001">Comment is too long! (500 characters max).</p>
                                 <div class="d-flex align-items-center justify-content-center">
-                                    <div id="chatInput" onkeydown="pressed(event); CheckIfEmpty()" onkeyup="CheckIfEmpty()" class="form-custom-textarea rounded border-0 w-100 roboto chat-text ml-2 mr-2 mt-1" contentEditable=true data-text="Send a question or message..."></div>
+                                    <div id="chatInput" onkeydown="pressed(event); CheckIfEmpty()" onkeyup="CheckIfEmpty()" class="form-custom-textarea rounded border-0 w-100 roboto chat-text ml-2 mr-2 mt-1" contentEditable=true data-text="Send a question or message..." onmousedown="$('#chatInput').focus()"></div>
                                     <script>
                                             function pressed(event) {
                                                 if (event.keyCode == 13 && !event.shiftKey) {
@@ -127,7 +127,7 @@ else
                         <div id="questionBox" class="row">
                             <div class="col-12">
                                 <div class="d-flex align-items-center justify-content-center">
-                                    <div id="chatInput" onkeydown="openModal(event)" class="form-custom-textarea rounded border-0 w-100 roboto chat-text ml-2 mr-2" contentEditable=true data-text="Send a question or message..."></div>
+                                    <div id="chatInput" onkeydown="openModal(event)" class="form-custom-textarea rounded border-0 w-100 roboto chat-text ml-2 mr-2" contentEditable=true data-text="Send a question or message..." onmousedown="$('#chatInput').focus()"></div>
                                     <div>
                                         <button type="button" id="sendQuestionButton" class="streamWork-primary mr-2" onclick="Modal()">Send</button>
                                     </div>

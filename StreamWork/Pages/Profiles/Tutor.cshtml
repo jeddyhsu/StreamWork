@@ -26,7 +26,6 @@ else
         <div class="col-lg-3 col-md-4 order-lg-1 order-md-1 order-sm-2 order-2 pt-3">
             @if (Model.UserChannel.StreamTitle != null && Model.UserChannel.StreamTitle != "")
             {
-                
                 <div class="mt-2 pl-lg-0 pr-lg-0 pl-md-0 pr-md-0 pl-sm-3 pr-sm-3 pl-3 pr-3">
                     <p class="form-header" style="font-size:16px">Live</p>
                     @await Html.PartialAsync("Partials/Stream/StreamAppearance", Model.UserChannel)
@@ -101,13 +100,13 @@ else
 
                 <div class="tab-pane" id="video" role="tabpanel" aria-labelledby="video-tab">
                     <div class="container-fluid pt-3" style="width:100%">
-                        <div class="row">
+                        @if (Model.UserArchivedStreams.Count > 0)
+                        {
                             <div class="col-12">
                                 <div class="d-flex">
-                                    <form id="search-form" class="p-1 border w-100 rounded d-inline-block custom-form" onkeyup="SearchVideos(event, '@Model.UserProfile.Username')" onsubmit="SearchVideos(event, '@Model.UserProfile.Username')">
+                                    <form id="search-form" class="p-2 border w-100 rounded d-inline-block custom-form" onsubmit="SearchVideos(event, '@Model.UserProfile.Username')">
                                         <div class="d-flex">
-                                            <input class="mt-1 ml-2" type="image" src="~/images/GenericAssets/Search.svg" width="30" height="40" />
-                                            <input id="searchQuery" class="form-control-lg mt-1" type="search" placeholder="Search Videos" style="border: none; font-size:14px;">
+                                            <input id="searchQuery" class="form-control-lg mainLoginInput mt-1" type="search" placeholder="Search Streams" style="border: none; font-size:14px;">
                                             <select id="filter" name="filter" class="form-control form-control-sm rounded m-2 h-100 float-right" onchange="SearchVideos(event, '@Model.UserProfile.Username')" style="max-width:175px;">
                                                 <option value="">Filter Topic</option>
                                                 <option value="Mathematics">Mathematics</option>
@@ -117,28 +116,25 @@ else
                                                 <option value="Law">Law</option>
                                                 <option value="Art">Art</option>
                                                 <option value="Humanities">Humanities</option>
-                                                <option value="Other">Others</option>
+                                                <option value="Other">Other</option>
                                             </select>
                                         </div>
                                     </form>
+                                    <button class="streamWork-search" onclick="SearchVideos(event, '@Model.UserProfile.Username')"><input class="mt-1" type="image" src="~/images/GenericAssets/Search.svg" width="30" height="40" /></button>
                                 </div>
                                 <p id="clear-filter" class="float-right mr-4 mb-0 pointer mt-2" style="font-size:12px; color:#004643" onclick="ClearFilter(event, '@Model.UserProfile.Username')">Clear Filter</p>
                                 <script>$('#clear-filter').hide();</script>
+                                <div class="divider"></div>
                             </div>
-                        </div>
-                        <div class="divider"></div>
-                        <div id="stream-row" class="row">
+                        }
+
+                        <div id="video-row" class="row">
                             @if (Model.UserArchivedStreams.Count != 0)
                             {
                                 @foreach (var video in Model.UserArchivedStreams)
                                 {
-                                    <div id="videoInfo-@video.Id" class="col-lg-4 col-md-6 col-sm-6 col-12 mb-3 video">
+                                    <div id="video-info-@video.Id" class="col-lg-4 col-md-6 col-sm-6 col-12 mb-3 video video-subject-@video.StreamSubject">
                                         @await Html.PartialAsync("Partials/Stream/VideoAppearance", video)
-                                    </div>
-
-                                    <div id="no-videos" class="col-12 text-center d-none">
-                                        <p class="form-sub-header pl-3 pr-3 pt-3 pb-0" style="font-size:22px">No videos with the currrent search term.</p>
-                                        <p class="form-sub-header pl-3 pr-3" style="font-size:14px; font-family:'Roboto', serif">Try using a different search term.</p>
                                     </div>
                                 }
                             }
@@ -146,7 +142,7 @@ else
                             {
                                 if (Model.CurrentUserProfile != null && Model.CurrentUserProfile.Id == Model.UserProfile.Id)
                                 {
-                                    <div class="col-12 text-center">
+                                    <div class="col-12 text-center mt-5">
                                         <p class="form-sub-header p-0" style="font-size:22px">Looks like you don't have any videos yet...</p>
                                         <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">Help other students find the help they need by putting up content!</p>
                                         <button class="streamWork-primary mt-3" onclick="window.location.href ='/Tutor/TutorStream'" style="font-size:14px; font-family:'Roboto', serif">Start your first stream</button>
@@ -154,12 +150,16 @@ else
                                 }
                                 else
                                 {
-                                    <div class="col-12 text-center">
+                                    <div class="col-12 text-center mt-5">
                                         <p class="form-sub-header p-0" style="font-size:22px">No Streams</p>
                                         <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">This tutor hasn't streamed yet!</p>
                                     </div>
                                 }
                             }
+                        </div>
+                        <div id="video-none-found" class="col-12 text-center d-none">
+                            <p class="form-sub-header pl-3 pr-3 pt-3 pb-0" style="font-size:22px">No videos with the currrent search term.</p>
+                            <p class="form-sub-header pl-3 pr-3" style="font-size:14px; font-family:'Roboto', serif">Try using a different search term.</p>
                         </div>
                     </div>
                 </div>
