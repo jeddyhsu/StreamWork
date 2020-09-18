@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 using Ganss.XSS;
 
@@ -13,15 +12,15 @@ namespace StreamWork.HelperMethods
         {
             Hashtable table = new Hashtable
             {
-                { "Mathematics", "/images/ChatAssets/Math.png" },
-                { "Science", "/images/ChatAssets/Science.png" },
-                { "Business", "/images/ChatAssets/Business.png" },
-                { "Engineering", "/images/ChatAssets/Engineering.png" },
-                { "Law", "/images/ChatAssets/Law.png" },
-                { "Art", "/images/ChatAssets/Art.png" },
-                { "Humanities", "/images/ChatAssets/Humanities.png" },
-                { "Other", "/images/ChatAssets/Other.png" },
-                { "Others", "/images/ChatAssets/Other.png" }
+                { "Mathematics", "/images/ChatAssets/Math.svg" },
+                { "Science", "/images/ChatAssets/Science.svg" },
+                { "Business", "/images/ChatAssets/Business.svg" },
+                { "Engineering", "/images/ChatAssets/Engineering.svg" },
+                { "Law", "/images/ChatAssets/Law.svg" },
+                { "Art", "/images/ChatAssets/Art.svg" },
+                { "Humanities", "/images/ChatAssets/Humanities.svg" },
+                { "Other", "/images/ChatAssets/Other.svg" },
+                { "Others", "/images/ChatAssets/Other.svg" }
             };
 
             return (string)table[subject];

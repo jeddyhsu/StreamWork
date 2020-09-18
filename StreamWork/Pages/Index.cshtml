@@ -38,22 +38,25 @@
 
         <div class="card border-bottom border-top-0 mt-4">
             <div class="row">
-                <div class="col-lg-2 border-bottom">
-                    <img src="@Model.FeaturedTutor.ProfilePicture" class="rounded d-block mr-auto ml-auto featured-profile-image" />
-                    <p class="form-header text-center mt-3 mb-0 ml-3 mr-3" style="font-size:18px">@Model.FeaturedTutor.Name.Replace('|', ' ')</p>
-                    <p class="form-sub-header text-center mb-0 ml-3 mr-3" style="font-size:12px">@Model.FeaturedTutor.ProfileCaption</p>
-                    <button class="streamWork-primary d-block mr-auto ml-auto mt-3 mb-2 w-75" onclick="window.location.href = '/Profiles/Tutor/@Model.FeaturedTutor.Username'">Profile</button>
-                    @if (Model.FeaturedArchivedVideo == null)
-                    {
-                        <button class="streamWork-secondary d-block mr-auto ml-auto w-75 mb-3" onclick="window.location.href ='/Stream/Live/@Model.FeaturedTutor.Username'">Watch</button>
-                    }
-                    else
-                    {
-                        <button class="streamWork-secondary d-block mr-auto ml-auto w-75 mb-3" onclick="window.location.href = '/Stream/Archive/@Model.FeaturedArchivedVideo.StreamID/32169'">Watch</button>
-                    }
+                <div class="col-lg-2 pr-0">
+                    <div class="card rounded-0 h-100 p-0 border-bottom border-left-0 border-top border-right-0">
+                        <img src="@Model.FeaturedTutor.ProfilePicture" class="rounded d-block mr-auto ml-auto featured-profile-image" />
+                        <p class="form-header text-center mt-3 mb-0 ml-3 mr-3" style="font-size:18px">@Model.FeaturedTutor.Name.Replace('|', ' ')</p>
+                        <p class="form-sub-header text-center mb-0 ml-3 mr-3" style="font-size:12px">@Model.FeaturedTutor.ProfileCaption</p>
+                        <button class="streamWork-primary d-block mr-auto ml-auto mt-3 mb-2 w-75" onclick="window.location.href = '/Profiles/Tutor/@Model.FeaturedTutor.Username'">Profile</button>
+                        @if (Model.FeaturedArchivedVideo == null)
+                        {
+                            <button class="streamWork-secondary d-block mr-auto ml-auto w-75 mb-3" onclick="window.location.href ='/Stream/Live/@Model.FeaturedTutor.Username'">Watch</button>
+                        }
+                        else
+                        {
+                            <button class="streamWork-secondary d-block mr-auto ml-auto w-75 mb-3" onclick="window.location.href = '/Stream/Archive/@Model.FeaturedArchivedVideo.StreamID/32169'">Watch</button>
+                        }
+                    </div>
+                  
                 </div>
                 <div class="col-lg-6 col-md-12 col-sm-12 p-lg-0 pl-md-3 pr-md-3 pt-md-3 pt-3">
-                    <div class="embed-responsive embed-responsive-16by9">
+                    <div class="embed-responsive embed-responsive-16by9" style="min-height:375px">
                         @if (Model.FeaturedArchivedVideo == null)
                         {
                             <iframe class="border-0" src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.FeaturedChannel.ChannelKey.Split('|')[0]"></iframe>
@@ -66,12 +69,12 @@
                     @if (Model.FeaturedArchivedVideo == null)
                     {
                         <div class="card border-bottom border-right border-top-0 border-left rounded-0">
-                            <div class="card-body m-1 p-1">
-                                <img class="p-3 featured-subject-icon" align="left" src="@Model.FeaturedChannel.StreamSubjectIcon" />
+                            <div class="card-body mt-1 mb-1 mr-1 pt-1 pb-1 pr-1 ml-0 pl-0">
+                                <img class="pt-3 pb-3 pr-3 pl-lg-0 pl-md-3 pl-sm-3 pl-3 featured-subject-icon" align="left" src="@Model.FeaturedChannel.StreamSubjectIcon" />
                                 <div class="m-3" id="StreamInfo">
                                     <h3 class="roboto-slab streamWork-green">@Model.FeaturedChannel.StreamTitle<span></span></h3>
-                                    <p class="mb-1" style="padding-left:105px">@Model.FeaturedChannel.StreamDescription</p>
-                                    <p style="font-size:12px; padding-left:105px">Tutoring @Model.FeaturedChannel.StreamSubject</p>
+                                    <p class="mb-1" style="padding-left:95px">@Model.FeaturedChannel.StreamDescription</p>
+                                    <p style="font-size:12px; padding-left:95px">Tutoring @Model.FeaturedChannel.StreamSubject</p>
                                 </div>
                             </div>
                         </div>
@@ -80,10 +83,10 @@
                     {
                         <div class="card border-bottom border-right-0 border-top-0 border-left-0 rounded-0">
                             <div class="card-body mt-1 mb-1 mr-1 pt-1 pb-1 pr-1 ml-0 pl-0">
-                                <img class="pt-3 pb-3 pr-3 featured-subject-icon" align="left" src="@Model.FeaturedArchivedVideo.StreamSubjectIcon" />
+                                <img class="pt-3 pb-3 pr-3 pl-lg-0 pl-md-3 pl-sm-3 pl-3 featured-subject-icon" align="left" src="@Model.FeaturedArchivedVideo.StreamSubjectIcon" />
                                 <div class="m-3" id="StreamInfo">
                                     <h3 class="roboto-slab streamWork-green">@Model.FeaturedArchivedVideo.StreamTitle<span></span></h3>
-                                    <p class="mb-1" style="padding-left:90px">@Model.FeaturedArchivedVideo.StreamDescription</p>
+                                    <p class="mb-1" style="padding-left:95px">@Model.FeaturedArchivedVideo.StreamDescription</p>
                                     <p style="font-size:12px; padding-left:95px">Tutoring @Model.FeaturedArchivedVideo.StreamSubject</p>
                                 </div>
                             </div>

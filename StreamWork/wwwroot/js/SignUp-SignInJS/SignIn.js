@@ -12,7 +12,7 @@
                 $('input:hidden[name="__RequestVerificationToken"]').val());
         },
     }).done(function (data) {
-        if (data == null) {
+        if (data.message === "Failed") {
             oauthToken = googleProfile.getAuthResponse().id_token;
             oauthStarted = true;
             goToTab('studentOrTutor');
