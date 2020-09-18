@@ -1,7 +1,6 @@
 ﻿using MailKit.Net.Smtp;
 using MimeKit;
 using StreamWork.DataModels;
-using System.Collections;
 using Google.Apis.Auth.OAuth2;
 using System.Threading.Tasks;
 using MailKit.Security;
@@ -94,58 +93,61 @@ namespace StreamWork.Services
 
         public async Task NotifyAllFollowers(Profile user)
         {
-            // Can't get channel externally, since it's out of date once the stream has started and info is updated.
-            Channel channel = await storage.Get<Channel>(SQLQueries.GetUserChannelWithUsername, user.Username);
+            await Task.Factory.StartNew(async () =>
+            {
+                // Can't get channel externally, since it's out of date once the stream has started and info is updated.
+                Channel channel = await storage.Get<Channel>(SQLQueries.GetUserChannelWithUsername, user.Username);
 
-            // Start both tasks
-            Task<List<Follow>> userFollowsTask = storage.GetList<Follow>(SQLQueries.GetAllFollowersWithId, user.Id);
-            Task<List<TopicFollow>> topicFollowsTask = storage.GetList<TopicFollow>(SQLQueries.GetTopicFollowsBySubject, channel.StreamSubject);
+                // Start both tasks
+                Task<List<Follow>> userFollowsTask = storage.GetList<Follow>(SQLQueries.GetAllFollowersWithId, user.Id);
+                Task<List<TopicFollow>> topicFollowsTask = storage.GetList<TopicFollow>(SQLQueries.GetTopicFollowsBySubject, channel.StreamSubject);
 
-            await Task.WhenAll(userFollowsTask, topicFollowsTask); // Wait for both to complete
+                await Task.WhenAll(userFollowsTask, topicFollowsTask); // Wait for both to complete
 
-            // Remove overlapping followers
-            IEnumerable<TopicFollow> topicFollows = from TopicFollow topicFollow
-                                                    in topicFollowsTask.Result.AsParallel()
-                                                    where userFollowsTask.Result.AsParallel().FirstOrDefault(userFollow => topicFollow.Follower == userFollow.FollowerUsername) == null
-                                                    select topicFollow;
+                // Remove overlapping followers
+                IEnumerable<TopicFollow> topicFollows = from TopicFollow topicFollow
+                                                        in topicFollowsTask.Result.AsParallel()
+                                                        where userFollowsTask.Result.AsParallel().FirstOrDefault(userFollow => topicFollow.Follower == userFollow.FollowerUsername) == null
+                                                        select topicFollow;
 
-            Parallel.Invoke(
-                () => userFollowsTask.Result.AsParallel().ForAll(async userFollow => {
-                    Profile userFollower = await storage.Get<Profile>(SQLQueries.GetUserWithUsername, userFollow.FollowerUsername);
-                    if (userFollower != null && userFollower.NotificationSubscribe == "True")
-                    {
-                        MimeMessage message = new MimeMessage();
-
-                        message.From.Add(new MailboxAddress(name, streamworkEmailAddress));
-                        message.To.Add(MailboxAddress.Parse(userFollower.EmailAddress));
-                        message.Subject = $"{user.Username} is now streaming \"{channel.StreamTitle}\" in {channel.StreamSubject}!";
-                        message.Body = new TextPart("plain")
+                Parallel.Invoke(
+                    () => userFollowsTask.Result.AsParallel().ForAll(async userFollow => {
+                        Profile userFollower = await storage.Get<Profile>(SQLQueries.GetUserWithUsername, userFollow.FollowerUsername);
+                        if (userFollower != null && userFollower.NotificationSubscribe == "True")
                         {
-                            Text = $"A StreamTutor you follow, {user.Username}, is now streaming \"{channel.StreamTitle}\" in {channel.StreamSubject}.\n\nYou can unsubscribe from these emails in your user settings."
-                        };
+                            MimeMessage message = new MimeMessage();
 
-                        await SendEmail(message);
-                    }
-                }),
-                () => topicFollows.AsParallel().ForAll(async topicFollow =>
-                {
-                    Profile userFollower = await storage.Get<Profile>(SQLQueries.GetUserWithUsername, topicFollow.Follower);
-                    if (userFollower != null && userFollower.NotificationSubscribe == "True")
+                            message.From.Add(new MailboxAddress(name, streamworkEmailAddress));
+                            message.To.Add(MailboxAddress.Parse(userFollower.EmailAddress));
+                            message.Subject = $"{user.Username} is now streaming \"{channel.StreamTitle}\" in {channel.StreamSubject}!";
+                            message.Body = new TextPart("plain")
+                            {
+                                Text = $"A StreamTutor you follow, {user.Username}, is now streaming \"{channel.StreamTitle}\" in {channel.StreamSubject}.\n\nYou can unsubscribe from these emails in your user settings."
+                            };
+
+                            await SendEmail(message);
+                        }
+                    }),
+                    () => topicFollows.AsParallel().ForAll(async topicFollow =>
                     {
-                        MimeMessage message = new MimeMessage();
-
-                        message.From.Add(new MailboxAddress(name, streamworkEmailAddress));
-                        message.To.Add(MailboxAddress.Parse(userFollower.EmailAddress));
-                        message.Subject = $"{user.Username} is now streaming \"{channel.StreamTitle}\" in {channel.StreamSubject}!";
-                        message.Body = new TextPart("plain")
+                        Profile userFollower = await storage.Get<Profile>(SQLQueries.GetUserWithUsername, topicFollow.Follower);
+                        if (userFollower != null && userFollower.NotificationSubscribe == "True")
                         {
-                            Text = $"{user.Username} is now streaming \"{channel.StreamTitle}\" in a topic you follow, {channel.StreamSubject}.\n\nYou can unsubscribe from these emails in your user settings."
-                        };
+                            MimeMessage message = new MimeMessage();
 
-                        await SendEmail(message);
-                    }
-                })
-            );
+                            message.From.Add(new MailboxAddress(name, streamworkEmailAddress));
+                            message.To.Add(MailboxAddress.Parse(userFollower.EmailAddress));
+                            message.Subject = $"{user.Username} is now streaming \"{channel.StreamTitle}\" in {channel.StreamSubject}!";
+                            message.Body = new TextPart("plain")
+                            {
+                                Text = $"{user.Username} is now streaming \"{channel.StreamTitle}\" in a topic you follow, {channel.StreamSubject}.\n\nYou can unsubscribe from these emails in your user settings."
+                            };
+
+                            await SendEmail(message);
+                        }
+                    })
+                );
+            });
         }
 
         private async Task SendEmail(MimeMessage message)

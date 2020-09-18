@@ -3,19 +3,37 @@
     {
         @for (int i = 0; i < Model.Topics.Count; i++)
         {
-            <p><b>@Model.Topics[i].TopicName</b></p>
-            <pre style="font-family:'Roboto', serif; white-space: pre-wrap;">@Model.Topics[i].ListOfSubjects</pre>
+            @if (string.IsNullOrWhiteSpace(Model.Topics[i].TopicName) == false && Model.Topics[i].TopicName != "-Select-Topic-" || string.IsNullOrWhiteSpace(Model.Topics[i].ListOfSubjects) == false)
+            {
+                <p><b>@Model.Topics[i].TopicName</b></p>
+                <pre style="font-family:'Roboto', serif; white-space: pre-wrap;">@Model.Topics[i].ListOfSubjects</pre>
+            }
         }
     }
     else
     {
         if (Model.CurrentUserProfile != null && Model.CurrentUserProfile.Id == Model.UserProfile.Id)
         {
-            <p class="form-sub-header" style="font-size:14px;"><b>Fill out Academic Experience!</b></p>
+            @if (Model.CurrentUserProfile.ProfileType == "student")
+            {
+                <p class="form-sub-header roboto-slab" style="font-size:14px;"><b>Fill out some of your favorties!</b></p>
+            }
+            else
+            {
+                <p class="form-sub-header" style="font-size:14px;"><b>Fill out academic experience!</b></p>
+            }
+
         }
         else
         {
-            <p class="form-sub-header" style="font-size:14px;"><b>Find relevant experience here!</b></p>
+            @if (Model.CurrentUserProfile.ProfileType == "student")
+            {
+                <p class="form-sub-header" style="font-size:14px;"><b>Find favorites here!</b></p>
+            }
+            else
+            {
+                <p class="form-sub-header" style="font-size:14px;"><b>Find relevant experience here!</b></p>
+            }
         }
     }
 </div>

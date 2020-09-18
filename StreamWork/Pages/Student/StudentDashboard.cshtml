@@ -192,7 +192,7 @@
                         </div>
                         <div class="col-lg-4 col-md-12 col-sm-12 col-12">
                             <div class="card">
-                                <div class="card-title p-3 form-header" style="font-size:18px">Academic Experience</div>
+                                <div class="card-title p-3 form-header" style="font-size:18px">Favorites</div>
                                 @if (Model.Topics != null)
                                 {
                                     <form class="pl-4 pr-4 pb-4" id="form-topic-tutor">
@@ -203,27 +203,28 @@
                                                 @if (i > 0)
                                                 {<div id="divider-topic-@t" class="divider"></div>}
                                                 <div id="form-topic-@t" class="form-group col-lg-12 border p-2">
-                                                    <label class="form-header">Topic</label>
+                                                    <label class="form-header">Categories</label>
                                                     @if (i > 0)
                                                     {<img id="remove-topic-icon-@t" src="~/images/TutorAssets/TutorDashboard/Remove.svg" class="d-inline-block form-icon float-right" onclick="RemoveTopic(@t)" />}
                                                     <select id="topic-@t" name="topic-@t" asp-for="@Model.Topics[i].TopicName" class="form-control form-control-sm rounded-0">
-                                                        <option value="">-Select-Topic-</option>
-                                                        <option>Mathematics</option>
-                                                        <option>Science</option>
-                                                        <option>Engineering</option>
-                                                        <option>Business</option>
-                                                        <option>Law</option>
-                                                        <option>Art</option>
-                                                        <option>Humanities</option>
-                                                        <option>Others</option>
+                                                        <option value="">-Select-Category-</option>
+                                                        <option>Sports</option>
+                                                        <option>Music</option>
+                                                        <option>Places To Visit</option>
+                                                        <option>Movies</option>
+                                                        <option>Technology</option>
+                                                        <option>TV Shows</option>
+                                                        <option>Video Games</option>
+                                                        <option>Hobbies</option>
+                                                        <option>Other</option>
                                                     </select>
-                                                    <label class="form-header pt-3">List Of Subjects</label>
-                                                    <textarea id="list-of-subjects-@t" name="list-of-subjects-@t" class="form-control border rounded-0 form-textarea" placeholder="Enter list of subjects here!">@Model.Topics[i].ListOfSubjects</textarea>
+                                                    <label class="form-header pt-3">List Of Favorites</label>
+                                                    <textarea id="list-of-subjects-@t" name="list-of-subjects-@t" class="form-control border rounded-0 form-textarea" placeholder="Enter list of your favorites here!">@Model.Topics[i].ListOfSubjects</textarea>
                                                 </div>
                                             }
                                         </div>
                                         <div class="mt-4">
-                                            <a style="cursor:pointer; color:#004643" onclick="AddTopic(event)"><span><img class="form-icon" src="~/images/TutorAssets/TutorDashboard/Add.svg" /></span>Add Topic</a>
+                                            <a style="cursor:pointer; color:#004643" onclick="AddTopic(event, true)"><span><img class="form-icon" src="~/images/TutorAssets/TutorDashboard/Add.svg" /></span>Add Category</a>
                                             <a style="cursor:pointer; float:right; color:#004643" onclick="SaveTopic(event)"><span><img class="form-icon" src="~/images/TutorAssets/TutorDashboard/Save.svg" /></span>Save</a>
                                         </div>
                                     </form>
@@ -234,23 +235,25 @@
                                     <form class="pl-4 pr-4 pb-4" id="form-topic-tutor">
                                         <div class="form-row" id="form-row-topic">
                                             <div class="form-group col-lg-12 border p-2">
-                                                <label class="form-header">Topic</label>
+                                                <label class="form-header">Categories</label>
                                                 <select name="topic" class="form-control form-control-sm rounded-0">
-                                                    <option value="">-Select-Topic-</option>
-                                                    <option>Mathematics</option>
-                                                    <option>Science</option>
-                                                    <option>Engineering</option>
-                                                    <option>Business</option>
-                                                    <option>Law</option>
-                                                    <option>Art</option>
-                                                    <option>Humanities</option>
-                                                    <option>Others</option>
+                                                    <option value="">-Select-Category-</option>
+                                                    <option>Sports</option>
+                                                    <option>Sports</option>
+                                                    <option>Music</option>
+                                                    <option>Places To Visit</option>
+                                                    <option>Movies</option>
+                                                    <option>Technology</option>
+                                                    <option>TV Shows</option>
+                                                    <option>Video Games</option>
+                                                    <option>Hobbies</option>
+                                                    <option>Other</option>
                                                 </select>
-                                                <label class="form-header pt-3">List Of Subjects</label>
-                                                <textarea name="list-of-subjects" class="form-control border rounded-0 form-textarea" placeholder="Enter list of subjects here!"></textarea>
+                                                <label class="form-header pt-3">List Of Favorites</label>
+                                                <textarea name="list-of-subjects" class="form-control border rounded-0 form-textarea" placeholder="Enter list of your favorites here!"></textarea>
                                             </div>
                                         </div>
-                                        <a style="cursor:pointer; color:#004643" onclick="AddTopic(event)"><span><img class="form-icon" src="~/images/TutorAssets/TutorDashboard/Add.svg" /></span>Add Topic</a>
+                                        <a style="cursor:pointer; color:#004643" onclick="AddTopic(event, true)"><span><img class="form-icon" src="~/images/TutorAssets/TutorDashboard/Add.svg" /></span>Add Category</a>
                                         <a style="cursor:pointer; float:right; color:#004643" onclick="SaveTopic(event)"><span><img class="form-icon" src="~/images/TutorAssets/TutorDashboard/Save.svg" /></span>Save</a>
                                     </form>
                                 }

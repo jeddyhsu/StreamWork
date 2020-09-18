@@ -251,10 +251,12 @@ function RemoveSection(sectionNumber) {
 
 
 //Topics
-function AddTopic(event) {
+function AddTopic(event, student) {
     topicCount++;
     event.preventDefault();
-    var topic = `<div id="divider-topic-${topicCount}" class="divider"></div>
+    var topic = ``
+    if (!student) {
+        topic = `<div id="divider-topic-${topicCount}" class="divider"></div>
                     <div id="form-topic-${topicCount}" class="form-group col-lg-12 border p-2">
                         <label class="form-header">Topic</label>
                         <img id="remove-topic-icon-${topicCount}" src="/images/TutorAssets/TutorDashboard/Remove.svg" class="d-inline-block form-icon float-right" onclick="RemoveTopic(${topicCount})" />
@@ -272,6 +274,28 @@ function AddTopic(event) {
                         <label class="form-header pt-3">List Of Subjects</label>
                         <textarea id="list-of-subjects-${topicCount}" name="list-of-subjects-${topicCount}" class="form-control border rounded-0 form-textarea" placeholder="Enter list of subjects here!"></textarea>
                     </div>`
+    }
+    else {
+        topic = `<div id="divider-topic-${topicCount}" class="divider"></div>
+                    <div id="form-topic-${topicCount}" class="form-group col-lg-12 border p-2">
+                        <label class="form-header">Category</label>
+                        <img id="remove-topic-icon-${topicCount}" src="/images/TutorAssets/TutorDashboard/Remove.svg" class="d-inline-block form-icon float-right" onclick="RemoveTopic(${topicCount})" />
+                        <select id="topic-${topicCount}" name="topic-${topicCount}" class="form-control form-control-sm border rounded-0">
+                            <option>-Select-Category-</option>
+                            <option>Sports</option>
+                            <option>Music</option>
+                            <option>Entertainment</option>
+                            <option>Travel</option>
+                            <option>Technology</option>
+                            <option>Arts</option>
+                            <option>Other</option>
+                        </select>
+                        <label class="form-header pt-3">List Of Favorites</label>
+                        <textarea id="list-of-subjects-${topicCount}" name="list-of-subjects-${topicCount}" class="form-control border rounded-0 form-textarea" placeholder="Enter list of your favorites here!"></textarea>
+                    </div>`
+    }
+        
+
 
     $("#form-row-topic").append(topic);
     var e = document.getElementById("form-topic-" + topicCount);

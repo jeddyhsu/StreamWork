@@ -15,7 +15,6 @@ else
 }
 @Html.AntiForgeryToken()
 
-
 <div class="container custom-profile-container">
     <img class="banner" id="preview-profile-banner" src="@Model.UserProfile.ProfileBanner" />
     <div class="card border-0">
@@ -27,7 +26,7 @@ else
         <div class="col-lg-3 col-md-4 order-lg-1 order-md-1 order-sm-2 order-2">
             <div class="card mt-4 ml-lg-0 mr-lg-0 ml-md-0 mr-md-0 ml-sm-3 mr-sm-3 ml-3 mr-3">
                 <div class="card-title">
-                    <p class="form-header pl-3 pr-3 pt-3 pb-1 mb-0" style="font-size:18px">Academic Experience</p>
+                    <p class="form-header pl-3 pr-3 pt-3 pb-1 mb-0" style="font-size:18px">Favorites</p>
                 </div>
                 @await Html.PartialAsync("Partials/Profile/Topics_View", Model)
             </div>

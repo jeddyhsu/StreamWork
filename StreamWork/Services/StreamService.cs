@@ -64,17 +64,20 @@ namespace StreamWork.Services
             }
         }
 
-        public bool IsLive(string channelKey)
+        public async Task<bool> IsLive(string channelKey)
         {
             try
             {
-                var response = CallJSON<StreamHosterEndpoint>("https://a.streamhoster.com/v1/papi/media/stream/stat/realtime-stream?targetcustomerid=" + channelKey, "NjBjZDBjYzlkNTNlOGViZDc3YWYyZGE2ZDNhN2EyZjQ5YWNmODk1YTo=");
-                foreach (var channel in response.Data)
+                var response = await CallJSON<StreamHosterEndpoint>("https://a.streamhoster.com/v1/papi/media/stream/stat/realtime-stream?targetcustomerid=" + channelKey, "NjBjZDBjYzlkNTNlOGViZDc3YWYyZGE2ZDNhN2EyZjQ5YWNmODk1YTo=");
+                if(response != null && response.Data != null)
                 {
-                    if ((channel.MediaId + "_5").Equals(channelKey.Split("|")[0]))
+                    foreach (var channel in response.Data)
                     {
-                        Console.WriteLine("Live");
-                        return true;
+                        if ((channel.MediaId + "_5").Equals(channelKey.Split("|")[0]))
+                        {
+                            Console.WriteLine("Live");
+                            return true;
+                        }
                     }
                 }
 
@@ -116,7 +119,7 @@ namespace StreamWork.Services
                      await Task.Delay(30000, cancellationToken);
                      try
                      {
-                         var response = IsLive(channel.ChannelKey);
+                         var response = await IsLive(channel.ChannelKey);
                          if (response)
                              Console.WriteLine("Live");
                          else
@@ -133,7 +136,7 @@ namespace StreamWork.Services
                          log.Error(ex, "Error in RunLive Method");
                      }
                  }
-                 log.Write(Serilog.Events.LogEventLevel.Information, "Thread Finished|" + channel.Username);
+                 log.Warning("Thread Finished|" + channel.Username);
                  Console.WriteLine("Thread Finished|" + channel.Username);
              }, TaskCreationOptions.LongRunning);
         }
@@ -156,8 +159,8 @@ namespace StreamWork.Services
             else
             {
                 streamHandler.TryAdd(channel.Username, new List<Video> { archivedVideo });//create a new list and add the archived video info into the list
-                StreamHosterRSSFeed initialResponse = CallXML<StreamHosterRSSFeed>("https://c.streamhoster.com/feed/WxsdDM/mAe0epZsixC/iAahx7oSswv?format=mrss"); //feed contains all the archived videos and we use it to get the stream id for each video
-                if (initialResponse.Channel.Item != null)
+                StreamHosterRSSFeed initialResponse = await CallXML<StreamHosterRSSFeed>("https://c.streamhoster.com/feed/WxsdDM/mAe0epZsixC/iAahx7oSswv?format=mrss"); //feed contains all the archived videos and we use it to get the stream id for each video
+                if (initialResponse != null && initialResponse.Channel.Item != null)
                 {
                     channel.InitialStreamCount = GetNumberOfVideosWithId(channel.ChannelKey, initialResponse); //check for initial count of the rss feed
                     await Save(channel.Id, channel);
@@ -165,28 +168,46 @@ namespace StreamWork.Services
 
                 while (true) //looking for the initial count of the feed + how many items are in the video list. The video list is retreived by the username of the current user
                 {
-                    await Task.Delay(30000);
-                    StreamHosterRSSFeed response = CallXML<StreamHosterRSSFeed>("https://c.streamhoster.com/feed/WxsdDM/mAe0epZsixC/iAahx7oSswv?format=mrss");
-                    List<Video> videos = new List<Video>();
-                    streamHandler.TryGetValue(channel.Username, out videos);
-
-                    Debug d = new Debug();
-                    d.Id = Guid.NewGuid().ToString();
-                    d.Timestamp = DateTime.UtcNow;
-                    d.Message = channel.Username + " | " + (GetNumberOfVideosWithId(channel.ChannelKey, response));
-                    await Save(d.Id, d);
-
-                    log.Write(Serilog.Events.LogEventLevel.Information, channel.Username + " is still in the while loop");
-
-                    if (response.Channel.Item != null && (GetNumberOfVideosWithId(channel.ChannelKey, response) >= channel.InitialStreamCount + videos.Count)) // we keep polling until the feed is updated to the number of videos (the initial count & concurrent dict count)
+                    try
                     {
-                        Debug d1 = new Debug();
-                        d1.Id = Guid.NewGuid().ToString();
-                        d1.Message = channel.Username + " | Videos Found | " + channel.InitialStreamCount + videos.Count;
-                        await Save(d1.Id, d1);
+                        await Task.Delay(30000);
+                        StreamHosterRSSFeed response = await CallXML<StreamHosterRSSFeed>("https://c.streamhoster.com/feed/WxsdDM/mAe0epZsixC/iAahx7oSswv?format=mrss");
+                        if(response != null)
+                        {
+                            List<Video> videos = new List<Video>();
+                            streamHandler.TryGetValue(channel.Username, out videos);
 
-                        Console.WriteLine("Videos Found");
-                        await ArchiveVideo(response, channel);
+                            Debug d = new Debug();
+                            d.Id = Guid.NewGuid().ToString();
+                            d.Timestamp = DateTime.UtcNow;
+                            d.Message = channel.Username + " | " + (GetNumberOfVideosWithId(channel.ChannelKey, response));
+                            await Save(d.Id, d);
+
+                            log.Warning(channel.Username + " is still in the while loop");
+                            log.Warning(channel.Username + " " + GetNumberOfVideosWithId(channel.ChannelKey, response) + " Initial Count: " + channel.InitialStreamCount + " Video Count:" + videos.Count);
+
+                            if (response.Channel.Item != null && (GetNumberOfVideosWithId(channel.ChannelKey, response) >= channel.InitialStreamCount + videos.Count)) // we keep polling until the feed is updated to the number of videos (the initial count & concurrent dict count)
+                            {
+                                Debug d1 = new Debug();
+                                d1.Id = Guid.NewGuid().ToString();
+                                d1.Message = channel.Username + " | Videos Found | " + channel.InitialStreamCount + videos.Count;
+                                await Save(d1.Id, d1);
+
+                                Console.WriteLine("Videos Found");
+                                await ArchiveVideo(response, channel);
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            log.Warning("response is null in poll for " + channel.Username);
+                            Console.WriteLine("response is null in poll for " + channel.Username);
+                        }
+
+                    }
+                    catch(Exception e)
+                    {
+                        log.Error(e, "Error in Poll");
                         break;
                     }
                 }

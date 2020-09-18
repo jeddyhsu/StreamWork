@@ -21,7 +21,7 @@
                     <li id="comment-@Model.Comments[i].Id" class="border-bottom border-left border-right" style="background-color:white">
                         <div class="card border-0">
                             <div class="card-body">
-                                <img class="comment-profile-picture" align="left" src="@Model.Comments[i].SenderProfilePicture" />
+                                <img class="comment-profile-picture rounded pointer" align="left" src="@Model.Comments[i].SenderProfilePicture" onclick="window.location.href='/Profiles/Student/@Model.Comments[i].SenderUsername'" />
                                 @if (@Model.Comments[i].SenderUsername.Equals(Model.CurrentUserProfile.Username))
                                 {
                                     <img src="~/images/GenericAssets/Trash.svg" class="comment-remove pl-1 float-right" id="comment-remove-@Model.Comments[i].Id" onclick="OpenDeleteConfirmation('@Model.Comments[i].Id')" />
@@ -68,7 +68,7 @@
                                     @for (int e = 0; e < Model.Comments[i].Replies.Count; e++)
                                     {
                                         <li id="comment-@Model.Comments[i].Replies[e].Id" class="border-bottom border-left border-right p-3" style="background-color:white">
-                                            <img class="comment-profile-picture" align="left" src="@Model.Comments[i].Replies[e].SenderProfilePicture" />
+                                            <img class="comment-profile-picture rounded pointer" align="left" src="@Model.Comments[i].Replies[e].SenderProfilePicture" onclick="window.location.href='/Profiles/Student/@Model.Comments[i].Replies[e].SenderUsername'" />
                                             @if (@Model.Comments[i].Replies[e].SenderUsername.Equals(Model.CurrentUserProfile.Username))
                                             {
                                                 <img src="~/images/GenericAssets/Trash.svg" class="comment-remove pl-1 float-right" id="comment-remove-@Model.Comments[i].Replies[e].Id" onclick="OpenDeleteConfirmation('@Model.Comments[i].Replies[e].Id', '@Model.Comments[i].Id')" />

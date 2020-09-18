@@ -744,6 +744,7 @@ pre {
     background-color: #004643;
 }
 
+/*Stream Appearances*/
 .stream-video-radius {
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
@@ -763,9 +764,25 @@ pre {
     border-bottom-right-radius: 20px !important;
 }
 
+/*Placeholder*/
 input::placeholder {
     color: #C8C8C8;
     font-size: 1.2em;
+}
+
+/*Section Cutoffs*/
+.section-cutoff {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+
+.section-cutoff-all {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1000;
+    -webkit-box-orient: vertical;
 }
 
 

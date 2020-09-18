@@ -43,7 +43,7 @@ function SaveComment(parentId, masterParent) {
                 var comment = `<li id="comment-${data.comment.id}" class="border-bottom border-left border-right" style="background-color:white">
                                     <div class="card border-0">
                                         <div class="card-body">
-                                            <img class="comment-profile-picture" align="left" src="${data.comment.senderProfilePicture}"/>
+                                            <img class="comment-profile-picture rounded pointer" align="left" src="${data.comment.senderProfilePicture}" onclick="window.location.href='/Profiles/Student/${data.comment.senderUsername}'"/>
                                             <img src="/images/GenericAssets/Trash.svg" class="comment-remove pl-1 float-right" id="comment-remove-${data.comment.id}" onclick="OpenDeleteConfirmation('${data.comment.id}', '${parentId}')" />
                                             <img src="/images/GenericAssets/Edit.svg" class="comment-edit pl-1 float-right" id="comment-edit-${data.comment.id}" onclick="ShowEditBox('${data.comment.senderProfilePicture}', '${data.comment.id}')" />
                                             <script>
@@ -183,7 +183,7 @@ function ShowReplyBox(profilePicture, id, senderName, parentId) {
                     <div class="card-body w-100"> 
                         <div class="d-flex flex-row">
                             <img class="comment-profile-picture" src="${profilePicture}" />
-                            <div id="comment-reply-${id}" class="comment-send-reply-textarea form-custom-textarea ml-2 mb-1 comment-text" onkeydown="ButtonEnabledDisabled('reply', '${id}');" onkeyup="ButtonEnabledDisabled('reply', '${id}')" contenteditable="true"  onmousedown="$('#comment-reply-${id}').focus()">
+                            <div id="comment-reply-${id}" class="comment-send-reply-textarea form-custom-textarea ml-2 mb-1 comment-text" onkeydown="ButtonEnabledDisabled('reply', '${id}');" onkeyup="ButtonEnabledDisabled('reply', '${id}')" contenteditable="true"  onclick="$('#comment-reply-${id}').focus()">
                                <span id="comment-at-${id}" class="comment-at comment-text" contenteditable="false"><b>@${senderName.replace('|', ' ')} </b></span>
                             </div>
                             <button onclick="CancelReply('${id}')" class="streamWork-secondary comment-cancel-button ml-2">Cancel</button>
@@ -193,7 +193,7 @@ function ShowReplyBox(profilePicture, id, senderName, parentId) {
                  </div>`
 
     $('#reply-box-' + id).html(reply);
-    ButtonEnabledDisabled('reply', id)
+    ButtonEnabledDisabled('reply', id, true)
 }
 
 function CancelReply(parentId) {
@@ -237,7 +237,7 @@ function GetStringWithoutAt(type, id) {
     var comment = commentHtml.trim() + " "
     var commentString = comment.replace(commentAt, '');
 
-    if (commentString.length > 12000) OpenInvalidComment(id)
+    if (commentString.length > 4000) OpenInvalidComment(id)
 
     return commentString;
 }
@@ -277,7 +277,15 @@ function GoToComment(parentId, commentId) {
         ShowReplyComments(parentId)
     }
 
-    $('html, body').animate({
-        scrollTop: ($('#comment-' + commentId).position().top + 300)
-    }, 500);
+    var topToElem = $('#comment-' + commentId).offset().top + $('#comment-' + commentId).height();
+    var elemToBottom = $(window).scrollTop() + $(window).height();
+
+    if ((($('#comment-' + commentId).offset().top >= $(window).scrollTop()) && ($('#comment-' + commentId).offset().top < elemToBottom)) || ((topToElem >= $(window).scrollTop()) && (topToElem < elemToBottom))) {
+      
+    }
+    else {
+        $('html, body').animate({
+            scrollTop: ($('#comment-' + commentId).offset().top + 300)
+        }, 500);
+    }
 }

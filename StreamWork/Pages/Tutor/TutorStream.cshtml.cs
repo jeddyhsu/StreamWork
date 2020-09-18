@@ -82,9 +82,9 @@ namespace StreamWork.Pages.Tutor
             }
         }
 
-        public IActionResult OnPostIsLive(string channelKey)
+        public async Task<IActionResult> OnPostIsLive(string channelKey)
         {
-            if (streamService.IsLive(channelKey)) return new JsonResult(new { Message = JsonResponse.Success.ToString() });
+            if (await streamService.IsLive(channelKey)) return new JsonResult(new { Message = JsonResponse.Success.ToString() });
             return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
         }
 
@@ -96,7 +96,7 @@ namespace StreamWork.Pages.Tutor
             var archivedVideoId = await streamService.StartStream(Request, userProfile);
             if (Request.Form["NotifyStudent"] == "true")
             {
-                emailService.NotifyAllFollowers(userProfile).Start();
+                await emailService.NotifyAllFollowers(userProfile);
             }
 
             if (archivedVideoId != null) return new JsonResult(new { Message = JsonResponse.Success.ToString(), Results = new string[] { userChannel.Username } }) ; //for chatbox

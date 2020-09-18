@@ -75,9 +75,17 @@
 .comment-at {
     color: #004643;
     display: inline-block;
-    padding-top:5px;
+    padding-top:3px;
     padding-bottom:0px;
     padding-right:5px;
+}
+
+.comment-at-reply-box {
+    color: #004643;
+    display: inline-block;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
 }
 
 .comment-text{
