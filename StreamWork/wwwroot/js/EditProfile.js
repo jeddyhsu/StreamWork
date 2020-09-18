@@ -8,8 +8,8 @@ function ReadImageUrl(image, type) {
             return;
         }
 
-        if ((image.files[0].size / 1024) > 4098) {
-            OpenNotificationModal('Image too large. 4MB max.', 'notification-image-invalid-modal');
+        if ((image.files[0].size / 1024) > 2048) {
+            OpenNotificationModal('Image too large. 2MB max.', 'notification-image-invalid-modal');
             return;
         }
 

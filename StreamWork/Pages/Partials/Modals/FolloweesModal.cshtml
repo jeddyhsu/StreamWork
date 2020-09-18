@@ -9,7 +9,7 @@
             <div class="col-12">
                 @if (Model.Followees != null && Model.Followees.Count > 0)
                 {
-                    <ul id="followers-list" class="pl-3 m-0" style="list-style-type:none; height:435px; overflow:scroll">
+                    <ul id="followers-list" class="pl-3 m-0 custom-list">
                         @foreach (var followee in Model.Followees)
                         {
                             <li id="followees-@followee.Id" class="border-bottom" onclick="window.location.href = '/Profiles/@followee.ProfileType/@followee.Username'" style="cursor:pointer">

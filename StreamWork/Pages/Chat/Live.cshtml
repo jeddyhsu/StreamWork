@@ -111,7 +111,7 @@ else
                                             }
                                     </script>
                                     <div>
-                                        <button type="button" id="sendQuestionButton" class="streamWork-primary mr-2" style="font-size:12px;" onclick="GetMessage('@Model.ChatId','@Model.CurrentUserProfile.Username','@Model.CurrentUserProfile.Name', '@Model.CurrentUserProfile.ProfilePicture', '@Model.CurrentUserProfile.ProfileColor', '@Model.ChatInfo')">Send</button>
+                                        <button type="button" id="sendQuestionButton" class="streamWork-primary mr-2 send-button" style="font-size:12px;" onclick="GetMessage('@Model.ChatId','@Model.CurrentUserProfile.Username','@Model.CurrentUserProfile.Name', '@Model.CurrentUserProfile.ProfilePicture', '@Model.CurrentUserProfile.ProfileColor', '@Model.ChatInfo')">Send</button>
                                     </div>
                                 </div>
 
@@ -129,7 +129,7 @@ else
                                 <div class="d-flex align-items-center justify-content-center">
                                     <div id="chatInput" onkeydown="openModal(event)" class="form-custom-textarea rounded border-0 w-100 roboto chat-text ml-2 mr-2" contentEditable=true data-text="Send a question or message..." onmousedown="$('#chatInput').focus()"></div>
                                     <div>
-                                        <button type="button" id="sendQuestionButton" class="streamWork-primary mr-2" onclick="Modal()">Send</button>
+                                        <button type="button" id="sendQuestionButton" class="streamWork-primary mr-2 send-button" onclick="Modal()">Send</button>
                                     </div>
                                     <script>function openModal(event) {
                                             if (event.keyCode == 13 && !event.shiftKey) {

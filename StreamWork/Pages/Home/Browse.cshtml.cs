@@ -72,9 +72,9 @@ namespace StreamWork.Pages.Home
             return new JsonResult(new { Message = JsonResponse.Success.ToString(), Channels = await storageService.GetList<Channel>(SQLQueries.GetAllUserChannelsThatAreStreaming, ""), Videos = await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsInDescendingOrderByViews, "") });
         }
 
-        public async Task<IActionResult> OnPostSearchSchedule(string filter, string searchTerm)
+        public async Task<IActionResult> OnPostSearchSchedule()
         {
-            return new JsonResult(new { Message = JsonResponse.Success.ToString(), Results = await searchService.SearchSchedule(filter, searchTerm) });
+            return new JsonResult(new { Message = JsonResponse.Success.ToString(), Results = await storageService.GetList<Schedule>(SQLQueries.GetAllScheduledStreams, "") });
         }
 
         public async Task<IActionResult> OnPostSearchTutors(string filter, string searchTerm)

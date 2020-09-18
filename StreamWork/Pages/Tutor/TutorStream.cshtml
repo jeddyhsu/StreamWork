@@ -107,7 +107,7 @@
                                 <img id="preview-stream-thumbnail" src="~/images/MathDefault.png" class="rounded" style="width:100%; border-radius:10px">
                                 <input id="upload-stream-thumbnail" type="file" class="d-none" value="~/images/MathDefault.png" onchange="ReadImageUrl(this,'Thumbnail');">
                                 <p id="upload-stream-thumbnail-button" class="pt-2 mb-0" style="cursor:pointer; font-size:12px; color:#004643">Upload an Image</p>
-                                <p id="upload-stream-thumbnail-button-info" class="mb-0" style="font-size:10px;">Upload must be either in jpg or png formats and less than 1 MB</p>
+                                <p id="upload-stream-thumbnail-button-info" class="mb-0" style="font-size:10px;">Upload must be either in jpg or png formats and less than 2 MB</p>
                                 <script>$("#upload-stream-thumbnail-button").click(function (e) {
                                         e.preventDefault()
                                         $("input[id='upload-stream-thumbnail']").click();
@@ -118,7 +118,7 @@
                                 <img id="preview-stream-thumbnail" src="@Model.UserChannel.StreamThumbnail" style="width:100%; border-radius:10px">
                             }
                             <div class="form-check mt-4">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                <input class="form-check-input rounded-0" type="checkbox" value="" id="defaultCheck1">
                                 <label class="form-check-label form-header" for="defaultCheck1">
                                     Notify Followers
                                 </label>
@@ -153,7 +153,7 @@
                                 }
                                 else
                                 {
-                                    <div class="card">
+                                    <div class="card rounded-0">
                                         <div class="card-body">
                                             <div class="d-inline-flex">
                                                 <div class="m-1">

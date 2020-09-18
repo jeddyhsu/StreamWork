@@ -2,7 +2,7 @@
 {
     @foreach (var task in Model.AllScheduledStreams)
     {
-        <div id="schedule-@task.Id" class="col-lg-6 col-md-12 mt-2 w-100 schedule @task.StreamSubject-schedule">
+        <div id="schedule-@task.Id" class="col-lg-6 col-md-12 mt-2 w-100 schedule schedule-subject-@task.StreamSubject">
             <div class="card mb-3 border-0">
                 <div class="card-body">
                     <div class="d-inline-flex">
@@ -23,11 +23,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div id="schedule-none-found" class="col-9 d-none" style="height:200px">
-            <p class="form-sub-header pl-3 pr-3 pt-3 pb-0" style="font-size:22px">No scheduled streams with the currrent search term.</p>
-            <p class="form-sub-header pl-3 pr-3" style="font-size:14px; font-family:'Roboto', serif">Try using a different search term.</p>
         </div>
     }
 }

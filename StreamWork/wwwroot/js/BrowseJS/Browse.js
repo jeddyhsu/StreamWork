@@ -25,6 +25,8 @@ parameterTable["Schedule"] = ["", ""]
 parameterTable["Tutor"] = ["", ""]
 var streamJson = null;
 var videoJson = null;
+var scheduleJson = null;
+var tutorJson = null;
 
 function ChangePlaceHolder(text) {
     $('#searchQuery').attr('placeholder', text);
@@ -33,7 +35,8 @@ function ChangePlaceHolder(text) {
 function SliderStreams() {
     $('#streams-tab').tab('show');
     $('#slider-object').css("transform", "translate3d(20px, 0px, 0px)")
-    $('#search-form').attr("onsubmit", "SearchStreams(event)")
+    $('#search-form').attr("onsubmit", "event.preventDefault(); SearchStreams()")
+    $('#browse-search').attr("onclick", "SearchStreams(event)")
     $('#filter').attr("onchange", "Filter()")
     ChangePlaceHolder("Search Streams")
     $('#searchQuery').val((parameterTable["Stream"])[0])
@@ -43,11 +46,12 @@ function SliderStreams() {
     page = "stream"
 }
 
-function SliderSchedule() {
+function SliderSchedule(event) {
     $('#videos-tab').tab('show');
     $('#slider-object').css("transform", "translate3d(110px, 0px, 0px)")
-    $('#search-form').attr("onsubmit", "SearchSchedule(event)")
-    $('#filter').attr("onchange", "SearchSchedule(event)")
+    $('#search-form').attr("onsubmit", "event.preventDefault(); SearchSchedule()")
+    $('#browse-search').attr("onclick", "SearchSchedule()")
+    $('#filter').attr("onchange", "Filter(event)")
     ChangePlaceHolder("Search Upcoming Streams")
     $('#searchQuery').val((parameterTable["Schedule"])[0])
     $('#filter').val((parameterTable["Schedule"])[1])
@@ -95,18 +99,16 @@ function ClearFilter() {
         SearchVideoAlgo();
     }
     else if (page == "schedule") {
-        SearchSchedule(event)
+        SearchSchedule()
     }
     else {
-        SearchTutors(event)
+        SearchTutors()
     }
 
     $('#clear-filter').hide();
 }
 
-function SearchStreams(event) {
-    if (event != undefined)
-        event.preventDefault();
+function SearchStreams() {
     $.ajax({
         url: '/Home/Browse/SW/?handler=SearchStreams',
         type: 'POST',
@@ -119,83 +121,78 @@ function SearchStreams(event) {
             if (data.channels.length > 0) streamJson = data.channels
             if (data.videos.length > 0) videoJson = data.videos
 
-            SearchStreamsAlgo(event)
-            SearchVideoAlgo(event);
+            SearchStreamsAlgo()
+            SearchVideoAlgo();
         }
     });
 }
 
-function SearchStreamsAlgo(event) {
-    if (event != undefined)
-        event.preventDefault();
-
+function SearchStreamsAlgo() {
     var pattern = $('#searchQuery').val();
     var filter = $('#filter').val();
+
+    parameterTable["Stream"] = [pattern, filter]
+
+    if (streamJson == null) return;
 
     parameterTable["Stream"] = [pattern, filter]
 
     var fuse = null;
     var output = null;
 
-    if ($('#live-channel-count').val() > 0) {
-
-        if (pattern == "") { //if pattern is empty then show all streams
-            $('#stream-row').html("");
-            for (var i = 0; i < streamJson.length; i++) {
-                if (filter != "") {
-                    if (filter != streamJson[i].streamSubject) { continue; }
-                }
-                var stream = GetStreamTemplate(streamJson[i].id,
-                                               streamJson[i].streamSubject,
-                                               streamJson[i].streamThumbnail,
-                                               streamJson[i].streamTitle,
-                                               streamJson[i].streamColor,
-                                               streamJson[i].name,
-                                               streamJson[i].username)
-
-                var rowForStream = `<div id="stream-${streamJson[i].id}" class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-3 stream stream-subject-${streamJson[i].streamSubject}">${stream}</div>`
-                $('#stream-row').append(rowForStream);
+    if (pattern == "") { //if pattern is empty then show all streams
+        $('#stream-row').html("");
+        for (var i = 0; i < streamJson.length; i++) {
+            if (filter != "") {
+                if (filter != streamJson[i].streamSubject) { continue; }
             }
+            var stream = GetStreamTemplate(streamJson[i].id,
+                streamJson[i].streamSubject,
+                streamJson[i].streamThumbnail,
+                streamJson[i].streamTitle,
+                streamJson[i].streamColor,
+                streamJson[i].name,
+                streamJson[i].username)
 
-            if ($('.stream').length <= 0) $('#stream-none-found').removeClass('d-none').addClass('d-block');  //notification that says there are no videos with that search term (check is there are any video classes)
-            else $('#stream-none-found').removeClass('d-block').addClass('d-none');
-
-            return;
-        }
-
-        fuse = new Fuse(streamJson, options); //fuzzy search
-        output = fuse.search(pattern);
-
-        $('.stream').hide();
-        $('#stream-none-found').removeClass('d-block').addClass('d-none');
-
-        if (output.length > 0) {  //if pattern is not empty then show all streams with the fuzzy search
-            for (var i = 0; i < output.length; i++) {
-                if (filter != "") {
-                    if (filter != output[i].item.streamSubject) { continue; }
-                }
-                var stream = GetStreamTemplate(output[i].item.id,
-                                               output[i].item.streamSubject,
-                                               output[i].item.streamThumbnail,
-                                               output[i].item.streamTitle,
-                                               output[i].item.streamColor,
-                                               output[i].item.name,
-                    output[i].item.username)
-
-                var rowForStream = `<div id="stream-${output[i].item.id}" class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-3 stream stream-subject-${streamJson[i].streamSubject}">${stream}</div>`
-                $('#stream-row').append(rowForStream);
-            }
+            var rowForStream = `<div id="stream-${streamJson[i].id}" class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-3 stream stream-subject-${streamJson[i].streamSubject}">${stream}</div>`
+            $('#stream-row').append(rowForStream);
         }
 
         if ($('.stream').length <= 0) $('#stream-none-found').removeClass('d-none').addClass('d-block');  //notification that says there are no videos with that search term (check is there are any video classes)
         else $('#stream-none-found').removeClass('d-block').addClass('d-none');
+
+        return;
     }
+
+    fuse = new Fuse(streamJson, options); //fuzzy search
+    output = fuse.search(pattern);
+
+    $('#stream-row').html("");
+    $('#stream-none-found').removeClass('d-block').addClass('d-none');
+
+    if (output.length > 0) {  //if pattern is not empty then show all streams with the fuzzy search
+        for (var i = 0; i < output.length; i++) {
+            if (filter != "") {
+                if (filter != output[i].item.streamSubject) { continue; }
+            }
+            var stream = GetStreamTemplate(output[i].item.id,
+                output[i].item.streamSubject,
+                output[i].item.streamThumbnail,
+                output[i].item.streamTitle,
+                output[i].item.streamColor,
+                output[i].item.name,
+                output[i].item.username)
+
+            var rowForStream = `<div id="stream-${output[i].item.id}" class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-3 stream stream-subject-${streamJson[i].streamSubject}">${stream}</div>`
+            $('#stream-row').append(rowForStream);
+        }
+    }
+
+    if ($('.stream').length <= 0) $('#stream-none-found').removeClass('d-none').addClass('d-block');  //notification that says there are no videos with that search term (check is there are any video classes)
+    else $('#stream-none-found').removeClass('d-block').addClass('d-none');
 }
 
 function SearchVideoAlgo() {
-    if (event != undefined)
-        event.preventDefault();
-
     var pattern = $('#searchQuery').val();
     var filter = $('#filter').val();
 
@@ -232,6 +229,7 @@ function SearchVideoAlgo() {
 
     $('#video-row').html("");
     $('#video-none-found').removeClass('d-block').addClass('d-none');
+
     if (output.length > 0) { //if pattern is not empty then show all videos with the fuzzy search
         for (var i = 0; i < output.length; i++) {
             if (filter != "") {
@@ -255,38 +253,81 @@ function SearchVideoAlgo() {
     else $('#video-none-found').removeClass('d-block').addClass('d-none');
 }
 
-function SearchSchedule(event) {
-    if (event != undefined)
-        event.preventDefault();
-    var searchTerm = $('#searchQuery').val();
-    var filter = $('#filter').val();
-    parameterTable["Schedule"] = [searchTerm, filter]
-    if (filter != "") $('#clear-filter').show();
+function SearchSchedule() {
     $.ajax({
         url: '/Home/Browse/SW/?handler=SearchSchedule',
         type: 'POST',
         dataType: 'json',
-        data: {
-            'searchTerm': searchTerm,
-            'filter': filter,
-        },
         beforeSend: function (xhr) {
             xhr.setRequestHeader("XSRF-TOKEN",
                 $('input:hidden[name="__RequestVerificationToken"]').val());
         },
         success: function (data) {
-            $('.schedule').hide();
-            $('#schedule-none-found').removeClass('d-block').addClass('d-none');
-            if (data.results.length > 0) {
-                for (var i = 0; i < data.results.length; i++) {
-                    $('#schedule-' + data.results[i].id).show();
-                }
-            }
-            else {
-                $('#schedule-none-found').removeClass('d-none').addClass('d-block');
-            }
+            if (data.results.length > 0) scheduleJson = data.results
+            SearchScheduleAlgo();
         }
     });
+}
+
+function SearchScheduleAlgo() {
+    var pattern = $('#searchQuery').val();
+    var filter = $('#filter').val();
+
+    parameterTable["Schedule"] = [pattern, filter]
+
+    var fuse = null;
+    var output = null;
+
+    if (pattern == "") {  //if pattern is empty then show all videos
+        $('#schedule-row').html("");
+        for (var i = 0; i < scheduleJson.length; i++) {
+            if (filter != "") {
+                if (filter != scheduleJson[i].streamSubject) { continue; }
+            }
+            var schedule = GetScheduleTemplate(scheduleJson[i].subjectThumbnail,
+                                               scheduleJson[i].date,
+                                               scheduleJson[i].streamTitle,
+                                               scheduleJson[i].streamSubject,
+                                               scheduleJson[i].timeStart,
+                                               scheduleJson[i].timeStop,
+                                               scheduleJson[i].timeZone)
+
+            var rowForSchedule = `<div id="schedule-${scheduleJson[i].id}" class="col-lg-6 col-md-12 mt-2 w-100 mb-3 schedule schedule-subject-${schedule[i].streamSubject}">${schedule}</div>`
+            $('#schedule-row').append(rowForSchedule);
+        }
+
+        if ($('.schedule').length <= 0) $('#schedule-none-found').removeClass('d-none').addClass('d-block');  //notification that says there are no schedule tasks with that search term (check is there are any schedule classes)
+        else $('#schedule-none-found').removeClass('d-block').addClass('d-none');
+
+        return;
+    }
+
+    fuse = new Fuse(scheduleJson, options);
+    output = fuse.search(pattern);
+
+    $('#schedule-row').html("");
+    $('#schedule-none-found').removeClass('d-block').addClass('d-none');
+
+    if (output.length > 0) { //if pattern is not empty then show all videos with the fuzzy search
+        for (var i = 0; i < output.length; i++) {
+            if (filter != "") {
+                if (filter != output[i].item.streamSubject) { continue; }
+            }
+            var schedule = GetScheduleTemplate(output[i].item.subjectThumbnail,
+                                               output[i].item.date,
+                                               output[i].item.streamTitle,
+                                               output[i].item.streamSubject,
+                                               output[i].item.timeStart,
+                                               output[i].item.timeStop,
+                                               output[i].item.timeZone)
+
+            var rowForSchedule = `<div id="schedule-${output[i].item.id}" class="col-lg-6 col-md-12 mt-2 w-100 mb-3 schedule schedule-subject-${output[i].item.streamSubject}">${schedule}</div>`
+            $('#schedule-row').append(rowForSchedule);
+        }
+    }
+
+    if ($('.schedule').length <= 0) $('#schedule-none-found').removeClass('d-none').addClass('d-block');  //notification that says there are no schedule tasks with that search term (check is there are any schedule classes)
+    else $('#schedule-none-found').removeClass('d-block').addClass('d-none');
 }
 
 function SearchTutors(event) {

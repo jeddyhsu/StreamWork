@@ -480,9 +480,14 @@ select.form-control {
     cursor:pointer;
 }
 
+.textarea {
+    resize: none !important;
+}
+
 .form-textarea {
     font-size: 12px !important;
     height: 125px !important;
+    resize:none
 }
 
 .form-textarea-resize {
@@ -765,7 +770,7 @@ pre {
 }
 
 /*Placeholder*/
-input::placeholder {
+.custom-placeholder::placeholder {
     color: #C8C8C8;
     font-size: 1.2em;
 }
@@ -783,6 +788,13 @@ input::placeholder {
     display: -webkit-box;
     -webkit-line-clamp: 1000;
     -webkit-box-orient: vertical;
+}
+
+.custom-list {
+    list-style-type: none;
+    height: 435px;
+    overflow: scroll;
+    overflow-x: hidden !important
 }
 
 

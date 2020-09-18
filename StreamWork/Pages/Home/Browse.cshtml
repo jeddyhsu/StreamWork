@@ -6,9 +6,9 @@
 <div class="container-fluid mr-0" style="padding-top:25px;">
     <div class="container-fluid inner-container-fluid custom-container-padding">
         <div class="d-flex pl-3 pr-3">
-            <form id="search-form" class="p-2 border w-100 rounded d-inline-block custom-form" onsubmit="SearchStreams(event)">
+            <form id="search-form" name="search-form" class="p-2 border w-100 rounded d-inline-block custom-form" onsubmit="event.preventDefault(); SearchStreams(event)">
                 <div class="d-flex">
-                    <input id="searchQuery" class="form-control-lg mainLoginInput mt-1" type="search" placeholder="Search Streams" style="border: none; font-size:14px;">
+                    <input id="searchQuery" class="form-control-lg mainLoginInput mt-1 custom-placeholder" type="search" placeholder="Search Streams" style="border: none; font-size:14px;">
                     <select id="filter" name="filter" class="form-control form-control-sm rounded m-2 h-100 float-right" onchange="Filter()" style="max-width:175px;">
                         <option value="">Filter Topic</option>
                         <option value="Mathematics">Mathematics</option>
@@ -22,7 +22,7 @@
                     </select>
                 </div>
             </form>
-            <button class="streamWork-search" onclick="SearchStreams(event)"><input class="mt-1" type="image" src="~/images/GenericAssets/Search.svg" width="30" height="40" /></button>
+            <button id="browse-search" class="streamWork-search" onclick="SearchStreams(event)"><input class="mt-1" type="image" src="~/images/GenericAssets/Search.svg" width="30" height="40" /></button>
         </div>
         <p id="clear-filter" class="float-right mr-4 pointer mt-2" style="font-size:12px; color:#004643" onclick="ClearFilter()">Clear Filter</p>
         <script>$('#clear-filter').hide();</script>
@@ -57,18 +57,16 @@
                         }
                         else
                         {
-                            <div class="col-9">
+                            <div class="col-9" style="height:125px">
                                 <p class="form-sub-header pl-3 pr-3 pt-3 pb-0" style="font-size:22px">No live streams at the moment.</p>
                                 <p class="form-sub-header pl-3 pr-3" style="font-size:14px; font-family:'Roboto', serif">Feel free to look at some past streams in the videos section.</p>
                             </div>
                         }
-
-                        <div id="stream-none-found" class="col-9 d-none">
-                            <p class="form-sub-header pl-3 pr-3 pt-3 pb-0" style="font-size:22px">No streams with the currrent search term.</p>
-                            <p class="form-sub-header pl-3 pr-3" style="font-size:14px; font-family:'Roboto', serif">Try using a different search term.</p>
-                        </div>
-
-                        <input id="live-channel-count" type="hidden" value="@Model.LiveChannels.Count" />
+   
+                    </div>
+                    <div id="stream-none-found" class="col-9 d-none" style="height:150px">
+                        <p class="form-sub-header pl-3 pr-3 pt-3 pb-0" style="font-size:22px">No streams with the currrent search term.</p>
+                        <p class="form-sub-header pl-3 pr-3" style="font-size:14px; font-family:'Roboto', serif">Try using a different search term.</p>
                     </div>
                     <hr />
                     <p class="form-header pl-3" style="font-size:22px">Videos</p>
@@ -92,6 +90,10 @@
                     <p class="form-header pl-3" style="font-size:22px">Scheduled Streams</p>
                     <div id="schedule-row" class="row p-3">
                         @await Html.PartialAsync("Partials/Browse/Schedule", Model)
+                    </div>
+                    <div id="schedule-none-found" class="col-9 d-none" style="height:200px">
+                        <p class="form-sub-header pl-3 pr-3 pt-3 pb-0" style="font-size:22px">No scheduled streams with the currrent search term.</p>
+                        <p class="form-sub-header pl-3 pr-3" style="font-size:14px; font-family:'Roboto', serif">Try using a different search term.</p>
                     </div>
                 </div>
             </div>
