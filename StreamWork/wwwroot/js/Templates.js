@@ -68,3 +68,23 @@ function GetScheduleTemplate(subjectThumbnail, date, streamTitle, streamSubject,
 
     return scheduleTemplate;
 }
+
+function GetTutorTemplate(username, profileBanner, profilePicture, profileColor, name, profileCaption, topicColor, topic) {
+    var tutorTemplate = `<div class="card rounded pointer border-0 h-100" style="min-height:250px;" onclick="window.location.href='/Profiles/Tutor/${username}'">
+                            <div class="card-body p-0">
+                                <img class="card-img-top" src="${profileBanner}" height="150" style="object-fit:cover">
+                                <div class="profile-picture-overlap-container">
+                                    <img id="header-profile-picture" align="left" class="rounded" src="${profilePicture}" style="width:70px;" />
+                                </div>
+                                <div class="d-inline-block">
+                                    <p class="form-header header-padding mb-0 mt-2" style="font-size:16px; color:${profileColor}">${name.replace('|', ' ')}</p>
+                                    <p class="form-sub-header header-padding mb-3" style="font-size:12px;">${profileCaption == null ? "" : profileCaption}</p>
+                                </div>
+                           </div>
+                           <div class="card-footer pt-1 pb-1 " style="background-color:${topicColor};">
+                               <p class="form-header streamWork-white p-0 m-0 roboto float-right" style="font-size:12px;"><b>${topic}</b></p>
+                           </div>
+                        </div>`
+
+    return tutorTemplate;
+}

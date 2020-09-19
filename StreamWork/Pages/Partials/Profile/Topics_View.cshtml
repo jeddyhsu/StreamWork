@@ -16,7 +16,7 @@
         {
             @if (Model.CurrentUserProfile.ProfileType == "student")
             {
-                <p class="form-sub-header roboto-slab" style="font-size:14px;"><b>Fill out some of your favorties!</b></p>
+                <p class="form-sub-header roboto-slab" style="font-size:14px;"><b>Fill out some of your favorite subjects here!</b></p>
             }
             else
             {
@@ -28,7 +28,7 @@
         {
             @if (Model.CurrentUserProfile != null && Model.CurrentUserProfile.ProfileType == "student")
             {
-                <p class="form-sub-header" style="font-size:14px;"><b>Find favorites here!</b></p>
+                <p class="form-sub-header" style="font-size:14px;"><b>Find favorite subjects here!</b></p>
             }
             else
             {

@@ -1,5 +1,5 @@
 ﻿const subjectArray = ["Mathematics", "Science", "Engineering", "Business", "Law", "Art", "Humanities", "Other"]
-const options = {
+const options = { //for schedule, videos and streams
     isCaseSensitive: false,
     // includeScore: false,
     shouldSort: true,
@@ -16,6 +16,25 @@ const options = {
         "streamTitle",
         "streamDescription",
         "streamSubject",
+    ]
+};
+
+const options2 = { //for tutors
+    isCaseSensitive: false,
+    // includeScore: false,
+    shouldSort: true,
+    // includeMatches: false,
+    // findAllMatches: false,
+    // minMatchCharLength: 1,
+    // location: 0,
+    // threshold: 0.6,
+    // distance: 100,
+    // useExtendedSearch: false,
+    // ignoreLocation: false,
+    // ignoreFieldNorm: false,
+    keys: [
+        "topic",
+        "name"
     ]
 };
 var page = "stream";
@@ -51,7 +70,7 @@ function SliderSchedule(event) {
     $('#slider-object').css("transform", "translate3d(110px, 0px, 0px)")
     $('#search-form').attr("onsubmit", "event.preventDefault(); SearchSchedule()")
     $('#browse-search').attr("onclick", "SearchSchedule()")
-    $('#filter').attr("onchange", "Filter(event)")
+    $('#filter').attr("onchange", "Filter()")
     ChangePlaceHolder("Search Upcoming Streams")
     $('#searchQuery').val((parameterTable["Schedule"])[0])
     $('#filter').val((parameterTable["Schedule"])[1])
@@ -63,8 +82,8 @@ function SliderSchedule(event) {
 function SliderTutors() {
     $('#tutors-tab').tab('show');
     $('#slider-object').css("transform", "translate3d(196px, 0px, 0px)")
-    $('#search-form').attr("onsubmit", "SearchTutors(event)")
-    $('#filter').attr("onchange", "SearchTutors(event)")
+    $('#search-form').attr("onsubmit", "event.preventDefault(); SearchTutors()")
+    $('#filter').attr("onchange", " Filter()")
     ChangePlaceHolder("Search Tutors")
     $('#searchQuery').val((parameterTable["Tutor"])[0])
     $('#filter').val((parameterTable["Tutor"])[1])
@@ -78,10 +97,10 @@ function Filter() {
         SearchStreams()
     }
     else if (page == "schedule") {
-        SearchSchedule(event)
+        SearchSchedule()
     }
     else {
-        SearchTutors(event)
+        SearchTutors()
     }
 
     $('#clear-filter').show();
@@ -147,12 +166,12 @@ function SearchStreamsAlgo() {
                 if (filter != streamJson[i].streamSubject) { continue; }
             }
             var stream = GetStreamTemplate(streamJson[i].id,
-                streamJson[i].streamSubject,
-                streamJson[i].streamThumbnail,
-                streamJson[i].streamTitle,
-                streamJson[i].streamColor,
-                streamJson[i].name,
-                streamJson[i].username)
+                                           streamJson[i].streamSubject,
+                                           streamJson[i].streamThumbnail,
+                                           streamJson[i].streamTitle,
+                                           streamJson[i].streamColor,
+                                           streamJson[i].name,
+                                           streamJson[i].username)
 
             var rowForStream = `<div id="stream-${streamJson[i].id}" class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-3 stream stream-subject-${streamJson[i].streamSubject}">${stream}</div>`
             $('#stream-row').append(rowForStream);
@@ -176,12 +195,12 @@ function SearchStreamsAlgo() {
                 if (filter != output[i].item.streamSubject) { continue; }
             }
             var stream = GetStreamTemplate(output[i].item.id,
-                output[i].item.streamSubject,
-                output[i].item.streamThumbnail,
-                output[i].item.streamTitle,
-                output[i].item.streamColor,
-                output[i].item.name,
-                output[i].item.username)
+                                           output[i].item.streamSubject,
+                                           output[i].item.streamThumbnail,
+                                           output[i].item.streamTitle,
+                                           output[i].item.streamColor,
+                                           output[i].item.name,
+                                           output[i].item.username)
 
             var rowForStream = `<div id="stream-${output[i].item.id}" class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-3 stream stream-subject-${streamJson[i].streamSubject}">${stream}</div>`
             $('#stream-row').append(rowForStream);
@@ -206,13 +225,13 @@ function SearchVideoAlgo() {
                 if (filter != videoJson[i].streamSubject) { continue; }
             }
             var video = GetVideoTemplate(videoJson[i].id,
-                videoJson[i].streamSubject,
-                videoJson[i].streamID,
-                videoJson[i].streamThumbnail,
-                videoJson[i].streamTitle,
-                videoJson[i].streamColor,
-                videoJson[i].name,
-                videoJson[i].username)
+                                         videoJson[i].streamSubject,
+                                         videoJson[i].streamID,
+                                         videoJson[i].streamThumbnail,
+                                         videoJson[i].streamTitle,
+                                         videoJson[i].streamColor,
+                                         videoJson[i].name,
+                                         videoJson[i].username)
 
             var rowForVideo = `<div id="video-${videoJson[i].id}" class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-3 video video-subject-${videoJson[i].streamSubject}">${video}</div>`
             $('#video-row').append(rowForVideo);
@@ -236,13 +255,13 @@ function SearchVideoAlgo() {
                 if (filter != output[i].item.streamSubject) { continue; }
             }
             var video = GetVideoTemplate(output[i].item.id,
-                output[i].item.streamSubject,
-                output[i].item.streamID,
-                output[i].item.streamThumbnail,
-                output[i].item.streamTitle,
-                output[i].item.streamColor,
-                output[i].item.name,
-                output[i].item.username)
+                                         output[i].item.streamSubject,
+                                         output[i].item.streamID,
+                                         output[i].item.streamThumbnail,
+                                         output[i].item.streamTitle,
+                                         output[i].item.streamColor,
+                                         output[i].item.name,
+                                         output[i].item.username)
 
             var rowForVideo = `<div id="video-${output[i].item.id}" class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12 mb-3 video video-subject-${output[i].item.streamSubject}">${video}</div>`
             $('#video-row').append(rowForVideo);
@@ -330,46 +349,83 @@ function SearchScheduleAlgo() {
     else $('#schedule-none-found').removeClass('d-block').addClass('d-none');
 }
 
-function SearchTutors(event) {
-    if (event != undefined)
-        event.preventDefault();
-
-    var searchTerm = $('#searchQuery').val();
-    var filter = $('#filter').val();
-    parameterTable["Tutor"] = [searchTerm, filter]
-    if (filter != "") $('#clear-filter').show();
-
+function SearchTutors() {
     $.ajax({
         url: '/Home/Browse/SW/?handler=SearchTutors',
         type: 'POST',
         dataType: 'json',
-        data: {
-            'searchTerm': searchTerm,
-            'filter': filter,
-        },
         beforeSend: function (xhr) {
             xhr.setRequestHeader("XSRF-TOKEN",
                 $('input:hidden[name="__RequestVerificationToken"]').val());
         },
         success: function (data) {
-            $('.tutor').hide();
-            $('#tutor-none-found').removeClass('d-block').addClass('d-none');
-            if (data.results.length > 0) {
-                for (var i = 0; i < data.results.length; i++) {
-                    $('#tutor-' + data.results[i].id).show();
-                }
-            }
-            else {
-                $('#tutor-none-found').removeClass('d-none').addClass('d-block');
-            }
+            if (data.results.length > 0) tutorJson = data.results
+            SearchTutorsAlgo();
         }
     });
 }
 
-function SearchAll(event) {
-    SearchStreams(event)
-    SearchSchedule(event)
-    SearchTutors(event)
-}
+function SearchTutorsAlgo() {
+    var pattern = $('#searchQuery').val();
+    var filter = $('#filter').val();
 
-SearchStreams();
+    parameterTable["Tutor"] = [pattern, filter]
+
+    var fuse = null;
+    var output = null;
+
+    if (pattern == "") {  //if pattern is empty then show all videos
+        $('#tutor-row').html("");
+        for (var i = 0; i < tutorJson.length; i++) {
+            if (filter != "") {
+                if (filter != tutorJson[i].streamSubject) { continue; }
+            }
+
+             var tutor = GetTutorTemplate(tutorJson[i].username,
+                                         tutorJson[i].profileBanner,
+                                         tutorJson[i].profilePicture,
+                                         tutorJson[i].profileColor,
+                                         tutorJson[i].name,
+                                         tutorJson[i].profileCaption,
+                                         tutorJson[i].topicColor,
+                                         tutorJson[i].topic)
+
+            var rowForTutor = `<div id="schedule-${tutorJson[i].id}" class="col-lg-3 col-md-6 col-sm-12 mt-3 mb-3 tutor tutor-subject-${tutorJson[i].topic}">${tutor}</div>`
+            $('#tutor-row').append(rowForTutor);
+        }
+
+        if ($('.tutor').length <= 0) $('#tutor-none-found').removeClass('d-none').addClass('d-block');  //notification that says there are no schedule tasks with that search term (check is there are any schedule classes)
+        else $('#tutor-none-found').removeClass('d-block').addClass('d-none');
+
+        return;
+    }
+
+    fuse = new Fuse(tutorJson, options2);
+    output = fuse.search(pattern);
+
+    $('#tutor-row').html("");
+    $('#tutor-none-found').removeClass('d-block').addClass('d-none');
+
+    if (output.length > 0) { //if pattern is not empty then show all videos with the fuzzy search
+        for (var i = 0; i < output.length; i++) {
+            if (filter != "") {
+                if (filter != output[i].item.topic) { continue; }
+            }
+
+            var tutor = GetTutorTemplate(output[i].item.username,
+                                         output[i].item.profileBanner,
+                                         output[i].item.profilePicture,
+                                         output[i].item.profileColor,
+                                         output[i].item.name,
+                                         output[i].item.profileCaption,
+                                         output[i].item.topicColor,
+                                         output[i].item.topic)
+
+            var rowForTutor = `<div id="schedule-${tutorJson[i].id}" class="col-lg-3 col-md-6 col-sm-12 mt-3 mb-3 tutor tutor-subject-${tutorJson[i].topic}">${tutor}</div>`
+            $('#tutor-row').append(rowForTutor);
+        }
+    }
+
+    if ($('.tutor').length <= 0) $('#tutor-none-found').removeClass('d-none').addClass('d-block');  //notification that says there are no schedule tasks with that search term (check is there are any schedule classes)
+    else $('#tutor-none-found').removeClass('d-block').addClass('d-none');
+}

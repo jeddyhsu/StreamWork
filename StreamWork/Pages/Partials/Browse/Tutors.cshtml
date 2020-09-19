@@ -1,18 +1,21 @@
 ﻿@foreach (var tutor in Model.AllTutors)
 {
-    <div id="tutor-@tutor.Id" class="col-lg-3 col-md-6 col-sm-12 mt-2 mb-2 tutor">
-        <div class="card rounded pointer border-0" style="min-height:250px;" onclick="window.location.href='/Profiles/Tutor/@tutor.Username'">
-            <img class="card-img-top" src="@tutor.ProfileBanner" height="150" style="object-fit:cover">
-            <div class="profile-picture-overlap-container">
-                <img id="header-profile-picture" align="left" class="rounded" src="@tutor.ProfilePicture" style="width:70px;" />
+    <div id="tutor-@tutor.Id" class="col-lg-3 col-md-6 col-sm-12 mt-3 mb-3 tutor tutor-subject-@tutor.Topic">
+        <div class="card rounded pointer border-0  h-100" style="min-height:250px;" onclick="window.location.href='/Profiles/Tutor/@tutor.Username'">
+            <div class="card-body p-0">
+                <img class="card-img-top" src="@tutor.ProfileBanner" height="150" style="object-fit:cover">
+                <div class="profile-picture-overlap-container">
+                    <img id="header-profile-picture" align="left" class="rounded" src="@tutor.ProfilePicture" style="width:70px;" />
+                </div>
+                <div class="d-inline-block">
+                    <p class="form-header header-padding mb-0 mt-2" style="font-size:16px; color:@tutor.ProfileColor">@tutor.Name.Replace('|', ' ')</p>
+                    <p class="form-sub-header header-padding mb-3" style="font-size:12px;">@tutor.ProfileCaption</p>
+                </div>
             </div>
-            <div class="d-inline-block">
-                <p class="form-header header-padding mb-0 mt-2" style="font-size:16px; color:@tutor.ProfileColor">@tutor.Name.Replace('|', ' ')</p>
-                <p class="form-sub-header header-padding mb-0" style="font-size:12px;">@tutor.ProfileCaption</p>
+            <div class="card-footer pt-1 pb-1 " style="background-color:@tutor.TopicColor;">
+                <p class="form-header streamWork-white p-0 m-0 roboto float-right" style="font-size:12px;"><b>@tutor.Topic</b></p>
             </div>
-
         </div>
-        <div class="card-footer" style="background-color:@tutor.TopicColor;"></div>
     </div>
 
     <div id="tutor-none-found" class="col-9 d-none" style="height:200px">

@@ -79,7 +79,7 @@ namespace StreamWork.Pages.Home
 
         public async Task<IActionResult> OnPostSearchTutors(string filter, string searchTerm)
         {
-            return new JsonResult(new { Message = JsonResponse.Success.ToString(), Results = await searchService.SearchTutors(filter, searchTerm) });
+            return new JsonResult(new { Message = JsonResponse.Success.ToString(), Results = await storageService.GetList<TutorSubject>(SQLQueries.GetApprovedTutorSubjects, "") });
         }
     }
 }
