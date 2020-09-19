@@ -33,9 +33,9 @@
                                         <p class="chat-name" style='color:@Model.Chats[i].ChatColor'>
                                             @Model.Chats[i].Name.Replace('|', ' ')
                                             <span><img id="tutor-tip-@i" class="pl-1" style="width:28px" src="/images/ChatAssets/Tutor.svg" data-toggle="tooltip" data-placement="top" title="StreamTutor" /></span>
-                                           @if(Model.Offset != -1.0)
+                                            @if (Model.Offset != -1.0)
                                             {
-                                               <span class="chat-date">@Model.Chats[i].Date.AddMinutes(Model.Offset).ToString("HH:mm")</span>
+                                                <span class="chat-date">@Model.Chats[i].Date.AddMinutes(Model.Offset).ToString("HH:mm")</span>
                                             }
                                         </p>
                                         <script>$('#tutor-tip-@i').tooltip()</script>
@@ -44,9 +44,9 @@
                                     {
                                         <h5 class="chat-name" style="color:@Model.Chats[i].ChatColor">
                                             @Model.Chats[i].Name.Replace('|', ' ') (you)
-                                            @if(Model.Offset != -1.0)
+                                            @if (Model.Offset != -1.0)
                                             {
-                                               <span class="chat-date">@Model.Chats[i].Date.AddMinutes(Model.Offset).ToString("HH:mm")</span>
+                                                <span class="chat-date">@Model.Chats[i].Date.AddMinutes(Model.Offset).ToString("HH:mm")</span>
                                             }
                                         </h5>
                                     }
@@ -54,13 +54,15 @@
                                     {
                                         <h5 class="chat-name" style="color:@Model.Chats[i].ChatColor">
                                             @Model.Chats[i].Name.Replace('|', ' ')
-                                            @if(Model.Offset != -1.0)
+                                            @if (Model.Offset != -1.0)
                                             {
-                                               <span class="chat-date">@Model.Chats[i].Date.AddMinutes(Model.Offset).ToString("HH:mm")</span>
+                                                <span class="chat-date">@Model.Chats[i].Date.AddMinutes(Model.Offset).ToString("HH:mm")</span>
                                             }
                                         </h5>
                                     }
-                                    <p id="chat-@i" class="chat-message">@Html.Raw(Model.Chats[i].Message)</p>
+                                    <div class="chat-message">
+                                        @Html.Raw(Model.Chats[i].Message)
+                                    </div>
                                 </div>
                             </div>
                         </li>
