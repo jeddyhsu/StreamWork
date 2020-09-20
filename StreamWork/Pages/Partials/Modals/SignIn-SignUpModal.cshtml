@@ -29,7 +29,7 @@
                                     <b>Invalid Username or Password</b>.
                                 </div>
                                 <script>$('#invalid-username-password-notification').hide()</script>
-                                <p class="text-center my-3" style="font-family: 'Roboto Slab'; font-size: 50px; font-weight: bold;">Sign-in</p>
+                                <p class="text-center my-3" style="font-family: 'Roboto Slab'; font-size: 50px; font-weight: bold;">Sign In</p>
                                 <p class="text-center mb-4" style="color: #707070; font-size: 13px;">Welcome back! Sign in to continue learning!</p>
                                 <p class="form-header mb-0">Username / Email Address</p>
                                 <input id="username" type="text" class="mb-3" style="width: 100%;" onkeydown="CheckIfBothFieldsAreEmpty()" onkeyup="CheckIfBothFieldsAreEmpty()" required />
@@ -51,7 +51,7 @@
                                     <div class="col-md-12">
                                         <a id="sign-in-google" class="btn d-block mr-auto ml-auto" style="border-color:black; text-transform:none;" onclick="SignInOauth()" role="button">
                                             <img width="20" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
-                                            Sign-in with Google
+                                            Sign In with Google
                                         </a>
                                     </div>
                                 </div>
@@ -69,8 +69,9 @@
     </div>
 </div>
 
-<script>
-CheckIfBothFieldsAreEmpty()
+
+
+<script>CheckIfBothFieldsAreEmpty()
     document.getElementById('username').onkeydown = function (event) {
         if (event.keyCode == 13) {
             SignInModal(window.location)
@@ -80,6 +81,5 @@ CheckIfBothFieldsAreEmpty()
         if (event.keyCode == 13) {
             SignInModal(window.location)
         }
-    }
-</script>
+    }</script>
 

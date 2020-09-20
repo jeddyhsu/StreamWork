@@ -80,7 +80,7 @@ else
 @if (Model.NotificationRequestComment != null)
 {
     <script>
-        GoToComment('@Model.NotificationRequestComment.ParentId', '@Model.NotificationRequestComment.Id')
+        GoToCommentFromURL('@Model.NotificationRequestComment.ParentId', '@Model.NotificationRequestComment.Id')
     </script>
 }
 

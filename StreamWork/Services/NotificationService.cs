@@ -26,6 +26,8 @@ namespace StreamWork.Services
             var sender = await Get<Profile>(SQLQueries.GetUserWithUsername, senderUsername);
             var receiver = await Get<Profile>(SQLQueries.GetUserWithUsername, receiverUsername);
 
+            if (sender.Username == receiver.Username) return true;
+
             try
             {
                 Notification notification = new Notification
@@ -105,6 +107,7 @@ namespace StreamWork.Services
                 using (StreamReader streamReader = new StreamReader(template))
                 {
                     reader = streamReader.ReadToEnd();
+                    reader = reader.Replace("{Username}", notification.SenderUsername);
                     reader = reader.Replace("{NotificationId}", notification.Id);
                     reader = reader.Replace("{SenderProfilePicture}", notification.SenderProfilePicture);
                     reader = reader.Replace("{ProfileColor}", notification.ProfileColor);
@@ -130,6 +133,7 @@ namespace StreamWork.Services
                 using (StreamReader streamReader = new StreamReader(template))
                 {
                     reader = streamReader.ReadToEnd();
+                    reader = reader.Replace("{Username}", notification.SenderUsername);
                     reader = reader.Replace("{NotificationId}", notification.Id);
                     reader = reader.Replace("{SenderProfilePicture}", notification.SenderProfilePicture);
                     reader = reader.Replace("{ProfileColor}", notification.ProfileColor);
@@ -159,6 +163,7 @@ namespace StreamWork.Services
                 using (StreamReader streamReader = new StreamReader(template))
                 {
                     reader = streamReader.ReadToEnd();
+                    reader = reader.Replace("{Username}", notification.SenderUsername);
                     reader = reader.Replace("{NotificationId}", notification.Id);
                     reader = reader.Replace("{SenderProfilePicture}", notification.SenderProfilePicture);
                     reader = reader.Replace("{ProfileColor}", notification.ProfileColor);

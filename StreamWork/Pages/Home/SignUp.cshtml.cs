@@ -85,12 +85,12 @@ namespace StreamWork.Pages.Home
 
         public async Task OnPostSignUpStudent()
         {
-            if (!await VerifyRequest(Request))
-            {
-                // JavaScript checks seeem to have been ignored!
-                // Potential attack detected. Aborting.
-                return;
-            }
+            //if (!await VerifyRequest(Request)) //TOM this wont work with google ouath. The email wont be populated becasue it gets it from an api call LOOK at SignUpOauth
+            //{
+            //    // JavaScript checks seeem to have been ignored!
+            //    // Potential attack detected. Aborting.
+            //    return;
+            //}
 
             string id = Guid.NewGuid().ToString();
 
@@ -129,7 +129,7 @@ namespace StreamWork.Pages.Home
 
         public async Task OnPostSignUpTutor()
         {
-            //if (!await VerifyRequest(Request))
+            //if (!await VerifyRequest(Request)) //TOM this wont work with google ouath. The email wont be populated becasue it gets it from an api call LOOK at SignUpOauth
             //{
             //    // JavaScript checks seeem to have been ignored!
             //    // Potential attack detected. Aborting.
@@ -207,7 +207,7 @@ namespace StreamWork.Pages.Home
         public async Task SignUpOauth(HttpRequest request, string id, string type)
         {
             var oauthRequestToken = request.Form["Token"];
-            GoogleOauth oauthInfo = await storageService.CallJSON<GoogleOauth>("https://oauth2.googleapis.com/tokeninfo?id_token=" + oauthRequestToken);
+            GoogleOauth oauthInfo = await storageService.CallJSON<GoogleOauth>("https://oauth2.googleapis.com/tokeninfo?id_token=" + oauthRequestToken); //GETS EMAIL FOR GOOGLE OAUTH
             var password = encryptionService.EncryptPassword("!!0_STREAMWORK_!!0");
 
             await storageService.Save(id, new Profile
@@ -229,7 +229,8 @@ namespace StreamWork.Pages.Home
                 ProfileBanner = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_Banner_svg_SW.svg",
             });
 
-            await AddUs5AsFollowers(id);
+            if(type == "tutor")
+                await AddUs5AsFollowers(id);
             await cookieService.SignIn(Request.Form["Username"], encryptionService.DecryptPassword(password, "!!0_STREAMWORK_!!0"));
         }
 
@@ -242,7 +243,16 @@ namespace StreamWork.Pages.Home
                 if (signInProfile != null)
                     if (route.Contains("Chat") || route.Contains("chat") || route == "/")
                         return new JsonResult(new { Message = "Route", Route = route });
-                    else return cookieService.Route(signInProfile, route.Split("/")[3], encryptionService);
+                    else
+                    {
+                        var r = route.Split("/");
+                        if(r.Length > 3)
+                        {
+                            return cookieService.Route(signInProfile, r[3], encryptionService);
+                        }
+
+                        return cookieService.Route(signInProfile, "SW", encryptionService);
+                    }
             }
 
             return new JsonResult(new { Message = JsonResponse.Failed.ToString() });

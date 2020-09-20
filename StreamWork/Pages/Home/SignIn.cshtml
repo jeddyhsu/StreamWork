@@ -41,7 +41,7 @@
                 <div class="col-md-12">
                     <a id="sign-in-google" class="btn d-block mr-auto ml-auto" style="border-color:black; text-transform:none;" onclick="SignInOauth()" role="button">
                         <img width="20" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
-                        Sign-in with Google
+                        Sign in with Google
                     </a>
                 </div>
             </div>
@@ -55,25 +55,32 @@
     </div>
 </div>
 
+
 @* Student/Tutor and College/High School *@
 @await Html.PartialAsync("Partials/SignUp/StudentOrTutor")
 
 @* Student Topics *@
 @await Html.PartialAsync("Partials/SignUp/Student/StudentTopics")
 
+@* Student Profile Info *@
+@await Html.PartialAsync("Partials/SignUp/Student/StudentProfileInfo")
+
 @* Student Profile Info (GoogleOAuth) *@
-@await Html.PartialAsync("Partials/SignUp/Student/StudentProfileInfoOauth")
+@await Html.PartialAsync("Partials/SignUp/Student/StudentProfileInfoOAuth")
 
 @* Student Complete *@
 @await Html.PartialAsync("Partials/SignUp/Student/StudentComplete")
 
 @* Tutor Topics *@
-@await Html.PartialAsync("Partials/SignUp/Tutor/TutorTopics") 
+@await Html.PartialAsync("Partials/SignUp/Tutor/TutorTopics")
 
-@* Tutor Profile Info (GoogleOAuth) *@
-@await Html.PartialAsync("Partials/SignUp/Tutor/TutorProfileInfoOauth")
+@* Tutor Profile Info *@
+@await Html.PartialAsync("Partials/SignUp/Tutor/TutorProfileInfo")
 
-@* Tutor Resume-Transcript *@
+@* Student Profile Info (GoogleOAuth) *@
+@await Html.PartialAsync("Partials/SignUp/Tutor/TutorProfileInfoOAuth")
+
+@* Tutor Resume & Transcript *@
 @await Html.PartialAsync("Partials/SignUp/Tutor/TutorResumeTranscript")
 
 @* Tutor Complete *@
@@ -81,6 +88,13 @@
 
 <br />
 <br />
+
+@if (@Model.ModalSignInFailed)
+{
+    <script>
+        StartSignUpProcess();
+    </script>
+}
 
 <script>CheckIfBothFieldsAreEmpty()
     document.getElementById('username').onkeydown = function (event) {

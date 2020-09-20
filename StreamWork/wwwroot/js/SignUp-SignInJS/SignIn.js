@@ -13,9 +13,15 @@
         },
     }).done(function (data) {
         if (data.message === "Failed") {
-            oauthToken = googleProfile.getAuthResponse().id_token;
-            oauthStarted = true;
-            goToTab('studentOrTutor');
+            if (currentURL == "/Home/SignUp" || currentURL == "/Home/SignIn/SW") {
+                oauthToken = googleProfile.getAuthResponse().id_token;
+                oauthStarted = true;
+                goToTab('studentOrTutor');
+            }
+            else {
+                localStorage.setItem("ouathToken", googleProfile.getAuthResponse().id_token)
+                window.location.href = '/Home/SignIn/MS'
+            }
         }
         else {
             RouteToPage(data)
@@ -37,6 +43,12 @@ function SignOutOauth() {
     auth2.signOut().then(function () {
         console.log('User signed out.');
     });
+}
+
+function StartSignUpProcess() { //only for googleoauth fail from the modal
+    oauthToken = localStorage.getItem("ouathToken");
+    oauthStarted = true;
+    goToTab('studentOrTutor');
 }
 
 function SignIn(route) {

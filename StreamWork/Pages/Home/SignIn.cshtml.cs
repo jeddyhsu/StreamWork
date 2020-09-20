@@ -13,15 +13,22 @@ namespace StreamWork.Pages.Home
         private readonly EncryptionService encryptionService;
         private readonly CookieService cookieService;
 
+        public bool ModalSignInFailed;
+
         public SignInModel(StorageService storage, EncryptionService encryption, CookieService cookie)
         {
-            this.storageService = storage;
+            storageService = storage;
             encryptionService = encryption;
             cookieService = cookie;
         }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(string route)
         {
+            if(route == "MS") //this only occurs when a sign in through a modal failed and they need to signup - basically this will route them back to sign in and start the sign up process
+            {
+                ModalSignInFailed = true;
+            }
+
             return Page();
         }
 

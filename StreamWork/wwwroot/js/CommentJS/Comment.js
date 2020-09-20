@@ -289,3 +289,16 @@ function GoToComment(parentId, commentId) {
         }, 500);
     }
 }
+
+function GoToCommentFromURL(parentId, commentId) { //called in archive video page
+     if (parentId != "" || parentId != null) {
+        ShowReplyComments(parentId)
+    }
+    AnimateScroll(commentId)
+}
+
+function AnimateScroll(commentId) {
+    $('html, body').animate({
+        scrollTop: ($('#comment-' + commentId).offset().top + 300)
+    }, 500);
+}
