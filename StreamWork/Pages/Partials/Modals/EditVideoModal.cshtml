@@ -30,7 +30,7 @@
                                 <div class="image-container mr-auto ml-auto">
                                     <img id="preview-video-thumbnail-edit" class="mt-1" style="width:100%; border-radius:10px">
                                     <input id="video-thumbnail-edit" type="image" class="bottom-right" src="~/images/TutorAssets/TutorDashboard/Add.svg" width="20" style="bottom:-5px" />
-                                    <input id="upload-thumbnail-edit" name="upload-thumbnail-edit" class="d-none" type="file" value="~/images/MathDefault.png" onchange="ReadImageUrl(this,'Thumbnail Edit');">
+                                    <input id="upload-thumbnail-edit" name="upload-thumbnail-edit" class="d-none" type="file" value="~/images/MathDefault.png" onchange="ReadImageUrl(this,'Thumbnail Edit');" accept="image/png,image/jpeg">
                                     <script>
                                         $("#video-thumbnail-edit").click(function (e) {
                                             e.preventDefault()
