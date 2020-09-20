@@ -132,3 +132,207 @@
 2020-09-19 17:48:00.674 -07:00 [INF] Executing endpoint '/pushnotificationhub'
 2020-09-19 17:51:07.495 -07:00 [INF] Executed endpoint '/pushnotificationhub'
 2020-09-19 17:51:07.495 -07:00 [INF] Request finished in 186819.78600000002ms 101 
+2020-09-19 18:02:31.678 -07:00 [INF] User profile is available. Using '/Users/rithvik/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2020-09-19 18:02:31.919 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-09-19 18:02:31.926 -07:00 [WRN] Failed to determine the https port for redirect.
+2020-09-19 18:02:32.018 -07:00 [INF] Executing endpoint '/Index'
+2020-09-19 18:02:32.066 -07:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-09-19 18:02:32.078 -07:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-09-19 18:02:33.971 -07:00 [INF] Executed handler method OnGet, returned result .
+2020-09-19 18:02:33.975 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-19 18:02:33.975 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-19 18:02:34.321 -07:00 [INF] Executed page /Index in 2249.1937000000003ms
+2020-09-19 18:02:34.322 -07:00 [INF] Executed endpoint '/Index'
+2020-09-19 18:02:34.329 -07:00 [INF] Request finished in 2413.3444ms 200 text/html; charset=utf-8
+2020-09-19 18:02:35.491 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-09-19 18:02:35.499 -07:00 [INF] Executing endpoint '/Index'
+2020-09-19 18:02:35.500 -07:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-09-19 18:02:35.502 -07:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-09-19 18:02:35.763 -07:00 [INF] Executed handler method OnGet, returned result .
+2020-09-19 18:02:35.763 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-19 18:02:35.763 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-19 18:02:35.769 -07:00 [INF] Executed page /Index in 268.63370000000003ms
+2020-09-19 18:02:35.769 -07:00 [INF] Executed endpoint '/Index'
+2020-09-19 18:02:35.770 -07:00 [INF] Request finished in 278.93080000000003ms 200 text/html; charset=utf-8
+2020-09-19 18:02:35.860 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/GrayBackground.css?v=7Qw-57831-dGRlBPimDSXxcmN3XxlKy177lYxcbLRt4  
+2020-09-19 18:02:35.860 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/site.css?v=ZTmJsVA0kf5AfL0ItSEh28TuHVAcDFjX57xzJuhbstU  
+2020-09-19 18:02:35.860 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/Profile/Profile.css?v=a_TmnDEEq1LWCw1avRo7v5k_0bxqqxmdlLsWgFMhxTc  
+2020-09-19 18:02:35.860 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/Home/Home.css?v=frIO7JtFPWiwa5YEVF_GXdetCi3XshFnOm8rr5R-M3U  
+2020-09-19 18:02:35.860 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/StreamworkLogo.png  
+2020-09-19 18:02:35.860 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/About-Tutor-Hts.css?v=9z0KMKvE5Ro0MXLyMk_G6MxaZcrpRfmodDztvtq-Lmk  
+2020-09-19 18:02:35.927 -07:00 [INF] Sending file. Request path: '/css/site.css'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/css/site.css'
+2020-09-19 18:02:35.927 -07:00 [INF] Sending file. Request path: '/css/GrayBackground.css'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/css/GrayBackground.css'
+2020-09-19 18:02:35.927 -07:00 [INF] Sending file. Request path: '/css/Profile/Profile.css'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/css/Profile/Profile.css'
+2020-09-19 18:02:35.927 -07:00 [INF] Request finished in 108.3527ms 200 text/css
+2020-09-19 18:02:35.927 -07:00 [INF] Request finished in 108.3657ms 200 text/css
+2020-09-19 18:02:35.927 -07:00 [INF] Request finished in 108.3597ms 200 text/css
+2020-09-19 18:02:35.928 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/SignUp-SignInJS/SignIn.js?v=eKMUyOkf85Da9-ABxiYqxJihwNRphTKA6eC2SCRz7do  
+2020-09-19 18:02:35.928 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/Schedule.css?v=Lwkhpo1OUeJwY5Dd3kDGYrE0CsLJJ7k-p5nwJR_MU2g  
+2020-09-19 18:02:35.928 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/Notification/Notification.css?v=SYMsSxWvihH7Wu8FKN9MRMs459fun1NAjAz_kkKls68  
+2020-09-19 18:02:35.978 -07:00 [INF] Sending file. Request path: '/js/SignUp-SignInJS/SignIn.js'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/js/SignUp-SignInJS/SignIn.js'
+2020-09-19 18:02:35.978 -07:00 [INF] Sending file. Request path: '/css/Home/Home.css'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/css/Home/Home.css'
+2020-09-19 18:02:35.978 -07:00 [INF] Sending file. Request path: '/css/Schedule.css'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/css/Schedule.css'
+2020-09-19 18:02:35.978 -07:00 [INF] Sending file. Request path: '/images/StreamworkLogo.png'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/images/StreamworkLogo.png'
+2020-09-19 18:02:35.978 -07:00 [INF] Request finished in 117.869ms 200 text/css
+2020-09-19 18:02:35.978 -07:00 [INF] Request finished in 159.0881ms 200 image/png
+2020-09-19 18:02:35.978 -07:00 [INF] Sending file. Request path: '/css/Notification/Notification.css'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/css/Notification/Notification.css'
+2020-09-19 18:02:35.978 -07:00 [INF] Sending file. Request path: '/css/About-Tutor-Hts.css'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/css/About-Tutor-Hts.css'
+2020-09-19 18:02:35.978 -07:00 [INF] Request finished in 49.9005ms 200 application/javascript
+2020-09-19 18:02:35.978 -07:00 [INF] Request finished in 49.9636ms 200 text/css
+2020-09-19 18:02:35.978 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/ProfileJS/Profile.js?v=yrfkSdwlOYIkWDIAUIRiUAj5wE9TlyRK4gr854VRYaA  
+2020-09-19 18:02:35.978 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/NotificationAndModals.js?v=kLnLitBy9ygtI3Se-J2kz4G5dFahphMh3gEvxc-2nBY  
+2020-09-19 18:02:35.978 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/NotificationJS/PushNotification.js?v=jCv8UdrkpA87V_e0s5xIzMtkLARereToyX7A4Aq5w9A  
+2020-09-19 18:02:35.978 -07:00 [INF] Request finished in 50.148500000000006ms 200 text/css
+2020-09-19 18:02:35.978 -07:00 [INF] Request finished in 159.24ms 200 text/css
+2020-09-19 18:02:35.978 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/Dashboard.js?v=C9n89iAWXnHxH_a03SVcqXjpFPnm4819E_zSflC4VnY  
+2020-09-19 18:02:35.978 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/NotificationJS/Notification.js?v=ZgHnVP0UU9KRZsOK-CDfsxPw9JQJ40R55_BFx1jGMgk  
+2020-09-19 18:02:35.979 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/SignUp-SignInJS/SignUp.js?v=DUCFcH_0CgCzOoFbtDu2YHZDRQD1P62o6Zyj9hfMLfw  
+2020-09-19 18:02:36.029 -07:00 [INF] Sending file. Request path: '/js/ProfileJS/Profile.js'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/js/ProfileJS/Profile.js'
+2020-09-19 18:02:36.029 -07:00 [INF] Sending file. Request path: '/js/NotificationJS/PushNotification.js'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/js/NotificationJS/PushNotification.js'
+2020-09-19 18:02:36.029 -07:00 [INF] Sending file. Request path: '/js/NotificationAndModals.js'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/js/NotificationAndModals.js'
+2020-09-19 18:02:36.030 -07:00 [INF] Request finished in 51.3829ms 200 application/javascript
+2020-09-19 18:02:36.054 -07:00 [INF] Request finished in 51.3463ms 200 application/javascript
+2020-09-19 18:02:36.105 -07:00 [INF] Request finished in 100.79010000000001ms 200 application/javascript
+2020-09-19 18:02:36.105 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/Browse.svg  
+2020-09-19 18:02:36.105 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/StreamWork-Icon.svg  
+2020-09-19 18:02:36.105 -07:00 [INF] Sending file. Request path: '/js/SignUp-SignInJS/SignUp.js'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/js/SignUp-SignInJS/SignUp.js'
+2020-09-19 18:02:36.105 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/Templates.js?v=0r4OPYy2h484Xv2xlmloOsKODa4xA0SK3cPUkKIrbOs  
+2020-09-19 18:02:36.105 -07:00 [INF] Request finished in 126.8879ms 200 application/javascript
+2020-09-19 18:02:36.054 -07:00 [INF] Sending file. Request path: '/js/NotificationJS/Notification.js'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/js/NotificationJS/Notification.js'
+2020-09-19 18:02:36.079 -07:00 [INF] Sending file. Request path: '/js/Dashboard.js'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/js/Dashboard.js'
+2020-09-19 18:02:36.106 -07:00 [INF] Request finished in 127.1008ms 200 application/javascript
+2020-09-19 18:02:36.106 -07:00 [INF] Request finished in 127.57010000000001ms 200 application/javascript
+2020-09-19 18:02:36.128 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/Search.svg  
+2020-09-19 18:02:36.151 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/StreamWork-Full.svg  
+2020-09-19 18:02:36.151 -07:00 [INF] Sending file. Request path: '/images/GenericAssets/Browse.svg'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/images/GenericAssets/Browse.svg'
+2020-09-19 18:02:36.175 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/Elipses.svg  
+2020-09-19 18:02:36.175 -07:00 [INF] Sending file. Request path: '/images/GenericAssets/StreamWork-Icon.svg'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/images/GenericAssets/StreamWork-Icon.svg'
+2020-09-19 18:02:36.200 -07:00 [INF] Sending file. Request path: '/js/Templates.js'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/js/Templates.js'
+2020-09-19 18:02:36.200 -07:00 [INF] Request finished in 94.9504ms 200 image/svg+xml
+2020-09-19 18:02:36.200 -07:00 [INF] Request finished in 94.95360000000001ms 200 image/svg+xml
+2020-09-19 18:02:36.201 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/HomeAssets/Graphic.svg  
+2020-09-19 18:02:36.201 -07:00 [INF] Sending file. Request path: '/images/GenericAssets/StreamWork-Full.svg'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/images/GenericAssets/StreamWork-Full.svg'
+2020-09-19 18:02:36.201 -07:00 [INF] Request finished in 96.0721ms 200 application/javascript
+2020-09-19 18:02:36.201 -07:00 [INF] Sending file. Request path: '/images/GenericAssets/Search.svg'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/images/GenericAssets/Search.svg'
+2020-09-19 18:02:36.225 -07:00 [INF] Sending file. Request path: '/images/GenericAssets/Elipses.svg'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/images/GenericAssets/Elipses.svg'
+2020-09-19 18:02:36.246 -07:00 [INF] Request finished in 97.27090000000001ms 200 image/svg+xml
+2020-09-19 18:02:36.267 -07:00 [INF] Request finished in 139.9339ms 200 image/svg+xml
+2020-09-19 18:02:36.246 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/ChatAssets/Humanities.svg  
+2020-09-19 18:02:36.292 -07:00 [INF] Request finished in 140.9927ms 200 image/svg+xml
+2020-09-19 18:02:36.312 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/CollegeAssets/StanfordLogo.svg  
+2020-09-19 18:02:36.363 -07:00 [INF] Sending file. Request path: '/images/HomeAssets/Graphic.svg'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/images/HomeAssets/Graphic.svg'
+2020-09-19 18:02:36.363 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/CollegeAssets/ASULogo.svg  
+2020-09-19 18:02:36.363 -07:00 [INF] Request finished in 162.029ms 200 image/svg+xml
+2020-09-19 18:02:36.363 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/CollegeAssets/ATMLogo.svg  
+2020-09-19 18:02:36.364 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Chat/Archive/e9c04960-604b-47bc-abc0-15bba95bc28c  
+2020-09-19 18:02:36.388 -07:00 [INF] Sending file. Request path: '/images/ChatAssets/Humanities.svg'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/images/ChatAssets/Humanities.svg'
+2020-09-19 18:02:36.389 -07:00 [INF] Request finished in 143.09560000000002ms 200 image/svg+xml
+2020-09-19 18:02:36.437 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/StreamWorkAdVideo.mp4  
+2020-09-19 18:02:36.437 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-19 18:02:36.481 -07:00 [INF] Sending file. Request path: '/images/CollegeAssets/ATMLogo.svg'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/images/CollegeAssets/ATMLogo.svg'
+2020-09-19 18:02:36.505 -07:00 [INF] Sending file. Request path: '/images/CollegeAssets/ASULogo.svg'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/images/CollegeAssets/ASULogo.svg'
+2020-09-19 18:02:36.481 -07:00 [INF] Sending file. Request path: '/images/CollegeAssets/StanfordLogo.svg'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/images/CollegeAssets/StanfordLogo.svg'
+2020-09-19 18:02:36.505 -07:00 [INF] Request finished in 166.644ms 200 image/svg+xml
+2020-09-19 18:02:36.505 -07:00 [INF] Request finished in 141.7969ms 200 image/svg+xml
+2020-09-19 18:02:36.505 -07:00 [INF] Request finished in 212.97840000000002ms 200 image/svg+xml
+2020-09-19 18:02:36.505 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/CollegeAssets/MarylandLogo.svg  
+2020-09-19 18:02:36.505 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/CollegeAssets/UCSDLogo.svg  
+2020-09-19 18:02:36.505 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/CollegeAssets/UWLogo.svg  
+2020-09-19 18:02:36.564 -07:00 [INF] Sending file. Request path: '/images/CollegeAssets/UCSDLogo.svg'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/images/CollegeAssets/UCSDLogo.svg'
+2020-09-19 18:02:36.585 -07:00 [INF] Sending file. Request path: '/images/CollegeAssets/UWLogo.svg'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/images/CollegeAssets/UWLogo.svg'
+2020-09-19 18:02:36.610 -07:00 [INF] Request finished in 104.90780000000001ms 200 image/svg+xml
+2020-09-19 18:02:36.585 -07:00 [INF] Sending file. Request path: '/images/CollegeAssets/MarylandLogo.svg'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/images/CollegeAssets/MarylandLogo.svg'
+2020-09-19 18:02:36.610 -07:00 [INF] Request finished in 104.75070000000001ms 200 image/svg+xml
+2020-09-19 18:02:36.610 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/facebook.png  
+2020-09-19 18:02:36.610 -07:00 [INF] Request finished in 105.1884ms 200 image/svg+xml
+2020-09-19 18:02:36.610 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/StreamWork-Full-White.svg  
+2020-09-19 18:02:36.611 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/twitter.png  
+2020-09-19 18:02:36.681 -07:00 [INF] Sending file. Request path: '/images/facebook.png'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/images/facebook.png'
+2020-09-19 18:02:36.742 -07:00 [INF] Request finished in 111.2928ms 200 image/png
+2020-09-19 18:02:36.763 -07:00 [INF] Sending file. Request path: '/images/GenericAssets/StreamWork-Full-White.svg'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/images/GenericAssets/StreamWork-Full-White.svg'
+2020-09-19 18:02:36.763 -07:00 [INF] Sending file. Request path: '/images/twitter.png'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/images/twitter.png'
+2020-09-19 18:02:36.764 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/linkedin.png  
+2020-09-19 18:02:36.789 -07:00 [INF] Request finished in 153.7835ms 200 image/svg+xml
+2020-09-19 18:02:36.789 -07:00 [INF] Request finished in 178.04590000000002ms 200 image/png
+2020-09-19 18:02:36.835 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/StreamWorkAdPoster.png  
+2020-09-19 18:02:36.835 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/HomeAssets/ColorBlobs.svg  
+2020-09-19 18:02:36.836 -07:00 [INF] CORS policy execution successful.
+2020-09-19 18:02:36.837 -07:00 [INF] Sending file. Request path: '/images/linkedin.png'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/images/linkedin.png'
+2020-09-19 18:02:36.838 -07:00 [INF] Request finished in 74.0796ms 200 image/png
+2020-09-19 18:02:36.838 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/HomeAssets/ColorBlobsInverted.svg  
+2020-09-19 18:02:36.841 -07:00 [INF] Sending file. Request path: '/images/HomeAssets/ColorBlobsInverted.svg'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/images/HomeAssets/ColorBlobsInverted.svg'
+2020-09-19 18:02:36.841 -07:00 [INF] Request finished in 2.4655ms 200 image/svg+xml
+2020-09-19 18:02:36.846 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-19 18:02:36.869 -07:00 [INF] Executing endpoint '/Chat/Archive'
+2020-09-19 18:02:36.871 -07:00 [INF] Sending file. Request path: '/images/HomeAssets/ColorBlobs.svg'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/images/HomeAssets/ColorBlobs.svg'
+2020-09-19 18:02:36.894 -07:00 [INF] Request finished in 36.179500000000004ms 200 image/svg+xml
+2020-09-19 18:02:36.895 -07:00 [INF] Sending file. Request path: '/images/GenericAssets/StreamWorkAdPoster.png'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/images/GenericAssets/StreamWorkAdPoster.png'
+2020-09-19 18:02:36.895 -07:00 [INF] Sending ["bytes 0-1/84089809"] of file /Users/rithvik/C#/StreamWork/StreamWork/wwwroot/StreamWorkAdVideo.mp4
+2020-09-19 18:02:36.895 -07:00 [INF] Request finished in 60.327400000000004ms 200 image/png
+2020-09-19 18:02:36.898 -07:00 [INF] Request finished in 463.71250000000003ms 206 video/mp4
+2020-09-19 18:02:36.902 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-19 18:02:36.903 -07:00 [INF] Request finished in 488.827ms 200 application/json
+2020-09-19 18:02:36.907 -07:00 [INF] Route matched with {page = "/Chat/Archive"}. Executing page /Chat/Archive
+2020-09-19 18:02:36.917 -07:00 [INF] Executing handler method StreamWork.Pages.Chat.ArchiveChat.OnGet - ModelState is "Valid"
+2020-09-19 18:02:37.002 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=_IEehihnlOQdQwyKfeYjpw  
+2020-09-19 18:02:37.003 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/StreamWorkAdVideo.mp4  
+2020-09-19 18:02:37.003 -07:00 [INF] Sending ["bytes 0-84089808/84089809"] of file /Users/rithvik/C#/StreamWork/StreamWork/wwwroot/StreamWorkAdVideo.mp4
+2020-09-19 18:02:37.030 -07:00 [INF] CORS policy execution successful.
+2020-09-19 18:02:37.030 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-19 18:02:37.119 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-19 18:02:37.187 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/StreamWorkAdVideo.mp4  
+2020-09-19 18:02:37.188 -07:00 [INF] Sending ["bytes 8044544-84089808/84089809"] of file /Users/rithvik/C#/StreamWork/StreamWork/wwwroot/StreamWorkAdVideo.mp4
+2020-09-19 18:02:37.724 -07:00 [INF] Executed page /Chat/Archive in 816.5839000000001ms
+2020-09-19 18:02:37.724 -07:00 [INF] Executed endpoint '/Chat/Archive'
+2020-09-19 18:02:37.724 -07:00 [INF] Request finished in 1360.2584000000002ms 200 text/html; charset=utf-8
+2020-09-19 18:02:37.734 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/chat.css?v=R44HC_aZqwPbP4nqHO_xi4u04USRG50PCIH2LCIJ1Xo  
+2020-09-19 18:02:37.734 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/media/juntos.mp3  
+2020-09-19 18:02:37.734 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/chat.js?v=lQNmqsHv4RX87HS5c7KXyH66ocaXx25iowB595_9Qrs  
+2020-09-19 18:02:37.762 -07:00 [INF] Sending file. Request path: '/css/chat.css'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/css/chat.css'
+2020-09-19 18:02:37.762 -07:00 [INF] Sending file. Request path: '/media/juntos.mp3'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/media/juntos.mp3'
+2020-09-19 18:02:37.762 -07:00 [INF] Sending file. Request path: '/js/chat.js'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/js/chat.js'
+2020-09-19 18:02:37.762 -07:00 [INF] Request finished in 28.146700000000003ms 200 audio/mpeg
+2020-09-19 18:02:37.762 -07:00 [INF] Request finished in 28.254900000000003ms 200 application/javascript
+2020-09-19 18:02:37.762 -07:00 [INF] Request finished in 27.974300000000003ms 200 text/css
+2020-09-19 18:02:37.832 -07:00 [INF] Request finished in 829.3878000000001ms 206 video/mp4
+2020-09-19 18:02:37.839 -07:00 [INF] Request finished in 652.0656ms 206 video/mp4
+2020-09-19 18:02:38.341 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/favicon.ico  
+2020-09-19 18:02:38.342 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/apple-touch-icon-precomposed.png  
+2020-09-19 18:02:38.350 -07:00 [INF] Request finished in 7.548900000000001ms 404 
+2020-09-19 18:02:38.351 -07:00 [INF] Sending file. Request path: '/images/favicon.ico'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/images/favicon.ico'
+2020-09-19 18:02:38.351 -07:00 [INF] Request finished in 11.5098ms 200 image/x-icon
+2020-09-19 18:02:38.351 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/apple-touch-icon.png  
+2020-09-19 18:02:38.352 -07:00 [INF] Request finished in 0.738ms 404 
+2020-09-19 18:04:17.618 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/About  
+2020-09-19 18:04:17.651 -07:00 [INF] Executing endpoint '/Home/About'
+2020-09-19 18:04:17.655 -07:00 [INF] Route matched with {page = "/Home/About"}. Executing page /Home/About
+2020-09-19 18:04:17.656 -07:00 [INF] Executing handler method StreamWork.Pages.Home.AboutModel.OnGet - ModelState is "Valid"
+2020-09-19 18:04:17.657 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-19 18:04:17.668 -07:00 [INF] Executed page /Home/About in 13.049100000000001ms
+2020-09-19 18:04:17.668 -07:00 [INF] Executed endpoint '/Home/About'
+2020-09-19 18:04:17.669 -07:00 [INF] Request finished in 51.0993ms 200 text/html; charset=utf-8
+2020-09-19 18:04:17.946 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/RithvikArun.jpeg  
+2020-09-19 18:04:17.946 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/JaredHsu2.jpg  
+2020-09-19 18:04:17.946 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-19 18:04:17.989 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/Tom.jpg  
+2020-09-19 18:04:17.990 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/KenPena.jpg  
+2020-09-19 18:04:17.991 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/Junshu230.jpg  
+2020-09-19 18:04:18.022 -07:00 [INF] CORS policy execution successful.
+2020-09-19 18:04:18.051 -07:00 [INF] Sending file. Request path: '/images/Junshu230.jpg'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/images/Junshu230.jpg'
+2020-09-19 18:04:18.051 -07:00 [INF] Sending file. Request path: '/images/RithvikArun.jpeg'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/images/RithvikArun.jpeg'
+2020-09-19 18:04:18.051 -07:00 [INF] Sending file. Request path: '/images/JaredHsu2.jpg'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/images/JaredHsu2.jpg'
+2020-09-19 18:04:18.051 -07:00 [INF] Sending file. Request path: '/images/Tom.jpg'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/images/Tom.jpg'
+2020-09-19 18:04:18.074 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-19 18:04:18.074 -07:00 [INF] Sending file. Request path: '/images/KenPena.jpg'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/images/KenPena.jpg'
+2020-09-19 18:04:18.074 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-19 18:04:18.074 -07:00 [INF] Request finished in 101071.02690000001ms 101 
+2020-09-19 18:04:18.074 -07:00 [INF] Request finished in 147.9589ms 200 image/jpeg
+2020-09-19 18:04:18.074 -07:00 [INF] Request finished in 126.87610000000001ms 200 image/jpeg
+2020-09-19 18:04:18.074 -07:00 [INF] Request finished in 84.49170000000001ms 200 image/jpeg
+2020-09-19 18:04:18.074 -07:00 [INF] Request finished in 147.94580000000002ms 200 image/jpeg
+2020-09-19 18:04:18.074 -07:00 [INF] Request finished in 82.73270000000001ms 200 image/jpeg
+2020-09-19 18:04:18.075 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-19 18:04:18.075 -07:00 [INF] Request finished in 150.8608ms 200 application/json
+2020-09-19 18:04:18.087 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=2Q1Y3Fldddqd_V2EdzAA3A  
+2020-09-19 18:04:18.088 -07:00 [INF] CORS policy execution successful.
+2020-09-19 18:04:18.088 -07:00 [INF] Executing endpoint '/pushnotificationhub'
