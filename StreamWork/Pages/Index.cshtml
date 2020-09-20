@@ -21,12 +21,29 @@
                     <p class="d-lg-block d-md-block d-sm-block d-none mt-4 mb-0">StreamWork is an academic platform where hundreds of students <br />  come together to live-stream their studies, tutor their friends, <br />  and learn from A+ classmates all for free.</p>
                     <p class="d-lg-none d-md-none d-sm-none d-block mt-4 mb-0">StreamWork is an academic platform where  hundreds of students come together to live-stream their studies, tutor their friends, and learn from A+ classmates  all for free.</p>
                     <div class="d-flex mt-3">
-                        <form id="search-form" class="p-2 border w-100 rounded d-inline-block custom-form drop-shadow" onsubmit="SearchFromIndex(event)">
-                            <div class="d-flex">
-                                <input id="searchQuery" class="form-control-lg mainLoginInput mt-1 custom-placeholder" type="search" placeholder="Search for subjects, topics, and interests" style="border: none; font-size:14px;">
+                        <form id="search-form" class="p-2 border w-100 rounded d-inline-block custom-form drop-shadow">
+                            <div class="d-lg-flex d-md-flex d-sm-flex d-none">
+                                <input id="searchQuery-desktop" class="form-control-lg mainLoginInput mt-1 custom-placeholder" type="search" placeholder="Search for subjects, topics, and interests" onkeydown="search(event, 'searchQuery-desktop')" style="border: none; font-size:14px;">
+                            </div>
+                            <div class="d-lg-none d-md-none d-sm-none d-flex">
+                                <input id="searchQuery-mobile" class="form-control-lg mainLoginInput mt-1 custom-placeholder" type="search" placeholder="Search for topics" onkeydown="search(event, 'searchQuery-mobile')" style="border: none; font-size:14px;">
                             </div>
                         </form>
-                        <button class="streamWork-search drop-shadow-search" onclick="SearchFromIndex(event)"><input class="mt-1" type="image" src="~/images/GenericAssets/Search.svg" width="30" height="40" /></button>
+                        <script>
+                            function search(event, id) {
+                                if (event.keyCode == 13 && !event.shiftKey) {
+                                    SearchFromIndex(id)
+                                    event.preventDefault();
+                                    return false;
+                                }
+                            }
+                        </script>
+                        <div class="d-lg-block d-md-block d-sm-block d-none">
+                            <button class="streamWork-search drop-shadow-search" onclick="SearchFromIndex('searchQuery-desktop')"><input class="mt-1" type="image" src="~/images/GenericAssets/Search.svg" width="30" height="40" /></button>
+                        </div>
+                        <div class="d-lg-none d-md-none d-sm-none d-block">
+                            <button class="streamWork-search drop-shadow-search" onclick="SearchFromIndex('searchQuery-mobile')"><input class="mt-1" type="image" src="~/images/GenericAssets/Search.svg" width="30" height="40" /></button>
+                        </div>
                     </div>
                 </div>
                 <img class="d-lg-none d-md-block d-sm-block d-block graphic" src="~/images/HomeAssets/Graphic.svg" />
@@ -376,9 +393,8 @@
 </script>
 
 <script>
-    function SearchFromIndex(event) {
-        event.preventDefault();
-        var searchQuery = $('#searchQuery').val();
+    function SearchFromIndex(id) {
+        var searchQuery = $('#' + id).val();
         window.location.href = '/Home/Browse/' + (searchQuery == "" ? "SW" : searchQuery);
     }
 </script>

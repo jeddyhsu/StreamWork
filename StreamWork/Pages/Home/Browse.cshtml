@@ -9,7 +9,7 @@
             <form id="search-form" name="search-form" class="p-2 border w-100 rounded d-inline-block custom-form" onsubmit="event.preventDefault(); SearchStreams(event)">
                 <div class="d-flex">
                     <input id="searchQuery" class="form-control-lg mainLoginInput mt-1 custom-placeholder" type="search" placeholder="Search Streams" style="border: none; font-size:14px;">
-                    <select id="filter" name="filter" class="form-control form-control-sm rounded m-2 h-100 float-right" onchange="Filter()" style="max-width:175px;">
+                    <select id="filter" name="filter" class="form-control form-control-sm d-lg-block d-md-block d-sm-block d-none rounded m-2 h-100 float-right" onchange="Filter()" style="max-width:175px;">
                         <option value="">Filter Topic</option>
                         <option value="Mathematics">Mathematics</option>
                         <option value="Science">Science</option>
@@ -22,7 +22,7 @@
                     </select>
                 </div>
             </form>
-            <button id="browse-search" class="streamWork-search" onclick="SearchStreams(event)"><input class="mt-1" type="image" src="~/images/GenericAssets/Search.svg" width="30" height="40" /></button>
+            <button id="browse-search" class="streamWork-search pointer" onclick="SearchStreams(event)"><input class="mt-1 border-0" type="image" src="~/images/GenericAssets/Search.svg" width="30" height="40" /></button>
         </div>
         <p id="clear-filter" class="float-right mr-4 pointer mt-2" style="font-size:12px; color:#004643" onclick="ClearFilter()">Clear Filter</p>
         <script>$('#clear-filter').hide();</script>
@@ -141,22 +141,10 @@
 
 @if (Model.SearchTerm != null && Model.SearchTerm != "")
 {
-
-    if (Model.isFilterTerm == false)
-    {
-        <script>
-            $('#searchQuery').val('@Model.SearchTerm')
-            SearchStreams()
-        </script>
-    }
-    else
-    {
-        <script>
-            $('#filter').val('@Model.SearchTerm')
-            $('#clear-filter').show();
-            SearchStreams()
-        </script>
-    }
+    <script>
+        $('#searchQuery').val('@Model.SearchTerm')
+        SearchStreams()
+    </script>
 }
 
 @await Html.PartialAsync("Partials/Notification/PushNotifications")

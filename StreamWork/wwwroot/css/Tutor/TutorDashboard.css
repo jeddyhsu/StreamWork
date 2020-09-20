@@ -238,6 +238,10 @@
         font-family: 'Roboto Slab', serif;
         padding: 7px;
     }
+
+    .d-sm-block {
+        display: block !important;
+    }
 }
 
 
@@ -303,6 +307,12 @@
 
     .schedule-time {
         font-size: 10px;
+    }
+}
+
+@media(max-width:400px) {
+    .d-none{
+        display: none !important;
     }
 }
 

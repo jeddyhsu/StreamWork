@@ -55,7 +55,7 @@ function SliderStreams() {
     $('#streams-tab').tab('show');
     $('#slider-object').css("transform", "translate3d(20px, 0px, 0px)")
     $('#search-form').attr("onsubmit", "event.preventDefault(); SearchStreams()")
-    $('#browse-search').attr("onclick", "SearchStreams(event)")
+    $('#browse-search').attr("onclick", "SearchStreams()")
     $('#filter').attr("onchange", "Filter()")
     ChangePlaceHolder("Search Streams")
     $('#searchQuery').val((parameterTable["Stream"])[0])
@@ -83,6 +83,7 @@ function SliderTutors() {
     $('#tutors-tab').tab('show');
     $('#slider-object').css("transform", "translate3d(196px, 0px, 0px)")
     $('#search-form').attr("onsubmit", "event.preventDefault(); SearchTutors()")
+    $('#browse-search').attr("onclick", "SearchTutors()")
     $('#filter').attr("onchange", " Filter()")
     ChangePlaceHolder("Search Tutors")
     $('#searchQuery').val((parameterTable["Tutor"])[0])
