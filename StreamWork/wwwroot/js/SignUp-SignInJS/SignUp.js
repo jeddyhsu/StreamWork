@@ -726,7 +726,7 @@ function Route() {
         window.location.href = "/Tutor/TutorDashboard";
     }
     else {
-        window.location.href = "/";
+        window.location.href = "/Home/Browse/SW";
     }
 }
 

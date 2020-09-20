@@ -248,7 +248,7 @@ namespace StreamWork.Pages.Home
                         var r = route.Split("/");
                         if(r.Length > 3)
                         {
-                            return cookieService.Route(signInProfile, r[3], encryptionService);
+                            return cookieService.Route(signInProfile, r[3], encryptionService); //if there is a page there is a page that they were intially going to and got blovked by the signin
                         }
 
                         return cookieService.Route(signInProfile, "SW", encryptionService);
