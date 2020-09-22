@@ -1,5 +1,9 @@
-﻿.sign-in-sign-up-padding {
+﻿.sign-up-padding {
     padding-top: 80px;
+}
+
+.sign-in-padding {
+    padding-top: 120px;
 }
 
 .sign-in-sign-up-logo {
@@ -11,25 +15,20 @@
 }
 
 @media (max-width: 400px) {
-    .sign-in-sign-up-padding {
+    .sign-up-padding {
         padding-top: 50px;
     }
+
     .sign-in-sign-up-logo {
         width: 0px
+    }
+
+    .sign-in-padding {
+        padding-top: 50px;
     }
 
     .modal-min-width {
         min-width: 0px;
-    }
-}
-
-@media (max-width: 400px) {
-    .sign-in-sign-up-padding {
-        padding-top: 50px;
-    }
-
-    .sign-in-sign-up-logo {
-        width: 0px
     }
 }
 

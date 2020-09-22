@@ -5,13 +5,12 @@
 @Html.AntiForgeryToken()
 
 <br />
-<div class="sign-in-sign-up-padding pl-lg-5 pr-lg-5 pr-md-5 pl-md-5 pl-sm-5 pr-sm-5 pl-4 pr-4" style="background-color: #f3f3f3;  overflow-x: hidden;">
+<div class="sign-in-padding pl-lg-5 pr-lg-5 pr-md-5 pl-md-5 pl-sm-5 pr-sm-5 pl-4 pr-4" style="background-color: #f3f3f3;  overflow-x: hidden;">
     <br />
 
     @* Email *@
     <div class="row" id="email">
-        <div class="col-lg-4 col-md-3 col-sm-1"></div>
-        <div class="col-lg-4 col-md-6 col-sm-10 py-4 px-5 border" style="background-color:white">
+        <div class="card d-block mr-auto ml-auto py-4 px-5 border" style="background-color: white; width:550px">
             <div id="invalid-username-password-notification" class="alert notification-warning text-center" style="padding-left:25px" role="alert">
                 <b>Invalid Username or Password</b>.
             </div>
@@ -48,7 +47,6 @@
 
             <p style="text-align: center; color: #004643;">New to StreamWork? <a href="/Home/SignUp" style="color: #00A0A0">Sign Up</a></p>
         </div>
-        <div class="col-lg-4 col-md-3 col-sm-1"></div>
     </div>
 </div>
 

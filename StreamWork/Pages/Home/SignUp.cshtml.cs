@@ -116,7 +116,7 @@ namespace StreamWork.Pages.Home
                     ProfileColor = MiscHelperMethods.GetRandomColor(),
                     ProfileSince = DateTime.UtcNow,
                     ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_pfp_SW.png",
-                    ProfileBanner = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_Banner_svg_SW.svg",
+                    ProfileBanner = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_Banner_svg_SW_v2.svg",
                 };
 
                 await storageService.Save(user.Id, user);
