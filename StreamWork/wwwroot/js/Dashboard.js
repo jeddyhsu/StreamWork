@@ -560,22 +560,21 @@ function OpenCropper(minCropBoxW, minCropBoxH, viewMode) {
         zoomOnTouch: false,
         zoomOnWheel: false,
         background: false,
+        checkCrossOrigin: false,
         data: {
             width: minCropBoxW,
             height: minCropBoxH,
         }
     });
-
-    $('.cropper-modal').css('background-color', 'red')
 }
 
 function DestroyCropper() {
-    cropper.destroy()
+    if (cropper != null) {
+        cropper.destroy()
+    }
 }
 
 function SendCroppedImage() {
-    cropper.getCroppedCanvas();
-
     cropper.getCroppedCanvas({
         imageSmoothingEnabled: false,
         imageSmoothingQuality: 'high',
@@ -604,5 +603,29 @@ function SendCroppedImage() {
    })
 
    CloseModal('imagecropper-modal')
+   ResetButtons();
    DestroyCropper()
+}
+
+function UploadImage() {
+    if (cropperType == "Banner") {
+        $('#upload-profile-banner').click()
+    }
+}
+
+function ResetButtons() {
+    $('#cropper-buttons').html(` <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#6B6B6B; color:white" onclick="OpenConfirmDeleteImage()">Delete Image</button>
+                                 <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="UploadImage()">Change Image</button>`)
+    $('#delete-image-notification').hide();
+}
+
+
+function OpenConfirmDeleteImage() {
+    $('#cropper-buttons').html(` <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#AC0001; color:white" onclick="SendCroppedImage()">Confirm Delete</button>
+                                 <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="UploadImage()">Change Image</button>`)
+    $('#delete-image-notification').show();
+}
+
+function DeleteImage() {
+
 }

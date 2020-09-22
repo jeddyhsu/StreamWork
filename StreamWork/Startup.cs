@@ -55,13 +55,7 @@ namespace StreamWork
                 options.ClientSecret = "5pJv9d7UACsWWPkWKMjb-sTb";
             });
 
-            services.AddCors(options => options.AddPolicy("CorsPolicy",
-            builder =>
-            {
-                builder.AllowAnyMethod().AllowAnyHeader()
-                       .WithOrigins("http://localhost:58539", "https://streamworktest.azurewebsites.net", "https://www.streamwork.live")
-                       .AllowCredentials();
-            }));
+            services.AddCors();
 
             services.Configure<StorageConfig>(Configuration);
             services.AddTransient<ChatService>();
@@ -103,6 +97,9 @@ namespace StreamWork
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
+            app.UseCors(builder =>
+            builder.WithOrigins("http://localhost:58539"));
 
             app.UseHttpsRedirection();
             app.UseSession();

@@ -1,16 +1,35 @@
 ﻿.sign-in-sign-up-padding {
-    padding-top: 100px;
+    padding-top: 80px;
 }
 
 .sign-in-sign-up-logo {
     max-width:450px
 }
 
+.modal-min-width{
+    min-width:500px;
+}
+
 @media (max-width: 400px) {
     .sign-in-sign-up-padding {
-        padding-top: 0px;
+        padding-top: 50px;
     }
     .sign-in-sign-up-logo {
         width: 0px
     }
+
+    .modal-min-width {
+        min-width: 0px;
+    }
 }
+
+@media (max-width: 400px) {
+    .sign-in-sign-up-padding {
+        padding-top: 50px;
+    }
+
+    .sign-in-sign-up-logo {
+        width: 0px
+    }
+}
+

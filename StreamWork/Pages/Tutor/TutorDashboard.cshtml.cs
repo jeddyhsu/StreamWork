@@ -7,6 +7,10 @@ using StreamWork.DataModels;
 using StreamWork.HelperMethods;
 using StreamWork.Services;
 using StreamWork.ProfileObjects;
+using Microsoft.AspNetCore.Cors;
+using System.Net;
+using System;
+using AngleSharp.Text;
 
 namespace StreamWork.Pages.Tutor
 {
@@ -70,6 +74,12 @@ namespace StreamWork.Pages.Tutor
             NumberOfViews = UserArchivedStreams.Sum(x => x.Views);
             NumberOfFollowers = Followers == null ? 0 : Followers.Count;
             NumberOfFollowees = Followees == null ? 0 : Followees.Count;
+
+            var webClient = new WebClient();
+            byte[] imageBytes = webClient.DownloadData(CurrentUserProfile.ProfileBanner);
+
+            string s = Convert.ToBase64String(imageBytes);
+            CurrentUserProfile.ProfileBanner = s;
 
             Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
             AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
