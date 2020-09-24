@@ -142,7 +142,7 @@ namespace StreamWork.Services
                             message.From.Add(new MailboxAddress(name, streamworkEmailAddress));
                             message.To.Add(MailboxAddress.Parse(userFollower.EmailAddress));
                             message.Subject = $"{user.Username} is now streaming \"{channel.StreamTitle}\" in {channel.StreamSubject}!";
-                            message.Body = new TextPart("plain")
+                            message.Body = new TextPart("html")
                             {
                                 Text = ConvertToTemplateString($"Hey there {userFollower.Name.Split('|')[0]},", $"{user.Username} is now live-streaming \"{channel.StreamTitle}\" in a topic you follow, {channel.StreamSubject}.\n\n Tune in <a href={url}>here!</a>.")
                             };
