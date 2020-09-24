@@ -45,14 +45,17 @@
                     </div>
                     <div class="col-lg-5 col-md-12 col-sm-12 col-12 order-lg-2 order-md-1 order-sm-1 order-1">
                         <div id="banner-upload" class="image-container" style="width:100%; height:100%;">
-                            <img class="banner" id="preview-profile-banner" src="@Model.CurrentUserProfile.ProfileBanner" style="cursor:pointer; height:100%; object-fit:cover;" />
+                            <img class="banner" id="preview-profile-banner" src="@Model.CurrentUserProfile.ProfileBanner" style="cursor:pointer; max-height:240px; object-fit:cover;" />
                             <div class="bottom-right mr-2" style="left:0px; bottom:0px;">
                                 <div class="card rounded-0" style="width:100%; height:40px; background-color:black; opacity:0.2">
                                     <i id="add-profile-banner" class="fa fa-camera d-block ml-auto mr-auto mt-2" style="font-size:24px;color:white"></i>
                                     <input id="upload-profile-banner" style="cursor:pointer; display:none" type='file' onchange="ReadImageUrl(this, 'Banner')" accept="image/png,image/jpeg" />
-                                    <script>$('#preview-profile-banner').click(function () {
-                                            $('#upload-profile-banner').click();
-                                        })</script>
+                                    <script>
+                                        $('#preview-profile-banner').click(function () {
+                                            ReadImageSrcUrl("Banner", '@Model.DefaultBanner');
+                                            OpenModal("imagecropper-modal")
+                                        })
+                                    </script>
                                 </div>
                             </div>
                         </div>
@@ -76,15 +79,9 @@
         </div>
         <div id="section-topic-notification" class="alert notification-success mt-3 mb-0 ml-2 mr-2" role="alert">
             <b>Changes Saved!</b> Your information has been successfully saved.
-            <div class="close ml-auto" onclick="$('#section-topic-notification').hide()">&times;</div>
         </div>
         <script>$('#section-topic-notification').hide()</script>
 
-        <div id="schedule-timezone-notification" class="alert notification-info mt-3 mb-0 ml-2 mr-2" role="alert">
-            <b>Enter Timezone!</b> You must enter your timezone in "Edit Profile" to use the scheduling feature.
-            <div class="close ml-auto" onclick="$('#sectionTopicNotification').hide()">&times;</div>
-        </div>
-        <script>$('#schedule-timezone-notification').hide()</script>
         <div class="tab-content">
             <div class="tab-pane active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <div class="container-fluid p-3" style="width:100%">

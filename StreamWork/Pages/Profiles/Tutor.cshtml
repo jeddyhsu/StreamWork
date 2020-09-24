@@ -16,8 +16,8 @@ else
 @Html.AntiForgeryToken()
 
 <div class="container custom-profile-container">
-    <img class="banner" id="preview-profile-banner" src="@Model.UserProfile.ProfileBanner" />
-    <div class="card border-0">
+    <img class="banner banner-radius" id="preview-profile-banner" src="@Model.UserProfile.ProfileBanner" style="border-top-right-radius:7px; border-top-left-radius:8px; margin-left:1px" />
+    <div class="card" style="border-top-right-radius:0px; border-top-left-radius:0px;">
         <div class="card-body p-0">
             @await Html.PartialAsync("Partials/Profile/Header_View", Model)
         </div>
@@ -145,7 +145,7 @@ else
                                     <div class="col-12 text-center mt-5">
                                         <p class="form-sub-header p-0" style="font-size:22px">Looks like you don't have any videos yet...</p>
                                         <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">Help other students find the help they need by putting up content!</p>
-                                        <button class="streamWork-primary mt-3" onclick="window.location.href ='/Tutor/TutorStream'" style="font-size:14px; font-family:'Roboto', serif">Start your first stream</button>
+                                        <button class="streamWork-primary mt-3" onclick="window.location.href ='/Tutor/TutorStream/SW'" style="font-size:14px; font-family:'Roboto', serif">Start your first stream</button>
                                     </div>
                                 }
                                 else

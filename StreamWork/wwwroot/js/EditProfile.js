@@ -45,7 +45,7 @@ function ReadImageUrl(image, type) {
 function ReadImageSrcUrl(type, dImage) {
     cropperType = type;
     if (type == "Banner") {
-        $('#image-container').html(`<img id="imagecropper-image" src="${document.getElementById('preview-profile-banner').src}"/>`);
+        $('#image-container').html(`<img id="imagecropper-image" src="${document.getElementById('preview-profile-banner').src}" width="100%"/>`);
         CheckIfImageIsDefaultImage(dImage)
         OpenModal('imagecropper-modal')
         

@@ -27,6 +27,8 @@ namespace StreamWork.Pages.Student
         public List<Comment> Comments { get; set; }
         public List<string> Notifications { get; set; }
         public bool AreThereUnseenNotifications { get; set; }
+        public string DefaultBanner { get; set; }
+        public string DefaultProfilePicture { get; set; }
 
         public StudentDashboard(StorageService storage, CookieService cookie, ProfileService profile, NotificationService notification, FollowService follow, ScheduleService schedule)
         {
@@ -54,6 +56,8 @@ namespace StreamWork.Pages.Student
 
             Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
             AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
+            DefaultBanner = MiscHelperMethods.defaultBanner;
+            DefaultProfilePicture = MiscHelperMethods.defaultProfilePicture;
 
             return Page();
         }
