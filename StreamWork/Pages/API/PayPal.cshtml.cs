@@ -47,9 +47,6 @@ namespace StreamWork.Pages.API
         // This function has never been in production and is utterly untested
         private static async Task<PayPalToken> GetPayPalToken(string scope)
         {
-            // Getting my ass saved by
-            // https://blog.bitscry.com/2018/03/05/retrieving-oauth2-tokens-in-net/
-
             HttpResponseMessage response = await new HttpClient().PostAsync(url, new FormUrlEncodedContent(new Dictionary<string, string>
                 { { "grant_type", "client_credentials" }, { "scope", scope },
                 { "client_id", clientId }, { "client_secret", clientSecret } }));
@@ -61,25 +58,25 @@ namespace StreamWork.Pages.API
             return JsonConvert.DeserializeObject<PayPalToken>(await response.Content.ReadAsStringAsync());
         }
 
-        public async Task OnGet()
+        public async Task OnGetWebhookAsync()
         {
             string id = Guid.NewGuid().ToString();
             await storage.Save(id, new Debug
             {
                 Id = id,
                 Timestamp = DateTime.UtcNow,
-                Message = "Webhook received in OnGet"
+                Message = "Webhook received in OnGetWebhook"
             });
         }
 
-        public async void OnPost()
+        public async Task OnPostWebhookAsync()
         {
             string id = Guid.NewGuid().ToString();
             await storage.Save(id, new Debug
             {
                 Id = id,
                 Timestamp = DateTime.UtcNow,
-                Message = "Webhook received in OnPost"
+                Message = "Webhook received in OnPostWebhook"
             });
         }
     }
