@@ -2,10 +2,10 @@
 {
     @foreach (var task in Model.AllScheduledStreams)
     {
-        <div id="schedule-@task.Id" class="col-lg-6 col-md-12 mt-2 w-100 schedule schedule-subject-@task.StreamSubject">
-            <div class="card mb-3 border-0">
+        <div id="schedule-@task.Id" class="col-lg-4 col-md-6 col-sm-12 col-12 mt-2 mb-3 w-100 schedule schedule-subject-@task.StreamSubject">
+            <div class="card h-100 border">
                 <div class="card-body">
-                    <div class="d-inline-flex">
+                    <div class="d-flex justify-content-center">
                         <img class="rounded m-1 schedule-image" src="@task.SubjectThumbnail" />
                         <div class="text-center m-1 schedule-image schedule-border">
                             <p class="form-header schedule-month">@task.Date.ToString("MMM")</p>
@@ -14,12 +14,11 @@
                             <p class="form-header schedule-day">@task.Date.Day</p>
                             <p class="form-header schedule-dow">@task.Date.ToString("ddd")</p>
                         </div>
-                        <div class="m-1" style="height:75px;">
-                            <p class="form-header m-0">@task.StreamTitle</p>
-                            <p class="mt-1 mb-0 roboto schedule-tutor"><a class="streamWork-green" href="/Profiles/Tutor/@task.Username">@task.Name.Replace('|', ' ')</a> Tutoring @task.StreamSubject</p>
-                            <p class="schedule-time">@task.TimeStart - @task.TimeStop [@task.TimeZone.ToString()]</p>
-
-                        </div>
+                    </div>
+                    <div class="m-1 text-center">
+                        <p class="form-header schedule-title m-0">@task.StreamTitle</p>
+                        <p class="mt-1 mb-0 roboto schedule-tutor"><a class="streamWork-green" href="/Profiles/Tutor/@task.Username">@task.Name.Replace('|', ' ')</a> Tutoring @task.StreamSubject</p>
+                        <p class="schedule-time mb-0">@task.TimeStart - @task.TimeStop [@task.TimeZone.ToString()]</p>
                     </div>
                 </div>
             </div>

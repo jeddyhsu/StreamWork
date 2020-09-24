@@ -75,14 +75,18 @@
                         @if (Model.CurrentUserProfile.ProfileType == "tutor")
                         {
                             <a class="dropdown-item" href="/Tutor/TutorDashboard">Dashboard</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" id="Settings" href="/Tutor/TutorSettings">Settings</a>
+                             <!--
+                               <div class="dropdown-divider"></div>
+                               <a class="dropdown-item" id="Settings" href="/Tutor/TutorSettings">Settings</a>
+                            -->
                         }
                         else
                         {
                             <a class="dropdown-item pointer" href="/Student/StudentDashboard">Dashboard</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item pointer" id="Settings" href="/Student/TutorSettings">Settings</a>
+                             <!--
+                               <div class="dropdown-divider"></div>
+                               <a class="dropdown-item" id="Settings" href="/Tutor/TutorSettings">Settings</a>
+                            -->
                         }
                         <div class="dropdown-divider"></div>
                         <p class="dropdown-item pointer mb-0" id="Logout" onclick="SignOut()">Logout</p>

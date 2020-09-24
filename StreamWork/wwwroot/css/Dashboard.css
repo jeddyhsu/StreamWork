@@ -21,7 +21,7 @@
     }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 575px) {
     .container-fluid {
         width: 100%;
         padding: 0px;
@@ -234,9 +234,20 @@
     width: 100%;
     height:100%;
     object-fit: cover;
-    object-position: top;
     max-height: 300px;
     cursor: pointer !important
+}
+
+.banner-row-padding {
+    padding-left: 15px;
+    padding-right: 14px
+}
+
+@media screen and (max-width: 600px){
+    .banner-row-padding {
+        padding-left: 0px;
+        padding-right: 0px
+    }
 }
 
 /*Streams, Followers & Views Objects*/

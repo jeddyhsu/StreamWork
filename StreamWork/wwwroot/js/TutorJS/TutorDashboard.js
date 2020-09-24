@@ -119,13 +119,13 @@ function SortTasks(data) {
             var dow = moment(String(data.sorted[i].date).replace("T", " ")).format("ddd");
 
             element += `<div class="col-lg-6 col-md-12 mt-2">
-                            <div class="card card-border" onmouseover=" $('#edit-schedule-icon-${data.sorted[i].id}').css('display','block')" onmouseout="$('#edit-schedule-icon-${data.sorted[i].id}').css('display','none')" onclick="EditScheduleTask('${data.sorted[i].id}')">
+                            <div class="card h-100 card-border" onmouseover=" $('#edit-schedule-icon-${data.sorted[i].id}').css('display','block')" onmouseout="$('#edit-schedule-icon-${data.sorted[i].id}').css('display','none')" onclick="EditScheduleTask('${data.sorted[i].id}')">
                                 <div class="image-container w-100">
                                     <div class="top-right">
                                         <img id="edit-schedule-icon-${data.sorted[i].id}" class="p-1" style="width:30px; cursor:pointer; display:none" src="/images/TutorAssets/TutorDashboard/Edit.png" onclick="EditScheduleTask('${data.sorted[i].id}')" />
                                     </div>
                                 </div>
-                                <div class="card-body" onclick="window.location.href = '/Tutor/TutorStream/${data.sorted[i].id}'; $('#edit-schedule-icon-${data.sorted[i].id}').css('display','none')">
+                                <div class="card-body d-lg-block d-md-block d-sm-block d-none" onclick="window.location.href = '/Tutor/TutorStream/${data.sorted[i].id}'; $('#edit-schedule-icon-${data.sorted[i].id}').css('display','none')">
                                     <input type="hidden" id="schedule-date-${data.sorted[i].id}" value="${data.sorted[i].date}" />
                                     <div class="d-inline-flex">
                                         <img class="rounded m-1" src="${data.sorted[i].subjectThumbnail}" style="width:75px; height:75px" />
@@ -137,8 +137,8 @@ function SortTasks(data) {
                                             <p id="schedule-dow-${data.sorted[i].id}" class="form-header" style="font-size:14px">${dow}</p>
                                         </div>
                                         <div class="m-1" style="height:75px;">
-                                            <p id="schedule-stream-title-${data.sorted[i].id}" class="form-header m-0">${data.sorted[i].streamTitle}</p>
-                                            <p id="schedule-stream-subject-${data.sorted[i].id}" class="mt-1 mb-0" style="font-size:10px">${data.sorted[i].streamSubject}</p>
+                                            <p id="schedule-stream-title-${data.sorted[i].id}" class="form-header m-0 schedule-title">${data.sorted[i].streamTitle}</p>
+                                            <p id="schedule-stream-subject-${data.sorted[i].id}" class="mt-1 mb-0 schedule-tutor">${data.sorted[i].streamSubject}</p>
                                             <input id="schedule-stream-description-${data.sorted[i].id}" type="hidden" value="${data.sorted[i].streamDescription}">
                                             <p class="mt-1" style="font-size:14px">${data.sorted[i].timeStart} - ${data.sorted[i].timeStop} [${data.sorted[i].timeZone}]</p>
                                             <input type="hidden" id="schedule-time-start-${data.sorted[i].id}" value="${data.sorted[i].timeStart}" />
@@ -146,8 +146,29 @@ function SortTasks(data) {
                                         </div>
                                     </div>
                                 </div>
+                                <div class="card-body d-lg-none d-md-none d-sm-none d-block" onclick="window.location.href = '/Tutor/TutorStream/${data.sorted[i].id}'; $('#edit-schedule-icon-${data.sorted[i].id}').css('display','none')">
+                                    <input type="hidden" id="schedule-date-${data.sorted[i].id}" value="${data.sorted[i].date}" />
+                                    <div class="d-flex justify-content-center">
+                                        <img class="rounded m-1" src="${data.sorted[i].subjectThumbnail}" style="width:75px; height:75px" />
+                                        <div class="text-center m-1 schedule-border" style="width:75px; height:75px;">
+                                            <p id="schedule-month-${data.sorted[i].id}" class="form-header mt-4" style="font-size:18px">${month}</p>
+                                        </div>
+                                        <div class="text-center m-1 schedule-border" style="width:75px; height:75px;">
+                                            <p id="schedule-day-${data.sorted[i].id}" class="form-header mb-0 mt-2" style="font-size:22px">${day}</p>
+                                            <p id="schedule-dow-${data.sorted[i].id}" class="form-header" style="font-size:14px">${dow}</p>
+                                        </div>
+                                    </div>
+                                     <div class="m-1 text-center">
+                                        <p id="schedule-stream-title-${data.sorted[i].id}" class="form-header m-0 schedule-title">${data.sorted[i].streamTitle}</p>
+                                        <p id="schedule-stream-subject-${data.sorted[i].id}" class="mt-1 mb-0 schedule-tutor">${data.sorted[i].streamSubject}</p>
+                                        <input id="schedule-stream-description-${data.sorted[i].id}" type="hidden" value="${data.sorted[i].streamDescription}">
+                                        <p class="mt-1" style="font-size:14px">${data.sorted[i].timeStart} - ${data.sorted[i].timeStop} [${data.sorted[i].timeZone}]</p>
+                                        <input type="hidden" id="schedule-time-start-${data.sorted[i].id}" value="${data.sorted[i].timeStart}" />
+                                        <input type="hidden" id="schedule-time-stop-${data.sorted[i].id}" value="${data.sorted[i].timeStop}" />
+                                    </div>
+                                </div>
                             </div>
-                           </div>`
+                         </div>`
         }
     }
     else {

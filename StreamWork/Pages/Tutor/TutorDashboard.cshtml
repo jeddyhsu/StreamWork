@@ -62,9 +62,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-5 col-md-12 col-sm-12 col-12 order-lg-2 order-md-1 order-sm-1 order-1">
+                    <div class="col-lg-5 col-md-12 col-sm-12 col-12 order-lg-2 order-md-1 order-sm-1 order-1 banner-row-padding">
                         <div id="banner-upload" class="image-container" style="width:100%; height:100%;">
-                            <img class="banner border-0" style="margin-left:1px" id="preview-profile-banner" src="@Model.CurrentUserProfile.ProfileBanner"  />
+                            <img class="banner border-0" id="preview-profile-banner" src="@Model.CurrentUserProfile.ProfileBanner"  />
                             <div class="bottom-right mr-2" style="left:0px; bottom:0px;">
                                 <div class="card rounded-0" style="width:100%; height:40px; background-color:black; opacity:0.2">
                                     <i id="add-profile-banner" class="fa fa-camera d-block ml-auto mr-auto mt-2" style="font-size:24px;color:white"></i>
@@ -312,7 +312,7 @@
                                                                 <img id="edit-schedule-icon-@task.Id" class="p-1" style="width:30px; cursor:pointer; display:none" src="~/images/TutorAssets/TutorDashboard/Edit.png" onclick="EditScheduleTask('@task.Id')" />
                                                             </div>
                                                         </div>
-                                                        <div class="card-body" onclick="window.location.href = '/Tutor/TutorStream/@task.Id'; $('#edit-schedule-icon-@task.Id').css('display','none')">
+                                                        <div class="card-body d-lg-block d-md-block d-sm-block d-none" onclick="window.location.href = '/Tutor/TutorStream/@task.Id'; $('#edit-schedule-icon-@task.Id').css('display','none')">
                                                             <input type="hidden" id="schedule-date-@task.Id" value="@task.Date" />
                                                             <div class="d-inline-flex">
                                                                 <img class="rounded m-1 schedule-image" src="@task.SubjectThumbnail" />
@@ -323,14 +323,31 @@
                                                                     <p id="schedule-day-@task.Id" class="form-header schedule-day">@task.Date.Day</p>
                                                                     <p id="schedule-dow-@task.Id" class="form-header schedule-dow">@task.Date.ToString("ddd")</p>
                                                                 </div>
-                                                                <div class="m-1" style="height:75px;">
-                                                                    <p id="schedule-stream-title-@task.Id" class="form-header m-0">@task.StreamTitle</p>
-                                                                    <p id="schedule-stream-subject-@task.Id" class="mt-1 mb-0" style="font-size:10px">@task.StreamSubject</p>
+                                                                <div class="m-1">
+                                                                    <p id="schedule-stream-title-@task.Id" class="form-header schedule-title m-0">@task.StreamTitle</p>
+                                                                    <p id="schedule-stream-subject-@task.Id" class="mt-1 schedule-tutor mb-0">@task.StreamSubject</p>
                                                                     <input id="schedule-stream-description-@task.Id" type="hidden" value="@task.StreamDescription">
                                                                     <p class="schedule-time">@task.TimeStart - @task.TimeStop [@task.TimeZone.ToString()]</p>
                                                                     <input type="hidden" id="schedule-time-start-@task.Id" value="@task.TimeStart" />
                                                                     <input type="hidden" id="schedule-time-stop-@task.Id" value="@task.TimeStop" />
                                                                 </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-body d-lg-none d-md-none d-sm-none d-block" onclick="window.location.href = '/Tutor/TutorStream/@task.Id'; $('#edit-schedule-icon-@task.Id').css('display','none')">
+                                                            <div class="d-flex justify-content-center">
+                                                                <img class="rounded m-1 schedule-image" src="@task.SubjectThumbnail" />
+                                                                <div class="text-center m-1 schedule-image schedule-border">
+                                                                    <p class="form-header schedule-month">@task.Date.ToString("MMM")</p>
+                                                                </div>
+                                                                <div class="text-center m-1 schedule-image schedule-border">
+                                                                    <p class="form-header schedule-day">@task.Date.Day</p>
+                                                                    <p class="form-header schedule-dow">@task.Date.ToString("ddd")</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="m-1 text-center" style="height:75px;">
+                                                                <p class="form-header schedule-title m-0">@task.StreamTitle</p>
+                                                                <p class="mt-1 mb-0 roboto schedule-tutor">@task.StreamSubject</p>
+                                                                <p class="schedule-time mb-0">@task.TimeStart - @task.TimeStop [@task.TimeZone.ToString()]</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -451,11 +468,11 @@
     <nav id="sidebar-tablet">
         <img class="logo-tablet" onclick="window.location.href ='/'" src="~/images/GenericAssets/StreamWork-Icon-White.svg" />
         <ul class="p-0">
-            <li class="sidebar-list-item-tablet" onclick="window.location.href ='/Tutor/TutorStream/SW'"><img src="~/images/TutorAssets/TutorDashboard/StartStream2x.png" /></li>
-            <li class="sidebar-list-item-tablet" onclick="window.location.href ='/Tutor/HowToStream'"><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/HowToStream2x.png" /></li>
-            <li class="sidebar-list-item-tablet" onclick="window.location.href ='/Home/Browse/SW'"><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/WatchStream2x.png" /></li>
-            <li class="sidebar-list-item-tablet"><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/FollowingList2x.png" /></li>
-            <li class="sidebar-list-item-tablet"><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/FollowerList2x.png" /></li>
+            <li class="sidebar-list-item-tablet" onclick="window.location.href ='/Tutor/TutorStream/SW'"><img width="50" src="~/images/TutorAssets/TutorDashboard/StartStream.svg" /></li>
+            <li class="sidebar-list-item-tablet" onclick="window.location.href ='/Tutor/HowToStream'"><img width="50" class="pb-1" src="~/images/TutorAssets/TutorDashboard/HowToStream.svg" /></li>
+            <li class="sidebar-list-item-tablet" onclick="window.location.href ='/Home/Browse/SW'"><img width="50" class="pb-1" src="~/images/TutorAssets/TutorDashboard/WatchStream.svg" /></li>
+            <li class="sidebar-list-item-tablet" onclick="OpenModal('followees-modal')"><img width="50" class="pb-1" src="~/images/TutorAssets/TutorDashboard/FollowingList.svg" /></li>
+            <li class="sidebar-list-item-tablet" onclick="OpenModal('followers-modal')"><img width="50" class="pb-1" src="~/images/TutorAssets/TutorDashboard/FollowerList.svg" /></li>
         </ul>
     </nav>
 </div>
