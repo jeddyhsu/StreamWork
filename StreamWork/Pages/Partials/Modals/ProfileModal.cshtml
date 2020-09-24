@@ -31,6 +31,7 @@
                                 <div class="col-lg-3 col-md-12 col-sm-12 col-12">
                                     <label class="form-header">Profile Picture</label>
                                     <div class="">
+                                        <p id="upload-profile-picture-button" class="pt-1 mb-2" style="cursor:pointer; font-size:12px; color:#004643">Clear Image</p>
                                         <img id="preview-profile-picture" class="rounded" style="width:120px; max-height:160px" />
                                         <input id="upload-profile-picture" type="file" style="display:none" onchange="ReadImageUrl(this, 'Profile Picture')" accept="image/png,image/jpeg" />
                                         <p id="upload-profile-picture-button" class="pt-2 mb-1" style="cursor:pointer; font-size:12px; color:#004643">Upload an Image</p>
@@ -39,7 +40,7 @@
                                                 $('#upload-profile-picture').click()
                                             })</script>
                                     </div>
-                                    <label class="form-header">Color</label>
+                                    <label class="form-header">Username Color</label>
                                     <div class="mb-3">
                                         <button id="D9534F" class="rounded" style="width:20px; height:20px; border-style:none; background-color:#D9534F" onclick="ChangeColor(event, '#D9534F')"></button>
                                         <button id="F0AD4E" class="rounded" style="width:20px; height:20px; border-style:none; background-color:#F0AD4E" onclick="ChangeColor(event, '#F0AD4E')"></button>
