@@ -137,7 +137,7 @@ else
                                             }
                                         }</script>
                                     <div>
-                                        <button type="button" id="sendQuestionButton" class="streamWork-primary mr-2 send-button" style="font-size:12px;" onclick="Modal()">Send</button>
+                                        <button type="button" id="sendQuestionButton" class="streamWork-primary mr-2 send-button" style="font-size:12px;" onclick="Modal();">Send</button>
                                     </div>
                                 </div>
                             </div>
@@ -154,9 +154,10 @@ else
 
 
 
-<script>
-    function Modal() {
+<script>function Modal() {
         window.parent.$('#signin-signup-modal').css('display', 'block')
     }
     window.scroll(0, document.documentElement.offsetHeight);
     CheckIfEmpty()</script>
+
+@await Html.PartialAsync("Partials/Modals/SignIn-SignUpModal")

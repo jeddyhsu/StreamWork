@@ -18,6 +18,7 @@ namespace StreamWork.Services
     {
         private readonly StorageService storage;
         private readonly EmailTemplateService templates;
+        private readonly CookieService cookies;
 
         private static readonly string name = "StreamWork";
         private static readonly string streamworkEmailAddress = "hey@streamwork.live";
@@ -28,9 +29,10 @@ namespace StreamWork.Services
         private static readonly string gmailSmtp = "smtp.gmail.com";
         private static readonly int gmailPort = 587;
 
-        public EmailService(StorageService storage, EmailTemplateService templates, IWebHostEnvironment environment) {
+        public EmailService(StorageService storage, EmailTemplateService templates, CookieService cookies, IWebHostEnvironment environment) {
             this.storage = storage;
             this.templates = templates;
+            this.cookies = cookies;
 
             certificatePath = Path.Combine(Directory.GetParent(environment.WebRootPath).FullName, "Config", "streamwork-286021-a06875f20a26.p12"); // HACK Completely fixable, but I really don't want to touch this system anymore.
         }
@@ -83,9 +85,9 @@ namespace StreamWork.Services
             message.From.Add(new MailboxAddress(name, streamworkEmailAddress));
             message.To.Add(MailboxAddress.Parse(userEmailAddress));
             message.Subject = "Verify Your Email Address";
-            message.Body = new TextPart("plain")
+            message.Body = new TextPart("html")
             {
-                Text = $"Thanks for using StreamWork! Type this code into the sign up form to verify your email: {verificationCode}"
+                Text = ConvertToTemplateString($"Thanks for using StreamWork ! ", $"Type this code into the sign up form to verify your email: {verificationCode}")
             };
 
             await SendEmail(message);
@@ -117,12 +119,13 @@ namespace StreamWork.Services
                         {
                             MimeMessage message = new MimeMessage();
 
+                            string url = cookies.host + "/Stream/Live/" + user.Username;
                             message.From.Add(new MailboxAddress(name, streamworkEmailAddress));
                             message.To.Add(MailboxAddress.Parse(userFollower.EmailAddress));
                             message.Subject = $"{user.Username} is now streaming \"{channel.StreamTitle}\" in {channel.StreamSubject}!";
-                            message.Body = new TextPart("plain")
+                            message.Body = new TextPart("html")
                             {
-                                Text = $"A StreamTutor you follow, {user.Username}, is now streaming \"{channel.StreamTitle}\" in {channel.StreamSubject}.\n\nYou can unsubscribe from these emails in your user settings."
+                                Text = ConvertToTemplateString($"Hey there {userFollower.Name.Split('|')[0]},", $"A StreamTutor you follow, {user.Username}, is now live-streaming \"{channel.StreamTitle}\" in {channel.StreamSubject}.\n\n Tune in <a href={url}>here!</a>.")
                             };
 
                             await SendEmail(message);
@@ -135,12 +138,13 @@ namespace StreamWork.Services
                         {
                             MimeMessage message = new MimeMessage();
 
+                            string url = cookies.host + "/Stream/Live/" + user.Username;
                             message.From.Add(new MailboxAddress(name, streamworkEmailAddress));
                             message.To.Add(MailboxAddress.Parse(userFollower.EmailAddress));
                             message.Subject = $"{user.Username} is now streaming \"{channel.StreamTitle}\" in {channel.StreamSubject}!";
                             message.Body = new TextPart("plain")
                             {
-                                Text = $"{user.Username} is now streaming \"{channel.StreamTitle}\" in a topic you follow, {channel.StreamSubject}.\n\nYou can unsubscribe from these emails in your user settings."
+                                Text = ConvertToTemplateString($"Hey there {userFollower.Name.Split('|')[0]},", $"{user.Username} is now live-streaming \"{channel.StreamTitle}\" in a topic you follow, {channel.StreamSubject}.\n\n Tune in <a href={url}>here!</a>.")
                             };
 
                             await SendEmail(message);
@@ -169,6 +173,20 @@ namespace StreamWork.Services
 
             client.Send(message);
             client.Disconnect(true);
+        }
+
+        private string ConvertToTemplateString(string header, string description)
+        {
+            string reader = "";
+
+            using (StreamReader streamReader = new StreamReader("EmailTemplates/StreamWorkEmail.html"))
+            {
+                reader = streamReader.ReadToEnd();
+                reader = reader.Replace("{HEADER}", header);
+                reader = reader.Replace("{DESCRIPTION}", description);
+            }
+
+            return reader;
         }
     }
 }
