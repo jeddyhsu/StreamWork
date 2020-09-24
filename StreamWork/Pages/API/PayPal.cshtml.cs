@@ -44,7 +44,7 @@ namespace StreamWork.Pages.API
 
         // This isn't currently necessary!
         // I wrote it thinking it was, but I'm keeping it because it could be useful in the future to automate some things
-        // This function has never been in production and is utterly untested
+        // This function has never been used in production and is utterly untested
         private static async Task<PayPalToken> GetPayPalToken(string scope)
         {
             HttpResponseMessage response = await new HttpClient().PostAsync(url, new FormUrlEncodedContent(new Dictionary<string, string>
@@ -58,7 +58,7 @@ namespace StreamWork.Pages.API
             return JsonConvert.DeserializeObject<PayPalToken>(await response.Content.ReadAsStringAsync());
         }
 
-        public async Task OnGetWebhookAsync()
+        public async Task OnGetAsync()
         {
             string id = Guid.NewGuid().ToString();
             await storage.Save(id, new Debug
@@ -69,7 +69,7 @@ namespace StreamWork.Pages.API
             });
         }
 
-        public async Task OnPostWebhookAsync()
+        public async Task OnPostAsync()
         {
             string id = Guid.NewGuid().ToString();
             await storage.Save(id, new Debug
