@@ -99,10 +99,11 @@
     <Folder Include="NotificationTemplates\PushNotifications\" />
     <Folder Include="wwwroot\images\CollegeAssets\" />
     <Folder Include="wwwroot\js\ProfileJS\" />
-    <Folder Include="EmailTemplates\" />
+    <Folder Include="Pages\API\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove=".DS_Store" />
+    <None Remove="logs\log-20200914.txt" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\images\NotificationAssets\icons8-checkmark-128.png" />
@@ -139,12 +140,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Config\streamwork-286021-a06875f20a26.p12">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="EmailTemplates\StreamWorkEmail.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="EmailTemplates\StreamWorkLaunchEmail.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

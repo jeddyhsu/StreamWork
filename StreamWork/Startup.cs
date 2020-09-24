@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using StreamWork.Config;
 using StreamWork.Hubs;
+using StreamWork.Pages.API;
 using StreamWork.Services;
 
 namespace StreamWork
