@@ -9,7 +9,7 @@
         <div class="row d-lg-none d-md-none d-sm-none d-block h-100 " style="background-color:#003936">
             <p class="form-header ml-4 mb-0 mt-4 p-3" style="color:white">Student Dashboard</p>
         </div>
-        <div class="card border-0">
+        <div class="card">
             <div class="card-body p-0">
                 <div class="row">
                     <div class="col-lg-7 col-md-12 col-sm-12 col-12 order-lg-1 order-md-2 order-sm-2 order-2 mb-4">
@@ -43,7 +43,7 @@
                             <button type="button" class="streamWork-primary" onclick="window.location.href ='/Profiles/Student/@Model.CurrentUserProfile.Username'">View Profile</button>
                         </div>
                     </div>
-                    <div class="col-lg-5 col-md-12 col-sm-12 col-12 order-lg-2 order-md-1 order-sm-1 order-1">
+                    <div class="col-lg-5 col-md-12 col-sm-12 col-12 order-lg-2 order-md-1 order-sm-1 order-1 banner-row-padding">
                         <div id="banner-upload" class="image-container" style="width:100%; height:100%;">
                             <img class="banner" id="preview-profile-banner" src="@Model.CurrentUserProfile.ProfileBanner" style="cursor:pointer; max-height:240px; object-fit:cover;" />
                             <div class="bottom-right mr-2" style="left:0px; bottom:0px;">
@@ -321,7 +321,6 @@
         <ul class="p-0">
             <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Home/Browse/SW'"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/WatchStream.svg" /></span>Watch Streams</li>
             <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Home/Tutor'"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/HowToStream.svg" /></span>Become a Tutor</li>
-            <li class="sidebar-list-item-desktop" onclick="window.location.href ='/Home/HowToStream'"><span><img class="sidebar-icon-desktop pb-1" src="~/images/TutorAssets/TutorDashboard/HowToStream.svg" /></span>Settings</li>
         </ul>
         <hr />
         <p class="form-header p-3" style="font-size:18px; color:white">Recommended Tutors</p>
@@ -333,9 +332,8 @@
     <nav id="sidebar-tablet">
         <img class="logo-tablet" onclick="window.location.href ='/'" src="~/images/GenericAssets/StreamWork-Icon-White.svg" />
         <ul class="p-0">
-            <li class="sidebar-list-item-tablet" onclick="window.location.href ='/Home/Browse/SW'"><img src="~/images/TutorAssets/TutorDashboard/WatchStream2x.png" /></li>
-            <li class="sidebar-list-item-tablet" onclick="window.location.href ='/Home/Tutor'"><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/HowToStream2x.png" /></li>
-            <li class="sidebar-list-item-tablet" onclick="window.location.href ='/Tutor/TutorWatch'"><img class="pb-1" src="~/images/TutorAssets/TutorDashboard/WatchStream2x.png" /></li>
+            <li class="sidebar-list-item-tablet" onclick="window.location.href ='/Home/Browse/SW'"><img width="50" src="~/images/TutorAssets/TutorDashboard/WatchStream.svg" /></li>
+            <li class="sidebar-list-item-tablet" onclick="window.location.href ='/Home/Tutor'"><img width="50" class="pb-1" src="~/images/TutorAssets/TutorDashboard/HowToStream.svg" /></li>
         </ul>
     </nav>
 </div>

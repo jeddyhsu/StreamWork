@@ -310,9 +310,11 @@ function SearchScheduleAlgo() {
                                                scheduleJson[i].streamSubject,
                                                scheduleJson[i].timeStart,
                                                scheduleJson[i].timeStop,
-                                               scheduleJson[i].timeZone)
+                                               scheduleJson[i].timeZone,
+                                               scheduleJson[i].username,
+                                               scheduleJson[i].name)
 
-            var rowForSchedule = `<div id="schedule-${scheduleJson[i].id}" class="col-lg-6 col-md-12 mt-2 w-100 mb-3 schedule schedule-subject-${schedule[i].streamSubject}">${schedule}</div>`
+            var rowForSchedule = `<div id="schedule-${scheduleJson[i].id}" class="col-lg-4 col-md-6 col-sm-12 col-12 mt-2 mb-3 w-100 schedule schedule-subject-${schedule[i].streamSubject}">${schedule}</div>`
             $('#schedule-row').append(rowForSchedule);
         }
 
@@ -339,9 +341,11 @@ function SearchScheduleAlgo() {
                                                output[i].item.streamSubject,
                                                output[i].item.timeStart,
                                                output[i].item.timeStop,
-                                               output[i].item.timeZone)
+                                               output[i].item.timeZone,
+                                               output[i].item.username,
+                                               output[i].item.name)
 
-            var rowForSchedule = `<div id="schedule-${output[i].item.id}" class="col-lg-6 col-md-12 mt-2 w-100 mb-3 schedule schedule-subject-${output[i].item.streamSubject}">${schedule}</div>`
+            var rowForSchedule = `<div id="schedule-${output[i].item.id}" class="col-lg-4 col-md-6 col-sm-12 col-12 mt-2 mb-3 w-100 schedule schedule-subject-${output[i].item.streamSubject}">${schedule}</div>`
             $('#schedule-row').append(rowForSchedule);
         }
     }

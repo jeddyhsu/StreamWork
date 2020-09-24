@@ -16,7 +16,7 @@ else
 @Html.AntiForgeryToken()
 
 <div class="container custom-profile-container">
-    <img class="banner banner-radius" id="preview-profile-banner" src="@Model.UserProfile.ProfileBanner" style="border-top-right-radius:7px; border-top-left-radius:8px; margin-left:1px" />
+    <img class="banner banner-shift" id="preview-profile-banner" src="@Model.UserProfile.ProfileBanner" />
     <div class="card" style="border-top-right-radius:0px; border-top-left-radius:0px;">
         <div class="card-body p-0">
             @await Html.PartialAsync("Partials/Profile/Header_View", Model)

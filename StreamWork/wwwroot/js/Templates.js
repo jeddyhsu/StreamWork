@@ -45,10 +45,10 @@ function GetTutoDashVideoTemplate(id, streamSubject, streamId, streamThumbnail, 
     return videoTemplate;
 }
 
-function GetScheduleTemplate(subjectThumbnail, date, streamTitle, streamSubject, timeStart, timeStop, timeZone) {
-    var scheduleTemplate = `<div class="card border-0">
+function GetScheduleTemplate(subjectThumbnail, date, streamTitle, streamSubject, timeStart, timeStop, timeZone, username, name) {
+    var scheduleTemplate = `<div class="card h-100 border-0">
                                 <div class="card-body">
-                                    <div class="d-inline-flex">
+                                    <div class="d-flex justify-content-center">
                                         <img class="rounded m-1 schedule-image" src="${subjectThumbnail}" />
                                         <div class="text-center m-1 schedule-image schedule-border">
                                             <p class="form-header schedule-month">${moment(date).format('MMM')}</p>
@@ -57,11 +57,11 @@ function GetScheduleTemplate(subjectThumbnail, date, streamTitle, streamSubject,
                                             <p class="form-header schedule-day">${moment(date).format('D')}</p>
                                             <p class="form-header schedule-dow">${moment(date).format('ddd')}</p>
                                         </div>
-                                        <div class="m-1" style="height:75px;">
-                                            <p class="form-header m-0">${streamTitle}</p>
-                                            <p class="mt-1 mb-0" style="font-size:10px">${streamSubject}</p>
-                                            <p class="schedule-time">${timeStart} - ${timeStop} [${timeZone}]</p>
-                                        </div>
+                                    </div>
+                                    <div class="m-1 text-center">
+                                        <p class="form-header m-0 schedule-title">${streamTitle}</p>
+                                        <p class="mt-1 mb-0 roboto schedule-tutor"><a class="streamWork-green" href="/Profiles/Tutor/${username}">${name.replace('|', ' ')}</a> Tutoring ${streamSubject}</p>
+                                        <p class="schedule-time">${timeStart} - ${timeStop} [${timeZone}]</p>
                                     </div>
                                 </div>
                             </div>`
