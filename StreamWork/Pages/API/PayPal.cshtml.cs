@@ -76,10 +76,10 @@ namespace StreamWork.Pages.API
         }
 
         // Don't point webhooks to this method on multiple sessions of the site at the same time!!!
-        // Ex. If webhooks go to the main site, webhooks may not go to the test site
+        // Ex. If webhooks go to the main site, webhooks must not go to the test site
         // This is to make sure that payments are only processed once!
         // If ever necessary, add logic to determine whether it's the test site, and process accordingly
-        public async Task OnPost([FromBody] PayPalWebhook webhook)
+        public async Task OnPost(PayPalWebhook webhook)
         {
             string id = Guid.NewGuid().ToString();
             await storage.Save(id, new Debug
