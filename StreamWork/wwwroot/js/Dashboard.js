@@ -4,6 +4,7 @@ const colors = ['#D9534F', '#F0AD4E', '#56C0E0', '#5CB85C', '#1C7CD5', '#8B4FD9'
 var cropper = null; // cropper object
 var cropperType = ""; //type of cropper ie: profile pic, banner
 var cropperBlob = null; //blob that gets saved for profile pictures that are uploded in a modal
+var inProgessOpenedModal = ""; //keeps track of which modal is hidden if it uses the cropper modal to edit pics
 
 const options = {
     isCaseSensitive: false,
@@ -63,6 +64,8 @@ function SliderSocialMedia() {
 
 //Profile
 function SaveProfile() {
+    $('#profile-modal-loader').removeClass('d-none').addClass('d-block');
+
     var formData = new FormData();
     formData.append("FirstName", $('#first-name').val());
     formData.append("LastName", $('#last-name').val());
@@ -113,8 +116,31 @@ function SaveProfile() {
                 $('#header-linkedin-url').val(data.savedInfo[5])
 
                 var cacheDate = new Date().valueOf();
-                $("#header-profile-picture").attr('src', data.savedInfo[6] + `?nocache=${cacheDate}`);
-                $("#navbar-profile-picture").attr('src', data.savedInfo[6] + `?nocache=${cacheDate}`);
+                $("#header-profile-picture").attr('src', data.savedInfo[6]);
+                $("#navbar-profile-picture").attr('src', data.savedInfo[6]);
+            }
+
+            $('#profile-modal-loader').removeClass('d-block').addClass('d-none');
+        }
+    })
+}
+
+function DeleteProfilePicture() {
+    $.ajax({
+        url: '/Profiles/Profile/?handler=DeleteProfilePicture',
+        type: 'POST',
+        dataType: 'json',
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("XSRF-TOKEN",
+                $('input:hidden[name="__RequestVerificationToken"]').val());
+        },
+        success: function (data) {
+            if (data.message === "Success") {
+                $("#header-profile-picture").attr('src', data.image);
+                $("#navbar-profile-picture").attr('src', data.image);
+                $("#preview-profile-picture").attr('src', data.image);
+                ResetButtons();
+                CloseModal('imagecropper-modal');
             }
         }
     })
@@ -494,10 +520,14 @@ function ClearFilter(event, username, dash) {
 }
 
 //Banner
-function SaveProfileBanner(image) {
+function SaveProfileBanner(image, deleteBanner) {
     var formData = new FormData();
     //alert(image.size)
-    formData.append("ProfileBanner", image);
+    if (deleteBanner == true)
+        formData.append("ProfileBanner", "DELETEBANNER");
+    else
+        formData.append("ProfileBanner", image);
+
     $.ajax({
         url: '/Profiles/Profile/?handler=SaveBanner',
         type: 'POST',
@@ -511,8 +541,13 @@ function SaveProfileBanner(image) {
         },
         success: function (data) {
             if (data.message === "Success") {
+                if (deleteBanner) {
+                    CloseModal('imagecropper-modal')
+                    ResetButtons()
+                }
+
                 CloseModal('notification-loading-image-modal')
-                $('#preview-profile-banner').attr('src', data.banner + `?nocache=${new Date().valueOf()}`);
+                $('#preview-profile-banner').attr('src', data.banner);
             }
         }
     });
@@ -549,6 +584,7 @@ function ChangeColor(event, color) {
 function OpenCropper(minCropBoxW, minCropBoxH, viewMode) {
     var image = document.getElementById('imagecropper-image');
     cropper = new Cropper(image, {
+        aspectRatio: minCropBoxW / minCropBoxH,
         viewMode: viewMode,
         dragMode: 'move',
         minCropBoxWidth: minCropBoxW,
@@ -560,6 +596,8 @@ function OpenCropper(minCropBoxW, minCropBoxH, viewMode) {
         zoomOnTouch: false,
         zoomOnWheel: false,
         background: false,
+        responsive: true,
+        restore:false,
         checkCrossOrigin: false,
         data: {
             width: minCropBoxW,
@@ -611,21 +649,41 @@ function UploadImage() {
     if (cropperType == "Banner") {
         $('#upload-profile-banner').click()
     }
+    else if (cropperType == "Profile Picture") {
+        $('#upload-profile-picture').click()
+    }
+    else if (cropperType == "Thumbnail Edit") {
+        $('#upload-thumbnail-edit').click()
+    }
+    else if (cropperType == "Thumbnail") {
+        $('#upload-stream-thumbnail').click()
+    }
 }
 
 function ResetButtons() {
-    $('#cropper-buttons').html(` <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#6B6B6B; color:white" onclick="OpenConfirmDeleteImage()">Delete Image</button>
-                                 <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="UploadImage()">Change Image</button>`)
+    $('#cropper-buttons').html(`<button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#6B6B6B; color:white" onclick="OpenConfirmDeleteImage()">Delete Image</button>
+                                <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="UploadImage()">Change Image</button>`)
     $('#delete-image-notification').hide();
+    OpenInProgessModal();
+}
+
+function OpenInProgessModal() {
+    if (inProgessOpenedModal != "")
+        $('#' + inProgessOpenedModal).show()
 }
 
 
 function OpenConfirmDeleteImage() {
-    $('#cropper-buttons').html(` <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#AC0001; color:white" onclick="SendCroppedImage()">Confirm Delete</button>
+    $('#cropper-buttons').html(` <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#AC0001; color:white" onclick="DeleteImage()">Confirm Delete</button>
                                  <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="UploadImage()">Change Image</button>`)
     $('#delete-image-notification').show();
 }
 
 function DeleteImage() {
-
+    if (cropperType == "Banner") {
+        SaveProfileBanner(null, true) //added delete in here itself since there isnt much too it
+    }
+    else if (cropperType == "Profile Picture") {
+        DeleteProfilePicture();
+    }
 }

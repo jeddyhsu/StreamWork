@@ -8,6 +8,9 @@ namespace StreamWork.HelperMethods
 {
     public static class MiscHelperMethods
     {
+        public static string defaultBanner = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_Banner_svg_SW_v2.svg";
+        public static string defaultProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_pfp_SW.png";
+
         public static string GetCorrespondingSubjectThumbnail(string subject)
         {
             Hashtable table = new Hashtable

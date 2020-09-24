@@ -258,6 +258,7 @@ function ShowDeleteVideoTaskBanner(id) {
 }
 
 function SaveEditedVideo(id) {
+    $('#edit-video-modal-loader').removeClass('d-none').addClass('d-block');
     var formData = new FormData()
 
     formData.append("VideoId", id);
@@ -287,6 +288,8 @@ function SaveEditedVideo(id) {
 
                 ShowBannerNotification("edit-video-modal-notification")
             }
+
+            $('#edit-video-modal-loader').removeClass('d-block').addClass('d-none');
         }
     });
 }
