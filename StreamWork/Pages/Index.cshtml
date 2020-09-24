@@ -56,14 +56,14 @@
                         <img src="@Model.FeaturedTutor.ProfilePicture" class="rounded d-block mr-auto ml-auto featured-profile-image" />
                         <p class="form-header text-center mt-3 mb-0 ml-3 mr-3" style="font-size:18px">@Model.FeaturedTutor.Name.Replace('|', ' ')</p>
                         <p class="form-sub-header text-center mb-0 ml-3 mr-3" style="font-size:12px">@Model.FeaturedTutor.ProfileCaption</p>
-                        <button class="streamWork-primary d-block mr-auto ml-auto mt-3 mb-2 w-75" onclick="window.location.href = '/Profiles/Tutor/@Model.FeaturedTutor.Username'">Profile</button>
+                        <button class="streamWork-primary d-block mr-auto ml-auto mt-3 w-50 mb-2" onclick="window.location.href = '/Profiles/Tutor/@Model.FeaturedTutor.Username'">Profile</button>
                         @if (Model.FeaturedArchivedVideo == null)
                         {
-                            <button class="streamWork-secondary d-block mr-auto ml-auto w-75 mb-3" onclick="window.location.href ='/Stream/Live/@Model.FeaturedTutor.Username'">Watch</button>
+                            <button class="streamWork-secondary d-block mr-auto ml-auto w-50 mb-3" onclick="window.location.href ='/Stream/Live/@Model.FeaturedTutor.Username'">Watch</button>
                         }
                         else
                         {
-                            <button class="streamWork-secondary d-block mr-auto ml-auto w-75 mb-3" onclick="window.location.href = '/Stream/Archive/@Model.FeaturedArchivedVideo.StreamID/32169'">Watch</button>
+                            <button class="streamWork-secondary d-block mr-auto ml-auto w-50 mb-3" onclick="window.location.href = '/Stream/Archive/@Model.FeaturedArchivedVideo.StreamID/32169'">Watch</button>
                         }
                     </div>
 

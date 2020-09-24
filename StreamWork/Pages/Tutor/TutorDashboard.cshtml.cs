@@ -7,10 +7,6 @@ using StreamWork.DataModels;
 using StreamWork.HelperMethods;
 using StreamWork.Services;
 using StreamWork.ProfileObjects;
-using Microsoft.AspNetCore.Cors;
-using System.Net;
-using System;
-using AngleSharp.Text;
 
 namespace StreamWork.Pages.Tutor
 {
@@ -39,6 +35,8 @@ namespace StreamWork.Pages.Tutor
         public List<Profile> Followees { get; set; }
         public List<string> Notifications { get; set; }
         public bool AreThereUnseenNotifications { get; set; }
+        public string DefaultBanner { get; set; }
+        public string DefaultProfilePicture { get; set; }
 
         public TutorDashboard(StorageService storage, CookieService cookie, ProfileService profile, ScheduleService schedule, FollowService follow, SearchService search, NotificationService notification, ChatService chat)
         {
@@ -75,14 +73,10 @@ namespace StreamWork.Pages.Tutor
             NumberOfFollowers = Followers == null ? 0 : Followers.Count;
             NumberOfFollowees = Followees == null ? 0 : Followees.Count;
 
-            var webClient = new WebClient();
-            byte[] imageBytes = webClient.DownloadData(CurrentUserProfile.ProfileBanner);
-
-            string s = Convert.ToBase64String(imageBytes);
-            CurrentUserProfile.ProfileBanner = s;
-
             Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
             AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
+            DefaultBanner = MiscHelperMethods.defaultBanner;
+            DefaultProfilePicture = MiscHelperMethods.defaultProfilePicture;
 
             return Page();
         }

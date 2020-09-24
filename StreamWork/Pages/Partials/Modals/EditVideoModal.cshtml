@@ -5,12 +5,12 @@
         <div class="slider">
             <div class="slider-object" style="width:165px"></div>
         </div>
+        <div id="edit-video-modal-loader" class="loader d-none mr-auto ml-auto mt-3 mb-0"></div>
         <div class="row">
             <div class="col-12">
                 <form id="edit-video-modal-form" class="pt-4 pb-4 pl-5 pr-5">
                     <div id="edit-video-modal-notification" class="alert notification-success" style="padding-left:50px" role="alert">
                         <b>Changes Saved!</b> Your information has been successfully saved.
-                        <div class="close ml-auto" onclick="$('#sectionTopicNotification').hide()">&times;</div>
                     </div>
                     <script>$('#edit-video-modal-notification').hide()</script>
                     <div id="edit-video-modal-delete-video-notification" class="alert notification-warning" style="padding-left:25px" role="alert">
@@ -31,10 +31,10 @@
                                     <img id="preview-video-thumbnail-edit" class="mt-1" style="width:100%; border-radius:10px">
                                     <input id="video-thumbnail-edit" type="image" class="bottom-right" src="~/images/TutorAssets/TutorDashboard/Add.svg" width="20" style="bottom:-5px" />
                                     <input id="upload-thumbnail-edit" name="upload-thumbnail-edit" class="d-none" type="file" value="~/images/MathDefault.png" onchange="ReadImageUrl(this,'Thumbnail Edit');" accept="image/png,image/jpeg">
-                                    <script>
-                                        $("#video-thumbnail-edit").click(function (e) {
-                                            e.preventDefault()
-                                            $("input[id='upload-thumbnail-edit']").click();
+                                    <script>$("#video-thumbnail-edit").click(function (e) {
+                                            e.preventDefault();
+                                            ReadImageSrcUrl("Thumbnail Edit");
+                                            OpenModal("imagecropper-modal")
                                         })</script>
                                 </div>
                             </div>

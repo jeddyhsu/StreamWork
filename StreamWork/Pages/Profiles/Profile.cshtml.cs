@@ -27,9 +27,18 @@ namespace StreamWork.Pages.Profiles
         public async Task<IActionResult> OnPostSaveProfile()
         {
             var userProfile = await cookieService.GetCurrentUser();
-            var savedInfo = await editService.EditProfile(Request, userProfile.Username);
+            var savedInfo = await editService.EditProfile(Request, userProfile);
 
             if (savedInfo != null) return new JsonResult(new { Message = JsonResponse.Success.ToString(), SavedInfo = savedInfo });
+            return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
+        }
+
+        public async Task<IActionResult> OnPostDeleteProfilePicture()
+        {
+            var userProfile = await cookieService.GetCurrentUser();
+            var savedInfo = await editService.DeleteProfilePicture(userProfile);
+
+            if (savedInfo != null) return new JsonResult(new { Message = JsonResponse.Success.ToString(), Image = savedInfo });
             return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
         }
 
@@ -52,7 +61,7 @@ namespace StreamWork.Pages.Profiles
         public async Task<IActionResult> OnPostSaveBanner()
         {
             var userProfile = await cookieService.GetCurrentUser();
-            var banner = await editService.SaveBanner(Request, userProfile.Username);
+            var banner = await editService.SaveBanner(Request, userProfile);
 
             if (banner != null) return new JsonResult(new { Message = JsonResponse.Success.ToString(), Banner = banner });
             return new JsonResult(new { Message = JsonResponse.Success.ToString(), Banner = banner });
@@ -62,7 +71,7 @@ namespace StreamWork.Pages.Profiles
         {
             var userProfile = await cookieService.GetCurrentUser();
 
-            if (await editService.SaveUniversity(userProfile.Username, abbr, name)) return new JsonResult(new { Message = JsonResponse.Success.ToString(), SavedInfo = new List<string> { abbr, name } });
+            if (await editService.SaveUniversity(userProfile, abbr, name)) return new JsonResult(new { Message = JsonResponse.Success.ToString(), SavedInfo = new List<string> { abbr, name } });
             return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
         }
 

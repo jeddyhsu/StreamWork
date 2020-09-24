@@ -14,10 +14,9 @@ namespace StreamWork.Services
     {
         public EditService([FromServices] IOptionsSnapshot<StorageConfig> config) : base(config) { }
 
-        public async Task<List<string>> EditProfile(HttpRequest request, string user)
+        public async Task<List<string>> EditProfile(HttpRequest request, Profile userProfile)
         {
             IFormFile profilePicture = null;
-            var userProfile = await Get<Profile>(SQLQueries.GetUserWithUsername, user);
             var firstName = request.Form["FirstName"];
             var lastName = request.Form["LastName"];
             var occupation = request.Form["Occupation"];
@@ -54,11 +53,32 @@ namespace StreamWork.Services
             return new List<string> { firstName, lastName, occupation, location, timeZone, linkedInUrl, userProfile.ProfilePicture };
         }
 
-        public async Task<string> SaveBanner(HttpRequest request, string user)
+        public async Task<string> DeleteProfilePicture(Profile userProfile)
         {
             try
             {
-                var userProfile = await Get<Profile>(SQLQueries.GetUserWithUsername, user);
+                userProfile.ProfilePicture = MiscHelperMethods.defaultProfilePicture;
+                await Save(userProfile.Id, userProfile);
+                return MiscHelperMethods.defaultProfilePicture;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error in EditProfileMethods-SaveBanner " + e.Message);
+                return null;
+            }
+        }
+
+        public async Task<string> SaveBanner(HttpRequest request, Profile userProfile)
+        {
+            try
+            {
+                if (request.Form.ContainsKey("ProfileBanner"))
+                {
+                    userProfile.ProfileBanner = MiscHelperMethods.defaultBanner;
+                    await Save(userProfile.Id, userProfile);
+                    return MiscHelperMethods.defaultBanner;
+                }
+
                 IFormFile profileBanner = request.Form.Files[0];
                 var banner = await BlobMethods.SaveImageIntoBlobContainer(profileBanner, userProfile.Username + "-" + userProfile.Id + "-profilebanner", 720, 242);
                 userProfile.ProfileBanner = banner;
@@ -72,11 +92,10 @@ namespace StreamWork.Services
             }
         }
 
-        public async Task<bool> SaveUniversity(string user, string abbr, string name)
+        public async Task<bool> SaveUniversity(Profile userProfile, string abbr, string name)
         {
             try
             {
-                var userProfile = await Get<Profile>(SQLQueries.GetUserWithUsername, user);
                 userProfile.College = abbr + "|" + name;
                 await Save(userProfile.Id, userProfile);
                 return true;

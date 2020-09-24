@@ -110,7 +110,8 @@
                                 <p id="upload-stream-thumbnail-button-info" class="mb-0" style="font-size:10px;">Upload must be either in jpg or png formats and less than 2 MB</p>
                                 <script>$("#upload-stream-thumbnail-button").click(function (e) {
                                         e.preventDefault()
-                                        $("input[id='upload-stream-thumbnail']").click();
+                                        ReadImageSrcUrl("Thumbnail");
+                                        OpenModal("imagecropper-modal")
                                     })</script>
                             }
                             else

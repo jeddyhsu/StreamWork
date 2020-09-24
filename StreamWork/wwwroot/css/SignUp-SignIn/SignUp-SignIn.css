@@ -32,3 +32,21 @@
     }
 }
 
+@media (min-width: 1800px) {
+    .sign-up-padding {
+        padding-top: 160px;
+    }
+
+    .sign-in-sign-up-logo {
+        width: 0px
+    }
+
+    .sign-in-padding {
+        padding-top: 240px;
+    }
+
+    .modal-min-width {
+        min-width: 0px;
+    }
+}
+
