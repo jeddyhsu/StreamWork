@@ -12,6 +12,7 @@ using StreamWork.Services;
 
 namespace StreamWork.Pages.API
 {
+    [IgnoreAntiforgeryToken]
     public class PayPalModel : PageModel
     {
         class PayPalToken
@@ -34,7 +35,7 @@ namespace StreamWork.Pages.API
         //private static readonly string clientId = "AQOvtmDCHt580quuvSACJOW0E2hVia56OWIbs2miKVF188BMmRYdxzeAwW2acHyH42C2BhNLw35FeEAd";
         //private static readonly string clientSecret = "EEEzt4_c_IHowB-CrpTWpHcnienIZ8fQ64BSXB5gErBapyVFZEm2OHcVdUy6lgaozDsydtdLABuhsp5W";
 
-        private static readonly string scope = "";
+        //private static readonly string scope = "";
         private static readonly string url = "";
 
         public PayPalModel (StorageService storage)
@@ -58,25 +59,34 @@ namespace StreamWork.Pages.API
             return JsonConvert.DeserializeObject<PayPalToken>(await response.Content.ReadAsStringAsync());
         }
 
-        public async Task OnGetAsync()
+        public void OnGet()
         {
-            string id = Guid.NewGuid().ToString();
-            await storage.Save(id, new Debug
-            {
-                Id = id,
-                Timestamp = DateTime.UtcNow,
-                Message = "Webhook received in OnGetWebhook"
-            });
+            //string id = Guid.NewGuid().ToString();
+            //await storage.Save(id, new Debug
+            //{
+            //    Id = id,
+            //    Timestamp = DateTime.UtcNow,
+            //    Message = "Webhook received in OnGet"
+            //});
         }
 
-        public async Task OnPostAsync()
+        public class PayPalWebhook
+        {
+            [JsonProperty("event_type")] public string EventType { get; set; }
+        }
+
+        // Don't point webhooks to this method on multiple sessions of the site at the same time!!!
+        // Ex. If webhooks go to the main site, webhooks may not go to the test site
+        // This is to make sure that payments are only processed once!
+        // If ever necessary, add logic to determine whether it's the test site, and process accordingly
+        public async Task OnPost([FromBody] PayPalWebhook webhook)
         {
             string id = Guid.NewGuid().ToString();
             await storage.Save(id, new Debug
             {
                 Id = id,
                 Timestamp = DateTime.UtcNow,
-                Message = "Webhook received in OnPostWebhook"
+                Message = webhook.EventType
             });
         }
     }

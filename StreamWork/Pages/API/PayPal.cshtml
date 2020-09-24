@@ -1,4 +1,20 @@
 ﻿@page
 @model StreamWork.Pages.API.PayPalModel
-@{
-}
+@{Layout = "SignUp-SignIn/_LayoutSignUp-SignIn";}
+
+<br />
+<br />
+<br />
+<button class="streamWork-primary m-4" onclick="testWebhook()">Test Webhook</button>
+
+<script>
+    function testWebhook() {
+        alert('beginning')
+        $.ajax({
+            url: '/API/PayPal',
+            type: 'POST',
+        }).done(function (data) {
+            alert('success?');
+        });
+    }
+</script>
