@@ -100,6 +100,7 @@
     <Folder Include="wwwroot\images\CollegeAssets\" />
     <Folder Include="wwwroot\js\ProfileJS\" />
     <Folder Include="Pages\API\" />
+    <Folder Include="EmailTemplates\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove=".DS_Store" />
@@ -140,6 +141,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Config\streamwork-286021-a06875f20a26.p12">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="EmailTemplates\StreamWorkEmail.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
