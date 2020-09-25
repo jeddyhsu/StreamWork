@@ -617,7 +617,6 @@ function tutorResumeTranscriptNext() {
         $('#transcript-label').popover('disable');
         $('#resume-label').popover('hide');
         $('#resume-label').popover('disable');
-        goToTab('tutorComplete');
     }
 }
 
@@ -627,6 +626,10 @@ function tutorResumeTranscriptPrev() {
 }
 
 function signUpStudent() {
+    $('#loader-student-profile-auth').removeClass('d-none').addClass('d-block');
+    $('#loader-student-profile-info').removeClass('d-none').addClass('d-block');
+    $('#studentProfileInfoOAuth-next').removeClass('streamWork-primary').addClass('streamWork-disabled')
+    $('#studentProfileInfo-next').removeClass('streamWork-primary').addClass('streamWork-disabled')
     profileType = "student"
     var formData = new FormData();
     if (!oauthStarted) {
@@ -666,6 +669,8 @@ function signUpStudent() {
                     $('input:hidden[name="__RequestVerificationToken"]').val());
             },
         }).done(function (data) {
+            $('#loader-student-profile-auth').removeClass('d-block').addClass('d-none');
+            $('#loader-student-profile-info').removeClass('d-block').addClass('d-none');
             goToTab('studentComplete');
         });
     } catch (e) {
@@ -674,6 +679,8 @@ function signUpStudent() {
 }
 
 function signUpTutor() {
+    $('#loader-tutor').removeClass('d-none').addClass('d-block');
+    $('#tutorResumeTranscript-next').removeClass('streamWork-primary').addClass('streamWork-disabled')
     profileType = "tutor"
     var formData = new FormData();
     if (!oauthStarted) {
@@ -705,24 +712,29 @@ function signUpTutor() {
         $('#tutorTopics-law').hasClass('streamWork-primary-rect') + "|" +
         $('#tutorTopics-other').hasClass('streamWork-primary-rect'));
 
-    $.ajax({
-        url: '/Home/SignUp/?handler=SignUpTutor',
-        type: 'POST',
-        data: formData,
-        processData: false,
-        contentType: false,
-        cache: false,
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader("XSRF-TOKEN",
-                $('input:hidden[name="__RequestVerificationToken"]').val());
-        },
-    }).done(function (data) {
-        goToTab('tutorComplete');
-    });
+    try {
+        $.ajax({
+            url: '/Home/SignUp/?handler=SignUpTutor',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            cache: false,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("XSRF-TOKEN",
+                    $('input:hidden[name="__RequestVerificationToken"]').val());
+            },
+        }).done(function (data) {
+            $('#loader-tutor').removeClass('d-block').addClass('d-none');
+            goToTab('tutorComplete');
+        });
+    } catch (e) {
+        alert(e.message);
+    }
 }
 
 function Route() {
-    if (profileType === "tutor") {
+    if (profileType == "tutor") {
         window.location.href = "/Tutor/TutorDashboard";
     }
     else {

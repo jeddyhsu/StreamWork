@@ -18,7 +18,7 @@ function Follow(followerId, followeeId, buttonId) {
                     $('input:hidden[name="__RequestVerificationToken"]').val());
             },
         });
-    }, 8000); //8000ms Timeout 8 seconds
+    }, 500); //8000ms Timeout 8 seconds
 
     var newId = "following-" + buttonId.split('-')[1]
     $("#" + buttonId).html("Following")
@@ -44,7 +44,7 @@ function Unfollow(followerId, followeeId, buttonId) {
                     $('input:hidden[name="__RequestVerificationToken"]').val());
             },
         });
-    }, 8000); //8000ms Timeout 8 seconds
+    }, 500); //8000ms Timeout 8 seconds
 
     var newId = "follow-" + buttonId.split('-')[1]
     $("#" + buttonId).html("Follow")
