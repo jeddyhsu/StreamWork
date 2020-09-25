@@ -4618,3 +4618,76 @@ System.NullReferenceException: Object reference not set to an instance of an obj
 2020-09-25 01:06:13.109 -07:00 [INF] Executing endpoint '/pushnotificationhub'
 2020-09-25 01:06:23.191 -07:00 [INF] Executed endpoint '/pushnotificationhub'
 2020-09-25 01:06:23.191 -07:00 [INF] Request finished in 10082.0933ms 101 
+2020-09-25 09:39:40.254 -07:00 [INF] User profile is available. Using '/Users/rithvik/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2020-09-25 09:39:40.444 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-09-25 09:39:40.450 -07:00 [WRN] Failed to determine the https port for redirect.
+2020-09-25 09:39:40.533 -07:00 [INF] Executing endpoint '/Index'
+2020-09-25 09:39:40.570 -07:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-09-25 09:39:40.579 -07:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-09-25 09:39:42.286 -07:00 [INF] Executed handler method OnGet, returned result .
+2020-09-25 09:39:42.290 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-25 09:39:42.290 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-25 09:39:42.678 -07:00 [INF] Executed page /Index in 2104.8249ms
+2020-09-25 09:39:42.679 -07:00 [INF] Executed endpoint '/Index'
+2020-09-25 09:39:42.684 -07:00 [INF] Request finished in 2242.8697ms 200 text/html; charset=utf-8
+2020-09-25 09:39:43.820 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-09-25 09:39:43.826 -07:00 [INF] Executing endpoint '/Index'
+2020-09-25 09:39:43.827 -07:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-09-25 09:39:43.827 -07:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-09-25 09:39:45.223 -07:00 [INF] Executed handler method OnGet, returned result .
+2020-09-25 09:39:45.224 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-25 09:39:45.224 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-25 09:39:45.278 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/Schedule.css?v=YOf1EBg3EDPotDzC2zYWZxxqeTTM7VUka5hxQbfcvtw  
+2020-09-25 09:39:45.278 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/site.css?v=hs9vZOb2y55HYMKH9AjfZj9j5w32QxsjPIGk0TwjsWg  
+2020-09-25 09:39:45.278 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/Home/Home.css?v=SizN3KUQzzmO3jVbmFs2xeImJ5OpQoANxCIChDvTwTY  
+2020-09-25 09:39:45.278 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/Profile/Profile.css?v=9MXt3fu6VJwbhReXpcfAYMTj7-szQ6pOOISmTeA24Z8  
+2020-09-25 09:39:45.278 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/About-Tutor-Hts.css?v=_el1YCak5S-7edwbOhD49aIXJZA3N8ZiwoZ_bLZS0no  
+2020-09-25 09:39:45.289 -07:00 [INF] Executed page /Index in 1462.6653000000001ms
+2020-09-25 09:39:45.290 -07:00 [INF] Executed endpoint '/Index'
+2020-09-25 09:39:45.291 -07:00 [INF] Request finished in 1473.1263000000001ms 200 text/html; charset=utf-8
+2020-09-25 09:39:45.303 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/Dashboard.js?v=4zmjaVoLuWpwB6XGPZ54goyx-yh8u52fO3jexf5pw50  
+2020-09-25 09:39:45.304 -07:00 [INF] The file /js/Dashboard.js was not modified
+2020-09-25 09:39:45.304 -07:00 [INF] The file /css/site.css was not modified
+2020-09-25 09:39:45.304 -07:00 [INF] The file /css/Schedule.css was not modified
+2020-09-25 09:39:45.304 -07:00 [INF] The file /css/About-Tutor-Hts.css was not modified
+2020-09-25 09:39:45.304 -07:00 [INF] The file /css/Home/Home.css was not modified
+2020-09-25 09:39:45.304 -07:00 [INF] The file /css/Profile/Profile.css was not modified
+2020-09-25 09:39:45.305 -07:00 [INF] Request finished in 1.5907ms 304 application/javascript
+2020-09-25 09:39:45.305 -07:00 [INF] Request finished in 51.8126ms 304 text/css
+2020-09-25 09:39:45.305 -07:00 [INF] Request finished in 51.8121ms 304 text/css
+2020-09-25 09:39:45.305 -07:00 [INF] Request finished in 51.814ms 304 text/css
+2020-09-25 09:39:45.328 -07:00 [INF] Request finished in 52.010400000000004ms 304 text/css
+2020-09-25 09:39:45.378 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/Templates.js?v=94PnIvoQn1o5IjwyJ9lMDOFfDOuHDLkLUILpR1jE3Qk  
+2020-09-25 09:39:45.328 -07:00 [INF] Request finished in 74.9862ms 304 text/css
+2020-09-25 09:39:45.378 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/CollegeAssets/BrownLogo.svg  
+2020-09-25 09:39:45.378 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/SignUp-SignInJS/SignUp.js?v=KvSr_QaI_XBXD09xsAyHqFbInJ3AZgmOhbCbbbKu9xw  
+2020-09-25 09:39:45.382 -07:00 [INF] The file /js/Templates.js was not modified
+2020-09-25 09:39:45.382 -07:00 [INF] The file /images/CollegeAssets/BrownLogo.svg was not modified
+2020-09-25 09:39:45.382 -07:00 [INF] The file /js/SignUp-SignInJS/SignUp.js was not modified
+2020-09-25 09:39:45.383 -07:00 [INF] Request finished in 4.5282ms 304 application/javascript
+2020-09-25 09:39:45.383 -07:00 [INF] Request finished in 4.5334ms 304 image/svg+xml
+2020-09-25 09:39:45.383 -07:00 [INF] Request finished in 4.6238ms 304 application/javascript
+2020-09-25 09:39:45.400 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-25 09:39:45.401 -07:00 [INF] CORS policy execution successful.
+2020-09-25 09:39:45.405 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-25 09:39:45.409 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-25 09:39:45.420 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-25 09:39:45.421 -07:00 [INF] Request finished in 20.354300000000002ms 200 application/json
+2020-09-25 09:39:45.536 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Chat/Archive/e9c04960-604b-47bc-abc0-15bba95bc28c  
+2020-09-25 09:39:45.545 -07:00 [INF] Executing endpoint '/Chat/Archive'
+2020-09-25 09:39:45.553 -07:00 [INF] Route matched with {page = "/Chat/Archive"}. Executing page /Chat/Archive
+2020-09-25 09:39:45.561 -07:00 [INF] Executing handler method StreamWork.Pages.Chat.ArchiveChat.OnGet - ModelState is "Valid"
+2020-09-25 09:39:45.593 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=V5qzkgjsOKaAUpi6HyRatg  
+2020-09-25 09:39:45.593 -07:00 [INF] CORS policy execution successful.
+2020-09-25 09:39:45.593 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/StreamWorkAdVideo.mp4  
+2020-09-25 09:39:45.593 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-25 09:39:45.593 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-25 09:39:45.602 -07:00 [INF] Sending ["bytes 0-1/84089809"] of file /Users/rithvik/C#/StreamWork/StreamWork/wwwroot/StreamWorkAdVideo.mp4
+2020-09-25 09:39:45.609 -07:00 [INF] Request finished in 15.6958ms 206 video/mp4
+2020-09-25 09:39:45.625 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/StreamWorkAdVideo.mp4  
+2020-09-25 09:39:45.626 -07:00 [INF] Sending ["bytes 0-84089808/84089809"] of file /Users/rithvik/C#/StreamWork/StreamWork/wwwroot/StreamWorkAdVideo.mp4
+2020-09-25 09:39:45.807 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-25 09:39:45.978 -07:00 [INF] Executed page /Chat/Archive in 424.12800000000004ms
+2020-09-25 09:39:45.978 -07:00 [INF] Executed endpoint '/Chat/Archive'
+2020-09-25 09:39:45.978 -07:00 [INF] Request finished in 442.1933ms 200 text/html; charset=utf-8
+2020-09-25 09:39:45.997 -07:00 [INF] Request finished in 371.8331ms 206 video/mp4
