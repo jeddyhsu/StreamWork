@@ -147,4 +147,16 @@
     </script>
 }
 
+<script> //switching tabs
+    var url = window.location.href;
+    if (url.includes('#')) {
+        var splitUrl = url.split('#')
+        if (splitUrl[1] == "tutors") {
+            $('#streams').removeClass('active');
+            $('#tutors').addClass('active');
+            SliderTutors();
+        }
+    }
+</script>
+
 @await Html.PartialAsync("Partials/Notification/PushNotifications")

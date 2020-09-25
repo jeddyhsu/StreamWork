@@ -477,6 +477,18 @@
     </nav>
 </div>
 
+<script> //switching tabs
+   var url = window.location.href;
+    if (url.includes('#')) {
+        var splitUrl = url.split('#')
+        if (splitUrl[1] == "schedule") {
+            $('#profile').removeClass('active');
+            $('#schedule').addClass('active');
+            SliderSchedule();
+        }
+    }
+</script>
+
 @await Html.PartialAsync("Partials/Modals/LoaderModal")
 @await Html.PartialAsync("Partials/Modals/ImageTooBigModal")
 @await Html.PartialAsync("Partials/Modals/ImageCropperModal")
