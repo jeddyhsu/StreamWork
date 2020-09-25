@@ -35,7 +35,7 @@ function CloseModal(modalId) {
 }
 
 function ShowBannerNotification(bannerName) {
-    $("#" + bannerName).fadeTo(2000, 500).slideUp(500, function () {
+    $("#" + bannerName).fadeTo(2500, 500).slideUp(600, function () {
         $("#" + bannerName).slideUp(500);
     });
 }

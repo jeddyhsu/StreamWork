@@ -67,7 +67,7 @@ namespace StreamWork.Pages.Student
             List<FollowedTutors> followedTutorsList = new List<FollowedTutors>();
             var followedTutors = await followService.GetAllFollowees(followeeId);
 
-            if(followedTutors != null && followedTutors.Count > 1)
+            if(followedTutors != null && followedTutors.Count > 0)
             {
                 foreach (var tutor in followedTutors)
                 {

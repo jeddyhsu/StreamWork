@@ -350,6 +350,7 @@ function EditUniversityInfo() {
 }
 
 function SaveUniversityInfo() {
+    $('#university-modal-loader').removeClass('d-none').addClass('d-block')
     var form = $('#university-edit-modal-form');
     if (!form[0].checkValidity()) {
         form[0].reportValidity();
@@ -380,6 +381,8 @@ function SaveUniversityInfo() {
                 $('#university-name').text(data.name)
                 ShowBannerNotification("university-edit-modal-notification")
             }
+
+            $('#university-modal-loader').removeClass('d-block').addClass('d-none')
         }
     })
 }
