@@ -230,7 +230,10 @@ namespace StreamWork.Pages.Home
             });
 
             if(type == "tutor")
+            {
                 await AddUs5AsFollowers(id);
+            }
+                
             await cookieService.SignIn(Request.Form["Username"], encryptionService.DecryptPassword(password, "!!0_STREAMWORK_!!0"));
         }
 
