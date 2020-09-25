@@ -115,8 +115,8 @@ namespace StreamWork.Pages.Home
                     LastLogin = DateTime.UtcNow,
                     ProfileColor = MiscHelperMethods.GetRandomColor(),
                     ProfileSince = DateTime.UtcNow,
-                    ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_pfp_SW.png",
-                    ProfileBanner = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_Banner_svg_SW_v2.svg",
+                    ProfilePicture = MiscHelperMethods.defaultProfilePicture,
+                    ProfileBanner = MiscHelperMethods.defaultBanner,
                 };
 
                 await storageService.Save(user.Id, user);
@@ -225,8 +225,8 @@ namespace StreamWork.Pages.Home
                 LastLogin = DateTime.UtcNow,
                 ProfileColor = MiscHelperMethods.GetRandomColor(),
                 ProfileSince = DateTime.UtcNow,
-                ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_pfp_SW.png",
-                ProfileBanner = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_Banner_svg_SW.svg",
+                ProfilePicture = MiscHelperMethods.defaultProfilePicture,
+                ProfileBanner = MiscHelperMethods.defaultBanner,
             });
 
             if(type == "tutor")
@@ -269,7 +269,7 @@ namespace StreamWork.Pages.Home
                 StreamSubject = null,
                 StreamThumbnail = null,
                 StreamTitle = null,
-                ProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_pfp_SW.png",
+                ProfilePicture = MiscHelperMethods.defaultProfilePicture,
             });
         }
 
