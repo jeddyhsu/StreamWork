@@ -283,7 +283,10 @@
                                             </div>
                                         </div>
                                         <div class="card-body pt-0 mb-3">
-                                            <p class="form-header mb-3 d-inline-block">Previous streams:</p>
+                                            @if (@Model.FollowedTutors[i].PreviousStreams.Count > 0)
+                                            {
+                                                <p class="form-header mb-3 d-inline-block">Previous streams:</p>
+                                            }
                                             <div class="row">
                                                 @if (@Model.FollowedTutors[i].PreviousStreams.Count > 0)
                                                 {
@@ -293,6 +296,13 @@
                                                             @await Html.PartialAsync("Partials/Stream/VideoAppearance", stream)
                                                         </div>
                                                     }
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-12 text-center">
+                                                        <p class="form-sub-header p-0" style="font-size:22px">No Streams</p>
+                                                        <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">This tutor hasn't streamed yet!</p>
+                                                    </div>
                                                 }
                                             </div>
                                         </div>
