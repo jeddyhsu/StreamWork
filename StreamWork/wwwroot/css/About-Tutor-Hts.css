@@ -78,6 +78,25 @@
     background-position-x: 75%;
 }
 
+.blob-banner-hts {
+    background-image: url('/images/HomeAssets/ColorBlobs.svg');
+    background-size: 155vw;
+    background-position-x: 50%;
+    background-position-y: 25%;
+}
+
+.blob-banner-inverted-hts {
+    background-image: url('/images/HomeAssets/ColorBlobsInverted.svg');
+    background-size: 155vw;
+    background-position-x: 70%;
+}
+
+.blob-banner-inverted-2-hts {
+    background-image: url('/images/HomeAssets/ColorBlobsInverted.svg');
+    background-size: 155vw;
+    background-position-x: 75%;
+}
+
 .drop-shadow {
     box-shadow: 0 2px 10px 0 rgba(0,0,0,0.2),0 2px 2px 0 rgba(0,0,0,0.19) !important;
 }

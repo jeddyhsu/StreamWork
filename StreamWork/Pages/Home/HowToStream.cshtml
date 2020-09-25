@@ -1,0 +1,196 @@
+﻿@page
+@model StreamWork.Pages.Home.HowToStreamModel
+@{
+}
+@{Layout = "Home/_LayoutHome"; ;}
+
+<div class="container blob-banner-inverted-hts custom-container-first" id="blob-banner-inverted-hts">
+    <div class="custom-padding">
+        <div class="row custom-row-padding">
+            <div class="col-lg-6">
+                <div class="form-header header line-height">How to stream.</div>
+                <h5 class="roboto-slab mt-3">Proudly founded by students, for students.</h5>
+                <p class="roboto mt-3">We’ve felt the difficulties of having to attend tutoring sessions constrained by fees, availability, and accessibility. StreamWork’s team was founded to relieve these restrictions of online and on-campus university & high-school tutoring. </p>
+            </div>
+            <div class="container mb-4" style="max-width:750px">
+                <video class="w-100" poster="/images/GenericAssets/HowToStreamThumbnail.png" controls>
+                    <source src="~/HowToStream.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container blob-banner-about custom-container" id="blob-banner-hts">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 p-0">
+            <div class="card opacity-change custom-padding rounded-0">
+                <div class="row custom-row-padding">
+                    <div class="col-lg-12">
+                        <div class="form-header header line-height">Initial Setup.</div>
+                    </div>
+                    <div class="card drop-shadow d-block mr-auto ml-auto mt-5 mb-5" style="max-width:1220px">
+                        <ul class="mb-4 ml-4 mr-4 pl-4" style="margin-top:40px; list-style:decimal">
+                            <li>
+                                <p>
+                                    Visit <a href="https://streamlabs.com">https://streamlabs.com</a> and download Streamlabs.
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    Open StreamLabs and click on the settings icon on the bottom-left corner of the application.
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    In the Stream tab, under Stream Type, select Custom Streaming Server from the drop-down.
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    For URL and Stream Key, open the email you received from Hey@StreamWork.live. Copy and paste the Server URL (rtmp://fso…) and Stream Key (WxsdDM-...).
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    Next, select the Output tab and change the Output Mode from Simple to Advanced.
+
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    Still in the Output tab, scroll down and set the Keyframe Interval to 2.
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    Next, click on the Video tab and set your Output Scaled Resolution to match your Base Canvas Resolution.
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    Select Done.
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    In the Sources box press the Plus (+), select Display Capture, and add it as a Source. Right click Display Capture, select Transform, and select Fit to Screen.
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    Drag the Webcam source to be the first source displayed over the Display Capture. Make sure to resize and reposition it to the corner of your screen.
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    Celebrate! You’ve finished your one-time initial setup and are ready to live-stream.
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row custom-row-padding">
+                    <div class="col-lg-12">
+                        <div class="form-header header line-height">Streaming.</div>
+                    </div>
+                    <div class="card drop-shadow d-block mr-auto ml-auto mt-5 mb-5" style="max-width:1220px">
+                        <ul class="mb-4 ml-4 mr-4 pl-4" style="margin-top:40px; list-style:decimal">
+                            <li>
+                                <p>
+                                    Open Streamlabs and select Go Live.
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    Login to <a href="https://streamwork.live">https://streamwork.live</a> and select the Start Stream tab from the left sidebar on your dashboard.
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    From the Stream Information page, fill out your Stream Title, Subject, and Description. If you’ve prepared a live-stream using the Stream Schedule, you can auto-fill your information as well.
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    Upload a thumbnail. (Pro tip: You can use Powerpoint or Google Slides to make creative image and text combinations to screenshot and use as your thumbnail)
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    Click on Chatbox URL to view and respond to comments from viewers. To open up the chatbox on your smartphone instead, click on QR Code and scan it using your device’s camera app.
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    Once you’re ready to begin your tutoring session, click on the Notify Followers checkbox and press Go Live!
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    After you’ve finished your tutoring session, select End Stream on Streamlabs.
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    High five! Your live-stream will be available as a video on your profile shortly.
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>function ResizeBackground() {
+        $(document).ready(function () {
+            ResizeAlgo()
+        })
+
+        $(window).resize(function () {
+            ResizeAlgo()
+        })
+    }
+
+    function ResizeAlgo() {
+        var windowWidth = 1680;
+        var viewWidth = 155;
+
+        var currentWindowWidth = $(window).width();
+        var newWindowWidth = (currentWindowWidth * viewWidth) / windowWidth
+
+        var diff = viewWidth - newWindowWidth;
+        var newWW = viewWidth + (diff)
+
+        $('#blob-card').css('background-position-x', '40%')
+
+        if (newWW > 270) {
+            $('#blob-card').css('background-position-x', '25%')
+            newWW = 450;
+        }
+        else if (newWW > 250) {
+            $('#blob-card').css('background-position-x', '25%')
+            newWW = 400;
+        }
+        else if (newWW > 215) {
+            $('#blob-card').css('background-position-x', '25%')
+            newWW = 370;
+        }
+        else if (newWW > 200) {
+            $('#blob-card').css('background-position-x', '25%')
+            newWW = 310;
+        }
+        else if (newWW < 100) {
+            newWW = 105;
+        }
+
+        $('#blob-banner-hts').css('background-size', newWW + 'vw')
+        $('#blob-banner-inverted-hts').css('background-size', newWW + 'vw')
+        $('#blob-banner-inverted-2-hts').css('background-size', newWW + 'vw')
+    }
+    ResizeBackground()</script>
+@await Html.PartialAsync("Partials/Home/Footer")
+
+@await Html.PartialAsync("Partials/Notification/PushNotifications")
