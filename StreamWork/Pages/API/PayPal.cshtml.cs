@@ -59,35 +59,74 @@ namespace StreamWork.Pages.API
             return JsonConvert.DeserializeObject<PayPalToken>(await response.Content.ReadAsStringAsync());
         }
 
-        public void OnGet()
+        public class PayPalAmount
         {
-            //string id = Guid.NewGuid().ToString();
-            //await storage.Save(id, new Debug
-            //{
-            //    Id = id,
-            //    Timestamp = DateTime.UtcNow,
-            //    Message = "Webhook received in OnGet"
-            //});
+            [JsonProperty("total")] public string Total { get; set; }
+            [JsonProperty("currency")] public string Currency { get; set; }
+        }
+
+        public class PayPalTransactionFee
+        {
+            [JsonProperty("value")] public string Value { get; set; }
+            [JsonProperty("currency")] public string Currency { get; set; }
+        }
+
+        public class PayPalResourceLink
+        {
+            [JsonProperty("href")] public string Href { get; set; }
+            [JsonProperty("rel")] public string Rel { get; set; }
+            [JsonProperty("method")] public string Method { get; set; }
+        }
+
+        public class PayPalLink
+        {
+            [JsonProperty("href")] public string Href { get; set; }
+            [JsonProperty("rel")] public string Rel { get; set; }
+            [JsonProperty("method")] public string Method { get; set; }
+            [JsonProperty("encType")] public string EncType { get; set; } // Yes, specifically this is camelCase
+        }
+
+        public class PayPalResource
+        {
+            [JsonProperty("parent_parment")] public string Parent_Payment { get; set; }
+            [JsonProperty("update_time")] public string Update_Time { get; set; }
+            [JsonProperty("amount")] public PayPalAmount Amount { get; set; }
+            [JsonProperty("is_final_capture")] public bool Is_Final_Capture { get; set; }
+            [JsonProperty("create_time")] public string Create_Time { get; set; } // Should be DateTime?
+            [JsonProperty("transaction_fee")] public PayPalTransactionFee Transaction_Fee { get; set; }
+            [JsonProperty("links")] public PayPalResourceLink[] Links { get; set; }
+            [JsonProperty("id")] public string Id { get; set; }
+            [JsonProperty("state")] public string State { get; set; }
+            [JsonProperty("reasonCode")] public string ReasonCode { get; set; } // Yes, specifically this is camelCase
         }
 
         public class PayPalWebhook
         {
-            [JsonProperty("event_type")] public string EventType { get; set; }
+            [JsonProperty("id")] public string Id { get; set; }
+            [JsonProperty("create_time")] public string Create_Time { get; set; } // Should be DateTime?
+            [JsonProperty("resource_type")] public string Resource_Type { get; set; }
+            [JsonProperty("event_type")] public string Event_Type { get; set; }
+            [JsonProperty("summary")] public string Summary { get; set; }
+            [JsonProperty("resource")] public PayPalResource Resource { get; set; }
+            [JsonProperty("links")] public PayPalLink[] Links { get; set; }
+            [JsonProperty("event_version")] public string Event_Version { get; set; }
         }
 
         // Don't point webhooks to this method on multiple sessions of the site at the same time!!!
         // Ex. If webhooks go to the main site, webhooks must not go to the test site
         // This is to make sure that payments are only processed once!
         // If ever necessary, add logic to determine whether it's the test site, and process accordingly
-        public async Task OnPost(PayPalWebhook webhook)
+        public async Task<IActionResult> OnPost(PayPalWebhook webhook)
         {
             string id = Guid.NewGuid().ToString();
             await storage.Save(id, new Debug
             {
                 Id = id,
                 Timestamp = DateTime.UtcNow,
-                Message = webhook.EventType
+                Message = webhook.Event_Type
             });
+
+            return null;
         }
     }
 }

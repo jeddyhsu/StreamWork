@@ -9,10 +9,17 @@
 
 <script>
     function testWebhook() {
-        alert('beginning')
+        alert('tset tset');
+
         $.ajax({
             url: '/API/PayPal',
             type: 'POST',
+            dataType: 'json',
+            data: {
+                "id": "PAYMENT.ORDER.CREATED",
+                "create_time": "aoueaoeu",
+                "event_type": "aoeuaoeu"
+            },
         }).done(function (data) {
             alert('success?');
         });
