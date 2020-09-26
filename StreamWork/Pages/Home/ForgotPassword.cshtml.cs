@@ -48,7 +48,7 @@ namespace StreamWork.Pages.Home
                 user.ChangePasswordKey = RandomLong(1000000000, 9999999999).ToString();
                 await storage.Save(user.Id, user);
 
-                await email.SendTemplateToUser("changePassword", user, new List<System.IO.MemoryStream>());
+                await email.SendForgotPassword(user);
             }
             
             return new JsonResult(true);

@@ -57,16 +57,6 @@ namespace StreamWork.Services
                         return $"We've just recieved a new tutor application from {user.Name.Replace('|', ' ')}, aka {user.Username}. They go to {user.College}, and they are interested in the following topics: (I still need to edit the email system to allow for this). You can contact them at {user.EmailAddress} and pay them at {user.PayPalAddress}. See the attachments for more information.\nAlternatively this is a test account, in which case, you should ignore it.";
                     }
                 )},
-                {"changePassword", new EmailTemplate(
-                    user =>
-                    {
-                        return "Recover Your Password";
-                    },
-                    user =>
-                    {
-                        return $"Your password recovery code is: {user.ChangePasswordKey}. If you did not request to change your password, please ignore this email.";
-                    }
-                )},
             };
         }
 

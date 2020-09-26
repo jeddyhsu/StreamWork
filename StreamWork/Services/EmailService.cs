@@ -78,6 +78,21 @@ namespace StreamWork.Services
             await SendEmail(message);
         }
 
+        public async Task SendForgotPassword(Profile user)
+        {
+            MimeMessage message = new MimeMessage();
+
+            message.From.Add(new MailboxAddress(name, streamworkEmailAddress));
+            message.To.Add(MailboxAddress.Parse(user.EmailAddress));
+            message.Subject = "Recover Your Password";
+            message.Body = new TextPart("html")
+            {
+                Text = ConvertToTemplateString($"Hey there {user.Name.Split('|')[0]},", $"Your password recovery code is: {user.ChangePasswordKey}. If you did not request to change your password, please ignore this email.")
+            };
+
+            await SendEmail(message);
+        }
+
         public async Task SendEmailVerification(string userEmailAddress, string verificationCode)
         {
             MimeMessage message = new MimeMessage();
@@ -87,7 +102,7 @@ namespace StreamWork.Services
             message.Subject = "Verify Your Email Address";
             message.Body = new TextPart("html")
             {
-                Text = ConvertToTemplateString($"Thanks for using StreamWork ! ", $"Type this code into the sign up form to verify your email: {verificationCode}")
+                Text = ConvertToTemplateString($"Thanks for using StreamWork! ", $"Type this code into the sign up form to verify your email: {verificationCode}")
             };
 
             await SendEmail(message);
@@ -125,7 +140,7 @@ namespace StreamWork.Services
                             message.Subject = $"{user.Username} is now streaming \"{channel.StreamTitle}\" in {channel.StreamSubject}!";
                             message.Body = new TextPart("html")
                             {
-                                Text = ConvertToTemplateString($"Hey there {userFollower.Name.Split('|')[0]},", $"A StreamTutor you follow, {user.Username}, is now live-streaming \"{channel.StreamTitle}\" in {channel.StreamSubject}.\n\n Tune in <a href={url}>here!</a>.")
+                                Text = ConvertToTemplateString($"Hey there {userFollower.Name.Split('|')[0]},", $"A StreamTutor you follow, {user.Username}, is now live-streaming \"{channel.StreamTitle}\" in {channel.StreamSubject}.\n\n Tune in <a href={url}>here!</a>")
                             };
 
                             await SendEmail(message);
@@ -144,7 +159,7 @@ namespace StreamWork.Services
                             message.Subject = $"{user.Username} is now streaming \"{channel.StreamTitle}\" in {channel.StreamSubject}!";
                             message.Body = new TextPart("html")
                             {
-                                Text = ConvertToTemplateString($"Hey there {userFollower.Name.Split('|')[0]},", $"{user.Username} is now live-streaming \"{channel.StreamTitle}\" in a topic you follow, {channel.StreamSubject}.\n\n Tune in <a href={url}>here!</a>.")
+                                Text = ConvertToTemplateString($"Hey there {userFollower.Name.Split('|')[0]},", $"{user.Username} is now live-streaming \"{channel.StreamTitle}\" in a topic you follow, {channel.StreamSubject}.\n\n Tune in <a href={url}>here!</a>")
                             };
 
                             await SendEmail(message);
