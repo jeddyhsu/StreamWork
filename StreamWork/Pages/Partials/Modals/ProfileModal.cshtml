@@ -22,6 +22,14 @@
         <div id="profile-information-sm-notification" class="alert notification-info mt-3 mb-0" style="margin-left:50px; margin-right:50px" role="alert">
             <b>Invalid <span id="profile-information-sm-p"></span> URL!</b> Please try with a different URL.
         </div>
+        <div id="profile-information-fn-notification" class="alert notification-info mt-3 mb-0" style="margin-left:50px; margin-right:50px; display: none;" role="alert">
+            First name contains invalid characters!
+            <div class="close ml-auto" onclick="$('#profile-information-fn-notification').hide()">&times;</div>
+        </div>
+        <div id="profile-information-ln-notification" class="alert notification-info mt-3 mb-0" style="margin-left:50px; margin-right:50px; display: none;" role="alert">
+            First name contains invalid characters!
+            <div class="close ml-auto" onclick="$('#profile-information-ln-notification').hide()">&times;</div>
+        </div>
         <script>$('#profile-information-sm-notification').hide()</script>
         <div id="profile-modal-loader" class="loader d-none mr-auto ml-auto mt-3 mb-0"></div>
         <div class="tab-content">

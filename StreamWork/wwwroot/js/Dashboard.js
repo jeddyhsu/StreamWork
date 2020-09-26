@@ -71,6 +71,16 @@ function SliderSettings() {
 function SaveProfile() {
     $('#profile-modal-loader').removeClass('d-none').addClass('d-block');
 
+    if (!/^[^0-9\t\n\/<>?;:"`!@#$%^&*()\[\]{}_+=|\\]+$/.test($('#first-name').val())) {
+        ShowBannerNotification("profile-information-fn-notification")
+        return;
+    }
+
+    if (!/^[^0-9\t\n\/<>?;:"`!@#$%^&*()\[\]{}_+=|\\]+$/.test($('#last-name').val())) {
+        ShowBannerNotification("profile-information-ln-notification")
+        return;
+    }
+
     var formData = new FormData();
     formData.append("FirstName", $('#first-name').val());
     formData.append("LastName", $('#last-name').val());
