@@ -85,13 +85,7 @@ namespace StreamWork.Pages.Home
 
         public async Task OnPostSignUpStudent()
         {
-            //if (!await VerifyRequest(Request)) //TOM this wont work with google ouath. The email wont be populated becasue it gets it from an api call LOOK at SignUpOauth
-            //{
-            //    // JavaScript checks seeem to have been ignored!
-            //    // Potential attack detected. Aborting.
-            //    return;
-            //}
-
+          
             string id = Guid.NewGuid().ToString();
 
             if (Request.Form.ContainsKey("Token"))
@@ -100,6 +94,13 @@ namespace StreamWork.Pages.Home
             }
             else
             {
+                if (!await VerifyRequest(Request)) //TOM this wont work with google ouath. The email wont be populated becasue it gets it from an api call LOOK at SignUpOauth
+                {
+                    // JavaScript checks seeem to have been ignored!
+                    // Potential attack detected. Aborting.
+                    return;
+                }
+
                 Profile user = new Profile
                 {
                     Id = id,
@@ -129,13 +130,6 @@ namespace StreamWork.Pages.Home
 
         public async Task OnPostSignUpTutor()
         {
-            //if (!await VerifyRequest(Request)) //TOM this wont work with google ouath. The email wont be populated becasue it gets it from an api call LOOK at SignUpOauth
-            //{
-            //    // JavaScript checks seeem to have been ignored!
-            //    // Potential attack detected. Aborting.
-            //    return;
-            //}
-
             string id = Guid.NewGuid().ToString();
             if (Request.Form.ContainsKey("Token"))
             {
@@ -143,6 +137,13 @@ namespace StreamWork.Pages.Home
             }
             else
             {
+                if (!await VerifyRequest(Request)) //TOM this wont work with google ouath. The email wont be populated becasue it gets it from an api call LOOK at SignUpOauth
+                {
+                    // JavaScript checks seeem to have been ignored!
+                    // Potential attack detected. Aborting.
+                    return;
+                }
+
                 Profile user = new Profile
                 {
                     Id = id,
