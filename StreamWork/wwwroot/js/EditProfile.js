@@ -9,7 +9,7 @@ function ReadImageUrl(image, type) {
         }
 
         if ((image.files[0].size / 1024) > 2048) {
-            OpenNotificationModal('Image too large. 2MB max.', 'notification-image-invalid-modal');
+            ShowBannerNotification('image-too-large-notification');
             return;
         }
 
@@ -32,8 +32,8 @@ function ReadImageUrl(image, type) {
             }
 
             ResetButtons();
-            $('#cropper-buttons').html(`<button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#6B6B6B; color:white" onclick="SendCroppedImage()">Save Image</button>
-                                        <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="UploadImage()">Change Image</button>`)
+            $('#cropper-buttons').html(` <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#6B6B6B; color:white" onclick="UploadImage()">Change Image</button>
+                                         <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="SendCroppedImage()">Save Image</button>`)
 
             image.value = ""
         }
