@@ -87,8 +87,7 @@ function RegisterStream() {
         },
         success: function (data) {
             if (data.message === "Success") {
-                $("#tutor-live-success-notification").html(`<b>Connection Established!</b> Have a great stream!`)
-                ShowBannerNotification("tutor-live-success-notification")
+                OpenModal('stream-connection-established-modal');
                 $('#GoLive').removeClass('d-flex').addClass('d-none');
                 $('#stream-status').text('Live To Viewers')
                 $('#live-chat').attr('src', '/Chat/LiveChat/' + data.results[0])
@@ -125,6 +124,8 @@ function FillMask(id) {
     var x = $('#schedule-mask');
     var y = $('#schedule-task-' + id).html()
     $('#schedule-mask').html($('#schedule-task-' + id).html())
+
+    pickedScheduleId = id;
 }
 
 function ClearFill() {

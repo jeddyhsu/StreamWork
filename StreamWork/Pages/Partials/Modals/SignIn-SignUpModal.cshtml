@@ -9,24 +9,6 @@
         <div class="slider">
             <div id="slider-object-profile-edit-modal" class="slider-object" style="width:60px"></div>
         </div>
-        <div id="profile-information-notification" class="alert notification-success mt-3 mb-0" style="margin-left:50px; margin-right:50px" role="alert">
-            <b>Changes Saved!</b> Your information has been successfully saved.
-            <div class="close ml-auto" onclick="$('#profile-information-notification').hide()">&times;</div>
-        </div>
-        <script>$('#profile-information-notification').hide()</script>
-        <div id="profile-information-sm-notification" class="alert notification-info mt-3 mb-0" style="margin-left:50px; margin-right:50px" role="alert">
-            <b>Invalid <span id="profile-information-sm-p"></span> URL!</b> Please try with a different URL.
-            <div class="close ml-auto" onclick="$('#profile-information-sm-notification').hide()">&times;</div>
-        </div>
-        <div id="profile-information-fn-notification" class="alert notification-info mt-3 mb-0" style="margin-left:50px; margin-right:50px" role="alert">
-            First name contains invalid characters!
-            <div class="close ml-auto" onclick="$('#profile-information-sm-notification').hide()">&times;</div>
-        </div>
-        <div id="profile-information-ln-notification" class="alert notification-info mt-3 mb-0" style="margin-left:50px; margin-right:50px" role="alert">
-            First name contains invalid characters!
-            <div class="close ml-auto" onclick="$('#profile-information-sm-notification').hide()">&times;</div>
-        </div>
-        <script>$('#profile-information-sm-notification').hide()</script>
         <div class="tab-content">
             <div class="tab-pane active" id="profileinfo" role="tabpanel" aria-labelledby="profile-info-tab">
                 <div class="row">
@@ -75,9 +57,11 @@
             </div>
         </div>
     </div>
+    <br />
+    <br />
+    <br />
+    <br />
 </div>
-
-
 
 <script>CheckIfBothFieldsAreEmpty()
     document.getElementById('username').onkeydown = function (event) {

@@ -96,6 +96,7 @@ namespace StreamWork.Services
         public async Task<string> CreateNotificationTemplate(Notification notification, bool isPush)
         {
             string reader = "";
+            var userProfile = await Get<Profile>(SQLQueries.GetUserWithUsername, notification.ReceiverUsername);
 
             if (notification.Type == NotificationType.Follow.ToString())
             {
@@ -113,7 +114,7 @@ namespace StreamWork.Services
                     reader = reader.Replace("{ProfileColor}", notification.ProfileColor);
                     reader = reader.Replace("{SenderName}", notification.SenderName.Replace('|', ' '));
                     reader = reader.Replace("{NotificationMessage}", " started following you");
-                    reader = reader.Replace("{NotificationDate}", notification.Date.ToLocalTime().ToShortTimeString());
+                    reader = reader.Replace("{NotificationDate}", notification.Date.AddMinutes(MiscHelperMethods.GetOffsetBasedOfTimeZone(userProfile.TimeZone)).ToShortTimeString());
                     reader = reader.Replace("{SenderUsername}", notification.SenderUsername);
                     reader = reader.Replace("{NotificationType}", notification.Type);
                 }
@@ -142,7 +143,7 @@ namespace StreamWork.Services
                     reader = reader.Replace("{CommentMessage}", comment.Message);
                     reader = reader.Replace("{VideoId}", video.StreamID); //we need to use videos Id rather than streamId becasue we cahnge streaming later it will be hard to manage
                     reader = reader.Replace("{CommentId}", comment.Id);
-                    reader = reader.Replace("{NotificationDate}", notification.Date.ToLocalTime().ToShortTimeString());
+                    reader = reader.Replace("{NotificationDate}", notification.Date.AddMinutes(MiscHelperMethods.GetOffsetBasedOfTimeZone(userProfile.TimeZone)).ToShortTimeString());
                     reader = reader.Replace("{SenderUsername}", notification.SenderUsername);
                     reader = reader.Replace("{NotificationType}", notification.Type);
                 }
@@ -173,7 +174,7 @@ namespace StreamWork.Services
                     reader = reader.Replace("{CommentMessage}", parentComment.Message);
                     reader = reader.Replace("{VideoId}", video.StreamID); //we need to use videos Id rather than streamId becasue we cahnge streaming later it will be hard to manage
                     reader = reader.Replace("{CommentId}", comment.Id);
-                    reader = reader.Replace("{NotificationDate}", notification.Date.ToLocalTime().ToShortTimeString());
+                    reader = reader.Replace("{NotificationDate}", notification.Date.AddMinutes(MiscHelperMethods.GetOffsetBasedOfTimeZone(userProfile.TimeZone)).ToShortTimeString());
                     reader = reader.Replace("{SenderUsername}", notification.SenderUsername);
                     reader = reader.Replace("{NotificationType}", notification.Type);
                 }

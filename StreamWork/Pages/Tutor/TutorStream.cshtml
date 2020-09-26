@@ -6,9 +6,11 @@
 
 @if (!Model.CurrentUserProfile.ProfileType.Equals("tutor") || !Model.CurrentUserProfile.AcceptedTutor)
 {
-    <script>$(document).ready(function () {
+    <script>
+        $(document).ready(function () {
             OpenModal('tutor-not-approved-modal');
-        })</script>
+        })
+    </script>
 
 }
 
@@ -187,6 +189,7 @@
 @await Html.PartialAsync("Partials/Modals/TutorStreamModal")
 @await Html.PartialAsync("Partials/Notification/PushNotifications")
 @await Html.PartialAsync("Partials/Modals/TutorNotApprovedModal")
+@await Html.PartialAsync("Partials/Modals/StreamConnectionEstablishedModal")
 
 
 @if (Model.ScheduledStream != null)

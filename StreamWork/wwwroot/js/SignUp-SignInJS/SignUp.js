@@ -644,6 +644,7 @@ function signUpStudent() {
         formData.append('Token', oauthToken);
     }
 
+    formData.append('Time', moment().utcOffset())
     formData.append('InCollege', $('#studentOrTutor-inCollege').hasClass('streamWork-primary'));
     formData.append('SchoolName', $('#schoolName').val());
     formData.append('Topics',
@@ -697,6 +698,7 @@ function signUpTutor() {
         formData.append('Token', oauthToken);
     }
 
+    formData.append('Time', moment().utcOffset())
     formData.append('InCollege', $('#tab-2-inCollege').hasClass('streamWork-primary'));
     formData.append('SchoolName', $('#schoolName').val());
     formData.append('Transcript', $('#transcript')[0].files[0]);

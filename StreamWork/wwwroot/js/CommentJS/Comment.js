@@ -252,7 +252,7 @@ function OpenDeleteConfirmation(commentId, parentId) {
                             </div>
                         </div>`
     $('#notification-delete-comment-modal').html(confirmation);
-    OpenNotificationModal('Are you sure you want to delete this comment? This is a irreversible action!', 'notification-delete-comment-modal')
+    OpenNotificationModal('Are you sure you want to delete this comment? This is an irreversible action!', 'notification-delete-comment-modal')
 
 }
 

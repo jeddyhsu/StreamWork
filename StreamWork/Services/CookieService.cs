@@ -16,7 +16,7 @@ namespace StreamWork.Services
     public class CookieService : StorageService
     {
         public static bool devEnvironment;
-        public readonly string host = devEnvironment ? "http://localhost:58539" : "https://streamworktest.azurewebsites.net";
+        public readonly string host = devEnvironment ? "http://localhost:58539" : "https://streamwork.live";
         private readonly IHttpContextAccessor httpContext;
         public bool Authenticated;
 

@@ -118,6 +118,7 @@ namespace StreamWork.Pages.Home
                     ProfileSince = DateTime.UtcNow,
                     ProfilePicture = MiscHelperMethods.defaultProfilePicture,
                     ProfileBanner = MiscHelperMethods.defaultBanner,
+                    TimeZone = MiscHelperMethods.GetTimeZoneBasedOfOffset(Request.Form["Time"])
                 };
 
                 await storageService.Save(user.Id, user);
@@ -162,6 +163,7 @@ namespace StreamWork.Pages.Home
                     ProfileSince = DateTime.UtcNow,
                     ProfilePicture = MiscHelperMethods.defaultProfilePicture,
                     ProfileBanner = MiscHelperMethods.defaultBanner,
+                    TimeZone = MiscHelperMethods.GetTimeZoneBasedOfOffset(Request.Form["Time"])
                 };
 
                 await storageService.Save(user.Id, user);
@@ -220,6 +222,7 @@ namespace StreamWork.Pages.Home
                 ProfileSince = DateTime.UtcNow,
                 ProfilePicture = MiscHelperMethods.defaultProfilePicture,
                 ProfileBanner = MiscHelperMethods.defaultBanner,
+                TimeZone = MiscHelperMethods.GetTimeZoneBasedOfOffset(Request.Form["Time"])
             });
 
             if(type == "tutor")
