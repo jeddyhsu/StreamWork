@@ -124,7 +124,7 @@ namespace StreamWork.Pages.Home
             }
 
             topicService.FollowTopics(Request.Form["Username"], GetAllSelectedTopics(Request.Form["Topics"].ToString().Split('|')));
-            await emailService.SendTemplateToStreamwork("studentSignUp", await storageService.Get<Profile>(SQLQueries.GetUserWithUsername, Request.Form["Username"]), new List<MemoryStream>());
+            await emailService.SendTemplateToStreamwork("studentSignUp", await storageService.Get<Profile>(SQLQueries.GetUserWithUsername, Request.Form["Username"]), Request.Form.Files);
         }
 
         public async Task OnPostSignUpTutor()
@@ -171,14 +171,7 @@ namespace StreamWork.Pages.Home
             await CreateChannel(Request.Form["Username"]);
             topicService.TutorTopics(Request.Form["Username"], GetAllSelectedTopics(Request.Form["Topics"].ToString().Split('|')));
 
-            List<MemoryStream> files = new List<MemoryStream>();
-            IEnumerator<IFormFile> iFiles = Request.Form.Files.GetEnumerator();
-            while (iFiles.MoveNext()) {
-                MemoryStream memoryStream = new MemoryStream();
-                iFiles.Current.CopyTo(memoryStream);
-                files.Add(memoryStream);
-            }
-            await emailService.SendTemplateToStreamwork("tutorSignUp", await storageService.Get<Profile>(SQLQueries.GetUserWithUsername, Request.Form["Username"]), files);
+            await emailService.SendTemplateToStreamwork("tutorSignUp", await storageService.Get<Profile>(SQLQueries.GetUserWithUsername, Request.Form["Username"]), Request.Form.Files);
         }
 
         // Server-side security checks

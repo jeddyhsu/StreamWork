@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Hosting;
 using StreamWork.HelperMethods;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 
 namespace StreamWork.Services
 {
@@ -37,7 +38,7 @@ namespace StreamWork.Services
             certificatePath = Path.Combine(Directory.GetParent(environment.WebRootPath).FullName, "Config", "streamwork-286021-a06875f20a26.p12"); // HACK Completely fixable, but I really don't want to touch this system anymore.
         }
 
-        public async Task SendTemplateToUser(string templateName, Profile user, List<MemoryStream> attachments)
+        public async Task SendTemplateToUser(string templateName, Profile user, IFormFileCollection attachments)
         {
             MimeMessage message = new MimeMessage();
             string[] userNames = user.Name.Split('|');
@@ -46,7 +47,7 @@ namespace StreamWork.Services
             await SendTemplateToAddress(templateName, user, attachments, message);
         }
 
-        public async Task SendTemplateToStreamwork(string templateName, Profile user, List<MemoryStream> attachments)
+        public async Task SendTemplateToStreamwork(string templateName, Profile user, IFormFileCollection attachments)
         {
             MimeMessage message = new MimeMessage();
             message.To.Add(new MailboxAddress("StreamWork", streamworkEmailAddress));
@@ -55,7 +56,8 @@ namespace StreamWork.Services
         }
 
         // Internal, to reduce repetition in code
-        private async Task SendTemplateToAddress(string templateName, Profile user, List<MemoryStream> attachments, MimeMessage message)
+        // Attachments are IFormFiles for simplicity. Maybe change this to something more accessible if necessary in the future?
+        private async Task SendTemplateToAddress(string templateName, Profile user, IFormFileCollection attachments, MimeMessage message)
         {
             EmailTemplate template = templates.GetTemplate(templateName);
 
@@ -66,12 +68,17 @@ namespace StreamWork.Services
             {
                 TextBody = template.BuildBody(user)
             };
-            foreach (MemoryStream attachment in attachments)
+
+            foreach (IFormFile attachment in attachments)
             {
-                if (attachment.Length > 0)
+                byte[] fileBytes;
+                using (MemoryStream memoryStream = new MemoryStream())
                 {
-                    bodyBuilder.Attachments.Add(MimeEntity.Load(attachment));
+                    attachment.CopyTo(memoryStream);
+                    fileBytes = memoryStream.ToArray();
                 }
+
+                bodyBuilder.Attachments.Add(attachment.FileName, fileBytes, ContentType.Parse(attachment.ContentType));
             }
             message.Body = bodyBuilder.ToMessageBody();
 

@@ -1,0 +1,410 @@
+2020-09-26 06:57:12.636 -07:00 [INF] User profile is available. Using '/Users/Seldom/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2020-09-26 06:57:13.016 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-09-26 06:57:13.031 -07:00 [WRN] Failed to determine the https port for redirect.
+2020-09-26 06:57:13.201 -07:00 [INF] Executing endpoint '/Index'
+2020-09-26 06:57:13.283 -07:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-09-26 06:57:13.301 -07:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-09-26 06:57:15.932 -07:00 [INF] Executed handler method OnGet, returned result .
+2020-09-26 06:57:15.938 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-26 06:57:15.939 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-26 06:57:16.536 -07:00 [INF] Executed page /Index in 3246.2302ms
+2020-09-26 06:57:16.538 -07:00 [INF] Executed endpoint '/Index'
+2020-09-26 06:57:16.547 -07:00 [INF] Request finished in 3535.2594000000004ms 200 text/html; charset=utf-8
+2020-09-26 06:57:17.832 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-09-26 06:57:17.840 -07:00 [INF] Executing endpoint '/Index'
+2020-09-26 06:57:17.841 -07:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-09-26 06:57:17.842 -07:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-09-26 06:57:18.172 -07:00 [INF] Executed handler method OnGet, returned result .
+2020-09-26 06:57:18.173 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-26 06:57:18.173 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-26 06:57:18.192 -07:00 [INF] Executed page /Index in 350.9325ms
+2020-09-26 06:57:18.192 -07:00 [INF] Executed endpoint '/Index'
+2020-09-26 06:57:18.193 -07:00 [INF] Request finished in 362.9089ms 200 text/html; charset=utf-8
+2020-09-26 06:57:18.409 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/About-Tutor-Hts.css?v=_el1YCak5S-7edwbOhD49aIXJZA3N8ZiwoZ_bLZS0no  
+2020-09-26 06:57:18.409 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/Profile/Profile.css?v=9MXt3fu6VJwbhReXpcfAYMTj7-szQ6pOOISmTeA24Z8  
+2020-09-26 06:57:18.435 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/site.css?v=M0sRJx3PXV0FH5bESY74SfsYtDWvuUyOfF70h0GhmtI  
+2020-09-26 06:57:18.439 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/Home/Home.css?v=SizN3KUQzzmO3jVbmFs2xeImJ5OpQoANxCIChDvTwTY  
+2020-09-26 06:57:18.465 -07:00 [INF] The file /css/Profile/Profile.css was not modified
+2020-09-26 06:57:18.465 -07:00 [INF] The file /css/About-Tutor-Hts.css was not modified
+2020-09-26 06:57:18.465 -07:00 [INF] The file /css/Home/Home.css was not modified
+2020-09-26 06:57:18.466 -07:00 [INF] Request finished in 58.130700000000004ms 304 text/css
+2020-09-26 06:57:18.466 -07:00 [INF] Request finished in 58.594500000000004ms 304 text/css
+2020-09-26 06:57:18.466 -07:00 [INF] Request finished in 27.4006ms 304 text/css
+2020-09-26 06:57:18.519 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/Schedule.css?v=YOf1EBg3EDPotDzC2zYWZxxqeTTM7VUka5hxQbfcvtw  
+2020-09-26 06:57:18.520 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/Notification/Notification.css?v=SYMsSxWvihH7Wu8FKN9MRMs459fun1NAjAz_kkKls68  
+2020-09-26 06:57:18.540 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/SignUp-SignInJS/SignIn.js?v=23TcmolJLQYL3datAwsbvb7G2Gpxo1DSC2FSfGFrXUU  
+2020-09-26 06:57:18.541 -07:00 [INF] The file /css/Schedule.css was not modified
+2020-09-26 06:57:18.541 -07:00 [INF] The file /js/SignUp-SignInJS/SignIn.js was not modified
+2020-09-26 06:57:18.541 -07:00 [INF] Request finished in 0.798ms 304 application/javascript
+2020-09-26 06:57:18.541 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/SignUp-SignInJS/SignUp.js?v=KvSr_QaI_XBXD09xsAyHqFbInJ3AZgmOhbCbbbKu9xw  
+2020-09-26 06:57:18.541 -07:00 [INF] Request finished in 21.9589ms 304 text/css
+2020-09-26 06:57:18.542 -07:00 [INF] The file /js/SignUp-SignInJS/SignUp.js was not modified
+2020-09-26 06:57:18.542 -07:00 [INF] Request finished in 0.8522000000000001ms 304 application/javascript
+2020-09-26 06:57:18.542 -07:00 [INF] The file /css/Notification/Notification.css was not modified
+2020-09-26 06:57:18.568 -07:00 [INF] Request finished in 49.171800000000005ms 304 text/css
+2020-09-26 06:57:18.567 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/NotificationAndModals.js?v=_KkNeqkxgY-O1wIYbwGL9UEmvmEsOOgxyJsYeZ1xpCk  
+2020-09-26 06:57:18.570 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/Dashboard.js?v=tBO3i2YxEEi8x7BLy2TIQcqBOIrgyAv56M3cp58C5-M  
+2020-09-26 06:57:18.575 -07:00 [INF] The file /js/NotificationAndModals.js was not modified
+2020-09-26 06:57:18.576 -07:00 [INF] Request finished in 8.9605ms 304 application/javascript
+2020-09-26 06:57:18.576 -07:00 [INF] The file /js/Dashboard.js was not modified
+2020-09-26 06:57:18.576 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/Templates.js?v=94PnIvoQn1o5IjwyJ9lMDOFfDOuHDLkLUILpR1jE3Qk  
+2020-09-26 06:57:18.576 -07:00 [INF] The file /js/Templates.js was not modified
+2020-09-26 06:57:18.577 -07:00 [INF] Request finished in 0.6887ms 304 application/javascript
+2020-09-26 06:57:18.576 -07:00 [INF] Request finished in 6.2237ms 304 application/javascript
+2020-09-26 06:57:18.579 -07:00 [INF] Sending file. Request path: '/css/site.css'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/css/site.css'
+2020-09-26 06:57:18.580 -07:00 [INF] Request finished in 144.82150000000001ms 200 text/css
+2020-09-26 06:57:18.673 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/Browse.svg  
+2020-09-26 06:57:18.674 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/StreamWork-Full.svg  
+2020-09-26 06:57:18.673 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/StreamWork-Icon.svg  
+2020-09-26 06:57:18.683 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/Elipses.svg  
+2020-09-26 06:57:18.721 -07:00 [INF] Sending file. Request path: '/images/GenericAssets/Browse.svg'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/GenericAssets/Browse.svg'
+2020-09-26 06:57:18.722 -07:00 [INF] Request finished in 47.845200000000006ms 200 image/svg+xml
+2020-09-26 06:57:18.722 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/HomeAssets/Graphic.svg  
+2020-09-26 06:57:18.728 -07:00 [INF] Sending file. Request path: '/images/GenericAssets/StreamWork-Full.svg'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/GenericAssets/StreamWork-Full.svg'
+2020-09-26 06:57:18.728 -07:00 [INF] Request finished in 53.9063ms 200 image/svg+xml
+2020-09-26 06:57:18.728 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/ChatAssets/Humanities.svg  
+2020-09-26 06:57:18.752 -07:00 [INF] Sending file. Request path: '/images/GenericAssets/StreamWork-Icon.svg'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/GenericAssets/StreamWork-Icon.svg'
+2020-09-26 06:57:18.752 -07:00 [INF] Request finished in 78.7591ms 200 image/svg+xml
+2020-09-26 06:57:18.753 -07:00 [INF] Sending file. Request path: '/images/GenericAssets/Elipses.svg'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/GenericAssets/Elipses.svg'
+2020-09-26 06:57:18.753 -07:00 [INF] Request finished in 70.86460000000001ms 200 image/svg+xml
+2020-09-26 06:57:18.759 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-26 06:57:18.761 -07:00 [INF] CORS policy execution successful.
+2020-09-26 06:57:18.774 -07:00 [INF] Sending file. Request path: '/images/ChatAssets/Humanities.svg'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/ChatAssets/Humanities.svg'
+2020-09-26 06:57:18.774 -07:00 [INF] Request finished in 45.880700000000004ms 200 image/svg+xml
+2020-09-26 06:57:18.773 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/CollegeAssets/ASULogo.svg  
+2020-09-26 06:57:18.787 -07:00 [INF] Sending file. Request path: '/images/HomeAssets/Graphic.svg'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/HomeAssets/Graphic.svg'
+2020-09-26 06:57:18.788 -07:00 [INF] Request finished in 65.84270000000001ms 200 image/svg+xml
+2020-09-26 06:57:18.788 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/CollegeAssets/ATMLogo.svg  
+2020-09-26 06:57:18.793 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 06:57:18.797 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-26 06:57:18.831 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/CollegeAssets/StanfordLogo.svg  
+2020-09-26 06:57:18.836 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/CollegeAssets/BrownLogo.svg  
+2020-09-26 06:57:18.840 -07:00 [INF] Sending file. Request path: '/images/CollegeAssets/ATMLogo.svg'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/CollegeAssets/ATMLogo.svg'
+2020-09-26 06:57:18.841 -07:00 [INF] Request finished in 52.4801ms 200 image/svg+xml
+2020-09-26 06:57:18.845 -07:00 [INF] Sending file. Request path: '/images/CollegeAssets/ASULogo.svg'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/CollegeAssets/ASULogo.svg'
+2020-09-26 06:57:18.845 -07:00 [INF] Request finished in 71.9026ms 200 image/svg+xml
+2020-09-26 06:57:18.846 -07:00 [INF] Sending file. Request path: '/images/CollegeAssets/StanfordLogo.svg'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/CollegeAssets/StanfordLogo.svg'
+2020-09-26 06:57:18.846 -07:00 [INF] Request finished in 15.1407ms 200 image/svg+xml
+2020-09-26 06:57:18.852 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/HomeAssets/ColorBlobs.svg  
+2020-09-26 06:57:18.852 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-26 06:57:18.852 -07:00 [INF] Request finished in 92.9533ms 200 application/json
+2020-09-26 06:57:18.862 -07:00 [INF] Sending file. Request path: '/images/CollegeAssets/BrownLogo.svg'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/CollegeAssets/BrownLogo.svg'
+2020-09-26 06:57:18.863 -07:00 [INF] Request finished in 26.8438ms 200 image/svg+xml
+2020-09-26 06:57:18.869 -07:00 [INF] Sending file. Request path: '/images/HomeAssets/ColorBlobs.svg'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/HomeAssets/ColorBlobs.svg'
+2020-09-26 06:57:18.869 -07:00 [INF] Request finished in 17.5171ms 200 image/svg+xml
+2020-09-26 06:57:18.887 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/CollegeAssets/UCSDLogo.svg  
+2020-09-26 06:57:18.913 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/CollegeAssets/UWLogo.svg  
+2020-09-26 06:57:18.962 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/HomeAssets/ColorBlobsInverted.svg  
+2020-09-26 06:57:18.962 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/Search.svg  
+2020-09-26 06:57:19.009 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/StreamWork-Full-White.svg  
+2020-09-26 06:57:19.054 -07:00 [INF] Sending file. Request path: '/images/GenericAssets/Search.svg'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/GenericAssets/Search.svg'
+2020-09-26 06:57:19.080 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/facebook.png  
+2020-09-26 06:57:19.080 -07:00 [INF] Request finished in 118.1162ms 200 image/svg+xml
+2020-09-26 06:57:19.127 -07:00 [INF] Sending file. Request path: '/images/GenericAssets/StreamWork-Full-White.svg'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/GenericAssets/StreamWork-Full-White.svg'
+2020-09-26 06:57:19.150 -07:00 [INF] Request finished in 140.75400000000002ms 200 image/svg+xml
+2020-09-26 06:57:19.184 -07:00 [INF] Sending file. Request path: '/images/facebook.png'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/facebook.png'
+2020-09-26 06:57:19.189 -07:00 [INF] Request finished in 134.8195ms 200 image/png
+2020-09-26 06:57:19.200 -07:00 [INF] Sending file. Request path: '/images/CollegeAssets/UWLogo.svg'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/CollegeAssets/UWLogo.svg'
+2020-09-26 06:57:19.202 -07:00 [INF] Request finished in 288.32230000000004ms 200 image/svg+xml
+2020-09-26 06:57:19.204 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/twitter.png  
+2020-09-26 06:57:19.208 -07:00 [INF] Sending file. Request path: '/images/CollegeAssets/UCSDLogo.svg'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/CollegeAssets/UCSDLogo.svg'
+2020-09-26 06:57:19.214 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/linkedin.png  
+2020-09-26 06:57:19.238 -07:00 [INF] Request finished in 330.5589ms 200 image/svg+xml
+2020-09-26 06:57:19.246 -07:00 [INF] Sending file. Request path: '/images/twitter.png'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/twitter.png'
+2020-09-26 06:57:19.247 -07:00 [INF] Request finished in 42.6434ms 200 image/png
+2020-09-26 06:57:19.248 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/StreamWorkAdVideo.mp4  
+2020-09-26 06:57:19.281 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/StreamWorkAdPoster.png  
+2020-09-26 06:57:19.286 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/SignUpAssets/SignUp_1_SW_SVG.svg  
+2020-09-26 06:57:19.289 -07:00 [INF] Sending file. Request path: '/images/linkedin.png'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/linkedin.png'
+2020-09-26 06:57:19.290 -07:00 [INF] Request finished in 75.9976ms 200 image/png
+2020-09-26 06:57:19.290 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/SignUpAssets/SignUp_2_SW_SVG.svg  
+2020-09-26 06:57:19.297 -07:00 [INF] Sending file. Request path: '/images/SignUpAssets/SignUp_1_SW_SVG.svg'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/SignUpAssets/SignUp_1_SW_SVG.svg'
+2020-09-26 06:57:19.297 -07:00 [INF] Request finished in 10.900400000000001ms 200 image/svg+xml
+2020-09-26 06:57:19.337 -07:00 [INF] Sending file. Request path: '/images/SignUpAssets/SignUp_2_SW_SVG.svg'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/SignUpAssets/SignUp_2_SW_SVG.svg'
+2020-09-26 06:57:19.337 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/SignUpAssets/SignUp_3_SW_SVG.svg  
+2020-09-26 06:57:19.337 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/ChatAssets/Humanities.png  
+2020-09-26 06:57:19.338 -07:00 [INF] Request finished in 47.9082ms 200 image/svg+xml
+2020-09-26 06:57:19.462 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/ChatAssets/Math.png  
+2020-09-26 06:57:19.527 -07:00 [INF] Sending file. Request path: '/images/ChatAssets/Humanities.png'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/ChatAssets/Humanities.png'
+2020-09-26 06:57:19.540 -07:00 [INF] Sending file. Request path: '/images/HomeAssets/ColorBlobsInverted.svg'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/HomeAssets/ColorBlobsInverted.svg'
+2020-09-26 06:57:19.540 -07:00 [INF] Request finished in 578.9186000000001ms 200 image/svg+xml
+2020-09-26 06:57:19.550 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/ChatAssets/Engineering.png  
+2020-09-26 06:57:19.558 -07:00 [INF] Sending file. Request path: '/images/SignUpAssets/SignUp_3_SW_SVG.svg'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/SignUpAssets/SignUp_3_SW_SVG.svg'
+2020-09-26 06:57:19.588 -07:00 [INF] Sending ["bytes 0-84089808/84089809"] of file /Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/StreamWorkAdVideo.mp4
+2020-09-26 06:57:19.610 -07:00 [INF] Request finished in 260.2412ms 200 image/png
+2020-09-26 06:57:19.610 -07:00 [INF] Request finished in 272.3714ms 200 image/svg+xml
+2020-09-26 06:57:19.623 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/ChatAssets/Science.png  
+2020-09-26 06:57:19.613 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/ChatAssets/Art.png  
+2020-09-26 06:57:19.639 -07:00 [INF] Sending file. Request path: '/images/ChatAssets/Engineering.png'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/ChatAssets/Engineering.png'
+2020-09-26 06:57:19.701 -07:00 [INF] Sending file. Request path: '/images/ChatAssets/Science.png'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/ChatAssets/Science.png'
+2020-09-26 06:57:19.674 -07:00 [INF] Sending file. Request path: '/images/ChatAssets/Math.png'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/ChatAssets/Math.png'
+2020-09-26 06:57:19.712 -07:00 [INF] Request finished in 249.9754ms 200 image/png
+2020-09-26 06:57:19.712 -07:00 [INF] Request finished in 161.6779ms 200 image/png
+2020-09-26 06:57:19.712 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/ChatAssets/Business.png  
+2020-09-26 06:57:19.712 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/ChatAssets/Law.png  
+2020-09-26 06:57:19.730 -07:00 [INF] Request finished in 107.15740000000001ms 200 image/png
+2020-09-26 06:57:19.741 -07:00 [INF] Sending file. Request path: '/images/ChatAssets/Art.png'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/ChatAssets/Art.png'
+2020-09-26 06:57:19.741 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/ChatAssets/Other.png  
+2020-09-26 06:57:19.762 -07:00 [INF] Request finished in 148.7542ms 200 image/png
+2020-09-26 06:57:19.782 -07:00 [INF] Sending file. Request path: '/images/ChatAssets/Business.png'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/ChatAssets/Business.png'
+2020-09-26 06:57:19.783 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/SignUpAssets/SignUp_4_SW_SVG.svg  
+2020-09-26 06:57:19.785 -07:00 [INF] Sending file. Request path: '/images/ChatAssets/Law.png'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/ChatAssets/Law.png'
+2020-09-26 06:57:19.825 -07:00 [INF] Request finished in 91.7185ms 200 image/png
+2020-09-26 06:57:19.826 -07:00 [INF] Request finished in 113.59240000000001ms 200 image/png
+2020-09-26 06:57:19.826 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/SignUpAssets/SignUp_6_Together_sw_svg.svg  
+2020-09-26 06:57:19.826 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/SignUpAssets/SignUp_5_SW_SVG.svg  
+2020-09-26 06:57:19.854 -07:00 [INF] Sending file. Request path: '/images/SignUpAssets/SignUp_4_SW_SVG.svg'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/SignUpAssets/SignUp_4_SW_SVG.svg'
+2020-09-26 06:57:19.857 -07:00 [INF] Request finished in 73.76270000000001ms 200 image/svg+xml
+2020-09-26 06:57:19.878 -07:00 [INF] Sending file. Request path: '/images/ChatAssets/Other.png'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/ChatAssets/Other.png'
+2020-09-26 06:57:19.879 -07:00 [INF] Sending file. Request path: '/images/SignUpAssets/SignUp_5_SW_SVG.svg'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/SignUpAssets/SignUp_5_SW_SVG.svg'
+2020-09-26 06:57:19.879 -07:00 [INF] Sending file. Request path: '/images/SignUpAssets/SignUp_6_Together_sw_svg.svg'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/SignUpAssets/SignUp_6_Together_sw_svg.svg'
+2020-09-26 06:57:19.892 -07:00 [INF] Request finished in 151.2312ms 200 image/png
+2020-09-26 06:57:19.894 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=3N-zytiFEbJ6kKn2l1B7hQ  
+2020-09-26 06:57:19.894 -07:00 [INF] CORS policy execution successful.
+2020-09-26 06:57:19.898 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 06:57:19.899 -07:00 [INF] Request finished in 73.0626ms 200 image/svg+xml
+2020-09-26 06:57:19.899 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-26 06:57:19.902 -07:00 [INF] Request finished in 76.2054ms 200 image/svg+xml
+2020-09-26 06:57:19.902 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Chat/Archive/e9c04960-604b-47bc-abc0-15bba95bc28c  
+2020-09-26 06:57:20.006 -07:00 [INF] Sending file. Request path: '/images/GenericAssets/StreamWorkAdPoster.png'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/GenericAssets/StreamWorkAdPoster.png'
+2020-09-26 06:57:20.006 -07:00 [INF] Request finished in 724.5836ms 200 image/png
+2020-09-26 06:57:20.068 -07:00 [INF] Executing endpoint '/Chat/Archive'
+2020-09-26 06:57:20.138 -07:00 [INF] Route matched with {page = "/Chat/Archive"}. Executing page /Chat/Archive
+2020-09-26 06:57:20.186 -07:00 [INF] Executing handler method StreamWork.Pages.Chat.ArchiveChat.OnGet - ModelState is "Valid"
+2020-09-26 06:57:20.258 -07:00 [INF] Request finished in 1009.6619000000001ms 206 video/mp4
+2020-09-26 06:57:20.322 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/favicon.ico  
+2020-09-26 06:57:20.338 -07:00 [INF] Sending file. Request path: '/images/favicon.ico'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/favicon.ico'
+2020-09-26 06:57:20.338 -07:00 [INF] Request finished in 16.1109ms 200 image/x-icon
+2020-09-26 06:57:20.386 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-26 06:57:20.447 -07:00 [INF] Executed page /Chat/Archive in 309.39750000000004ms
+2020-09-26 06:57:20.447 -07:00 [INF] Executed endpoint '/Chat/Archive'
+2020-09-26 06:57:20.448 -07:00 [INF] Request finished in 545.3354ms 200 text/html; charset=utf-8
+2020-09-26 06:57:20.547 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/chat.css?v=VgkZsjZcArBdGoug_8CcOBXUUrh3-wQcQRf1Vr6VeeE  
+2020-09-26 06:57:20.566 -07:00 [INF] Sending file. Request path: '/css/chat.css'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/css/chat.css'
+2020-09-26 06:57:20.576 -07:00 [INF] Request finished in 29.5042ms 200 text/css
+2020-09-26 06:57:29.889 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-26 06:57:29.889 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignUp  
+2020-09-26 06:57:29.890 -07:00 [INF] CORS policy execution successful.
+2020-09-26 06:57:29.892 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 06:57:29.892 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-26 06:57:29.893 -07:00 [INF] Request finished in 9999.0575ms 101 
+2020-09-26 06:57:29.894 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-26 06:57:29.898 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-26 06:57:29.898 -07:00 [INF] Request finished in 9.8276ms 200 application/json
+2020-09-26 06:57:29.905 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-26 06:57:29.909 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=aIxUm3ly3hhf9cDwksK5Tw  
+2020-09-26 06:57:29.909 -07:00 [INF] CORS policy execution successful.
+2020-09-26 06:57:29.909 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 06:57:29.909 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-26 06:57:29.974 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-26 06:57:29.974 -07:00 [INF] Request finished in 65.5167ms 101 
+2020-09-26 06:57:29.977 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-26 06:57:29.981 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-26 06:57:29.981 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-26 06:57:30.072 -07:00 [INF] Executed page /Home/SignUp in 94.1837ms
+2020-09-26 06:57:30.072 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-26 06:57:30.072 -07:00 [INF] Request finished in 183.8494ms 200 text/html; charset=utf-8
+2020-09-26 06:57:30.140 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/SignUp-SignInJS/ForgotPassword.js?v=rp5VA4X_doWvYkbPQlsYqq8DgUPJ4b1vcllagC6QLiI  
+2020-09-26 06:57:30.150 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/SignUpAssets/SignUp_Sign_Up_SVG.svg  
+2020-09-26 06:57:30.150 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/SignUpAssets/SignUp_Email_Confirmation_SVG.svg  
+2020-09-26 06:57:30.166 -07:00 [INF] Sending file. Request path: '/images/SignUpAssets/SignUp_Sign_Up_SVG.svg'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/SignUpAssets/SignUp_Sign_Up_SVG.svg'
+2020-09-26 06:57:30.169 -07:00 [INF] Request finished in 18.0671ms 200 image/svg+xml
+2020-09-26 06:57:30.169 -07:00 [INF] Sending file. Request path: '/js/SignUp-SignInJS/ForgotPassword.js'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/js/SignUp-SignInJS/ForgotPassword.js'
+2020-09-26 06:57:30.170 -07:00 [INF] Request finished in 29.4892ms 200 application/javascript
+2020-09-26 06:57:30.170 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/SignUp-SignIn/SignUp-SignIn.css?v=v9dBAPW0nXBbBSlLPzJWmF924NXyvVn778RCOpsaIlg  
+2020-09-26 06:57:30.171 -07:00 [INF] The file /css/SignUp-SignIn/SignUp-SignIn.css was not modified
+2020-09-26 06:57:30.171 -07:00 [INF] Request finished in 0.8380000000000001ms 304 text/css
+2020-09-26 06:57:30.176 -07:00 [INF] Sending file. Request path: '/images/SignUpAssets/SignUp_Email_Confirmation_SVG.svg'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/SignUpAssets/SignUp_Email_Confirmation_SVG.svg'
+2020-09-26 06:57:30.176 -07:00 [INF] Request finished in 26.248800000000003ms 200 image/svg+xml
+2020-09-26 06:57:30.258 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/favicon.ico  
+2020-09-26 06:57:30.297 -07:00 [INF] Sending file. Request path: '/images/favicon.ico'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/favicon.ico'
+2020-09-26 06:57:30.298 -07:00 [INF] Request finished in 39.773ms 200 image/x-icon
+2020-09-26 06:57:52.681 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignUp/?handler=IsAddressValid&emailAddress=attakaroni%40gmail.com  
+2020-09-26 06:57:52.688 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-26 06:57:52.688 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-26 06:57:52.697 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignUpModel.OnGetIsAddressValid - ModelState is "Valid"
+2020-09-26 06:57:52.724 -07:00 [INF] Executed handler method OnGetIsAddressValid, returned result Microsoft.AspNetCore.Mvc.JsonResult.
+2020-09-26 06:57:52.726 -07:00 [INF] Executing JsonResult, writing value of type 'System.Boolean'.
+2020-09-26 06:57:52.731 -07:00 [INF] Executed page /Home/SignUp in 42.4304ms
+2020-09-26 06:57:52.731 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-26 06:57:52.732 -07:00 [INF] Request finished in 51.2094ms 200 application/json; charset=utf-8
+2020-09-26 06:57:52.739 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignUp/?handler=IsAddressAvailable&emailAddress=attakaroni%40gmail.com  
+2020-09-26 06:57:52.739 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-26 06:57:52.740 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-26 06:57:52.741 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignUpModel.OnGetIsAddressAvailable - ModelState is "Valid"
+2020-09-26 06:57:52.818 -07:00 [INF] Executed handler method OnGetIsAddressAvailable, returned result Microsoft.AspNetCore.Mvc.JsonResult.
+2020-09-26 06:57:52.818 -07:00 [INF] Executing JsonResult, writing value of type 'System.Boolean'.
+2020-09-26 06:57:52.819 -07:00 [INF] Executed page /Home/SignUp in 79.2377ms
+2020-09-26 06:57:52.819 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-26 06:57:52.819 -07:00 [INF] Request finished in 80.9334ms 200 application/json; charset=utf-8
+2020-09-26 06:58:53.235 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignUp/?handler=IsAddressValid&emailAddress=attakaroni%40gmail.com  
+2020-09-26 06:58:53.237 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-26 06:58:53.237 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-26 06:58:53.238 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignUpModel.OnGetIsAddressValid - ModelState is "Valid"
+2020-09-26 06:58:53.239 -07:00 [INF] Executed handler method OnGetIsAddressValid, returned result Microsoft.AspNetCore.Mvc.JsonResult.
+2020-09-26 06:58:53.239 -07:00 [INF] Executing JsonResult, writing value of type 'System.Boolean'.
+2020-09-26 06:58:53.240 -07:00 [INF] Executed page /Home/SignUp in 1.9972ms
+2020-09-26 06:58:53.243 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-26 06:58:53.273 -07:00 [INF] Request finished in 8.909500000000001ms 200 application/json; charset=utf-8
+2020-09-26 06:58:53.394 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignUp/?handler=IsAddressAvailable&emailAddress=attakaroni%40gmail.com  
+2020-09-26 06:58:53.396 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-26 06:58:53.397 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-26 06:58:53.398 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignUpModel.OnGetIsAddressAvailable - ModelState is "Valid"
+2020-09-26 06:58:53.470 -07:00 [INF] Executed handler method OnGetIsAddressAvailable, returned result Microsoft.AspNetCore.Mvc.JsonResult.
+2020-09-26 06:58:53.471 -07:00 [INF] Executing JsonResult, writing value of type 'System.Boolean'.
+2020-09-26 06:58:53.472 -07:00 [INF] Executed page /Home/SignUp in 74.4041ms
+2020-09-26 06:58:53.472 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-26 06:58:53.473 -07:00 [INF] Request finished in 78.21820000000001ms 200 application/json; charset=utf-8
+2020-09-26 06:58:53.492 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignUp/?handler=SendVerificationEmail&emailAddress=attakaroni%40gmail.com  
+2020-09-26 06:58:53.492 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-26 06:58:53.493 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-26 06:58:53.493 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignUpModel.OnGetSendVerificationEmail - ModelState is "Valid"
+2020-09-26 06:58:56.340 -07:00 [INF] Executed handler method OnGetSendVerificationEmail, returned result .
+2020-09-26 06:58:56.341 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-26 06:58:56.341 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-26 06:58:56.348 -07:00 [INF] Executed page /Home/SignUp in 2855.175ms
+2020-09-26 06:58:56.348 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-26 06:58:56.349 -07:00 [INF] Request finished in 2856.7958000000003ms 200 text/html; charset=utf-8
+2020-09-26 06:59:03.491 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignUp/?handler=CheckVerificationCode&emailAddress=attakaroni%40gmail.com&verificationCode=94507257  
+2020-09-26 06:59:03.492 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-26 06:59:03.492 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-26 06:59:03.494 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignUpModel.OnGetCheckVerificationCode - ModelState is "Valid"
+2020-09-26 06:59:03.585 -07:00 [INF] Executed handler method OnGetCheckVerificationCode, returned result Microsoft.AspNetCore.Mvc.JsonResult.
+2020-09-26 06:59:03.585 -07:00 [INF] Executing JsonResult, writing value of type 'System.Boolean'.
+2020-09-26 06:59:03.586 -07:00 [INF] Executed page /Home/SignUp in 93.8364ms
+2020-09-26 06:59:03.587 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-26 06:59:03.587 -07:00 [INF] Request finished in 96.04820000000001ms 200 application/json; charset=utf-8
+2020-09-26 06:59:23.941 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignUp/?handler=IsUsernameAvailable&username=test_  
+2020-09-26 06:59:23.946 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-26 06:59:23.946 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-26 06:59:23.947 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignUpModel.OnGetIsUsernameAvailable - ModelState is "Valid"
+2020-09-26 06:59:24.029 -07:00 [INF] Executed handler method OnGetIsUsernameAvailable, returned result Microsoft.AspNetCore.Mvc.JsonResult.
+2020-09-26 06:59:24.030 -07:00 [INF] Executing JsonResult, writing value of type 'System.Boolean'.
+2020-09-26 06:59:24.031 -07:00 [INF] Executed page /Home/SignUp in 84.7825ms
+2020-09-26 06:59:24.031 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-26 06:59:24.032 -07:00 [INF] Request finished in 90.7287ms 200 application/json; charset=utf-8
+2020-09-26 06:59:24.040 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignUp/?handler=IsAddressValid&emailAddress=test  
+2020-09-26 06:59:24.041 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-26 06:59:24.041 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-26 06:59:24.041 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignUpModel.OnGetIsAddressValid - ModelState is "Valid"
+2020-09-26 06:59:24.683 -07:00 [INF] Executed handler method OnGetIsAddressValid, returned result Microsoft.AspNetCore.Mvc.JsonResult.
+2020-09-26 06:59:24.683 -07:00 [INF] Executing JsonResult, writing value of type 'System.Boolean'.
+2020-09-26 06:59:24.684 -07:00 [INF] Executed page /Home/SignUp in 642.5944000000001ms
+2020-09-26 06:59:24.684 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-26 06:59:24.684 -07:00 [INF] Request finished in 643.4905ms 200 application/json; charset=utf-8
+2020-09-26 06:59:29.470 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignUp/?handler=IsUsernameAvailable&username=test_  
+2020-09-26 06:59:29.472 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-26 06:59:29.472 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-26 06:59:29.474 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignUpModel.OnGetIsUsernameAvailable - ModelState is "Valid"
+2020-09-26 06:59:29.545 -07:00 [INF] Executed handler method OnGetIsUsernameAvailable, returned result Microsoft.AspNetCore.Mvc.JsonResult.
+2020-09-26 06:59:29.545 -07:00 [INF] Executing JsonResult, writing value of type 'System.Boolean'.
+2020-09-26 06:59:29.546 -07:00 [INF] Executed page /Home/SignUp in 73.4481ms
+2020-09-26 06:59:29.546 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-26 06:59:29.547 -07:00 [INF] Request finished in 76.4484ms 200 application/json; charset=utf-8
+2020-09-26 06:59:29.557 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignUp/?handler=IsAddressValid&emailAddress=test%40example.com  
+2020-09-26 06:59:29.558 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-26 06:59:29.558 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-26 06:59:29.559 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignUpModel.OnGetIsAddressValid - ModelState is "Valid"
+2020-09-26 06:59:29.559 -07:00 [INF] Executed handler method OnGetIsAddressValid, returned result Microsoft.AspNetCore.Mvc.JsonResult.
+2020-09-26 06:59:29.559 -07:00 [INF] Executing JsonResult, writing value of type 'System.Boolean'.
+2020-09-26 06:59:29.559 -07:00 [INF] Executed page /Home/SignUp in 1.2377ms
+2020-09-26 06:59:29.560 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-26 06:59:29.560 -07:00 [INF] Request finished in 2.9099ms 200 application/json; charset=utf-8
+2020-09-26 06:59:45.211 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/Home/SignUp/?handler=SignUpTutor multipart/form-data; boundary=---------------------------35476897335329233591757257055 392993
+2020-09-26 06:59:45.211 -07:00 [INF] CORS policy execution successful.
+2020-09-26 06:59:45.212 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 06:59:45.212 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-26 06:59:45.212 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-26 06:59:45.215 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignUpModel.OnPostSignUpTutor - ModelState is "Valid"
+2020-09-26 06:59:50.497 -07:00 [INF] AuthenticationScheme: Cookies signed in.
+2020-09-26 06:59:54.193 -07:00 [INF] Executed handler method OnPostSignUpTutor, returned result .
+2020-09-26 06:59:54.193 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-26 06:59:54.193 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-26 06:59:54.205 -07:00 [INF] Executed page /Home/SignUp in 8992.161100000001ms
+2020-09-26 06:59:54.205 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-26 06:59:54.206 -07:00 [INF] Request finished in 8995.4148ms 200 text/html; charset=utf-8
+2020-09-26 07:01:44.617 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignUp  
+2020-09-26 07:01:44.620 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-26 07:01:44.621 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-26 07:01:44.621 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-26 07:01:44.621 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-26 07:01:44.625 -07:00 [INF] Executed page /Home/SignUp in 3.9774000000000003ms
+2020-09-26 07:01:44.625 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-26 07:01:44.626 -07:00 [INF] Request finished in 14.7149ms 200 text/html; charset=utf-8
+2020-09-26 07:01:44.799 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/site.css?v=M0sRJx3PXV0FH5bESY74SfsYtDWvuUyOfF70h0GhmtI  
+2020-09-26 07:01:44.800 -07:00 [INF] The file /css/site.css was not modified
+2020-09-26 07:01:44.801 -07:00 [INF] Request finished in 2.4404ms 304 text/css
+2020-09-26 07:01:44.803 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/SignUp-SignInJS/ForgotPassword.js?v=rp5VA4X_doWvYkbPQlsYqq8DgUPJ4b1vcllagC6QLiI  
+2020-09-26 07:01:44.804 -07:00 [INF] The file /js/SignUp-SignInJS/ForgotPassword.js was not modified
+2020-09-26 07:01:44.804 -07:00 [INF] Request finished in 0.7788ms 304 application/javascript
+2020-09-26 07:01:44.936 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/favicon.ico  
+2020-09-26 07:01:45.018 -07:00 [INF] Sending file. Request path: '/images/favicon.ico'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/favicon.ico'
+2020-09-26 07:01:45.018 -07:00 [INF] Request finished in 81.9894ms 200 image/x-icon
+2020-09-26 07:01:57.469 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignUp/?handler=IsAddressValid&emailAddress=attakaroni%40gmail.com  
+2020-09-26 07:01:57.470 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-26 07:01:57.470 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-26 07:01:57.471 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignUpModel.OnGetIsAddressValid - ModelState is "Valid"
+2020-09-26 07:01:57.471 -07:00 [INF] Executed handler method OnGetIsAddressValid, returned result Microsoft.AspNetCore.Mvc.JsonResult.
+2020-09-26 07:01:57.471 -07:00 [INF] Executing JsonResult, writing value of type 'System.Boolean'.
+2020-09-26 07:01:57.471 -07:00 [INF] Executed page /Home/SignUp in 1.0755000000000001ms
+2020-09-26 07:01:57.472 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-26 07:01:57.472 -07:00 [INF] Request finished in 3.1297ms 200 application/json; charset=utf-8
+2020-09-26 07:01:57.524 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignUp/?handler=IsAddressAvailable&emailAddress=attakaroni%40gmail.com  
+2020-09-26 07:01:57.527 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-26 07:01:57.527 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-26 07:01:57.528 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignUpModel.OnGetIsAddressAvailable - ModelState is "Valid"
+2020-09-26 07:01:57.597 -07:00 [INF] Executed handler method OnGetIsAddressAvailable, returned result Microsoft.AspNetCore.Mvc.JsonResult.
+2020-09-26 07:01:57.597 -07:00 [INF] Executing JsonResult, writing value of type 'System.Boolean'.
+2020-09-26 07:01:57.598 -07:00 [INF] Executed page /Home/SignUp in 70.1219ms
+2020-09-26 07:01:57.598 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-26 07:01:57.598 -07:00 [INF] Request finished in 74.64330000000001ms 200 application/json; charset=utf-8
+2020-09-26 07:01:57.619 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignUp/?handler=SendVerificationEmail&emailAddress=attakaroni%40gmail.com  
+2020-09-26 07:01:57.621 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-26 07:01:57.621 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-26 07:01:57.622 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignUpModel.OnGetSendVerificationEmail - ModelState is "Valid"
+2020-09-26 07:01:59.522 -07:00 [INF] Executed handler method OnGetSendVerificationEmail, returned result .
+2020-09-26 07:01:59.522 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-26 07:01:59.522 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-26 07:01:59.528 -07:00 [INF] Executed page /Home/SignUp in 1906.4896ms
+2020-09-26 07:01:59.528 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-26 07:01:59.529 -07:00 [INF] Request finished in 1909.6053000000002ms 200 text/html; charset=utf-8
+2020-09-26 07:02:00.261 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignUp/?handler=CheckVerificationCode&emailAddress=attakaroni%40gmail.com&verificationCode=94507257  
+2020-09-26 07:02:00.262 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-26 07:02:00.263 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-26 07:02:00.263 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignUpModel.OnGetCheckVerificationCode - ModelState is "Valid"
+2020-09-26 07:02:00.331 -07:00 [INF] Executed handler method OnGetCheckVerificationCode, returned result Microsoft.AspNetCore.Mvc.JsonResult.
+2020-09-26 07:02:00.332 -07:00 [INF] Executing JsonResult, writing value of type 'System.Boolean'.
+2020-09-26 07:02:00.332 -07:00 [INF] Executed page /Home/SignUp in 69.2375ms
+2020-09-26 07:02:00.332 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-26 07:02:00.332 -07:00 [INF] Request finished in 71.0297ms 200 application/json; charset=utf-8
+2020-09-26 07:02:20.824 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignUp/?handler=IsUsernameAvailable&username=test_  
+2020-09-26 07:02:20.826 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-26 07:02:20.827 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-26 07:02:20.828 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignUpModel.OnGetIsUsernameAvailable - ModelState is "Valid"
+2020-09-26 07:02:20.897 -07:00 [INF] Executed handler method OnGetIsUsernameAvailable, returned result Microsoft.AspNetCore.Mvc.JsonResult.
+2020-09-26 07:02:20.898 -07:00 [INF] Executing JsonResult, writing value of type 'System.Boolean'.
+2020-09-26 07:02:20.898 -07:00 [INF] Executed page /Home/SignUp in 71.3585ms
+2020-09-26 07:02:20.898 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-26 07:02:20.899 -07:00 [INF] Request finished in 74.6102ms 200 application/json; charset=utf-8
+2020-09-26 07:02:20.914 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignUp/?handler=IsAddressValid&emailAddress=test%40example.com  
+2020-09-26 07:02:20.914 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-26 07:02:20.915 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-26 07:02:20.915 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignUpModel.OnGetIsAddressValid - ModelState is "Valid"
+2020-09-26 07:02:20.915 -07:00 [INF] Executed handler method OnGetIsAddressValid, returned result Microsoft.AspNetCore.Mvc.JsonResult.
+2020-09-26 07:02:20.916 -07:00 [INF] Executing JsonResult, writing value of type 'System.Boolean'.
+2020-09-26 07:02:20.916 -07:00 [INF] Executed page /Home/SignUp in 1.1398000000000001ms
+2020-09-26 07:02:20.916 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-26 07:02:20.916 -07:00 [INF] Request finished in 2.7755ms 200 application/json; charset=utf-8
+2020-09-26 07:02:41.545 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/Home/SignUp/?handler=SignUpTutor multipart/form-data; boundary=---------------------------117589456242013908843788567053 692132
+2020-09-26 07:02:41.546 -07:00 [INF] CORS policy execution successful.
+2020-09-26 07:02:41.546 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 07:02:41.547 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-26 07:02:41.547 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-26 07:02:41.548 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignUpModel.OnPostSignUpTutor - ModelState is "Valid"
+2020-09-26 07:02:45.475 -07:00 [INF] AuthenticationScheme: Cookies signed in.
+2020-09-26 07:02:48.997 -07:00 [INF] Executed handler method OnPostSignUpTutor, returned result .
+2020-09-26 07:02:48.997 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-26 07:02:48.997 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-26 07:02:49.001 -07:00 [INF] Executed page /Home/SignUp in 7454.1448ms
+2020-09-26 07:02:49.002 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-26 07:02:49.002 -07:00 [INF] Request finished in 7457.059300000001ms 200 text/html; charset=utf-8
