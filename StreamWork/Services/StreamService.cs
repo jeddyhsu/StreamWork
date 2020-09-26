@@ -231,6 +231,7 @@ namespace StreamWork.Services
             }
 
             channel.InitialStreamCount = 0;
+            channel.Views = 0;
             await Save(channel.Id, channel);
             streamHandler.TryRemove(channel.Username, out _);
         }

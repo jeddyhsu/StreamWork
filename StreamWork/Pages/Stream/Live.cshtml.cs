@@ -79,6 +79,9 @@ namespace StreamWork.Pages.Stream
             Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
             AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
 
+            UserChannel.Views += 1;
+            await storageService.Save(UserChannel.Id, UserChannel);
+
             return Page();
         }
     }

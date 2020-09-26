@@ -83,6 +83,9 @@ namespace StreamWork.Pages.Stream
             if (!string.IsNullOrEmpty(commentId)) NotificationRequestComment = await storageService.Get<Comment>(SQLQueries.GetCommentWithId, commentId);
             AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
 
+            Video.Views += 1;
+            await storageService.Save(Video.Id, Video);
+
             return Page();
         }
     }
