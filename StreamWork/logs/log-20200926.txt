@@ -7727,3 +7727,690 @@
 2020-09-26 09:20:45.490 -07:00 [INF] CORS policy execution successful.
 2020-09-26 09:20:45.491 -07:00 [INF] No CORS policy found for the specified request.
 2020-09-26 09:20:45.492 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-26 09:39:33.047 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-26 09:39:33.075 -07:00 [INF] Request finished in 829202.6012ms 101 
+2020-09-26 10:18:30.271 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-26 10:18:30.272 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:18:30.273 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:18:30.274 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:18:30.275 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:18:30.276 -07:00 [INF] Request finished in 4.3334ms 200 application/json
+2020-09-26 10:18:30.981 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=lDnd-XBwVbayLOhUVQ_o3w  
+2020-09-26 10:18:30.981 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:18:30.982 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:18:30.983 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-26 10:18:31.182 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-26 10:18:31.234 -07:00 [INF] Request finished in 252.91080000000002ms 101 
+2020-09-26 10:18:32.054 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-26 10:18:32.055 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:18:32.060 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:18:32.061 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:18:32.062 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:18:32.062 -07:00 [INF] Request finished in 8.0196ms 200 application/json
+2020-09-26 10:18:32.157 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=7zCoMKnKWH1RxIx4adNmPg  
+2020-09-26 10:18:32.157 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:18:32.158 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:18:32.158 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-26 10:19:57.329 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-26 10:19:57.329 -07:00 [INF] Request finished in 85150.57770000001ms 101 
+2020-09-26 10:19:57.385 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/Browse/SW  
+2020-09-26 10:19:57.392 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-26 10:19:57.393 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:19:57.393 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:19:57.395 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:19:57.396 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:19:57.396 -07:00 [INF] Request finished in 4.1369ms 200 application/json
+2020-09-26 10:19:57.404 -07:00 [INF] Executing endpoint '/Home/Browse'
+2020-09-26 10:19:57.478 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=q4AMFFueXLiIBiln7IEM0Q  
+2020-09-26 10:19:57.479 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:19:57.479 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:19:57.480 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-26 10:19:57.507 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-26 10:19:57.508 -07:00 [INF] Request finished in 29.0824ms 101 
+2020-09-26 10:19:57.535 -07:00 [INF] Route matched with {page = "/Home/Browse"}. Executing page /Home/Browse
+2020-09-26 10:19:57.537 -07:00 [INF] Executing handler method StreamWork.Pages.Home.BrowseModel.OnGet - ModelState is "Valid"
+2020-09-26 10:19:58.500 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-26 10:19:58.500 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:19:58.501 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:19:58.502 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:19:58.502 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:19:58.503 -07:00 [INF] Request finished in 2.4052000000000002ms 200 application/json
+2020-09-26 10:19:58.518 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=0C4Pl454wEyyOTcCbV6C6A  
+2020-09-26 10:19:58.518 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:19:58.518 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:19:58.519 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-26 10:19:58.836 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-26 10:19:59.173 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-26 10:19:59.173 -07:00 [INF] Executed page /Home/Browse in 1638.6338ms
+2020-09-26 10:19:59.174 -07:00 [INF] Request finished in 655.9715ms 101 
+2020-09-26 10:19:59.174 -07:00 [INF] Executed endpoint '/Home/Browse'
+2020-09-26 10:19:59.179 -07:00 [INF] Request finished in 1794.7201ms 200 text/html; charset=utf-8
+2020-09-26 10:19:59.181 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/site.css?v=M0sRJx3PXV0FH5bESY74SfsYtDWvuUyOfF70h0GhmtI  
+2020-09-26 10:19:59.182 -07:00 [INF] The file /css/site.css was not modified
+2020-09-26 10:19:59.183 -07:00 [INF] Request finished in 1.8098ms 304 text/css
+2020-09-26 10:19:59.444 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-26 10:19:59.444 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:19:59.445 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:19:59.446 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:19:59.446 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:19:59.446 -07:00 [INF] Request finished in 2.2211000000000003ms 200 application/json
+2020-09-26 10:19:59.527 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/ChatAssets/Law.svg  
+2020-09-26 10:19:59.595 -07:00 [INF] Sending file. Request path: '/images/ChatAssets/Law.svg'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/ChatAssets/Law.svg'
+2020-09-26 10:19:59.596 -07:00 [INF] Request finished in 68.6025ms 200 image/svg+xml
+2020-09-26 10:19:59.596 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/ChatAssets/Engineering.svg  
+2020-09-26 10:19:59.632 -07:00 [INF] Sending file. Request path: '/images/ChatAssets/Engineering.svg'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/ChatAssets/Engineering.svg'
+2020-09-26 10:19:59.639 -07:00 [INF] Request finished in 43.117000000000004ms 200 image/svg+xml
+2020-09-26 10:19:59.641 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=sf6m3yVt0mY1kUTy6IMTEA  
+2020-09-26 10:19:59.641 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:19:59.641 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:19:59.642 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-26 10:21:56.241 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-26 10:21:56.241 -07:00 [INF] Request finished in 116599.1121ms 101 
+2020-09-26 10:21:56.304 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Stream/Archive/F8U3mEscyNB_1/32169  
+2020-09-26 10:21:56.305 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-26 10:21:56.305 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:21:56.306 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:21:56.308 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:21:56.309 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:21:56.310 -07:00 [INF] Request finished in 5.062600000000001ms 200 application/json
+2020-09-26 10:21:56.340 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=_6cFWLRcwbTU4OxSqPRgzw  
+2020-09-26 10:21:56.341 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:21:56.341 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:21:56.342 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-26 10:21:56.424 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-26 10:21:56.425 -07:00 [INF] Request finished in 84.4828ms 101 
+2020-09-26 10:21:56.438 -07:00 [INF] Executing endpoint '/Stream/Archive'
+2020-09-26 10:21:56.447 -07:00 [INF] Route matched with {page = "/Stream/Archive"}. Executing page /Stream/Archive
+2020-09-26 10:21:56.450 -07:00 [INF] Executing handler method StreamWork.Pages.Stream.Archive.OnGet - ModelState is "Valid"
+2020-09-26 10:21:57.361 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-26 10:21:57.361 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:21:57.362 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:21:57.363 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:21:57.363 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:21:57.364 -07:00 [INF] Request finished in 2.6692ms 200 application/json
+2020-09-26 10:21:57.377 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=EvzQaXZYlwRXmSSOvrB8rg  
+2020-09-26 10:21:57.377 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:21:57.377 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:21:57.378 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-26 10:21:58.815 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-26 10:21:59.016 -07:00 [INF] Executed page /Stream/Archive in 2569.0176ms
+2020-09-26 10:21:59.016 -07:00 [INF] Executed endpoint '/Stream/Archive'
+2020-09-26 10:21:59.017 -07:00 [INF] Request finished in 2713.2604ms 200 text/html; charset=utf-8
+2020-09-26 10:21:59.122 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-26 10:21:59.122 -07:00 [INF] Request finished in 1744.9305000000002ms 101 
+2020-09-26 10:21:59.138 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/StreamWork-Full.svg  
+2020-09-26 10:21:59.139 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/EditProfile.js?v=YItKBlgey3RR31SFoYnhA2lWdFXj-R5TbJLx_LqZ42s  
+2020-09-26 10:21:59.188 -07:00 [INF] The file /js/EditProfile.js was not modified
+2020-09-26 10:21:59.189 -07:00 [INF] Request finished in 49.6191ms 304 application/javascript
+2020-09-26 10:21:59.189 -07:00 [INF] Sending file. Request path: '/images/GenericAssets/StreamWork-Full.svg'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/GenericAssets/StreamWork-Full.svg'
+2020-09-26 10:21:59.192 -07:00 [INF] Request finished in 53.827000000000005ms 200 image/svg+xml
+2020-09-26 10:21:59.208 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/Dashboard.js?v=WE1Ie-4bb-erVpfBkpANzhh2LFasjmsN2EeNqAaMx6I  
+2020-09-26 10:21:59.208 -07:00 [INF] The file /js/Dashboard.js was not modified
+2020-09-26 10:21:59.208 -07:00 [INF] Request finished in 0.7169ms 304 application/javascript
+2020-09-26 10:21:59.210 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/ChatAssets/Business.svg  
+2020-09-26 10:21:59.213 -07:00 [INF] Sending file. Request path: '/images/ChatAssets/Business.svg'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/ChatAssets/Business.svg'
+2020-09-26 10:21:59.214 -07:00 [INF] Request finished in 3.7677ms 200 image/svg+xml
+2020-09-26 10:21:59.333 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-26 10:21:59.333 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:21:59.334 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:21:59.334 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:21:59.335 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:21:59.335 -07:00 [INF] Request finished in 2.1653000000000002ms 200 application/json
+2020-09-26 10:21:59.355 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Chat/Archive/dead655e-1e97-434c-a7fb-cd359549252a  
+2020-09-26 10:21:59.358 -07:00 [INF] Executing endpoint '/Chat/Archive'
+2020-09-26 10:21:59.358 -07:00 [INF] Route matched with {page = "/Chat/Archive"}. Executing page /Chat/Archive
+2020-09-26 10:21:59.360 -07:00 [INF] Executing handler method StreamWork.Pages.Chat.ArchiveChat.OnGet - ModelState is "Valid"
+2020-09-26 10:21:59.630 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-26 10:21:59.632 -07:00 [INF] Executed page /Chat/Archive in 273.5993ms
+2020-09-26 10:21:59.632 -07:00 [INF] Executed endpoint '/Chat/Archive'
+2020-09-26 10:21:59.632 -07:00 [INF] Request finished in 277.1908ms 200 text/html; charset=utf-8
+2020-09-26 10:21:59.684 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=oThat83Azwvv8ye-In94Sg  
+2020-09-26 10:21:59.684 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:21:59.684 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:21:59.684 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-26 10:21:59.729 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/css/chat.css?v=VgkZsjZcArBdGoug_8CcOBXUUrh3-wQcQRf1Vr6VeeE  
+2020-09-26 10:21:59.751 -07:00 [INF] The file /css/chat.css was not modified
+2020-09-26 10:21:59.751 -07:00 [INF] Request finished in 21.968400000000003ms 304 text/css
+2020-09-26 10:36:55.977 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-26 10:36:55.977 -07:00 [INF] Request finished in 896282.4591000001ms 101 
+2020-09-26 10:36:55.999 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-26 10:36:56.029 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:36:56.033 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Stream/Archive/F8U3mEscyNB_1/32169  
+2020-09-26 10:36:56.035 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:36:56.037 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:36:56.040 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:36:56.043 -07:00 [INF] Request finished in 42.266400000000004ms 200 application/json
+2020-09-26 10:36:56.079 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=mGFsSvs8c_Iatx_yzg5fAg  
+2020-09-26 10:36:56.079 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:36:56.084 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:36:56.085 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-26 10:36:56.141 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-26 10:36:56.188 -07:00 [INF] Request finished in 108.9333ms 101 
+2020-09-26 10:36:57.096 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-26 10:36:57.096 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:36:57.096 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:36:57.097 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:36:57.097 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:36:57.097 -07:00 [INF] Request finished in 1.4524000000000001ms 200 application/json
+2020-09-26 10:36:57.115 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=YdiIqQt6qWRHY-_cfAgWHw  
+2020-09-26 10:36:57.116 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:36:57.116 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:36:57.116 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-26 10:37:01.151 -07:00 [INF] Executing endpoint '/Stream/Archive'
+2020-09-26 10:37:01.156 -07:00 [INF] Route matched with {page = "/Stream/Archive"}. Executing page /Stream/Archive
+2020-09-26 10:37:01.158 -07:00 [INF] Executing handler method StreamWork.Pages.Stream.Archive.OnGet - ModelState is "Valid"
+2020-09-26 10:37:03.466 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-26 10:37:03.483 -07:00 [INF] Executed page /Stream/Archive in 2326.7077ms
+2020-09-26 10:37:03.483 -07:00 [INF] Executed endpoint '/Stream/Archive'
+2020-09-26 10:37:03.483 -07:00 [INF] Request finished in 7452.5542000000005ms 200 text/html; charset=utf-8
+2020-09-26 10:37:03.539 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-26 10:37:03.539 -07:00 [INF] Request finished in 6423.6868ms 101 
+2020-09-26 10:37:03.654 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/SignUpLogin.js?v=sYEjhUWf6nbmWl0555wFEmbvb3Ry7WGN2Xk4UcXz6PM  
+2020-09-26 10:37:03.654 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/EditProfile.js?v=YItKBlgey3RR31SFoYnhA2lWdFXj-R5TbJLx_LqZ42s  
+2020-09-26 10:37:03.655 -07:00 [INF] The file /js/EditProfile.js was not modified
+2020-09-26 10:37:03.656 -07:00 [INF] Request finished in 1.1366ms 304 application/javascript
+2020-09-26 10:37:03.656 -07:00 [INF] The file /js/SignUpLogin.js was not modified
+2020-09-26 10:37:03.657 -07:00 [INF] Request finished in 2.7667ms 304 application/javascript
+2020-09-26 10:37:03.658 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/Search.js?v=lD8ASYTqdotvkWAPAJqSzCm2SbjuiFF53Yyk5Yl6KFE  
+2020-09-26 10:37:03.658 -07:00 [INF] The file /js/Search.js was not modified
+2020-09-26 10:37:03.659 -07:00 [INF] Request finished in 0.8198000000000001ms 304 application/javascript
+2020-09-26 10:37:03.660 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/StreamworkLogo.png  
+2020-09-26 10:37:03.661 -07:00 [INF] The file /images/StreamworkLogo.png was not modified
+2020-09-26 10:37:03.661 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/TutorJS/TutorStream.js?v=Dzen712aMjXm0ezEbrwMMQtbQq73A1IIR8oaejlPgwI  
+2020-09-26 10:37:03.661 -07:00 [INF] Request finished in 0.6671ms 304 image/png
+2020-09-26 10:37:03.661 -07:00 [INF] The file /js/TutorJS/TutorStream.js was not modified
+2020-09-26 10:37:03.662 -07:00 [INF] Request finished in 0.5087ms 304 application/javascript
+2020-09-26 10:37:03.669 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/Following.js?v=F5seCMCxIDpypons1STQA9F_tResIXCzelM4O6hSLgU  
+2020-09-26 10:37:03.669 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/Settings.js?v=AQ8npmp2pwyZPgJpqXaYpPcV_nLE0ZkY2kMyppT4Rbo  
+2020-09-26 10:37:03.669 -07:00 [INF] The file /js/Following.js was not modified
+2020-09-26 10:37:03.669 -07:00 [INF] The file /js/Settings.js was not modified
+2020-09-26 10:37:03.670 -07:00 [INF] Request finished in 0.5406000000000001ms 304 application/javascript
+2020-09-26 10:37:03.670 -07:00 [INF] Request finished in 0.5935ms 304 application/javascript
+2020-09-26 10:37:03.686 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/CommentJS/Comment.js?v=uDA6L2RLxdvax1u03nLnr6y0SwTkoDvF77Umi4POVdM  
+2020-09-26 10:37:03.686 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/Dashboard.js?v=WE1Ie-4bb-erVpfBkpANzhh2LFasjmsN2EeNqAaMx6I  
+2020-09-26 10:37:03.688 -07:00 [INF] The file /js/CommentJS/Comment.js was not modified
+2020-09-26 10:37:03.688 -07:00 [INF] Request finished in 2.4954ms 304 application/javascript
+2020-09-26 10:37:03.688 -07:00 [INF] The file /js/Dashboard.js was not modified
+2020-09-26 10:37:03.688 -07:00 [INF] Request finished in 2.7328ms 304 application/javascript
+2020-09-26 10:37:03.691 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/StreamJS/ArchiveStream.js?v=8ZRc1sGeVrPBx4lD717BgRaQekyh78QKV9SKsdt638U  
+2020-09-26 10:37:03.692 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/NotificationAndModals.js?v=_KkNeqkxgY-O1wIYbwGL9UEmvmEsOOgxyJsYeZ1xpCk  
+2020-09-26 10:37:03.692 -07:00 [INF] The file /js/StreamJS/ArchiveStream.js was not modified
+2020-09-26 10:37:03.692 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/StreamJS/StreamLayout.js?v=9t2DAbj2A3l65TTgngMt6Mqnhc8tO3nRjIwWHkWCycI  
+2020-09-26 10:37:03.692 -07:00 [INF] Request finished in 1.4420000000000002ms 304 application/javascript
+2020-09-26 10:37:03.692 -07:00 [INF] The file /js/NotificationAndModals.js was not modified
+2020-09-26 10:37:03.715 -07:00 [INF] The file /js/StreamJS/StreamLayout.js was not modified
+2020-09-26 10:37:03.715 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/NotificationJS/PushNotification.js?v=jCv8UdrkpA87V_e0s5xIzMtkLARereToyX7A4Aq5w9A  
+2020-09-26 10:37:03.716 -07:00 [INF] Request finished in 23.189500000000002ms 304 application/javascript
+2020-09-26 10:37:03.715 -07:00 [INF] Request finished in 23.852800000000002ms 304 application/javascript
+2020-09-26 10:37:03.716 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/SignUp-SignInJS/SignIn.js?v=23TcmolJLQYL3datAwsbvb7G2Gpxo1DSC2FSfGFrXUU  
+2020-09-26 10:37:03.737 -07:00 [INF] The file /js/NotificationJS/PushNotification.js was not modified
+2020-09-26 10:37:03.738 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/Templates.js?v=94PnIvoQn1o5IjwyJ9lMDOFfDOuHDLkLUILpR1jE3Qk  
+2020-09-26 10:37:03.738 -07:00 [INF] Request finished in 23.2163ms 304 application/javascript
+2020-09-26 10:37:03.739 -07:00 [INF] The file /js/SignUp-SignInJS/SignIn.js was not modified
+2020-09-26 10:37:03.739 -07:00 [INF] The file /js/Templates.js was not modified
+2020-09-26 10:37:03.739 -07:00 [INF] Request finished in 23.599800000000002ms 304 application/javascript
+2020-09-26 10:37:03.739 -07:00 [INF] Request finished in 1.5139ms 304 application/javascript
+2020-09-26 10:37:03.742 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/NotificationJS/Notification.js?v=ZgHnVP0UU9KRZsOK-CDfsxPw9JQJ40R55_BFx1jGMgk  
+2020-09-26 10:37:03.742 -07:00 [INF] The file /js/NotificationJS/Notification.js was not modified
+2020-09-26 10:37:03.742 -07:00 [INF] Request finished in 0.47650000000000003ms 304 application/javascript
+2020-09-26 10:37:03.821 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/TutorJS/TutorDashboard.js?v=Xq_aogJvkAjn5sOqB5DBnpwprp31Yls_1_MuCc9FR8k  
+2020-09-26 10:37:03.821 -07:00 [INF] The file /js/TutorJS/TutorDashboard.js was not modified
+2020-09-26 10:37:03.821 -07:00 [INF] Request finished in 0.8724000000000001ms 304 application/javascript
+2020-09-26 10:37:03.849 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-26 10:37:03.849 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:37:03.849 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:37:03.850 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:37:03.850 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:37:03.850 -07:00 [INF] Request finished in 1.9078000000000002ms 200 application/json
+2020-09-26 10:37:04.094 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/StreamWork-Icon.svg  
+2020-09-26 10:37:04.104 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/Browse.svg  
+2020-09-26 10:37:04.104 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/StreamWork-Full.svg  
+2020-09-26 10:37:04.105 -07:00 [INF] The file /images/GenericAssets/StreamWork-Full.svg was not modified
+2020-09-26 10:37:04.132 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/Elipses.svg  
+2020-09-26 10:37:04.136 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/Trash.svg  
+2020-09-26 10:37:04.136 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/Bell.svg  
+2020-09-26 10:37:04.206 -07:00 [INF] Request finished in 101.4783ms 304 image/svg+xml
+2020-09-26 10:37:04.211 -07:00 [INF] Sending file. Request path: '/images/GenericAssets/StreamWork-Icon.svg'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/GenericAssets/StreamWork-Icon.svg'
+2020-09-26 10:37:04.212 -07:00 [INF] Request finished in 117.7038ms 200 image/svg+xml
+2020-09-26 10:37:04.214 -07:00 [INF] Sending file. Request path: '/images/GenericAssets/Browse.svg'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/GenericAssets/Browse.svg'
+2020-09-26 10:37:04.214 -07:00 [INF] Sending file. Request path: '/images/GenericAssets/Trash.svg'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/GenericAssets/Trash.svg'
+2020-09-26 10:37:04.214 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/ChatAssets/Business.svg  
+2020-09-26 10:37:04.216 -07:00 [INF] Request finished in 79.6626ms 200 image/svg+xml
+2020-09-26 10:37:04.217 -07:00 [INF] The file /images/ChatAssets/Business.svg was not modified
+2020-09-26 10:37:04.217 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Chat/Archive/dead655e-1e97-434c-a7fb-cd359549252a  
+2020-09-26 10:37:04.217 -07:00 [INF] Request finished in 2.4308ms 304 image/svg+xml
+2020-09-26 10:37:04.218 -07:00 [INF] Sending file. Request path: '/images/GenericAssets/Bell.svg'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/GenericAssets/Bell.svg'
+2020-09-26 10:37:04.257 -07:00 [INF] Request finished in 95.6568ms 200 image/svg+xml
+2020-09-26 10:37:04.268 -07:00 [INF] Request finished in 163.4426ms 200 image/svg+xml
+2020-09-26 10:37:04.275 -07:00 [INF] Sending file. Request path: '/images/GenericAssets/Elipses.svg'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/GenericAssets/Elipses.svg'
+2020-09-26 10:37:04.279 -07:00 [INF] Executing endpoint '/Chat/Archive'
+2020-09-26 10:37:04.282 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=7gP16KwI7p9O31A9BBhQKA  
+2020-09-26 10:37:04.282 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:37:04.282 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:37:04.283 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-26 10:37:04.323 -07:00 [INF] Request finished in 191.8573ms 200 image/svg+xml
+2020-09-26 10:37:04.365 -07:00 [INF] Route matched with {page = "/Chat/Archive"}. Executing page /Chat/Archive
+2020-09-26 10:37:04.367 -07:00 [INF] Executing handler method StreamWork.Pages.Chat.ArchiveChat.OnGet - ModelState is "Valid"
+2020-09-26 10:37:04.565 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-26 10:37:04.576 -07:00 [INF] Executed page /Chat/Archive in 210.78040000000001ms
+2020-09-26 10:37:04.577 -07:00 [INF] Executed endpoint '/Chat/Archive'
+2020-09-26 10:37:04.577 -07:00 [INF] Request finished in 360.1492ms 200 text/html; charset=utf-8
+2020-09-26 10:37:54.293 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-26 10:37:54.296 -07:00 [INF] Request finished in 50012.959500000004ms 101 
+2020-09-26 10:37:54.323 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-26 10:37:54.323 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:37:54.326 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:37:54.326 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:37:54.327 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:37:54.327 -07:00 [INF] Request finished in 4.2596ms 200 application/json
+2020-09-26 10:37:54.328 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Stream/Archive/F8U3mEscyNB_1/32169  
+2020-09-26 10:37:54.367 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=0nM9ZfR3_hECmnHqkNuO9g  
+2020-09-26 10:37:54.367 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:37:54.367 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:37:54.368 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-26 10:37:54.441 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-26 10:37:54.441 -07:00 [INF] Request finished in 74.77720000000001ms 101 
+2020-09-26 10:37:54.723 -07:00 [INF] Executing endpoint '/Stream/Archive'
+2020-09-26 10:37:54.728 -07:00 [INF] Route matched with {page = "/Stream/Archive"}. Executing page /Stream/Archive
+2020-09-26 10:37:54.729 -07:00 [INF] Executing handler method StreamWork.Pages.Stream.Archive.OnGet - ModelState is "Valid"
+2020-09-26 10:37:55.386 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-26 10:37:55.387 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:37:55.387 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:37:55.387 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:37:55.388 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:37:55.388 -07:00 [INF] Request finished in 1.6533ms 200 application/json
+2020-09-26 10:37:55.402 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=Vd4kAUXfEvj8mFqXCfmEqA  
+2020-09-26 10:37:55.402 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:37:55.402 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:37:55.402 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-26 10:37:56.006 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-26 10:37:56.034 -07:00 [INF] Executed page /Stream/Archive in 1305.8897000000002ms
+2020-09-26 10:37:56.034 -07:00 [INF] Executed endpoint '/Stream/Archive'
+2020-09-26 10:37:56.034 -07:00 [INF] Request finished in 1706.6376ms 200 text/html; charset=utf-8
+2020-09-26 10:37:56.169 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-26 10:37:56.169 -07:00 [INF] Request finished in 767.6417ms 101 
+2020-09-26 10:37:56.190 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/StreamworkLogo.png  
+2020-09-26 10:37:56.191 -07:00 [INF] The file /images/StreamworkLogo.png was not modified
+2020-09-26 10:37:56.192 -07:00 [INF] Request finished in 1.5325ms 304 image/png
+2020-09-26 10:37:56.224 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/EditProfile.js?v=YItKBlgey3RR31SFoYnhA2lWdFXj-R5TbJLx_LqZ42s  
+2020-09-26 10:37:56.225 -07:00 [INF] The file /js/EditProfile.js was not modified
+2020-09-26 10:37:56.226 -07:00 [INF] Request finished in 1.4518ms 304 application/javascript
+2020-09-26 10:37:56.238 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/SignUpLogin.js?v=sYEjhUWf6nbmWl0555wFEmbvb3Ry7WGN2Xk4UcXz6PM  
+2020-09-26 10:37:56.240 -07:00 [INF] The file /js/SignUpLogin.js was not modified
+2020-09-26 10:37:56.240 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/TutorJS/TutorDashboard.js?v=Xq_aogJvkAjn5sOqB5DBnpwprp31Yls_1_MuCc9FR8k  
+2020-09-26 10:37:56.241 -07:00 [INF] The file /js/TutorJS/TutorDashboard.js was not modified
+2020-09-26 10:37:56.241 -07:00 [INF] Request finished in 0.7017ms 304 application/javascript
+2020-09-26 10:37:56.240 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/Search.js?v=lD8ASYTqdotvkWAPAJqSzCm2SbjuiFF53Yyk5Yl6KFE  
+2020-09-26 10:37:56.240 -07:00 [INF] Request finished in 2.1902ms 304 application/javascript
+2020-09-26 10:37:56.242 -07:00 [INF] The file /js/Search.js was not modified
+2020-09-26 10:37:56.242 -07:00 [INF] Request finished in 1.7238ms 304 application/javascript
+2020-09-26 10:37:56.245 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/TutorJS/TutorStream.js?v=Dzen712aMjXm0ezEbrwMMQtbQq73A1IIR8oaejlPgwI  
+2020-09-26 10:37:56.245 -07:00 [INF] The file /js/TutorJS/TutorStream.js was not modified
+2020-09-26 10:37:56.245 -07:00 [INF] Request finished in 0.7144ms 304 application/javascript
+2020-09-26 10:37:56.251 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/Settings.js?v=AQ8npmp2pwyZPgJpqXaYpPcV_nLE0ZkY2kMyppT4Rbo  
+2020-09-26 10:37:56.252 -07:00 [INF] The file /js/Settings.js was not modified
+2020-09-26 10:37:56.252 -07:00 [INF] Request finished in 0.9097000000000001ms 304 application/javascript
+2020-09-26 10:37:56.261 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/Following.js?v=F5seCMCxIDpypons1STQA9F_tResIXCzelM4O6hSLgU  
+2020-09-26 10:37:56.262 -07:00 [INF] The file /js/Following.js was not modified
+2020-09-26 10:37:56.262 -07:00 [INF] Request finished in 1.0238ms 304 application/javascript
+2020-09-26 10:37:56.262 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/NotificationAndModals.js?v=_KkNeqkxgY-O1wIYbwGL9UEmvmEsOOgxyJsYeZ1xpCk  
+2020-09-26 10:37:56.263 -07:00 [INF] The file /js/NotificationAndModals.js was not modified
+2020-09-26 10:37:56.263 -07:00 [INF] Request finished in 0.6089ms 304 application/javascript
+2020-09-26 10:37:56.274 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/StreamJS/StreamLayout.js?v=9t2DAbj2A3l65TTgngMt6Mqnhc8tO3nRjIwWHkWCycI  
+2020-09-26 10:37:56.274 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/StreamJS/ArchiveStream.js?v=8ZRc1sGeVrPBx4lD717BgRaQekyh78QKV9SKsdt638U  
+2020-09-26 10:37:56.275 -07:00 [INF] The file /js/StreamJS/ArchiveStream.js was not modified
+2020-09-26 10:37:56.275 -07:00 [INF] Request finished in 1.0178ms 304 application/javascript
+2020-09-26 10:37:56.275 -07:00 [INF] The file /js/StreamJS/StreamLayout.js was not modified
+2020-09-26 10:37:56.276 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/CommentJS/Comment.js?v=uDA6L2RLxdvax1u03nLnr6y0SwTkoDvF77Umi4POVdM  
+2020-09-26 10:37:56.276 -07:00 [INF] Request finished in 1.5801ms 304 application/javascript
+2020-09-26 10:37:56.276 -07:00 [INF] The file /js/CommentJS/Comment.js was not modified
+2020-09-26 10:37:56.277 -07:00 [INF] Request finished in 1.3662ms 304 application/javascript
+2020-09-26 10:37:56.296 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/Dashboard.js?v=WE1Ie-4bb-erVpfBkpANzhh2LFasjmsN2EeNqAaMx6I  
+2020-09-26 10:37:56.298 -07:00 [INF] The file /js/Dashboard.js was not modified
+2020-09-26 10:37:56.299 -07:00 [INF] Request finished in 2.9558ms 304 application/javascript
+2020-09-26 10:37:56.305 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/NotificationJS/PushNotification.js?v=jCv8UdrkpA87V_e0s5xIzMtkLARereToyX7A4Aq5w9A  
+2020-09-26 10:37:56.305 -07:00 [INF] The file /js/NotificationJS/PushNotification.js was not modified
+2020-09-26 10:37:56.306 -07:00 [INF] Request finished in 0.8578ms 304 application/javascript
+2020-09-26 10:37:56.305 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/NotificationJS/Notification.js?v=ZgHnVP0UU9KRZsOK-CDfsxPw9JQJ40R55_BFx1jGMgk  
+2020-09-26 10:37:56.306 -07:00 [INF] The file /js/NotificationJS/Notification.js was not modified
+2020-09-26 10:37:56.306 -07:00 [INF] Request finished in 1.6624ms 304 application/javascript
+2020-09-26 10:37:56.307 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/SignUp-SignInJS/SignIn.js?v=23TcmolJLQYL3datAwsbvb7G2Gpxo1DSC2FSfGFrXUU  
+2020-09-26 10:37:56.307 -07:00 [INF] The file /js/SignUp-SignInJS/SignIn.js was not modified
+2020-09-26 10:37:56.307 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/Templates.js?v=94PnIvoQn1o5IjwyJ9lMDOFfDOuHDLkLUILpR1jE3Qk  
+2020-09-26 10:37:56.307 -07:00 [INF] Request finished in 0.6096ms 304 application/javascript
+2020-09-26 10:37:56.307 -07:00 [INF] The file /js/Templates.js was not modified
+2020-09-26 10:37:56.308 -07:00 [INF] Request finished in 0.4304ms 304 application/javascript
+2020-09-26 10:37:56.429 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-26 10:37:56.430 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/Browse.svg  
+2020-09-26 10:37:56.430 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:37:56.429 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/StreamWork-Icon.svg  
+2020-09-26 10:37:56.430 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:37:56.430 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:37:56.430 -07:00 [INF] The file /images/GenericAssets/Browse.svg was not modified
+2020-09-26 10:37:56.430 -07:00 [INF] The file /images/GenericAssets/StreamWork-Icon.svg was not modified
+2020-09-26 10:37:56.430 -07:00 [INF] Request finished in 0.7234ms 304 image/svg+xml
+2020-09-26 10:37:56.430 -07:00 [INF] Request finished in 0.8947ms 304 image/svg+xml
+2020-09-26 10:37:56.431 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/StreamWork-Full.svg  
+2020-09-26 10:37:56.431 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:37:56.431 -07:00 [INF] Request finished in 1.4071ms 200 application/json
+2020-09-26 10:37:56.431 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/Elipses.svg  
+2020-09-26 10:37:56.431 -07:00 [INF] The file /images/GenericAssets/StreamWork-Full.svg was not modified
+2020-09-26 10:37:56.431 -07:00 [INF] Request finished in 0.3981ms 304 image/svg+xml
+2020-09-26 10:37:56.431 -07:00 [INF] The file /images/GenericAssets/Elipses.svg was not modified
+2020-09-26 10:37:56.431 -07:00 [INF] Request finished in 0.41650000000000004ms 304 image/svg+xml
+2020-09-26 10:37:56.431 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/Bell.svg  
+2020-09-26 10:37:56.432 -07:00 [INF] The file /images/GenericAssets/Bell.svg was not modified
+2020-09-26 10:37:56.432 -07:00 [INF] Request finished in 0.31920000000000004ms 304 image/svg+xml
+2020-09-26 10:37:56.432 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/Trash.svg  
+2020-09-26 10:37:56.432 -07:00 [INF] The file /images/GenericAssets/Trash.svg was not modified
+2020-09-26 10:37:56.432 -07:00 [INF] Request finished in 0.32030000000000003ms 304 image/svg+xml
+2020-09-26 10:37:56.434 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/ChatAssets/Business.svg  
+2020-09-26 10:37:56.434 -07:00 [INF] The file /images/ChatAssets/Business.svg was not modified
+2020-09-26 10:37:56.434 -07:00 [INF] Request finished in 0.5048ms 304 image/svg+xml
+2020-09-26 10:37:56.497 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Chat/Archive/dead655e-1e97-434c-a7fb-cd359549252a  
+2020-09-26 10:37:56.505 -07:00 [INF] Executing endpoint '/Chat/Archive'
+2020-09-26 10:37:56.582 -07:00 [INF] Route matched with {page = "/Chat/Archive"}. Executing page /Chat/Archive
+2020-09-26 10:37:56.623 -07:00 [INF] Executing handler method StreamWork.Pages.Chat.ArchiveChat.OnGet - ModelState is "Valid"
+2020-09-26 10:37:56.785 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=wopZIPC1IfIs4Y8gopdKHg  
+2020-09-26 10:37:56.785 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:37:56.786 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:37:56.786 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-26 10:37:57.167 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-26 10:37:57.169 -07:00 [INF] Executed page /Chat/Archive in 586.0658000000001ms
+2020-09-26 10:37:57.169 -07:00 [INF] Executed endpoint '/Chat/Archive'
+2020-09-26 10:37:57.169 -07:00 [INF] Request finished in 671.9791ms 200 text/html; charset=utf-8
+2020-09-26 10:38:32.603 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-26 10:38:32.604 -07:00 [INF] Request finished in 35818.0823ms 101 
+2020-09-26 10:38:32.646 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-26 10:38:32.646 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:38:32.646 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Stream/Archive/F8U3mEscyNB_1/32169  
+2020-09-26 10:38:32.646 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:38:32.647 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:38:32.647 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:38:32.648 -07:00 [INF] Request finished in 2.1238ms 200 application/json
+2020-09-26 10:38:32.648 -07:00 [INF] Executing endpoint '/Stream/Archive'
+2020-09-26 10:38:32.655 -07:00 [INF] Route matched with {page = "/Stream/Archive"}. Executing page /Stream/Archive
+2020-09-26 10:38:32.657 -07:00 [INF] Executing handler method StreamWork.Pages.Stream.Archive.OnGet - ModelState is "Valid"
+2020-09-26 10:38:32.705 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=yxxzySS7PSG1025CL8Wb6w  
+2020-09-26 10:38:32.706 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:38:32.713 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:38:32.714 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-26 10:38:32.916 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-26 10:38:33.018 -07:00 [INF] Request finished in 312.5684ms 101 
+2020-09-26 10:38:33.821 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-26 10:38:33.821 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:38:33.822 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:38:33.822 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:38:33.823 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:38:33.823 -07:00 [INF] Request finished in 1.7885ms 200 application/json
+2020-09-26 10:38:33.843 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=ETSzorlP57tX5_nkHyqDWA  
+2020-09-26 10:38:33.843 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:38:33.843 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:38:33.844 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-26 10:38:34.379 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-26 10:38:34.385 -07:00 [INF] Executed page /Stream/Archive in 1729.8227000000002ms
+2020-09-26 10:38:34.386 -07:00 [INF] Executed endpoint '/Stream/Archive'
+2020-09-26 10:38:34.386 -07:00 [INF] Request finished in 1740.2357000000002ms 200 text/html; charset=utf-8
+2020-09-26 10:38:34.437 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-26 10:38:34.438 -07:00 [INF] Request finished in 594.6624ms 101 
+2020-09-26 10:38:34.510 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/StreamworkLogo.png  
+2020-09-26 10:38:34.511 -07:00 [INF] The file /images/StreamworkLogo.png was not modified
+2020-09-26 10:38:34.512 -07:00 [INF] Request finished in 1.191ms 304 image/png
+2020-09-26 10:38:34.531 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/SignUpLogin.js?v=sYEjhUWf6nbmWl0555wFEmbvb3Ry7WGN2Xk4UcXz6PM  
+2020-09-26 10:38:34.531 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/EditProfile.js?v=YItKBlgey3RR31SFoYnhA2lWdFXj-R5TbJLx_LqZ42s  
+2020-09-26 10:38:34.531 -07:00 [INF] The file /js/EditProfile.js was not modified
+2020-09-26 10:38:34.531 -07:00 [INF] Request finished in 0.527ms 304 application/javascript
+2020-09-26 10:38:34.531 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/Search.js?v=lD8ASYTqdotvkWAPAJqSzCm2SbjuiFF53Yyk5Yl6KFE  
+2020-09-26 10:38:34.532 -07:00 [INF] The file /js/Search.js was not modified
+2020-09-26 10:38:34.532 -07:00 [INF] The file /js/SignUpLogin.js was not modified
+2020-09-26 10:38:34.532 -07:00 [INF] Request finished in 0.4374ms 304 application/javascript
+2020-09-26 10:38:34.532 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/TutorJS/TutorDashboard.js?v=Xq_aogJvkAjn5sOqB5DBnpwprp31Yls_1_MuCc9FR8k  
+2020-09-26 10:38:34.532 -07:00 [INF] The file /js/TutorJS/TutorDashboard.js was not modified
+2020-09-26 10:38:34.532 -07:00 [INF] Request finished in 1.3293000000000001ms 304 application/javascript
+2020-09-26 10:38:34.533 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/TutorJS/TutorStream.js?v=Dzen712aMjXm0ezEbrwMMQtbQq73A1IIR8oaejlPgwI  
+2020-09-26 10:38:34.533 -07:00 [INF] Request finished in 0.5802ms 304 application/javascript
+2020-09-26 10:38:34.533 -07:00 [INF] The file /js/TutorJS/TutorStream.js was not modified
+2020-09-26 10:38:34.533 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/Settings.js?v=AQ8npmp2pwyZPgJpqXaYpPcV_nLE0ZkY2kMyppT4Rbo  
+2020-09-26 10:38:34.533 -07:00 [INF] The file /js/Settings.js was not modified
+2020-09-26 10:38:34.533 -07:00 [INF] Request finished in 0.8343ms 304 application/javascript
+2020-09-26 10:38:34.533 -07:00 [INF] Request finished in 0.4521ms 304 application/javascript
+2020-09-26 10:38:34.537 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/Following.js?v=F5seCMCxIDpypons1STQA9F_tResIXCzelM4O6hSLgU  
+2020-09-26 10:38:34.537 -07:00 [INF] The file /js/Following.js was not modified
+2020-09-26 10:38:34.538 -07:00 [INF] Request finished in 0.8743000000000001ms 304 application/javascript
+2020-09-26 10:38:34.538 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/NotificationAndModals.js?v=_KkNeqkxgY-O1wIYbwGL9UEmvmEsOOgxyJsYeZ1xpCk  
+2020-09-26 10:38:34.538 -07:00 [INF] The file /js/NotificationAndModals.js was not modified
+2020-09-26 10:38:34.539 -07:00 [INF] Request finished in 0.7228ms 304 application/javascript
+2020-09-26 10:38:34.539 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/StreamJS/ArchiveStream.js?v=8ZRc1sGeVrPBx4lD717BgRaQekyh78QKV9SKsdt638U  
+2020-09-26 10:38:34.539 -07:00 [INF] The file /js/StreamJS/ArchiveStream.js was not modified
+2020-09-26 10:38:34.539 -07:00 [INF] Request finished in 0.38870000000000005ms 304 application/javascript
+2020-09-26 10:38:34.539 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/StreamJS/StreamLayout.js?v=9t2DAbj2A3l65TTgngMt6Mqnhc8tO3nRjIwWHkWCycI  
+2020-09-26 10:38:34.539 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/CommentJS/Comment.js?v=uDA6L2RLxdvax1u03nLnr6y0SwTkoDvF77Umi4POVdM  
+2020-09-26 10:38:34.540 -07:00 [INF] The file /js/StreamJS/StreamLayout.js was not modified
+2020-09-26 10:38:34.540 -07:00 [INF] The file /js/CommentJS/Comment.js was not modified
+2020-09-26 10:38:34.540 -07:00 [INF] Request finished in 0.9674ms 304 application/javascript
+2020-09-26 10:38:34.540 -07:00 [INF] Request finished in 1.1022ms 304 application/javascript
+2020-09-26 10:38:34.540 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/Dashboard.js?v=WE1Ie-4bb-erVpfBkpANzhh2LFasjmsN2EeNqAaMx6I  
+2020-09-26 10:38:34.541 -07:00 [INF] The file /js/Dashboard.js was not modified
+2020-09-26 10:38:34.541 -07:00 [INF] Request finished in 0.6466000000000001ms 304 application/javascript
+2020-09-26 10:38:34.545 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/NotificationJS/Notification.js?v=ZgHnVP0UU9KRZsOK-CDfsxPw9JQJ40R55_BFx1jGMgk  
+2020-09-26 10:38:34.546 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/SignUp-SignInJS/SignIn.js?v=23TcmolJLQYL3datAwsbvb7G2Gpxo1DSC2FSfGFrXUU  
+2020-09-26 10:38:34.546 -07:00 [INF] The file /js/NotificationJS/Notification.js was not modified
+2020-09-26 10:38:34.546 -07:00 [INF] Request finished in 0.7306ms 304 application/javascript
+2020-09-26 10:38:34.546 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/Templates.js?v=94PnIvoQn1o5IjwyJ9lMDOFfDOuHDLkLUILpR1jE3Qk  
+2020-09-26 10:38:34.546 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/NotificationJS/PushNotification.js?v=jCv8UdrkpA87V_e0s5xIzMtkLARereToyX7A4Aq5w9A  
+2020-09-26 10:38:34.547 -07:00 [INF] The file /js/Templates.js was not modified
+2020-09-26 10:38:34.547 -07:00 [INF] Request finished in 0.4953ms 304 application/javascript
+2020-09-26 10:38:34.547 -07:00 [INF] The file /js/NotificationJS/PushNotification.js was not modified
+2020-09-26 10:38:34.547 -07:00 [INF] Request finished in 1.3009000000000002ms 304 application/javascript
+2020-09-26 10:38:34.546 -07:00 [INF] The file /js/SignUp-SignInJS/SignIn.js was not modified
+2020-09-26 10:38:34.547 -07:00 [INF] Request finished in 1.4818ms 304 application/javascript
+2020-09-26 10:38:34.648 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-26 10:38:34.648 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:38:34.649 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:38:34.649 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:38:34.651 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:38:34.651 -07:00 [INF] Request finished in 3.5021ms 200 application/json
+2020-09-26 10:38:34.670 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/StreamWork-Icon.svg  
+2020-09-26 10:38:34.671 -07:00 [INF] The file /images/GenericAssets/StreamWork-Icon.svg was not modified
+2020-09-26 10:38:34.671 -07:00 [INF] Request finished in 1.0219ms 304 image/svg+xml
+2020-09-26 10:38:34.672 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/Browse.svg  
+2020-09-26 10:38:34.672 -07:00 [INF] The file /images/GenericAssets/Browse.svg was not modified
+2020-09-26 10:38:34.672 -07:00 [INF] Request finished in 0.5159ms 304 image/svg+xml
+2020-09-26 10:38:34.687 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/StreamWork-Full.svg  
+2020-09-26 10:38:34.697 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/Elipses.svg  
+2020-09-26 10:38:34.698 -07:00 [INF] The file /images/GenericAssets/Elipses.svg was not modified
+2020-09-26 10:38:34.698 -07:00 [INF] Request finished in 0.6642ms 304 image/svg+xml
+2020-09-26 10:38:34.698 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/Bell.svg  
+2020-09-26 10:38:34.699 -07:00 [INF] The file /images/GenericAssets/Bell.svg was not modified
+2020-09-26 10:38:34.703 -07:00 [INF] Request finished in 5.0738ms 304 image/svg+xml
+2020-09-26 10:38:34.708 -07:00 [INF] The file /images/GenericAssets/StreamWork-Full.svg was not modified
+2020-09-26 10:38:34.708 -07:00 [INF] Request finished in 20.7317ms 304 image/svg+xml
+2020-09-26 10:38:34.715 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/Trash.svg  
+2020-09-26 10:38:34.717 -07:00 [INF] The file /images/GenericAssets/Trash.svg was not modified
+2020-09-26 10:38:34.717 -07:00 [INF] Request finished in 1.5318ms 304 image/svg+xml
+2020-09-26 10:38:34.778 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/ChatAssets/Business.svg  
+2020-09-26 10:38:34.778 -07:00 [INF] The file /images/ChatAssets/Business.svg was not modified
+2020-09-26 10:38:34.778 -07:00 [INF] Request finished in 0.5829ms 304 image/svg+xml
+2020-09-26 10:38:34.778 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Chat/Archive/dead655e-1e97-434c-a7fb-cd359549252a  
+2020-09-26 10:38:34.790 -07:00 [INF] Executing endpoint '/Chat/Archive'
+2020-09-26 10:38:34.796 -07:00 [INF] Route matched with {page = "/Chat/Archive"}. Executing page /Chat/Archive
+2020-09-26 10:38:34.797 -07:00 [INF] Executing handler method StreamWork.Pages.Chat.ArchiveChat.OnGet - ModelState is "Valid"
+2020-09-26 10:38:34.985 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=WI75aSAMJq4DpE_WM9thwA  
+2020-09-26 10:38:34.985 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:38:34.985 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:38:34.985 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-26 10:38:35.376 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-26 10:38:35.377 -07:00 [INF] Executed page /Chat/Archive in 580.8379ms
+2020-09-26 10:38:35.378 -07:00 [INF] Executed endpoint '/Chat/Archive'
+2020-09-26 10:38:35.378 -07:00 [INF] Request finished in 599.4224ms 200 text/html; charset=utf-8
+2020-09-26 10:38:37.884 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-26 10:38:37.884 -07:00 [INF] Request finished in 2899.4661ms 101 
+2020-09-26 10:38:37.914 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-26 10:38:37.914 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:38:37.914 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:38:37.915 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:38:37.915 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:38:37.915 -07:00 [INF] Request finished in 1.3642ms 200 application/json
+2020-09-26 10:38:37.939 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=R9kHs1k_w7q05IPceiUlMQ  
+2020-09-26 10:38:37.939 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:38:37.939 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:38:37.940 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-26 10:38:37.949 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-26 10:38:37.949 -07:00 [INF] Request finished in 10.4506ms 101 
+2020-09-26 10:38:38.956 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-26 10:38:38.956 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:38:38.956 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:38:38.956 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:38:38.956 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:38:38.957 -07:00 [INF] Request finished in 0.9469000000000001ms 200 application/json
+2020-09-26 10:38:38.984 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=IKZThYHwY5Xhe_Fj6XDRTQ  
+2020-09-26 10:38:38.984 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:38:38.984 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:38:38.984 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-26 10:38:39.962 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-26 10:38:39.962 -07:00 [INF] Request finished in 978.9322000000001ms 101 
+2020-09-26 10:38:43.673 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Stream/Archive/F8U3mEscyNB_1/32169  
+2020-09-26 10:38:43.675 -07:00 [INF] Executing endpoint '/Stream/Archive'
+2020-09-26 10:38:43.675 -07:00 [INF] Route matched with {page = "/Stream/Archive"}. Executing page /Stream/Archive
+2020-09-26 10:38:43.676 -07:00 [INF] Executing handler method StreamWork.Pages.Stream.Archive.OnGet - ModelState is "Valid"
+2020-09-26 10:38:45.048 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-26 10:38:45.052 -07:00 [INF] Executed page /Stream/Archive in 1377.0985ms
+2020-09-26 10:38:45.053 -07:00 [INF] Executed endpoint '/Stream/Archive'
+2020-09-26 10:38:45.053 -07:00 [INF] Request finished in 1380.1523ms 200 text/html; charset=utf-8
+2020-09-26 10:38:45.149 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/StreamworkLogo.png  
+2020-09-26 10:38:45.205 -07:00 [INF] Sending file. Request path: '/images/StreamworkLogo.png'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/StreamworkLogo.png'
+2020-09-26 10:38:45.213 -07:00 [INF] Request finished in 63.609300000000005ms 200 image/png
+2020-09-26 10:38:45.289 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-26 10:38:45.290 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:38:45.291 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:38:45.291 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:38:45.292 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:38:45.292 -07:00 [INF] Request finished in 2.8280000000000003ms 200 application/json
+2020-09-26 10:38:45.572 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=8sR1eHzikCdmWerejZ8WjA  
+2020-09-26 10:38:45.572 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:38:45.573 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:38:45.573 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-26 10:40:59.664 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-26 10:40:59.664 -07:00 [INF] Request finished in 134090.3176ms 101 
+2020-09-26 10:40:59.703 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-26 10:40:59.703 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:40:59.705 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:40:59.705 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:40:59.705 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:40:59.705 -07:00 [INF] Request finished in 2.1746000000000003ms 200 application/json
+2020-09-26 10:40:59.708 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Stream/Archive/F8U3mEscyNB_1/32169  
+2020-09-26 10:40:59.750 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=Y9Kf5Z0j8vOp0EJ49RSMhw  
+2020-09-26 10:40:59.750 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:40:59.751 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:40:59.751 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-26 10:40:59.809 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-26 10:40:59.810 -07:00 [INF] Request finished in 59.4108ms 101 
+2020-09-26 10:41:00.099 -07:00 [INF] Executing endpoint '/Stream/Archive'
+2020-09-26 10:41:00.104 -07:00 [INF] Route matched with {page = "/Stream/Archive"}. Executing page /Stream/Archive
+2020-09-26 10:41:00.106 -07:00 [INF] Executing handler method StreamWork.Pages.Stream.Archive.OnGet - ModelState is "Valid"
+2020-09-26 10:41:00.772 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-26 10:41:00.772 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:41:00.772 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:41:00.773 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:41:00.773 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:41:00.773 -07:00 [INF] Request finished in 1.6747ms 200 application/json
+2020-09-26 10:41:00.801 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=kHg2bgHrKt3Rehr9UtOC5w  
+2020-09-26 10:41:00.801 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:41:00.801 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:41:00.802 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-26 10:41:02.220 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-26 10:41:02.235 -07:00 [INF] Executed page /Stream/Archive in 2130.7462ms
+2020-09-26 10:41:02.236 -07:00 [INF] Executed endpoint '/Stream/Archive'
+2020-09-26 10:41:02.236 -07:00 [INF] Request finished in 2528.4382ms 200 text/html; charset=utf-8
+2020-09-26 10:41:02.318 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-26 10:41:02.318 -07:00 [INF] Request finished in 1517.0323ms 101 
+2020-09-26 10:41:02.441 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/EditProfile.js?v=YItKBlgey3RR31SFoYnhA2lWdFXj-R5TbJLx_LqZ42s  
+2020-09-26 10:41:02.441 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/SignUpLogin.js?v=sYEjhUWf6nbmWl0555wFEmbvb3Ry7WGN2Xk4UcXz6PM  
+2020-09-26 10:41:02.442 -07:00 [INF] The file /js/EditProfile.js was not modified
+2020-09-26 10:41:02.442 -07:00 [INF] The file /js/SignUpLogin.js was not modified
+2020-09-26 10:41:02.442 -07:00 [INF] Request finished in 0.5810000000000001ms 304 application/javascript
+2020-09-26 10:41:02.442 -07:00 [INF] Request finished in 0.6097ms 304 application/javascript
+2020-09-26 10:41:02.445 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/TutorJS/TutorDashboard.js?v=Xq_aogJvkAjn5sOqB5DBnpwprp31Yls_1_MuCc9FR8k  
+2020-09-26 10:41:02.445 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/Search.js?v=lD8ASYTqdotvkWAPAJqSzCm2SbjuiFF53Yyk5Yl6KFE  
+2020-09-26 10:41:02.446 -07:00 [INF] The file /js/Search.js was not modified
+2020-09-26 10:41:02.446 -07:00 [INF] Request finished in 0.6053000000000001ms 304 application/javascript
+2020-09-26 10:41:02.446 -07:00 [INF] The file /js/TutorJS/TutorDashboard.js was not modified
+2020-09-26 10:41:02.446 -07:00 [INF] Request finished in 0.8964000000000001ms 304 application/javascript
+2020-09-26 10:41:02.448 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/TutorJS/TutorStream.js?v=Dzen712aMjXm0ezEbrwMMQtbQq73A1IIR8oaejlPgwI  
+2020-09-26 10:41:02.449 -07:00 [INF] The file /js/TutorJS/TutorStream.js was not modified
+2020-09-26 10:41:02.449 -07:00 [INF] Request finished in 0.9154ms 304 application/javascript
+2020-09-26 10:41:02.453 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/Settings.js?v=AQ8npmp2pwyZPgJpqXaYpPcV_nLE0ZkY2kMyppT4Rbo  
+2020-09-26 10:41:02.474 -07:00 [INF] The file /js/Settings.js was not modified
+2020-09-26 10:41:02.475 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/Following.js?v=F5seCMCxIDpypons1STQA9F_tResIXCzelM4O6hSLgU  
+2020-09-26 10:41:02.475 -07:00 [INF] Request finished in 21.478ms 304 application/javascript
+2020-09-26 10:41:02.475 -07:00 [INF] The file /js/Following.js was not modified
+2020-09-26 10:41:02.476 -07:00 [INF] Request finished in 0.40190000000000003ms 304 application/javascript
+2020-09-26 10:41:02.477 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/Dashboard.js?v=WE1Ie-4bb-erVpfBkpANzhh2LFasjmsN2EeNqAaMx6I  
+2020-09-26 10:41:02.498 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/NotificationJS/Notification.js?v=ZgHnVP0UU9KRZsOK-CDfsxPw9JQJ40R55_BFx1jGMgk  
+2020-09-26 10:41:02.498 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/CommentJS/Comment.js?v=uDA6L2RLxdvax1u03nLnr6y0SwTkoDvF77Umi4POVdM  
+2020-09-26 10:41:02.498 -07:00 [INF] The file /js/CommentJS/Comment.js was not modified
+2020-09-26 10:41:02.498 -07:00 [INF] The file /js/NotificationJS/Notification.js was not modified
+2020-09-26 10:41:02.499 -07:00 [INF] Request finished in 0.5219ms 304 application/javascript
+2020-09-26 10:41:02.499 -07:00 [INF] Request finished in 0.5778ms 304 application/javascript
+2020-09-26 10:41:02.529 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/NotificationJS/PushNotification.js?v=jCv8UdrkpA87V_e0s5xIzMtkLARereToyX7A4Aq5w9A  
+2020-09-26 10:41:02.529 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/SignUp-SignInJS/SignIn.js?v=23TcmolJLQYL3datAwsbvb7G2Gpxo1DSC2FSfGFrXUU  
+2020-09-26 10:41:02.530 -07:00 [INF] The file /js/NotificationJS/PushNotification.js was not modified
+2020-09-26 10:41:02.530 -07:00 [INF] The file /js/SignUp-SignInJS/SignIn.js was not modified
+2020-09-26 10:41:02.530 -07:00 [INF] Request finished in 0.5824ms 304 application/javascript
+2020-09-26 10:41:02.530 -07:00 [INF] Request finished in 0.402ms 304 application/javascript
+2020-09-26 10:41:02.556 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/Templates.js?v=94PnIvoQn1o5IjwyJ9lMDOFfDOuHDLkLUILpR1jE3Qk  
+2020-09-26 10:41:02.556 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/StreamworkLogo.png  
+2020-09-26 10:41:02.557 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/StreamJS/StreamLayout.js?v=9t2DAbj2A3l65TTgngMt6Mqnhc8tO3nRjIwWHkWCycI  
+2020-09-26 10:41:02.557 -07:00 [INF] The file /js/Templates.js was not modified
+2020-09-26 10:41:02.557 -07:00 [INF] Request finished in 0.6621ms 304 application/javascript
+2020-09-26 10:41:02.557 -07:00 [INF] The file /js/StreamJS/StreamLayout.js was not modified
+2020-09-26 10:41:02.557 -07:00 [INF] Request finished in 0.39380000000000004ms 304 application/javascript
+2020-09-26 10:41:02.557 -07:00 [INF] The file /images/StreamworkLogo.png was not modified
+2020-09-26 10:41:02.557 -07:00 [INF] The file /js/Dashboard.js was not modified
+2020-09-26 10:41:02.607 -07:00 [INF] Request finished in 25.4979ms 304 image/png
+2020-09-26 10:41:02.632 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/StreamJS/ArchiveStream.js?v=8ZRc1sGeVrPBx4lD717BgRaQekyh78QKV9SKsdt638U  
+2020-09-26 10:41:02.632 -07:00 [INF] Request finished in 154.80620000000002ms 304 application/javascript
+2020-09-26 10:41:02.682 -07:00 [INF] The file /js/StreamJS/ArchiveStream.js was not modified
+2020-09-26 10:41:02.682 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/NotificationAndModals.js?v=_KkNeqkxgY-O1wIYbwGL9UEmvmEsOOgxyJsYeZ1xpCk  
+2020-09-26 10:41:02.682 -07:00 [INF] Request finished in 50.177800000000005ms 304 application/javascript
+2020-09-26 10:41:02.683 -07:00 [INF] The file /js/NotificationAndModals.js was not modified
+2020-09-26 10:41:02.684 -07:00 [INF] Request finished in 2.0769ms 304 application/javascript
+2020-09-26 10:41:02.798 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-26 10:41:02.798 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:41:02.798 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:41:02.799 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:41:02.799 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-26 10:41:02.799 -07:00 [INF] Request finished in 1.3069000000000002ms 200 application/json
+2020-09-26 10:41:02.898 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/ChatAssets/Business.svg  
+2020-09-26 10:41:02.898 -07:00 [INF] The file /images/ChatAssets/Business.svg was not modified
+2020-09-26 10:41:02.899 -07:00 [INF] Request finished in 0.7713ms 304 image/svg+xml
+2020-09-26 10:41:02.899 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Chat/Archive/dead655e-1e97-434c-a7fb-cd359549252a  
+2020-09-26 10:41:02.901 -07:00 [INF] Executing endpoint '/Chat/Archive'
+2020-09-26 10:41:02.910 -07:00 [INF] Route matched with {page = "/Chat/Archive"}. Executing page /Chat/Archive
+2020-09-26 10:41:02.913 -07:00 [INF] Executing handler method StreamWork.Pages.Chat.ArchiveChat.OnGet - ModelState is "Valid"
+2020-09-26 10:41:02.927 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/StreamWork-Icon.svg  
+2020-09-26 10:41:02.927 -07:00 [INF] The file /images/GenericAssets/StreamWork-Icon.svg was not modified
+2020-09-26 10:41:02.927 -07:00 [INF] Request finished in 0.8867ms 304 image/svg+xml
+2020-09-26 10:41:02.929 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/Browse.svg  
+2020-09-26 10:41:02.929 -07:00 [INF] The file /images/GenericAssets/Browse.svg was not modified
+2020-09-26 10:41:02.929 -07:00 [INF] Request finished in 0.6874ms 304 image/svg+xml
+2020-09-26 10:41:02.930 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/StreamWork-Full.svg  
+2020-09-26 10:41:02.930 -07:00 [INF] The file /images/GenericAssets/StreamWork-Full.svg was not modified
+2020-09-26 10:41:02.930 -07:00 [INF] Request finished in 0.4737ms 304 image/svg+xml
+2020-09-26 10:41:02.931 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/Elipses.svg  
+2020-09-26 10:41:02.932 -07:00 [INF] The file /images/GenericAssets/Elipses.svg was not modified
+2020-09-26 10:41:02.932 -07:00 [INF] Request finished in 1.078ms 304 image/svg+xml
+2020-09-26 10:41:02.935 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/Bell.svg  
+2020-09-26 10:41:02.935 -07:00 [INF] The file /images/GenericAssets/Bell.svg was not modified
+2020-09-26 10:41:02.936 -07:00 [INF] Request finished in 1.0798ms 304 image/svg+xml
+2020-09-26 10:41:02.940 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/Trash.svg  
+2020-09-26 10:41:02.941 -07:00 [INF] The file /images/GenericAssets/Trash.svg was not modified
+2020-09-26 10:41:02.941 -07:00 [INF] Request finished in 0.88ms 304 image/svg+xml
+2020-09-26 10:41:03.180 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-26 10:41:03.181 -07:00 [INF] Executed page /Chat/Archive in 269.9223ms
+2020-09-26 10:41:03.181 -07:00 [INF] Executed endpoint '/Chat/Archive'
+2020-09-26 10:41:03.181 -07:00 [INF] Request finished in 281.8478ms 200 text/html; charset=utf-8
+2020-09-26 10:41:03.288 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=kUC9bRlL74OTynZMCywzQw  
+2020-09-26 10:41:03.288 -07:00 [INF] CORS policy execution successful.
+2020-09-26 10:41:03.289 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-26 10:41:03.289 -07:00 [INF] Executing endpoint '/pushnotificationhub'
