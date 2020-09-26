@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -110,21 +111,31 @@ namespace StreamWork.Pages.API
             [JsonProperty("resource")] public PayPalResource Resource { get; set; }
             [JsonProperty("links")] public PayPalLink[] Links { get; set; }
             [JsonProperty("event_version")] public string Event_Version { get; set; }
+
+            public override string ToString()
+            {
+                return $"{Resource.Amount.Total} {Id} {Create_Time} {Resource_Type} {Event_Type} {Summary} {Event_Version}";
+            }
         }
 
         // Don't point webhooks to this method on multiple sessions of the site at the same time!!!
         // Ex. If webhooks go to the main site, webhooks must not go to the test site
         // This is to make sure that payments are only processed once!
         // If ever necessary, add logic to determine whether it's the test site, and process accordingly
-        public async Task<IActionResult> OnPost(PayPalWebhook webhook)
+        public async Task<IActionResult> OnPost()
         {
-            string id = Guid.NewGuid().ToString();
-            await storage.Save(id, new Debug
+            using (var reader = new StreamReader(Request.Body))
             {
-                Id = id,
-                Timestamp = DateTime.UtcNow,
-                Message = webhook.Event_Type
-            });
+                string body = await reader.ReadToEndAsync();
+
+                string id = Guid.NewGuid().ToString();
+                await storage.Save(id, new Debug
+                {
+                    Id = id,
+                    Timestamp = DateTime.UtcNow,
+                    Message = body
+                });
+            }
 
             return null;
         }
