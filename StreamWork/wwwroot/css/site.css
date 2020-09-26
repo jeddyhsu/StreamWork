@@ -176,9 +176,10 @@ lds-dual-ring {
     background-color: #004643;
     color: white;
     border-radius: 5px;
-    font-size: 10px;
+    font-size: 12px;
     padding: 8px 20px;
     cursor: pointer;
+    font-family: 'Roboto', serif
 }
 
 .streamWork-secondary {
@@ -188,9 +189,10 @@ lds-dual-ring {
     background-color: white !important;
     color: #004643 !important;
     border-radius: 5px !important;
-    font-size: 10px;
+    font-size: 12px;
     padding: 8px 20px;
     cursor: pointer !important;
+    font-family: 'Roboto', serif
 }
 
 .streamWork-orange {
@@ -200,9 +202,10 @@ lds-dual-ring {
     background-color: #F9bc60 !important;
     color: white !important;
     border-radius: 5px !important;
-    font-size: 10px;
+    font-size: 12px;
     padding: 8px 20px;
     cursor: pointer !important;
+    font-family: 'Roboto', serif
 }
 
 .streamWork-teal {
@@ -212,9 +215,10 @@ lds-dual-ring {
     background-color: #008080;
     color: white;
     border-radius: 5px;
-    font-size: 10px;
+    font-size: 12px;
     padding: 8px 20px;
     cursor: pointer;
+    font-family: 'Roboto', serif
 }
 
 .streamWork-delete {
@@ -224,9 +228,10 @@ lds-dual-ring {
     background-color: #AC0001 !important;
     color: white !important;
     border-radius: 5px !important;
-    font-size: 10px;
+    font-size: 12px;
     padding: 8px 20px;
     cursor: pointer !important;
+    font-family: 'Roboto', serif
 }
 
 .streamWork-disabled {
@@ -236,9 +241,10 @@ lds-dual-ring {
     background-color: white !important;
     color: #A0A0A0 !important;
     border-radius: 5px !important;
-    font-size: 10px;
+    font-size: 12px;
     padding: 8px 20px;
     cursor: default !important;
+    font-family: 'Roboto', serif
 }
 
 .streamWork-search {
@@ -248,13 +254,14 @@ lds-dual-ring {
     background-color: white !important;
     color: #A0A0A0 !important;
     border-radius: 5px !important;
-    font-size: 10px;
+    font-size: 12px;
     padding: 8px 20px;
     cursor: pointer !important;
     border-bottom-right-radius: 10px !important;
     border-top-right-radius: 10px !important;
     border-bottom-left-radius: 0px !important;
     border-top-left-radius: 0px !important;
+    font-family: 'Roboto', serif
 }
 
 .streamWork-block {
@@ -266,7 +273,7 @@ lds-dual-ring {
     border-color: #004643 !important;
     background-color: white !important;
     color: #004643 !important;
-    font-size: 14px;
+    font-size: 12px;
     margin: 10px;
     padding: 0px 10px 0px 10px;
     cursor: pointer !important;
@@ -274,6 +281,7 @@ lds-dual-ring {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-family: 'Roboto', serif
 }
 
 .streamWork-primary-rect {

@@ -1,9 +1,9 @@
 ﻿<div id="signin-signup-modal" class="custom-modal">
-    <div class="custom-modal-content" style="max-width:550px">
+    <div class="custom-modal-content" style="max-width:550px;">
         <div class="close ml-auto" onclick="DiscardChangesAndCloseModal('signin-signup-modal', 'signin-signup-modal')">&times;</div>
         <ul class="nav nav-tabs ml-1" id="myTab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active form-header" id="profile-info-tab" data-toggle="tab" href="#profileinfo" onclick="SliderProfileInformation()">Sign-in</a>
+                <a class="nav-link active form-header border-0" id="profile-info-tab" data-toggle="tab" href="#profileinfo" onclick="SliderProfileInformation()">Sign In</a>
             </li>
         </ul>
         <div class="slider">
@@ -23,7 +23,7 @@
             <div class="tab-pane active" id="profileinfo" role="tabpanel" aria-labelledby="profile-info-tab">
                 <div class="row">
                     <div class="col-12">
-                        <div class="card">
+                        <div class="card rounded-0">
                             <div class="card-body p-4">
                                 <div id="invalid-username-password-notification" class="alert notification-warning text-center" style="padding-left:25px" role="alert">
                                     <b>Invalid Username or Password</b>.
@@ -32,9 +32,9 @@
                                 <p class="text-center my-3" style="font-family: 'Roboto Slab'; font-size: 50px; font-weight: bold;">Sign In</p>
                                 <p class="text-center mb-4" style="color: #707070; font-size: 13px;">Welcome back! Sign in to continue learning!</p>
                                 <p class="form-header mb-0">Username / Email Address</p>
-                                <input id="username" type="text" class="mb-3" style="width: 100%;" onkeydown="CheckIfBothFieldsAreEmpty()" onkeyup="CheckIfBothFieldsAreEmpty()" required />
+                                <input id="username" type="text" class="mb-3 form-control rounded-0" style="width: 100%;" onkeydown="CheckIfBothFieldsAreEmpty()" onkeyup="CheckIfBothFieldsAreEmpty()" required />
                                 <p class="d-inline-block form-header mb-0">Password</p>
-                                <a class="d-inline-block float-right roboto pb-0" style="font-size:14px; color:#00A0A0 ">Forgot Password?</a>
+                                <a href="/Home/ForgotPassword" class="d-inline-block float-right roboto pb-0" style="font-size:14px; color:#00A0A0 ">Forgot Password?</a>
                                 <div class="mb-3 input-group">
                                     <input id="password" type="password" class="form-control" style="border-radius: 0px;" onkeydown="CheckIfBothFieldsAreEmpty()" onkeyup="CheckIfBothFieldsAreEmpty();" required />
                                     <div class="input-group-append">
@@ -43,7 +43,7 @@
                                         </span>
                                     </div>
                                 </div>
-                                <button id="sign-in-button" type="button" class="streamWork-primary mb-3" style="width: 100%;" onclick="SignInModal(window.location);">Sign-in</button>
+                                <button id="sign-in-button" type="button" class="streamWork-primary mb-3" style="width: 100%;" onclick="SignInModal(window.location);">Sign In</button>
                                 <br />
 
                                 <p class="divider-text">or</p>

@@ -23,6 +23,8 @@ function usernameTabUpdateNext() {
 
 function usernameTabNext() {
     if ($('#username').val().length > 0) {
+        $('#username-loader').removeClass('d-none').addClass('d-block')
+        $('#username-tab-next').removeClass('streamWork-primary').addClass('streamWork-disabled')
         $.ajax({
             url: '/Home/ForgotPassword/?handler=SendChangePasswordEmail',
             type: 'GET',
@@ -32,6 +34,8 @@ function usernameTabNext() {
             }
         }).done(function () {
             goToForgotPasswordTab('changePassword-tab');
+            $('#username-loader').removeClass('d-block').addClass('d-none')
+            $('#username-tab-next').removeClass('streamWork-disabled').addClass('streamWork-primary')
         });
     }
 }
