@@ -226,12 +226,10 @@ namespace StreamWork.Services
             {
                 var video = videos[i];
                 video.StreamID = ids[i];
-                video.Views = channel.Views;
                 await Save(video.Id, video);
             }
 
             channel.InitialStreamCount = 0;
-            channel.Views = 0;
             await Save(channel.Id, channel);
             streamHandler.TryRemove(channel.Username, out _);
         }
@@ -250,7 +248,8 @@ namespace StreamWork.Services
                 ProfilePicture = channel.ProfilePicture,
                 StreamColor = channel.StreamColor,
                 StartTime = DateTime.UtcNow,
-                Name = channel.Name
+                Name = channel.Name,
+                Views = channel.Views
             };
 
             return archivedStream;
@@ -264,6 +263,7 @@ namespace StreamWork.Services
             channel.StreamThumbnail = null;
             channel.StreamColor = null;
             channel.ArchivedVideoId = null;
+            channel.Views = 0;
             await Save(channel.Id, channel);
         }
 
