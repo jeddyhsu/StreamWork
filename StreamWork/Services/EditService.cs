@@ -26,6 +26,7 @@ namespace StreamWork.Services
             var instagramUrl = request.Form["InstagramUrl"];
             var facebookUrl = request.Form["FacebookUrl"];
             var twitterUrl = request.Form["TwitterUrl"];
+            var subscribeToNotifications = request.Form["SubscribeToNotifications"];
 
             if (request.Form.Files.Count > 0)
                 profilePicture = request.Form.Files[0];
@@ -38,6 +39,7 @@ namespace StreamWork.Services
             userProfile.InstagramUrl = instagramUrl;
             userProfile.FacebookUrl = facebookUrl;
             userProfile.TwitterUrl = twitterUrl;
+            userProfile.NotificationSubscribe = subscribeToNotifications == "true" ? "True" : "False";
 
             //await _scheduleMethods.UpdateTimezoneForScheduleTask(storageConfig, timeZone, userProfile.Username);
 

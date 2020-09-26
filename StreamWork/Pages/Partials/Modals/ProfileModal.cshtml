@@ -8,6 +8,9 @@
             <li class="nav-item">
                 <a class="nav-link form-header" id="social-media-tab" data-toggle="tab" href="#socialmedia" onclick="SliderSocialMedia()">Social Media</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link form-header" id="settings-tab" data-toggle="tab" href="#settings" onclick="SliderSettings()">Settings</a>
+            </li>
         </ul>
         <div class="slider">
             <div id="slider-object-profile-edit-modal" class="slider-object" style="width:60px"></div>
@@ -96,6 +99,16 @@
                             <input id="facebook-url" class="form-control border rounded-0 form-input" placeholder="Facebook Url">
                             <label class="form-header mt-3">Twitter URL</label>
                             <input id="twitter-url" class="form-control border rounded-0 form-input" placeholder="Twitter Url">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+                <div class="row">
+                    <div class="col-12">
+                        <form id="profile-information-modal-form" class="pt-4 pb-4 pl-5 pr-5">
+                            <label class="form-header">Subscribe to Email Notifications</label>
+                            <input id="subscribe-to-notifications" type="checkbox" class="ml-2 form-check-input">
                         </form>
                     </div>
                 </div>

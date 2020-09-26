@@ -62,6 +62,11 @@ function SliderSocialMedia() {
     $('#slider-object-profile-edit-modal').css("transform", "translate3d(110px, 0px, 0px)")
 }
 
+function SliderSettings() {
+    $('#settings-tab').tab('show');
+    $('#slider-object-profile-edit-modal').css("transform", "translate3d(215px, 0px, 0px)")
+}
+
 //Profile
 function SaveProfile() {
     $('#profile-modal-loader').removeClass('d-none').addClass('d-block');
@@ -84,6 +89,8 @@ function SaveProfile() {
     formData.append("InstagramURL", $('#instagram-url').val());
     formData.append("FacebookURL", $('#facebook-url').val());
     formData.append("TwitterURL", $('#twitter-url').val());
+    
+    formData.append("SubscribeToNotifications", $('#subscribe-to-notifications').prop('checked'));
 
     if (cropper != null)
         formData.append("ProfilePicture", cropperBlob);
@@ -192,6 +199,7 @@ function EditProfile() {
     $('#facebook-url').val($('#header-facebook-url').val());
     $('#twitter-url').val($('#header-twitter-url').val());
     $($('#profile-color').val()).css('border-style', 'dotted')
+    $('#subscribe-to-notifications').prop('checked', $('#header-subscribe-to-notifications').prop('checked'));
 }
 
 //Sections

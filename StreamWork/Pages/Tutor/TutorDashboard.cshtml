@@ -37,6 +37,7 @@
                             <input id="header-facebook-url" type="hidden" value="@Model.CurrentUserProfile.FacebookUrl" />
                             <input id="header-twitter-url" type="hidden" value="@Model.CurrentUserProfile.TwitterUrl" />
                             <input id="profile-color" type="hidden" value="@Model.CurrentUserProfile.ProfileColor" />
+                            <input id="header-subscribe-to-notifications" type="hidden" @(Model.CurrentUserProfile.NotificationSubscribe == "True" ? "checked" : "") />
                         </div>
 
                         <div class="btn-group d-lg-none d-md-none d-sm-block d-block pl-3 pr-3">

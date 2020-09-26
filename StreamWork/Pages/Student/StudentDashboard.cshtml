@@ -37,8 +37,11 @@
                             <input id="header-facebook-url" type="hidden" value="@Model.CurrentUserProfile.FacebookUrl" />
                             <input id="header-twitter-url" type="hidden" value="@Model.CurrentUserProfile.TwitterUrl" />
                             <input id="profile-color" type="hidden" value="@Model.CurrentUserProfile.ProfileColor" />
-                        </div>
-                        <div class="btn-group d-lg-none d-md-none d-sm-block d-block" style="margin-left:110px;">
+                            <input id="header-subscribe-to-notifications" type="hidden" @(Model.CurrentUserProfile.NotificationSubscribe == "True" ? "checked" : "") />
+
+</div>
+
+<div class="btn-group d-lg-none d-md-none d-sm-block d-block" style="margin-left:110px;">
                             <button type="button" class="streamWork-secondary mr-2" onclick="EditProfile()">Edit Profile</button>
                             <button type="button" class="streamWork-primary" onclick="window.location.href ='/Profiles/Student/@Model.CurrentUserProfile.Username'">View Profile</button>
                         </div>
@@ -52,8 +55,8 @@
                                     <input id="upload-profile-banner" style="cursor:pointer; display:none" type='file' onchange="ReadImageUrl(this, 'Banner')" accept="image/png,image/jpeg" />
                                     <script>
                                         $('#preview-profile-banner').click(function () {
-                                            ReadImageSrcUrl("Banner", '@Model.DefaultBanner');
-                                            OpenModal("imagecropper-modal")
+                                ReadImageSrcUrl("Banner", '@Model.DefaultBanner');
+                                OpenModal("imagecropper-modal")
                                         })
                                     </script>
                                 </div>
