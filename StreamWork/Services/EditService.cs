@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +31,16 @@ namespace StreamWork.Services
 
             if (request.Form.Files.Count > 0)
                 profilePicture = request.Form.Files[0];
+
+            Regex nameRegex = new Regex(@"^[^0-9\t\n\/<>?;:""`!@#$%^&*()\[\]{}_+=|\\]+$");
+            if (!nameRegex.IsMatch(firstName))
+            {
+                firstName = userProfile.Name.Split('|')[0];
+            }
+            if (!nameRegex.IsMatch(lastName))
+            {
+                lastName = userProfile.Name.Split('|')[1];
+            }
 
             userProfile.Name = firstName + "|" + lastName;
             userProfile.ProfileCaption = occupation;
