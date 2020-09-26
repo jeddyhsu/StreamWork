@@ -53,7 +53,7 @@
                             @if (Model.UserChannel.StreamTitle == null)
                             {
                                 var streamTitle = Model.ScheduledStream != null ? Model.ScheduledStream.StreamTitle : "";
-                                <input id="stream-title" class="form-control form-input mb-2 border rounded-0" type="text" placeholder="ex: Calculus 2: Integrals" value="@streamTitle" required>
+                                <input id="stream-title" class="form-control form-input mb-2 border rounded-0" type="text" placeholder="ex: Calculus 2: Integrals" value="@streamTitle" data-container="body" data-toggle="popover" data-placement="top" data-content="This field is required" onclick="DisableHidePopover('stream-title')" required>
                             }
                             else
                             {
@@ -63,7 +63,7 @@
                             @if (Model.UserChannel.StreamSubject == null)
                             {
                                 var streamSubject = Model.ScheduledStream != null ? Model.ScheduledStream.StreamSubject : "";
-                                <select id="stream-subject" class="form-control form-input border rounded-0" asp-for="@streamSubject" required>
+                                <select id="stream-subject" class="form-control form-input border rounded-0" asp-for="@streamSubject" data-container="body" data-toggle="popover" data-placement="top" data-content="This field is required" onchange="DisableHidePopover('stream-subject')" required>
                                     <option value="">-Select-Subject-</option>
                                     <option value="Mathematics">Mathematics</option>
                                     <option value="Science">Science</option>
@@ -93,7 +93,7 @@
                             @if (Model.UserChannel.StreamDescription == null)
                             {
                                 var streamDescription = Model.ScheduledStream != null ? Model.ScheduledStream.StreamDescription : "";
-                                <textarea id="stream-description" class="form-control form-textarea border rounded-0" type="text" placeholder="ex: Today we are going to be learning about how to do integrals using U-Substitution" required>@streamDescription</textarea>
+                                <textarea id="stream-description" class="form-control form-textarea border rounded-0" type="text" placeholder="ex: Today we are going to be learning about how to do integrals using U-Substitution" data-container="body" data-toggle="popover" data-placement="top" data-content="This field is required" onclick="DisableHidePopover('stream-description')" required>@streamDescription</textarea>
                             }
                             else
                             {

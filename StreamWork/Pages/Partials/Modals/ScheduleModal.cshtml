@@ -37,9 +37,12 @@
                         </div>
                         <div class="col-lg-10 col-md-12">
                             <label class="form-header pt-lg-0 pt-3">Stream Title</label>
-                            <input id="schedule-title" class="form-control border rounded-0 form-input" maxlength="50" placeholder="Add Title" required>
+                            <input id="schedule-title" class="form-control border rounded-0 form-input" maxlength="50" placeholder="Add Title" data-container="body" data-toggle="popover" data-placement="top" data-content="This field is required" onclick="DisableHidePopover('schedule-title')" required>
+                            <script>
+                                
+                            </script>
                             <label class="form-header pt-3">Select Topic</label>
-                            <select id="schedule-subject" class="form-control form-control-sm rounded-0" required>
+                            <select id="schedule-subject" class="form-control form-control-sm rounded-0" data-container="body" data-toggle="popover" data-placement="top" data-content="This field is required" onchange="DisableHidePopover('schedule-subject')" required>
                                 <option value="" selected>-Select-Topic-</option>
                                 <option>Mathematics</option>
                                 <option>Science</option>
@@ -53,19 +56,19 @@
                             <div class="row">
                                 <div class="col-lg-8">
                                     <label class="form-header pt-3">Stream Description</label>
-                                    <textarea class="form-control form-textarea rounded-0 border" type="text" id="schedule-description" placeholder="ex: Today we are going to be learning about how to do integrals using U-Substitution" required></textarea>
+                                    <textarea class="form-control form-textarea rounded-0 border" type="text" id="schedule-description" placeholder="ex: Today we are going to be learning about how to do integrals using U-Substitution" data-container="body" data-toggle="popover" data-placement="top" data-content="This field is required" onclick="DisableHidePopover('schedule-description')" required></textarea>
                                 </div>
                                 <div class="col-lg-4">
                                     <label class="form-header pt-3">Time Start</label>
                                     <div class="input-group date" id="schedule-time-start-picker" data-target-input="nearest">
-                                        <input id="schedule-time-start-picker-value" type="text" class="form-control rounded-0  datetimepicker-input" data-target="#schedule-time-start-picker" required />
+                                        <input id="schedule-time-start-picker-value" type="text" class="form-control rounded-0  datetimepicker-input" data-target="#schedule-time-start-picker" data-container="body" data-toggle="popover" data-placement="top" data-content="This field is required" onclick="DisableHidePopover('schedule-time-start-picker-value')" required />
                                         <div class="input-group-append" data-target="#schedule-time-start-picker" data-toggle="datetimepicker">
                                             <div class="input-group-text rounded-0"><i class="fa fa-clock-o"></i></div>
                                         </div>
                                     </div>
                                     <label class="form-header pt-3">Time Stop</label>
                                     <div class="input-group date" id="schedule-time-stop-picker" data-target-input="nearest">
-                                        <input id="schedule-time-stop-picker-value" type="text" class="form-control rounded-0 datetimepicker-input" data-target="#schedule-time-stop-picker" required />
+                                        <input id="schedule-time-stop-picker-value" type="text" class="form-control rounded-0 datetimepicker-input" data-target="#schedule-time-stop-picker" data-container="body" data-toggle="popover" data-placement="top" data-content="This field is required" onclick="DisableHidePopover('schedule-time-stop-picker-value')" required />
                                         <div class="input-group-append" data-target="#schedule-time-stop-picker" data-toggle="datetimepicker">
                                             <div class="input-group-text rounded-0"><i class="fa fa-clock-o"></i></div>
                                         </div>

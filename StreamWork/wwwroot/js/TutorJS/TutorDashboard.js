@@ -57,10 +57,27 @@ function ReturnMask(date) {
 }
 
 function SaveScheduleTask(id, type) {
-
     var form = $('#schedule-modal-form');
-    if (!form[0].checkValidity()) {
-        return form[0].reportValidity();
+
+    if ($('#schedule-title').val() == "") {
+        EnableShowPopover('schedule-title')
+        return;
+    }
+    else if ($('#schedule-subject').val() == "") {
+        EnableShowPopover('schedule-subject')
+        return;
+    }
+    else if ($('#schedule-description').val() == "") {
+        EnableShowPopover('schedule-description')
+        return;
+    }
+    else if ($('#schedule-time-start-picker-value').val() == "") {
+        EnableShowPopover('schedule-time-start-picker-value')
+        return;
+    }
+    else if ($('#schedule-time-stop-picker-value').val() == "") {
+        EnableShowPopover('schedule-time-stop-picker-value')
+        return;
     }
 
     var startTime = moment($('#schedule-time-start-picker-value').val(), "HH:mm:ss").format("hh:mm A");
@@ -279,6 +296,15 @@ function ShowDeleteVideoTaskBanner(id) {
 }
 
 function SaveEditedVideo(id) {
+    if ($('#video-title-edit').val() == "") {
+        EnableShowPopover('video-title-edit')
+        return;
+    }
+    else if ($('#video-description-edit').val() == "") {
+        EnableShowPopover('video-description-edit')
+        return;
+    }
+
     $('#edit-video-modal-loader').removeClass('d-none').addClass('d-block');
     var formData = new FormData()
 

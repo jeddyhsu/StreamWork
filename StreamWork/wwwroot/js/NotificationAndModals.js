@@ -20,6 +20,7 @@ function DiscardImageAndDiscardFormChangesAndCloseModal(imageURL, imageDestId, f
 }
 
 function DiscardChangesAndCloseModal(formId, modalId) {
+    $('.popover').popover('hide');
     $('#' + formId).trigger("reset");
     CloseModal(modalId);
 }
@@ -38,4 +39,16 @@ function ShowBannerNotification(bannerName) {
     $("#" + bannerName).fadeTo(2500, 500).slideUp(600, function () {
         $("#" + bannerName).slideUp(500);
     });
+}
+
+function DisableHidePopover(id) {
+    $('#' + id).removeClass('input-invalid');
+    $('#' + id).popover('disable');
+    $('#' + id).popover('hide');
+}
+
+function EnableShowPopover(id) {
+    $('#' + id).addClass('input-invalid');
+    $('#' + id).popover('enable');
+    $('#' + id).popover('show');
 }

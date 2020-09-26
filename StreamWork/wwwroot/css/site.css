@@ -304,7 +304,7 @@ lds-dual-ring {
 /*Inputs*/
 .input-invalid {
     background-color: #FCE4E4;
-    border-color: #C03;
+    border-color: #C03 !important;
 }
 
 /*Navbar*/

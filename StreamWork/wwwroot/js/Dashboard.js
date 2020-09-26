@@ -69,15 +69,27 @@ function SliderSettings() {
 
 //Profile
 function SaveProfile() {
-    $('#profile-modal-loader').removeClass('d-none').addClass('d-block');
+    if ($('#first-name').val() == "") {
+        $('#first-name').attr('data-content', 'This field is required');
+        EnableShowPopover('first-name')
+        return;
+    }
+
+    if ($('#last-name').val() == "") {
+        $('#last-name').attr('data-content', 'This field is required');
+        EnableShowPopover('last-name')
+        return;
+    }
 
     if (!/^[^0-9\t\n\/<>?;:"`!@#$%^&*()\[\]{}_+=|\\]+$/.test($('#first-name').val())) {
-        ShowBannerNotification("profile-information-fn-notification")
+        $('#first-name').attr('data-content', 'Invalid characters');
+        EnableShowPopover('first-name')
         return;
     }
 
     if (!/^[^0-9\t\n\/<>?;:"`!@#$%^&*()\[\]{}_+=|\\]+$/.test($('#last-name').val())) {
-        ShowBannerNotification("profile-information-ln-notification")
+        $('#last-name').attr('data-content', 'Invalid characters');
+        EnableShowPopover('last-name')
         return;
     }
 
@@ -94,6 +106,8 @@ function SaveProfile() {
         ShowBannerNotification("profile-information-sm-notification")
         return;
     }
+
+    $('#profile-modal-loader').removeClass('d-none').addClass('d-block');
    
     formData.append("LinkedInUrl", $('#linkedin-url').val());
     formData.append("InstagramURL", $('#instagram-url').val());
@@ -368,12 +382,15 @@ function EditUniversityInfo() {
 }
 
 function SaveUniversityInfo() {
-    $('#university-modal-loader').removeClass('d-none').addClass('d-block')
     var form = $('#university-edit-modal-form');
-    if (!form[0].checkValidity()) {
-        form[0].reportValidity();
+
+    if ($('#university-edit-abbreviation').val() == "") {
+        EnableShowPopover('university-edit-abbreviation')
         return;
     }
+
+    $('#university-modal-loader').removeClass('d-none').addClass('d-block')
+
     var abbreviation = $('#university-edit-abbreviation').val()
     var name = $('#university-edit-name').val();
     var container = document.getElementById("university-element");

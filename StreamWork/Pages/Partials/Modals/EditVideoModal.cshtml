@@ -21,9 +21,9 @@
                         <div class="row">
                             <div class="col-lg-7 col-md-12 col-sm-12 col-12 mt-2">
                                 <label class="form-header">Title</label>
-                                <input id="video-title-edit" class="form-control rounded-0 form-input mb-2" type="text">
+                                <input id="video-title-edit" class="form-control rounded-0 form-input mb-2" placeholder="Video Title" type="text" data-container="body" data-toggle="popover" data-placement="top" data-content="This field is required" onclick="DisableHidePopover('video-title-edit')" required>
                                 <label class="form-header">Description</label>
-                                <textarea id="video-description-edit" class="form-control rounded-0 form-textarea mt-1 mb-2" placeholder="Description" style="height:105px !important"></textarea>
+                                <textarea id="video-description-edit" class="form-control rounded-0 form-textarea mt-1 mb-2" placeholder="Video Description" style="height:105px !important" data-container="body" data-toggle="popover" data-placement="top" data-content="This field is required" onclick="DisableHidePopover('video-description-edit')" required></textarea>
                             </div>
                             <div class="col-lg-5 col-md-12 col-sm-12 col-12 mt-1">
                                 <label class="form-header">Thumbnail</label>
@@ -31,11 +31,13 @@
                                     <img id="preview-video-thumbnail-edit" class="mt-1" style="width:100%; border-radius:10px">
                                     <input id="video-thumbnail-edit" type="image" class="bottom-right" src="~/images/TutorAssets/TutorDashboard/Add.svg" width="20" style="bottom:-5px" />
                                     <input id="upload-thumbnail-edit" name="upload-thumbnail-edit" class="d-none" type="file" value="~/images/MathDefault.png" onchange="ReadImageUrl(this,'Thumbnail Edit');" accept="image/png,image/jpeg">
-                                    <script>$("#video-thumbnail-edit").click(function (e) {
+                                    <script>
+                                        $("#video-thumbnail-edit").click(function (e) {
                                             e.preventDefault();
                                             ReadImageSrcUrl("Thumbnail Edit");
                                             OpenModal("imagecropper-modal")
-                                        })</script>
+                                        })
+                                    </script>
                                 </div>
                             </div>
                         </div>

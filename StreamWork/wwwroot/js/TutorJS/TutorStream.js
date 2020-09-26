@@ -39,8 +39,18 @@ function RegisterStream() {
     var form = $('#register-stream-form');
     var totalFile = document.getElementById("upload-stream-thumbnail")
 
-    if (!form[0].checkValidity()) {
-        form[0].reportValidity();
+    if ($('#stream-title').val() == "") {
+        EnableShowPopover('stream-title')
+        document.getElementById("GoLive").disabled = false;
+        return;
+    }
+    else if ($('#stream-subject').val() == "") {
+        EnableShowPopover('stream-subject')
+        document.getElementById("GoLive").disabled = false;
+        return;
+    }
+    else if ($('#stream-description').val() == "") {
+        EnableShowPopover('stream-description')
         document.getElementById("GoLive").disabled = false;
         return;
     }
