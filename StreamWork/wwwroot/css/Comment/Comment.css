@@ -1,0 +1,93 @@
+﻿.comment-send-reply-textarea {
+    width:100%;
+    min-height: 40px !important;
+    background-color: transparent;
+    overflow:hidden
+}
+
+.comment-send-reply-button {
+    width: 100px;
+    height: 40px;
+}
+
+.comment-name {
+    padding-left: 40px;
+    font-size: 16px;
+}
+
+.comment-send {
+    padding-left: 40px !important;
+    font-size: 14px;
+}
+
+.comment-profile-picture {
+    width: 30px;
+    height: 40px;
+}
+
+.comment-replies {
+    padding-left: 40px;
+    font-size: 14px;
+    color: #004643 !important;
+    cursor: pointer;
+}
+
+.comment-list {
+    list-style-type: none
+}
+
+.comment-reply-list {
+    padding-left: 60px;
+    list-style-type: none
+}
+
+.comment-list-item {
+    background-color: white
+}
+
+.comment-send-reply-box {
+    background-color: transparent;
+}
+
+.comment-cancel {
+    font-size: 14px;
+    cursor: pointer;
+    display:none;
+}
+
+.comment-edit {
+    width:28px;
+    cursor: pointer;
+    display:none;
+}
+
+.comment-remove {
+    width: 28px;
+    cursor: pointer;
+    display: none;
+}
+
+.comment-cancel-button {
+    height: 40px !important;
+    border: none;
+}
+
+.comment-at {
+    color: #004643;
+    display: inline-block;
+    padding-top:3px;
+    padding-bottom:0px;
+    padding-right:5px;
+}
+
+.comment-at-reply-box {
+    color: #004643;
+    display: inline-block;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+}
+
+.comment-text{
+    font-size:14px
+}

@@ -1,0 +1,27 @@
+﻿<div id="notification-modal" class="custom-modal">
+    <div class="custom-modal-content">
+        <div class="close ml-auto" onclick="DiscardChangesAndCloseModal('notification-modal-form', 'notification-modal')">&times;</div>
+        <h5 class="form-header" style="padding-left:20px; padding-top:10px; font-size:16px;">Notifications</h5>
+        <div class="slider">
+            <div class="slider-object" style="width:120px"></div>
+        </div>
+        <div class="row">
+            <div id="notification-mask" class="col-12">
+                 <ul id="notification-list" class="pl-3 m-0 notification-list">
+                    @if (Model.Notifications != null && Model.Notifications.Count > 0)
+                    {
+                        @foreach (var notification in Model.Notifications)
+                        {
+                            @Html.Raw(notification)
+                        }
+                    }
+                    else
+                    {
+                        <li id="no-notification" class="form-header text-center p-3 mb-0" style="font-size:18px;">No notifications at this time!</li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div id="stream-edit-buttons"></div>
+    </div>
+</div>

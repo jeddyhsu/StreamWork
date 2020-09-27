@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<!--
+      _/_/_/  _/                                         _/       _/                  _/
+   _/      _/_/_/_/ _/ _/_/  _/_/     _/_/_/ _/_/  _/   _/       _/  _/_/    _/ _/_/ _/  _/
+    _/_/    _/     _/_/   _/_/_/_/ _/    _/ _/  _/  _/ _/  _/   _/ _/   _/  _/_/    _/_/
+       _/  _/     _/     _/       _/    _/ _/  _/  _/  _/_/ _/_/  _/   _/  _/      _/  _/
+_/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/      _/    _/
+-->
+<html>
+
+<head>
+    @await Html.PartialAsync("Partials/Layout/Chat/ChatHead")
+</head>
+
+<body class="no-scroll-bar" style="overflow-x:hidden;">
+    <div class="page-body">
+        @RenderBody()
+    </div>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
+
+

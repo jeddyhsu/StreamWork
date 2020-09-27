@@ -1,0 +1,164 @@
+﻿<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="p-3">
+            <!--Desktop-->
+            @if (Model.CurrentUserProfile != null)
+            {
+                @if (Model.CurrentUserProfile.ProfileType == "tutor")
+                {
+                    @if (Model.CurrentUserProfile.Id == Model.UserProfile.Id)
+                    {
+                        <div class="btn-group d-lg-block d-md-none d-sm-none d-none float-right">
+                            <button type="button" class="streamWork-primary" onclick="window.location.href ='/Tutor/TutorDashboard'">Tutor Dashboard</button>
+                        </div>
+                    }
+                    else
+                    {
+                        @if (Model.UserProfile.ProfileType == "tutor")
+                        {
+                            <div class="btn-group d-lg-block d-md-none d-sm-none d-none float-right">
+                                @if (Model.FollowValue.Equals("Following"))
+                                {<button id="following-profile" onclick="Unfollow('@Model.CurrentUserProfile.Id', '@Model.UserProfile.Id', 'following-profile')" class="streamWork-primary stream-buttons">Following</button>}
+                                else if (Model.FollowValue.Equals("Follow"))
+                                {<button id="follow-profile" onclick="Follow('@Model.CurrentUserProfile.Id', '@Model.UserProfile.Id', 'follow-profile')" class="streamWork-primary stream-buttons">Follow</button>}
+                            </div>
+                        }
+                    }
+                }
+                else
+                {
+                    @if (Model.CurrentUserProfile.Id == Model.UserProfile.Id)
+                    {
+                        <div class="btn-group d-lg-block d-md-none d-sm-none d-none float-right">
+                            <button type="button" class="streamWork-primary" onclick="window.location.href ='/Student/StudentDashboard'">Student Dashboard</button>
+                        </div>
+                    }
+                    else
+                    {
+                        @if (Model.UserProfile.ProfileType == "tutor")
+                        {
+                            <div class="btn-group d-lg-block d-md-none d-sm-none d-none float-right">
+                                @if (Model.FollowValue.Equals("Following"))
+                                {<button id="following-profile" onclick="Unfollow('@Model.CurrentUserProfile.Id', '@Model.UserProfile.Id', 'following-profile')" class="streamWork-primary stream-buttons">Following</button>}
+                                else if (Model.FollowValue.Equals("Follow"))
+                                {<button id="follow-profile" onclick="Follow('@Model.CurrentUserProfile.Id', '@Model.UserProfile.Id', 'follow-profile')" class="streamWork-primary stream-buttons">Follow</button>}
+                            </div>
+                        }
+                    }
+                }
+            }
+
+            <div class="profile-picture-overlap-container">
+                <img id="header-profile-picture" align="left" class="rounded" src="@Model.UserProfile.ProfilePicture" style="width:90px;" />
+            </div>
+            <div class="d-inline-block">
+                <p id="header-name" class="form-header m-0 header-padding" style="font-size:22px; color:@Model.UserProfile.ProfileColor">@Model.UserProfile.Name.Replace('|', ' ')</p>
+                @if (@Model.UserProfile.ProfileCaption == null || @Model.UserProfile.ProfileCaption == "")
+                {<p id="header-occupation" class="form-sub-header m-0 header-padding" style="font-size:16px;">Occupation / Major</p>}
+                else
+                {<p id="header-occupation" class="form-sub-header m-0 header-padding" style="font-size:16px;">@Model.UserProfile.ProfileCaption</p>}
+                <input id="header-first-name" type="hidden" value="@Model.UserProfile.Name.Split('|')[0]" />
+                <input id="header-last-name" type="hidden" value="@Model.UserProfile.Name.Split('|')[1]" />
+                <input id="header-timezone" type="hidden" value="@Model.UserProfile.TimeZone" />
+                <input id="header-linkedin-url" type="hidden" value="@Model.UserProfile.LinkedInUrl" />
+                <input id="header-instagram-url" type="hidden" value="@Model.UserProfile.InstagramUrl" />
+                <input id="header-facebook-url" type="hidden" value="@Model.UserProfile.FacebookUrl" />
+                <input id="header-twitter-url" type="hidden" value="@Model.UserProfile.TwitterUrl" />
+            </div>
+            <div class="d-lg-inline-block d-md-inline-block d-sm-none d-none pl-3">
+                @if (Model.UserProfile.ProfileType == "tutor")
+                {
+                    <p class="mb-0 mt-2 form-sub-header d-inline-block" style="font-size:12px"><span><img width="10" class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.svg" /></span>Tutor since @Model.UserProfile.ProfileSince.ToString("MMM, yyyy")</p>
+                }
+                else
+                {
+                    <p class="mb-0 mt-2 form-sub-header d-inline-block" style="font-size:12px"><span><img width="10" class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.svg" /></span>Student since @Model.UserProfile.ProfileSince.ToString("MMM, yyyy")</p>
+                }
+                @if (Model.UserProfile.Location == "" || Model.UserProfile.Location == null)
+                {<p id="header-location-mask" class="form-sub-header" style="font-size:12px"><span><img width="8" class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.svg" /></span><span id="header-location">City, State</span></p>}
+                else
+                {<p id="header-location-mask" class="form-sub-header" style="font-size:12px"><span><img width="8" class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.svg" /></span><span id="header-location">@Model.UserProfile.Location</span></p>}
+            </div>
+            <div class="d-lg-none d-md-none ">
+                @if (Model.UserProfile.ProfileType == "tutor")
+                {
+                    <p class="mb-0 mt-2 form-sub-header d-inline-block header-padding" style="font-size:12px"><span><img width="10" class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.svg" /></span>Tutor since @Model.UserProfile.ProfileSince.ToString("MMM, yyyy")</p>
+                }
+                else
+                {
+                    <p class="mb-0 mt-2 form-sub-header d-inline-block header-padding" style="font-size:12px"><span><img width="10" class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/TutorSince.svg" /></span>Student since @Model.UserProfile.ProfileSince.ToString("MMM, yyyy")</p>
+                }
+                @if (Model.UserProfile.Location == "" || Model.UserProfile.Location == null)
+                {<p id="header-location-mask" class="form-sub-header header-padding" style="font-size:12px"><span><img width="8" class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.svg" /></span><span id="header-location">City, State</span></p>}
+                else
+                {<p id="header-location-mask" class="form-sub-header header-padding" style="font-size:12px"><span><img width="8" class="mb-1 mr-1" src="~/images/TutorAssets/TutorDashboard/Location.svg" /></span><span id="header-location">@Model.UserProfile.Location</span></p>}
+            </div>
+        </div>
+        @if (Model.CurrentUserProfile != null)
+        {
+            <!--Mobile-->
+            @if (Model.CurrentUserProfile.ProfileType == "tutor")
+            {
+                @if (Model.CurrentUserProfile.Id == Model.UserProfile.Id)
+                {
+                    <div class="btn-group d-lg-none d-md-block d-sm-block d-block pl-3 pr-3">
+                        <button type="button" class="streamWork-primary mr-2" onclick="window.location.href ='/Tutor/TutorDashboard'">Tutor Dashboard</button>
+                    </div>
+                }
+                else
+                {
+                    @if (Model.UserProfile.ProfileType == "tutor")
+                    {
+                        <div class="btn-group d-lg-none d-md-block d-sm-block d-block pl-3 pr-3">
+                            @if (Model.FollowValue.Equals("Following"))
+                            {<button id="following-profile" onclick="Unfollow('@Model.CurrentUserProfile.Id', '@Model.UserProfile.Id', 'following-profile')" class="streamWork-primary stream-buttons mr-2">Following</button>}
+                            else if (Model.FollowValue.Equals("Follow"))
+                            {<button id="follow-profile" onclick="Follow('@Model.CurrentUserProfile.Id', '@Model.UserProfile.Id', 'follow-profile')" class="streamWork-primary stream-buttons mr-2">Follow</button>}
+                        </div>
+                    }
+                }
+            }
+            else
+            {
+                @if (Model.CurrentUserProfile.Id == Model.UserProfile.Id)
+                {
+                    <div class="btn-group d-lg-none d-md-block d-sm-block d-block pl-3 pr-3">
+                        <button type="button" class="streamWork-primary mr-2" onclick="window.location.href ='/Student/StudentDashboard'">Student Dashboard</button>
+                    </div>
+                }
+                else
+                {
+                    @if (Model.UserProfile.ProfileType == "tutor")
+                    {
+                        <div class="btn-group d-lg-none d-md-block d-sm-block d-block pl-3 pr-3">
+                            @if (Model.FollowValue.Equals("Following"))
+                            {<button id="following-profile" onclick="Unfollow('@Model.CurrentUserProfile.Id', '@Model.UserProfile.Id', 'following-profile')" class="streamWork-primary stream-buttons mr-2">Following</button>}
+                            else if (Model.FollowValue.Equals("Follow"))
+                            {<button id="follow-profile" onclick="Follow('@Model.CurrentUserProfile.Id', '@Model.UserProfile.Id', 'follow-profile')" class="streamWork-primary stream-buttons mr-2">Follow</button>}
+                        </div>
+                    }
+                }
+            }
+        }
+        @if (Model.UserProfile.ProfileType == "tutor")
+        {
+            <div class="p-lg-4 pt-md-4 p-sm-3 p-3">
+                <div class="d-inline-block mr-2">
+                    <div class="card pr-2" style="background-color:#004643; color:white">
+                        <h6 class="count-outer-object"><span style="background-color:#003936" class="rounded count-inner-object">@Model.NumberOfStreams</span> Streams</h6>
+                    </div>
+                </div>
+                <div class="d-inline-block mr-2">
+                    <div class="card pr-2" style="background-color:#FFC627; color:white">
+                        <h6 class="count-outer-object"><span style="background-color:#E6B62F" class="rounded count-inner-object ">@Model.NumberOfFollowers</span> Followers</h6>
+                    </div>
+                </div>
+                <div class="d-inline-block mr-2">
+                    <div class="card pr-2" style="background-color:#7266BA; color:white">
+                        <h6 class="count-outer-object"><span style="background-color:#5C50A7;" class="rounded count-inner-object">@Model.NumberOfViews</span> Views</h6>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

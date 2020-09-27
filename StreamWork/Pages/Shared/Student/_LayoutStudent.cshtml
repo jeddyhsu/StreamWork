@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<!--
+      _/_/_/  _/                                         _/       _/                  _/
+   _/      _/_/_/_/ _/ _/_/  _/_/     _/_/_/ _/_/  _/   _/       _/  _/_/    _/ _/_/ _/  _/
+    _/_/    _/     _/_/   _/_/_/_/ _/    _/ _/  _/  _/ _/  _/   _/ _/   _/  _/_/    _/_/
+       _/  _/     _/     _/       _/    _/ _/  _/  _/  _/_/ _/_/  _/   _/  _/      _/  _/
+_/_/_/      _/_/ _/       _/_/_/   _/_/_/ _/  _/  _/   _/   _/     _/_/   _/      _/    _/
+-->
+
+<html style="height:100%">
+<head>
+    @await Html.PartialAsync("Partials/Layout/Student/StudentHead")
+</head>
+<body class="no-scroll-bar" style="background-color:#F3F3F3;">
+    @await Html.PartialAsync("Partials/Layout/Student/StudentBody")
+    <div class="page-body">
+        @RenderBody()
+    </div>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
+

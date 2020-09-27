@@ -1,41 +1,53 @@
-﻿function FollowStreamTutor(followerId, followeeId, i) {
-    $.ajax({
-        url: '/Home/AddFollower',
-        type: 'post',
-        datatype: 'json',
-        data: {
-            'followerId': followerId,
-            'followeeId': followeeId,
-        }
-    });
+﻿var timerId;
 
-    if (i == null) {
-        $('#FollowButton').hide();
-        $('#UnfollowButton').show();
+function Follow(followerId, followeeId, buttonId) {
+    if (!(timerId == null)) { 
+        clearTimeout(timerId); //reset this call if its been less then 8000ms PREVENT SPAMMING
     }
-    else {
-        $('#FollowButtonUnfollowed-' + i).hide();
-        $('#UnfollowButtonUnfollowed-' + i).show();
-    }
+    timerId = setTimeout(function () { //set this call and execute after 8000ms
+        $.ajax({
+            url: '/Follows/FollowModel/?handler=Follow',
+            type: 'post',
+            datatype: 'json',
+            data: {
+                'followerId': followerId,
+                'followeeId': followeeId,
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("XSRF-TOKEN",
+                    $('input:hidden[name="__RequestVerificationToken"]').val());
+            },
+        });
+    }, 500); //8000ms Timeout 8 seconds
+
+    var newId = "following-" + buttonId.split('-')[1]
+    $("#" + buttonId).html("Following")
+    $("#" + buttonId).attr("onclick", "Unfollow('" + followerId + "','" + followeeId + "','" + newId + "')")
+    $("#" + buttonId).attr("id", newId) 
 }
 
-function UnfollowStreamTutor(followerId, followeeId, i) {
-    $.ajax({
-        url: '/Home/RemoveFollower',
-        type: 'post',
-        datatype: 'json',
-        data: {
-            'followerId': followerId,
-            'followeeId': followeeId,
-        }
-    });
+function Unfollow(followerId, followeeId, buttonId) {
+    if (!(timerId == null)) {
+        clearTimeout(timerId); //reset this call if its been less then 8000ms PREVENT SPAMMING
+    }
+    timerId = setTimeout(function () { //set this call and execute after 8000ms
+        $.ajax({
+            url: '/Follows/FollowModel/?handler=Unfollow',
+            type: 'post',
+            datatype: 'json',
+            data: {
+                'followerId': followerId,
+                'followeeId': followeeId,
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("XSRF-TOKEN",
+                    $('input:hidden[name="__RequestVerificationToken"]').val());
+            },
+        });
+    }, 500); //8000ms Timeout 8 seconds
 
-    if (i == null) {
-        $('#FollowButton').show();
-        $('#UnfollowButton').hide();
-    }
-    else {
-        $('#FollowButtonFollowed-' + i).show();
-        $('#UnfollowButtonFollowed-' + i).hide();
-    }
+    var newId = "follow-" + buttonId.split('-')[1]
+    $("#" + buttonId).html("Follow")
+    $("#" + buttonId).attr("onclick", "Follow('" + followerId + "','" + followeeId + "','" + newId + "')")
+    $("#" + buttonId).attr("id", newId) 
 }

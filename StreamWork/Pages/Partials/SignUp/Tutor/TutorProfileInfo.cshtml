@@ -1,0 +1,65 @@
+﻿<div class="row" id="tutorProfileInfo" style="display: none;">
+    <div class="card d-block mr-auto ml-auto border pl-4 pr-2" style="background-color: white; width:1100px">
+        <div class="row" style="min-height: 600px;">
+            <div class="col-md-6 d-none d-md-block" style="min-height: 600px;">
+                <div class="row p-4" style="min-height: 600px; display: flex; align-items: center; flex-wrap: wrap; justify-content: center;">
+                    <img src="~/images/SignUpAssets/SignUp_4_SW_SVG.svg" style="width: 70%;" />
+                </div>
+            </div>
+            <div class="col-md-6 pt-5 pb-4 px-5" style="border-style: none none none solid; border-width: 1px; border-color: #b1b1b1;">
+                <h3 class="text-center mb-2" style="font-family: 'Roboto Slab';">Finish Up Profile</h3>
+                <p class="text-center mb-4" style="color: #707070; font-size: 13px;">Let's create a profile so you can connect with others!</p>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p style="color: #707070; margin-bottom: 0; font-family: 'Roboto Slab'; font-size: 12px;">First Name</p>
+                        <input id="tutor-firstName" class="mb-3 form-control rounded-0" style="width: 100%;" onkeyup="tutorProfileInfoUpdateNext();" data-toggle="popover" data-placement="top" data-content="Names may not contain numbers or special characters" />
+                    </div>
+                    <div class="col-sm-6">
+                        <p style="color: #707070; margin-bottom: 0; font-family: 'Roboto Slab'; font-size: 12px;">Last Name</p>
+                        <input id="tutor-lastName" class="mb-3 form-control rounded-0" style="width: 100%;" onkeyup="tutorProfileInfoUpdateNext();" data-toggle="popover" data-placement="top" data-content="Names may not contain numbers or special characters" />
+                    </div>
+                </div>
+                <p style="color: #707070; margin-bottom: 0; font-family: 'Roboto Slab'; font-size: 12px;">Username</p>
+                <div id="tutor-username-wrapper" data-container="body" data-toggle="popover" data-placement="top" data-content="This username is taken">
+                    <input id="tutor-username" class="mb-3 form-control rounded-0" style="width: 100%;" onkeyup="tutorProfileInfoUpdateNext();" data-toggle="popover" data-placement="top" data-content="Usernames may only include letters, numbers, underscores, and hyphens" />
+                </div>
+                <p style="color: #707070; margin-bottom: 0; font-family: 'Roboto Slab'; font-size: 12px;">Password</p>
+                <div class="mb-3 input-group">
+                    <input id="tutor-password" type="password" class="form-control rounded-0" onkeyup="tutorProfileInfoUpdateNext();" data-toggle="popover" data-placement="top" data-content="Passwords must be at least 8 characters long, including at least one letter and number" />
+                    <div class="input-group-append">
+                        <span class="input-group-text" style="background-color: white; cursor: pointer; border-radius: 0px;" onclick="togglePasswordVisibility('tutor-password');">
+                            <i id="tutor-password-eye" class="fa fa-eye-slash"></i>
+                        </span>
+                    </div>
+                </div>
+                <p style="color: #707070; margin-bottom: 0; font-family: 'Roboto Slab'; font-size: 12px;">Re-Enter Password</p>
+                <div class="mb-3 input-group">
+                    <input id="tutor-confirmPassword" type="password" class="form-control rounded-0" onkeyup="tutorProfileInfoUpdateNext();" data-toggle="popover" data-placement="top" data-content="Passwords must match" />
+                    <div class="input-group-append">
+                        <span class="input-group-text" style="background-color: white; cursor: pointer; border-radius: 0px;" onclick="togglePasswordVisibility('tutor-confirmPassword');">
+                            <i id="tutor-confirmPassword-eye" class="fa fa-eye-slash"></i>
+                        </span>
+                    </div>
+                </div>
+                <p style="color: #707070; margin-bottom: 0; font-family: 'Roboto Slab'; font-size: 12px;">PayPal Email Address</p>
+                <input id="tutor-payPal" class="mb-3 form-control rounded-0" style="width: 100%;" onkeyup="tutorProfileInfoUpdateNext();" data-toggle="popover" data-placement="top" data-content="Please enter a valid email address" />
+                <br />
+                <br />
+
+                <button id="tutorProfileInfo-next" class="streamWork-disabled" type="button" style="width: 100%;" onclick="tutorProfileInfoNext();">Create Profile</button>
+
+                <br />
+                <br />
+                <br />
+
+                <div class="mt-6 pt-6 pr-3" style="color: #004643; position: absolute; bottom: 12px; left: 0;">
+                    <button class="streamWork-primary ml-3 mb-2" style="width: 60px; height: 20px; padding: 0px 0px;" onclick="goToTab('tutorTopics');">Go Back</button>
+                </div>
+                <div class="mt-6 pt-6 pr-3" style="color: #004643; position: absolute; bottom: 0; right: 0;">
+                    <p style="color: #b1b1b1; display: inline-block;">&#x25CB;&#x25CB;</p><p style="color: #004643; display: inline-block;">&#x25CF;</p><p style="color: #b1b1b1; display: inline-block;">&#x25CB;</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

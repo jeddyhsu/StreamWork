@@ -1,0 +1,14 @@
+﻿@model StreamWork.DataModels.Video
+
+<div class="card mt-3 border h-100 stream-video-radius">
+    <div class="card-title">
+        <a href="/Stream/Archive/@Model.StreamID/32169"><img class="stream-video-image" src="@Model.StreamThumbnail"></a>
+    </div>
+    <div class="card-body pt-0 pb-1">
+        <h5 class="form-header multiline-truncate mb-0">@Model.StreamTitle</h5>
+        <p class="form-header mb-1 mt-1" style="font-size:10px"><a class="streamWork-green" href="/Profiles/Tutor/@Model.Username">@Model.Name.Replace('|', ' ')</a></p>
+    </div>
+    <div class="card-footer pt-1 pb-1 stream-video-footer-radius" style="background-color:@Model.StreamColor;">
+        <p class="form-header streamWork-white p-0 m-0 roboto float-right" style="font-size:12px;"><b>@Model.StreamSubject</b></p>
+    </div>
+</div>

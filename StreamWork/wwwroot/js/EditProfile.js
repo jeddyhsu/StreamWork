@@ -1,110 +1,82 @@
-﻿
-    //Sends profile caption and paragraph to backend for saving
-    function RegisterProfilePhotoAndCaption() {
-        var formData = new FormData();
-        var profileCaption = $("#ProfileCaption").val()
-        var profileParagraph = $("#ProfileParagraph").val()
-        var totalFiles = document.getElementById("uploadProfilePic");
+﻿const acceptedImageTypes = ['image/jpeg', 'image/png'];
 
-        formData.append("ProfileCaption", profileCaption);
-        formData.append("ProfileParagraph", profileParagraph);
-        if (totalFiles.files.length > 0)
-            formData.append("ProfilePicture", totalFiles.files[0]);
+
+function ReadImageUrl(image, type) {
+    if (image != null && image.files.length > 0) {
+        if (!acceptedImageTypes.includes(image.files[0].type)) {
+            OpenNotificationModal('File must be either PNG or JPG.', 'notification-image-invalid-modal');
+            return;
+        }
+
+        if ((image.files[0].size / 1024) > 2048) {
+            ShowBannerNotification('image-too-large-notification');
+            return;
+        }
+
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            if (type == "Banner") {
+                $('#image-container').html(`<img id="imagecropper-image" src="${reader.result}">`)
+                OpenModal('imagecropper-modal')
+                OpenCropper(1120, 300, 3)
+            }
+            else if (type == "Profile Picture") {
+                $('#image-container').html(`<img id="imagecropper-image" src="${reader.result}">`)
+                OpenModal('imagecropper-modal')
+                OpenCropper(240, 320, 1)
+            }
+            else if (type == "Thumbnail Edit" || type == "Thumbnail") {
+                $('#image-container').html(`<img id="imagecropper-image" src="${reader.result}">`)
+                OpenModal('imagecropper-modal')
+                OpenCropper(960, 540, 3)
+            }
+
+            ResetButtons();
+            $('#cropper-buttons').html(` <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#6B6B6B; color:white" onclick="UploadImage()">Change Image</button>
+                                         <button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="SendCroppedImage()">Save Image</button>`)
+
+            image.value = ""
+        }
+
+        reader.readAsDataURL(image.files[0]);
+    }
+}
+
+function ReadImageSrcUrl(type, dImage) {
+    cropperType = type;
+    if (type == "Banner") {
+        $('#image-container').html(`<img id="imagecropper-image" src="${document.getElementById('preview-profile-banner').src}" width="100%"/>`);
+        CheckIfImageIsDefaultImage(dImage)
+        OpenModal('imagecropper-modal')
+        
+    }
+    else if (type == "Profile Picture") {
+        $('#image-container').html(`<img id="imagecropper-image" src="${document.getElementById('preview-profile-picture').src}" class="d-block mr-auto ml-auto" style="width:320px;"/>`);
+        CheckIfImageIsDefaultImage(dImage)
+        OpenModal('imagecropper-modal')
+    }
+    else if (type == "Thumbnail Edit" || type == "Thumbnail") {
+        if (type == "Thumbnail Edit") {
+            $('#image-container').html(`<img id="imagecropper-image" src="${document.getElementById('preview-video-thumbnail-edit').src}" class="d-block mr-auto ml-auto" style="height:450px;"/>`);
+        }
+        else {
+            $('#image-container').html(`<img id="imagecropper-image" src="${document.getElementById('preview-stream-thumbnail').src}" class="d-block mr-auto ml-auto" style="height:450px;"/>`);
+        }
        
-        $.ajax({
-            type: "POST",
-            url: '/Home/EditProfileInformation',
-            data: formData,
-            dataType: 'json',
-            contentType: false,
-            processData: false,
-            success: function (data) {
-                if (data.message === "Success") {
-                    document.getElementById('ProfileCaption').value = data.caption;
-                    document.getElementById('ProfileCaptionOnPage').innerHTML = data.caption;
-                    document.getElementById('ProfileParagraph').value = data.paragraph;
-                    document.getElementById('ProfileParagraphOnPage').innerHTML = data.paragraph;
-                    if (data.picture != null) {
-                        document.getElementById('previewProfilePic').src = data.picture;
-                        document.getElementById('ProfilePictureOnPage').src = data.picture; 
-                    }
-                    $('#editModal').modal('hide');
-                    OpenNotificationModalSuccess("Changes have been saved")
-                }
-            }
-        });
+        OpenModal('imagecropper-modal')
+        $('#cropper-buttons').html(`<button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="UploadImage()">Change Image</button>`)
     }
+}
 
- //Opens editing MODAL
- function EditProfile() {
-     $('#editModal').modal('show')
- }
-    
-//Reads picture url and sends to backend for saving
- function readURL(input,pictureType) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            if (pictureType == 'Thumbnail') {
-                reader.onload = function (e) {
-                    $('#previewStreamThumbnail')
-                        .attr('src', e.target.result);
-                }
-            }
-            else if (pictureType == 'ThumbnailEdit') {
-                reader.onload = function (e) {
-                    $('#previewStreamThumbnailEdit')
-                        .attr('src', e.target.result);
-                }
-            }
-            else {
-            reader.onload = function (e) {
-                    $('#previewProfilePic')
-                        .attr('src', e.target.result);
-                }
-            }
-            reader.readAsDataURL(input.files[0]);
+function CheckIfImageIsDefaultImage(dImage) {
+    if (cropperType == "Banner") {
+        if (dImage == $('#preview-profile-banner').attr('src')) {
+            $('#cropper-buttons').html(`<button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="UploadImage()">Change Image</button>`)
         }
     }
-
-function Dashboard(profileType) {
-    if (profileType == "tutor") {
-        window.location.href = "/Tutor/ProfileTutor"
-    }
-    else {
-         window.location.href = "/Student/ProfileStudent"
-    }
-}
-
-function Logout() {
-    $.ajax({
-        url: '/Home/Logout',
-        type: 'post',
-        dataType: 'json',
-        data: {
-            'Logout': 'logout'
-        },
-        success: function (data) {
-            if (data.message === "Success") {
-                window.location.href = "/"
-            }
+    else if (cropperType == "Profile Picture") {
+        if (dImage == $('#preview-profile-picture').attr('src')) {
+            $('#cropper-buttons').html(`<button class="btn border-0 rounded-0 p-3 w-100" style="background-color:#004643; color:white" onclick="UploadImage()">Change Image</button>`)
         }
-    })
-}
-
-function encodeURL(url) {
-    var encodedURI = encodeURIComponent(url);
-    window.location.href = encodedURI;
-}
-
-//Notifications
-function OpenNotificationModal(body) {
-    var notification = document.getElementById('notifyBody');
-    notification.textContent = body;
-    $('#notifyModal').modal('show')
-}
-
-function OpenNotificationModalSuccess(body) {
-    var notification = document.getElementById('notifyBodySuccess');
-    notification.textContent = body;
-    $('#notifyModalSuccess').modal('show')
+    }
 }

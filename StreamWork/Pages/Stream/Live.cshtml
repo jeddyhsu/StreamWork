@@ -1,0 +1,160 @@
+﻿@page "{tutor}"
+@model StreamWork.Pages.Stream.Live
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@if (Model.CurrentUserProfile.ProfileType == "tutor")
+{
+    { Layout = "Tutor/_LayoutTutor"; }
+}
+else
+{
+    { Layout = "Student/_LayoutStudent"; }
+}
+@Html.AntiForgeryToken()
+
+<link rel="stylesheet" href="~/css/Streams.css" />
+
+<div class="container-fluid">
+    <div class="row" style="padding-top:71px">
+        <div class="d-flex flex-column col-lg-9 col-md-12 col-sm-12 col-12 p-0 border-right ">
+            <div id="player-card" class="card border-0">
+
+                <div id="player-div">
+                    <iframe id="player" src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.UserChannel.ChannelKey.Split('|')[0]" style="width: 100%; height: 100%;" frameborder="0" scrolling="no" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="autoplay; fullscreen;"></iframe>
+                </div>
+
+                <div id="player-row" class="card-body p-0">
+                    <img class="p-3" align="left" src="@Model.UserChannel.StreamSubjectIcon" style="width:100%; height:100%; max-width:120px; max-height:120px;" />
+                    <div class="m-3" id="StreamInfo">
+                        <h3 class="roboto-slab">@Model.UserChannel.StreamTitle</h3>
+                        <p class="mb-1" style="padding-left:105px">@Model.UserChannel.StreamDescription</p>
+                        <p style="font-size:12px; padding-left:105px">Tutoring @Model.UserChannel.StreamSubject</p>
+                    </div>
+                    <div class="border-top pt-3 pl-3 pr-3 pb-1" style="background-color:#FBFBFB">
+                        <div class="d-lg-inline-block d-md-inline-block d-sm-none d-none float-right">
+                            @if (Model.FollowValue.Equals("Following"))
+                            {<button id="following-live" class="streamWork-primary stream-buttons m-1" onclick="Unfollow('@Model.CurrentUserProfile.Id', '@Model.UserProfile.Id', 'following-live')">Following</button>}
+                            else if (Model.FollowValue.Equals("Follow"))
+                            {<button id="follow-live" class="streamWork-primary stream-buttons m-1" onclick="Follow('@Model.CurrentUserProfile.Id', '@Model.UserProfile.Id', 'follow-live')">Follow</button>}
+                            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" style="display: inline-block;">
+                                <input type="hidden" name="cmd" value="_s-xclick" />
+                                <input type="hidden" name="hosted_button_id" value="QQPAME3R7N5ZA" />
+                                <input type="hidden" name="custom" value="@Model.CurrentUserProfile.Username+@Model.UserProfile.Username" />
+                                <button class="streamWork-orange stream-buttons m-1">Donate</button>
+                                <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+                            </form>
+                            <button class="streamWork-secondary m-1 stream-buttons" onclick="window.location.href='/Profiles/Tutor/@Model.UserProfile.Username'">Profile</button>
+                        </div>
+                        <input align="left" type="image" class="rounded" style="width:40px" src=@Model.UserProfile.ProfilePicture />
+                        <h3 class="mb-0 form-header" style="font-size:20px; margin-left:50px; color:@Model.UserProfile.ProfileColor">@Model.UserProfile.Name.Replace('|', ' ')</h3>
+                        @if (Model.UserProfile.ProfileCaption == null || @Model.UserProfile.ProfileCaption == "")
+                        {
+                            <p class="form-sub-header" style="margin-left:50px; font-size:14px">Occupation / Major</p>
+                        }
+                        else
+                        {
+                            <p class="form-sub-header" style="margin-left:50px; font-size:14px">@Model.UserProfile.ProfileCaption</p>
+                        }
+                        <div class="d-lg-none d-md-none d-sm-inline-block d-inline-block">
+                            @if (Model.FollowValue.Equals("Following"))
+                            {<button id="following-live" onclick="Unfollow('@Model.CurrentUserProfile.Id', '@Model.UserProfile.Id', 'following-archive')" class="streamWork-primary stream-buttons">Following</button>}
+                            else if (Model.FollowValue.Equals("Follow"))
+                            {<button id="follow-live" onclick="Follow('@Model.CurrentUserProfile.Id', '@Model.UserProfile.Id', 'follow-archive')" class="streamWork-primary stream-buttons">Follow</button>}
+                            <button class="streamWork-orange stream-buttons m-1">Donate</button>
+                            <button class="streamWork-secondary stream-buttons m-1" onclick="window.location.href='/Profiles/Tutor/@Model.UserProfile.Username'">Profile</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body" style="background-color:#FBFBFB">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-12 custom-column-4 order-lg-1 order-md-2 custom-order-2">
+                            <div class="row">
+                                <div class="col-sm-5 col-lg-12 col-md-12 custom-column-5">
+                                    <div class="card mt-3">
+                                        <div class="card-body p-1 mb-2">
+                                            <p class="form-header pl-3 pt-3 m-0" style="font-size:14px"><span><img style="width:24px" class="m-1" src="/images/StreamAssets/Followers.svg" /></span>Followers: @Model.NumberOfFollowers</p>
+                                            <p class="form-header pl-3 m-0" style="font-size:14px"><span><img style="width:24px" class="m-1" src="/images/StreamAssets/Views.svg" /></span>Views: @Model.NumberOfViews</p>
+                                            <p class="form-header pl-3 m-0" style="font-size:14px"><span><img style="width:24px" class="m-1" src="/images/StreamAssets/Calendar.svg" /></span>Tutor Since @Model.CurrentUserProfile.ProfileSince.ToString("MMM, yyyy")</p>
+                                        </div>
+                                    </div>
+                                    <div class="card mt-3">
+                                        <div class="card-title">
+                                            <p class="form-header p-3" style="font-size:18px">Social Media</p>
+                                            @await Html.PartialAsync("Partials/Profile/SocialMedia_View", Model)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-7 col-lg-12 col-md-12 custom-column-7">
+                                    <div class="card mt-3">
+                                        <div class="card-title">
+                                            <p class="form-header p-3" style="font-size:18px">Related Tutors</p>
+                                            @await Html.PartialAsync("Partials/Profile/RelatedTutorsColored_View", Model)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-sm-12 col-12 custom-column-8 order-lg-2 order-md-1 custom-order-1 custom-column-8-padding">
+                            <div class="card mt-3">
+                                <div class="card-title p-3 mb-0">
+                                    <p class="form-header d-inline-block mb-0" style="font-size:18px">About @Model.UserProfile.Name.Replace('|', ' ')</p>
+                                </div>
+                                @await Html.PartialAsync("Partials/Profile/Sections_View", Model)
+                            </div>
+                            <div class="card mt-3">
+                                <div class="card-title p-3 mb-0">
+                                    <p class="form-header d-inline-block mb-0" style="font-size:18px">Stream Schedule</p>
+                                </div>
+                                @await Html.PartialAsync("Partials/Profile/Schedule_View", Model)
+                            </div>
+                            <div class="card mt-3 border-0" style="background-color:transparent">
+                                <div class="card-title p-3 mb-0">
+                                    <p class="form-header d-inline-block mb-0" style="font-size:18px">Previous Streams</p>
+                                </div>
+                                <div class="row">
+                                    @if (Model.UserArchivedStreams.Count != 0)
+                                    {
+                                        @foreach (var video in Model.UserArchivedStreams)
+                                        {
+                                            <div id="videoInfo-@video.Id" class="col-lg-4 col-md-6 col-sm-6 col-6 mb-3 video">
+                                                @await Html.PartialAsync("Partials/Stream/VideoAppearance", video)
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (Model.CurrentUserProfile != null && Model.CurrentUserProfile.Id == Model.UserProfile.Id)
+                                        {
+                                            <div class="col-12 text-center">
+                                                <p class="form-sub-header p-0" style="font-size:22px">Looks like you don't have any videos yet...</p>
+                                                <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">Help other students find the help they need by putting up content!</p>
+                                                <button class="streamWork-primary mt-3" onclick="window.location.href ='/Tutor/TutorStream'" style="font-size:14px; font-family:'Roboto', serif">Start your first stream</button>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="col-12 text-center">
+                                                <p class="form-sub-header p-0" style="font-size:22px">No Streams</p>
+                                                <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">This tutor hasn't streamed yet!</p>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="chat-card" class="d-flex flex-column fixed col-lg-3 col-md-12 col-sm-12 col-12 p-0 border-top-0">
+            <iframe class="border-0" style="width:100%; height:100%" src="/Chat/Live/@Model.UserChannel.Username"></iframe>
+        </div>
+    </div>
+</div>
+
+<script>
+    ResizeStreamInfoSection();
+    ResizeStreamSection();
+</script>
+
+@await Html.PartialAsync("Partials/Notification/PushNotifications")

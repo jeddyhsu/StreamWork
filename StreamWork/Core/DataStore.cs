@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Cache;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -98,7 +98,7 @@ namespace StreamWork.Core
         }
 
 
-        public async static Task<bool> DeleteDataAsync<T>(string _connectionString,
+        public async static Task<bool> RunQueryAsync<T>(string _connectionString,
                                                           StorageConfig storageConfig,
                                                           string queryId,
                                                           List<string> parameters = null,
@@ -111,7 +111,7 @@ namespace StreamWork.Core
 
             using (var sqlServerClient = new SQLServerClient(_connectionString, storageConfig))
             {
-                 if(await sqlServerClient.DeleteDataAsync(query)) return true;
+                 if(await sqlServerClient.RunQueryAsync(query)) return true;
                  return false;
             }
         }
@@ -212,29 +212,20 @@ namespace StreamWork.Core
         }
 
         //Takes Generic Type - use for any api that has json format
-        public static object CallAPI<T>(string URL)
+        public static async Task<object> CallAPIXML<T>(string URL)
         {
             try
             {
-                HttpRequestCachePolicy policy = new HttpRequestCachePolicy(HttpRequestCacheLevel.Default);
-                HttpWebRequest.DefaultCachePolicy = policy;
+                Stream res;
 
-                WebRequest webRequest = WebRequest.Create(URL);
-                webRequest.Credentials = CredentialCache.DefaultCredentials;
-                HttpRequestCachePolicy noCachePolicy = new HttpRequestCachePolicy(HttpRequestCacheLevel.NoCacheNoStore);
-                webRequest.CachePolicy = noCachePolicy;
-
-                WebResponse response = webRequest.GetResponse();
-                Console.WriteLine(((HttpWebResponse)response).StatusDescription);
-
-                Stream dataStream = response.GetResponseStream();
-                StreamReader reader = new StreamReader(dataStream);
+                using(HttpClient client = new HttpClient())
+                {
+                    res = await client.GetStreamAsync(URL);
+                }
 
                 XmlSerializer serializer = new XmlSerializer(typeof(T));
-                //string serialized1 = reader.ReadToEnd();
-                var serialized = serializer.Deserialize(reader);
-                reader.Close();
-                response.Close();
+                var serialized = serializer.Deserialize(res);
+
                 return serialized;
             }
             catch(Exception e)
@@ -246,35 +237,52 @@ namespace StreamWork.Core
         }
 
         //Takes Generic Type - use for any api that has json format with authentication
-        public static T CallAPI<T>(string URL, string authenticationToken)
+        public static async Task<object> CallAPIJSON<T>(string URL, string authenticationToken)
         {
-            WebRequest webRequest = WebRequest.Create(URL);
-            webRequest.Headers.Add("Authorization", "Basic" + authenticationToken);
-            webRequest.Credentials = CredentialCache.DefaultCredentials;
-            WebResponse response = webRequest.GetResponse();
-            Console.WriteLine(((HttpWebResponse)response).StatusDescription);
-            Stream dataStream = response.GetResponseStream();
-            StreamReader reader = new StreamReader(dataStream);
-            string responseFromServer = reader.ReadToEnd();
-            reader.Close();
-            response.Close();
-            var API = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responseFromServer);
-            return API;
+            try
+            {
+                string res;
+
+                using (HttpClient client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authenticationToken);
+                    res = await client.GetStringAsync(URL);
+                }
+
+                var obj = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(res);
+
+                return obj;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.InnerException);
+            }
+
+            return null;
         }
 
-
-        //Use for just URL calls
-        public static string GetChatID(string url)
+        //Takes Generic Type - use for any api that has json format with authentication
+        public static async Task<object> CallAPIJSON<T>(string URL)
         {
-            WebRequest request = WebRequest.Create(url);
-            request.Credentials = CredentialCache.DefaultCredentials;
-            WebResponse response = request.GetResponse();
-            Stream dataStream = response.GetResponseStream();
-            StreamReader reader = new StreamReader(dataStream);
-            string responseFromServer = reader.ReadToEnd();
-            reader.Close();
-            response.Close();
-            return responseFromServer;
+            try
+            {
+                string res;
+
+                using (HttpClient client = new HttpClient())
+                {
+                    res = await client.GetStringAsync(URL);
+                }
+
+                var obj = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(res);
+
+                return obj;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.InnerException);
+            }
+
+            return null;
         }
     }
 }

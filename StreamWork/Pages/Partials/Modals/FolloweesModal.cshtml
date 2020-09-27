@@ -1,0 +1,41 @@
+﻿<div id="followees-modal" class="custom-modal">
+    <div class="custom-modal-content" style="width:500px">
+        <div class="close ml-auto" onclick="DiscardChangesAndCloseModal('followees-modal-form', 'followees-modal')">&times;</div>
+        <h5 class="form-header" style="padding-left:20px; padding-top:10px; font-size:16px;">Following (@Model.NumberOfFollowees)</h5>
+        <div class="slider">
+            <div class="slider-object" style="width:110px"></div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                @if (Model.Followees != null && Model.Followees.Count > 0)
+                {
+                    <ul id="followers-list" class="pl-3 m-0 custom-list">
+                        @foreach (var followee in Model.Followees)
+                        {
+                            <li id="followees-@followee.Id" class="border-bottom" onclick="window.location.href = '/Profiles/@followee.ProfileType/@followee.Username'" style="cursor:pointer">
+                                <div class="row pt-3 pb-3">
+                                    <div class="col-12">
+                                        <img id="notification-delete-@followee.Id" src="~/images/GenericAssets/Trash.png" class="comment-remove mr-3 float-right" onclick="DeleteNotification('@followee.Id')" />
+                                        <input align="left" type="image" class="rounded" src="@followee.ProfilePicture" style="width:30px" onclick="window.location.href = '/Profiles/@followee.ProfileType/@followee.Username'" />
+                                        <p class="form-header mb-0" style="padding-left:40px;">
+                                            <span style="color:@followee.ProfileColor">@followee.Name.Replace('|', ' ')</span> <span class="form-subheader roboto" style="font-size:10px">(@followee.ProfileType)</span>
+                                        </p>
+                                        <p class="form-header mb-0 roboto" style="padding-left:40px; font-size:12px">
+                                            @followee.ProfileCaption
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p class="form-header text-center p-3 mb-0" style="font-size:18px;">You're not following anyone!</p>
+                }
+
+            </div>
+        </div>
+        <div id="stream-edit-buttons"></div>
+    </div>
+</div>

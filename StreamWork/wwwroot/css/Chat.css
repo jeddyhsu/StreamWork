@@ -1,48 +1,82 @@
-﻿.profilePictureSetting{
-    width:30px;
-    border-radius:5px;
-}
-
-.chatList {
+﻿.chat-list-primary-color-way {
     background: none;
-    background-color: white;
+    background-color: white !important;
     border-radius:0px;
 }
 
-.chatListAlternate {
+.chat-list-secondary-color-way {
     background: none;
-    background-color: #FBFBFB;
+    background-color: #FBFBFB !important;
     border-radius: 0px;
 }
 
-.chatProfilePicture {
+.chat-profile-picture {
     border-radius: 5%;
     width: 30px;
     margin-top: 10px;
     height: 40px;
-    cursor:none;
 }
 
-.chatName {
+.chat-name {
     font-family: 'Roboto Slab', serif;
     font-size: 16px;
     padding-left: 40px;
     margin-top: 10px;
+    margin-bottom:0px
 }
 
-.chatDate {
+.chat-date {
     font-family: 'Roboto', serif;
     font-size: 10px;
     color: #818A96;
 }
 
-.chatMessage {
+.chat-message {
     font-family: 'Roboto';
     font-size: 14px;
     border: thick;
     color: black;
     padding-left: 40px;
 }
+
+.chat-list-view-archive {
+    padding-top: 72px !important;
+}
+
+.chat-list-view-live {
+    padding-top: 72px !important;
+    padding-bottom: 64px !important;
+}
+
+::-webkit-input-placeholder {
+    padding-top: 20px;
+    font-size: 14px;
+    font-family: 'Roboto', serif
+}
+
+.no-scroll-bar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scroll-bar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.chat-text {
+    font-family: 'Roboto', serif;
+    font-size: 14px !important;
+    margin-top: 20px !important;
+    margin-bottom: 15px !important;
+    min-height: 40px !important;
+}
+
+.send-button{
+    margin-top:4px;
+    height:40px !important
+}
+
 
 
 

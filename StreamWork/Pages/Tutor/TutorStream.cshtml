@@ -1,0 +1,198 @@
+﻿@page "{scheduleId}"
+@model StreamWork.Pages.Tutor.TutorStream
+@{Layout = "Tutor/_LayoutTutor";}
+@{ViewData["Title"] = "TutorStream";}
+@Html.AntiForgeryToken()
+
+@if (!Model.CurrentUserProfile.ProfileType.Equals("tutor") || !Model.CurrentUserProfile.AcceptedTutor)
+{
+    <script>
+        $(document).ready(function () {
+            OpenModal('tutor-not-approved-modal');
+        })
+    </script>
+
+}
+
+<div class="container custom-stream-container-padding custom-stream-container" style="">
+    <p class="text-center form-header" style="font-size:22px">Stream Information</p>
+    <div class="row border p-4" style="background-color:white">
+        <div class="d-flex flex-column col-lg-4 col-md-12 col-sm-12 col-12 p-0 border-0">
+            <div class="pl-3 pr-3">
+                @if (Model.UserChannel.StreamTitle == null)
+                {
+                    <p class="form-header">Stream Status: <span id="stream-status" class="form-header streamWork-green">Not Live To Viewers</span></p>
+                }
+                else
+                {
+                    <p class="form-header">Stream Status: <span id="stream-status" class="form-header streamWork-green">Live To Viewers</span></p>
+                }
+                <div style="position: relative; padding-bottom: 56.25%; height: 0;"><iframe id="frame" src="https://c.streamhoster.com/embed/media/WxsdDM/mAe0epZsixC/@Model.UserChannel.ChannelKey.Split('|')[0]" style=" position:absolute; width:100%; max-width: 521px; max-height: 283px; height: 100%;" frameborder="0" scrolling="no" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="autoplay; fullscreen;"></iframe></div>
+                <p class="form-header mt-3 mb-0">Chatbox URL: <span><a class="streamWork-green" target="_blank" href="/Chat/Live/@Model.CurrentUserProfile.Username">Chat/Live/@Model.CurrentUserProfile.Username</a></span></p>
+                <p class="mb-0" style="font-size:10px;">Click this link to open your chatbox in another tab to view comments from your viewers</p>
+                <p class="divider-text mt-2 mb-2">or</p>
+                <p class="form-header mb-0">Chatbox via Smartphone: <span><a class="streamWork-green" onclick="ShowQRCode(event)" href="">QR Code</a></span></p>
+                <p class="mb-3" style="font-size:10px;">Click above to scan a QR code using your device’s camera app, allowing you to view StreamWork’s chatbox from your phone or tablet</p>
+                <img id="qr-code" width="200" class="mb-3" src="@Model.ChatQrCode" />
+                <p id="hide-qr-code" class="streamWork-green pointer" style="font-size:12px;" onclick="HideQRCode()">Hide QR Code</p>
+                <script>$('#qr-code').hide(); $('#hide-qr-code').hide();</script>
+            </div>
+        </div>
+        <div class="d-flex flex-column col-lg-8 col-md-12 col-sm-12 col-12 p-0">
+            <form id="register-stream-form" class="pl-3 pr-3">
+                <div id="tutor-stream-error-notification" class="alert notification-warning" style="padding-left:25px" role="alert">
+
+                </div>
+                <script>$('#tutor-stream-error-notification').hide()</script>
+                <div id="tutor-live-success-notification" class="alert notification-success" style="padding-left:25px" role="alert">
+
+                </div>
+                <script>$('#tutor-live-success-notification').hide()</script>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-lg-7 col-md-6 col-sm-12 col-12">
+                            <label class="form-header">Stream Title</label>
+                            @if (Model.UserChannel.StreamTitle == null)
+                            {
+                                var streamTitle = Model.ScheduledStream != null ? Model.ScheduledStream.StreamTitle : "";
+                                <input id="stream-title" class="form-control form-input mb-2 border rounded-0" type="text" placeholder="ex: Calculus 2: Integrals" value="@streamTitle" data-container="body" data-toggle="popover" data-placement="top" data-content="This field is required" onclick="DisableHidePopover('stream-title')" required>
+                            }
+                            else
+                            {
+                                <input id="stream-title" class="form-control form-input mb-2 border rounded-0" type="text" placeholder="ex: Calculus 2: Integrals" value="@Model.UserChannel.StreamTitle" readonly>
+                            }
+                            <label class="form-header mt-2">Stream Subject</label>
+                            @if (Model.UserChannel.StreamSubject == null)
+                            {
+                                var streamSubject = Model.ScheduledStream != null ? Model.ScheduledStream.StreamSubject : "";
+                                <select id="stream-subject" class="form-control form-input border rounded-0" asp-for="@streamSubject" data-container="body" data-toggle="popover" data-placement="top" data-content="This field is required" onchange="DisableHidePopover('stream-subject')" required>
+                                    <option value="">-Select-Subject-</option>
+                                    <option value="Mathematics">Mathematics</option>
+                                    <option value="Science">Science</option>
+                                    <option value="Engineering">Engineering</option>
+                                    <option value="Business">Business</option>
+                                    <option value="Law">Law</option>
+                                    <option value="Art">Art</option>
+                                    <option value="Humanities">Humanities</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            }
+                            else
+                            {
+                                <select id="stream-subject" class="form-control form-input border rounded-0" asp-for="@Model.UserChannel.StreamSubject" disabled>
+                                    <option value="">-Select-Subject-</option>
+                                    <option value="Mathematics">Mathematics</option>
+                                    <option value="Science">Science</option>
+                                    <option value="Engineering">Engineering</option>
+                                    <option value="Business">Business</option>
+                                    <option value="Law">Law</option>
+                                    <option value="Art">Art</option>
+                                    <option value="Humanities">Humanities</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            }
+                            <label class="form-header mt-3">Stream Description</label>
+                            @if (Model.UserChannel.StreamDescription == null)
+                            {
+                                var streamDescription = Model.ScheduledStream != null ? Model.ScheduledStream.StreamDescription : "";
+                                <textarea id="stream-description" class="form-control form-textarea border rounded-0" type="text" placeholder="ex: Today we are going to be learning about how to do integrals using U-Substitution" data-container="body" data-toggle="popover" data-placement="top" data-content="This field is required" onclick="DisableHidePopover('stream-description')" required>@streamDescription</textarea>
+                            }
+                            else
+                            {
+                                <textarea id="stream-description" class="form-control form-textarea border rounded-0" placeholder="ex: Today we are going to be learning about how to do integrals using U-Substitution" readonly>@Model.UserChannel.StreamDescription</textarea>
+                            }
+                        </div>
+                        <div class="col-lg-5 col-md-6 col-sm-12 col-12">
+                            <label class="form-header">Stream Thumbnail</label>
+                            @if (Model.UserChannel.StreamThumbnail == null)
+                            {
+                                <img id="preview-stream-thumbnail" src="~/images/TutorAssets/DefaultStream.svg" class="rounded" style="width:100%; border-radius:10px">
+                                <input id="upload-stream-thumbnail" type="file" class="d-none" onchange="ReadImageUrl(this,'Thumbnail');" accept="image/png,image/jpeg">
+                                <p id="upload-stream-thumbnail-button" class="pt-2 mb-0" style="cursor:pointer; font-size:12px; color:#004643">Upload an Image</p>
+                                <p id="upload-stream-thumbnail-button-info" class="mb-0" style="font-size:10px;">Upload must be either in jpg or png formats and less than 2 MB</p>
+                                <script>$("#upload-stream-thumbnail-button").click(function (e) {
+                                        e.preventDefault()
+                                        ReadImageSrcUrl("Thumbnail");
+                                        OpenModal("imagecropper-modal")
+                                    })</script>
+                            }
+                            else
+                            {
+                                <img id="preview-stream-thumbnail" src="@Model.UserChannel.StreamThumbnail" style="width:100%; border-radius:10px">
+                            }
+                            <div class="form-check mt-4">
+                                <input class="form-check-input rounded-0" type="checkbox" value="" id="defaultCheck1">
+                                <label class="form-check-label form-header" for="defaultCheck1">
+                                    Notify Followers
+                                </label>
+                            </div>
+                        </div>
+                        @if (Model.UserChannel.StreamTitle == null)
+                        {
+                            <div id="stream-schedule-row" class="col-lg-12 col-md-12 col-sm-12 col-12 pt-3">
+                                <p class="form-header d-inline-block mb-2">Fill From Calendar <span></span></p>
+                                @if (Model.ScheduledStream != null)
+                                {
+                                    <p id="schedule-fill-clear" class="float-right mt-2 mb-0 roboto pointer streamWork-green d-inline-block" style="font-size:12px" onclick="ClearFill()">Clear</p>
+                                }
+                                else
+                                {
+                                    <p id="schedule-fill-clear" class="float-right mt-2 mb-0 roboto pointer streamWork-green d-none" style="font-size:12px" onclick="ClearFill()">Clear</p>
+                                }
+
+                                <script>$('#schedule-fill-clear').hide()</script>
+                                @if (Model.Schedule.Count > 0)
+                                {
+                                    <div class="card rounded-0 pointer" onclick="OpenModal('tutor-stream-schedule-modal')">
+                                        <div id="schedule-mask" class="m-1 d-block">
+                                            <div class="card-body">
+                                                <div>
+                                                    <p id="schedule-stream-title" class="form-header m-0">Select a stream from your calendar.</p>
+                                                    <p id="schedule-stream-subject" class="form-sub-header p-0 mt-1 mb-0" style="font-size:10px; font-family:'Roboto', serif">This will automatically fill in the information with the information that you used when scheduling the stream.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="card rounded-0">
+                                        <div class="card-body">
+                                            <div class="d-inline-flex">
+                                                <div class="m-1">
+                                                    <p id="schedule-stream-title" class="form-header m-0">No streams scheduled at the moment.</p>
+                                                    <p id="schedule-stream-subject" class="form-sub-header p-0 mt-1 mb-0" style="font-size:10px; font-family:'Roboto', serif">Scheduling streams before hand allows you to select them and automatically populate the information for your stream.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+                @if (Model.UserChannel.StreamTitle == null)
+                {
+                    <button id="GoLive" class="btn border-0 rounded-0 p-3 mt-4 w-100 d-flex justify-content-center align-items-middle" style="background-color:#004643; color:white" onclick="IsLive('@Model.UserChannel.ChannelKey', event)">Go Live!</button>
+                }
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>ResizeStreamSection()</script>
+
+@await Html.PartialAsync("Partials/Modals/LoaderModal")
+@await Html.PartialAsync("Partials/Modals/ImageTooBigModal")
+@await Html.PartialAsync("Partials/Modals/ImageCropperModal")
+@await Html.PartialAsync("Partials/Modals/TutorStreamScheduleModal")
+@await Html.PartialAsync("Partials/Modals/TutorStreamModal")
+@await Html.PartialAsync("Partials/Notification/PushNotifications")
+@await Html.PartialAsync("Partials/Modals/TutorNotApprovedModal")
+@await Html.PartialAsync("Partials/Modals/StreamConnectionEstablishedModal")
+
+
+@if (Model.ScheduledStream != null)
+{
+    <script>FillMask('@Model.ScheduledStream.Id')</script>
+}

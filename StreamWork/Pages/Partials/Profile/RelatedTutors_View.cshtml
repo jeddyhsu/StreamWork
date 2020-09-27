@@ -1,0 +1,10 @@
+﻿@foreach (var tutor in Model.RelatedTutors)
+{
+    <div class="card border-0" style="cursor:pointer; background-color:transparent" onclick="window.location.href ='/Profiles/Tutor/@tutor.Username'">
+        <div class="card-body">
+            <img align="left" class="rounded" src="@tutor.ProfilePicture" style="width:30px;"/>
+            <p class="form-header m-0" style="font-size:16px; padding-left:50px; color:white">@tutor.Name.Replace('|', ' ')</p>
+            <p class="form-sub-header m-0" style="font-size:10px; padding-left:50px; ">@tutor.ProfileCaption</p>
+        </div>
+    </div>
+}

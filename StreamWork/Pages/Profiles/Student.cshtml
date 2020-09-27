@@ -1,0 +1,72 @@
+﻿@page "{student}"
+@model StreamWork.Pages.Profiles.Student
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@if (Model.CurrentUserProfile == null)
+{
+    { Layout = "Home/_LayoutHome"; }
+}
+else if (Model.CurrentUserProfile.ProfileType == "tutor")
+{
+    { Layout = "Tutor/_LayoutTutor"; }
+}
+else
+{
+    { Layout = "Student/_LayoutStudent"; }
+}
+@Html.AntiForgeryToken()
+
+<div class="container custom-profile-container">
+    <img class="banner banner-shift" id="preview-profile-banner" src="@Model.UserProfile.ProfileBanner" />
+    <div class="card">
+        <div class="card-body p-0 mb-4">
+            @await Html.PartialAsync("Partials/Profile/Header_View", Model)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-md-4 order-lg-1 order-md-1 order-sm-2 order-2">
+            <div class="card mt-4 ml-lg-0 mr-lg-0 ml-md-0 mr-md-0 ml-sm-3 mr-sm-3 ml-3 mr-3">
+                <div class="card-title">
+                    <p class="form-header pl-3 pr-3 pt-3 pb-1 mb-0" style="font-size:18px">Favorite Subjects</p>
+                </div>
+                @await Html.PartialAsync("Partials/Profile/Topics_View", Model)
+            </div>
+            <div class="card mt-4 ml-lg-0 mr-lg-0 ml-md-0 mr-md-0 ml-sm-3 mr-sm-3 ml-3 mr-3">
+                <div class="card-title">
+                    <p class="form-header pl-3 pr-3 pt-3 pb-1 mb-0" style="font-size:18px">Social Media Links</p>
+                </div>
+                @await Html.PartialAsync("Partials/Profile/SocialMedia_View", Model)
+            </div>
+        </div>
+        <div class="col-lg-9 col-md-8 order-lg-2 order-md-2 order-sm-1 order-1">
+            <ul class="nav nav-tabs pt-3" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active form-header" id="profile-tab" data-toggle="tab" href="#profile" onclick="SliderProfile()">Profile</a>
+                </li>
+            </ul>
+
+            <div class="slider">
+                <div id="slider-object" class="slider-object"></div>
+            </div>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="container-fluid pt-3" style="width:100%">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="card">
+                                    <div class="card-title p-3 mb-0">
+                                        <p class="form-header d-inline-block mb-0" style="font-size:18px">Basic Information</p>
+                                    </div>
+                                    @await Html.PartialAsync("Partials/Profile/Sections_View", Model)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@await Html.PartialAsync("Partials/Home/Footer")
+
+@await Html.PartialAsync("Partials/Notification/PushNotifications")

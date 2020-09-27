@@ -22,6 +22,20 @@ namespace StreamWork.HelperMethods
         False,
     }
 
+    public enum FollowValues
+    {
+        Follow,
+        Following,
+        NoFollow,
+    }
+
+    public enum NotificationType
+    {
+        Follow,
+        Comment,
+        Reply,
+    }
+
     public enum SQLQueries
     {
         // UserLogin
@@ -29,7 +43,7 @@ namespace StreamWork.HelperMethods
         GetUserWithUsername,
         GetUserWithEmailAddress,
         GetUserWithPayPalAddress,
-        GetUserUsingId,
+        GetUserWithId,
         GetUserWithUsernameAndPassword,
         GetAllApprovedTutors,
         GetApprovedTutorsByFollowers,
@@ -50,20 +64,28 @@ namespace StreamWork.HelperMethods
         GetArchivedStreamsWithId,
         GetArchivedStreamsWithUsername,
         GetArchivedStreamsWithSubject,
+        GetArchivedStreamsWithSubjectAndUsername,
         GetArchivedStreamsWithStreamId,
         GetArchivedStreamsWithSearchTerm,
+        GetArchivedStreamsWithSearchTermAndUsername,
+        GetArchivedStreamsWithSubjectAndSearchTermAndUsername,
         GetArchivedStreamsWithSubjectAndSearchTerm,
         GetArchivedStreamsByStreamIdInTheList,
         GetLatestArchivedStreamByUser,
         GetArchivedStreamsInDescendingOrderByDate,
         GetArchivedStreamsInDescendingOrderByViews,
+        GetRandomArchivedStreams,
 
         // Payment
         GetAllPayments,
         GetPaymentsById,
 
-        // Recommendation
-        GetRecommendationsWithTutorUsername,
+        // Comment
+        GetCommentsWithReceiverUsername,
+        GetCommentsWithStreamId,
+        GetRepliesWithStreamId,
+        GetCommentWithId,
+        DeleteComment,
 
         // View
         GetViewsWithViewer,
@@ -74,8 +96,9 @@ namespace StreamWork.HelperMethods
 
         //Chats
         GetAllChats,
-        GetAllChatsWithId,
+        GetAllChatsWithIdAndVideoId,
         DeleteAllChatsWithId,
+        DeleteAllChatsWithArchivedVideoId,
 
         //Follow
         GetAllFolloweesWithId,
@@ -84,7 +107,45 @@ namespace StreamWork.HelperMethods
         GetNumberOfFollowers,
         DeleteFollower,
 
+        //TopicFollow
+        GetTopicFollowsByFollower,
+        GetTopicFollowsBySubject,
+
+        //TopicTutor
+        GetTopicTutorsByTutor,
+        GetTopicTutorsBySubject,
+
+        //Schedule
+        GetScheduleWithUserUsername,
+        GetAllScheduledStreamsWithSearchTerm,
+        GetAllScheduledStreamsWithSubject,
+        GetAllScheduledStreamsWithSearchTermAndSubject,
+        GetScheduleWithId,
+        DeleteScheduleTaskWithId,
+        DeletePastScheduledTasks,
+        UpdateTimezonesOfScheduledTasks,
+        GetAllScheduledStreams,
+
         // Misc
         UserProfile,       //Use For Session
+
+        //Notifications
+        GetNotificationsWithReceiver,
+        DeleteNotificationWithId,
+        DeleteNotificationWithObjectId,
+        UpdateNotificationToSeen,
+        GetUnseenNotifications,
+
+        //EmailVerifications
+        GetEmailVerificationWithAddress,
+        GetEmailVerificationWithAddressAndCode,
+
+        //JOINS
+
+        //ApprovedTutorSubjects
+        GetApprovedTutorSubjects,
+        GetApprovedTutorSubjectsWithSearchTerm,
+        GetApprovedTutorSubjectsWithSubject,
+        GetApprovedTutorSubjectsWithSubjectAndSearchTerm,
     }
 }

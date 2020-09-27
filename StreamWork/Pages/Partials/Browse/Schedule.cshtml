@@ -1,0 +1,34 @@
+﻿@if (Model.AllScheduledStreams.Count > 0)
+{
+    @foreach (var task in Model.AllScheduledStreams)
+    {
+        <div id="schedule-@task.Id" class="col-lg-4 col-md-6 col-sm-12 col-12 mt-2 mb-3 w-100 schedule schedule-subject-@task.StreamSubject">
+            <div class="card h-100 border">
+                <div class="card-body">
+                    <div class="d-flex justify-content-center">
+                        <img class="rounded m-1 schedule-image" src="@task.SubjectThumbnail" />
+                        <div class="text-center m-1 schedule-image schedule-border">
+                            <p class="form-header schedule-month">@task.Date.ToString("MMM")</p>
+                        </div>
+                        <div class="text-center m-1 schedule-image schedule-border">
+                            <p class="form-header schedule-day">@task.Date.Day</p>
+                            <p class="form-header schedule-dow">@task.Date.ToString("ddd")</p>
+                        </div>
+                    </div>
+                    <div class="m-1 text-center">
+                        <p class="form-header schedule-title m-0">@task.StreamTitle</p>
+                        <p class="mt-1 mb-0 roboto schedule-tutor"><a class="streamWork-green" href="/Profiles/Tutor/@task.Username">@task.Name.Replace('|', ' ')</a> Tutoring @task.StreamSubject</p>
+                        <p class="schedule-time mb-0">@task.TimeStart - @task.TimeStop [@task.TimeZone.ToString()]</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="col-9" style="height:200px">
+        <p class="form-sub-header pl-3 pr-3 pt-3 pb-0" style="font-size:22px">No scheduled streams at the moment.</p>
+        <p class="form-sub-header pl-3 pr-3" style="font-size:14px; font-family:'Roboto', serif">Feel free to look at streams in the streams tab.</p>
+    </div>
+}

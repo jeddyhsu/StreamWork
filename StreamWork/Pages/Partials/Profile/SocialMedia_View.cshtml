@@ -1,0 +1,35 @@
+﻿<div class="card-body pl-2 pt-1 pb-1">
+    @if (Model.UserProfile.LinkedInUrl != null && Model.UserProfile.LinkedInUrl != "")
+    {
+        <i class="fa fa-linkedin-square p-2" style="font-size:48px; cursor:pointer; color:lightgray" onclick="window.open('@Model.UserProfile.LinkedInUrl')"></i>
+    }
+
+    @if (Model.UserProfile.InstagramUrl != null && Model.UserProfile.InstagramUrl != "")
+    {
+        <i class="fa fa-instagram p-2" style="font-size:48px; cursor:pointer; color:lightgray" onclick="window.open('@Model.UserProfile.InstagramUrl')"></i>
+    }
+
+    @if (Model.UserProfile.FacebookUrl != null && Model.UserProfile.FacebookUrl != "")
+    {
+        <i class="fa fa-facebook p-2" style="font-size:48px; cursor:pointer; color:lightgray" onclick="window.open('@Model.UserProfile.FacebookUrl')"></i>
+    }
+
+    @if (Model.UserProfile.TwitterUrl != null && Model.UserProfile.TwitterUrl != "")
+    {
+        <i class="fa fa-twitter p-2" style="font-size:48px; cursor:pointer; color:lightgray" onclick="window.open('@Model.UserProfile.TwitterUrl')"></i>
+    }
+
+    @if ((Model.UserProfile.LinkedInUrl == null || Model.UserProfile.LinkedInUrl == "") && (Model.UserProfile.InstagramUrl == null || Model.UserProfile.InstagramUrl == "") && (Model.UserProfile.FacebookUrl == null || Model.UserProfile.FacebookUrl == "") && (Model.UserProfile.TwitterUrl == null || Model.UserProfile.TwitterUrl == ""))
+    {
+
+        if (Model.CurrentUserProfile != null && Model.CurrentUserProfile.Id == Model.UserProfile.Id)
+        {
+            <p class="form-sub-header pl-2" style="font-size:14px;"><b>Add links to social media!</b></p>
+        }
+        else
+        {
+            <p class="form-sub-header pl-2" style="font-size:14px;"><b>No social media links yet!</b></p>
+        }
+    }
+
+</div>

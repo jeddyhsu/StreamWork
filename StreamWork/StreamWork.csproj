@@ -1,19 +1,31 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.WebHooks.Receivers" Version="1.0.0-preview2-final" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
-    <PackageReference Include="bootstrap" Version="4.3.1" />
-    <PackageReference Include="Microsoft.Azure.Storage.Blob" Version="11.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.6"><PrivateAssets Condition="'%(PackageReference.Version)' == ''">all</PrivateAssets>
-<Publish Condition="'%(PackageReference.Version)' == ''">true</Publish>
-</PackageReference>
-    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-rc0001" />
-  </ItemGroup>
+    <PackageReference Include="Google.Apis.Auth" Version="1.48.0" />
+    <PackageReference Include="MailChimp.Net.V3" Version="4.2.1" />
+    <PackageReference Include="MailKit" Version="2.8.0" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-rc0002" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.5" />
+    <PackageReference Include="Microsoft.Azure.Storage.Blob" Version="11.1.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="3.0.0" />
+    <PackageReference Include="MailKit" Version="2.8.0" />
+    <PackageReference Include="MailChimp.Net.V3" Version="4.2.1" />
+    <PackageReference Include="QRCoder" Version="1.3.9" />
+    <PackageReference Include="Microsoft.Azure.SignalR" Version="1.1.1" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.24" />
+    <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="3.1.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="4.1.0" />
+    <PackageReference Include="Serilog.Extensions.Logging.File" Version="2.0.0" />
+    <PackageReference Include="HtmlSanitizer" Version="5.0.343" />
+    <PackageReference Include="FuzzySharp" Version="2.0.2" />
+</ItemGroup>
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.1" />
@@ -24,25 +36,115 @@
     <Folder Include="Config\" />
     <Folder Include="Core\" />
     <Folder Include="Framework\" />
-    <Folder Include="ViewModels\" />
-    <Folder Include="Views\Tutor\" />
-    <Folder Include="Views\Student\" />
-    <Folder Include="Threads\" />
+    <Folder Include="Pages\Tutor\" />
+    <Folder Include="Pages\Student\" />
     <Folder Include="HelperMethods\" />
-    <Folder Include="TutorObjects\" />
+    <Folder Include="ProfileObjects\" />
     <Folder Include="StreamHoster\" />
-    <Folder Include="EmailTemplates\" />
-    <Folder Include="Views\Chat\" />
+    <Folder Include="Pages\Chat\" />
     <Folder Include="Hubs\" />
     <Folder Include="wwwroot\images\ChatAssets\" />
     <Folder Include="wwwroot\media\" />
-    <Folder Include="HelperClasses\" />
+    <Folder Include="wwwroot\css\Tutor\" />
+    <Folder Include="wwwroot\images\TutorAssets\" />
+    <Folder Include="wwwroot\images\TutorAssets\TutorDashboard\" />
+    <Folder Include="wwwroot\images\GenericAssets\" />
+    <Folder Include="wwwroot\js\TutorJS\" />
+    <Folder Include="wwwroot\SignalR\" />
+    <Folder Include="wwwroot\images\NotificationAssets\" />
+    <Folder Include="wwwroot\images\ScheduleAssets\" />
+    <Folder Include="Services\" />
+    <Folder Include="wwwroot\css\Profile\" />
+    <Folder Include="Pages\Partials\" />
+    <Folder Include="Pages\Partials\Modals\" />
+    <Folder Include="Pages\Partials\Profile\" />
+    <Folder Include="Pages\Partials\Stream\" />
+    <Folder Include="wwwroot\images\StreamAssets\" />
+    <Folder Include="Pages\Follows\" />
+    <Folder Include="Pages\Partials\Layout\" />
+    <Folder Include="Pages\Partials\Layout\Tutor\" />
+    <Folder Include="Pages\Shared\Tutor\" />
+    <Folder Include="wwwroot\js\StreamJS\" />
+    <Folder Include="wwwroot\js\CommentJS\" />
+    <Folder Include="Pages\Comments\" />
+    <Folder Include="wwwroot\css\Comment\" />
+    <Folder Include="Pages\Partials\Comment\" />
+    <Folder Include="Pages\Partials\Layout\Student\" />
+    <Folder Include="Pages\Shared\Student\" />
+    <Folder Include="Pages\Notifications\" />
+    <Folder Include="wwwroot\js\NotificationJS\" />
+    <Folder Include="Pages\Partials\Layout\SignUp-SignIn\" />
+    <Folder Include="Pages\Shared\SignUp-SignIn\" />
+    <Folder Include="wwwroot\js\SignUp-SignInJS\" />
+    <Folder Include="wwwroot\css\SignUp-SignIn\" />
+    <Folder Include="Oauth\" />
+    <Folder Include="Pages\Partials\SignUp\" />
+    <Folder Include="Pages\Partials\SignUp\Tutor\" />
+    <Folder Include="Pages\Partials\SignUp\Student\" />
+    <Folder Include="wwwroot\css\Browse\" />
+    <Folder Include="Pages\Shared\Browse\" />
+    <Folder Include="Pages\Partials\Browse\" />
+    <Folder Include="wwwroot\js\BrowseJS\" />
+    <Folder Include="wwwroot\images\SignUpAssets\" />
+    <Folder Include="Pages\Partials\Layout\Home\" />
+    <Folder Include="Pages\Shared\Home\" />
+    <Folder Include="wwwroot\css\Home\" />
+    <Folder Include="Pages\Partials\Notification\" />
+    <Folder Include="wwwroot\css\Notification\" />
+    <Folder Include="wwwroot\images\HomeAssets\" />
+    <Folder Include="Pages\Partials\Home\" />
+    <Folder Include="Pages\Partials\Layout\Chat\" />
+    <Folder Include="DataModels\Joins\" />
+    <Folder Include="NotificationTemplates\" />
+    <Folder Include="NotificationTemplates\PushNotifications\" />
+    <Folder Include="wwwroot\images\CollegeAssets\" />
+    <Folder Include="wwwroot\js\ProfileJS\" />
+    <Folder Include="Pages\API\" />
+    <Folder Include="EmailTemplates\" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="EmailTemplates\PasswordRecoveryEmailTemplate.html">
+    <None Remove=".DS_Store" />
+    <None Remove="logs\log-20200914.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\images\NotificationAssets\icons8-checkmark-128.png" />
+    <Content Remove="wwwroot\images\TutorAssets\TutorDashboard\icons8-plus-24.png" />
+    <Content Remove="wwwroot\images\TutorAssets\TutorDashboard\icons8-save-16-2.png" />
+    <Content Remove="wwwroot\images\TutorAssets\TutorDashboard\Save_Icon_v1_SW.png" />
+    <Content Remove="wwwroot\images\TutorAssets\TutorDashboard\Remove_Icon_v1 copy3x_SW.png" />
+    <Content Remove="Pages\Partials\Profile\Header_View.json" />
+    <Content Remove="Pages\Comment\CommentModal.cshtml" />
+    <Content Remove="Pages\Partials\Stream\Comments.html" />
+    <Content Remove="Pages\Partials\Layout\Browse\BrowseHead.css" />
+    <Content Remove="wwwroot\.DS_Store" />
+    <Content Remove="wwwroot\images\.DS_Store" />
+    <Content Remove="wwwroot\StreamWork enc 1.mp4" />
+    <Content Remove="wwwroot\images\GenericAssets\Screen Shot 2020-08-03 at 7.47.22 AM.png" />
+    <Content Remove="wwwroot\StreamWorkAdVideo.mp4" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="NotificationTemplates\ReplyNotification.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="EmailTemplates\AutomatedEmailTemplate.html">
+    <None Update="NotificationTemplates\FollowNotification.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="NotificationTemplates\CommentNotification.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="NotificationTemplates\PushNotifications\ReplyPushNotification.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="NotificationTemplates\PushNotifications\FollowPushNotification.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="NotificationTemplates\PushNotifications\CommentPushNotification.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Config\streamwork-286021-a06875f20a26.p12">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="EmailTemplates\StreamWorkEmail.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

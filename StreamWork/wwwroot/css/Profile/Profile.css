@@ -1,0 +1,108 @@
+﻿.custom-profile-container {
+    max-width: 1250px !important;
+    padding-top: 100px;
+    overflow: hidden !important
+}
+
+.profile-picture-overlap-container {
+    position: absolute;
+    top: -20%;
+    left: 35px;
+}
+
+/*Navigation Slider Tabs*/
+.nav-tabs > li > a.active {
+    color: #707070 !important;
+    background-color: transparent !important;
+    border: none;
+    font-family: 'Roboto Slab', serif;
+}
+
+.nav-tabs > li > a {
+    color: #9F9F9F !important;
+    background-color: transparent !important;
+    border: none;
+    font-family: 'Roboto Slab', serif;
+}
+
+/*Streams, Followers & Views Objects*/
+.count-outer-object {
+    font-size: 14px;
+    word-spacing: 8px;
+    padding-top: 8px
+}
+
+.count-inner-object {
+    font-size: 18px;
+    font-family: 'Roboto Slab', serif;
+    padding: 7px;
+}
+
+@media screen and (max-width: 800px) {
+    .col-sm-6 {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 50%;
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+
+    .count-outer-object {
+        font-size: 11px;
+        word-spacing: 8px;
+        padding-top: 8px
+    }
+
+    .count-inner-object {
+        font-size: 15px;
+        font-family: 'Roboto Slab', serif;
+        padding: 7px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .profile-picture-overlap-container {
+        position: absolute;
+        top: 8%;
+        left: 35px;
+    }
+}
+
+@media screen and (max-width: 500px){
+    .custom-profile-container {
+        padding-left:0px;
+        padding-right:0px;
+        padding-top:70px
+    }
+
+   
+}
+
+@media (max-width: 400px) {
+    .col-12 {
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+.banner {
+    width: 100%;
+    object-fit: cover;
+    object-position: top;
+    max-height: 335px;
+    border:0px;
+}
+
+.banner-shift {
+    margin-left: 1px
+}
+
+/*Headers*/
+.header-padding {
+    padding-left:110px
+}
+
+.header-picture {
+    width: 80px;
+    cursor: default;
+}

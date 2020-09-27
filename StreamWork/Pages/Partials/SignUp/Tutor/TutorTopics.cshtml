@@ -1,0 +1,132 @@
+﻿<div class="row" id="tutorTopics" style="display: none;">
+    <div class="card d-block mr-auto ml-auto border pl-4 pr-2" style="background-color: white; width:1100px">
+        <div class="row" style="min-height: 600px;">
+            <div class="col-md-6 d-none d-md-block" style="min-height: 600px;">
+                <div class="row p-4" style="min-height: 600px; display: flex; align-items: center; flex-wrap: wrap; justify-content: center;">
+                    <img src="~/images/SignUpAssets/SignUp_3_SW_SVG.svg" style="width: 80%;" />
+                </div>
+            </div>
+            <div class="col-md-6 pt-5 pb-4 px-5">
+                <h2 class="text-center mb-2" style="font-family: 'Roboto Slab';">What Topics will you Tutor?</h2>
+                <p class="text-center mb-4" style="color: #707070; font-size: 13px;">Select the topics that you are interested in<br />so we can recommend students to you!</p>
+                <p id="tutorTopics-selected" style="color: #707070; font-size: 13px; text-align: right; margin-bottom: 0;">Selected: 0</p>
+                <div class="mb-2">
+                    <div id="tutorTopics-tab-1">
+                        <table class="mb-2" style="width: 100%;">
+                            <tr style="padding-bottom: 4px;">
+                                <td>
+                                    <img src="~/images/ChatAssets/Humanities.png" style="height: 40px; width: 40px; margin-right: 8px;" />
+                                </td>
+                                <td id="tutorTopics-humanities" class="text-center ml-3 mb-3 streamWork-secondary-rect" onclick="toggleTutorTopic('humanities');">Humanities</td>
+                            </tr>
+                            <tr>
+                                <td><div class="mb-1"></div></td>
+                                <td><div class="mb-1"></div></td>
+                            </tr>
+                            <tr style="padding-bottom: 4px;">
+                                <td>
+                                    <img src="~/images/ChatAssets/Math.png" style="height: 40px; width: 40px; margin-right: 8px;" />
+                                </td>
+                                <td id="tutorTopics-math" class="text-center ml-3 mb-3 streamWork-secondary-rect" onclick="toggleTutorTopic('math');">Math</td>
+                            </tr>
+                            <tr>
+                                <td><div class="mb-1"></div></td>
+                                <td><div class="mb-1"></div></td>
+                            </tr>
+                            <tr style="padding-bottom: 4px;">
+                                <td>
+                                    <img src="~/images/ChatAssets/Science.png" style="height: 40px; width: 40px; margin-right: 8px;" />
+                                </td>
+                                <td id="tutorTopics-science" class="text-center ml-3 mb-3 streamWork-secondary-rect" onclick="toggleTutorTopic('science');">Science</td>
+                            </tr>
+                            <tr>
+                                <td><div class="mb-1"></div></td>
+                                <td><div class="mb-1"></div></td>
+                            </tr>
+                            <tr style="padding-bottom: 4px;">
+                                <td>
+                                    <img src="~/images/ChatAssets/Art.png" style="height: 40px; width: 40px; margin-right: 8px;" />
+                                </td>
+                                <td id="tutorTopics-art" class="text-center ml-3 mb-3 streamWork-secondary-rect" onclick="toggleTutorTopic('art');">Art</td>
+                            </tr>
+                        </table>
+
+                        <div class="row">
+                            <div class="col-4"></div>
+                            <div class="col-4 text-center">
+                                <p style="font-size: 12px; color: #707070;">Page 1 of 2</p>
+                            </div>
+                            <div class="col-4" style="text-align: right;">
+                                <button class="streamWork-primary text-center" style="width: 60px; height: 20px; padding: 0px 0px;" onclick="goToTutorTopicsTab2();">Next ></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tutorTopics-tab-2" style="display: none;">
+                        <table class="mb-2" style="width: 100%;">
+                            <tr style="padding-bottom: 4px;">
+                                <td>
+                                    <img src="~/images/ChatAssets/Engineering.png" style="height: 40px; width: 40px; margin-right: 8px;" />
+                                </td>
+                                <td id="tutorTopics-engineering" class="text-center ml-3 mb-3 streamWork-secondary-rect" onclick="toggleTutorTopic('engineering');">Engineering</td>
+                            </tr>
+                            <tr>
+                                <td><div class="mb-1"></div></td>
+                                <td><div class="mb-1"></div></td>
+                            </tr>
+                            <tr style="padding-bottom: 4px;">
+                                <td>
+                                    <img src="~/images/ChatAssets/Business.png" style="height: 40px; width: 40px; margin-right: 8px;" />
+                                </td>
+                                <td id="tutorTopics-business" class="text-center ml-3 mb-3 streamWork-secondary-rect" onclick="toggleTutorTopic('business');">Business</td>
+                            </tr>
+                            <tr>
+                                <td><div class="mb-1"></div></td>
+                                <td><div class="mb-1"></div></td>
+                            </tr>
+                            <tr style="padding-bottom: 4px;">
+                                <td>
+                                    <img src="~/images/ChatAssets/Law.png" style="height: 40px; width: 40px; margin-right: 8px;" />
+                                </td>
+                                <td id="tutorTopics-law" class="text-center ml-3 mb-3 streamWork-secondary-rect" onclick="toggleTutorTopic('law');">Law</td>
+                            </tr>
+                            <tr>
+                                <td><div class="mb-1"></div></td>
+                                <td><div class="mb-1"></div></td>
+                            </tr>
+                            <tr style="padding-bottom: 4px;">
+                                <td>
+                                    <img src="~/images/ChatAssets/Other.png" style="height: 40px; width: 40px; margin-right: 8px;" />
+                                </td>
+                                <td id="tutorTopics-other" class="text-center ml-3 mb-3 streamWork-secondary-rect" onclick="toggleTutorTopic('other');">Misc / Other</td>
+                            </tr>
+                        </table>
+
+                        <div class="row">
+                            <div class="col-4" style="text-align: left;">
+                                <button class="streamWork-primary text-center" style="width: 60px; height: 20px; padding: 0px 0px;" onclick="goToTutorTopicsTab1();">< Back</button>
+                            </div>
+                            <div class="col-4 text-center">
+                                <p style="font-size: 12px; color: #707070;">Page 2 of 2</p>
+                            </div>
+                            <div class="col-4"></div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+                <button id="tutorTopics-next" class="streamWork-disabled" type="button" style="width: 100%;" onclick="tutorTopicsNext();">Next</button>
+
+                <br />
+                <br />
+                <br />
+
+                <div class="mt-6 pt-6 pr-3" style="color: #004643; position: absolute; bottom: 12px; left: 0;">
+                    <button class="streamWork-primary ml-3 mb-2" style="width: 60px; height: 20px; padding: 0px 0px;" onclick="goToTab('studentOrTutor');">Go Back</button>
+                </div>
+                <div class="mt-6 pt-6 pr-3" style="color: #004643; position: absolute; bottom: 0; right: 0;">
+                    <p style="color: #b1b1b1; display: inline-block;">&#x25CB;</p><p style="color: #004643; display: inline-block;">&#x25CF;</p><p style="color: #b1b1b1; display: inline-block;">&#x25CB;&#x25CB;</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

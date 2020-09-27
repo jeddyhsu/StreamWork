@@ -1,0 +1,89 @@
+﻿<div class="card-body pt-0">
+    <div class="row pr-4 pl-4 pt-0">
+        <div class="col-lg-3">
+            <div class="card border-0 rounded-0 text-center">
+                @if (Model.UserProfile.College == null)
+                {
+                    <div>
+                        <input type="image" src="~/images/TutorAssets/TutorDashboard/DefaultUniversity.png" class="form-control border-0 rounded-0 d-block mr-auto ml-auto pt-3" style="width:130px; height:100%">
+                    </div>
+                }
+                else
+                {
+                    var college = Model.UserProfile.College.Split('|');
+                    if (college.Length > 1)
+                    {
+                        <p id="university-abbreviation" class="form-header pt-4 pl-2 pr-2" style="font-size:20px">@college[0]</p>
+                        <p id="university-name" class="form-header" style="font-size:14px">@college[1]</p>
+                    }
+                    else
+                    {
+                        <p id="university-abbreviation" class="form-header pt-4 pl-2 pr-2" style="font-size:20px">@college[0]</p>
+                    }
+
+                    @if (Model.Sections != null && Model.Sections[0].Year != "-Select-Year/Class-")
+                    {
+                        <p id="university-name" class="form-header" style="font-size:14px">@Model.Sections[0].Year</p>
+                    }
+                }
+            </div>
+        </div>
+        @if (Model.Sections != null && Model.Sections.Count > 1 && (Model.Sections[1].SectionTitle != "" || Model.Sections[1].SectionDescription != "" || Model.Sections.Count > 2))
+        {
+            <div class="form-group col-lg-9 p-4">
+                <p class="form-header" style="font-size: 16px">@Model.Sections[1].SectionTitle</p>
+                <pre class="roboto" style="font-size: 14px">@Model.Sections[1].SectionDescription</pre>
+            </div>
+            if (Model.Sections.Count > 2)
+            {
+                for (int i = 2; i < Model.Sections.Count; i++)
+                {
+                    <div class="divider"></div>
+                    <div class="form-group col-lg-12 p-4">
+                        <p class="form-header" style="font-size: 16px">@Model.Sections[i].SectionTitle</p>
+                        <pre class="roboto" style="font-size: 14px">@Model.Sections[i].SectionDescription</pre>
+                    </div>
+                }
+            }
+        }
+        else
+        {
+            @if (Model.UserProfile.ProfileType == "tutor")
+            {
+                if (Model.CurrentUserProfile != null && Model.CurrentUserProfile.Id == Model.UserProfile.Id)
+                {
+                    <div class="col-9 p-3" style="height:200px">
+                        <p class="form-sub-header p-0" style="font-size:22px">No Info...yet!</p>
+                        <p class="form-sub-header p-0 roboto" style="font-size:14px;">Help students know more about you and your background in education</p>
+                        <button class="streamWork-primary mt-3 roboto" onclick="window.location.href ='/Tutor/TutorDashboard'" style="font-size:14px">Edit Profile</button>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-9 p-3" style="height:200px">
+                        <p class="form-sub-header p-0" style="font-size:22px">Welcome To My Tutor Profile!</p>
+                        <p class="form-sub-header p-0 roboto" style="font-size:14px;">This tutor hasn't filled out any information about themselves yet!</p>
+                    </div>
+                }
+            }
+            else
+            {
+                if (Model.CurrentUserProfile != null && Model.CurrentUserProfile.Id == Model.UserProfile.Id)
+                {
+                    <div class="col-9 p-3" style="height:200px">
+                        <p class="form-sub-header p-0" style="font-size:22px">No Info...yet!</p>
+                        <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">Help other students and tutors know a little bit about you and your intrests!</p>
+                        <button class="streamWork-primary mt-3 roboto" onclick="window.location.href ='/Student/StudentDashboard'" style="font-size:14px">Edit Profile</button>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-9 p-3" style="height:200px">
+                        <p class="form-sub-header p-0" style="font-size:22px">Welcome To My Student Profile!</p>
+                        <p class="form-sub-header p-0 roboto" style="font-size:14px;">This student hasn't filled out any information about themselves yet!</p>
+                    </div>
+                }
+            }
+        }
+    </div>
+</div>

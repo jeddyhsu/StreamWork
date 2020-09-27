@@ -141,22 +141,6 @@ function Subscribe(email) {
     })
 }
 
-function OpenNotificationModal(body) {
-    var notification = document.getElementById('notifyBody');
-    notification.textContent = body;
-    $('#notifyModal').modal('show')
-}
-
-function OpenNotificationModalSuccess(body) {
-    var notification = document.getElementById('notifyBodySuccess');
-    notification.textContent = body;
-    $('#notifyModalSuccess').modal('show')
-}
-
-function OpenDeleteAccountModal() {
-    $('#deleteModal').modal('show');
-}
-
 function DeleteAccount() {
     $.ajax({
         url: '/Student/DeleteCurrentAccount',

@@ -1,0 +1,49 @@
+﻿<div class="card-body">
+    <div class="row pr-2 pl-2 pt-0" id="taskRow">
+        @if (Model.Schedule.Count > 0)
+        {
+            @foreach (var task in Model.Schedule)
+            {
+                <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-2 w-100">
+                    <div class="card h-100 border-0">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-center">
+                                <img class="rounded m-1 schedule-image" src="@task.SubjectThumbnail" />
+                                <div class="text-center m-1 schedule-image schedule-border">
+                                    <p class="form-header schedule-month">@task.Date.ToString("MMM")</p>
+                                </div>
+                                <div class="text-center m-1 schedule-image schedule-border">
+                                    <p class="form-header schedule-day">@task.Date.Day</p>
+                                    <p class="form-header schedule-dow">@task.Date.ToString("ddd")</p>
+                                </div>
+                            </div>
+                            <div class="m-1 text-center" style="height:75px;">
+                                <p class="form-header m-0 schedule-title">@task.StreamTitle</p>
+                                <p class="mt-1 mb-0 roboto schedule-tutor"><a class="streamWork-green" href="/Profiles/Tutor/@task.Username">@task.Name.Replace('|', ' ')</a> Tutoring @task.StreamSubject</p>
+                                <p class="schedule-time mb-0">@task.TimeStart - @task.TimeStop [@task.TimeZone.ToString()]</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            if (Model.CurrentUserProfile != null && Model.CurrentUserProfile.Id == Model.UserProfile.Id)
+            {
+                <div class="col-12 p-3" style="height:200px">
+                    <p class="form-sub-header p-0" style="font-size:22px">Nothing on your schedule...yet!</p>
+                    <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">Schedule streams to let students know when you're going live!</p>
+                    <button class="streamWork-primary mt-3 mb-3" onclick="window.location.href ='/Tutor/TutorDashboard/#schedule'" style="font-size:14px; font-family:'Roboto', serif">Schedule Future Streams</button>
+                </div>
+            }
+            else
+            {
+                <div class="col-12 p-3" style="height:200px">
+                    <p class="form-sub-header p-0" style="font-size:22px">Nothing on the schedule!</p>
+                    <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">This tutor hasn't scheduled their streams yet!</p>
+                </div>
+            }
+        }
+    </div>
+</div>

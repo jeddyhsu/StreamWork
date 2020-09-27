@@ -1,160 +1,196 @@
 ﻿{
   "EntityModels": [
     {
-      "Name": "UserLogin",
+      "Name": "Profile",
       "StorageType": "SqlServer",
       "Queries": [
         {
-          "Query": "SELECT * FROM [dbo].[UserLogin]",
+          "Query": "SELECT * FROM [dbo].[Profile]",
           "QueryId": "GetAllUsers"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE Username = '@x0'",
+          "Query": "SELECT * FROM [dbo].[Profile] WHERE LOWER(Username) = LOWER('@x0')",
           "QueryId": "GetUserWithUsername"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE EmailAddress = '@x0'",
+          "Query": "SELECT * FROM [dbo].[Profile] WHERE LOWER(EmailAddress) = LOWER('@x0')",
           "QueryId": "GetUserWithEmailAddress"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE PayPalAddress = '@x0'",
+          "Query": "SELECT * FROM [dbo].[Profile] WHERE LOWER(PayPalAddress) = LOWER('@x0')",
           "QueryId": "GetUserWithPayPalAddress"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE Id = '@x0'",
-          "QueryId": "GetUserUsingId"
+          "Query": "SELECT * FROM [dbo].[Profile] WHERE Id = '@x0'",
+          "QueryId": "GetUserWithId"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE Username = '@x0' AND Password = '@x1'",
+          "Query": "SELECT * FROM [dbo].[Profile] WHERE LOWER(Username) = LOWER('@x0') AND Password = '@x1'",
           "QueryId": "GetUserWithUsernameAndPassword"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE ProfileType = 'tutor' AND AcceptedTutor = '1'",
+          "Query": "SELECT * FROM [dbo].[Profile] WHERE ProfileType = 'tutor' AND AcceptedTutor = '1'",
           "QueryId": "GetAllApprovedTutors"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE ProfileType = 'tutor' AND AcceptedTutor = '1'",
+          "Query": "SELECT * FROM [dbo].[Profile] WHERE ProfileType = 'tutor' AND AcceptedTutor = '1'",
+          "QueryId": "GetApprovedTutorsBySearchTerm"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Profile] WHERE ProfileType = 'tutor' AND AcceptedTutor = '1'",
           "QueryId": "GetApprovedTutorsByFollowers"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE ProfileType = 'student'",
+          "Query": "SELECT * FROM [dbo].[Profile] WHERE ProfileType = 'student'",
           "QueryId": "GetAllStudents"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE Id in ('@x0')",
+          "Query": "SELECT * FROM [dbo].[Profile] WHERE Id in ('@x0')",
           "QueryId": "GetAllUsersInTheList"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserLogin] WHERE Id not in ('@x0') AND ProfileType = 'tutor' AND AcceptedTutor = '1'",
+          "Query": "SELECT * FROM [dbo].[Profile] WHERE Id not in ('@x0') AND ProfileType = 'tutor' AND AcceptedTutor = '1' ORDER BY NEWID()",
           "QueryId": "GetAllTutorsNotInTheList"
         }
       ]
     },
     {
-      "Name": "UserChannel",
+      "Name": "Channel",
       "StorageType": "SqlServer",
       "Queries": [
         {
-          "Query": "SELECT * FROM [dbo].[UserChannel] WHERE StreamSubject = '@x0'",
+          "Query": "SELECT * FROM [dbo].[Channel] WHERE StreamSubject = '@x0'",
           "QueryId": "GetUserChannelWithSubject"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserChannel] WHERE StreamSubject != '@x0'",
+          "Query": "SELECT * FROM [dbo].[Channel] WHERE StreamSubject != '@x0'",
           "QueryId": "GetAllUserChannelsThatAreStreaming"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserChannel] WHERE Username = '@x0'",
+          "Query": "SELECT * FROM [dbo].[Channel] WHERE LOWER(Username) = LOWER('@x0')",
           "QueryId": "GetUserChannelWithUsername"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserChannel] WHERE Id = '@x0'",
+          "Query": "SELECT * FROM [dbo].[Channel] WHERE Id = '@x0'",
           "QueryId": "GetUserChannelWithId"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserChannel] WHERE LOWER(StreamTitle) LIKE '%@x0%'",
+          "Query": "SELECT * FROM [dbo].[Channel] WHERE (LOWER(StreamTitle) LIKE '%@x0%' OR REPLACE (LOWER(Name), '|', ' ') LIKE '%@x0%' OR LOWER(StreamDescription) LIKE '%@x0%' OR LOWER(StreamSubject) LIKE '%@x0%') AND StreamSubject IS NOT NULL",
           "QueryId": "GetUserChannelsBySearchTerm"
         },
         {
-          "Query": "SELECT * FROM [dbo].[UserChannel] WHERE StreamSubject = '@x0' AND LOWER(StreamTitle) LIKE '%@x1%'",
+          "Query": "SELECT * FROM [dbo].[Channel] WHERE StreamSubject = '@x0' AND (LOWER(StreamTitle) LIKE '%@x0%' OR REPLACE (LOWER(Name), '|', ' ') LIKE '%@x0%' OR LOWER(StreamDescription) LIKE '%@x0%' OR LOWER(StreamSubject) LIKE '%@x0%')",
           "QueryId": "GetUserChannelsBySubjectAndSearchTerm"
-        },
-      ]
-    },
-
-    {
-      "Name": "UserArchivedStreams",
-      "StorageType": "SqlServer",
-      "Queries": [
-        {
-          "Query": "SELECT * FROM [dbo].[UserArchivedStreams]",
-          "QueryId": "GetAllArchivedStreams"
-        },
-        {
-          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE Id = '@x0'",
-          "QueryId": "GetArchivedStreamsWithId"
-        },
-        {
-          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE Username = '@x0'",
-          "QueryId": "GetArchivedStreamsWithUsername"
-        },
-        {
-          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE StreamSubject = '@x0'",
-          "QueryId": "GetArchivedStreamsWithSubject"
-        },
-        {
-          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE StreamId = '@x0'",
-          "QueryId": "GetArchivedStreamsWithStreamId"
-        },
-        {
-          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE LOWER(StreamTitle) LIKE '%@x0%'",
-          "QueryId": "GetArchivedStreamsWithSearchTerm"
-        },
-        {
-          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE StreamSubject = '@x0' AND LOWER(StreamTitle) LIKE '%@x1%'",
-          "QueryId": "GetArchivedStreamsWithSubjectAndSearchTerm"
-        },
-        {
-          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE StreamId in ('@x0')",
-          "QueryId": "GetArchivedStreamsByStreamIdInTheList"
-        },
-        {
-          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] WHERE Username = ('@x0') ORDER BY StartTime DESC",
-          "QueryId": "GetLatestArchivedStreamByUser"
-        },
-        {
-          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] ORDER BY StartTime DESC",
-          "QueryId": "GetArchivedStreamsInDescendingOrderByDate"
-        },
-        {
-          "Query": "SELECT * FROM [dbo].[UserArchivedStreams] ORDER BY Views DESC",
-          "QueryId": "GetArchivedStreamsInDescendingOrderByViews"
         }
       ]
     },
 
     {
-        "Name": "Payment",
-        "StorageType": "SqlServer",
-        "Queries": [
-            {
-                "Query": "SELECT * FROM [dbo].[Payment]",
-                "QueryId": "GetAllPayments"
-            },
-
-            {
-                "Query": "SELECT * FROM [dbo].[Payment] WHERE TransactionId = '@x0'",
-                "QueryId": "GetPaymentsById"
-            }
-        ]
-    },
-
-    {
-      "Name": "Recommendation",
+      "Name": "Video",
       "StorageType": "SqlServer",
       "Queries": [
         {
-          "Query": "SELECT * FROM [dbo].[Recommendation] WHERE Tutor = '@x0'",
-          "QueryId": "GetRecommendationsWithTutorUsername"
+          "Query": "SELECT * FROM [dbo].[Video]",
+          "QueryId": "GetAllArchivedStreams"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Video] WHERE Id = '@x0'",
+          "QueryId": "GetArchivedStreamsWithId"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Video] WHERE LOWER(Username) = LOWER('@x0')",
+          "QueryId": "GetArchivedStreamsWithUsername"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Video] WHERE StreamSubject = '@x0'",
+          "QueryId": "GetArchivedStreamsWithSubject"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Video] WHERE StreamSubject = '@x0' AND Username = '@x1'",
+          "QueryId": "GetArchivedStreamsWithSubjectAndUsername"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Video] WHERE StreamId = '@x0'",
+          "QueryId": "GetArchivedStreamsWithStreamId"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Video] WHERE LOWER(StreamTitle) LIKE '%@x0%' OR REPLACE (LOWER(Name), '|', ' ') LIKE '%@x0%' OR LOWER(StreamDescription) LIKE '%@x0%' OR LOWER(StreamSubject) LIKE '%@x0%'",
+          "QueryId": "GetArchivedStreamsWithSearchTerm"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Video] WHERE (LOWER(StreamTitle) LIKE '%@x0%' OR REPLACE (LOWER(Name), '|', ' ') LIKE '%@x0%' OR LOWER(StreamDescription) LIKE '%@x0%' OR LOWER(StreamSubject) LIKE '%@x0%') AND Username = '@x1'",
+          "QueryId": "GetArchivedStreamsWithSearchTermAndUsername"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Video] WHERE StreamSubject = '@x0' AND (LOWER(StreamTitle) LIKE '%@x1%' OR REPLACE (LOWER(Name), '|', ' ') LIKE '%@x1%' OR LOWER(StreamDescription) LIKE '%@x1%' OR LOWER(StreamSubject) LIKE '%@x1%')",
+          "QueryId": "GetArchivedStreamsWithSubjectAndSearchTerm"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Video] WHERE StreamSubject = '@x0' AND (LOWER(StreamTitle) LIKE '%@x1%' OR REPLACE (LOWER(Name), '|', ' ') LIKE '%@x1%' OR LOWER(StreamDescription) LIKE '%@x1%' OR LOWER(StreamSubject) LIKE '%@x1%') AND Username = '@x2'",
+          "QueryId": "GetArchivedStreamsWithSubjectAndSearchTermAndUsername"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Video] WHERE StreamId in ('@x0')",
+          "QueryId": "GetArchivedStreamsByStreamIdInTheList"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Video] WHERE LOWER(Username) = LOWER('@x0') ORDER BY StartTime DESC",
+          "QueryId": "GetLatestArchivedStreamByUser"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Video] ORDER BY StartTime DESC",
+          "QueryId": "GetArchivedStreamsInDescendingOrderByDate"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Video] ORDER BY Views DESC",
+          "QueryId": "GetArchivedStreamsInDescendingOrderByViews"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Video] ORDER BY NEWID()",
+          "QueryId": "GetRandomArchivedStreams"
+        }
+      ]
+    },
+
+    {
+      "Name": "Payment",
+      "StorageType": "SqlServer",
+      "Queries": [
+        {
+          "Query": "SELECT * FROM [dbo].[Payment]",
+          "QueryId": "GetAllPayments"
+        },
+
+        {
+          "Query": "SELECT * FROM [dbo].[Payment] WHERE TransactionId = '@x0'",
+          "QueryId": "GetPaymentsById"
+        }
+      ]
+    },
+
+    {
+      "Name": "Comment",
+      "StorageType": "SqlServer",
+      "Queries": [
+        {
+          "Query": "SELECT * FROM [dbo].[Comment] WHERE ReceiverUsername = '@x0'",
+          "QueryId": "GetCommentsWithReceiverUsername"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Comment] WHERE StreamId = '@x0' AND ParentId IS NULL ORDER BY DATE ASC",
+          "QueryId": "GetCommentsWithStreamId"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Comment] WHERE StreamId = '@x0' AND ParentId IS NOT NULL ORDER BY DATE ASC",
+          "QueryId": "GetRepliesWithStreamId"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Comment] WHERE Id = '@x0'",
+          "QueryId": "GetCommentWithId"
+        },
+        {
+          "Query": "DELETE FROM [dbo].[Comment] WHERE Id = '@x0' DELETE FROM [dbo].[Comment] WHERE ParentId = '@x0'",
+          "QueryId": "DeleteComment"
         }
       ]
     },
@@ -164,7 +200,7 @@
       "StorageType": "SqlServer",
       "Queries": [
         {
-          "Query": "SELECT * FROM [dbo].[View] WHERE Viewer = '@x0'",
+          "Query": "SELECT * FROM [dbo].[View] WHERE LOWER(Viewer) = LOWER('@x0')",
           "QueryId": "GetViewsWithViewer"
         },
         {
@@ -172,35 +208,39 @@
           "QueryId": "GetViewsWithStreamId"
         },
         {
-          "Query": "SELECT * FROM [dbo].[View] WHERE Viewer = '@x0' AND StreamId = '@x1'",
+          "Query": "SELECT * FROM [dbo].[View] WHERE LOWER(Viewer) = LOWER('@x0') AND StreamId = '@x1'",
           "QueryId": "GetViewsWithViewerAndStreamId"
         },
         {
-          "Query": "SELECT * FROM [dbo].[View] WHERE Channel = '@x0' AND Date <= '@x1'",
+          "Query": "SELECT * FROM [dbo].[View] WHERE LOWER(Channel) = LOWER('@x0') AND Date <= '@x1'",
           "QueryId": "GetViewsWithChannelSince"
         },
         {
-          "Query": "SELECT * FROM [dbo].[View] WHERE Viewer = '@x0' AND Channel = '@x1' AND Date <= '@x2'",
+          "Query": "SELECT * FROM [dbo].[View] WHERE LOWER(Viewer) = LOWER('@x0') AND Channel = '@x1' AND Date <= '@x2'",
           "QueryId": "GetViewsWithViewerAndChannelSince"
         }
       ]
     },
 
     {
-      "Name": "Chats",
+      "Name": "Chat",
       "StorageType": "SqlServer",
       "Queries": [
         {
-          "Query": "SELECT * FROM [dbo].[Chats]",
+          "Query": "SELECT * FROM [dbo].[Chat]",
           "QueryId": "GetAllChats"
         },
         {
-          "Query": "SELECT * FROM [dbo].[Chats] WHERE ChatId = '@x0' ORDER BY DATE ASC",
-          "QueryId": "GetAllChatsWithId"
+          "Query": "SELECT * FROM [dbo].[Chat] WHERE ChatId = '@x0' AND ArchivedVideoId = '@x1' ORDER BY DATE ASC",
+          "QueryId": "GetAllChatsWithIdAndVideoId"
         },
         {
-          "Query": "DELETE FROM [dbo].[Chats] WHERE ChatId = '@x0'",
+          "Query": "DELETE FROM [dbo].[Chat] WHERE ChatId = '@x0'",
           "QueryId": "DeleteAllChatsWithId"
+        },
+        {
+          "Query": "DELETE FROM [dbo].[Chat] WHERE ArchivedVideoId = '@x0'",
+          "QueryId": "DeleteAllChatsWithArchivedVideoId"
         }
       ]
     },
@@ -210,11 +250,11 @@
       "StorageType": "SqlServer",
       "Queries": [
         {
-          "Query": "SELECT * FROM [dbo].[Follow] WHERE FolloweeId = '@x0'",
+          "Query": "SELECT * FROM [dbo].[Follow] WHERE FollowerId = '@x0'",
           "QueryId": "GetAllFolloweesWithId"
         },
         {
-          "Query": "SELECT * FROM [dbo].[Follow] WHERE FollowerId = '@x0'",
+          "Query": "SELECT * FROM [dbo].[Follow] WHERE FolloweeId = '@x0'",
           "QueryId": "GetAllFollowersWithId"
         },
         {
@@ -233,12 +273,147 @@
     },
 
     {
-      "Name": "Stealth",
+      "Name": "TopicFollow",
       "StorageType": "SqlServer",
       "Queries": [
-       
+        {
+          "Query": "SELECT * FROM [dbo].[TopicFollow] WHERE Follower = '@x0' ORDER BY Since ASC",
+          "QueryId": "GetTopicFollowsByFollower"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[TopicFollow] WHERE Topic = '@x0' ORDER BY Since ASC",
+          "QueryId": "GetTopicFollowsBySubject"
+        }
       ]
-    }
+    },
 
+    {
+      "Name": "TopicTutor",
+      "StorageType": "SqlServer",
+      "Queries": [
+        {
+          "Query": "SELECT * FROM [dbo].[TopicTutor] WHERE Tutor = '@x0' ORDER BY Since ASC",
+          "QueryId": "GetTopicTutorsByTutor"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[TopicTutor] WHERE Subject = '@x0' ORDER BY Since ASC",
+          "QueryId": "GetTopicTutorsBySubject"
+        }
+      ]
+    },
+
+    {
+      "Name": "Schedule",
+      "StorageType": "SqlServer",
+      "Queries": [
+        {
+          "Query": "SELECT * FROM [dbo].[Schedule] ORDER BY DATE ASC",
+          "QueryId": "GetAllScheduledStreams"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Schedule] WHERE LOWER(StreamSubject) LIKE '%@x0%' OR LOWER(StreamTitle) LIKE '%@x0%' OR REPLACE(LOWER(Name), '|', ' ') LIKE '%@x0%' OR LOWER(StreamDescription) LIKE '%@x0%' ORDER BY DATE ASC",
+          "QueryId": "GetAllScheduledStreamsWithSearchTerm"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Schedule] WHERE StreamSubject = '@x0' ORDER BY DATE ASC",
+          "QueryId": "GetAllScheduledStreamsWithSubject"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Schedule] WHERE (LOWER(StreamSubject) LIKE '%@x0%' OR LOWER(StreamTitle) LIKE '%@x0%' OR REPLACE(LOWER(Name), '|', ' ') LIKE '%@x0%' OR LOWER(StreamDescription) LIKE '%@x0%') AND StreamSubject = '@x1' ORDER BY DATE ASC",
+          "QueryId": "GetAllScheduledStreamsWithSearchTermAndSubject"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Schedule] WHERE LOWER(Username) = LOWER('@x0') AND Date >= '@x1' ORDER BY DATE ASC",
+          "QueryId": "GetScheduleWithUserUsername"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Schedule] WHERE Id = '@x0' AND Date >= '@x1'",
+          "QueryId": "GetScheduleWithId"
+        },
+        {
+          "Query": "DELETE FROM [dbo].[Schedule] WHERE Id = '@x0'",
+          "QueryId": "DeleteScheduleTaskWithId"
+        },
+        {
+          "Query": "DELETE FROM [dbo].[Schedule] WHERE Date < '@x0'",
+          "QueryId": "DeletePastScheduledTasks"
+        },
+        {
+          "Query": "UPDATE [dbo].[Schedule] SET TimeZone = '@x0' WHERE LOWER(Username) = LOWER('@x1')",
+          "QueryId": "UpdateTimezonesOfScheduledTasks"
+        }
+      ]
+    },
+
+    {
+      "Name": "Notification",
+      "StorageType": "SqlServer",
+      "Queries": [
+        {
+          "Query": "SELECT * FROM [dbo].[Notification] WHERE LOWER(ReceiverUsername) = LOWER('@x0') ORDER BY DATE DESC",
+          "QueryId": "GetNotificationsWithReceiver"
+        },
+        {
+          "Query": "DELETE FROM [dbo].[Notification] WHERE Id = '@x0'",
+          "QueryId": "DeleteNotificationWithId"
+        },
+        {
+          "Query": "DELETE FROM [dbo].[Notification] WHERE ObjectId = '@x0'",
+          "QueryId": "DeleteNotificationWithObjectId"
+        },
+        {
+          "Query": "UPDATE [dbo].[Notification] SET Seen = 'true' WHERE LOWER(ReceiverUsername) = LOWER('@x0')",
+          "QueryId": "UpdateNotificationToSeen"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[Notification] WHERE LOWER(ReceiverUsername) = LOWER('@x0') AND Seen = 'false'",
+          "QueryId": "GetUnseenNotifications"
+        }
+
+      ]
+    },
+
+    {
+      "Name": "EmailVerification",
+      "StorageType": "SqlServer",
+      "Queries": [
+        {
+          "Query": "SELECT * FROM [dbo].[EmailVerification] WHERE LOWER(EmailAddress) = LOWER('@x0')",
+          "QueryId": "GetEmailVerificationWithAddress"
+        },
+        {
+          "Query": "SELECT * FROM [dbo].[EmailVerification] WHERE LOWER(EmailAddress) = LOWER('@x0') AND VerificationCode = '@x1'",
+          "QueryId": "GetEmailVerificationWithAddressAndCode"
+        }
+      ]
+    },
+
+    {
+      "Name": "TutorSubject",
+      "StorageType": "SqlServer",
+      "Queries": [
+        {
+          "Query": "SELECT Profile.Id, Profile.Name, Profile.ProfileCaption, Profile.Username, Profile.ProfilePicture, Profile.ProfileColor, TopicTutor.Topic, Profile.ProfileBanner, Profile.College, TopicTutor.TopicColor, Profile.RowVersion, Count(*) AS FollowerCount FROM Follow INNER JOIN Profile On Profile.Username = Follow.FolloweeUsername INNER JOIN TopicTutor ON Profile.Username = TopicTutor.Tutor Where AcceptedTutor = '1' GROUP BY Profile.Id, Profile.Name, Profile.ProfileCaption, Profile.Username, Profile.ProfilePicture, Profile.ProfileColor, TopicTutor.Topic, Profile.ProfileBanner, Profile.College, TopicTutor.TopicColor, Profile.RowVersion ORDER BY FollowerCount DESC",
+          "QueryId": "GetApprovedTutorSubjects"
+        },
+        {
+          "Query": "SELECT Profile.Id, Profile.Name, Profile.ProfileCaption, Profile.Username, Profile.ProfilePicture, Profile.ProfileColor, TopicTutor.Topic, Profile.ProfileBanner, Profile.College, TopicTutor.TopicColor, Profile.RowVersion, Count(*) AS FollowerCount FROM Follow INNER JOIN Profile On Profile.Username = Follow.FolloweeUsername INNER JOIN TopicTutor ON Profile.Username = TopicTutor.Tutor Where AcceptedTutor = '1' AND (LOWER(Profile.ProfileCaption) LIKE '%@x0%' OR REPLACE (LOWER(Profile.Name), '|', ' ') LIKE '%@x0%' OR LOWER(TopicTutor.Topic) LIKE '%@x0%' OR LOWER(Profile.Username) LIKE '%@x0%') GROUP BY Profile.Id, Profile.Name, Profile.ProfileCaption, Profile.Username, Profile.ProfilePicture, Profile.ProfileColor, TopicTutor.Topic, Profile.ProfileBanner, Profile.College, TopicTutor.TopicColor, Profile.RowVersion ORDER BY FollowerCount DESC",
+          "QueryId": "GetApprovedTutorSubjectsWithSearchTerm"
+        },
+        {
+          "Query": "SELECT Profile.Id, Profile.Name, Profile.ProfileCaption, Profile.Username, Profile.ProfilePicture, Profile.ProfileColor, TopicTutor.Topic, Profile.ProfileBanner, Profile.College, TopicTutor.TopicColor, Profile.RowVersion, Count(*) AS FollowerCount FROM Follow INNER JOIN Profile On Profile.Username = Follow.FolloweeUsername INNER JOIN TopicTutor ON Profile.Username = TopicTutor.Tutor Where AcceptedTutor = '1' AND TopicTutor.Topic = '@x0' GROUP BY Profile.Id, Profile.Name, Profile.ProfileCaption, Profile.Username, Profile.ProfilePicture, Profile.ProfileColor, TopicTutor.Topic, Profile.ProfileBanner, Profile.College, TopicTutor.TopicColor, Profile.RowVersion ORDER BY FollowerCount DESC",
+          "QueryId": "GetApprovedTutorSubjectsWithSubject"
+        },
+        {
+          "Query": "SELECT Profile.Id, Profile.Name, Profile.ProfileCaption, Profile.Username, Profile.ProfilePicture, Profile.ProfileColor, TopicTutor.Topic, Profile.ProfileBanner, Profile.College, TopicTutor.TopicColor, Profile.RowVersion, Count(*) AS FollowerCount FROM Follow INNER JOIN Profile On Profile.Username = Follow.FolloweeUsername INNER JOIN TopicTutor ON Profile.Username = TopicTutor.Tutor Where AcceptedTutor = '1' AND TopicTutor.Topic = '@x0' AND (LOWER(Profile.ProfileCaption) LIKE '%@x1%' OR REPLACE (LOWER(Profile.Name), '|', ' ') LIKE '%@x1%' OR LOWER(TopicTutor.Topic) LIKE '%@x1%' OR LOWER(Profile.Username) LIKE '%@x1%') GROUP BY Profile.Id, Profile.Name, Profile.ProfileCaption, Profile.Username, Profile.ProfilePicture, Profile.ProfileColor, TopicTutor.Topic, Profile.ProfileBanner, Profile.College, TopicTutor.TopicColor, Profile.RowVersion ORDER BY FollowerCount DESC",
+          "QueryId": "GetApprovedTutorSubjectsWithSubjectAndSearchTerm"
+        }
+      ]
+    },
+    {
+      "Name": "Debug",
+      "StorageType": "SqlServer",
+      "Queries": []
+    }
   ]
 }
