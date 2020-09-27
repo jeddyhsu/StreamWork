@@ -39,9 +39,8 @@
                             <input id="profile-color" type="hidden" value="@Model.CurrentUserProfile.ProfileColor" />
                             <input id="header-subscribe-to-notifications" type="hidden" @(Model.CurrentUserProfile.NotificationSubscribe == "True" ? "checked" : "") />
 
-</div>
-
-<div class="btn-group d-lg-none d-md-none d-sm-block d-block" style="margin-left:110px;">
+                        </div>
+                        <div class="btn-group d-lg-none d-md-none d-sm-block d-block" style="margin-left:110px;">
                             <button type="button" class="streamWork-secondary mr-2" onclick="EditProfile()">Edit Profile</button>
                             <button type="button" class="streamWork-primary" onclick="window.location.href ='/Profiles/Student/@Model.CurrentUserProfile.Username'">View Profile</button>
                         </div>
@@ -109,9 +108,7 @@
                                                     <div id="university-element" class="card-body text-center p-0" style="height:135px">
                                                         @if (Model.CurrentUserProfile.College == null)
                                                         {
-                                                            <div>
-                                                                <input type="image" src="~/images/TutorAssets/TutorDashboard/DefaultUniversity.png" class="form-control border-0 rounded-0 d-block mr-auto ml-auto pt-3" style="width:130px; height:100%">
-                                                            </div>
+                                                            <img src="~/images/GenericAssets/University.svg" class="form-control border-0 rounded-0 d-block mr-auto ml-auto " style="width:100px; height:100%">
                                                         }
                                                         else
                                                         {
