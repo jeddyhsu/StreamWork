@@ -126,7 +126,7 @@ namespace StreamWork.Services
                          {
                              Console.WriteLine("Not Live");
                              await StopRecording(channel);
-                             await Task.Delay(5000, cancellationToken);
+                             await Task.Delay(20000, cancellationToken);
                              await PollVideo(channel);
                              break;
                          }
