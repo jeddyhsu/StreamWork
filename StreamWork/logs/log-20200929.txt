@@ -3191,3 +3191,41 @@ System.NullReferenceException: Object reference not set to an instance of an obj
 2020-09-29 01:26:11.921 -07:00 [INF] CORS policy execution successful.
 2020-09-29 01:26:11.922 -07:00 [INF] No CORS policy found for the specified request.
 2020-09-29 01:26:11.922 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-29 01:27:45.972 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-29 01:27:45.973 -07:00 [INF] Request finished in 94049.8615ms 101 
+2020-09-29 01:27:46.006 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-29 01:27:46.006 -07:00 [INF] CORS policy execution successful.
+2020-09-29 01:27:46.022 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/Tutor  
+2020-09-29 01:27:46.024 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-29 01:27:46.025 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-29 01:27:46.025 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-29 01:27:46.026 -07:00 [INF] Request finished in 20.0564ms 200 application/json
+2020-09-29 01:27:46.211 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=kTCn2zWIgL85kKD3sK8Zjw  
+2020-09-29 01:27:46.211 -07:00 [INF] CORS policy execution successful.
+2020-09-29 01:27:46.211 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-29 01:27:46.211 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-29 01:27:46.504 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-29 01:27:46.504 -07:00 [INF] Request finished in 293.8782ms 101 
+2020-09-29 01:27:46.665 -07:00 [INF] Executing endpoint '/Home/Tutor'
+2020-09-29 01:27:46.669 -07:00 [INF] Route matched with {page = "/Home/Tutor"}. Executing page /Home/Tutor
+2020-09-29 01:27:46.670 -07:00 [INF] Executing handler method StreamWork.Pages.Home.TutorModal.OnGet - ModelState is "Valid"
+2020-09-29 01:27:46.876 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-29 01:27:46.892 -07:00 [INF] Executed page /Home/Tutor in 222.63420000000002ms
+2020-09-29 01:27:46.892 -07:00 [INF] Executed endpoint '/Home/Tutor'
+2020-09-29 01:27:46.892 -07:00 [INF] Request finished in 870.8004000000001ms 200 text/html; charset=utf-8
+2020-09-29 01:27:46.989 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/HomeAssets/Featured1.jpg  
+2020-09-29 01:27:46.990 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/HomeAssets/Featured2.jpg  
+2020-09-29 01:27:47.033 -07:00 [INF] Sending file. Request path: '/images/HomeAssets/Featured2.jpg'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/HomeAssets/Featured2.jpg'
+2020-09-29 01:27:47.036 -07:00 [INF] Request finished in 45.861200000000004ms 200 image/jpeg
+2020-09-29 01:27:47.057 -07:00 [INF] Sending file. Request path: '/images/HomeAssets/Featured1.jpg'. Physical path: '/Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/wwwroot/images/HomeAssets/Featured1.jpg'
+2020-09-29 01:27:47.057 -07:00 [INF] Request finished in 67.50500000000001ms 200 image/jpeg
+2020-09-29 01:27:47.067 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-29 01:27:47.067 -07:00 [INF] CORS policy execution successful.
+2020-09-29 01:27:47.067 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-29 01:27:47.067 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-29 01:27:47.068 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-29 01:27:47.068 -07:00 [INF] Request finished in 1.0008000000000001ms 200 application/json
+2020-09-29 01:27:47.492 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=bPqAy7L9gRJJsla3TZoi7g  
+2020-09-29 01:27:47.492 -07:00 [INF] CORS policy execution successful.
+2020-09-29 01:27:47.492 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-29 01:27:47.493 -07:00 [INF] Executing endpoint '/pushnotificationhub'
