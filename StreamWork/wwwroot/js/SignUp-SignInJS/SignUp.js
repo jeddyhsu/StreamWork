@@ -553,7 +553,7 @@ function tutorProfileInfoOAuthUpdateNext() {
     $('#tutor-username-oauth').popover('disable');
     $('#tutor-username-oauth-wrapper').popover('hide');
     $('#tutor-username-oauth-wrapper').popover('disable');
-    if ($('#tutor-username-oauth').val().length == 0) {
+    if ($('#tutor-username-oauth').val().length == 0 || $('#tutor-payPal-oauth').val().length == 0) {
         $('#tutorProfileInfoOAuth-next').removeClass('streamWork-primary');
         $('#tutorProfileInfoOAuth-next').addClass('streamWork-disabled');
     } else {
