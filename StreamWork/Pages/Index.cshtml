@@ -59,13 +59,15 @@
                         <button class="streamWork-primary d-block mr-auto ml-auto mt-3 w-50 mb-2" onclick="window.location.href = '/Profiles/Tutor/@Model.FeaturedTutor.Username'">Profile</button>
                         @if (Model.FeaturedArchivedVideo == null)
                         {
-                            <button class="streamWork-secondary d-block mr-auto ml-auto w-50 mb-3" onclick="window.location.href ='/Stream/Live/@Model.FeaturedTutor.Username'">Watch</button>
+                            <button class="streamWork-secondary d-block mr-auto ml-auto w-50 mb-2" onclick="window.location.href ='/Stream/Live/@Model.FeaturedTutor.Username'">Watch</button>
+                            <button class="streamWork-orange d-block mr-auto ml-auto w-50 mb-3" onclick="window.location.href ='/Stream/Live/@Model.FeaturedTutor.Username'">Donate</button>
                         }
                         else
                         {
-                            <button class="streamWork-secondary d-block mr-auto ml-auto w-50 mb-3" onclick="window.location.href = '/Stream/Archive/@Model.FeaturedArchivedVideo.StreamID/32169'">Watch</button>
+                            <button class="streamWork-secondary d-block mr-auto ml-auto w-50 mb-2" onclick="window.location.href = '/Stream/Archive/@Model.FeaturedArchivedVideo.StreamID/32169'">Watch</button>
+                            <button class="streamWork-orange d-block mr-auto ml-auto w-50 mb-3" onclick="window.location.href ='/Stream/Archive/@Model.FeaturedArchivedVideo.StreamID/32169'">Donate</button>
                         }
-                    </div>
+                        </div>
 
                 </div>
                 <div class="col-lg-6 col-md-12 col-sm-12 p-lg-0 pl-md-3 pr-md-3 pt-md-3 pt-3">
