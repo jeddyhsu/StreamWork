@@ -5546,3 +5546,381 @@ Error Number:515,State:2,Class:16
    at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
    at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
 2020-09-29 16:38:12.351 -07:00 [INF] Request finished in 642.019ms 500 text/plain
+2020-09-29 16:55:59.002 -07:00 [INF] User profile is available. Using '/Users/rithvik/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2020-09-29 16:55:59.425 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-09-29 16:55:59.434 -07:00 [WRN] Failed to determine the https port for redirect.
+2020-09-29 16:55:59.536 -07:00 [INF] Executing endpoint '/Index'
+2020-09-29 16:55:59.585 -07:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-09-29 16:55:59.598 -07:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-09-29 16:56:01.369 -07:00 [INF] Executed handler method OnGet, returned result .
+2020-09-29 16:56:01.372 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-29 16:56:01.373 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-29 16:56:01.840 -07:00 [INF] Executed page /Index in 2251.0521ms
+2020-09-29 16:56:01.841 -07:00 [INF] Executed endpoint '/Index'
+2020-09-29 16:56:01.847 -07:00 [INF] Request finished in 2425.3811ms 200 text/html; charset=utf-8
+2020-09-29 16:56:02.975 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-09-29 16:56:02.978 -07:00 [INF] Executing endpoint '/Index'
+2020-09-29 16:56:02.979 -07:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-09-29 16:56:02.979 -07:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-09-29 16:56:03.262 -07:00 [INF] Executed handler method OnGet, returned result .
+2020-09-29 16:56:03.263 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-29 16:56:03.263 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-29 16:56:03.296 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/js/SignUp-SignInJS/SignUp.js?v=DCCj3YCEnGPVwazeQpiC3PLo_xMq01HdIwZrKSrba4o  
+2020-09-29 16:56:03.296 -07:00 [INF] Executed page /Index in 317.0779ms
+2020-09-29 16:56:03.296 -07:00 [INF] Executed endpoint '/Index'
+2020-09-29 16:56:03.306 -07:00 [INF] Request finished in 331.13530000000003ms 200 text/html; charset=utf-8
+2020-09-29 16:56:03.311 -07:00 [INF] The file /js/SignUp-SignInJS/SignUp.js was not modified
+2020-09-29 16:56:03.312 -07:00 [INF] Request finished in 16.428800000000003ms 304 application/javascript
+2020-09-29 16:56:03.433 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-29 16:56:03.433 -07:00 [INF] CORS policy execution successful.
+2020-09-29 16:56:03.436 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-29 16:56:03.438 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-29 16:56:03.447 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-29 16:56:03.447 -07:00 [INF] Request finished in 14.0579ms 200 application/json
+2020-09-29 16:56:03.509 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Chat/Archive/e9c04960-604b-47bc-abc0-15bba95bc28c  
+2020-09-29 16:56:03.517 -07:00 [INF] Executing endpoint '/Chat/Archive'
+2020-09-29 16:56:03.527 -07:00 [INF] Route matched with {page = "/Chat/Archive"}. Executing page /Chat/Archive
+2020-09-29 16:56:03.537 -07:00 [INF] Executing handler method StreamWork.Pages.Chat.ArchiveChat.OnGet - ModelState is "Valid"
+2020-09-29 16:56:03.644 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=hRKyASxGYgudKakB5mlXdg  
+2020-09-29 16:56:03.644 -07:00 [INF] CORS policy execution successful.
+2020-09-29 16:56:03.644 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-29 16:56:03.645 -07:00 [INF] Executing endpoint '/pushnotificationhub'
+2020-09-29 16:56:03.646 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/StreamWorkAd.mp4  
+2020-09-29 16:56:03.655 -07:00 [INF] Sending ["bytes 0-1/55309965"] of file /Users/rithvik/C#/StreamWork/StreamWork/wwwroot/StreamWorkAd.mp4
+2020-09-29 16:56:03.662 -07:00 [INF] Request finished in 15.3381ms 206 video/mp4
+2020-09-29 16:56:03.683 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/StreamWorkAd.mp4  
+2020-09-29 16:56:03.683 -07:00 [INF] Sending ["bytes 0-55309964/55309965"] of file /Users/rithvik/C#/StreamWork/StreamWork/wwwroot/StreamWorkAd.mp4
+2020-09-29 16:56:03.836 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-29 16:56:03.889 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/StreamWorkAd.mp4  
+2020-09-29 16:56:03.889 -07:00 [INF] Sending ["bytes 2424832-55309964/55309965"] of file /Users/rithvik/C#/StreamWork/StreamWork/wwwroot/StreamWorkAd.mp4
+2020-09-29 16:56:04.388 -07:00 [INF] Executed page /Chat/Archive in 860.3428ms
+2020-09-29 16:56:04.388 -07:00 [INF] Executed endpoint '/Chat/Archive'
+2020-09-29 16:56:04.388 -07:00 [INF] Request finished in 878.9139ms 200 text/html; charset=utf-8
+2020-09-29 16:56:04.415 -07:00 [INF] Request finished in 731.9763ms 206 video/mp4
+2020-09-29 16:56:04.512 -07:00 [INF] Request finished in 623.6365000000001ms 206 video/mp4
+2020-09-29 16:56:42.344 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignUp  
+2020-09-29 16:56:42.383 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-29 16:56:42.392 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-29 16:56:42.394 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-29 16:56:42.394 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-29 16:56:42.450 -07:00 [INF] Executed page /Home/SignUp in 57.862300000000005ms
+2020-09-29 16:56:42.450 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-29 16:56:42.451 -07:00 [INF] Request finished in 106.5694ms 200 text/html; charset=utf-8
+2020-09-29 16:56:42.641 -07:00 [INF] Executed endpoint '/pushnotificationhub'
+2020-09-29 16:56:42.641 -07:00 [INF] Request finished in 38997.037000000004ms 101 
+2020-09-29 16:56:52.315 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/Home/SignUp/?handler=CheckIfOauthUserExists application/x-www-form-urlencoded; charset=UTF-8 50
+2020-09-29 16:56:52.315 -07:00 [INF] CORS policy execution successful.
+2020-09-29 16:56:52.317 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-29 16:56:52.317 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-29 16:56:52.317 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-29 16:56:52.329 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignUpModel.OnPostCheckIfOauthUserExists - ModelState is "Valid"
+2020-09-29 16:56:52.401 -07:00 [INF] Executed handler method OnPostCheckIfOauthUserExists, returned result Microsoft.AspNetCore.Mvc.JsonResult.
+2020-09-29 16:56:52.403 -07:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType1`1[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2020-09-29 16:56:52.409 -07:00 [INF] Executed page /Home/SignUp in 91.4346ms
+2020-09-29 16:56:52.409 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-29 16:56:52.409 -07:00 [INF] Request finished in 94.96260000000001ms 200 application/json; charset=utf-8
+2020-09-29 16:56:52.418 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/Home/SignUp/?handler=SubmitLatestTab application/x-www-form-urlencoded; charset=UTF-8 38
+2020-09-29 16:56:52.418 -07:00 [INF] CORS policy execution successful.
+2020-09-29 16:56:52.418 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-29 16:56:52.419 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-29 16:56:52.419 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-29 16:56:52.420 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignUpModel.OnPostSubmitLatestTab - ModelState is "Valid"
+2020-09-29 16:56:53.892 -07:00 [INF] Executed page /Home/SignUp in 1473.0514ms
+2020-09-29 16:56:53.893 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-29 16:56:53.894 -07:00 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while updating the entries. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert the value NULL into column 'EmailAddress', table 'StreamWork.dbo.SignUpProgress'; column does not allow nulls. INSERT fails.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__164_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.Tasks.Task.<>c.<.cctor>b__274_0(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:981d7655-d854-4336-9b1b-20d4d416e304
+Error Number:515,State:2,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(DbContext _, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at StreamWork.Core.DataStore.SaveAsync[T](String _connectionString, StorageConfig storageConfig, Dictionary`2 keys, T dataObject) in /Users/rithvik/C#/StreamWork/StreamWork/Core/DataStore.cs:line 54
+   at StreamWork.Services.StorageService.Save[T](String id, T obj) in /Users/rithvik/C#/StreamWork/StreamWork/Services/StorageService.cs:line 49
+   at StreamWork.Pages.Home.SignUpModel.OnPostSubmitLatestTab(String emailAddress, String latestTab) in /Users/rithvik/C#/StreamWork/StreamWork/Pages/Home/SignUp.cshtml.cs:line 305
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.ExecutorFactory.GenericTaskHandlerMethod.Convert[T](Object taskAsObject)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.ExecutorFactory.GenericTaskHandlerMethod.Execute(Object receiver, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeHandlerMethodAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeNextPageFilterAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Rethrow(PageHandlerExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2020-09-29 16:56:53.947 -07:00 [INF] Request finished in 1528.8939ms 500 text/plain
+2020-09-29 16:56:56.781 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/Home/SignUp/?handler=SubmitLatestTab application/x-www-form-urlencoded; charset=UTF-8 35
+2020-09-29 16:56:56.781 -07:00 [INF] CORS policy execution successful.
+2020-09-29 16:56:56.782 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-29 16:56:56.782 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-29 16:56:56.783 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-29 16:56:56.784 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignUpModel.OnPostSubmitLatestTab - ModelState is "Valid"
+2020-09-29 16:56:57.511 -07:00 [INF] Executed page /Home/SignUp in 727.8633ms
+2020-09-29 16:56:57.511 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-29 16:56:57.511 -07:00 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while updating the entries. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert the value NULL into column 'EmailAddress', table 'StreamWork.dbo.SignUpProgress'; column does not allow nulls. INSERT fails.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__164_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.Tasks.Task.<>c.<.cctor>b__274_0(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:981d7655-d854-4336-9b1b-20d4d416e304
+Error Number:515,State:2,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(DbContext _, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at StreamWork.Core.DataStore.SaveAsync[T](String _connectionString, StorageConfig storageConfig, Dictionary`2 keys, T dataObject) in /Users/rithvik/C#/StreamWork/StreamWork/Core/DataStore.cs:line 54
+   at StreamWork.Services.StorageService.Save[T](String id, T obj) in /Users/rithvik/C#/StreamWork/StreamWork/Services/StorageService.cs:line 49
+   at StreamWork.Pages.Home.SignUpModel.OnPostSubmitLatestTab(String emailAddress, String latestTab) in /Users/rithvik/C#/StreamWork/StreamWork/Pages/Home/SignUp.cshtml.cs:line 305
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.ExecutorFactory.GenericTaskHandlerMethod.Convert[T](Object taskAsObject)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.ExecutorFactory.GenericTaskHandlerMethod.Execute(Object receiver, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeHandlerMethodAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeNextPageFilterAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Rethrow(PageHandlerExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2020-09-29 16:56:57.515 -07:00 [INF] Request finished in 734.4335ms 500 text/plain
+2020-09-29 16:56:59.401 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/Home/SignUp/?handler=SubmitLatestTab application/x-www-form-urlencoded; charset=UTF-8 45
+2020-09-29 16:56:59.401 -07:00 [INF] CORS policy execution successful.
+2020-09-29 16:56:59.401 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-29 16:56:59.402 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-29 16:56:59.402 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-29 16:56:59.403 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignUpModel.OnPostSubmitLatestTab - ModelState is "Valid"
+2020-09-29 16:57:00.186 -07:00 [INF] Executed page /Home/SignUp in 783.4944ms
+2020-09-29 16:57:00.186 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-29 16:57:00.187 -07:00 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while updating the entries. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert the value NULL into column 'EmailAddress', table 'StreamWork.dbo.SignUpProgress'; column does not allow nulls. INSERT fails.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__164_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.Tasks.Task.<>c.<.cctor>b__274_0(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:981d7655-d854-4336-9b1b-20d4d416e304
+Error Number:515,State:2,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(DbContext _, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at StreamWork.Core.DataStore.SaveAsync[T](String _connectionString, StorageConfig storageConfig, Dictionary`2 keys, T dataObject) in /Users/rithvik/C#/StreamWork/StreamWork/Core/DataStore.cs:line 54
+   at StreamWork.Services.StorageService.Save[T](String id, T obj) in /Users/rithvik/C#/StreamWork/StreamWork/Services/StorageService.cs:line 49
+   at StreamWork.Pages.Home.SignUpModel.OnPostSubmitLatestTab(String emailAddress, String latestTab) in /Users/rithvik/C#/StreamWork/StreamWork/Pages/Home/SignUp.cshtml.cs:line 305
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.ExecutorFactory.GenericTaskHandlerMethod.Convert[T](Object taskAsObject)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.ExecutorFactory.GenericTaskHandlerMethod.Execute(Object receiver, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeHandlerMethodAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeNextPageFilterAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Rethrow(PageHandlerExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2020-09-29 16:57:00.190 -07:00 [INF] Request finished in 789.3458ms 500 text/plain
+2020-09-29 16:57:07.122 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignUp/?handler=IsUsernameAvailable&username=rarunTT  
+2020-09-29 16:57:07.123 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-29 16:57:07.123 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-29 16:57:07.124 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignUpModel.OnGetIsUsernameAvailable - ModelState is "Valid"
+2020-09-29 16:57:07.193 -07:00 [INF] Executed handler method OnGetIsUsernameAvailable, returned result Microsoft.AspNetCore.Mvc.JsonResult.
+2020-09-29 16:57:07.193 -07:00 [INF] Executing JsonResult, writing value of type 'System.Boolean'.
+2020-09-29 16:57:07.199 -07:00 [INF] Executed page /Home/SignUp in 75.37ms
+2020-09-29 16:57:07.199 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-29 16:57:07.199 -07:00 [INF] Request finished in 77.3754ms 200 application/json; charset=utf-8
+2020-09-29 16:57:07.201 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignUp/?handler=IsAddressValid&emailAddress=rithvik.aru  
+2020-09-29 16:57:07.202 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-29 16:57:07.202 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-29 16:57:07.202 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignUpModel.OnGetIsAddressValid - ModelState is "Valid"
+2020-09-29 16:57:07.709 -07:00 [INF] Executed handler method OnGetIsAddressValid, returned result Microsoft.AspNetCore.Mvc.JsonResult.
+2020-09-29 16:57:07.709 -07:00 [INF] Executing JsonResult, writing value of type 'System.Boolean'.
+2020-09-29 16:57:07.710 -07:00 [INF] Executed page /Home/SignUp in 507.5473ms
+2020-09-29 16:57:07.710 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-29 16:57:07.710 -07:00 [INF] Request finished in 508.73850000000004ms 200 application/json; charset=utf-8
+2020-09-29 16:57:17.143 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignUp/?handler=IsUsernameAvailable&username=rarunTT  
+2020-09-29 16:57:17.144 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-29 16:57:17.144 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-29 16:57:17.145 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignUpModel.OnGetIsUsernameAvailable - ModelState is "Valid"
+2020-09-29 16:57:17.212 -07:00 [INF] Executed handler method OnGetIsUsernameAvailable, returned result Microsoft.AspNetCore.Mvc.JsonResult.
+2020-09-29 16:57:17.213 -07:00 [INF] Executing JsonResult, writing value of type 'System.Boolean'.
+2020-09-29 16:57:17.213 -07:00 [INF] Executed page /Home/SignUp in 68.85510000000001ms
+2020-09-29 16:57:17.213 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-29 16:57:17.214 -07:00 [INF] Request finished in 70.8131ms 200 application/json; charset=utf-8
+2020-09-29 16:57:17.216 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Home/SignUp/?handler=IsAddressValid&emailAddress=rithvik.arun%40live.com  
+2020-09-29 16:57:17.216 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-29 16:57:17.217 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-29 16:57:17.217 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignUpModel.OnGetIsAddressValid - ModelState is "Valid"
+2020-09-29 16:57:17.218 -07:00 [INF] Executed handler method OnGetIsAddressValid, returned result Microsoft.AspNetCore.Mvc.JsonResult.
+2020-09-29 16:57:17.218 -07:00 [INF] Executing JsonResult, writing value of type 'System.Boolean'.
+2020-09-29 16:57:17.218 -07:00 [INF] Executed page /Home/SignUp in 1.2457ms
+2020-09-29 16:57:17.218 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-29 16:57:17.218 -07:00 [INF] Request finished in 2.7483ms 200 application/json; charset=utf-8
+2020-09-29 16:57:17.223 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/Home/SignUp/?handler=SubmitLatestTab application/x-www-form-urlencoded; charset=UTF-8 45
+2020-09-29 16:57:17.223 -07:00 [INF] CORS policy execution successful.
+2020-09-29 16:57:17.223 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-29 16:57:17.223 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-29 16:57:17.223 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-29 16:57:17.224 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignUpModel.OnPostSubmitLatestTab - ModelState is "Valid"
+2020-09-29 16:57:17.942 -07:00 [INF] Executed page /Home/SignUp in 718.3417000000001ms
+2020-09-29 16:57:17.942 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-29 16:57:17.942 -07:00 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while updating the entries. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert the value NULL into column 'EmailAddress', table 'StreamWork.dbo.SignUpProgress'; column does not allow nulls. INSERT fails.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__164_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.Tasks.Task.<>c.<.cctor>b__274_0(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:981d7655-d854-4336-9b1b-20d4d416e304
+Error Number:515,State:2,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(DbContext _, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at StreamWork.Core.DataStore.SaveAsync[T](String _connectionString, StorageConfig storageConfig, Dictionary`2 keys, T dataObject) in /Users/rithvik/C#/StreamWork/StreamWork/Core/DataStore.cs:line 54
+   at StreamWork.Services.StorageService.Save[T](String id, T obj) in /Users/rithvik/C#/StreamWork/StreamWork/Services/StorageService.cs:line 49
+   at StreamWork.Pages.Home.SignUpModel.OnPostSubmitLatestTab(String emailAddress, String latestTab) in /Users/rithvik/C#/StreamWork/StreamWork/Pages/Home/SignUp.cshtml.cs:line 305
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.ExecutorFactory.GenericTaskHandlerMethod.Convert[T](Object taskAsObject)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.ExecutorFactory.GenericTaskHandlerMethod.Execute(Object receiver, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeHandlerMethodAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeNextPageFilterAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Rethrow(PageHandlerExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2020-09-29 16:57:17.947 -07:00 [INF] Request finished in 724.32ms 500 text/plain
+2020-09-29 16:57:22.875 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/Home/SignUp/?handler=SignUpTutor multipart/form-data; boundary=----WebKitFormBoundaryb6mn5RghwU90cVBE 122396
+2020-09-29 16:57:22.875 -07:00 [INF] CORS policy execution successful.
+2020-09-29 16:57:22.876 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-29 16:57:22.876 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-29 16:57:22.876 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-29 16:57:22.877 -07:00 [INF] Executing handler method StreamWork.Pages.Home.SignUpModel.OnPostSignUpTutor - ModelState is "Valid"
+2020-09-29 16:57:24.189 -07:00 [INF] AuthenticationScheme: Cookies signed in.
+2020-09-29 16:57:27.820 -07:00 [INF] Executed handler method OnPostSignUpTutor, returned result .
+2020-09-29 16:57:27.820 -07:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2020-09-29 16:57:27.820 -07:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-29 16:57:27.824 -07:00 [INF] Executed page /Home/SignUp in 4948.1168ms
+2020-09-29 16:57:27.824 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-29 16:57:27.825 -07:00 [INF] Request finished in 4950.0586ms 200 text/html; charset=utf-8
+2020-09-29 16:57:27.829 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/Home/SignUp/?handler=SubmitLatestTab application/x-www-form-urlencoded; charset=UTF-8 37
+2020-09-29 16:57:27.829 -07:00 [INF] CORS policy execution successful.
+2020-09-29 16:57:27.829 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-29 16:57:27.831 -07:00 [INF] Executing endpoint '/Home/SignUp'
+2020-09-29 16:57:27.831 -07:00 [INF] Route matched with {page = "/Home/SignUp"}. Executing page /Home/SignUp
+2020-09-29 16:57:27.833 -07:00 [INF] Antiforgery token validation failed. The provided antiforgery token was meant for a different claims-based user than the current user.
+Microsoft.AspNetCore.Antiforgery.AntiforgeryValidationException: The provided antiforgery token was meant for a different claims-based user than the current user.
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgery.ValidateTokens(HttpContext httpContext, AntiforgeryTokenSet antiforgeryTokenSet)
+   at Microsoft.AspNetCore.Antiforgery.DefaultAntiforgery.ValidateRequestAsync(HttpContext httpContext)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.ValidateAntiforgeryTokenAuthorizationFilter.OnAuthorizationAsync(AuthorizationFilterContext context)
+2020-09-29 16:57:27.836 -07:00 [INF] Authorization failed for the request at filter 'Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.AutoValidateAntiforgeryTokenAuthorizationFilter'.
+2020-09-29 16:57:27.839 -07:00 [INF] Executing HttpStatusCodeResult, setting HTTP status code 400
+2020-09-29 16:57:27.840 -07:00 [INF] Executed page /Home/SignUp in 8.913ms
+2020-09-29 16:57:27.840 -07:00 [INF] Executed endpoint '/Home/SignUp'
+2020-09-29 16:57:27.840 -07:00 [INF] Request finished in 11.1563ms 400 
+2020-09-29 16:57:29.566 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Tutor/TutorDashboard  
+2020-09-29 16:57:29.577 -07:00 [INF] Executing endpoint '/Tutor/TutorDashboard'
+2020-09-29 16:57:29.581 -07:00 [INF] Route matched with {page = "/Tutor/TutorDashboard"}. Executing page /Tutor/TutorDashboard
+2020-09-29 16:57:29.582 -07:00 [INF] Executing handler method StreamWork.Pages.Tutor.TutorDashboard.OnGet - ModelState is "Valid"
+2020-09-29 16:57:31.451 -07:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2020-09-29 16:57:31.630 -07:00 [INF] Executed page /Tutor/TutorDashboard in 2048.8153ms
+2020-09-29 16:57:31.631 -07:00 [INF] Executed endpoint '/Tutor/TutorDashboard'
+2020-09-29 16:57:31.631 -07:00 [INF] Request finished in 2065.4872ms 200 text/html; charset=utf-8
+2020-09-29 16:57:31.638 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/images/GenericAssets/Trash.svg  
+2020-09-29 16:57:31.644 -07:00 [INF] Sending file. Request path: '/images/GenericAssets/Trash.svg'. Physical path: '/Users/rithvik/C#/StreamWork/StreamWork/wwwroot/images/GenericAssets/Trash.svg'
+2020-09-29 16:57:31.645 -07:00 [INF] Request finished in 6.5884ms 200 image/svg+xml
+2020-09-29 16:57:31.710 -07:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2020-09-29 16:57:31.710 -07:00 [INF] CORS policy execution successful.
+2020-09-29 16:57:31.710 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-29 16:57:31.710 -07:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2020-09-29 16:57:31.711 -07:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2020-09-29 16:57:31.711 -07:00 [INF] Request finished in 1.3018ms 200 application/json
+2020-09-29 16:57:31.738 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=Y_Ijb8qVzgoqobcHcT5OXw  
+2020-09-29 16:57:31.739 -07:00 [INF] CORS policy execution successful.
+2020-09-29 16:57:31.739 -07:00 [INF] No CORS policy found for the specified request.
+2020-09-29 16:57:31.739 -07:00 [INF] Executing endpoint '/pushnotificationhub'

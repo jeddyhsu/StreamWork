@@ -205,8 +205,7 @@ namespace StreamWork.Pages.Home
             GoogleOauth oauthInfo = await storageService.CallJSON<GoogleOauth>("https://oauth2.googleapis.com/tokeninfo?id_token=" + oauthRequestToken); //GETS EMAIL FOR GOOGLE OAUTH
             var password = encryptionService.EncryptPassword("!!0_STREAMWORK_!!0");
 
-            await storageService.Save(id, new Profile
-            {
+            var profile = new Profile{
                 Id = id,
                 Name = oauthInfo.Name.Contains(' ') ? oauthInfo.Name.Replace(' ', '|') : oauthInfo.Name + "|",
                 EmailAddress = oauthInfo.Email,
@@ -223,13 +222,15 @@ namespace StreamWork.Pages.Home
                 ProfilePicture = MiscHelperMethods.defaultProfilePicture,
                 ProfileBanner = MiscHelperMethods.defaultBanner,
                 TimeZone = MiscHelperMethods.GetTimeZoneBasedOfOffset(Request.Form["Time"])
-            });
+            };
 
             if(type == "tutor")
             {
+                profile.PayPalAddress = Request.Form["PayPalAddress"];
                 await AddUs5AsFollowers(id);
             }
-                
+
+            await storageService.Save(id, profile);
             await cookieService.SignIn(Request.Form["Username"], encryptionService.DecryptPassword(password, "!!0_STREAMWORK_!!0"));
         }
 
