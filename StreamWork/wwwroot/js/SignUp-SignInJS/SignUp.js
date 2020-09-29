@@ -26,6 +26,20 @@ function goToTab(tab) {
         $('#' + i).hide();
     }
     $('#' + tab).show();
+
+
+    $.ajax({
+        url: '/Home/SignUp/?handler=SubmitLatestTab',
+        type: 'POST',
+        data: {
+            emailAddress: $('#emailAddress').val(),
+            latestTab: tab
+        },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("XSRF-TOKEN",
+                $('input:hidden[name="__RequestVerificationToken"]').val());
+        },
+    }).done(function (data) {});
 }
 
 function emailUpdateNext() {

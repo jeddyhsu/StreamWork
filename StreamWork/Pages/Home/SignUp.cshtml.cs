@@ -297,5 +297,19 @@ namespace StreamWork.Pages.Home
             await followService.AddFollower("f8780448-8085-41ab-9f41-11ea50264522", userId); //Ken
             await followService.AddFollower("ce4e0497-1d37-4145-9021-617a65812ca8", userId); //Junshu
         }
+
+        public async Task<IActionResult> OnPostSubmitLatestTab(string emailAddress, string latestTab)
+        {
+            string id = Guid.NewGuid().ToString();
+            await storageService.Save(id, new SignUpProgress
+            {
+                Id = id,
+                LatestTab = latestTab,
+                EmailAddress = emailAddress,
+                Date = DateTime.UtcNow
+            });
+
+            return new JsonResult(new { Message = JsonResponse.Success.ToString() });
+        }
     }
 }
