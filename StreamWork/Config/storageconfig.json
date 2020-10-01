@@ -173,19 +173,19 @@
       "StorageType": "SqlServer",
       "Queries": [
         {
-          "Query": "SELECT * FROM [dbo].[Comment] WHERE ReceiverUsername = '@x0'",
+          "Query": "SELECT Comment.Id, Comment.SenderUsername, Profile.Name AS SenderName, Profile.ProfilePicture AS SenderProfilePicture, Comment.ReceiverUsername, Comment.ReceiverName, Comment.Message, Comment.Date, Comment.ParentId, Comment.StreamId, Comment.Edited, Comment.RowVersion, Profile.ProfileColor FROM [dbo].[Comment] INNER JOIN [dbo].[Profile] ON Profile.Username = Comment.SenderUsername WHERE ReceiverUsername = '@x0'",
           "QueryId": "GetCommentsWithReceiverUsername"
         },
         {
-          "Query": "SELECT * FROM [dbo].[Comment] WHERE StreamId = '@x0' AND ParentId IS NULL ORDER BY DATE ASC",
+          "Query": "SELECT Comment.Id, Comment.SenderUsername, Profile.Name AS SenderName, Profile.ProfilePicture AS SenderProfilePicture, Comment.ReceiverUsername, Comment.ReceiverName, Comment.Message, Comment.Date, Comment.ParentId, Comment.StreamId, Comment.Edited, Comment.RowVersion, Profile.ProfileColor FROM [dbo].[Comment] INNER JOIN [dbo].[Profile] ON Profile.Username = Comment.SenderUsername WHERE StreamId = '@x0' AND ParentId IS NULL ORDER BY DATE ASC",
           "QueryId": "GetCommentsWithStreamId"
         },
         {
-          "Query": "SELECT * FROM [dbo].[Comment] WHERE StreamId = '@x0' AND ParentId IS NOT NULL ORDER BY DATE ASC",
+          "Query": "SELECT Comment.Id, Comment.SenderUsername, Profile.Name AS SenderName, Profile.ProfilePicture AS SenderProfilePicture, Comment.ReceiverUsername, Comment.ReceiverName, Comment.Message, Comment.Date, Comment.ParentId, Comment.StreamId, Comment.Edited, Comment.RowVersion, Profile.ProfileColor FROM [dbo].[Comment] INNER JOIN [dbo].[Profile] ON Profile.Username = Comment.SenderUsername WHERE StreamId = '@x0' AND ParentId IS NOT NULL ORDER BY DATE ASC",
           "QueryId": "GetRepliesWithStreamId"
         },
         {
-          "Query": "SELECT * FROM [dbo].[Comment] WHERE Id = '@x0'",
+          "Query": "SELECT Comment.Id, Comment.SenderUsername, Profile.Name AS SenderName, Profile.ProfilePicture AS SenderProfilePicture, Comment.ReceiverUsername, Comment.ReceiverName, Comment.Message, Comment.Date, Comment.ParentId, Comment.StreamId, Comment.Edited, Comment.RowVersion, Profile.ProfileColor FROM [dbo].[Comment] INNER JOIN [dbo].[Profile] ON Profile.Username = Comment.SenderUsername WHERE Comment.Id = '@x0'",
           "QueryId": "GetCommentWithId"
         },
         {
@@ -227,11 +227,11 @@
       "StorageType": "SqlServer",
       "Queries": [
         {
-          "Query": "SELECT * FROM [dbo].[Chat]",
+          "Query": "SELECT Chat.Id, Chat.ChatId, Chat.Username, Profile.Name AS Name, Chat.Message, Profile.ProfilePicture, Chat.Date, Profile.ProfileColor AS ChatColor, Chat.TimeOffset, Chat.ArchivedVideoId, Chat.RowVersion FROM Chat INNER JOIN Profile ON Profile.Username = Chat.Username",
           "QueryId": "GetAllChats"
         },
         {
-          "Query": "SELECT * FROM [dbo].[Chat] WHERE ChatId = '@x0' AND ArchivedVideoId = '@x1' ORDER BY DATE ASC",
+          "Query": "SELECT Chat.Id, Chat.ChatId, Chat.Username, Profile.Name AS Name, Chat.Message, Profile.ProfilePicture, Chat.Date, Profile.ProfileColor AS ChatColor, Chat.TimeOffset, Chat.ArchivedVideoId, Chat.RowVersion FROM Chat INNER JOIN Profile ON Profile.Username = Chat.Username WHERE ChatId = '@x0' AND ArchivedVideoId = '@x1' ORDER BY DATE ASC",
           "QueryId": "GetAllChatsWithIdAndVideoId"
         },
         {
@@ -350,7 +350,7 @@
       "StorageType": "SqlServer",
       "Queries": [
         {
-          "Query": "SELECT * FROM [dbo].[Notification] WHERE LOWER(ReceiverUsername) = LOWER('@x0') ORDER BY DATE DESC",
+          "Query": "SELECT Notification.Id, Notification.SenderUsername, Profile.Name AS SenderName, Profile.ProfilePicture AS SenderProfilePicture, Notification.ReceiverUsername, Notification.ReceiverName, Notification.Message, Notification.Seen, Notification.Date, Notification.Type, Notification.NotificationInfo, Notification.ObjectId, Notification.RowVersion, Profile.ProfileColor FROM [dbo].[Notification] INNER JOIN [dbo].[Profile] ON Profile.Username = Notification.SenderUsername WHERE LOWER(ReceiverUsername) = LOWER('@x0') ORDER BY DATE DESC",
           "QueryId": "GetNotificationsWithReceiver"
         },
         {
@@ -366,7 +366,7 @@
           "QueryId": "UpdateNotificationToSeen"
         },
         {
-          "Query": "SELECT * FROM [dbo].[Notification] WHERE LOWER(ReceiverUsername) = LOWER('@x0') AND Seen = 'false'",
+          "Query": "SELECT Notification.Id, Notification.SenderUsername, Profile.Name AS SenderName, Profile.ProfilePicture AS SenderProfilePicture, Notification.ReceiverUsername, Notification.ReceiverName, Notification.Message, Notification.Seen, Notification.Date, Notification.Type, Notification.NotificationInfo, Notification.ObjectId, Notification.RowVersion, Profile.ProfileColor FROM [dbo].[Notification] INNER JOIN [dbo].[Profile] ON Profile.Username = Notification.SenderUsername WHERE LOWER(ReceiverUsername) = LOWER('@x0') AND Seen = 'false'",
           "QueryId": "GetUnseenNotifications"
         }
 
