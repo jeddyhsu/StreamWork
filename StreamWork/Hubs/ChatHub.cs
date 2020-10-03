@@ -75,8 +75,9 @@ namespace StreamWork.Hubs
                 Username = userName,
                 Name = name,
                 Message = message,
+                Date = dateTime,
                 ProfilePicture = profilePicture,
-                DateString = dateTime.AddMinutes(offset).ToString("HH:mm"),
+                DateString = dateTime.ToString("HH:mm"),
                 ChatColor = chatColor,
                 TimeOffset = offset,
                 ArchivedVideoId = archivedVideoId

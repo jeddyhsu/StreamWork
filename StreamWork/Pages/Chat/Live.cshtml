@@ -104,14 +104,14 @@ else
                                     <script>
                                             function pressed(event) {
                                                 if (event.keyCode == 13 && !event.shiftKey) {
-                                                    GetMessage('@Model.ChatId', '@Model.CurrentUserProfile.Username', '@Model.CurrentUserProfile.Name', '@Model.CurrentUserProfile.ProfilePicture', '@Model.CurrentUserProfile.ProfileColor', '@Model.ChatInfo')
+                                                    GetMessage('@Model.ChatId', '@Model.CurrentUserProfile.Username', '@Model.CurrentUserProfile.Name', '@Model.CurrentUserProfile.ProfilePicture', '@Model.CurrentUserProfile.ProfileColor', '@Model.Offset')
                                                     event.preventDefault();
                                                     return false;
                                                 }
                                             }
                                     </script>
                                     <div>
-                                        <button type="button" id="sendQuestionButton" class="streamWork-primary mr-2 send-button" style="font-size:12px;" onclick="GetMessage('@Model.ChatId','@Model.CurrentUserProfile.Username','@Model.CurrentUserProfile.Name', '@Model.CurrentUserProfile.ProfilePicture', '@Model.CurrentUserProfile.ProfileColor', '@Model.ChatInfo')">Send</button>
+                                        <button type="button" id="sendQuestionButton" class="streamWork-primary mr-2 send-button" style="font-size:12px;" onclick="GetMessage('@Model.ChatId','@Model.CurrentUserProfile.Username','@Model.CurrentUserProfile.Name', '@Model.CurrentUserProfile.ProfilePicture', '@Model.CurrentUserProfile.ProfileColor', '@Model.Offset')">Send</button>
                                     </div>
                                 </div>
 

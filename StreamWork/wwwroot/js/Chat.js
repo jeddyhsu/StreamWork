@@ -25,20 +25,22 @@ connection.on("ReceiveMessage", function (chat) {
         isStreamOnline = "(stream offline - not saved)"
     }
 
+    var dateString = moment(chat.Date).format("HH:mm");
+
     if (chat.ChatId == chat.Username) {
         listName = ` <p class="chat-name" style="color:${chat.ChatColor}">${chat.Name.replace('|', ' ')}
                         <span><img id="tutor-tip-${toolTipCount}" class="pl-1" style="width:28px" src="/images/ChatAssets/Tutor.svg" data-toggle="tooltip" data-placement="top" title="StreamTutor"></span>
-                        <span class='chat-date'>${chat.DateString} ${isStreamOnline}</span>
+                        <span class='chat-date'>${dateString} ${isStreamOnline}</span>
                      </p>`
     }
     else if (clientUsername == chat.Username) {
         listName = `<p class="chat-name" style="color:${chat.ChatColor}">${chat.Name.replace('|', ' ')} (you)
-                         <span class="chat-date">${chat.DateString} ${isStreamOnline}</span>
+                         <span class="chat-date">${dateString} ${isStreamOnline}</span>
                     </p>`
     }
     else {
         listName = `<p class="chat-name" style="color:${chat.ChatColor}">${chat.Name.replace('|', ' ')}
-                        <span class="chat-date">${chat.DateString} ${isStreamOnline}</span>
+                        <span class="chat-date">${dateString} ${isStreamOnline}</span>
                     </p>`
     }
 
@@ -106,7 +108,7 @@ function JoinChat(chatId, connectionId) {
     });
 }
 
-function GetMessage(chatId, userName, name, profilePicture, chatColor) {
+function GetMessage(chatId, userName, name, profilePicture, chatColor, offset) {
     if ($("#chatInput").text() > 500) {
         OpenInvalidComment()
         return;
@@ -117,12 +119,11 @@ function GetMessage(chatId, userName, name, profilePicture, chatColor) {
         message = message.replace('<br>', '')
     if (message == "") return;
 
-    CleanAndSendMessage(message, chatId, userName, name, profilePicture, chatColor);
+    CleanAndSendMessage(message, chatId, userName, name, profilePicture, chatColor, offset);
 }
 
-function CleanAndSendMessage(message, chatId, userName, name, profilePicture, chatColor) {
-    var offset = moment().utcOffset();
-    connection.invoke("SendMessageToChatRoom", chatId, userName, name, message, profilePicture, chatColor, offset).catch(function (err) {
+function CleanAndSendMessage(message, chatId, userName, name, profilePicture, chatColor, offset) {
+    connection.invoke("SendMessageToChatRoom", chatId, userName, name, message, profilePicture, chatColor, parseInt(offset)).catch(function (err) {
         return console.error(err.toString());
 
     });
