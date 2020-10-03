@@ -62,14 +62,42 @@
                         @if (Model.FeaturedArchivedVideo == null)
                         {
                             <button class="streamWork-secondary d-block mr-auto ml-auto w-50 mb-2" onclick="window.location.href ='/Stream/Live/@Model.FeaturedTutor.Username'">Watch</button>
-                            <button class="streamWork-orange d-block mr-auto ml-auto w-50 mb-3" onclick="window.location.href ='/Stream/Live/@Model.FeaturedTutor.Username'">Donate</button>
+
+                            @if (Model.CurrentUserProfile == null)
+                            {
+                                <button class="streamWork-orange d-block mr-auto ml-auto w-50 mb-3" onclick="window.location.href ='/Stream/Live/@Model.FeaturedTutor.Username'">Donate</button>
+                            }
+                            else
+                            {
+                                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" style="display: inline-block;">
+                                    <input type="hidden" name="cmd" value="_s-xclick" />
+                                    <input type="hidden" name="hosted_button_id" value="QQPAME3R7N5ZA" />
+                                    <input type="hidden" name="custom" value="@Model.CurrentUserProfile.Username+@Model.FeaturedTutor.Username" />
+                                    <button class="streamWork-orange d-block mr-auto ml-auto w-50 mb-3">Donate</button>
+                                    <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+                                </form>
+                            }
                         }
                         else
                         {
                             <button class="streamWork-secondary d-block mr-auto ml-auto w-50 mb-2" onclick="window.location.href = '/Stream/Archive/@Model.FeaturedArchivedVideo.StreamID/32169'">Watch</button>
-                            <button class="streamWork-orange d-block mr-auto ml-auto w-50 mb-3" onclick="window.location.href ='/Stream/Archive/@Model.FeaturedArchivedVideo.StreamID/32169'">Donate</button>
+
+                            @if (Model.CurrentUserProfile == null)
+                            {
+                                <button class="streamWork-orange d-block mr-auto ml-auto w-50 mb-3" onclick="window.location.href ='/Stream/Archive/@Model.FeaturedArchivedVideo.StreamID/32169'">Donate</button>
+                            }
+                            else
+                            {
+                                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" style="display: inline-block;">
+                                    <input type="hidden" name="cmd" value="_s-xclick" />
+                                    <input type="hidden" name="hosted_button_id" value="QQPAME3R7N5ZA" />
+                                    <input type="hidden" name="custom" value="@Model.CurrentUserProfile.Username+@Model.FeaturedTutor.Username" />
+                                    <button class="streamWork-orange d-block mr-auto ml-auto w-50 mb-3">Donate</button>
+                                    <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+                                </form>
+                            }
                         }
-                        </div>
+                    </div>
 
                 </div>
                 <div class="col-lg-6 col-md-12 col-sm-12 p-lg-0 pl-md-3 pr-md-3 pt-md-3 pt-3">
