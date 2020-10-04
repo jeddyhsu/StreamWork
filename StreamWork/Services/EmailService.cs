@@ -123,19 +123,20 @@ namespace StreamWork.Services
                 Channel channel = await storage.Get<Channel>(SQLQueries.GetUserChannelWithUsername, user.Username);
 
                 // Start both tasks
-                Task<List<Follow>> userFollowsTask = storage.GetList<Follow>(SQLQueries.GetAllFollowersWithId, user.Id);
-                Task<List<TopicFollow>> topicFollowsTask = storage.GetList<TopicFollow>(SQLQueries.GetTopicFollowsBySubject, channel.StreamSubject);
-
-                await Task.WhenAll(userFollowsTask, topicFollowsTask); // Wait for both to complete
+                var userFollowsTask = await storage.GetList<Follow>(SQLQueries.GetAllFollowersWithId, user.Id);
+                var topicFollowsTask = await storage.GetList<TopicFollow>(SQLQueries.GetTopicFollowsBySubject, channel.StreamSubject);
 
                 // Remove overlapping followers
                 IEnumerable<TopicFollow> topicFollows = from TopicFollow topicFollow
-                                                        in topicFollowsTask.Result.AsParallel()
-                                                        where userFollowsTask.Result.AsParallel().FirstOrDefault(userFollow => topicFollow.Follower == userFollow.FollowerUsername) == null
+                                                        in topicFollowsTask
+                                                        where userFollowsTask.FirstOrDefault(userFollow => topicFollow.Follower == userFollow.FollowerUsername) == null
                                                         select topicFollow;
 
-                Parallel.Invoke(
-                    () => userFollowsTask.Result.AsParallel().ForAll(async userFollow => {
+
+                await Task.Factory.StartNew(async () =>
+                {
+                    foreach (var userFollow in userFollowsTask)
+                    {
                         Profile userFollower = await storage.Get<Profile>(SQLQueries.GetUserWithUsername, userFollow.FollowerUsername);
                         if (userFollower != null && userFollower.NotificationSubscribe == "True")
                         {
@@ -152,8 +153,12 @@ namespace StreamWork.Services
 
                             await SendEmail(message);
                         }
-                    }),
-                    () => topicFollows.AsParallel().ForAll(async topicFollow =>
+                    }
+                });
+
+                await Task.Factory.StartNew(async () =>
+                {
+                    foreach (var topicFollow in topicFollows)
                     {
                         Profile userFollower = await storage.Get<Profile>(SQLQueries.GetUserWithUsername, topicFollow.Follower);
                         if (userFollower != null && userFollower.NotificationSubscribe == "True")
@@ -171,8 +176,8 @@ namespace StreamWork.Services
 
                             await SendEmail(message);
                         }
-                    })
-                );
+                    }
+                });
             });
         }
 
