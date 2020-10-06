@@ -55,7 +55,7 @@
                     <div class="card rounded-0 h-100 p-0 border-bottom border-left-0 border-top border-right-0">
                         <a href="/Profiles/Tutor/@Model.FeaturedTutor.Username" style="text-decoration: none;">
                             <img src="@Model.FeaturedTutor.ProfilePicture" class="rounded d-block mr-auto ml-auto featured-profile-image" />
-                            <p class="form-header text-center mt-3 mb-0 ml-3 mr-3" style="font-size:18px">@Model.FeaturedTutor.Name.Replace('|', ' ')</p>
+                            <p class="form-header text-center mt-3 mb-0 ml-3 mr-3" style="font-size:18px; color:@Model.FeaturedTutor.ProfileColor">@Model.FeaturedTutor.Name.Replace('|', ' ')</p>
                             <p class="form-sub-header text-center mb-0 ml-3 mr-3" style="font-size:12px">@Model.FeaturedTutor.ProfileCaption</p>
                         </a>
                         <button class="streamWork-primary d-block mr-auto ml-auto mt-3 w-50 mb-2" onclick="window.location.href = '/Profiles/Tutor/@Model.FeaturedTutor.Username'">Profile</button>

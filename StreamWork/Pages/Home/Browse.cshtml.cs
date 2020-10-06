@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -43,7 +45,16 @@ namespace StreamWork.Pages.Home
             Videos = await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsInDescendingOrderByViews, "");
             PopularTutors = tutors.GetRange(0,3);
             LiveChannels = await storageService.GetList<Channel>(SQLQueries.GetAllUserChannelsThatAreStreaming, "");
-            AllTutors = tutors;
+            AllTutors = new List<TutorSubject>();
+            Hashtable table = new Hashtable();
+            foreach (var tutor in tutors)
+            {
+                if (!table.Contains(tutor.Username))
+                {
+                    table.Add(tutor.Username, tutor);
+                    AllTutors.Add(tutor);
+                }
+            }
             AllScheduledStreams = await storageService.GetList<Schedule>(SQLQueries.GetAllScheduledStreams, "");
 
             if(searchTerm != "SW")
