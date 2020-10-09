@@ -43,7 +43,7 @@ namespace StreamWork.Services
                     },
                     user =>
                     {
-                        return $"A new student, named {user.Name.Replace('|', ' ')} signed up! Their username is {user.Username}. They go to {user.College}, and you can contact them at {user.EmailAddress}.\nIf these emails get annoying, let Tom know, and he'll turn them off sooner or later.";
+                        return $"Name: {user.Name}\nEmailAddress: {user.EmailAddress}\nUsername: {user.Username}\nCollege: {user.College}";
                     }
                 )},
                 {"tutorSignUp", new EmailTemplate(
@@ -53,7 +53,7 @@ namespace StreamWork.Services
                     },
                     user =>
                     {
-                        return $"We've just recieved a new tutor application from {user.Name.Replace('|', ' ')}, aka {user.Username}. They go to {user.College}, and they are interested in the following topics: (I still need to edit the email system to allow for this). You can contact them at {user.EmailAddress} and pay them at {user.PayPalAddress}. See the attachments for more information.\nAlternatively this is a test account, in which case, you should ignore it.";
+                        return $"Name: {user.Name}\nEmailAddress: {user.EmailAddress}\nPayPalAddress: {user.PayPalAddress}\nUsername: {user.Username}\nCollege: {user.College}";
                     }
                 )},
             };
