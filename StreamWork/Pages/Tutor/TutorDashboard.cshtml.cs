@@ -63,7 +63,7 @@ namespace StreamWork.Pages.Tutor
             UserArchivedStreams = await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { CurrentUserProfile.Username });
             Sections = profileService.GetSections(CurrentUserProfile);
             Topics = profileService.GetTopics(CurrentUserProfile);
-            Schedule = await scheduleService.GetSchedule(CurrentUserProfile.Username);
+            Schedule = await scheduleService.GetSchedule(CurrentUserProfile);
 
             Followers = await followService.GetAllFollowers(CurrentUserProfile.Id);
             Followees = await followService.GetAllFollowees(CurrentUserProfile.Id);
@@ -93,7 +93,7 @@ namespace StreamWork.Pages.Tutor
         public async Task<IActionResult> OnPostDeleteScheduleTask(string taskId)
         {
             var userProfile = await cookieService.GetCurrentUser();
-            var sortedList = await scheduleService.DeleteFromSchedule(taskId, userProfile.Username);
+            var sortedList = await scheduleService.DeleteFromSchedule(taskId, userProfile);
 
             if (sortedList != null) return new JsonResult(new { Message = JsonResponse.Success.ToString(), Sorted = sortedList });
             return new JsonResult(new { Message = JsonResponse.Failed.ToString() });

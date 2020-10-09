@@ -70,7 +70,7 @@ namespace StreamWork.Pages.Stream
             UserArchivedStreams = await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { UserProfile.Username });
             RelatedTutors = (await storageService.GetList<DataModels.Profile>(SQLQueries.GetAllTutorsNotInTheList, new string[] { UserProfile.Id })).GetRange(0, 5);
             Sections = profileService.GetSections(UserProfile);
-            Schedule = await scheduleService.GetSchedule(UserProfile.Username);
+            Schedule = await scheduleService.GetSchedule(UserProfile);
 
             NumberOfStreams = UserArchivedStreams.Count;
             NumberOfFollowers = await followService.GetNumberOfFollowers(UserProfile.Id);

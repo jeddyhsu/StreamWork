@@ -63,7 +63,7 @@ namespace StreamWork.Pages.Profiles
             RelatedTutors = (await storageService.GetList<Profile>(SQLQueries.GetAllTutorsNotInTheList, new string[] { UserProfile.Id })).GetRange(0, 5);
             Sections = profileService.GetSections(UserProfile);
             Topics = profileService.GetTopics(UserProfile);
-            Schedule = await scheduleService.GetSchedule(UserProfile.Username);
+            Schedule = await scheduleService.GetSchedule(UserProfile);
 
             NumberOfStreams = UserArchivedStreams.Count;
             NumberOfViews = UserArchivedStreams.Sum(x => x.Views);

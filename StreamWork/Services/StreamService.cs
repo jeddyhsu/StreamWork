@@ -190,6 +190,7 @@ namespace StreamWork.Services
                             {
                                 Debug d1 = new Debug();
                                 d1.Id = Guid.NewGuid().ToString();
+                                d.Timestamp = DateTime.UtcNow;
                                 d1.Message = channel.Username + " | Videos Found | " + channel.InitialStreamCount + videos.Count;
                                 await Save(d1.Id, d1);
 

@@ -59,7 +59,7 @@ namespace StreamWork.Pages.Tutor
             AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
 
             ScheduledStream = await storageService.Get<Schedule>(SQLQueries.GetScheduleWithId, new string[] { scheduleId, DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm") });
-            Schedule = await scheduleService.GetSchedule(CurrentUserProfile.Username);
+            Schedule = await scheduleService.GetSchedule(CurrentUserProfile);
 
             GenerateQRCode(cookieService.Url("/Chat/Live/" + CurrentUserProfile.Username));
             Host = cookieService.host;

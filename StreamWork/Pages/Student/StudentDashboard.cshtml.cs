@@ -72,7 +72,7 @@ namespace StreamWork.Pages.Student
                 foreach (var tutor in followedTutors)
                 {
                     var previousStreams = (await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsWithUsername, tutor.Username)).Count >= 3 ? (await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsWithUsername, tutor.Username)).GetRange(0, 3) : (await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsWithUsername, tutor.Username));
-                    var latestScheduledStream = (await scheduleService.GetSchedule(tutor.Username)).Count == 0 ? null : (await scheduleService.GetSchedule(tutor.Username))[0];
+                    var latestScheduledStream = (await scheduleService.GetSchedule(tutor)).Count == 0 ? null : (await scheduleService.GetSchedule(tutor))[0];
                     var followValue = await followService.IsFollowingFollowee(CurrentUserProfile.Id, tutor.Id);
 
                     followedTutorsList.Add(new FollowedTutors(tutor, previousStreams, latestScheduledStream, followValue));

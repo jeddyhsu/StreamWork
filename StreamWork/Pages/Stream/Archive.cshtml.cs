@@ -72,7 +72,7 @@ namespace StreamWork.Pages.Stream
             OtherVideos = await storageService.GetList<Video>(SQLQueries.GetRandomArchivedStreams, new string[] { });
             RelatedTutors = (await storageService.GetList<Profile>(SQLQueries.GetAllTutorsNotInTheList, new string[] { UserProfile.Id })).GetRange(0, 5);
             Sections = profileService.GetSections(UserProfile);
-            Schedule = await scheduleService.GetSchedule(UserProfile.Username);
+            Schedule = await scheduleService.GetSchedule(UserProfile);
             Comments = await commentService.GetAllComments(Video.Id);
 
             NumberOfStreams = UserVideos.Count;

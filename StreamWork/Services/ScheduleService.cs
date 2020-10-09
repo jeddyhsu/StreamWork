@@ -34,7 +34,8 @@ namespace StreamWork.Services
 
                 DateTime newDate = new DateTime(date.Year, date.Month, date.Day, timeStart.Hour, timeStart.Minute, timeStart.Second);
 
-                if (newDate < DateTime.Now.ToLocalTime()) return null;
+                var dateNow = DateTime.UtcNow.AddMinutes(MiscHelperMethods.GetOffsetBasedOfTimeZone(timeZone));
+                if (newDate < dateNow) return null;
 
                 if (id.Equals("undefined"))
                 {
@@ -56,7 +57,7 @@ namespace StreamWork.Services
                 }
                 else
                 {
-                    schedule = (await GetList<Schedule>(SQLQueries.GetScheduleWithId, new string[] { id, DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm") }))[0];
+                    schedule = (await GetList<Schedule>(SQLQueries.GetScheduleWithId, new string[] { id, DateTime.UtcNow.AddMinutes(MiscHelperMethods.GetOffsetBasedOfTimeZone(timeZone)).ToString("yyyy-MM-dd HH:mm") }))[0];
                     schedule.StreamTitle = streamTitle;
                     schedule.StreamSubject = streamSubject;
                     schedule.StreamDescription = streamDescription;
@@ -68,7 +69,7 @@ namespace StreamWork.Services
                 }
 
                 await Save(schedule.Id, schedule);
-                return await GetSchedule(user);
+                return await GetSchedule(userProfile);
             }
             catch (Exception e)
             {
@@ -77,16 +78,16 @@ namespace StreamWork.Services
             }
         }
 
-        public async Task<List<Schedule>> GetSchedule(string user)
+        public async Task<List<Schedule>> GetSchedule(Profile profile)
         {
-            await Run<Schedule>(SQLQueries.DeletePastScheduledTasks, new string[] { DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm") });
-            return await GetList<Schedule>(SQLQueries.GetScheduleWithUserUsername, new string[] { user, DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm") });
+            await Run<Schedule>(SQLQueries.DeletePastScheduledTasks, new string[] { DateTime.UtcNow.AddMinutes(MiscHelperMethods.GetOffsetBasedOfTimeZone(profile.TimeZone)).ToString("yyyy-MM-dd HH:mm") });
+            return await GetList<Schedule>(SQLQueries.GetScheduleWithUserUsername, new string[] { profile.Username, DateTime.UtcNow.AddMinutes(MiscHelperMethods.GetOffsetBasedOfTimeZone(profile.TimeZone)).ToString("yyyy-MM-dd HH:mm") });
         }
 
-        public async Task<List<Schedule>> DeleteFromSchedule(string id, string user)
+        public async Task<List<Schedule>> DeleteFromSchedule(string id, Profile profile)
         {
             var saved = await Run<Schedule>(SQLQueries.DeleteScheduleTaskWithId, new string[] { id });
-            if (saved) return await GetSchedule(user);
+            if (saved) return await GetSchedule(profile);
             return null;
         }
 
