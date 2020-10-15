@@ -80,6 +80,8 @@ namespace StreamWork.Services
 
         public async Task<List<Schedule>> GetSchedule(Profile profile)
         {
+            if (profile.TimeZone == null) return new List<Schedule> { };
+
             await Run<Schedule>(SQLQueries.DeletePastScheduledTasks, new string[] { DateTime.UtcNow.AddMinutes(MiscHelperMethods.GetOffsetBasedOfTimeZone(profile.TimeZone)).ToString("yyyy-MM-dd HH:mm") });
             return await GetList<Schedule>(SQLQueries.GetScheduleWithUserUsername, new string[] { profile.Username, DateTime.UtcNow.AddMinutes(MiscHelperMethods.GetOffsetBasedOfTimeZone(profile.TimeZone)).ToString("yyyy-MM-dd HH:mm") });
         }
