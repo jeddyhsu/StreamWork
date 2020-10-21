@@ -342,7 +342,6 @@ function SaveEditedVideo(id) {
 }
 
 function DeleteVideo(id) {
-   
     $.ajax({
         url: '/Tutor/TutorDashboard/?handler=DeleteVideo',
         type: 'POST',
@@ -358,7 +357,7 @@ function DeleteVideo(id) {
             DiscardChangesAndCloseModal('edit-video-modal-form', 'edit-video-modal')
             $('#edit-video-modal-delete-video-notification').hide()
             $('#videoInfo-' + id).remove();
-            if ($('.video').length <= 1) {
+            if ($('.video').length < 1) {
                 $('#video-row').html(`<div class="col-12 text-center">
                                         <p class="form-sub-header p-0" style="font-size:22px">Looks like you don't have any videos yet...</p>
                                         <p class="form-sub-header p-0" style="font-size:14px; font-family:'Roboto', serif">Help other students find the help they need by putting up content!</p>
