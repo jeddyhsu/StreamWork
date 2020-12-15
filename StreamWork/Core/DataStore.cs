@@ -29,11 +29,13 @@ namespace StreamWork.Core
         /// Get data from storage
         /// All exceptions are bubbled up.
         /// </summary>
-        public async static Task<T> GetAsync<T>(DataStorageConfig storageConfig, string collection, string id) where T : StorageBase
+        public async static Task<T> GetAsync<T>(DataStorageConfig storageConfig,
+                                                string collection,
+                                                string id) where T : StorageBase
         {
             if (storageConfig.Type == StorageTypes.MongoDB)
             {
-                var mongoCollection = GetMongoCollection<T>("debug");
+                var mongoCollection = GetMongoCollection<T>(collection);
                 if (mongoCollection == null)
                     return default(T);
 
@@ -68,6 +70,71 @@ namespace StreamWork.Core
 
             return true;
         }
+
+        /// <summary>
+        /// Gets a list of objects from DB
+        /// </summary>
+        public static async Task<List<T>> GetListAsync<T>(DataStorageConfig storageConfig,
+                                                          List<string> parameters = null,
+                                                          string queryId = "",
+                                                          string udfQuery = "",
+                                                          bool deleteAll = false) where T : StorageBase, new()
+        {
+            var query = string.Empty;
+            var name = typeof(T).Name.ToLower();
+            if (storageConfig?.EntityModels?.Exists(c => c.Name.ToLower().Equals(name)) == true)
+            {
+                if (string.IsNullOrWhiteSpace(queryId) == true)
+                    query = storageConfig.EntityModels.First(c => c.Name.Equals(name)).Query;
+                else
+                {
+                    query = storageConfig.EntityModels.First(c => c.Name.Equals(name) && c.QueryId.Equals(queryId)).Query;
+                    if (query.Equals("*UDF") == true)
+                        query = udfQuery;
+                }
+            }
+
+            if (parameters?.Count > 0 && query.Contains("@x"))
+            {
+                for (int i = 0; i < parameters.Count; i++)
+                {
+                    var pattern = @"(?<![\w])@x" + i + @"(?![\w])";
+                    query = Regex.Replace(query, pattern, parameters[i]);
+                }
+            }
+
+            return await GetListAsync<T>(storageConfig, name, query, deleteAll);
+        }
+
+        private async static Task<List<T>> GetListAsync<T>(DataStorageConfig storageConfig,
+                                                           string collection,
+                                                           string query = "",
+                                                           bool deleteAll = false) where T : StorageBase, new()
+        {
+            if (storageConfig.Type == StorageTypes.MongoDB)
+            {
+                var mongoCollection = GetMongoCollection<T>(collection);
+                if (mongoCollection == null)
+                    return new List<T>();
+
+                if (deleteAll == false)
+                {
+                    var mongoDoc = mongoCollection.Find<T>(query);
+                    return await mongoDoc?.AnyAsync<T>() == true ? await mongoDoc.ToListAsync<T>() : new List<T>();
+                }
+                else
+                {
+                    var result = mongoCollection.DeleteMany(query);
+                    return new List<T>();
+                }
+            }
+
+            return null;
+        }
+
+
+
+
 
         public async static Task<T> GetAsync<T>(string _connectionString,
                                                 StorageConfig storageConfig, 

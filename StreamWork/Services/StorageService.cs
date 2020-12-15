@@ -8,7 +8,6 @@ using Microsoft.Extensions.Options;
 using StreamWork.Base;
 using StreamWork.Config;
 using StreamWork.Core;
-using StreamWork.DataModels;
 using StreamWork.HelperMethods;
 
 namespace StreamWork.Services
@@ -23,18 +22,20 @@ namespace StreamWork.Services
             this.config = config;
         }
 
-        public async Task<T> Get<T> () where T : StorageBase
+        public async Task<T> Get<T>(string id) where T : StorageBase
         {
-            var result = await DataStore.GetAsync<T>(config.Value.DataStorageList.First(), "Debug", "f2fbab1d-011e-4239-8d26-91b25a5341f6");
-
-            return null;
+            var result = await DataStore.GetAsync<T>(config.Value.DataStorageList.First(), typeof(T).Name.ToLower(), id);
+            return result;
         }
 
-        public async Task<T> Save<T>(string id, T o, string t) where T : StorageBase
+        public async Task<bool> Save<T>(string id, T obj, string t) where T : StorageBase
         {
-            var result = await DataStore.SaveAsync<T>(config.Value.DataStorageList.First(), "Debug", o , id);
+            return await DataStore.SaveAsync(config.Value.DataStorageList.First(), typeof(T).Name.ToLower(), obj, id);
+        }
 
-            return null;
+        public async Task<List<T>> GetList<T>(string query, params string[] parameters) where T : StorageBase, new()
+        {
+            return await DataStore.GetListAsync<T>(config.Value.DataStorageList.First(), null, query);
         }
 
         public async Task<T> Get<T>(SQLQueries query, params string[] parameters) where T : class

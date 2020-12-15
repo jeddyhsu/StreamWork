@@ -4,7 +4,11 @@
       "Type": "MongoDB",
       "ConnectionString": "mongodb+srv://rarun:Rithvik2000@streamworkdb.4dahn.mongodb.net/test?authSource=admin&replicaSet=atlas-c9iwq1-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true",
       "EntityModels": [
-
+        {
+          "Name": "debug",
+          "Query": "{}",
+          "QueryId": "GetAllDebugs"
+        }
       ]
     }
   ]

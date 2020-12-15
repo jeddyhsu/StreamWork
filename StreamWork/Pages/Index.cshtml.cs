@@ -44,8 +44,10 @@ namespace StreamWork.Pages
 
 
 
-            await storageService.Get<Debug>();
+            await storageService.Get<Debug>("f2fbab1d-011e-4239-8d26-91b25a5341f6");
 
+
+            var result = await storageService.GetList<Debug>("GetAllDebugs", null);
 
 
 
