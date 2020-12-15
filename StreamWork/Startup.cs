@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,6 +31,7 @@ namespace StreamWork
         }
 
         public IConfiguration Configuration { get; }
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -67,6 +70,7 @@ namespace StreamWork
             services.AddTransient<EncryptionService>();
             services.AddTransient<FollowService>();
             services.AddTransient<NotificationService>();
+            services.AddTransient<PayPalService>();
             services.AddTransient<ProfileService>();
             services.AddTransient<ScheduleService>();
             services.AddTransient<SearchService>();

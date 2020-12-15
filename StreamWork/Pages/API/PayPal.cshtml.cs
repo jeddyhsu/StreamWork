@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Good find:
+// https://github.com/paypal/PayPal-NET-SDK/blob/develop/Samples/Source/WebhookGetAll.aspx.cs
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,6 +11,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
+using PayPal.Api;
 using StreamWork.DataModels;
 using StreamWork.Services;
 
@@ -138,6 +142,11 @@ namespace StreamWork.Pages.API
             }
 
             return null;
+        }
+
+        private static string GetAccessToken ()
+        {
+            return new OAuthTokenCredential(clientId, clientSecret).GetAccessToken();
         }
     }
 }

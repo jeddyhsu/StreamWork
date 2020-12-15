@@ -1,0 +1,101 @@
+2020-12-11 18:52:38.793 -07:00 [INF] User profile is available. Using '/Users/Seldom/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2020-12-11 18:52:39.140 -07:00 [INF] Creating key {866799ae-06ff-409b-9eee-9f57c33bc592} with creation date 2020-12-12 01:52:39Z, activation date 2020-12-12 01:52:39Z, and expiration date 2021-03-12 01:52:39Z.
+2020-12-11 18:52:39.150 -07:00 [WRN] No XML encryptor configured. Key {866799ae-06ff-409b-9eee-9f57c33bc592} may be persisted to storage in unencrypted form.
+2020-12-11 18:52:39.152 -07:00 [INF] Writing data to file '/Users/Seldom/.aspnet/DataProtection-Keys/key-866799ae-06ff-409b-9eee-9f57c33bc592.xml'.
+2020-12-11 18:52:39.345 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-12-11 18:52:39.359 -07:00 [WRN] Failed to determine the https port for redirect.
+2020-12-11 18:52:39.704 -07:00 [INF] Executing endpoint '/Index'
+2020-12-11 18:52:39.917 -07:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-12-11 18:52:39.939 -07:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-12-11 18:52:44.241 -07:00 [INF] Executed page /Index in 4318.3098ms
+2020-12-11 18:52:44.243 -07:00 [INF] Executed endpoint '/Index'
+2020-12-11 18:52:44.247 -07:00 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot open server 'streamwork' requested by the login. Client with IP address '72.201.117.102' is not allowed to access the server.  To enable access, use the Windows Azure Management Portal or run sp_set_firewall_rule on the master database to create a firewall rule for this IP address or address range.  It may take up to five minutes for this change to take effect.
+   at Microsoft.Data.ProviderBase.DbConnectionPool.CheckPoolBlockingPeriod(Exception e)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.WaitForPendingOpen()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnectionAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnectionAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(DbContext _, Boolean result, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at StreamWork.Base.SQLServerClient.GetDataAsync[T](String connectionString, String query, List`1 selector) in /Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/Base/SQLServerClient.cs:line 66
+   at StreamWork.Core.DataStore.GetListAsync[T](String _connectionString, StorageConfig storageConfig, String queryId, List`1 parameters, Boolean deleteAll, List`1 selector, String udfQuery) in /Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/Core/DataStore.cs:line 96
+   at StreamWork.Services.StorageService.GetList[T](SQLQueries query, String[] parameters) in /Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/Services/StorageService.cs:line 34
+   at StreamWork.Pages.IndexModel.OnGet() in /Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/Pages/Index.cshtml.cs:line 50
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.ExecutorFactory.NonGenericTaskHandlerMethod.Execute(Object receiver, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeHandlerMethodAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeNextPageFilterAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Rethrow(PageHandlerExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+ClientConnectionId:238acc7a-775d-4dbe-9eaa-2d3c72e18ca1
+Error Number:40615,State:1,Class:14
+2020-12-11 18:52:44.472 -07:00 [INF] Request finished in 5130.6409ms 500 text/plain
+2020-12-11 18:52:45.788 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-12-11 18:52:45.809 -07:00 [INF] Executing endpoint '/Index'
+2020-12-11 18:52:45.810 -07:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-12-11 18:52:45.811 -07:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-12-11 18:52:48.092 -07:00 [INF] Executed page /Index in 2282.2778ms
+2020-12-11 18:52:48.093 -07:00 [INF] Executed endpoint '/Index'
+2020-12-11 18:52:48.094 -07:00 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot open server 'streamwork' requested by the login. Client with IP address '72.201.117.102' is not allowed to access the server.  To enable access, use the Windows Azure Management Portal or run sp_set_firewall_rule on the master database to create a firewall rule for this IP address or address range.  It may take up to five minutes for this change to take effect.
+   at Microsoft.Data.ProviderBase.DbConnectionPool.CheckPoolBlockingPeriod(Exception e)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.WaitForPendingOpen()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnectionAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnectionAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(DbContext _, Boolean result, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at StreamWork.Base.SQLServerClient.GetDataAsync[T](String connectionString, String query, List`1 selector) in /Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/Base/SQLServerClient.cs:line 66
+   at StreamWork.Core.DataStore.GetListAsync[T](String _connectionString, StorageConfig storageConfig, String queryId, List`1 parameters, Boolean deleteAll, List`1 selector, String udfQuery) in /Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/Core/DataStore.cs:line 96
+   at StreamWork.Services.StorageService.GetList[T](SQLQueries query, String[] parameters) in /Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/Services/StorageService.cs:line 34
+   at StreamWork.Pages.IndexModel.OnGet() in /Users/Seldom/Documents/Projects/StreamWork/StreamWork/StreamWork/Pages/Index.cshtml.cs:line 50
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.ExecutorFactory.NonGenericTaskHandlerMethod.Execute(Object receiver, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeHandlerMethodAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeNextPageFilterAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Rethrow(PageHandlerExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+ClientConnectionId:bcef93be-3c7b-4cde-b402-ebb34555160c
+Error Number:40615,State:1,Class:14
+2020-12-11 18:52:48.136 -07:00 [INF] Request finished in 2349.7833ms 500 text/html; charset=utf-8
+2020-12-11 18:52:49.077 -07:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/favicon.ico  
+2020-12-11 18:52:49.085 -07:00 [INF] Request finished in 7.995ms 404 
