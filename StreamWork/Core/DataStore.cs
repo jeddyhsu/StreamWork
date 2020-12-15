@@ -80,30 +80,9 @@ namespace StreamWork.Core
                                                           string udfQuery = "",
                                                           bool deleteAll = false) where T : StorageBase, new()
         {
-            var query = string.Empty;
-            var name = typeof(T).Name.ToLower();
-            if (storageConfig?.EntityModels?.Exists(c => c.Name.ToLower().Equals(name)) == true)
-            {
-                if (string.IsNullOrWhiteSpace(queryId) == true)
-                    query = storageConfig.EntityModels.First(c => c.Name.Equals(name)).Query;
-                else
-                {
-                    query = storageConfig.EntityModels.First(c => c.Name.Equals(name) && c.QueryId.Equals(queryId)).Query;
-                    if (query.Equals("*UDF") == true)
-                        query = udfQuery;
-                }
-            }
+            var query = FormatQuery<T>(storageConfig, parameters, queryId, udfQuery);
 
-            if (parameters?.Count > 0 && query.Contains("@x"))
-            {
-                for (int i = 0; i < parameters.Count; i++)
-                {
-                    var pattern = @"(?<![\w])@x" + i + @"(?![\w])";
-                    query = Regex.Replace(query, pattern, parameters[i]);
-                }
-            }
-
-            return await GetListAsync<T>(storageConfig, name, query, deleteAll);
+            return await GetListAsync<T>(storageConfig, typeof(T).Name, query, deleteAll);
         }
 
         private async static Task<List<T>> GetListAsync<T>(DataStorageConfig storageConfig,
@@ -131,6 +110,100 @@ namespace StreamWork.Core
 
             return null;
         }
+
+        /// <summary>
+        /// Delete data from storage 
+        /// </summary>
+        public static async Task<bool> DeleteAsync<T>(DataStorageConfig storageConfig,
+                                                      string collection,
+                                                      string id) where T : StorageBase
+        {
+            if (storageConfig.Type == StorageTypes.MongoDB)
+            {
+                var mongoCollection = GetMongoCollection<T>(collection);
+                if (mongoCollection == null)
+                    return false;
+
+                var mongoDoc = await mongoCollection.DeleteOneAsync(Builders<T>.Filter.Eq("Id", id));
+
+                return mongoDoc?.DeletedCount > 0;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Delete data from storage 
+        /// </summary>
+        public static async Task<bool> DeleteManyAsync<T>(DataStorageConfig storageConfig,
+                                                      string collection,
+                                                      List<string> parameters = null,
+                                                      string queryId = "",
+                                                      string udfQuery = "" ) where T : StorageBase
+        {
+            if (storageConfig.Type == StorageTypes.MongoDB)
+            {
+                var mongoCollection = GetMongoCollection<T>(collection);
+                if (mongoCollection == null)
+                    return false;
+
+                var query = FormatQuery<T>(storageConfig, parameters, queryId, udfQuery);
+                var mongoDoc = await mongoCollection.DeleteManyAsync(query);
+
+                return mongoDoc?.DeletedCount > 0;
+            }
+
+            return false;
+        }
+
+
+        private static string FormatQuery<T>(DataStorageConfig storageConfig,
+                                                         List<string> parameters = null,
+                                                         string queryId = "",
+                                                         string udfQuery = "")
+        {
+            var query = string.Empty;
+            var name = typeof(T).Name.ToLower();
+            if (storageConfig?.EntityModels?.Exists(c => c.Name.ToLower().Equals(name)) == true)
+            {
+                if (string.IsNullOrWhiteSpace(queryId) == true)
+                    query = storageConfig.EntityModels.First(c => c.Name.Equals(name)).Query;
+                else
+                {
+                    query = storageConfig.EntityModels.First(c => c.Name.Equals(name) && c.QueryId.Equals(queryId)).Query;
+                    if (query.Equals("*UDF") == true)
+                        query = udfQuery;
+                }
+            }
+
+            //if (query.Contains("$Collection") == true)
+            //    query = query.Replace("$Collection", name ?? string.Empty);
+
+            if (parameters?.Count > 0 && query.Contains("@x"))
+            {
+                for (int i = 0; i < parameters.Count; i++)
+                {
+                    var pattern = @"(?<![\w])@x" + i + @"(?![\w])";
+                    query = Regex.Replace(query, pattern, parameters[i]);
+                }
+            }
+
+            return query;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

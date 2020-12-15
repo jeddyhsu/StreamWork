@@ -49,7 +49,7 @@ namespace StreamWork.Pages
 
             var result = await storageService.GetList<Debug>("GetAllDebugs", null);
 
-
+            await storageService.DeleteMany<Debug>("DeleteAllDebugs");
 
 
             // List of streams for the carousel

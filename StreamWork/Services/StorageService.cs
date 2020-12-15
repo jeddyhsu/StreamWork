@@ -38,6 +38,16 @@ namespace StreamWork.Services
             return await DataStore.GetListAsync<T>(config.Value.DataStorageList.First(), null, query);
         }
 
+        //public async Task<bool> Delete<T>(string id) where T : StorageBase
+        //{
+        //    return await DataStore.DeleteAsync<T>(config.Value.DataStorageList.First(), typeof(T).Name.ToLower(), id);
+        //}
+
+        public async Task<bool> DeleteMany<T>(string query) where T : StorageBase
+        {
+            return await DataStore.DeleteManyAsync<T>(config.Value.DataStorageList.First(), typeof(T).Name.ToLower(), null, query);
+        }
+
         public async Task<T> Get<T>(SQLQueries query, params string[] parameters) where T : class
         {
             List<T> results = await DataStore.GetListAsync<T>(connectionString, config.Value, query.ToString(), parameters.Cast<string>().ToList());

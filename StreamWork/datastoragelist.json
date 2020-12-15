@@ -8,6 +8,11 @@
           "Name": "debug",
           "Query": "{}",
           "QueryId": "GetAllDebugs"
+        },
+        {
+          "Name": "debug",
+          "Query": "{ }",
+          "QueryId": "DeleteAllDebugs"
         }
       ]
     }
