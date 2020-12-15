@@ -33,9 +33,9 @@ namespace StreamWork.Services
             return await DataStore.SaveAsync(config.Value.DataStorageList.First(), typeof(T).Name.ToLower(), obj, id);
         }
 
-        public async Task<List<T>> GetList<T>(string query, params string[] parameters) where T : StorageBase, new()
+        public async Task<List<T>> GetList<T>(string query, List<string> parameters) where T : StorageBase, new()
         {
-            return await DataStore.GetListAsync<T>(config.Value.DataStorageList.First(), null, query);
+            return await DataStore.GetListAsync<T>(config.Value.DataStorageList.First(), parameters, query);
         }
 
         //public async Task<bool> Delete<T>(string id) where T : StorageBase
@@ -43,10 +43,47 @@ namespace StreamWork.Services
         //    return await DataStore.DeleteAsync<T>(config.Value.DataStorageList.First(), typeof(T).Name.ToLower(), id);
         //}
 
-        public async Task<bool> DeleteMany<T>(string query) where T : StorageBase
+        public async Task<bool> DeleteMany<T>(string query, List<string> parameters) where T : StorageBase
         {
-            return await DataStore.DeleteManyAsync<T>(config.Value.DataStorageList.First(), typeof(T).Name.ToLower(), null, query);
+            return await DataStore.DeleteManyAsync<T>(config.Value.DataStorageList.First(), typeof(T).Name.ToLower(), parameters, query);
         }
+
+        public async Task<T> CallJSON<T>(string url, string authToken) where T : class
+        {
+            return (T)await DataStore.CallAPIJSON<T>(url, authToken);
+        }
+
+        public async Task<T> CallJSON<T>(string url, StringContent content) where T : class
+        {
+            return (T)await DataStore.CallAPIJSON<T>(url, content);
+        }
+
+        public async Task<T> CallJSON<T>(string url) where T : class
+        {
+            return (T)await DataStore.CallAPIJSON<T>(url);
+        }
+
+        public async Task<T> CallXML<T>(string url) where T : class
+        {
+            return (T)await DataStore.CallAPIXML<T>(url);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         public async Task<T> Get<T>(SQLQueries query, params string[] parameters) where T : class
         {
@@ -78,24 +115,6 @@ namespace StreamWork.Services
             return await DataStore.SaveAsync(connectionString, config.Value, new Dictionary<string, object> { { "Id", id } }, obj);
         }
 
-        public async Task<T> CallJSON<T>(string url, string authToken) where T : class
-        {
-            return (T)await DataStore.CallAPIJSON<T>(url, authToken);
-        }
-
-        public async Task<T> CallJSON<T>(string url, StringContent content) where T : class
-        {
-            return (T)await DataStore.CallAPIJSON<T>(url, content);
-        }
-
-        public async Task<T> CallJSON<T>(string url) where T : class
-        {
-            return (T)await DataStore.CallAPIJSON<T>(url);
-        }
-
-        public async Task<T> CallXML<T>(string url) where T : class
-        {
-            return (T)await DataStore.CallAPIXML<T>(url);
-        }
+        
     }
 }
