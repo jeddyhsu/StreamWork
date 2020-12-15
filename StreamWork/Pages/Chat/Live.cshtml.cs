@@ -15,7 +15,7 @@ namespace StreamWork.Pages.Chat
         private readonly ChatService chatService;
         private readonly EncryptionService encryptionService;
 
-        public Profile CurrentUserProfile { get; set; }
+        public DataModels.Profiles CurrentUserProfile { get; set; }
         public string ChatId { get; set; }
         public string ChatInfo { get; set; }
         public string ChatInfoEncrypted { get; set; }

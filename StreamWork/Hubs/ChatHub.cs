@@ -41,7 +41,7 @@ namespace StreamWork.Hubs
             {
                 if(archivedVideoId != null)
                 {
-                    var userProfile = await storageService.Get<Profile>(SQLQueries.GetUserWithUsername, userName);
+                    var userProfile = await storageService.Get<Profiles>(SQLQueries.GetUserWithUsername, userName);
                     Chat chat = new Chat
                     {
                         Id = Guid.NewGuid().ToString(),

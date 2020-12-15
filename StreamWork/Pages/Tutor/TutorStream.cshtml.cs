@@ -23,7 +23,7 @@ namespace StreamWork.Pages.Tutor
         private readonly ScheduleService scheduleService;
         private readonly EmailService emailService;
 
-        public Profile CurrentUserProfile { get; set; }
+        public DataModels.Profiles CurrentUserProfile { get; set; }
         public Channel UserChannel { get; set; }
         public string ChatInfo { get; set; }
         public List<string> Notifications { get; set; }
@@ -84,23 +84,28 @@ namespace StreamWork.Pages.Tutor
 
         public async Task<IActionResult> OnPostIsLive(string channelKey)
         {
-            if (await streamService.IsLive(channelKey)) return new JsonResult(new { Message = JsonResponse.Success.ToString() });
-            return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
+            //if (await streamService.IsLive(channelKey)) return new JsonResult(new { Message = JsonResponse.Success.ToString() });
+            //return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
+
+
+            return null;
         }
 
         public async Task<IActionResult> OnPostRegisterStream()
         {
-            var userProfile = await cookieService.GetCurrentUser();
-            var userChannel = await storageService.Get<Channel>(SQLQueries.GetUserChannelWithUsername, userProfile.Username);
+            //var userProfile = await cookieService.GetCurrentUser();
+            //var userChannel = await storageService.Get<Channel>(SQLQueries.GetUserChannelWithUsername, userProfile.Username);
 
-            var archivedVideoId = await streamService.StartStream(Request, userProfile);
-            if (Request.Form["NotifyStudent"] == "true")
-            {
-                await emailService.NotifyAllFollowers(userProfile);
-            }
+            //var archivedVideoId = await streamService.StartStream(Request, userProfile);
+            //if (Request.Form["NotifyStudent"] == "true")
+            //{
+            //    await emailService.NotifyAllFollowers(userProfile);
+            //}
 
-            if (archivedVideoId != null) return new JsonResult(new { Message = JsonResponse.Success.ToString(), Results = new string[] { userChannel.Username } }) ; //for chatbox
-            return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
+            //if (archivedVideoId != null) return new JsonResult(new { Message = JsonResponse.Success.ToString(), Results = new string[] { userChannel.Username } }) ; //for chatbox
+            //return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
+
+            return null;
         }
     }
 }

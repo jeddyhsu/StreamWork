@@ -25,6 +25,10 @@
     <PackageReference Include="Serilog.Extensions.Logging.File" Version="2.0.0" />
     <PackageReference Include="HtmlSanitizer" Version="5.0.353" />
     <PackageReference Include="FuzzySharp" Version="2.0.2" />
+    <PackageReference Include="MongoDB.Bson" Version="2.11.5" />
+    <PackageReference Include="MongoDB.Driver" Version="2.11.5" />
+    <PackageReference Include="MongoDB.Driver.Core" Version="2.11.5" />
+    <PackageReference Include="Microsoft.Azure.Cosmos.Table" Version="1.0.8" />
 </ItemGroup>
 
   <ItemGroup>
@@ -101,6 +105,7 @@
     <Folder Include="wwwroot\js\ProfileJS\" />
     <Folder Include="Pages\API\" />
     <Folder Include="EmailTemplates\" />
+    <Folder Include="MediaServices\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove=".DS_Store" />

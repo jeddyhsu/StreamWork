@@ -22,6 +22,8 @@ namespace StreamWork
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile("Config/storageconfig.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true)
+                .AddJsonFile("datastoragelist.json", optional: false, reloadOnChange: false)
+                .AddJsonFile($"datastoragelist.{env.EnvironmentName}.json", optional: true, reloadOnChange: false)
                 .AddEnvironmentVariables();
 
             Configuration = builder.Build();

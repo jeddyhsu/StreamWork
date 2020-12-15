@@ -132,7 +132,7 @@ namespace StreamWork.Pages.API
                 await storage.Save(id, new Debug
                 {
                     Id = id,
-                    Timestamp = DateTime.UtcNow,
+                    //Timestamp = DateTime.UtcNow,
                     Message = body
                 });
             }

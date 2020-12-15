@@ -5,7 +5,7 @@ namespace StreamWork.Services
 {
     public class EmailTemplate
     {
-        public delegate string Builder(Profile user);
+        public delegate string Builder(Profiles user);
 
         public readonly Builder BuildSubject;
         public readonly Builder BuildBody;

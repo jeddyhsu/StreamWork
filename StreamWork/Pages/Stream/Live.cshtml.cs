@@ -20,14 +20,14 @@ namespace StreamWork.Pages.Stream
         private readonly NotificationService notificationService;
         private readonly EncryptionService encryptionService;
 
-        public Profile UserProfile { get; set; }
-        public Profile CurrentUserProfile { get; set; }
+        public DataModels.Profiles UserProfile { get; set; }
+        public DataModels.Profiles CurrentUserProfile { get; set; }
         public Channel UserChannel { get; set; }
         public string ChatInfo { get; set; }
         public string StreamSubjectPicture { get; set; }
         public string FollowValue { get; set; }
         public List<Video> UserArchivedStreams { get; set; }
-        public List<Profile> RelatedTutors { get; set; }
+        public List<DataModels.Profiles> RelatedTutors { get; set; }
         public List<Section> Sections { get; set; }
         public List<Schedule> Schedule { get; set; }
         public int NumberOfStreams { get; set; }
@@ -55,7 +55,7 @@ namespace StreamWork.Pages.Stream
             }
 
             CurrentUserProfile = await cookieService.GetCurrentUser();
-            UserProfile = await storageService.Get<DataModels.Profile>(SQLQueries.GetUserWithUsername, tutor);
+            UserProfile = await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, tutor);
             UserChannel = await storageService.Get<Channel>(SQLQueries.GetUserChannelWithUsername, tutor);
 
             if(UserChannel.StreamTitle == null)
@@ -68,7 +68,7 @@ namespace StreamWork.Pages.Stream
             FollowValue = await followService.IsFollowingFollowee(CurrentUserProfile.Id, UserProfile.Id);
 
             UserArchivedStreams = await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { UserProfile.Username });
-            RelatedTutors = (await storageService.GetList<DataModels.Profile>(SQLQueries.GetAllTutorsNotInTheList, new string[] { UserProfile.Id })).GetRange(0, 5);
+            RelatedTutors = (await storageService.GetList<DataModels.Profiles>(SQLQueries.GetAllTutorsNotInTheList, new string[] { UserProfile.Id })).GetRange(0, 5);
             Sections = profileService.GetSections(UserProfile);
             Schedule = await scheduleService.GetSchedule(UserProfile);
 
@@ -83,6 +83,11 @@ namespace StreamWork.Pages.Stream
             await storageService.Save(UserChannel.Id, UserChannel);
 
             return Page();
+        }
+
+        public async Task<IActionResult> OnGetWebhook()
+        {
+            return null;
         }
     }
 }

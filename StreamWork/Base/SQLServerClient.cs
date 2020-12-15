@@ -80,31 +80,31 @@ namespace StreamWork.Base
             }
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-            var assembly = Assembly.GetExecutingAssembly();
-            // get ApplyConfiguration method with reflection
-            var applyEntityTypeConfigMethods = typeof(ModelBuilder).GetMethods().First(c => c.Name.Equals("ApplyConfiguration"));
-            foreach (var type in Assembly.GetExecutingAssembly().GetTypes().Where(c => c.IsClass && !c.IsAbstract))
-            {
-                if (_storageConfig.EntityModels.Exists(c => c.Name.Equals(type.Name) && c.StorageType == StorageTypes.SqlServer))
-                {
-                    foreach (var interfaceType in type.GetInterfaces())
-                    {
-                        // if type implements interface IEntityTypeConfiguration<SomeEntity>
-                        if (interfaceType.IsConstructedGenericType && interfaceType.GetGenericTypeDefinition() == typeof(IEntityTypeConfiguration<>))
-                        {
-                            // make concrete ApplyConfiguration<SomeEntity> method
-                            var applyConcreteMethod = applyEntityTypeConfigMethods.MakeGenericMethod(interfaceType.GenericTypeArguments[0]);
-                            // and invoke that with fresh instance of your configuration type
-                            applyConcreteMethod.Invoke(modelBuilder, new object[] { Activator.CreateInstance(type) });
-                            break;
-                        }
-                    }
-                }
-            }
-        }
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    base.OnModelCreating(modelBuilder);
+        //    var assembly = Assembly.GetExecutingAssembly();
+        //    // get ApplyConfiguration method with reflection
+        //    var applyEntityTypeConfigMethods = typeof(ModelBuilder).GetMethods().First(c => c.Name.Equals("ApplyConfiguration"));
+        //    foreach (var type in Assembly.GetExecutingAssembly().GetTypes().Where(c => c.IsClass && !c.IsAbstract))
+        //    {
+        //        if (_storageConfig.EntityModels.Exists(c => c.Name.Equals(type.Name) && c.StorageType == StorageTypes.SqlServer))
+        //        {
+        //            foreach (var interfaceType in type.GetInterfaces())
+        //            {
+        //                // if type implements interface IEntityTypeConfiguration<SomeEntity>
+        //                if (interfaceType.IsConstructedGenericType && interfaceType.GetGenericTypeDefinition() == typeof(IEntityTypeConfiguration<>))
+        //                {
+        //                    // make concrete ApplyConfiguration<SomeEntity> method
+        //                    var applyConcreteMethod = applyEntityTypeConfigMethods.MakeGenericMethod(interfaceType.GenericTypeArguments[0]);
+        //                    // and invoke that with fresh instance of your configuration type
+        //                    applyConcreteMethod.Invoke(modelBuilder, new object[] { Activator.CreateInstance(type) });
+        //                    break;
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

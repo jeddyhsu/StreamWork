@@ -19,7 +19,7 @@ namespace StreamWork.Services
 
         public ProfileService([FromServices] IOptionsSnapshot<StorageConfig> config) : base(config) { }
 
-        public bool SaveSection(HttpRequest request, Profile userProfile)
+        public bool SaveSection(HttpRequest request, Profiles userProfile)
         {
             try
             {
@@ -42,7 +42,7 @@ namespace StreamWork.Services
             }
         }
 
-        public List<Section> GetSections(Profile userProfile)
+        public List<Section> GetSections(Profiles userProfile)
         {
             try
             {
@@ -79,7 +79,7 @@ namespace StreamWork.Services
 
         }
 
-        public bool SaveTopic(HttpRequest request, Profile userProfile)
+        public bool SaveTopic(HttpRequest request, Profiles userProfile)
         {
             try
             {
@@ -102,7 +102,7 @@ namespace StreamWork.Services
             }
         }
 
-        public List<Topic> GetTopics(Profile userProfile)
+        public List<Topic> GetTopics(Profiles userProfile)
         {
             try
             {
@@ -189,7 +189,7 @@ namespace StreamWork.Services
             return await Delete<Video>(id);
         }
 
-        public async Task<bool> ChangeColor(Profile userProfile, string color) {
+        public async Task<bool> ChangeColor(Profiles userProfile, string color) {
             userProfile.ProfileColor = color;
 
             return await Save(userProfile.Id, userProfile);

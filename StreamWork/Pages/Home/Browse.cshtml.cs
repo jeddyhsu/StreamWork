@@ -17,7 +17,7 @@ namespace StreamWork.Pages.Home
         private readonly NotificationService notificationService;
         private readonly SearchService searchService;
 
-        public Profile CurrentUserProfile { get; set; }
+        public DataModels.Profiles CurrentUserProfile { get; set; }
         public List<Video> Videos { get; set; }
         public List<TutorSubject> PopularTutors { get; set; }
         public List <Channel> LiveChannels { get; set; }

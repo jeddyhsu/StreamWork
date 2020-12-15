@@ -10,6 +10,7 @@ namespace StreamWork.HelperMethods
     {
         public static string defaultBanner = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Placeholder_Banner_svg_SW_v2.svg";
         public static string defaultProfilePicture = "https://streamworkblob.blob.core.windows.net/streamworkblobcontainer/Default_PFP_SW_SVG.svg";
+        public static string streamWebHookURL = "https://streamworktest.azurewebsites.net/Stream/Webhook";
 
         public static string GetCorrespondingSubjectThumbnail(string subject)
         {

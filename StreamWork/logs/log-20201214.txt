@@ -1,0 +1,598 @@
+2020-12-14 19:11:20.877 -08:00 [INF] User profile is available. Using '/Users/rithvik/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2020-12-14 19:11:21.133 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-12-14 19:11:21.141 -08:00 [WRN] Failed to determine the https port for redirect.
+2020-12-14 19:11:21.262 -08:00 [INF] Executing endpoint '/Index'
+2020-12-14 19:11:21.311 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-12-14 19:11:21.323 -08:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-12-14 19:11:21.856 -08:00 [INF] Executed page /Index in 541.79ms
+2020-12-14 19:11:21.858 -08:00 [INF] Executed endpoint '/Index'
+2020-12-14 19:11:21.859 -08:00 [ERR] An unhandled exception has occurred while executing the request.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at StreamWork.Pages.IndexModel.OnGet() in /Users/rithvik/C#/StreamWork/StreamWork/Pages/Index.cshtml.cs:line 55
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.ExecutorFactory.NonGenericTaskHandlerMethod.Execute(Object receiver, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeHandlerMethodAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeNextPageFilterAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Rethrow(PageHandlerExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2020-12-14 19:11:22.168 -08:00 [INF] Request finished in 1037.3051ms 500 text/plain
+2020-12-14 19:11:23.550 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-12-14 19:11:23.553 -08:00 [INF] Executing endpoint '/Index'
+2020-12-14 19:11:23.553 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-12-14 19:11:23.601 -08:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-12-14 19:11:23.807 -08:00 [INF] Executed page /Index in 253.1859ms
+2020-12-14 19:11:23.807 -08:00 [INF] Executed endpoint '/Index'
+2020-12-14 19:11:23.807 -08:00 [ERR] An unhandled exception has occurred while executing the request.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at StreamWork.Pages.IndexModel.OnGet() in /Users/rithvik/C#/StreamWork/StreamWork/Pages/Index.cshtml.cs:line 55
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.ExecutorFactory.NonGenericTaskHandlerMethod.Execute(Object receiver, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeHandlerMethodAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeNextPageFilterAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Rethrow(PageHandlerExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2020-12-14 19:11:23.835 -08:00 [INF] Request finished in 285.0241ms 500 text/html; charset=utf-8
+2020-12-14 19:11:23.940 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/apple-touch-icon-precomposed.png  
+2020-12-14 19:11:23.941 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/favicon.ico  
+2020-12-14 19:11:23.949 -08:00 [INF] Request finished in 9.7427ms 404 
+2020-12-14 19:11:23.949 -08:00 [INF] Request finished in 8.1424ms 404 
+2020-12-14 19:11:23.975 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/apple-touch-icon.png  
+2020-12-14 19:11:23.975 -08:00 [INF] Request finished in 0.4803ms 404 
+2020-12-14 19:56:35.905 -08:00 [INF] User profile is available. Using '/Users/rithvik/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2020-12-14 19:56:36.128 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-12-14 19:56:36.136 -08:00 [WRN] Failed to determine the https port for redirect.
+2020-12-14 19:56:36.238 -08:00 [INF] Executing endpoint '/Index'
+2020-12-14 19:56:36.285 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-12-14 19:56:36.297 -08:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-12-14 19:57:07.029 -08:00 [INF] Executed page /Index in 30740.4646ms
+2020-12-14 19:57:07.036 -08:00 [INF] Executed endpoint '/Index'
+2020-12-14 19:57:07.043 -08:00 [ERR] An unhandled exception has occurred while executing the request.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at StreamWork.Core.DataStore.GetAsync[T](DataStorageConfig storageConfig, String id) in /Users/rithvik/C#/StreamWork/StreamWork/Core/DataStore.cs:line 34
+   at StreamWork.Services.StorageService.Get[T](SQLQueries query, String[] parameters) in /Users/rithvik/C#/StreamWork/StreamWork/Services/StorageService.cs:line 26
+   at StreamWork.Pages.IndexModel.OnGet() in /Users/rithvik/C#/StreamWork/StreamWork/Pages/Index.cshtml.cs:line 37
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.ExecutorFactory.NonGenericTaskHandlerMethod.Execute(Object receiver, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeHandlerMethodAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeNextPageFilterAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Rethrow(PageHandlerExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2020-12-14 19:57:07.106 -08:00 [INF] Request finished in 30980.5641ms 500 text/plain
+2020-12-14 19:57:08.296 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-12-14 19:57:08.299 -08:00 [INF] Executing endpoint '/Index'
+2020-12-14 19:57:08.299 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-12-14 19:57:19.056 -08:00 [INF] User profile is available. Using '/Users/rithvik/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2020-12-14 19:57:19.278 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-12-14 19:57:19.286 -08:00 [WRN] Failed to determine the https port for redirect.
+2020-12-14 19:57:19.379 -08:00 [INF] Executing endpoint '/Index'
+2020-12-14 19:57:19.419 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-12-14 19:57:19.430 -08:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-12-14 19:57:50.897 -08:00 [INF] User profile is available. Using '/Users/rithvik/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2020-12-14 19:57:51.116 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-12-14 19:57:51.123 -08:00 [WRN] Failed to determine the https port for redirect.
+2020-12-14 19:57:51.231 -08:00 [INF] Executing endpoint '/Index'
+2020-12-14 19:57:51.277 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-12-14 19:57:51.289 -08:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-12-14 20:01:22.570 -08:00 [INF] User profile is available. Using '/Users/rithvik/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2020-12-14 20:01:22.806 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-12-14 20:01:22.814 -08:00 [WRN] Failed to determine the https port for redirect.
+2020-12-14 20:01:22.915 -08:00 [INF] Executing endpoint '/Index'
+2020-12-14 20:01:22.962 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-12-14 20:01:22.974 -08:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-12-14 20:01:44.410 -08:00 [INF] Executed page /Index in 21444.6261ms
+2020-12-14 20:01:44.419 -08:00 [INF] Executed endpoint '/Index'
+2020-12-14 20:01:44.425 -08:00 [ERR] An unhandled exception has occurred while executing the request.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at StreamWork.Services.StorageService.Get[T](SQLQueries query, String[] parameters) in /Users/rithvik/C#/StreamWork/StreamWork/Services/StorageService.cs:line 26
+   at StreamWork.Pages.IndexModel.OnGet() in /Users/rithvik/C#/StreamWork/StreamWork/Pages/Index.cshtml.cs:line 37
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.ExecutorFactory.NonGenericTaskHandlerMethod.Execute(Object receiver, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeHandlerMethodAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeNextPageFilterAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Rethrow(PageHandlerExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2020-12-14 20:01:44.490 -08:00 [INF] Request finished in 21686.5661ms 500 text/plain
+2020-12-14 20:01:45.646 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-12-14 20:01:45.649 -08:00 [INF] Executing endpoint '/Index'
+2020-12-14 20:01:45.650 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-12-14 20:01:45.650 -08:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-12-14 20:01:53.247 -08:00 [INF] Executed page /Index in 7597.1369ms
+2020-12-14 20:01:53.251 -08:00 [INF] Executed endpoint '/Index'
+2020-12-14 20:01:53.255 -08:00 [ERR] An unhandled exception has occurred while executing the request.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at StreamWork.Services.StorageService.Get[T](SQLQueries query, String[] parameters) in /Users/rithvik/C#/StreamWork/StreamWork/Services/StorageService.cs:line 26
+   at StreamWork.Pages.IndexModel.OnGet() in /Users/rithvik/C#/StreamWork/StreamWork/Pages/Index.cshtml.cs:line 37
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.ExecutorFactory.NonGenericTaskHandlerMethod.Execute(Object receiver, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeHandlerMethodAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeNextPageFilterAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Rethrow(PageHandlerExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2020-12-14 20:01:53.274 -08:00 [INF] Request finished in 7627.8895ms 500 text/html; charset=utf-8
+2020-12-14 20:02:03.443 -08:00 [INF] User profile is available. Using '/Users/rithvik/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2020-12-14 20:02:03.672 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-12-14 20:02:03.680 -08:00 [WRN] Failed to determine the https port for redirect.
+2020-12-14 20:02:03.770 -08:00 [INF] Executing endpoint '/Index'
+2020-12-14 20:02:03.811 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-12-14 20:02:03.822 -08:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-12-14 20:03:02.814 -08:00 [INF] User profile is available. Using '/Users/rithvik/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2020-12-14 20:03:03.014 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-12-14 20:03:03.022 -08:00 [WRN] Failed to determine the https port for redirect.
+2020-12-14 20:03:03.113 -08:00 [INF] Executing endpoint '/Index'
+2020-12-14 20:03:03.154 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-12-14 20:03:03.166 -08:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-12-14 20:05:39.429 -08:00 [INF] User profile is available. Using '/Users/rithvik/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2020-12-14 20:05:39.648 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-12-14 20:05:39.655 -08:00 [WRN] Failed to determine the https port for redirect.
+2020-12-14 20:05:39.737 -08:00 [INF] Executing endpoint '/Index'
+2020-12-14 20:05:39.776 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-12-14 20:05:39.787 -08:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-12-14 20:10:04.812 -08:00 [INF] User profile is available. Using '/Users/rithvik/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2020-12-14 20:10:05.024 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-12-14 20:10:05.032 -08:00 [WRN] Failed to determine the https port for redirect.
+2020-12-14 20:10:05.143 -08:00 [INF] Executing endpoint '/Index'
+2020-12-14 20:10:05.188 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-12-14 20:10:05.199 -08:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-12-14 20:15:40.326 -08:00 [INF] User profile is available. Using '/Users/rithvik/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2020-12-14 20:15:40.562 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-12-14 20:15:40.570 -08:00 [WRN] Failed to determine the https port for redirect.
+2020-12-14 20:15:40.674 -08:00 [INF] Executing endpoint '/Index'
+2020-12-14 20:15:40.717 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-12-14 20:15:40.728 -08:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-12-14 20:21:30.677 -08:00 [INF] User profile is available. Using '/Users/rithvik/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2020-12-14 20:21:30.892 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-12-14 20:21:30.900 -08:00 [WRN] Failed to determine the https port for redirect.
+2020-12-14 20:21:31.004 -08:00 [INF] Executing endpoint '/Index'
+2020-12-14 20:21:31.046 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-12-14 20:21:31.058 -08:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-12-14 20:23:31.079 -08:00 [INF] User profile is available. Using '/Users/rithvik/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2020-12-14 20:23:31.334 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-12-14 20:23:31.342 -08:00 [WRN] Failed to determine the https port for redirect.
+2020-12-14 20:23:31.443 -08:00 [INF] Executing endpoint '/Index'
+2020-12-14 20:23:31.489 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-12-14 20:23:31.500 -08:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-12-14 20:24:25.824 -08:00 [INF] User profile is available. Using '/Users/rithvik/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2020-12-14 20:24:26.055 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-12-14 20:24:26.063 -08:00 [WRN] Failed to determine the https port for redirect.
+2020-12-14 20:24:26.164 -08:00 [INF] Executing endpoint '/Index'
+2020-12-14 20:24:26.206 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-12-14 20:24:26.217 -08:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-12-14 20:24:54.493 -08:00 [INF] User profile is available. Using '/Users/rithvik/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2020-12-14 20:24:54.709 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-12-14 20:24:54.719 -08:00 [WRN] Failed to determine the https port for redirect.
+2020-12-14 20:24:54.819 -08:00 [INF] Executing endpoint '/Index'
+2020-12-14 20:24:54.862 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-12-14 20:24:54.874 -08:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-12-14 20:25:55.485 -08:00 [INF] User profile is available. Using '/Users/rithvik/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2020-12-14 20:25:55.716 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-12-14 20:25:55.724 -08:00 [WRN] Failed to determine the https port for redirect.
+2020-12-14 20:25:55.810 -08:00 [INF] Executing endpoint '/Index'
+2020-12-14 20:25:55.850 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-12-14 20:25:55.861 -08:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-12-14 21:02:54.432 -08:00 [INF] User profile is available. Using '/Users/rithvik/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2020-12-14 21:02:54.671 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-12-14 21:02:54.678 -08:00 [WRN] Failed to determine the https port for redirect.
+2020-12-14 21:02:54.779 -08:00 [INF] Executing endpoint '/Index'
+2020-12-14 21:02:54.821 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-12-14 21:02:54.832 -08:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-12-14 21:02:56.189 -08:00 [INF] Executed page /Index in 1363.7424ms
+2020-12-14 21:02:56.190 -08:00 [INF] Executed endpoint '/Index'
+2020-12-14 21:02:56.191 -08:00 [ERR] An unhandled exception has occurred while executing the request.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at StreamWork.Core.DataStore.GetKeyNames[T](DbContext context) in /Users/rithvik/C#/StreamWork/StreamWork/Core/DataStore.cs:line 203
+   at StreamWork.Core.DataStore.GetKeys[T](Dictionary`2 keyData, DbContext context) in /Users/rithvik/C#/StreamWork/StreamWork/Core/DataStore.cs:line 181
+   at StreamWork.Core.DataStore.GetAsync[T](String _connectionString, StorageConfig storageConfig, Dictionary`2 keys) in /Users/rithvik/C#/StreamWork/StreamWork/Core/DataStore.cs:line 86
+   at StreamWork.Core.DataStore.SaveAsync[T](String _connectionString, StorageConfig storageConfig, Dictionary`2 keys, T dataObject) in /Users/rithvik/C#/StreamWork/StreamWork/Core/DataStore.cs:line 103
+   at StreamWork.Services.StorageService.Save[T](String id, T obj) in /Users/rithvik/C#/StreamWork/StreamWork/Services/StorageService.cs:line 67
+   at StreamWork.Pages.IndexModel.OnGet() in /Users/rithvik/C#/StreamWork/StreamWork/Pages/Index.cshtml.cs:line 43
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.ExecutorFactory.NonGenericTaskHandlerMethod.Execute(Object receiver, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeHandlerMethodAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeNextPageFilterAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Rethrow(PageHandlerExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2020-12-14 21:02:56.261 -08:00 [INF] Request finished in 1593.0898ms 500 text/plain
+2020-12-14 21:02:57.406 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-12-14 21:02:57.410 -08:00 [INF] Executing endpoint '/Index'
+2020-12-14 21:02:57.410 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-12-14 21:02:57.411 -08:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-12-14 21:02:58.177 -08:00 [INF] Executed page /Index in 766.0374ms
+2020-12-14 21:02:58.177 -08:00 [INF] Executed endpoint '/Index'
+2020-12-14 21:02:58.178 -08:00 [ERR] An unhandled exception has occurred while executing the request.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at StreamWork.Core.DataStore.GetKeyNames[T](DbContext context) in /Users/rithvik/C#/StreamWork/StreamWork/Core/DataStore.cs:line 203
+   at StreamWork.Core.DataStore.GetKeys[T](Dictionary`2 keyData, DbContext context) in /Users/rithvik/C#/StreamWork/StreamWork/Core/DataStore.cs:line 181
+   at StreamWork.Core.DataStore.GetAsync[T](String _connectionString, StorageConfig storageConfig, Dictionary`2 keys) in /Users/rithvik/C#/StreamWork/StreamWork/Core/DataStore.cs:line 86
+   at StreamWork.Core.DataStore.SaveAsync[T](String _connectionString, StorageConfig storageConfig, Dictionary`2 keys, T dataObject) in /Users/rithvik/C#/StreamWork/StreamWork/Core/DataStore.cs:line 103
+   at StreamWork.Services.StorageService.Save[T](String id, T obj) in /Users/rithvik/C#/StreamWork/StreamWork/Services/StorageService.cs:line 67
+   at StreamWork.Pages.IndexModel.OnGet() in /Users/rithvik/C#/StreamWork/StreamWork/Pages/Index.cshtml.cs:line 43
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.ExecutorFactory.NonGenericTaskHandlerMethod.Execute(Object receiver, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeHandlerMethodAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeNextPageFilterAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Rethrow(PageHandlerExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2020-12-14 21:02:58.198 -08:00 [INF] Request finished in 792.0205ms 500 text/html; charset=utf-8
+2020-12-14 21:03:05.362 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-12-14 21:03:05.365 -08:00 [INF] Executing endpoint '/Index'
+2020-12-14 21:03:05.366 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-12-14 21:03:05.367 -08:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-12-14 21:03:06.006 -08:00 [INF] Executed page /Index in 640.5453ms
+2020-12-14 21:03:06.007 -08:00 [INF] Executed endpoint '/Index'
+2020-12-14 21:03:06.007 -08:00 [ERR] An unhandled exception has occurred while executing the request.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at StreamWork.Core.DataStore.GetKeyNames[T](DbContext context) in /Users/rithvik/C#/StreamWork/StreamWork/Core/DataStore.cs:line 203
+   at StreamWork.Core.DataStore.GetKeys[T](Dictionary`2 keyData, DbContext context) in /Users/rithvik/C#/StreamWork/StreamWork/Core/DataStore.cs:line 181
+   at StreamWork.Core.DataStore.GetAsync[T](String _connectionString, StorageConfig storageConfig, Dictionary`2 keys) in /Users/rithvik/C#/StreamWork/StreamWork/Core/DataStore.cs:line 86
+   at StreamWork.Core.DataStore.SaveAsync[T](String _connectionString, StorageConfig storageConfig, Dictionary`2 keys, T dataObject) in /Users/rithvik/C#/StreamWork/StreamWork/Core/DataStore.cs:line 103
+   at StreamWork.Services.StorageService.Save[T](String id, T obj) in /Users/rithvik/C#/StreamWork/StreamWork/Services/StorageService.cs:line 67
+   at StreamWork.Pages.IndexModel.OnGet() in /Users/rithvik/C#/StreamWork/StreamWork/Pages/Index.cshtml.cs:line 43
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.ExecutorFactory.NonGenericTaskHandlerMethod.Execute(Object receiver, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeHandlerMethodAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeNextPageFilterAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Rethrow(PageHandlerExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2020-12-14 21:03:06.013 -08:00 [INF] Request finished in 650.3033ms 500 text/html; charset=utf-8
+2020-12-14 21:07:36.470 -08:00 [INF] User profile is available. Using '/Users/rithvik/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2020-12-14 21:07:36.692 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-12-14 21:07:36.699 -08:00 [WRN] Failed to determine the https port for redirect.
+2020-12-14 21:07:36.793 -08:00 [INF] Executing endpoint '/Index'
+2020-12-14 21:07:36.831 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-12-14 21:07:36.842 -08:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-12-14 21:08:03.225 -08:00 [INF] Executed page /Index in 26385.6873ms
+2020-12-14 21:08:03.237 -08:00 [INF] Executed endpoint '/Index'
+2020-12-14 21:08:03.246 -08:00 [ERR] An unhandled exception has occurred while executing the request.
+MongoDB.Bson.BsonSerializationException: The property 'Id' of type 'StreamWork.DataModels.Debug' cannot use element name '_id' because it is already being used by property 'Id' of type 'StreamWork.Base.StorageBase'.
+   at MongoDB.Bson.Serialization.BsonClassMap.Freeze()
+   at MongoDB.Bson.Serialization.BsonClassMap.LookupClassMap(Type classType)
+   at MongoDB.Bson.Serialization.BsonClassMapSerializationProvider.GetSerializer(Type type, IBsonSerializerRegistry serializerRegistry)
+   at MongoDB.Bson.Serialization.BsonSerializerRegistry.CreateSerializer(Type type)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at MongoDB.Bson.Serialization.BsonSerializerRegistry.GetSerializer(Type type)
+   at MongoDB.Bson.Serialization.BsonSerializerRegistry.GetSerializer[T]()
+   at MongoDB.Driver.MongoCollectionImpl`1..ctor(IMongoDatabase database, CollectionNamespace collectionNamespace, MongoCollectionSettings settings, ICluster cluster, IOperationExecutor operationExecutor)
+   at MongoDB.Driver.MongoDatabaseImpl.GetCollection[TDocument](String name, MongoCollectionSettings settings)
+   at StreamWork.Core.DataStore.GetMongoCollection[T](String collection) in /Users/rithvik/C#/StreamWork/StreamWork/Core/DataStore.cs:line 25
+   at StreamWork.Core.DataStore.SaveAsync[T](DataStorageConfig storageConfig, String collectionName, T dataObject, String id) in /Users/rithvik/C#/StreamWork/StreamWork/Core/DataStore.cs:line 61
+   at StreamWork.Services.StorageService.Save[T](String id, T o, String t) in /Users/rithvik/C#/StreamWork/StreamWork/Services/StorageService.cs:line 35
+   at StreamWork.Pages.IndexModel.OnGet() in /Users/rithvik/C#/StreamWork/StreamWork/Pages/Index.cshtml.cs:line 43
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.ExecutorFactory.NonGenericTaskHandlerMethod.Execute(Object receiver, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeHandlerMethodAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeNextPageFilterAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Rethrow(PageHandlerExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2020-12-14 21:08:03.334 -08:00 [INF] Request finished in 26644.9886ms 500 text/plain
+2020-12-14 21:08:04.396 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-12-14 21:08:04.399 -08:00 [INF] Executing endpoint '/Index'
+2020-12-14 21:08:04.400 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-12-14 21:08:04.401 -08:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-12-14 21:08:17.533 -08:00 [INF] Executed page /Index in 13132.3941ms
+2020-12-14 21:08:17.535 -08:00 [INF] Executed endpoint '/Index'
+2020-12-14 21:08:17.535 -08:00 [ERR] An unhandled exception has occurred while executing the request.
+MongoDB.Bson.BsonSerializationException: The property 'Id' of type 'StreamWork.DataModels.Debug' cannot use element name '_id' because it is already being used by property 'Id' of type 'StreamWork.Base.StorageBase'.
+   at MongoDB.Bson.Serialization.BsonClassMap.Freeze()
+   at MongoDB.Bson.Serialization.BsonClassMap.LookupClassMap(Type classType)
+   at MongoDB.Bson.Serialization.BsonClassMapSerializationProvider.GetSerializer(Type type, IBsonSerializerRegistry serializerRegistry)
+   at MongoDB.Bson.Serialization.BsonSerializerRegistry.CreateSerializer(Type type)
+   at System.Collections.Concurrent.ConcurrentDictionary`2.GetOrAdd(TKey key, Func`2 valueFactory)
+   at MongoDB.Bson.Serialization.BsonSerializerRegistry.GetSerializer(Type type)
+   at MongoDB.Bson.Serialization.BsonSerializerRegistry.GetSerializer[T]()
+   at MongoDB.Driver.MongoCollectionImpl`1..ctor(IMongoDatabase database, CollectionNamespace collectionNamespace, MongoCollectionSettings settings, ICluster cluster, IOperationExecutor operationExecutor)
+   at MongoDB.Driver.MongoDatabaseImpl.GetCollection[TDocument](String name, MongoCollectionSettings settings)
+   at StreamWork.Core.DataStore.GetMongoCollection[T](String collection) in /Users/rithvik/C#/StreamWork/StreamWork/Core/DataStore.cs:line 25
+   at StreamWork.Core.DataStore.SaveAsync[T](DataStorageConfig storageConfig, String collectionName, T dataObject, String id) in /Users/rithvik/C#/StreamWork/StreamWork/Core/DataStore.cs:line 61
+   at StreamWork.Services.StorageService.Save[T](String id, T o, String t) in /Users/rithvik/C#/StreamWork/StreamWork/Services/StorageService.cs:line 35
+   at StreamWork.Pages.IndexModel.OnGet() in /Users/rithvik/C#/StreamWork/StreamWork/Pages/Index.cshtml.cs:line 43
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.ExecutorFactory.NonGenericTaskHandlerMethod.Execute(Object receiver, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeHandlerMethodAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeNextPageFilterAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Rethrow(PageHandlerExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2020-12-14 21:08:17.555 -08:00 [INF] Request finished in 13159.782ms 500 text/html; charset=utf-8
+2020-12-14 21:09:36.828 -08:00 [INF] User profile is available. Using '/Users/rithvik/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2020-12-14 21:09:37.018 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-12-14 21:09:37.026 -08:00 [WRN] Failed to determine the https port for redirect.
+2020-12-14 21:09:37.120 -08:00 [INF] Executing endpoint '/Index'
+2020-12-14 21:09:37.160 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-12-14 21:09:37.171 -08:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-12-14 21:11:00.696 -08:00 [INF] User profile is available. Using '/Users/rithvik/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2020-12-14 21:11:00.890 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-12-14 21:11:00.897 -08:00 [WRN] Failed to determine the https port for redirect.
+2020-12-14 21:11:00.989 -08:00 [INF] Executing endpoint '/Index'
+2020-12-14 21:11:01.028 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-12-14 21:11:01.039 -08:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-12-14 21:12:08.697 -08:00 [INF] User profile is available. Using '/Users/rithvik/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2020-12-14 21:12:08.918 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-12-14 21:12:08.926 -08:00 [WRN] Failed to determine the https port for redirect.
+2020-12-14 21:12:09.025 -08:00 [INF] Executing endpoint '/Index'
+2020-12-14 21:12:09.069 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-12-14 21:12:09.080 -08:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-12-14 21:12:33.425 -08:00 [INF] Executed page /Index in 24350.9222ms
+2020-12-14 21:12:33.427 -08:00 [INF] Executed endpoint '/Index'
+2020-12-14 21:12:33.430 -08:00 [ERR] An unhandled exception has occurred while executing the request.
+MongoDB.Driver.MongoCommandException: Command update failed: fully qualified namespace 5fd7a428a38a17043aa20571_StreamWork.mongodb+srv://rarun:Rithvik2000@streamworkdb.4dahn.mongodb.net/test?authSource=admin&replicaSet=atlas-c9iwq1-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true is too long (max is 120 bytes).
+   at MongoDB.Driver.Core.WireProtocol.CommandUsingCommandMessageWireProtocol`1.ProcessResponse(ConnectionId connectionId, CommandMessage responseMessage)
+   at MongoDB.Driver.Core.WireProtocol.CommandUsingCommandMessageWireProtocol`1.ExecuteAsync(IConnection connection, CancellationToken cancellationToken)
+   at MongoDB.Driver.Core.Servers.Server.ServerChannel.ExecuteProtocolAsync[TResult](IWireProtocol`1 protocol, ICoreSession session, CancellationToken cancellationToken)
+   at MongoDB.Driver.Core.Operations.RetryableWriteOperationExecutor.ExecuteAsync[TResult](IRetryableWriteOperation`1 operation, RetryableWriteContext context, CancellationToken cancellationToken)
+   at MongoDB.Driver.Core.Operations.BulkUnmixedWriteOperationBase`1.ExecuteBatchAsync(RetryableWriteContext context, Batch batch, CancellationToken cancellationToken)
+   at MongoDB.Driver.Core.Operations.BulkUnmixedWriteOperationBase`1.ExecuteBatchesAsync(RetryableWriteContext context, CancellationToken cancellationToken)
+   at MongoDB.Driver.Core.Operations.BulkMixedWriteOperation.ExecuteBatchAsync(RetryableWriteContext context, Batch batch, CancellationToken cancellationToken)
+   at MongoDB.Driver.Core.Operations.BulkMixedWriteOperation.ExecuteAsync(IWriteBinding binding, CancellationToken cancellationToken)
+   at MongoDB.Driver.OperationExecutor.ExecuteWriteOperationAsync[TResult](IWriteBinding binding, IWriteOperation`1 operation, CancellationToken cancellationToken)
+   at MongoDB.Driver.MongoCollectionImpl`1.ExecuteWriteOperationAsync[TResult](IClientSessionHandle session, IWriteOperation`1 operation, CancellationToken cancellationToken)
+   at MongoDB.Driver.MongoCollectionImpl`1.BulkWriteAsync(IClientSessionHandle session, IEnumerable`1 requests, BulkWriteOptions options, CancellationToken cancellationToken)
+   at MongoDB.Driver.MongoCollectionImpl`1.UsingImplicitSessionAsync[TResult](Func`2 funcAsync, CancellationToken cancellationToken)
+   at MongoDB.Driver.MongoCollectionBase`1.ReplaceOneAsync(FilterDefinition`1 filter, TDocument replacement, ReplaceOptions options, Func`3 bulkWriteAsync)
+   at StreamWork.Core.DataStore.SaveAsync[T](DataStorageConfig storageConfig, String collectionName, T dataObject, String id) in /Users/rithvik/C#/StreamWork/StreamWork/Core/DataStore.cs:line 65
+   at StreamWork.Services.StorageService.Save[T](String id, T o, String t) in /Users/rithvik/C#/StreamWork/StreamWork/Services/StorageService.cs:line 35
+   at StreamWork.Pages.IndexModel.OnGet() in /Users/rithvik/C#/StreamWork/StreamWork/Pages/Index.cshtml.cs:line 43
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.ExecutorFactory.NonGenericTaskHandlerMethod.Execute(Object receiver, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeHandlerMethodAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeNextPageFilterAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Rethrow(PageHandlerExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2020-12-14 21:12:33.515 -08:00 [INF] Request finished in 24599.0707ms 500 text/plain
+2020-12-14 21:12:34.580 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-12-14 21:12:34.584 -08:00 [INF] Executing endpoint '/Index'
+2020-12-14 21:12:34.585 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-12-14 21:12:38.581 -08:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-12-14 21:14:08.187 -08:00 [INF] User profile is available. Using '/Users/rithvik/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2020-12-14 21:14:08.415 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-12-14 21:14:08.422 -08:00 [WRN] Failed to determine the https port for redirect.
+2020-12-14 21:14:08.508 -08:00 [INF] Executing endpoint '/Index'
+2020-12-14 21:14:08.547 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-12-14 21:14:08.558 -08:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-12-14 21:16:30.491 -08:00 [INF] User profile is available. Using '/Users/rithvik/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2020-12-14 21:16:30.734 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-12-14 21:16:30.741 -08:00 [WRN] Failed to determine the https port for redirect.
+2020-12-14 21:16:30.842 -08:00 [INF] Executing endpoint '/Index'
+2020-12-14 21:16:30.886 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-12-14 21:16:30.897 -08:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-12-14 21:17:06.401 -08:00 [INF] Executed page /Index in 35512.4031ms
+2020-12-14 21:17:06.403 -08:00 [INF] Executed endpoint '/Index'
+2020-12-14 21:17:06.405 -08:00 [ERR] An unhandled exception has occurred while executing the request.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at StreamWork.Pages.IndexModel.OnGet() in /Users/rithvik/C#/StreamWork/StreamWork/Pages/Index.cshtml.cs:line 68
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.ExecutorFactory.NonGenericTaskHandlerMethod.Execute(Object receiver, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeHandlerMethodAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeNextPageFilterAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Rethrow(PageHandlerExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2020-12-14 21:17:06.472 -08:00 [INF] Request finished in 35740.9811ms 500 text/plain
+2020-12-14 21:17:07.870 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-12-14 21:17:07.872 -08:00 [INF] Executing endpoint '/Index'
+2020-12-14 21:17:07.873 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-12-14 21:17:07.874 -08:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-12-14 21:17:30.189 -08:00 [INF] Executed page /Index in 22315.7119ms
+2020-12-14 21:17:30.190 -08:00 [INF] Executed endpoint '/Index'
+2020-12-14 21:17:30.191 -08:00 [ERR] An unhandled exception has occurred while executing the request.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at StreamWork.Pages.IndexModel.OnGet() in /Users/rithvik/C#/StreamWork/StreamWork/Pages/Index.cshtml.cs:line 68
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.ExecutorFactory.NonGenericTaskHandlerMethod.Execute(Object receiver, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeHandlerMethodAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeNextPageFilterAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Rethrow(PageHandlerExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2020-12-14 21:17:30.207 -08:00 [INF] Request finished in 22337.1642ms 500 text/html; charset=utf-8
+2020-12-14 21:18:31.405 -08:00 [INF] User profile is available. Using '/Users/rithvik/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2020-12-14 21:18:31.664 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-12-14 21:18:31.671 -08:00 [WRN] Failed to determine the https port for redirect.
+2020-12-14 21:18:31.776 -08:00 [INF] Executing endpoint '/Index'
+2020-12-14 21:18:31.824 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-12-14 21:18:31.836 -08:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-12-14 21:18:33.870 -08:00 [INF] Executed page /Index in 2042.7581ms
+2020-12-14 21:18:33.871 -08:00 [INF] Executed endpoint '/Index'
+2020-12-14 21:18:33.874 -08:00 [ERR] An unhandled exception has occurred while executing the request.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at StreamWork.Pages.IndexModel.OnGet() in /Users/rithvik/C#/StreamWork/StreamWork/Pages/Index.cshtml.cs:line 68
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.ExecutorFactory.NonGenericTaskHandlerMethod.Execute(Object receiver, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeHandlerMethodAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeNextPageFilterAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Rethrow(PageHandlerExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2020-12-14 21:18:33.948 -08:00 [INF] Request finished in 2286.757ms 500 text/plain
+2020-12-14 21:18:35.000 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-12-14 21:18:35.005 -08:00 [INF] Executing endpoint '/Index'
+2020-12-14 21:18:35.006 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-12-14 21:18:35.014 -08:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2020-12-14 21:18:49.578 -08:00 [INF] Executed page /Index in 14571.6977ms
+2020-12-14 21:18:49.578 -08:00 [INF] Executed endpoint '/Index'
+2020-12-14 21:18:49.579 -08:00 [ERR] An unhandled exception has occurred while executing the request.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at StreamWork.Pages.IndexModel.OnGet() in /Users/rithvik/C#/StreamWork/StreamWork/Pages/Index.cshtml.cs:line 68
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.ExecutorFactory.NonGenericTaskHandlerMethod.Execute(Object receiver, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeHandlerMethodAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeNextPageFilterAsync()
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Rethrow(PageHandlerExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure.PageActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2020-12-14 21:18:49.593 -08:00 [INF] Request finished in 14593.526ms 500 text/html; charset=utf-8
+2020-12-14 21:21:37.073 -08:00 [INF] User profile is available. Using '/Users/rithvik/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2020-12-14 21:21:37.285 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2020-12-14 21:21:37.292 -08:00 [WRN] Failed to determine the https port for redirect.
+2020-12-14 21:21:37.384 -08:00 [INF] Executing endpoint '/Index'
+2020-12-14 21:21:37.427 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2020-12-14 21:21:37.438 -08:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"

@@ -23,8 +23,8 @@ namespace StreamWork.Services
 
         public async Task<bool> SaveNotification(NotificationType notificationType, string senderUsername, string receiverUsername, string objectId = null)
         {
-            var sender = await Get<Profile>(SQLQueries.GetUserWithUsername, senderUsername);
-            var receiver = await Get<Profile>(SQLQueries.GetUserWithUsername, receiverUsername);
+            var sender = await Get<Profiles>(SQLQueries.GetUserWithUsername, senderUsername);
+            var receiver = await Get<Profiles>(SQLQueries.GetUserWithUsername, receiverUsername);
 
             if (sender.Username == receiver.Username) return true;
 
@@ -96,7 +96,7 @@ namespace StreamWork.Services
         public async Task<string> CreateNotificationTemplate(Notification notification, bool isPush)
         {
             string reader = "";
-            var userProfile = await Get<Profile>(SQLQueries.GetUserWithUsername, notification.ReceiverUsername);
+            var userProfile = await Get<Profiles>(SQLQueries.GetUserWithUsername, notification.ReceiverUsername);
 
             if (notification.Type == NotificationType.Follow.ToString())
             {

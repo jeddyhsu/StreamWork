@@ -35,11 +35,11 @@ namespace StreamWork.Pages.Home
         public async Task<JsonResult> OnGetSendChangePasswordEmail(string username)
         {
             // TODO Make a shorter way to get profile with either username or email
-            Profile user = await storage.Get<Profile>(SQLQueries.GetUserWithUsername, username);
+            DataModels.Profiles user = await storage.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, username);
             if (user == null)
             {
                 // The user can enter either username or email
-                user = await storage.Get<Profile>(SQLQueries.GetUserWithEmailAddress, username);
+                user = await storage.Get<DataModels.Profiles>(SQLQueries.GetUserWithEmailAddress, username);
             }
 
             if (user != null)
@@ -56,11 +56,11 @@ namespace StreamWork.Pages.Home
 
         public async Task<JsonResult> OnGetCheckChangePasswordCode(string username, string changePasswordCode)
         {
-            Profile user = await storage.Get<Profile>(SQLQueries.GetUserWithUsername, username);
+            DataModels.Profiles user = await storage.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, username);
             if (user == null)
             {
                 // The user can enter either username or email
-                user = await storage.Get<Profile>(SQLQueries.GetUserWithEmailAddress, username);
+                user = await storage.Get<DataModels.Profiles>(SQLQueries.GetUserWithEmailAddress, username);
             }
 
             return new JsonResult(user != null && user.ChangePasswordKey == changePasswordCode);
@@ -68,11 +68,11 @@ namespace StreamWork.Pages.Home
 
         public async Task<JsonResult> OnGetChangePassword(string username, string changePasswordCode, string password)
         {
-            Profile user = await storage.Get<Profile>(SQLQueries.GetUserWithUsername, username);
+            DataModels.Profiles user = await storage.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, username);
             if (user == null)
             {
                 // The user can enter either username or email
-                user = await storage.Get<Profile>(SQLQueries.GetUserWithEmailAddress, username);
+                user = await storage.Get<DataModels.Profiles>(SQLQueries.GetUserWithEmailAddress, username);
             }
 
             if (user != null && user.ChangePasswordKey == changePasswordCode)

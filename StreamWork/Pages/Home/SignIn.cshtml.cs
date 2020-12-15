@@ -38,11 +38,11 @@ namespace StreamWork.Pages.Home
             var password = Request.Form["Password"];
             var time = Request.Form["Time"]; //gets time offset
 
-            var userProfile = await storageService.Get<Profile>(SQLQueries.GetUserWithUsername, username);
+            var userProfile = await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, username);
             if (userProfile == null)
             {
                 // User can also sign in with email address, in which case the username needs to be updated
-                userProfile = await storageService.Get<Profile>(SQLQueries.GetUserWithEmailAddress, username);
+                userProfile = await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithEmailAddress, username);
                 if (userProfile != null)
                 {
                     username = userProfile.Username;

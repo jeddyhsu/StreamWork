@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Microsoft.EntityFrameworkCore;
+using MongoDB.Driver;
 using StreamWork.Base;
 using StreamWork.Config;
 
@@ -16,6 +17,58 @@ namespace StreamWork.Core
 {
     public static class DataStore
     {
+        private const string databaseName = "StreamWork";
+        private const string connectionString = "mongodb+srv://rarun:Rithvik2000@streamworkdb.4dahn.mongodb.net/" + databaseName + "?retryWrites=true&w=majority";
+
+        private static IMongoCollection<T> GetMongoCollection<T>(string collection)
+        {
+            return new MongoClient(connectionString).GetDatabase(databaseName).GetCollection<T>(collection);
+        }
+
+        /// <summary>
+        /// Get data from storage
+        /// All exceptions are bubbled up.
+        /// </summary>
+        public async static Task<T> GetAsync<T>(DataStorageConfig storageConfig, string collection, string id) where T : StorageBase
+        {
+            if (storageConfig.Type == StorageTypes.MongoDB)
+            {
+                var mongoCollection = GetMongoCollection<T>("debug");
+                if (mongoCollection == null)
+                    return default(T);
+
+                var mongoDoc = mongoCollection.Find(new FilterDefinitionBuilder<T>().Eq("Id", id));
+                return await mongoDoc?.AnyAsync() == true ? await mongoDoc.FirstAsync<T>() : default(T);
+            }
+
+            return default(T);
+        }
+
+        /// <summary>
+        /// Saves data to storage.
+        /// All exceptions are bubbled up.
+        /// </summary>
+        public async static Task<bool> SaveAsync<T>(DataStorageConfig storageConfig,
+                                                    string collectionName,
+                                                    T dataObject,
+                                                    string id) where T : StorageBase
+        {
+            if (string.IsNullOrWhiteSpace(dataObject.Collection) == true)
+                dataObject.Collection = typeof(T).Name;
+
+            if (storageConfig.Type == StorageTypes.MongoDB)
+            {
+                var mongoCollection = GetMongoCollection<T>(collectionName);
+                if (mongoCollection == null)
+                    await new MongoClient(storageConfig.ConnectionString).GetDatabase(databaseName).CreateCollectionAsync(collectionName);
+
+                await mongoCollection.ReplaceOneAsync(new FilterDefinitionBuilder<T>().Eq("Id", id), dataObject, new ReplaceOptions { IsUpsert = true });
+
+            }
+
+            return true;
+        }
+
         public async static Task<T> GetAsync<T>(string _connectionString,
                                                 StorageConfig storageConfig, 
                                                 Dictionary<string, object> keys) where T : class
@@ -154,17 +207,17 @@ namespace StreamWork.Core
         {
             var query = string.Empty;
             var name = typeof(T).Name;
-            if (storageConfig?.EntityModels?.Exists(c => c.Name.Equals(name)) == true)
-            {
-                if (string.IsNullOrWhiteSpace(queryId) == true)
-                    query = storageConfig.EntityModels.First(c => c.Name.Equals(name)).Queries.First().Query;
-                else
-                {
-                    query = storageConfig.EntityModels.First(c => c.Name.Equals(name)).Queries.Find(d => d.QueryId.Equals(queryId)).Query;
-                    if (query.Equals("*UDF") == true)
-                        query = udfQuery;
-                }
-            }
+            //if (storageConfig?.EntityModels?.Exists(c => c.Name.Equals(name)) == true)
+            //{
+            //    if (string.IsNullOrWhiteSpace(queryId) == true)
+            //        query = storageConfig.EntityModels.First(c => c.Name.Equals(name)).Queries.First().Query;
+            //    else
+            //    {
+            //        query = storageConfig.EntityModels.First(c => c.Name.Equals(name)).Queries.Find(d => d.QueryId.Equals(queryId)).Query;
+            //        if (query.Equals("*UDF") == true)
+            //            query = udfQuery;
+            //    }
+            //}
 
             if (query.Contains("$Collection") == true)
                 query = query.Replace("$Collection", name ?? string.Empty);
@@ -205,10 +258,12 @@ namespace StreamWork.Core
         private static string FormatKey<T>(StorageConfig storageConfig, object key)
         {
             var name = typeof(T).Name;
-            if (storageConfig.EntityModels.Find(c => c.Name.Equals(name)).QualifyId)
-                return name + key;
-            else
-                return key.ToString();
+            //if (storageConfig.EntityModels.Find(c => c.Name.Equals(name)).QualifyId)
+            //    return name + key;
+            //else
+            //    return key.ToString();
+
+            return null;
         }
 
         //Takes Generic Type - use for any api that has json format
@@ -229,6 +284,31 @@ namespace StreamWork.Core
                 return serialized;
             }
             catch(Exception e)
+            {
+                Console.WriteLine(e.InnerException);
+            }
+
+            return null;
+        }
+
+
+        //Takes Generic Type - use for any api that has json format with authentication
+        public static async Task<object> CallAPIJSON<T>(string URL, StringContent content)
+        {
+            try
+            {
+                HttpResponseMessage res;
+
+                using (HttpClient client = new HttpClient())
+                {
+                    res = await client.PostAsync(URL, content);
+                }
+
+                var obj = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(await res.Content.ReadAsStringAsync());
+
+                return obj;
+            }
+            catch (Exception e)
             {
                 Console.WriteLine(e.InnerException);
             }

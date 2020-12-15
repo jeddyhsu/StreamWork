@@ -1,15 +1,12 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using StreamWork.Framework;
+using StreamWork.Base;
 
 namespace StreamWork.DataModels
 {
-    public class Profile : IStorageBase<Profile>
+    public class Profiles : StorageBase
     {
-        [Key]
-        //Both
-        public string Id { get; set; }
         public string Name { get; set; }
         public string EmailAddress { get; set; }
         public string Username { get; set; }
@@ -41,13 +38,5 @@ namespace StreamWork.DataModels
 
         public DateTime LastLogin { get; set; }
         public DateTime ProfileSince { get; set; }
-
-        [Timestamp]
-        public byte[] RowVersion { get; set; }
-
-        public virtual void Configure(EntityTypeBuilder<Profile> builder)
-        {
-
-        }
     }
 }

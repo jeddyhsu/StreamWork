@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StreamWork.DataModels;
@@ -14,8 +15,8 @@ namespace StreamWork.Pages
         private readonly EncryptionService encryptionService;
         private readonly NotificationService notificationService;
 
-        public Profile CurrentUserProfile { get; set; }
-        public Profile FeaturedTutor { get; set; }
+        public DataModels.Profiles CurrentUserProfile { get; set; }
+        public DataModels.Profiles FeaturedTutor { get; set; }
         public Channel FeaturedChannel { get; set; }
         public Video FeaturedArchivedVideo { get; set; }
         public List<Video> ArchivedVideos { get; set; }
@@ -34,6 +35,21 @@ namespace StreamWork.Pages
 
         public async Task OnGet()
         {
+
+
+            Debug d = new Debug();
+            d.Id = Guid.NewGuid().ToString();
+            d.Message = "TEST";
+            await storageService.Save(d.Id, d, "df");
+
+
+
+            await storageService.Get<Debug>();
+
+
+
+
+
             // List of streams for the carousel
             List<string> streamsWithPriority = new List<string> {
                 "F8U3mEscyNB_1",
@@ -69,14 +85,14 @@ namespace StreamWork.Pages
             if (streamingChannel == null)
             {
                 FeaturedChannel = await storageService.Get<Channel>(SQLQueries.GetUserChannelWithUsername, "juliamkim");
-                FeaturedTutor = await storageService.Get<DataModels.Profile>(SQLQueries.GetUserWithUsername, "juliamkim");
+                FeaturedTutor = await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, "juliamkim");
                 FeaturedArchivedVideo = await storageService.Get<Video>(SQLQueries.GetArchivedStreamsWithUsername, "juliamkim");
                 FeaturedArchivedVideo.StreamSubjectIcon = MiscHelperMethods.GetCorrespondingSubjectThumbnail(FeaturedArchivedVideo.StreamSubject);
             }
             else
             {
                 FeaturedChannel = streamingChannel;
-                FeaturedTutor = await storageService.Get<Profile>(SQLQueries.GetUserWithUsername, streamingChannel.Username);
+                FeaturedTutor = await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, streamingChannel.Username);
                 FeaturedChannel.StreamSubjectIcon = MiscHelperMethods.GetCorrespondingSubjectThumbnail(FeaturedChannel.StreamSubject);
             }
 

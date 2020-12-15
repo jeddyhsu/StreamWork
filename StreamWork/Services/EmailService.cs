@@ -38,7 +38,7 @@ namespace StreamWork.Services
             certificatePath = Path.Combine(Directory.GetParent(environment.WebRootPath).FullName, "Config", "streamwork-286021-a06875f20a26.p12"); // HACK Completely fixable, but I really don't want to touch this system anymore.
         }
 
-        public async Task SendTemplateToUser(string templateName, Profile user, IFormFileCollection attachments)
+        public async Task SendTemplateToUser(string templateName, Profiles user, IFormFileCollection attachments)
         {
             MimeMessage message = new MimeMessage();
             string[] userNames = user.Name.Split('|');
@@ -47,7 +47,7 @@ namespace StreamWork.Services
             await SendTemplateToAddress(templateName, user, attachments, message);
         }
 
-        public async Task SendTemplateToStreamwork(string templateName, Profile user, IFormFileCollection attachments)
+        public async Task SendTemplateToStreamwork(string templateName, Profiles user, IFormFileCollection attachments)
         {
             MimeMessage message = new MimeMessage();
             message.To.Add(new MailboxAddress("StreamWork", streamworkEmailAddress));
@@ -57,7 +57,7 @@ namespace StreamWork.Services
 
         // Internal, to reduce repetition in code
         // Attachments are IFormFiles for simplicity. Maybe change this to something more accessible if necessary in the future?
-        private async Task SendTemplateToAddress(string templateName, Profile user, IFormFileCollection attachments, MimeMessage message)
+        private async Task SendTemplateToAddress(string templateName, Profiles user, IFormFileCollection attachments, MimeMessage message)
         {
             EmailTemplate template = templates.GetTemplate(templateName);
 
@@ -85,7 +85,7 @@ namespace StreamWork.Services
             await SendEmail(message);
         }
 
-        public async Task SendForgotPassword(Profile user)
+        public async Task SendForgotPassword(Profiles user)
         {
             MimeMessage message = new MimeMessage();
 
@@ -115,7 +115,7 @@ namespace StreamWork.Services
             await SendEmail(message);
         }
 
-        public async Task NotifyAllFollowers(Profile user)
+        public async Task NotifyAllFollowers(Profiles user)
         {
             await Task.Factory.StartNew(async () =>
             {
@@ -137,7 +137,7 @@ namespace StreamWork.Services
                 {
                     foreach (var userFollow in userFollowsTask)
                     {
-                        Profile userFollower = await storage.Get<Profile>(SQLQueries.GetUserWithUsername, userFollow.FollowerUsername);
+                        Profiles userFollower = await storage.Get<Profiles>(SQLQueries.GetUserWithUsername, userFollow.FollowerUsername);
                         if (userFollower != null && userFollower.NotificationSubscribe == "True")
                         {
                             MimeMessage message = new MimeMessage();
@@ -160,7 +160,7 @@ namespace StreamWork.Services
                 {
                     foreach (var topicFollow in topicFollows)
                     {
-                        Profile userFollower = await storage.Get<Profile>(SQLQueries.GetUserWithUsername, topicFollow.Follower);
+                        Profiles userFollower = await storage.Get<Profiles>(SQLQueries.GetUserWithUsername, topicFollow.Follower);
                         if (userFollower != null && userFollower.NotificationSubscribe == "True")
                         {
                             MimeMessage message = new MimeMessage();

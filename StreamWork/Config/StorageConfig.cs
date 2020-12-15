@@ -5,29 +5,29 @@ namespace StreamWork.Config
     public enum StorageTypes
     {
         MongoDB,
-        SqlServer
+        AzureTable
     }
 
     public class StorageConfig
     {
-        public List<EntityModel> EntityModels { get; set; } = new List<EntityModel>();
+        public List<DataStorageConfig> DataStorageList { get; set; } = new List<DataStorageConfig>();
+    }
 
-        public StorageTypes GetStorageType<T>()
+    public class DataStorageConfig
+    {
+        public StorageTypes Type { get; set; }
+        public string ConnectionString { get; set; }
+        public List<EntityModel> EntityModels { get; set; }
+
+        public DataStorageConfig()
         {
-            return EntityModels.Find(c => c.Name.Equals(typeof(T).Name)).StorageType;
+            EntityModels = new List<EntityModel>();
         }
     }
 
     public class EntityModel
     {
         public string Name { get; set; }
-        public StorageTypes StorageType { get; set; }
-        public bool QualifyId { get; set; }
-        public List<EntityModelQuery> Queries { get; set; } = new List<EntityModelQuery>();
-    }
-
-    public class EntityModelQuery
-    {
         public string QueryId { get; set; }
         public string Query { get; set; }
     }

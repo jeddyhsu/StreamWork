@@ -34,7 +34,7 @@ namespace StreamWork.Pages.Home
 
         public async Task<JsonResult> OnGetIsAddressAvailable(string emailAddress)
         {
-            return new JsonResult(await storageService.Get<Profile>(SQLQueries.GetUserWithEmailAddress, emailAddress) == null);
+            return new JsonResult(await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithEmailAddress, emailAddress) == null);
         }
 
         public JsonResult OnGetIsAddressValid(string emailAddress)
@@ -51,7 +51,7 @@ namespace StreamWork.Pages.Home
 
         public async Task<JsonResult> OnGetIsUsernameAvailable(string username)
         {
-            return new JsonResult(await storageService.Get<Profile>(SQLQueries.GetUserWithUsername, username) == null);
+            return new JsonResult(await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, username) == null);
         }
 
         public async Task OnGetSendVerificationEmail(string emailAddress)
@@ -100,7 +100,7 @@ namespace StreamWork.Pages.Home
                     return;
                 }
 
-                Profile user = new Profile
+                DataModels.Profiles user = new DataModels.Profiles
                 {
                     Id = id,
                     Name = Request.Form["FirstName"] + "|" + Request.Form["LastName"],
@@ -125,7 +125,7 @@ namespace StreamWork.Pages.Home
             }
 
             topicService.FollowTopics(Request.Form["Username"], GetAllSelectedTopics(Request.Form["Topics"].ToString().Split('|')));
-            await emailService.SendTemplateToStreamwork("studentSignUp", await storageService.Get<Profile>(SQLQueries.GetUserWithUsername, Request.Form["Username"]), Request.Form.Files);
+            await emailService.SendTemplateToStreamwork("studentSignUp", await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, Request.Form["Username"]), Request.Form.Files);
         }
 
         public async Task OnPostSignUpTutor()
@@ -144,7 +144,7 @@ namespace StreamWork.Pages.Home
                     return;
                 }
 
-                Profile user = new Profile
+                DataModels.Profiles user = new DataModels.Profiles
                 {
                     Id = id,
                     Name = Request.Form["FirstName"] + "|" + Request.Form["LastName"],
@@ -173,7 +173,7 @@ namespace StreamWork.Pages.Home
             await CreateChannel(Request.Form["Username"]);
             topicService.TutorTopics(Request.Form["Username"], GetAllSelectedTopics(Request.Form["Topics"].ToString().Split('|')));
 
-            await emailService.SendTemplateToStreamwork("tutorSignUp", await storageService.Get<Profile>(SQLQueries.GetUserWithUsername, Request.Form["Username"]), Request.Form.Files);
+            await emailService.SendTemplateToStreamwork("tutorSignUp", await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, Request.Form["Username"]), Request.Form.Files);
         }
 
         // Server-side security checks
@@ -189,8 +189,8 @@ namespace StreamWork.Pages.Home
                     nameRegex.IsMatch(request.Form["LastName"]) &&
                     new Regex(@"^[A-Za-z0-9_-]+$").IsMatch(username) &&
                     new MailAddress(emailAddress).Address == emailAddress &&
-                    await storageService.Get<Profile>(SQLQueries.GetUserWithUsername, username) == null &&
-                    await storageService.Get<Profile>(SQLQueries.GetUserWithEmailAddress, emailAddress) == null;
+                    await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, username) == null &&
+                    await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithEmailAddress, emailAddress) == null;
             }
             catch
             {
@@ -204,7 +204,7 @@ namespace StreamWork.Pages.Home
             GoogleOauth oauthInfo = await storageService.CallJSON<GoogleOauth>("https://oauth2.googleapis.com/tokeninfo?id_token=" + oauthRequestToken); //GETS EMAIL FOR GOOGLE OAUTH
             var password = encryptionService.EncryptPassword("!!0_STREAMWORK_!!0");
 
-            var profile = new Profile{
+            var profile = new DataModels.Profiles{
                 Id = id,
                 Name = oauthInfo.Name.Contains(' ') ? oauthInfo.Name.Replace(' ', '|') : oauthInfo.Name + "|",
                 EmailAddress = oauthInfo.Email,
@@ -235,7 +235,7 @@ namespace StreamWork.Pages.Home
 
         public async Task<IActionResult> OnPostCheckIfOauthUserExists(string email, string route)
         {
-            var userProfile = await storageService.Get<Profile>(SQLQueries.GetUserWithEmailAddress, email);
+            var userProfile = await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithEmailAddress, email);
             if (userProfile != null)
             {
                 var signInProfile = await cookieService.SignIn(userProfile.Username, userProfile.Password);

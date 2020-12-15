@@ -1,10 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using StreamWork.Base;
 using StreamWork.Config;
 using StreamWork.Core;
+using StreamWork.DataModels;
 using StreamWork.HelperMethods;
 
 namespace StreamWork.Services
@@ -19,7 +23,21 @@ namespace StreamWork.Services
             this.config = config;
         }
 
-        public async Task<T> Get<T> (SQLQueries query, params string[] parameters) where T : class
+        public async Task<T> Get<T> () where T : StorageBase
+        {
+            var result = await DataStore.GetAsync<T>(config.Value.DataStorageList.First(), "Debug", "f2fbab1d-011e-4239-8d26-91b25a5341f6");
+
+            return null;
+        }
+
+        public async Task<T> Save<T>(string id, T o, string t) where T : StorageBase
+        {
+            var result = await DataStore.SaveAsync<T>(config.Value.DataStorageList.First(), "Debug", o , id);
+
+            return null;
+        }
+
+        public async Task<T> Get<T>(SQLQueries query, params string[] parameters) where T : class
         {
             List<T> results = await DataStore.GetListAsync<T>(connectionString, config.Value, query.ToString(), parameters.Cast<string>().ToList());
             if (results.Count == 0)
@@ -52,6 +70,11 @@ namespace StreamWork.Services
         public async Task<T> CallJSON<T>(string url, string authToken) where T : class
         {
             return (T)await DataStore.CallAPIJSON<T>(url, authToken);
+        }
+
+        public async Task<T> CallJSON<T>(string url, StringContent content) where T : class
+        {
+            return (T)await DataStore.CallAPIJSON<T>(url, content);
         }
 
         public async Task<T> CallJSON<T>(string url) where T : class

@@ -26,10 +26,10 @@ namespace StreamWork.Services
             Authenticated = httpContext.HttpContext.User.Identity.IsAuthenticated;
         }
 
-        public async Task<Profile> SignIn(string username, string password)
+        public async Task<Profiles> SignIn(string username, string password)
         {
 
-            var userProfile = await Get<Profile>(SQLQueries.GetUserWithUsernameAndPassword, new string[] { username, password });
+            var userProfile = await Get<Profiles>(SQLQueries.GetUserWithUsernameAndPassword, new string[] { username, password });
 
             if (userProfile != null)
             {
@@ -60,9 +60,9 @@ namespace StreamWork.Services
             await httpContext.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         }
 
-        public async Task<Profile> ValidateUser(string username)
+        public async Task<Profiles> ValidateUser(string username)
         {
-            var userProfile = await Get<Profile>(SQLQueries.GetUserWithUsername, new string[] { username });
+            var userProfile = await Get<Profiles>(SQLQueries.GetUserWithUsername, new string[] { username });
             return userProfile;
         }
 
@@ -71,22 +71,22 @@ namespace StreamWork.Services
             return host + path;
         }
 
-        public async Task<Profile> GetCurrentUser()
+        public async Task<Profiles> GetCurrentUser()
         {
             if (httpContext.HttpContext.User.Identity.Name == null) return null;
 
-            return await Get<Profile>(SQLQueries.GetUserWithUsername, new string[] { httpContext.HttpContext.User.Identity.Name });
+            return await Get<Profiles>(SQLQueries.GetUserWithUsername, new string[] { httpContext.HttpContext.User.Identity.Name });
         }
 
         public async Task<bool> ValidateUserType(string username, string type)
         {
-            var currentUser = await Get<Profile>(SQLQueries.GetUserWithUsername, username);
+            var currentUser = await Get<Profiles>(SQLQueries.GetUserWithUsername, username);
             if (currentUser.ProfileType == type) return true;
 
             return false;
         }
 
-        public JsonResult Route(Profile userProfile, string route, EncryptionService encryptionService)
+        public JsonResult Route(Profiles userProfile, string route, EncryptionService encryptionService)
         {
             if (userProfile != null)
             {

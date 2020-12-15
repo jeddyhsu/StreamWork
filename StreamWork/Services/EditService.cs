@@ -15,7 +15,7 @@ namespace StreamWork.Services
     {
         public EditService([FromServices] IOptionsSnapshot<StorageConfig> config) : base(config) { }
 
-        public async Task<List<string>> EditProfile(HttpRequest request, Profile userProfile)
+        public async Task<List<string>> EditProfile(HttpRequest request, Profiles userProfile)
         {
             IFormFile profilePicture = null;
             var firstName = request.Form["FirstName"];
@@ -66,7 +66,7 @@ namespace StreamWork.Services
             return new List<string> { firstName, lastName, occupation, location, timeZone, linkedInUrl, userProfile.ProfilePicture };
         }
 
-        public async Task<string> DeleteProfilePicture(Profile userProfile)
+        public async Task<string> DeleteProfilePicture(Profiles userProfile)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace StreamWork.Services
             }
         }
 
-        public async Task<string> SaveBanner(HttpRequest request, Profile userProfile)
+        public async Task<string> SaveBanner(HttpRequest request, Profiles userProfile)
         {
             try
             {
@@ -105,7 +105,7 @@ namespace StreamWork.Services
             }
         }
 
-        public async Task<bool> SaveUniversity(Profile userProfile, string abbr, string name)
+        public async Task<bool> SaveUniversity(Profiles userProfile, string abbr, string name)
         {
             try
             {

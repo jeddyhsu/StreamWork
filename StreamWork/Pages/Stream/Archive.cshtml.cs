@@ -21,8 +21,8 @@ namespace StreamWork.Pages.Stream
         private readonly NotificationService notificationService;
         private readonly EncryptionService encryptionService;
 
-        public Profile CurrentUserProfile { get; set; }
-        public Profile UserProfile { get; set; }
+        public DataModels.Profiles CurrentUserProfile { get; set; }
+        public DataModels.Profiles UserProfile { get; set; }
         public Channel UserChannel { get; set; }
         public Video Video { get; set; }
         public string ChatInfo { get; set; }
@@ -30,7 +30,7 @@ namespace StreamWork.Pages.Stream
         public string FollowValue { get; set; }
         public List<Video> UserVideos { get; set; }
         public List<Video> OtherVideos { get; set; }
-        public List<Profile> RelatedTutors { get; set; }
+        public List<DataModels.Profiles> RelatedTutors { get; set; }
         public List<Section> Sections { get; set; }
         public List<Schedule> Schedule { get; set; }
         public List<Comment> Comments { get; set; }
@@ -62,7 +62,7 @@ namespace StreamWork.Pages.Stream
 
             CurrentUserProfile = await cookieService.GetCurrentUser();
             Video = await storageService.Get<Video>(SQLQueries.GetArchivedStreamsWithStreamId, id);
-            UserProfile = await storageService.Get<Profile>(SQLQueries.GetUserWithUsername, Video.Username);
+            UserProfile = await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, Video.Username);
             UserChannel = await storageService.Get<Channel>(SQLQueries.GetUserChannelWithUsername, Video.Username);
             UserChannel.StreamSubjectIcon = MiscHelperMethods.GetCorrespondingSubjectThumbnail(Video.StreamSubject);
             ChatInfo = encryptionService.EncryptString(Video.Id);
@@ -70,7 +70,7 @@ namespace StreamWork.Pages.Stream
 
             UserVideos = await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { UserProfile.Username });
             OtherVideos = await storageService.GetList<Video>(SQLQueries.GetRandomArchivedStreams, new string[] { });
-            RelatedTutors = (await storageService.GetList<Profile>(SQLQueries.GetAllTutorsNotInTheList, new string[] { UserProfile.Id })).GetRange(0, 5);
+            RelatedTutors = (await storageService.GetList<DataModels.Profiles>(SQLQueries.GetAllTutorsNotInTheList, new string[] { UserProfile.Id })).GetRange(0, 5);
             Sections = profileService.GetSections(UserProfile);
             Schedule = await scheduleService.GetSchedule(UserProfile);
             Comments = await commentService.GetAllComments(Video.Id);

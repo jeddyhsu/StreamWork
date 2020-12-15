@@ -17,9 +17,9 @@ namespace StreamWork.Pages.Profiles
         private readonly NotificationService notificationService;
         private readonly EncryptionService encryptionService;
 
-        public Profile CurrentUserProfile { get; set; }
-        public Profile UserProfile { get; set; }
-        public List<Profile> RelatedTutors { get; set; }
+        public DataModels.Profiles CurrentUserProfile { get; set; }
+        public DataModels.Profiles UserProfile { get; set; }
+        public List<DataModels.Profiles> RelatedTutors { get; set; }
         public List<Section> Sections { get; set; }
         public List<Topic> Topics { get; set; }
         public List<Comment> Comments { get; set; }
@@ -43,9 +43,9 @@ namespace StreamWork.Pages.Profiles
             }
 
             CurrentUserProfile = await cookieService.GetCurrentUser();
-            UserProfile = await storageService.Get<Profile>(SQLQueries.GetUserWithUsername, student);
+            UserProfile = await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, student);
 
-            RelatedTutors = (await storageService.GetList<Profile>(SQLQueries.GetAllTutorsNotInTheList, new string[] { UserProfile.Id })).GetRange(0, 5);
+            RelatedTutors = (await storageService.GetList<DataModels.Profiles>(SQLQueries.GetAllTutorsNotInTheList, new string[] { UserProfile.Id })).GetRange(0, 5);
             Sections = profileService.GetSections(UserProfile);
             Topics = profileService.GetTopics(UserProfile);
 

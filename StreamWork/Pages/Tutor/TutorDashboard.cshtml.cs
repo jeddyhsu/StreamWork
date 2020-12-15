@@ -21,7 +21,7 @@ namespace StreamWork.Pages.Tutor
         private readonly NotificationService notificationService;
         private readonly ChatService chatService;
 
-        public Profile CurrentUserProfile { get; set; }
+        public DataModels.Profiles CurrentUserProfile { get; set; }
         public Channel UserChannel { get; set; }
         public int NumberOfStreams { get; set; }
         public int NumberOfFollowers { get; set; }
@@ -31,8 +31,8 @@ namespace StreamWork.Pages.Tutor
         public List<Section> Sections { get; set; }
         public List<Topic> Topics { get; set; }
         public List<Schedule> Schedule { get; set; }
-        public List<Profile> Followers { get; set; }
-        public List<Profile> Followees { get; set; }
+        public List<DataModels.Profiles> Followers { get; set; }
+        public List<DataModels.Profiles> Followees { get; set; }
         public List<string> Notifications { get; set; }
         public bool AreThereUnseenNotifications { get; set; }
         public string DefaultBanner { get; set; }
