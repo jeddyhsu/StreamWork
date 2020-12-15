@@ -1,14 +1,8 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-using StreamWork.Base;
-using StreamWork.Framework;
+﻿using StreamWork.Base;
 
 namespace StreamWork.DataModels
 {
-    public class Debug : StorageBase
+    public class Debug : StorageBase //EACH MODEL NEEDS TO INHERIT STORAGE BASE
     {
         //public DateTime Timestamp { get; set; }
         public string Message { get; set; }

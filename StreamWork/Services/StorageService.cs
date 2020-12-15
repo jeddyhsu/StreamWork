@@ -84,7 +84,7 @@ namespace StreamWork.Services
 
 
 
-
+        //OLD SQL STUFF
         public async Task<T> Get<T>(SQLQueries query, params string[] parameters) where T : class
         {
             List<T> results = await DataStore.GetListAsync<T>(connectionString, config.Value, query.ToString(), parameters.Cast<string>().ToList());
