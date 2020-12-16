@@ -35,23 +35,6 @@ namespace StreamWork.Pages
 
         public async Task OnGet()
         {
-
-
-            Debug d = new Debug();
-            d.Id = Guid.NewGuid().ToString();
-            d.Message = "TEST";
-            await storageService.Save(d.Id, d, "df");
-
-
-
-            await storageService.Get<Debug>("f2fbab1d-011e-4239-8d26-91b25a5341f6");
-
-
-            var result = await storageService.GetList<Debug>("GetAllDebugs", null);
-
-            await storageService.DeleteMany<Debug>("DeleteAllDebugs");
-
-
             // List of streams for the carousel
             List<string> streamsWithPriority = new List<string> {
                 "F8U3mEscyNB_1",
