@@ -8,7 +8,7 @@ namespace StreamWork.DataModels
     public class EmailVerification : IStorageBase<EmailVerification>
     {
         [Key]
-        public string Id { get; set; }
+        public string _Id { get; set; }
         public string EmailAddress { get; set; }
         public string VerificationCode { get; set; }
 

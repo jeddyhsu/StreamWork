@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.Options;
 using StreamWork.Base;
 using StreamWork.Config;
 using StreamWork.Core;
+using StreamWork.DataModels;
 using StreamWork.HelperMethods;
 
 namespace StreamWork.Services
@@ -16,6 +18,24 @@ namespace StreamWork.Services
         protected readonly string connectionString = "Server=tcp:streamwork.database.windows.net,1433;Initial Catalog=StreamWork;Persist Security Info=False;User ID=streamwork;Password=arizonastate1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
         protected readonly IOptionsSnapshot<StorageConfig> config;
 
+        protected static Dictionary<Type, string> collectionNames = new Dictionary<Type, string>
+        {
+            { typeof(EmailVerification), "email_verifications" },
+            { typeof(User), "users" },
+            { typeof(Account), "accounts" },
+            { typeof(Profile), "profiles" },
+            { typeof(Channel), "channels" },
+            { typeof(ScheduledStream), "scheduled_streams" },
+            { typeof(Stream), "streams" },
+            { typeof(Video), "videos" },
+            { typeof(Tag), "tags" },
+            { typeof(Chat), "chats" },
+            { typeof(Comment), "comments" },
+            { typeof(Notification), "notifications" },
+            { typeof(Donation), "donations" },
+            { typeof(DebugLog), "debug_logs" }
+        };
+
         public StorageService([FromServices] IOptionsSnapshot<StorageConfig> config)
         {
             this.config = config;
@@ -23,13 +43,13 @@ namespace StreamWork.Services
 
         public async Task<T> Get<T>(string id) where T : StorageBase
         {
-            var result = await DataStore.GetAsync<T>(config.Value.DataStorageList.First(), typeof(T).Name.ToLower(), id);
+            var result = await DataStore.GetAsync<T>(config.Value.DataStorageList.First(), collectionNames[typeof(T)], id);
             return result;
         }
 
         public async Task<bool> Save<T>(string id, T obj, string t) where T : StorageBase
         {
-            return await DataStore.SaveAsync(config.Value.DataStorageList.First(), typeof(T).Name.ToLower(), obj, id);
+            return await DataStore.SaveAsync(config.Value.DataStorageList.First(), collectionNames[typeof(T)], obj, id);
         }
 
         public async Task<List<T>> GetList<T>(string query, List<string> parameters) where T : StorageBase, new()
@@ -39,12 +59,12 @@ namespace StreamWork.Services
 
         //public async Task<bool> Delete<T>(string id) where T : StorageBase
         //{
-        //    return await DataStore.DeleteAsync<T>(config.Value.DataStorageList.First(), typeof(T).Name.ToLower(), id);
+        //    return await DataStore.DeleteAsync<T>(config.Value.DataStorageList.First(), collectionNames[typeof(T)], id);
         //}
 
         public async Task<bool> DeleteMany<T>(string query, List<string> parameters) where T : StorageBase
         {
-            return await DataStore.DeleteManyAsync<T>(config.Value.DataStorageList.First(), typeof(T).Name.ToLower(), parameters, query);
+            return await DataStore.DeleteManyAsync<T>(config.Value.DataStorageList.First(), collectionNames[typeof(T)], parameters, query);
         }
 
         public async Task<T> CallJSON<T>(string url, string authToken) where T : class
@@ -66,8 +86,6 @@ namespace StreamWork.Services
         {
             return (T)await DataStore.CallAPIXML<T>(url);
         }
-
-
 
 
 

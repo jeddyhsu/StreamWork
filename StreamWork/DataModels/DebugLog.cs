@@ -5,19 +5,17 @@ using StreamWork.Framework;
 
 namespace StreamWork.DataModels
 {
-    public class TopicTutor : IStorageBase<TopicTutor>
+    public class DebugLog : IStorageBase<DebugLog>
     {
         [Key]
         public string Id { get; set; }
-        public string Tutor { get; set; }
-        public string Topic { get; set; }
-        public DateTime Since { get; set; }
-        public string TopicColor { get; set; }
+        public DateTime Timestamp { get; set; }
+        public string Message { get; set; }
 
         [Timestamp]
         public byte[] RowVersion { get; set; }
 
-        public virtual void Configure(EntityTypeBuilder<TopicTutor> builder)
+        public void Configure(EntityTypeBuilder<DebugLog> builder)
         {
 
         }

@@ -5,7 +5,7 @@ using StreamWork.Framework;
 
 namespace StreamWork.DataModels
 {
-    public class Video : IStorageBase<Video>
+    public class Stream : IStorageBase<Stream>
     {
         [Key]
         public string Id { get; set; }
@@ -17,13 +17,11 @@ namespace StreamWork.DataModels
         public float ViewCount { get; set; }
         public string Topic { get; set; }
         public string[] TagIds { get; set; }
-        public string[] ChatIds { get; set; }
-        public string[] CommentIds { get; set; }
 
         [Timestamp]
         public byte[] RowVersion { get; set; }
 
-        public virtual void Configure(EntityTypeBuilder<Video> builder)
+        public virtual void Configure(EntityTypeBuilder<Stream> builder)
         {
 
         }
