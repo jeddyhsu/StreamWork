@@ -1,16 +1,11 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using StreamWork.Framework;
+using StreamWork.Base;
 
 namespace StreamWork.DataModels
 {
-    public class Video : IStorageBase<Video>
+    public class Video : StorageBase
     {
-        [JsonPropertyName("_id")]
-        public string Id { get; set; }
-
         [JsonPropertyName("channel_id")]
         public string ChannelId { get; set; }
 
@@ -40,13 +35,5 @@ namespace StreamWork.DataModels
 
         [JsonPropertyName("comment_ids")]
         public string[] CommentIds { get; set; }
-
-        [Timestamp] [JsonIgnore]
-        public byte[] RowVersion { get; set; }
-
-        public virtual void Configure(EntityTypeBuilder<Video> builder)
-        {
-
-        }
     }
 }
