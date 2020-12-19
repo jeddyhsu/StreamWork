@@ -12,9 +12,11 @@ namespace StreamWork.Base
     {
         [Key]
         [IgnoreProperty]
+        [System.Text.Json.Serialization.JsonPropertyName("_id")]
         public string Id { get; set; }
 
         [IgnoreProperty]
+        [System.Text.Json.Serialization.JsonPropertyName("user_id")]
         public string UserId { get; set; }
 
         //[Ignore]

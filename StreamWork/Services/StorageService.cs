@@ -9,7 +9,6 @@ using StreamWork.Base;
 using StreamWork.Config;
 using StreamWork.Core;
 using StreamWork.DataModels;
-using StreamWork.HelperMethods;
 
 namespace StreamWork.Services
 {
@@ -47,7 +46,7 @@ namespace StreamWork.Services
             return result;
         }
 
-        public async Task<bool> Save<T>(string id, T obj, string t) where T : StorageBase
+        public async Task<bool> Save<T>(string id, T obj) where T : StorageBase
         {
             return await DataStore.SaveAsync(config.Value.DataStorageList.First(), collectionNames[typeof(T)], obj, id);
         }
@@ -57,10 +56,10 @@ namespace StreamWork.Services
             return await DataStore.GetListAsync<T>(config.Value.DataStorageList.First(), parameters, query);
         }
 
-        //public async Task<bool> Delete<T>(string id) where T : StorageBase
-        //{
-        //    return await DataStore.DeleteAsync<T>(config.Value.DataStorageList.First(), collectionNames[typeof(T)], id);
-        //}
+        public async Task<bool> Delete<T>(string id) where T : StorageBase
+        {
+            return await DataStore.DeleteAsync<T>(config.Value.DataStorageList.First(), collectionNames[typeof(T)], id);
+        }
 
         public async Task<bool> DeleteMany<T>(string query, List<string> parameters) where T : StorageBase
         {

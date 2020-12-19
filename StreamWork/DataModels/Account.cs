@@ -2,11 +2,12 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using StreamWork.Base;
 using StreamWork.Framework;
 
 namespace StreamWork.DataModels
 {
-    public class Account : IStorageBase<Account>
+    public class Account : StorageBase
     {
         [JsonPropertyName("_id")]
         public string Id { get; set; }
