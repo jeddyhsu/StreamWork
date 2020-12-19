@@ -5,14 +5,14 @@ namespace StreamWork.ProfileObjects
 {
     public class FollowedTutors
     {
-        public Profiles Tutor;
+        public Profile TutorProfile;
         public List<Video> PreviousStreams;
-        public Schedule LatestScheduledStream;
+        public ScheduledStream LatestScheduledStream;
         public string FollowValue;
 
-        public FollowedTutors(Profiles Tutor, List<Video> PreviousStreams, Schedule LatestScheduledStream, string FollowValue)
+        public FollowedTutors(Profile TutorProfile, List<Video> PreviousStreams, ScheduledStream LatestScheduledStream, string FollowValue)
         {
-            this.Tutor = Tutor;
+            this.TutorProfile = TutorProfile;
             this.PreviousStreams = PreviousStreams;
             this.LatestScheduledStream = LatestScheduledStream;
             this.FollowValue = FollowValue;

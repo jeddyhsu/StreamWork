@@ -102,35 +102,35 @@ namespace StreamWork.Services
 
 
         //OLD SQL STUFF
-        public async Task<T> Get<T>(SQLQueries query, params string[] parameters) where T : class
-        {
-            List<T> results = await DataStore.GetListAsync<T>(connectionString, config.Value, query.ToString(), parameters.Cast<string>().ToList());
-            if (results.Count == 0)
-            {
-                return default;
-            }
-            return results[0];
-        }
+        //public async Task<T> Get<T>(SQLQueries query, params string[] parameters) where T : class
+        //{
+        //    List<T> results = await DataStore.GetListAsync<T>(connectionString, config.Value, query.ToString(), parameters.Cast<string>().ToList());
+        //    if (results.Count == 0)
+        //    {
+        //        return default;
+        //    }
+        //    return results[0];
+        //}
 
-        public async Task<List<T>> GetList<T> (SQLQueries query, params string[] parameters) where T : class
-        {
-            return await DataStore.GetListAsync<T>(connectionString, config.Value, query.ToString(), parameters.Cast<string>().ToList());
-        }
+        //public async Task<List<T>> GetList<T> (SQLQueries query, params string[] parameters) where T : class
+        //{
+        //    return await DataStore.GetListAsync<T>(connectionString, config.Value, query.ToString(), parameters.Cast<string>().ToList());
+        //}
 
-        public async Task<bool> Run<T>(SQLQueries query, params string[] parameters) where T : class
-        {
-            return await DataStore.RunQueryAsync<T>(connectionString, config.Value, query.ToString(), parameters.Cast<string>().ToList());
-        }
+        //public async Task<bool> Run<T>(SQLQueries query, params string[] parameters) where T : class
+        //{
+        //    return await DataStore.RunQueryAsync<T>(connectionString, config.Value, query.ToString(), parameters.Cast<string>().ToList());
+        //}
 
-        public async Task<bool> Delete<T>(string id) where T : class
-        {
-            return await DataStore.DeleteAsync<T>(connectionString, config.Value, new Dictionary<string, object> { { "Id", id } });
-        }
+        //public async Task<bool> Delete<T>(string id) where T : class
+        //{
+        //    return await DataStore.DeleteAsync<T>(connectionString, config.Value, new Dictionary<string, object> { { "Id", id } });
+        //}
 
-        public async Task<bool> Save<T>(string id, T obj) where T : class
-        {
-            return await DataStore.SaveAsync(connectionString, config.Value, new Dictionary<string, object> { { "Id", id } }, obj);
-        }
+        //public async Task<bool> Save<T>(string id, T obj) where T : class
+        //{
+        //    return await DataStore.SaveAsync(connectionString, config.Value, new Dictionary<string, object> { { "Id", id } }, obj);
+        //}
 
         
     }

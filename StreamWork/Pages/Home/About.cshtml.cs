@@ -12,7 +12,7 @@ namespace StreamWork.Pages.Home
         private readonly CookieService cookieService;
         private readonly NotificationService notificationService;
 
-        public DataModels.Profiles CurrentUserProfile { get; set; }
+        public Profile CurrentUserProfile { get; set; }
         public List<string> Notifications { get; set; }
         public bool AreThereUnseenNotifications { get; set; }
 
@@ -28,8 +28,8 @@ namespace StreamWork.Pages.Home
 
             if (CurrentUserProfile != null)
             {
-                Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
-                AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
+                Notifications = await notificationService.GetNotifications(CurrentUserProfile.UserId);
+                AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.UserId);
             }
 
             return Page();

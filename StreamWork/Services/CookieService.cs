@@ -26,7 +26,7 @@ namespace StreamWork.Services
             Authenticated = httpContext.HttpContext.User.Identity.IsAuthenticated;
         }
 
-        public async Task<Profiles> SignIn(string username, string password)
+        public async Task<Profile> SignIn(string username, string password)
         {
 
             var userProfile = await Get<Profiles>(SQLQueries.GetUserWithUsernameAndPassword, new string[] { username, password });

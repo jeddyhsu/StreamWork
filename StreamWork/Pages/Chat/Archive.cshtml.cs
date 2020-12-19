@@ -14,18 +14,18 @@ namespace StreamWork.Pages.Chat
         private readonly StorageService storageService;
         private readonly CookieService cookieService;
         private readonly ChatService chatService;
-        private readonly EncryptionService encryptionService;
 
         public string ChatId { get; set; }
         public List<DataModels.Chat> Chats { get; set; }
-        public DataModels.Profiles CurrentUserProfile { get; set; }
+        public Dictionary<string, Profile> ChatProfiles { get; set; }
+        public User CurrentUser { get; set; }
+        public Profile CurrentUserProfile { get; set; }
         public double Offset { get; set; }
 
-        public ArchiveChat(StorageService storage, CookieService cookie, ChatService chat, EncryptionService encryption)
+        public ArchiveChat(StorageService storage, CookieService cookie, ChatService chat)
         {
             cookieService = cookie;
             chatService = chat;
-            encryptionService = encryption;
             storageService = storage;
         }
 
