@@ -29,7 +29,7 @@ namespace StreamWork.Services
         public async Task<Profile> SignIn(string username, string password)
         {
 
-            var userProfile = await Get<Profiles>(SQLQueries.GetUserWithUsernameAndPassword, new string[] { username, password });
+            var userProfile = await Get<Profile>(SQLQueries.GetUserWithUsernameAndPassword, new string[] { username, password });
 
             if (userProfile != null)
             {
