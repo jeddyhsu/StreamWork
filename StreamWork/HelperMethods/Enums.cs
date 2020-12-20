@@ -36,6 +36,15 @@ namespace StreamWork.HelperMethods
         Reply,
     }
 
+    public enum MongoQueries
+    {
+        //Channel
+        GetChannelWithChannelKey,
+
+        //Stream
+        GetStreamWithChannelKey,
+    }
+
     public enum SQLQueries
     {
         // UserLogin

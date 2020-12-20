@@ -8,6 +8,15 @@ namespace StreamWork.DataModels
         [JsonPropertyName("key")]
         public string Key { get; set; }
 
+        [JsonPropertyName("title")]
+        public string Title { get; set; }
+
+        [JsonPropertyName("category")]
+        public string Category { get; set; }
+
+        [JsonPropertyName("description")]
+        public string Description { get; set; }
+
         [JsonPropertyName("view_count")]
         public float ViewCount { get; set; }
 
@@ -27,6 +36,6 @@ namespace StreamWork.DataModels
         public string StreamId { get; set; }
 
         [JsonPropertyName("video_ids")]
-        public string[] VideoIds { get; set; }
+        public string[] VideoIds { get; set; } 
     }
 }

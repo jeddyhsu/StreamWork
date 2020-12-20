@@ -9,6 +9,7 @@ using StreamWork.Base;
 using StreamWork.Config;
 using StreamWork.Core;
 using StreamWork.DataModels;
+using StreamWork.HelperMethods;
 
 namespace StreamWork.Services
 {
@@ -40,34 +41,34 @@ namespace StreamWork.Services
             this.config = config;
         }
 
-        public async Task<T> Get<T>(string id) where T : StorageBase
+        public async Task<T> Get<T>(string id) where T : StorageBase //GET record with id
         {
             return await DataStore.GetAsync<T>(config.Value.DataStorageList.First(), collectionNames[typeof(T)], id);
         }
 
-        public async Task<T> Get<T>(List<string> parameters, string query) where T : StorageBase, new()
+        public async Task<T> Get<T>(MongoQueries query, params string[] parameters) where T : StorageBase, new() //GET record with query and params
         {
-            return (await DataStore.GetListAsync<T>(config.Value.DataStorageList.First(), parameters, query))[0];
+            return (await DataStore.GetListAsync<T>(config.Value.DataStorageList.First(), parameters.ToList(), query.ToString()))[0];
         }
 
-        public async Task<bool> Save<T>(string id, T obj) where T : StorageBase
+        public async Task<bool> Save<T>(string id, T obj) where T : StorageBase //SAVE record with id and object
         {
             return await DataStore.SaveAsync(config.Value.DataStorageList.First(), collectionNames[typeof(T)], obj, id);
         }
 
-        public async Task<List<T>> GetList<T>(string query, List<string> parameters) where T : StorageBase, new()
+        public async Task<List<T>> GetList<T>(MongoQueries query, params string[] parameters) where T : StorageBase, new() //GETLIST records with query and params
         {
-            return await DataStore.GetListAsync<T>(config.Value.DataStorageList.First(), parameters, query);
+            return await DataStore.GetListAsync<T>(config.Value.DataStorageList.First(), parameters.ToList(), query.ToString());
         }
 
-        public async Task<bool> Delete<T>(string id) where T : StorageBase
+        public async Task<bool> Delete<T>(string id) where T : StorageBase //DELETE record with id
         {
             return await DataStore.DeleteAsync<T>(config.Value.DataStorageList.First(), collectionNames[typeof(T)], id);
         }
 
-        public async Task<bool> DeleteMany<T>(string query, List<string> parameters) where T : StorageBase
+        public async Task<bool> DeleteMany<T>(MongoQueries query, params string[] parameters) where T : StorageBase //DELETE records with id and params
         {
-            return await DataStore.DeleteManyAsync<T>(config.Value.DataStorageList.First(), collectionNames[typeof(T)], parameters, query);
+            return await DataStore.DeleteManyAsync<T>(config.Value.DataStorageList.First(), collectionNames[typeof(T)], parameters.ToList(), query.ToString());
         }
 
         public async Task<T> CallJSON<T>(string url, string authToken) where T : class

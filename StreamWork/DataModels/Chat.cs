@@ -5,6 +5,9 @@ namespace StreamWork.DataModels
 {
     public class Chat : StorageBase
     {
+        [JsonPropertyName("stream_id")]
+        public string StreamId { get; set; }
+
         [JsonPropertyName("commenter_id")]
         public string CommenterId { get; set; }
 
