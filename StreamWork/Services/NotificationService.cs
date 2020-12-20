@@ -23,164 +23,171 @@ namespace StreamWork.Services
 
         public async Task<bool> SaveNotification(NotificationType notificationType, string senderUsername, string receiverUsername, string objectId = null)
         {
-            var sender = await Get<Profiles>(SQLQueries.GetUserWithUsername, senderUsername);
-            var receiver = await Get<Profiles>(SQLQueries.GetUserWithUsername, receiverUsername);
+            //var sender = await Get<Profiles>(SQLQueries.GetUserWithUsername, senderUsername);
+            //var receiver = await Get<Profiles>(SQLQueries.GetUserWithUsername, receiverUsername);
 
-            if (sender.Username == receiver.Username) return true;
+            //if (sender.Username == receiver.Username) return true;
 
-            try
-            {
-                Notification notification = new Notification
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    SenderName = sender.Name,
-                    SenderUsername = sender.Username,
-                    SenderProfilePicture = sender.ProfilePicture,
-                    ReceiverName = receiver.Name,
-                    ReceiverUsername = receiver.Username,
-                    Seen = "false",
-                    Date = DateTime.UtcNow,
-                    Type = notificationType.ToString(),
-                    ObjectId = objectId,
-                    ProfileColor = sender.ProfileColor
-                };
+            //try
+            //{
+            //    Notification notification = new Notification
+            //    {
+            //        Id = Guid.NewGuid().ToString(),
+            //        SenderName = sender.Name,
+            //        SenderUsername = sender.Username,
+            //        SenderProfilePicture = sender.ProfilePicture,
+            //        ReceiverName = receiver.Name,
+            //        ReceiverUsername = receiver.Username,
+            //        Seen = "false",
+            //        Date = DateTime.UtcNow,
+            //        Type = notificationType.ToString(),
+            //        ObjectId = objectId,
+            //        ProfileColor = sender.ProfileColor
+            //    };
 
-                await hubContext.Clients.User(notification.ReceiverUsername).SendAsync("ReceiveNotification", await CreateNotificationTemplate(notification, false), await CreateNotificationTemplate(notification, true), notification.Id);
-                await Save(notification.Id, notification);
-                return true;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error in NotificationService: CreateNotification" + e.Message);
-                return false;
-            }
+            //    await hubContext.Clients.User(notification.ReceiverUsername).SendAsync("ReceiveNotification", await CreateNotificationTemplate(notification, false), await CreateNotificationTemplate(notification, true), notification.Id);
+            //    await Save(notification.Id, notification);
+            //    return true;
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine("Error in NotificationService: CreateNotification" + e.Message);
+            //    return false;
+            //}
+
+            return false;
         }
 
         public async Task<bool> DeleteNotificationWhenObjectIsDeleted(string objectId)
         {
-            return await Run<Notification>(SQLQueries.DeleteNotificationWithObjectId, objectId);
+            //return await Run<Notification>(SQLQueries.DeleteNotificationWithObjectId, objectId);
+            return false;
         }
 
         public async Task<bool> DeleteNotification(string id)
         {
-            return await Run<Notification>(SQLQueries.DeleteNotificationWithId, id);
+            //return await Run<Notification>(SQLQueries.DeleteNotificationWithId, id);
+            return false;
         }
 
         public async Task<List<string>> GetNotifications(string username)
         {
-           var notifications = await GetList<Notification>(SQLQueries.GetNotificationsWithReceiver,username);
-           List<string> notificationTemplates = new List<string>();
+            //var notifications = await GetList<Notification>(SQLQueries.GetNotificationsWithReceiver,username);
+            //List<string> notificationTemplates = new List<string>();
 
-            foreach (var notification in notifications) {
-                var notififcation = await CreateNotificationTemplate(notification, false);
-                if (notififcation != null)
-                    notificationTemplates.Add(notififcation);
-            }
-           
-           return notificationTemplates;
+            // foreach (var notification in notifications) {
+            //     var notififcation = await CreateNotificationTemplate(notification, false);
+            //     if (notififcation != null)
+            //         notificationTemplates.Add(notififcation);
+            // }
+
+            //return notificationTemplates;
+
+            return null;
         }
 
         public async Task<bool> UpdateNotificationsToSeen(string username)
         {
-            return await Run<Notification>(SQLQueries.UpdateNotificationToSeen, username);
+            //return await Run<Notification>(SQLQueries.UpdateNotificationToSeen, username);
+            return false;
         }
 
         public async Task<bool> AreThereUnseenNotifications(string username)
         {
-            var unseenNotifications = await GetList<Notification>(SQLQueries.GetUnseenNotifications, username);
+            //var unseenNotifications = await GetList<Notification>(SQLQueries.GetUnseenNotifications, username);
 
-            if (unseenNotifications.Count > 0) return true;
+            //if (unseenNotifications.Count > 0) return true;
             return false;
         }
 
         public async Task<string> CreateNotificationTemplate(Notification notification, bool isPush)
         {
-            string reader = "";
-            var userProfile = await Get<Profiles>(SQLQueries.GetUserWithUsername, notification.ReceiverUsername);
+            //string reader = "";
+            //var userProfile = await Get<Profile>(SQLQueries.GetUserWithUsername, notification.ReceiverUsername);
 
-            if (notification.Type == NotificationType.Follow.ToString())
-            {
-                string template;
+            //if (notification.Type == NotificationType.Follow.ToString())
+            //{
+            //    string template;
                 
-                if (!isPush) template = "NotificationTemplates/FollowNotification.html";
-                else template = "NotificationTemplates/PushNotifications/FollowPushNotification.html";
+            //    if (!isPush) template = "NotificationTemplates/FollowNotification.html";
+            //    else template = "NotificationTemplates/PushNotifications/FollowPushNotification.html";
 
-                using (StreamReader streamReader = new StreamReader(template))
-                {
-                    reader = streamReader.ReadToEnd();
-                    reader = reader.Replace("{Username}", notification.SenderUsername);
-                    reader = reader.Replace("{NotificationId}", notification.Id);
-                    reader = reader.Replace("{SenderProfilePicture}", notification.SenderProfilePicture);
-                    reader = reader.Replace("{ProfileColor}", notification.ProfileColor);
-                    reader = reader.Replace("{SenderName}", notification.SenderName.Replace('|', ' '));
-                    reader = reader.Replace("{NotificationMessage}", " started following you");
-                    reader = reader.Replace("{NotificationDate}", notification.Date.AddMinutes(MiscHelperMethods.GetOffsetBasedOfTimeZone(userProfile.TimeZone)).ToShortTimeString());
-                    reader = reader.Replace("{SenderUsername}", notification.SenderUsername);
-                    reader = reader.Replace("{NotificationType}", notification.Type);
-                }
-            }
-            else if (notification.Type == NotificationType.Comment.ToString())
-            {
-                string template;
+            //    using (StreamReader streamReader = new StreamReader(template))
+            //    {
+            //        reader = streamReader.ReadToEnd();
+            //        reader = reader.Replace("{Username}", notification.SenderUsername);
+            //        reader = reader.Replace("{NotificationId}", notification.Id);
+            //        reader = reader.Replace("{SenderProfilePicture}", notification.SenderProfilePicture);
+            //        reader = reader.Replace("{ProfileColor}", notification.ProfileColor);
+            //        reader = reader.Replace("{SenderName}", notification.SenderName.Replace('|', ' '));
+            //        reader = reader.Replace("{NotificationMessage}", " started following you");
+            //        reader = reader.Replace("{NotificationDate}", notification.Date.AddMinutes(MiscHelperMethods.GetOffsetBasedOfTimeZone(userProfile.TimeZone)).ToShortTimeString());
+            //        reader = reader.Replace("{SenderUsername}", notification.SenderUsername);
+            //        reader = reader.Replace("{NotificationType}", notification.Type);
+            //    }
+            //}
+            //else if (notification.Type == NotificationType.Comment.ToString())
+            //{
+            //    string template;
 
-                if (!isPush) template = "NotificationTemplates/CommentNotification.html";
-                else template = "NotificationTemplates/PushNotifications/CommentPushNotification.html";
+            //    if (!isPush) template = "NotificationTemplates/CommentNotification.html";
+            //    else template = "NotificationTemplates/PushNotifications/CommentPushNotification.html";
 
-                var comment = await Get<Comment>(SQLQueries.GetCommentWithId, notification.ObjectId);
-                if (comment == null) return null;
-                var video = await Get<Video>(SQLQueries.GetArchivedStreamsWithId, comment.StreamId);
-                if (video == null) return null;
+            //    var comment = await Get<Comment>(SQLQueries.GetCommentWithId, notification.ObjectId);
+            //    if (comment == null) return null;
+            //    var video = await Get<Video>(SQLQueries.GetArchivedStreamsWithId, comment.StreamId);
+            //    if (video == null) return null;
 
-                using (StreamReader streamReader = new StreamReader(template))
-                {
-                    reader = streamReader.ReadToEnd();
-                    reader = reader.Replace("{Username}", notification.SenderUsername);
-                    reader = reader.Replace("{NotificationId}", notification.Id);
-                    reader = reader.Replace("{SenderProfilePicture}", notification.SenderProfilePicture);
-                    reader = reader.Replace("{ProfileColor}", notification.ProfileColor);
-                    reader = reader.Replace("{SenderName}", notification.SenderName.Replace('|', ' '));
-                    reader = reader.Replace("{NotificationMessage}", " commented on your stream (" + video.StreamTitle + ")");
-                    reader = reader.Replace("{CommentMessage}", comment.Message);
-                    reader = reader.Replace("{VideoId}", video.StreamID); //we need to use videos Id rather than streamId becasue we cahnge streaming later it will be hard to manage
-                    reader = reader.Replace("{CommentId}", comment.Id);
-                    reader = reader.Replace("{NotificationDate}", notification.Date.AddMinutes(MiscHelperMethods.GetOffsetBasedOfTimeZone(userProfile.TimeZone)).ToShortTimeString());
-                    reader = reader.Replace("{SenderUsername}", notification.SenderUsername);
-                    reader = reader.Replace("{NotificationType}", notification.Type);
-                }
-            }
-            else if (notification.Type == NotificationType.Reply.ToString())
-            {
-                string template;
+            //    using (StreamReader streamReader = new StreamReader(template))
+            //    {
+            //        reader = streamReader.ReadToEnd();
+            //        reader = reader.Replace("{Username}", notification.SenderUsername);
+            //        reader = reader.Replace("{NotificationId}", notification.Id);
+            //        reader = reader.Replace("{SenderProfilePicture}", notification.SenderProfilePicture);
+            //        reader = reader.Replace("{ProfileColor}", notification.ProfileColor);
+            //        reader = reader.Replace("{SenderName}", notification.SenderName.Replace('|', ' '));
+            //        reader = reader.Replace("{NotificationMessage}", " commented on your stream (" + video.StreamTitle + ")");
+            //        reader = reader.Replace("{CommentMessage}", comment.Message);
+            //        reader = reader.Replace("{VideoId}", video.StreamID); //we need to use videos Id rather than streamId becasue we cahnge streaming later it will be hard to manage
+            //        reader = reader.Replace("{CommentId}", comment.Id);
+            //        reader = reader.Replace("{NotificationDate}", notification.Date.AddMinutes(MiscHelperMethods.GetOffsetBasedOfTimeZone(userProfile.TimeZone)).ToShortTimeString());
+            //        reader = reader.Replace("{SenderUsername}", notification.SenderUsername);
+            //        reader = reader.Replace("{NotificationType}", notification.Type);
+            //    }
+            //}
+            //else if (notification.Type == NotificationType.Reply.ToString())
+            //{
+            //    string template;
 
-                if (!isPush) template = "NotificationTemplates/ReplyNotification.html";
-                else template = "NotificationTemplates/PushNotifications/ReplyPushNotification.html";
+            //    if (!isPush) template = "NotificationTemplates/ReplyNotification.html";
+            //    else template = "NotificationTemplates/PushNotifications/ReplyPushNotification.html";
 
-                var comment = await Get<Comment>(SQLQueries.GetCommentWithId, notification.ObjectId);
-                if (comment == null) return null;
-                var parentComment = await Get<Comment>(SQLQueries.GetCommentWithId, comment.ParentId);
-                var video = await Get<Video>(SQLQueries.GetArchivedStreamsWithId, comment.StreamId);
-                if (video == null) return null;
+            //    var comment = await Get<Comment>(SQLQueries.GetCommentWithId, notification.ObjectId);
+            //    if (comment == null) return null;
+            //    var parentComment = await Get<Comment>(SQLQueries.GetCommentWithId, comment.ParentId);
+            //    var video = await Get<Video>(SQLQueries.GetArchivedStreamsWithId, comment.StreamId);
+            //    if (video == null) return null;
 
-                using (StreamReader streamReader = new StreamReader(template))
-                {
-                    reader = streamReader.ReadToEnd();
-                    reader = reader.Replace("{Username}", notification.SenderUsername);
-                    reader = reader.Replace("{NotificationId}", notification.Id);
-                    reader = reader.Replace("{SenderProfilePicture}", notification.SenderProfilePicture);
-                    reader = reader.Replace("{ProfileColor}", notification.ProfileColor);
-                    reader = reader.Replace("{SenderName}", notification.SenderName.Replace('|', ' '));
-                    reader = reader.Replace("{NotificationMessage}", " replied to your comment");
-                    reader = reader.Replace("{CommentReply}", comment.Message);
-                    reader = reader.Replace("{CommentMessage}", parentComment.Message);
-                    reader = reader.Replace("{VideoId}", video.StreamID); //we need to use videos Id rather than streamId becasue we cahnge streaming later it will be hard to manage
-                    reader = reader.Replace("{CommentId}", comment.Id);
-                    reader = reader.Replace("{NotificationDate}", notification.Date.AddMinutes(MiscHelperMethods.GetOffsetBasedOfTimeZone(userProfile.TimeZone)).ToShortTimeString());
-                    reader = reader.Replace("{SenderUsername}", notification.SenderUsername);
-                    reader = reader.Replace("{NotificationType}", notification.Type);
-                }
-            }
+            //    using (StreamReader streamReader = new StreamReader(template))
+            //    {
+            //        reader = streamReader.ReadToEnd();
+            //        reader = reader.Replace("{Username}", notification.SenderUsername);
+            //        reader = reader.Replace("{NotificationId}", notification.Id);
+            //        reader = reader.Replace("{SenderProfilePicture}", notification.SenderProfilePicture);
+            //        reader = reader.Replace("{ProfileColor}", notification.ProfileColor);
+            //        reader = reader.Replace("{SenderName}", notification.SenderName.Replace('|', ' '));
+            //        reader = reader.Replace("{NotificationMessage}", " replied to your comment");
+            //        reader = reader.Replace("{CommentReply}", comment.Message);
+            //        reader = reader.Replace("{CommentMessage}", parentComment.Message);
+            //        reader = reader.Replace("{VideoId}", video.StreamID); //we need to use videos Id rather than streamId becasue we cahnge streaming later it will be hard to manage
+            //        reader = reader.Replace("{CommentId}", comment.Id);
+            //        reader = reader.Replace("{NotificationDate}", notification.Date.AddMinutes(MiscHelperMethods.GetOffsetBasedOfTimeZone(userProfile.TimeZone)).ToShortTimeString());
+            //        reader = reader.Replace("{SenderUsername}", notification.SenderUsername);
+            //        reader = reader.Replace("{NotificationType}", notification.Type);
+            //    }
+            //}
 
-            return reader;
+            return null;
         }
     }
 }

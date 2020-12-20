@@ -124,6 +124,7 @@ namespace StreamWork.Services
             //        return await storage.GetList<Schedule>(SQLQueries.GetAllScheduledStreamsWithSearchTermAndSubject, searchQuery.ToLower(), subject);
             //    }
             //}
+            return null;
         }
 
         public async Task<List<TutorSubject>> SearchTutors(string subject, string searchQuery)
@@ -150,6 +151,8 @@ namespace StreamWork.Services
             //        return await storage.GetList<TutorSubject>(SQLQueries.GetApprovedTutorSubjectsWithSubjectAndSearchTerm, subject, searchQuery.ToLower());
             //    }
             //}
+
+            return null;
         }
     }
 }

@@ -38,29 +38,29 @@ namespace StreamWork.Pages.Home
             var password = Request.Form["Password"];
             var time = Request.Form["Time"]; //gets time offset
 
-            var userProfile = await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, username);
-            if (userProfile == null)
-            {
-                // User can also sign in with email address, in which case the username needs to be updated
-                userProfile = await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithEmailAddress, username);
-                if (userProfile != null)
-                {
-                    username = userProfile.Username;
-                }
-            }
+            //var userProfile = await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, username);
+            //if (userProfile == null)
+            //{
+            //    // User can also sign in with email address, in which case the username needs to be updated
+            //    userProfile = await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithEmailAddress, username);
+            //    if (userProfile != null)
+            //    {
+            //        username = userProfile.Username;
+            //    }
+            //}
 
-            if (userProfile != null)
-            {
-                if (time != "")
-                {
-                    userProfile.TimeZone = MiscHelperMethods.GetTimeZoneBasedOfOffset(time);
-                    await storageService.Save(userProfile.Id, userProfile);
-                }
+            //if (userProfile != null)
+            //{
+            //    if (time != "")
+            //    {
+            //        userProfile.TimeZone = MiscHelperMethods.GetTimeZoneBasedOfOffset(time);
+            //        await storageService.Save(userProfile.Id, userProfile);
+            //    }
 
-                var signInProfile = await cookieService.SignIn(username, encryptionService.DecryptPassword(userProfile.Password, password));
-                if (signInProfile != null)
-                    return cookieService.Route(signInProfile, route, encryptionService);
-            }
+            //    var signInProfile = await cookieService.SignIn(username, encryptionService.DecryptPassword(userProfile.Password, password));
+            //    if (signInProfile != null)
+            //        return cookieService.Route(signInProfile, route, encryptionService);
+            //}
 
             return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
         }

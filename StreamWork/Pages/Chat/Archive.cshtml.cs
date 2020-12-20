@@ -31,11 +31,11 @@ namespace StreamWork.Pages.Chat
 
         public async Task<IActionResult> OnGet(string streamId)
         {
-            var stream = await storageService.Get<Video>(SQLQueries.GetArchivedStreamsWithId, streamId);
-            //Chats = await chatService.GetAllChatsWithChatId(stream.Username, streamId);
-            CurrentUserProfile = await cookieService.GetCurrentUser();
+            //var stream = await storageService.Get<Video>(SQLQueries.GetArchivedStreamsWithId, streamId);
+            ////Chats = await chatService.GetAllChatsWithChatId(stream.Username, streamId);
+            //CurrentUserProfile = await cookieService.GetCurrentUser();
 
-            Offset = CurrentUserProfile != null && CurrentUserProfile.TimeZone != null && CurrentUserProfile.TimeZone != "" ? MiscHelperMethods.GetOffsetBasedOfTimeZone(CurrentUserProfile.TimeZone) : -1.0;
+            //Offset = CurrentUserProfile != null && CurrentUserProfile.TimeZone != null && CurrentUserProfile.TimeZone != "" ? MiscHelperMethods.GetOffsetBasedOfTimeZone(CurrentUserProfile.TimeZone) : -1.0;
 
             return Page();
         }

@@ -33,15 +33,15 @@ namespace StreamWork.Pages.Chat
 
         public async Task<IActionResult> OnGet(string chatId)
         {
-            var channel = await storageService.Get<Channel>(SQLQueries.GetUserChannelWithUsername, chatId);
+            //var channel = await storageService.Get<Channel>(SQLQueries.GetUserChannelWithUsername, chatId);
 
-            CurrentUserProfile = await cookieService.GetCurrentUser();
-            ChatId = chatId;
-            ChatInfo = channel.ArchivedVideoId ?? "DEFAULT";
-            Chats = await chatService.GetAllChatsWithChatId(ChatId, ChatInfo);
-            IsLoggedIn = CurrentUserProfile != null;
+            //CurrentUserProfile = await cookieService.GetCurrentUser();
+            //ChatId = chatId;
+            //ChatInfo = channel.ArchivedVideoId ?? "DEFAULT";
+            //Chats = await chatService.GetAllChatsWithChatId(ChatId, ChatInfo);
+            //IsLoggedIn = CurrentUserProfile != null;
 
-            Offset = CurrentUserProfile != null && CurrentUserProfile.TimeZone != null && CurrentUserProfile.TimeZone != "" ? MiscHelperMethods.GetOffsetBasedOfTimeZone(CurrentUserProfile.TimeZone) : -1.0;
+            //Offset = CurrentUserProfile != null && CurrentUserProfile.TimeZone != null && CurrentUserProfile.TimeZone != "" ? MiscHelperMethods.GetOffsetBasedOfTimeZone(CurrentUserProfile.TimeZone) : -1.0;
 
             return Page();
         }

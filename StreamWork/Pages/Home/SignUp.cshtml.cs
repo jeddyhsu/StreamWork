@@ -34,7 +34,8 @@ namespace StreamWork.Pages.Home
 
         public async Task<JsonResult> OnGetIsAddressAvailable(string emailAddress)
         {
-            return new JsonResult(await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithEmailAddress, emailAddress) == null);
+            //return new JsonResult(await storageService.Get<Profile>(SQLQueries.GetUserWithEmailAddress, emailAddress) == null);
+            return null;
         }
 
         public JsonResult OnGetIsAddressValid(string emailAddress)
@@ -51,225 +52,231 @@ namespace StreamWork.Pages.Home
 
         public async Task<JsonResult> OnGetIsUsernameAvailable(string username)
         {
-            return new JsonResult(await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, username) == null);
+            //return new JsonResult(await storageService.Get<Profile>(SQLQueries.GetUserWithUsername, username) == null);
+
+            return null;
         }
 
         public async Task OnGetSendVerificationEmail(string emailAddress)
         {
-            EmailVerification emailVerification = await storageService.Get<EmailVerification>(SQLQueries.GetEmailVerificationWithAddress, emailAddress);
-            if (emailVerification == null)
-            {
-                string verificationCode = new Random().Next(10000000, 99999999).ToString();
+            //EmailVerification emailVerification = await storageService.Get<EmailVerification>(SQLQueries.GetEmailVerificationWithAddress, emailAddress);
+            //if (emailVerification == null)
+            //{
+            //    string verificationCode = new Random().Next(10000000, 99999999).ToString();
 
-                string id = Guid.NewGuid().ToString();
-                await storageService.Save(id, new EmailVerification
-                {
-                    Id = id,
-                    EmailAddress = emailAddress,
-                    VerificationCode = verificationCode
-                });
+            //    string id = Guid.NewGuid().ToString();
+            //    await storageService.Save(id, new EmailVerification
+            //    {
+            //        Id = id,
+            //        EmailAddress = emailAddress,
+            //        VerificationCode = verificationCode
+            //    });
 
-                await emailService.SendEmailVerification(emailAddress, verificationCode);
-            }
-            else
-            {
-                await emailService.SendEmailVerification(emailAddress, emailVerification.VerificationCode);
-            }
+            //    await emailService.SendEmailVerification(emailAddress, verificationCode);
+            //}
+            //else
+            //{
+            //    await emailService.SendEmailVerification(emailAddress, emailVerification.VerificationCode);
+            //}
         }
 
         public async Task<JsonResult> OnGetCheckVerificationCode(string emailAddress, string verificationCode)
         {
-            return new JsonResult(await storageService.Get<EmailVerification>(SQLQueries.GetEmailVerificationWithAddressAndCode, emailAddress, verificationCode) != null);
+            return new JsonResult(null);
         }
 
         public async Task OnPostSignUpStudent()
         {
           
-            string id = Guid.NewGuid().ToString();
+            //string id = Guid.NewGuid().ToString();
 
-            if (Request.Form.ContainsKey("Token"))
-            {
-                await SignUpOauth(Request, id, "student");
-            }
-            else
-            {
-                if (!await VerifyRequest(Request)) //TOM this wont work with google ouath. The email wont be populated becasue it gets it from an api call LOOK at SignUpOauth
-                {
-                    // JavaScript checks seeem to have been ignored!
-                    // Potential attack detected. Aborting.
-                    return;
-                }
+            //if (Request.Form.ContainsKey("Token"))
+            //{
+            //    await SignUpOauth(Request, id, "student");
+            //}
+            //else
+            //{
+            //    if (!await VerifyRequest(Request)) //TOM this wont work with google ouath. The email wont be populated becasue it gets it from an api call LOOK at SignUpOauth
+            //    {
+            //        // JavaScript checks seeem to have been ignored!
+            //        // Potential attack detected. Aborting.
+            //        return;
+            //    }
 
-                DataModels.Profiles user = new DataModels.Profiles
-                {
-                    Id = id,
-                    Name = Request.Form["FirstName"] + "|" + Request.Form["LastName"],
-                    EmailAddress = Request.Form["EmailAddress"],
-                    Username = Request.Form["Username"],
-                    Password = encryptionService.EncryptPassword(Request.Form["Password"]),
-                    ProfileType = "student",
-                    College = Request.Form["SchoolName"],
-                    NotificationSubscribe = "True",
-                    Expiration = DateTime.UtcNow,
-                    AcceptedTutor = false,
-                    LastLogin = DateTime.UtcNow,
-                    ProfileColor = MiscHelperMethods.GetRandomColor(),
-                    ProfileSince = DateTime.UtcNow,
-                    ProfilePicture = MiscHelperMethods.defaultProfilePicture,
-                    ProfileBanner = MiscHelperMethods.defaultBanner,
-                    TimeZone = MiscHelperMethods.GetTimeZoneBasedOfOffset(Request.Form["Time"])
-                };
+            //    DataModels.Profiles user = new DataModels.Profiles
+            //    {
+            //        Id = id,
+            //        Name = Request.Form["FirstName"] + "|" + Request.Form["LastName"],
+            //        EmailAddress = Request.Form["EmailAddress"],
+            //        Username = Request.Form["Username"],
+            //        Password = encryptionService.EncryptPassword(Request.Form["Password"]),
+            //        ProfileType = "student",
+            //        College = Request.Form["SchoolName"],
+            //        NotificationSubscribe = "True",
+            //        Expiration = DateTime.UtcNow,
+            //        AcceptedTutor = false,
+            //        LastLogin = DateTime.UtcNow,
+            //        ProfileColor = MiscHelperMethods.GetRandomColor(),
+            //        ProfileSince = DateTime.UtcNow,
+            //        ProfilePicture = MiscHelperMethods.defaultProfilePicture,
+            //        ProfileBanner = MiscHelperMethods.defaultBanner,
+            //        TimeZone = MiscHelperMethods.GetTimeZoneBasedOfOffset(Request.Form["Time"])
+            //    };
 
-                await storageService.Save(user.Id, user);
-                await cookieService.SignIn(Request.Form["Username"], encryptionService.DecryptPassword(user.Password, Request.Form["Password"]));
-            }
+            //    await storageService.Save(user.Id, user);
+            //    await cookieService.SignIn(Request.Form["Username"], encryptionService.DecryptPassword(user.Password, Request.Form["Password"]));
+            //}
 
-            topicService.FollowTopics(Request.Form["Username"], GetAllSelectedTopics(Request.Form["Topics"].ToString().Split('|')));
-            await emailService.SendTemplateToStreamwork("studentSignUp", await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, Request.Form["Username"]), Request.Form.Files);
+            //topicService.FollowTopics(Request.Form["Username"], GetAllSelectedTopics(Request.Form["Topics"].ToString().Split('|')));
+            //await emailService.SendTemplateToStreamwork("studentSignUp", await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, Request.Form["Username"]), Request.Form.Files);
         }
 
         public async Task OnPostSignUpTutor()
         {
-            string id = Guid.NewGuid().ToString();
-            if (Request.Form.ContainsKey("Token"))
-            {
-                await SignUpOauth(Request, id, "tutor");
-            }
-            else
-            {
-                if (!await VerifyRequest(Request)) //TOM this wont work with google ouath. The email wont be populated becasue it gets it from an api call LOOK at SignUpOauth
-                {
-                    // JavaScript checks seeem to have been ignored!
-                    // Potential attack detected. Aborting.
-                    return;
-                }
+            //string id = Guid.NewGuid().ToString();
+            //if (Request.Form.ContainsKey("Token"))
+            //{
+            //    await SignUpOauth(Request, id, "tutor");
+            //}
+            //else
+            //{
+            //    if (!await VerifyRequest(Request)) //TOM this wont work with google ouath. The email wont be populated becasue it gets it from an api call LOOK at SignUpOauth
+            //    {
+            //        // JavaScript checks seeem to have been ignored!
+            //        // Potential attack detected. Aborting.
+            //        return;
+            //    }
 
-                DataModels.Profiles user = new DataModels.Profiles
-                {
-                    Id = id,
-                    Name = Request.Form["FirstName"] + "|" + Request.Form["LastName"],
-                    EmailAddress = Request.Form["EmailAddress"],
-                    Username = Request.Form["Username"],
-                    Password = encryptionService.EncryptPassword(Request.Form["Password"]),
-                    ProfileType = "tutor",
-                    College = Request.Form["SchoolName"],
-                    NotificationSubscribe = "True",
-                    Expiration = DateTime.UtcNow,
-                    PayPalAddress = Request.Form["PayPalAddress"],
-                    AcceptedTutor = false,
-                    LastLogin = DateTime.UtcNow,
-                    ProfileColor = MiscHelperMethods.GetRandomColor(),
-                    ProfileSince = DateTime.UtcNow,
-                    ProfilePicture = MiscHelperMethods.defaultProfilePicture,
-                    ProfileBanner = MiscHelperMethods.defaultBanner,
-                    TimeZone = MiscHelperMethods.GetTimeZoneBasedOfOffset(Request.Form["Time"])
-                };
+            //    DataModels.Profiles user = new DataModels.Profiles
+            //    {
+            //        Id = id,
+            //        Name = Request.Form["FirstName"] + "|" + Request.Form["LastName"],
+            //        EmailAddress = Request.Form["EmailAddress"],
+            //        Username = Request.Form["Username"],
+            //        Password = encryptionService.EncryptPassword(Request.Form["Password"]),
+            //        ProfileType = "tutor",
+            //        College = Request.Form["SchoolName"],
+            //        NotificationSubscribe = "True",
+            //        Expiration = DateTime.UtcNow,
+            //        PayPalAddress = Request.Form["PayPalAddress"],
+            //        AcceptedTutor = false,
+            //        LastLogin = DateTime.UtcNow,
+            //        ProfileColor = MiscHelperMethods.GetRandomColor(),
+            //        ProfileSince = DateTime.UtcNow,
+            //        ProfilePicture = MiscHelperMethods.defaultProfilePicture,
+            //        ProfileBanner = MiscHelperMethods.defaultBanner,
+            //        TimeZone = MiscHelperMethods.GetTimeZoneBasedOfOffset(Request.Form["Time"])
+            //    };
 
-                await storageService.Save(user.Id, user);
-                await AddUs5AsFollowers(user.Id);
-                await cookieService.SignIn(Request.Form["Username"], encryptionService.DecryptPassword(user.Password, Request.Form["Password"]));
-            }
+            //    await storageService.Save(user.Id, user);
+            //    await AddUs5AsFollowers(user.Id);
+            //    await cookieService.SignIn(Request.Form["Username"], encryptionService.DecryptPassword(user.Password, Request.Form["Password"]));
+            //}
 
-            await CreateChannel(Request.Form["Username"]);
-            topicService.TutorTopics(Request.Form["Username"], GetAllSelectedTopics(Request.Form["Topics"].ToString().Split('|')));
+            //await CreateChannel(Request.Form["Username"]);
+            //topicService.TutorTopics(Request.Form["Username"], GetAllSelectedTopics(Request.Form["Topics"].ToString().Split('|')));
 
-            await emailService.SendTemplateToStreamwork("tutorSignUp", await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, Request.Form["Username"]), Request.Form.Files);
+            //await emailService.SendTemplateToStreamwork("tutorSignUp", await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, Request.Form["Username"]), Request.Form.Files);
         }
 
         // Server-side security checks
         private async Task<bool> VerifyRequest(HttpRequest request) //TOM this wont work with google sign in
         {
-            string emailAddress = request.Form["EmailAddress"];
-            string username = request.Form["Username"];
-            Regex nameRegex = new Regex(@"^[^0-9\t\n\/<>?;:""`!@#$%^&*()\[\]{}_+=|\\]+$");
-            try
-            {
-                return
-                    nameRegex.IsMatch(request.Form["FirstName"]) &&
-                    nameRegex.IsMatch(request.Form["LastName"]) &&
-                    new Regex(@"^[A-Za-z0-9_-]+$").IsMatch(username) &&
-                    new MailAddress(emailAddress).Address == emailAddress &&
-                    await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, username) == null &&
-                    await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithEmailAddress, emailAddress) == null;
-            }
-            catch
-            {
-                return false;
-            }
+            //string emailAddress = request.Form["EmailAddress"];
+            //string username = request.Form["Username"];
+            //Regex nameRegex = new Regex(@"^[^0-9\t\n\/<>?;:""`!@#$%^&*()\[\]{}_+=|\\]+$");
+            //try
+            //{
+            //    return
+            //        nameRegex.IsMatch(request.Form["FirstName"]) &&
+            //        nameRegex.IsMatch(request.Form["LastName"]) &&
+            //        new Regex(@"^[A-Za-z0-9_-]+$").IsMatch(username) &&
+            //        new MailAddress(emailAddress).Address == emailAddress &&
+            //        await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, username) == null &&
+            //        await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithEmailAddress, emailAddress) == null;
+            //}
+            //catch
+            //{
+            //    return false;
+            //}
+
+            return false;
         }
 
         public async Task SignUpOauth(HttpRequest request, string id, string type)
         {
-            var oauthRequestToken = request.Form["Token"];
-            GoogleOauth oauthInfo = await storageService.CallJSON<GoogleOauth>("https://oauth2.googleapis.com/tokeninfo?id_token=" + oauthRequestToken); //GETS EMAIL FOR GOOGLE OAUTH
-            var password = encryptionService.EncryptPassword("!!0_STREAMWORK_!!0");
+            //var oauthRequestToken = request.Form["Token"];
+            //GoogleOauth oauthInfo = await storageService.CallJSON<GoogleOauth>("https://oauth2.googleapis.com/tokeninfo?id_token=" + oauthRequestToken); //GETS EMAIL FOR GOOGLE OAUTH
+            //var password = encryptionService.EncryptPassword("!!0_STREAMWORK_!!0");
 
-            var profile = new DataModels.Profiles{
-                Id = id,
-                Name = oauthInfo.Name.Contains(' ') ? oauthInfo.Name.Replace(' ', '|') : oauthInfo.Name + "|",
-                EmailAddress = oauthInfo.Email,
-                Username = Request.Form["Username"],
-                Password = password,
-                ProfileType = type,
-                College = Request.Form["SchoolName"],
-                NotificationSubscribe = "True",
-                Expiration = DateTime.UtcNow,
-                AcceptedTutor = false,
-                LastLogin = DateTime.UtcNow,
-                ProfileColor = MiscHelperMethods.GetRandomColor(),
-                ProfileSince = DateTime.UtcNow,
-                ProfilePicture = MiscHelperMethods.defaultProfilePicture,
-                ProfileBanner = MiscHelperMethods.defaultBanner,
-                TimeZone = MiscHelperMethods.GetTimeZoneBasedOfOffset(Request.Form["Time"])
-            };
+            //var profile = new DataModels.Profiles{
+            //    Id = id,
+            //    Name = oauthInfo.Name.Contains(' ') ? oauthInfo.Name.Replace(' ', '|') : oauthInfo.Name + "|",
+            //    EmailAddress = oauthInfo.Email,
+            //    Username = Request.Form["Username"],
+            //    Password = password,
+            //    ProfileType = type,
+            //    College = Request.Form["SchoolName"],
+            //    NotificationSubscribe = "True",
+            //    Expiration = DateTime.UtcNow,
+            //    AcceptedTutor = false,
+            //    LastLogin = DateTime.UtcNow,
+            //    ProfileColor = MiscHelperMethods.GetRandomColor(),
+            //    ProfileSince = DateTime.UtcNow,
+            //    ProfilePicture = MiscHelperMethods.defaultProfilePicture,
+            //    ProfileBanner = MiscHelperMethods.defaultBanner,
+            //    TimeZone = MiscHelperMethods.GetTimeZoneBasedOfOffset(Request.Form["Time"])
+            //};
 
-            if(type == "tutor")
-            {
-                profile.PayPalAddress = Request.Form["PayPalAddress"];
-                await AddUs5AsFollowers(id);
-            }
+            //if(type == "tutor")
+            //{
+            //    profile.PayPalAddress = Request.Form["PayPalAddress"];
+            //    await AddUs5AsFollowers(id);
+            //}
 
-            await storageService.Save(id, profile);
-            await cookieService.SignIn(Request.Form["Username"], encryptionService.DecryptPassword(password, "!!0_STREAMWORK_!!0"));
+            //await storageService.Save(id, profile);
+            //await cookieService.SignIn(Request.Form["Username"], encryptionService.DecryptPassword(password, "!!0_STREAMWORK_!!0"));
         }
 
         public async Task<IActionResult> OnPostCheckIfOauthUserExists(string email, string route)
         {
-            var userProfile = await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithEmailAddress, email);
-            if (userProfile != null)
-            {
-                var signInProfile = await cookieService.SignIn(userProfile.Username, userProfile.Password);
-                if (signInProfile != null)
-                    if (route.Contains("Chat") || route.Contains("chat") || route == "/")
-                        return new JsonResult(new { Message = "Route", Route = route });
-                    else
-                    {
-                        var r = route.Split("/");
-                        if(r.Length > 3)
-                        {
-                            return cookieService.Route(signInProfile, r[3], encryptionService); //if there is a page there is a page that they were intially going to and got blovked by the signin
-                        }
+            //var userProfile = await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithEmailAddress, email);
+            //if (userProfile != null)
+            //{
+            //    var signInProfile = await cookieService.SignIn(userProfile.Username, userProfile.Password);
+            //    if (signInProfile != null)
+            //        if (route.Contains("Chat") || route.Contains("chat") || route == "/")
+            //            return new JsonResult(new { Message = "Route", Route = route });
+            //        else
+            //        {
+            //            var r = route.Split("/");
+            //            if(r.Length > 3)
+            //            {
+            //                return cookieService.Route(signInProfile, r[3], encryptionService); //if there is a page there is a page that they were intially going to and got blovked by the signin
+            //            }
 
-                        return cookieService.Route(signInProfile, "SW", encryptionService);
-                    }
-            }
+            //            return cookieService.Route(signInProfile, "SW", encryptionService);
+            //        }
+            //}
 
             return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
         }
 
         private async Task<bool> CreateChannel(string username)
         {
-            string id = Guid.NewGuid().ToString();
-            return await storageService.Save(id, new Channel
-            {
-                Id = Guid.NewGuid().ToString(),
-                Username = username,
-                ChannelKey = "Ec9jbSsc880_5",
-                StreamSubject = null,
-                StreamThumbnail = null,
-                StreamTitle = null,
-                ProfilePicture = MiscHelperMethods.defaultProfilePicture,
-            });
+            //string id = Guid.NewGuid().ToString();
+            //return await storageService.Save(id, new Channel
+            //{
+            //    Id = Guid.NewGuid().ToString(),
+            //    Username = username,
+            //    ChannelKey = "Ec9jbSsc880_5",
+            //    StreamSubject = null,
+            //    StreamThumbnail = null,
+            //    StreamTitle = null,
+            //    ProfilePicture = MiscHelperMethods.defaultProfilePicture,
+            //});
+
+            return false;
         }
 
         private List<string> GetAllSelectedTopics(string[] subjects)
@@ -300,14 +307,14 @@ namespace StreamWork.Pages.Home
 
         public async Task<IActionResult> OnPostSubmitLatestTab(string emailAddress, string latestTab)
         {
-            string id = Guid.NewGuid().ToString();
-            await storageService.Save(id, new SignUpProgress
-            {
-                Id = id,
-                LatestTab = latestTab,
-                EmailAddress = emailAddress,
-                Date = DateTime.UtcNow
-            });
+            //string id = Guid.NewGuid().ToString();
+            //await storageService.Save(id, new SignUpProgress
+            //{
+            //    Id = id,
+            //    LatestTab = latestTab,
+            //    EmailAddress = emailAddress,
+            //    Date = DateTime.UtcNow
+            //});
 
             return new JsonResult(new { Message = JsonResponse.Success.ToString() });
         }

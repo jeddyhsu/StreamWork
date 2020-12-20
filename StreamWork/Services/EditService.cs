@@ -15,8 +15,8 @@ namespace StreamWork.Services
     {
         public EditService([FromServices] IOptionsSnapshot<StorageConfig> config) : base(config) { }
 
-        //public async Task<List<string>> EditProfile(HttpRequest request, Profiles userProfile)
-        //{
+        public async Task<List<string>> EditProfile(HttpRequest request, Profile userProfile)
+        {
         //    IFormFile profilePicture = null;
         //    var firstName = request.Form["FirstName"];
         //    var lastName = request.Form["LastName"];
@@ -64,25 +64,27 @@ namespace StreamWork.Services
         //    await Save(userProfile.Id, userProfile);
 
         //    return new List<string> { firstName, lastName, occupation, location, timeZone, linkedInUrl, userProfile.ProfilePicture };
-        //}
+            return null;
+        }
 
-        //public async Task<string> DeleteProfilePicture(Profiles userProfile)
-        //{
-        //    try
-        //    {
-        //        userProfile.ProfilePicture = MiscHelperMethods.defaultProfilePicture;
-        //        await Save(userProfile.Id, userProfile);
-        //        return MiscHelperMethods.defaultProfilePicture;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Console.WriteLine("Error in EditProfileMethods-SaveBanner " + e.Message);
-        //        return null;
-        //    }
-        //}
+        public async Task<string> DeleteProfilePicture(Profile userProfile)
+        {
+            //    try
+            //    {
+            //        userProfile.ProfilePicture = MiscHelperMethods.defaultProfilePicture;
+            //        await Save(userProfile.Id, userProfile);
+            //        return MiscHelperMethods.defaultProfilePicture;
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        Console.WriteLine("Error in EditProfileMethods-SaveBanner " + e.Message);
+            //        return null;
+            //    }
+            return null;
+        }
 
-        //public async Task<string> SaveBanner(HttpRequest request, Profiles userProfile)
-        //{
+        public async Task<string> SaveBanner(HttpRequest request, Profile userProfile)
+        {
         //    try
         //    {
         //        if (request.Form.ContainsKey("ProfileBanner"))
@@ -103,21 +105,25 @@ namespace StreamWork.Services
         //        Console.WriteLine("Error in EditProfileMethods-SaveBanner " + e.Message);
         //        return null;
         //    }
-        //}
 
-        //public async Task<bool> SaveUniversity(Profiles userProfile, string abbr, string name)
-        //{
-        //    try
-        //    {
-        //        userProfile.College = abbr + "|" + name;
-        //        await Save(userProfile.Id, userProfile);
-        //        return true;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Console.WriteLine("Error in EditProfileMethods-SaveUniversity " + e.Message);
-        //        return false;
-        //    }
-        //}
+            return null;
+        }
+
+        public async Task<bool> SaveUniversity(Profile userProfile, string abbr, string name)
+        {
+            //    try
+            //    {
+            //        userProfile.College = abbr + "|" + name;
+            //        await Save(userProfile.Id, userProfile);
+            //        return true;
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        Console.WriteLine("Error in EditProfileMethods-SaveUniversity " + e.Message);
+            //        return false;
+            //    }
+
+            return false;
+        }
     }
 }

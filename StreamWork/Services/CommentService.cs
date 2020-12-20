@@ -18,77 +18,85 @@ namespace StreamWork.Services
         {
             try
             {
-                var sender = await Get<Profiles>(SQLQueries.GetUserWithUsername, senderUsername);
-                var receiver = await Get<Profiles>(SQLQueries.GetUserWithUsername, receiverUsername);
+                //var sender = await Get<Profiles>(SQLQueries.GetUserWithUsername, senderUsername);
+                //var receiver = await Get<Profiles>(SQLQueries.GetUserWithUsername, receiverUsername);
 
-                Comment comment = new Comment
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    SenderName = sender.Name,
-                    SenderUsername = sender.Username,
-                    SenderProfilePicture = sender.ProfilePicture,
-                    ReceiverName = receiver.Name,
-                    ReceiverUsername = receiver.Username,
-                    Message =  MiscHelperMethods.URLIFY(MiscHelperMethods.RemoveAllStyleTags(message)),
-                    ParentId = parentId,
-                    Date = DateTime.UtcNow,
-                    StreamId = streamId,
-                    ProfileColor = sender.ProfileColor,
-                };
+                //Comment comment = new Comment
+                //{
+                //    Id = Guid.NewGuid().ToString(),
+                //    SenderName = sender.Name,
+                //    SenderUsername = sender.Username,
+                //    SenderProfilePicture = sender.ProfilePicture,
+                //    ReceiverName = receiver.Name,
+                //    ReceiverUsername = receiver.Username,
+                //    Message =  MiscHelperMethods.URLIFY(MiscHelperMethods.RemoveAllStyleTags(message)),
+                //    ParentId = parentId,
+                //    Date = DateTime.UtcNow,
+                //    StreamId = streamId,
+                //    ProfileColor = sender.ProfileColor,
+                //};
 
-                await Save(comment.Id, comment);
-                return comment;
+                //await Save(comment.Id, comment);
+                //return comment;
             }
             catch(Exception e)
             {
                 Console.WriteLine("Error in SaveComment " + e.Message);
                 return null;
             }
+
+            return null;
         }
 
         public async Task<Comment> EditComment(string message, string commentId)
         {
             try
             {
-                var comment = await Get<Comment>(SQLQueries.GetCommentWithId, new string[] { commentId });
-                comment.Message = MiscHelperMethods.URLIFY(message);
-                comment.Edited = "true";
-                await Save(comment.Id, comment);
-                return comment;
+                //var comment = await Get<Comment>(SQLQueries.GetCommentWithId, new string[] { commentId });
+                //comment.Message = MiscHelperMethods.URLIFY(message);
+                //comment.Edited = "true";
+                //await Save(comment.Id, comment);
+                //return comment;
             }
             catch (Exception e)
             {
                 Console.WriteLine("Error in EditComment " + e.Message);
                 return null;
             }
+
+            return null;
         }
 
         public async Task<bool> DeleteComment(string commentId)
         {
             try
             {
-                var comment = await Get<Comment>(SQLQueries.GetCommentWithId, new string[] { commentId });
-                return await Run<Comment>(SQLQueries.DeleteComment, new string[] { commentId });
+                //var comment = await Get<Comment>(SQLQueries.GetCommentWithId, new string[] { commentId });
+                //return await Run<Comment>(SQLQueries.DeleteComment, new string[] { commentId });
             }
             catch (Exception e)
             {
                 Console.WriteLine("Error in RemoveComment " + e.Message);
                 return false;
             }
+
+            return false;
         }
 
         public async Task<List<Comment>> GetAllComments(string streamId)
         {
-            var comments = await GetList<Comment>(SQLQueries.GetCommentsWithStreamId, new string[] { streamId });
-            var dictonary = comments.ToDictionary(v => v.Id, v => v.Replies);
-            var replies = await GetList<Comment>(SQLQueries.GetRepliesWithStreamId, new string[] { streamId });
+            //var comments = await GetList<Comment>(SQLQueries.GetCommentsWithStreamId, new string[] { streamId });
+            //var dictonary = comments.ToDictionary(v => v.Id, v => v.Replies);
+            //var replies = await GetList<Comment>(SQLQueries.GetRepliesWithStreamId, new string[] { streamId });
 
-            foreach (var reply in replies)
-            {
-                dictonary[reply.ParentId].Add(reply);
-            }
+            //foreach (var reply in replies)
+            //{
+            //    dictonary[reply.ParentId].Add(reply);
+            //}
 
-            return comments;
+            //return comments;
+
+            return null;
         }
     }
 }

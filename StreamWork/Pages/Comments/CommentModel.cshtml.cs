@@ -24,8 +24,8 @@ namespace StreamWork.Pages.Comments
         {
             if (parentId != null)
             {
-                var parentComment = await storageService.Get<Comment>(SQLQueries.GetCommentWithId, parentId);
-                receiverUsername = (await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, parentComment.SenderUsername)).Username; //this could be a reply to a reply so receiver could change
+                //var parentComment = await storageService.Get<Comment>(SQLQueries.GetCommentWithId, parentId);
+                //receiverUsername = (await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, parentComment.SenderUsername)).Username; //this could be a reply to a reply so receiver could change
             }
 
             var savedComment = await commentService.SaveComment(senderUsername, receiverUsername, message, masterParent == "undefined" ? parentId: masterParent, streamId);

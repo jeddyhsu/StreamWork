@@ -129,12 +129,12 @@ namespace StreamWork.Pages.API
                 string body = await reader.ReadToEndAsync();
 
                 string id = Guid.NewGuid().ToString();
-                await storage.Save(id, new Debug
-                {
-                    Id = id,
-                    //Timestamp = DateTime.UtcNow,
-                    Message = body
-                });
+                //await storage.Save(id, new Debug
+                //{
+                //    Id = id,
+                //    //Timestamp = DateTime.UtcNow,
+                //    Message = body
+                //});
             }
 
             return null;

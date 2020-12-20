@@ -34,53 +34,54 @@ namespace StreamWork.Pages.Home
 
         public async Task<JsonResult> OnGetSendChangePasswordEmail(string username)
         {
-            // TODO Make a shorter way to get profile with either username or email
-            DataModels.Profiles user = await storage.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, username);
-            if (user == null)
-            {
-                // The user can enter either username or email
-                user = await storage.Get<DataModels.Profiles>(SQLQueries.GetUserWithEmailAddress, username);
-            }
+            //// TODO Make a shorter way to get profile with either username or email
+            //DataModels.Profiles user = await storage.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, username);
+            //if (user == null)
+            //{
+            //    // The user can enter either username or email
+            //    user = await storage.Get<DataModels.Profiles>(SQLQueries.GetUserWithEmailAddress, username);
+            //}
 
-            if (user != null)
-            {
-                // Should take about 9 years to brute force, if each test takes 0.06 sec
-                user.ChangePasswordKey = RandomLong(1000000000, 9999999999).ToString();
-                await storage.Save(user.Id, user);
+            //if (user != null)
+            //{
+            //    // Should take about 9 years to brute force, if each test takes 0.06 sec
+            //    user.ChangePasswordKey = RandomLong(1000000000, 9999999999).ToString();
+            //    await storage.Save(user.Id, user);
 
-                await email.SendForgotPassword(user);
-            }
+            //    await email.SendForgotPassword(user);
+            //}
             
             return new JsonResult(true);
         }
 
         public async Task<JsonResult> OnGetCheckChangePasswordCode(string username, string changePasswordCode)
         {
-            DataModels.Profiles user = await storage.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, username);
-            if (user == null)
-            {
-                // The user can enter either username or email
-                user = await storage.Get<DataModels.Profiles>(SQLQueries.GetUserWithEmailAddress, username);
-            }
+            //DataModels.Profiles user = await storage.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, username);
+            //if (user == null)
+            //{
+            //    // The user can enter either username or email
+            //    user = await storage.Get<DataModels.Profiles>(SQLQueries.GetUserWithEmailAddress, username);
+            //}
 
-            return new JsonResult(user != null && user.ChangePasswordKey == changePasswordCode);
-        }
+            //return new JsonResult(user != null && user.ChangePasswordKey == changePasswordCode);
+             return new JsonResult(false);
+         }
 
         public async Task<JsonResult> OnGetChangePassword(string username, string changePasswordCode, string password)
         {
-            DataModels.Profiles user = await storage.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, username);
-            if (user == null)
-            {
-                // The user can enter either username or email
-                user = await storage.Get<DataModels.Profiles>(SQLQueries.GetUserWithEmailAddress, username);
-            }
+            //DataModels.Profiles user = await storage.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, username);
+            //if (user == null)
+            //{
+            //    // The user can enter either username or email
+            //    user = await storage.Get<DataModels.Profiles>(SQLQueries.GetUserWithEmailAddress, username);
+            //}
 
-            if (user != null && user.ChangePasswordKey == changePasswordCode)
-            {
-                user.Password = encryption.EncryptPassword(password);
-                await storage.Save(user.Id, user);
-                return new JsonResult(true);
-            }
+            //if (user != null && user.ChangePasswordKey == changePasswordCode)
+            //{
+            //    user.Password = encryption.EncryptPassword(password);
+            //    await storage.Save(user.Id, user);
+            //    return new JsonResult(true);
+            //}
 
             return new JsonResult(false);
         }

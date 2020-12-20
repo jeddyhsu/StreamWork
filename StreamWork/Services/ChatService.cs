@@ -15,17 +15,18 @@ namespace StreamWork.Services
         
         public async Task<List<Chat>> GetAllChatsWithChatId(string chatId, string archivedVideoId)
         {
-            return await GetList<Chat>(SQLQueries.GetAllChatsWithIdAndVideoId, new string[]{chatId, archivedVideoId});
+            //return await GetList<Chat>(SQLQueries.GetAllChatsWithIdAndVideoId, new string[]{chatId, archivedVideoId});
+            return null;
         }
 
         public async Task DeleteAllChatsWithChatId(string chatId)
         {
-            await Run<Chat>(SQLQueries.DeleteAllChatsWithId, new string[] { chatId });
+            //await Run<Chat>(SQLQueries.DeleteAllChatsWithId, new string[] { chatId });
         }
 
         public async Task DeleteAllChatsWithArchiveVideoId(string archiveVideoId)
         {
-            await Run<Chat>(SQLQueries.DeleteAllChatsWithArchivedVideoId, new string[] { archiveVideoId });
+            //await Run<Chat>(SQLQueries.DeleteAllChatsWithArchivedVideoId, new string[] { archiveVideoId });
         }
     }
 }

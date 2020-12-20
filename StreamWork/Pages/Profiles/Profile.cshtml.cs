@@ -85,7 +85,8 @@ namespace StreamWork.Pages.Profiles
 
         public async Task<IActionResult> OnPostSearchVideos(string username)
         {
-            return new JsonResult(new { Message = JsonResponse.Success.ToString(), Videos = await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsWithUsername, username) });
+            //return new JsonResult(new { Message = JsonResponse.Success.ToString(), Videos = await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsWithUsername, username) });
+            return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
         }
     }
 }
