@@ -5,7 +5,7 @@ namespace StreamWork.Services
 {
     public class EmailTemplate
     {
-        public delegate string Builder(Profiles user);
+        public delegate string Builder(Profile user);
 
         public readonly Builder BuildSubject;
         public readonly Builder BuildBody;
@@ -21,43 +21,43 @@ namespace StreamWork.Services
     {
         private readonly Hashtable templates;
 
-        public EmailTemplateService()
-        {
-            templates = new Hashtable
-            {
-                {"test", new EmailTemplate(
-                    user =>
-                    {
-                        return "Test Email";
-                    },
-                    user =>
-                    {
-                        string[] names = user.Name.Split('|');
-                        return $"Hello {names[0]} {names[1]}! How are you doing today? Your email address is {user.EmailAddress} and your username is {user.Username}!";
-                    }
-                )},
-                {"studentSignUp", new EmailTemplate(
-                    user =>
-                    {
-                        return $"Student Signed Up: {user.Username}";
-                    },
-                    user =>
-                    {
-                        return $"Name: {user.Name}\nEmailAddress: {user.EmailAddress}\nUsername: {user.Username}\nCollege: {user.College}";
-                    }
-                )},
-                {"tutorSignUp", new EmailTemplate(
-                    user =>
-                    {
-                        return $"Tutor Application: {user.Username}";
-                    },
-                    user =>
-                    {
-                        return $"Name: {user.Name}\nEmailAddress: {user.EmailAddress}\nPayPalAddress: {user.PayPalAddress}\nUsername: {user.Username}\nCollege: {user.College}";
-                    }
-                )},
-            };
-        }
+        //public EmailTemplateService()
+        //{
+        //    templates = new Hashtable
+        //    {
+        //        {"test", new EmailTemplate(
+        //            user =>
+        //            {
+        //                return "Test Email";
+        //            },
+        //            user =>
+        //            {
+        //                string[] names = user.Name.Split('|');
+        //                return $"Hello {names[0]} {names[1]}! How are you doing today? Your email address is {user.EmailAddress} and your username is {user.Username}!";
+        //            }
+        //        )},
+        //        {"studentSignUp", new EmailTemplate(
+        //            user =>
+        //            {
+        //                return $"Student Signed Up: {user.Username}";
+        //            },
+        //            user =>
+        //            {
+        //                return $"Name: {user.Name}\nEmailAddress: {user.EmailAddress}\nUsername: {user.Username}\nCollege: {user.College}";
+        //            }
+        //        )},
+        //        {"tutorSignUp", new EmailTemplate(
+        //            user =>
+        //            {
+        //                return $"Tutor Application: {user.Username}";
+        //            },
+        //            user =>
+        //            {
+        //                return $"Name: {user.Name}\nEmailAddress: {user.EmailAddress}\nPayPalAddress: {user.PayPalAddress}\nUsername: {user.Username}\nCollege: {user.College}";
+        //            }
+        //        )},
+        //    };
+        //}
 
         public EmailTemplate GetTemplate(string name)
         {

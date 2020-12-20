@@ -17,11 +17,11 @@ namespace StreamWork.Pages.Home
         private readonly NotificationService notificationService;
         private readonly SearchService searchService;
 
-        public DataModels.Profiles CurrentUserProfile { get; set; }
+        public Profile CurrentUserProfile { get; set; }
         public List<Video> Videos { get; set; }
         public List<TutorSubject> PopularTutors { get; set; }
         public List <Channel> LiveChannels { get; set; }
-        public List<Schedule> AllScheduledStreams { get; set; }
+        public List<ScheduledStream> AllScheduledStreams { get; set; }
         public List<TutorSubject> AllTutors { get; set; }
         public List<string> Notifications { get; set; }
         public bool AreThereUnseenNotifications { get; set; }
@@ -38,23 +38,24 @@ namespace StreamWork.Pages.Home
 
         public async Task<IActionResult> OnGet(string searchTerm)
         {
-            var tutors = await storageService.GetList<TutorSubject>(SQLQueries.GetApprovedTutorSubjects, "");
+            //var tutors = await storageService.GetList<TutorSubject>(SQLQueries.GetApprovedTutorSubjects, "");
 
             CurrentUserProfile = await cookieService.GetCurrentUser();
-            Videos = await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsInDescendingOrderByViews, "");
-            PopularTutors = tutors.GetRange(0,3);
-            LiveChannels = await storageService.GetList<Channel>(SQLQueries.GetAllUserChannelsThatAreStreaming, "");
+            //Videos = await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsInDescendingOrderByViews, "");
+            //PopularTutors = tutors.GetRange(0,3);
+            //LiveChannels = await storageService.GetList<Channel>(SQLQueries.GetAllUserChannelsThatAreStreaming, "");
             AllTutors = new List<TutorSubject>();
             Hashtable table = new Hashtable();
-            foreach (var tutor in tutors)
-            {
-                if (!table.Contains(tutor.Username))
-                {
-                    table.Add(tutor.Username, tutor);
-                    AllTutors.Add(tutor);
-                }
-            }
-            AllScheduledStreams = await storageService.GetList<Schedule>(SQLQueries.GetAllScheduledStreams, "");
+            //foreach (var tutor in tutors)
+            //{
+            //    if (!table.Contains(tutor.Username))
+            //    {
+            //        table.Add(tutor.Username, tutor);
+            //        AllTutors.Add(tutor);
+            //    }
+            //}
+
+            //AllScheduledStreams = await storageService.GetList<Schedule>(SQLQueries.GetAllScheduledStreams, "");
 
             if(searchTerm != "SW")
             {
@@ -65,11 +66,11 @@ namespace StreamWork.Pages.Home
                 }
             }
 
-            if(CurrentUserProfile != null)
-            {
-                Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
-                AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
-            }
+            //if(CurrentUserProfile != null)
+            //{
+            //    Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
+            //    AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
+            //}
 
             return Page();
         }

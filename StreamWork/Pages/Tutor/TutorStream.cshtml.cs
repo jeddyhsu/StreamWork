@@ -23,13 +23,13 @@ namespace StreamWork.Pages.Tutor
         private readonly ScheduleService scheduleService;
         private readonly EmailService emailService;
 
-        public DataModels.Profiles CurrentUserProfile { get; set; }
+        public Profile CurrentUserProfile { get; set; }
         public Channel UserChannel { get; set; }
         public string ChatInfo { get; set; }
         public List<string> Notifications { get; set; }
         public bool AreThereUnseenNotifications { get; set; }
-        public Schedule ScheduledStream { get; set; }
-        public List<Schedule> Schedule { get; set; }
+        public ScheduledStream ScheduledStream { get; set; }
+        public List<ScheduledStream> Schedule { get; set; }
         public string ChatQrCode { get; set; }
         public string Host { get; set; }
 
@@ -46,22 +46,22 @@ namespace StreamWork.Pages.Tutor
 
         public async Task<IActionResult> OnGet(string scheduleId)
         {
-            if (!cookieService.Authenticated || (await cookieService.GetCurrentUser()).ProfileType != "tutor")
-            {
-                return Redirect(cookieService.Url("/Home/SignIn/SW"));
-            }
+            //if (!cookieService.Authenticated || (await cookieService.GetCurrentUser()).ProfileType != "tutor")
+            //{
+            //    return Redirect(cookieService.Url("/Home/SignIn/SW"));
+            //}
 
-            CurrentUserProfile = await cookieService.GetCurrentUser();
-            UserChannel = await storageService.Get<Channel>(SQLQueries.GetUserChannelWithUsername, new string[] { CurrentUserProfile.Username });
-            ChatInfo = UserChannel.ArchivedVideoId != null ? encryptionService.EncryptString(UserChannel.ArchivedVideoId) : encryptionService.EncryptString("DEFAULT");
+            //CurrentUserProfile = await cookieService.GetCurrentUser();
+            //UserChannel = await storageService.Get<Channel>(SQLQueries.GetUserChannelWithUsername, new string[] { CurrentUserProfile.Username });
+            //ChatInfo = UserChannel.ArchivedVideoId != null ? encryptionService.EncryptString(UserChannel.ArchivedVideoId) : encryptionService.EncryptString("DEFAULT");
 
-            Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
-            AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
+            //Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
+            //AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
 
-            ScheduledStream = await storageService.Get<Schedule>(SQLQueries.GetScheduleWithId, new string[] { scheduleId, DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm") });
-            Schedule = await scheduleService.GetSchedule(CurrentUserProfile);
+            //ScheduledStream = await storageService.Get<Schedule>(SQLQueries.GetScheduleWithId, new string[] { scheduleId, DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm") });
+            //Schedule = await scheduleService.GetSchedule(CurrentUserProfile);
 
-            GenerateQRCode(cookieService.Url("/Chat/Live/" + CurrentUserProfile.Username));
+            //GenerateQRCode(cookieService.Url("/Chat/Live/" + CurrentUserProfile.Username));
             Host = cookieService.host;
 
             return Page();

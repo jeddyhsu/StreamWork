@@ -19,57 +19,60 @@ namespace StreamWork.Services
 
         public ProfileService([FromServices] IOptionsSnapshot<StorageConfig> config) : base(config) { }
 
-        public bool SaveSection(HttpRequest request, Profiles userProfile)
+        public bool SaveSection(HttpRequest request, Profile userProfile)
         {
             try
             {
-                var form = request.Form;
-                var keys = form.Keys;
+                //var form = request.Form;
+                //var keys = form.Keys;
 
-                string formatString = "";
-                foreach (var key in keys)
-                {
-                    formatString += key.ToString() + DELIMITER + form[key] + EOL;
-                }
+                //string formatString = "";
+                //foreach (var key in keys)
+                //{
+                //    formatString += key.ToString() + DELIMITER + form[key] + EOL;
+                //}
 
-                var url = BlobMethods.SaveFileIntoBlobContainer(userProfile.Username + "-" + userProfile.Id + "-sections" + ".txt", formatString);
-                return true;
+                //var url = BlobMethods.SaveFileIntoBlobContainer(userProfile.Username + "-" + userProfile.Id + "-sections" + ".txt", formatString);
+                //return true;
             }
             catch (Exception e)
             {
                 Console.WriteLine("Error in TutorMethods: SaveSection " + e.Message);
                 return false;
             }
+
+
+            return false;
         }
 
-        public List<Section> GetSections(Profiles userProfile)
+        public List<Section> GetSections(Profile userProfile)
         {
             try
             {
-                List<Section> sectionsList = new List<Section>();
+                //List<Section> sectionsList = new List<Section>();
 
-                var blob = BlobMethods.GetBlockBlob(userProfile.Username + "-" + userProfile.Id + "-sections" + ".txt");
-                var sections = blob.DownloadText();
-                var sectionsSplit = sections.Split(EOL);
+                //var blob = BlobMethods.GetBlockBlob(userProfile.Username + "-" + userProfile.Id + "-sections" + ".txt");
+                //var sections = blob.DownloadText();
+                //var sectionsSplit = sections.Split(EOL);
 
-                if (sectionsSplit[0].Split(DELIMITER)[1] != "")
-                {
-                    sectionsList.Add(new Section(sectionsSplit[0].Split(DELIMITER)[1]));
-                }
+                //if (sectionsSplit[0].Split(DELIMITER)[1] != "")
+                //{
+                //    sectionsList.Add(new Section(sectionsSplit[0].Split(DELIMITER)[1]));
+                //}
 
-                for (int i = 1; i < sectionsSplit.Length - 1; i += 2)
-                {
-                    var title = sectionsSplit[i].Split(DELIMITER)[1];
-                    var description = sectionsSplit[i + 1].Split(DELIMITER)[1];
+                //for (int i = 1; i < sectionsSplit.Length - 1; i += 2)
+                //{
+                //    var title = sectionsSplit[i].Split(DELIMITER)[1];
+                //    var description = sectionsSplit[i + 1].Split(DELIMITER)[1];
 
-                    if (!title.Equals("") || !description.Equals("") || i <= 1)
-                    {
-                        description = description.Replace("*--*", Environment.NewLine);
-                        sectionsList.Add(new Section(title, description, description.Split(" ").Length > 66));
-                    }
-                }
+                //    if (!title.Equals("") || !description.Equals("") || i <= 1)
+                //    {
+                //        description = description.Replace("*--*", Environment.NewLine);
+                //        sectionsList.Add(new Section(title, description, description.Split(" ").Length > 66));
+                //    }
+                //}
 
-                return sectionsList;
+                //return sectionsList;
             }
             catch (Exception e)
             {
@@ -77,80 +80,86 @@ namespace StreamWork.Services
                 return null;
             }
 
+            return null;
+
         }
 
-        public bool SaveTopic(HttpRequest request, Profiles userProfile)
+        public bool SaveTopic(HttpRequest request, Profile userProfile)
         {
             try
             {
-                var form = request.Form;
-                var keys = form.Keys;
+                //var form = request.Form;
+                //var keys = form.Keys;
 
-                string formatString = "";
-                foreach (var key in keys)
-                {
-                    formatString += key.ToString() + DELIMITER + form[key] + EOL;
-                }
+                //string formatString = "";
+                //foreach (var key in keys)
+                //{
+                //    formatString += key.ToString() + DELIMITER + form[key] + EOL;
+                //}
 
-                var url = BlobMethods.SaveFileIntoBlobContainer(userProfile.Username + "-" + userProfile.Id + "-topics" + ".txt", formatString);
-                return true;
+                //var url = BlobMethods.SaveFileIntoBlobContainer(userProfile.Username + "-" + userProfile.Id + "-topics" + ".txt", formatString);
+                //return true;
             }
             catch (Exception e)
             {
                 Console.WriteLine("Error in TutorMethods: SaveTopic " + e.Message);
                 return false;
             }
+
+            return false;
         }
 
-        public List<Topic> GetTopics(Profiles userProfile)
+        public List<Topic> GetTopics(Profile userProfile)
         {
             try
             {
-                List<Topic> topicsList = new List<Topic>();
+                //List<Topic> topicsList = new List<Topic>();
 
-                var blob = BlobMethods.GetBlockBlob(userProfile.Username + "-" + userProfile.Id + "-topics" + ".txt");
-                var topics = blob.DownloadText();
-                var topicSplit = topics.Split(EOL);
+                //var blob = BlobMethods.GetBlockBlob(userProfile.Username + "-" + userProfile.Id + "-topics" + ".txt");
+                //var topics = blob.DownloadText();
+                //var topicSplit = topics.Split(EOL);
 
-                for (int i = 0; i < topicSplit.Length - 1; i += 2)
-                {
-                    var topic = topicSplit[i].Split(DELIMITER)[1];
-                    var listOfSubjects = topicSplit[i + 1].Split(DELIMITER)[1];
+                //for (int i = 0; i < topicSplit.Length - 1; i += 2)
+                //{
+                //    var topic = topicSplit[i].Split(DELIMITER)[1];
+                //    var listOfSubjects = topicSplit[i + 1].Split(DELIMITER)[1];
 
-                    if (!topic.Equals("") || !listOfSubjects.Equals("") || (i <= 1))
-                    {
-                        listOfSubjects = listOfSubjects.Replace("*--*", Environment.NewLine);
-                        topicsList.Add(new Topic(topic, listOfSubjects));
-                    }
-                }
-                return topicsList;
+                //    if (!topic.Equals("") || !listOfSubjects.Equals("") || (i <= 1))
+                //    {
+                //        listOfSubjects = listOfSubjects.Replace("*--*", Environment.NewLine);
+                //        topicsList.Add(new Topic(topic, listOfSubjects));
+                //    }
+                //}
+                //return topicsList;
             }
             catch (Exception e)
             {
                 Console.WriteLine("Error in TutorMethods: GetTopics " + e.Message);
                 return null;
             }
-
+            return null;
         }
 
         public async Task<List<string>> SaveEditedArchivedStream(HttpRequest request)
         {
-            string streamThumbnail = null;
-            var videoId = request.Form["VideoId"];
-            var streamTitle = request.Form["VideoTitle"];
-            var streamDescription = request.Form["VideoDescription"];
-            if (request.Form.Files.Count > 0)
-                streamThumbnail = await BlobMethods.SaveImageIntoBlobContainer(request.Form.Files[0], videoId, 1280, 720);
+            //string streamThumbnail = null;
+            //var videoId = request.Form["VideoId"];
+            //var streamTitle = request.Form["VideoTitle"];
+            //var streamDescription = request.Form["VideoDescription"];
+            //if (request.Form.Files.Count > 0)
+            //    streamThumbnail = await BlobMethods.SaveImageIntoBlobContainer(request.Form.Files[0], videoId, 1280, 720);
 
-            var archivedStream = await Get<Video>(SQLQueries.GetArchivedStreamsWithId, videoId);
-            archivedStream.StreamTitle = streamTitle;
-            archivedStream.StreamDescription = streamDescription;
-            if (streamThumbnail != null)
-                archivedStream.StreamThumbnail = streamThumbnail;
+            //var archivedStream = await Get<Video>(SQLQueries.GetArchivedStreamsWithId, videoId);
+            //archivedStream.StreamTitle = streamTitle;
+            //archivedStream.StreamDescription = streamDescription;
+            //if (streamThumbnail != null)
+            //    archivedStream.StreamThumbnail = streamThumbnail;
 
-            await Save(archivedStream.Id, archivedStream);
+            //await Save(archivedStream.Id, archivedStream);
 
-            return new List<string> { streamTitle, streamDescription, archivedStream.StreamThumbnail };
+            //return new List<string> { streamTitle, streamDescription, archivedStream.StreamThumbnail };
+
+            return null;
         }
 
         //Uses a hashtable to add default thumbnails based on subject
@@ -173,15 +182,15 @@ namespace StreamWork.Services
 
         public async Task ChangeAllArchivedStreamAndUserChannelProfilePhotos(string user, string profilePicture) //changes all profile photos on streams if user has changed it
         {
-            var allArchivedStreamsByUser = await GetList<Video>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { user });
-            var userChannel = await Get<Channel>(SQLQueries.GetUserChannelWithUsername, new string[] { user });
-            foreach (var stream in allArchivedStreamsByUser)
-            {
-                stream.ProfilePicture = profilePicture;
-                await Save(stream.Id, stream);
-            }
-            userChannel.ProfilePicture = profilePicture;
-            await Save(userChannel.Id, userChannel);
+            //var allArchivedStreamsByUser = await GetList<Video>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { user });
+            //var userChannel = await Get<Channel>(SQLQueries.GetUserChannelWithUsername, new string[] { user });
+            //foreach (var stream in allArchivedStreamsByUser)
+            //{
+            //    stream.ProfilePicture = profilePicture;
+            //    await Save(stream.Id, stream);
+            //}
+            //userChannel.ProfilePicture = profilePicture;
+            //await Save(userChannel.Id, userChannel);
         }
 
         public async Task<bool> DeleteStream(string id)
@@ -189,10 +198,10 @@ namespace StreamWork.Services
             return await Delete<Video>(id);
         }
 
-        public async Task<bool> ChangeColor(Profiles userProfile, string color) {
-            userProfile.ProfileColor = color;
+        public async Task<bool> ChangeColor(Profile userProfile, string color) {
+            //userProfile.ProfileColor = color;
 
-            return await Save(userProfile.Id, userProfile);
+            //return await Save(userProfile.Id, userProfile);
         }
     }
 }

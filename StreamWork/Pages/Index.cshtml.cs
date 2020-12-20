@@ -15,8 +15,8 @@ namespace StreamWork.Pages
         private readonly EncryptionService encryptionService;
         private readonly NotificationService notificationService;
 
-        public DataModels.Profiles CurrentUserProfile { get; set; }
-        public DataModels.Profiles FeaturedTutor { get; set; }
+        public Profile CurrentUserProfile { get; set; }
+        public Profile FeaturedTutor { get; set; }
         public Channel FeaturedChannel { get; set; }
         public Video FeaturedArchivedVideo { get; set; }
         public List<Video> ArchivedVideos { get; set; }
@@ -48,47 +48,47 @@ namespace StreamWork.Pages
             };
 
             // List of the IDs of the streams to hardcode in
-            List<Video> videosByViews = await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsInDescendingOrderByViews);
+            //List<Video> videosByViews = await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsInDescendingOrderByViews);
             List<Video> videos = new List<Video>();
 
-            foreach (string streamWithPriority in streamsWithPriority) // Add hardcoded streams
-            {
-                int streamIndex = videosByViews.FindIndex(x => x.StreamID.Equals(streamWithPriority));
-                videos.Add(videosByViews[streamIndex]);
-                videosByViews.RemoveAt(streamIndex);
-            }
+            //foreach (string streamWithPriority in streamsWithPriority) // Add hardcoded streams
+            //{
+            //    int streamIndex = videosByViews.FindIndex(x => x.StreamID.Equals(streamWithPriority));
+            //    videos.Add(videosByViews[streamIndex]);
+            //    videosByViews.RemoveAt(streamIndex);
+            //}
 
             int toAdd = 12 - videos.Count; // Since Count changes while the loop is running
-            for (int i = 0; i < toAdd; i++) // Fill the rest in with streams in order of view count
-            {
-                videos.Add(videosByViews[i]);
-            }
+            //for (int i = 0; i < toAdd; i++) // Fill the rest in with streams in order of view count
+            //{
+            //    videos.Add(videosByViews[i]);
+            //}
 
             ArchivedVideos = videos;
 
-            Channel streamingChannel = await storageService.Get<Channel>(SQLQueries.GetAllUserChannelsThatAreStreaming);
-            if (streamingChannel == null)
-            {
-                FeaturedChannel = await storageService.Get<Channel>(SQLQueries.GetUserChannelWithUsername, "juliamkim");
-                FeaturedTutor = await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, "juliamkim");
-                FeaturedArchivedVideo = await storageService.Get<Video>(SQLQueries.GetArchivedStreamsWithUsername, "juliamkim");
-                FeaturedArchivedVideo.StreamSubjectIcon = MiscHelperMethods.GetCorrespondingSubjectThumbnail(FeaturedArchivedVideo.StreamSubject);
-            }
-            else
-            {
-                FeaturedChannel = streamingChannel;
-                FeaturedTutor = await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, streamingChannel.Username);
-                FeaturedChannel.StreamSubjectIcon = MiscHelperMethods.GetCorrespondingSubjectThumbnail(FeaturedChannel.StreamSubject);
-            }
+            //Channel streamingChannel = await storageService.Get<Channel>(SQLQueries.GetAllUserChannelsThatAreStreaming);
+            //if (streamingChannel == null)
+            //{
+            //    FeaturedChannel = await storageService.Get<Channel>(SQLQueries.GetUserChannelWithUsername, "juliamkim");
+            //    FeaturedTutor = await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, "juliamkim");
+            //    FeaturedArchivedVideo = await storageService.Get<Video>(SQLQueries.GetArchivedStreamsWithUsername, "juliamkim");
+            //    FeaturedArchivedVideo.StreamSubjectIcon = MiscHelperMethods.GetCorrespondingSubjectThumbnail(FeaturedArchivedVideo.StreamSubject);
+            //}
+            //else
+            //{
+            //    FeaturedChannel = streamingChannel;
+            //    FeaturedTutor = await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, streamingChannel.Username);
+            //    FeaturedChannel.StreamSubjectIcon = MiscHelperMethods.GetCorrespondingSubjectThumbnail(FeaturedChannel.StreamSubject);
+            //}
 
-            if (cookieService.Authenticated)
-            {
-                CurrentUserProfile = await cookieService.GetCurrentUser();
-                Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
-                AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
-            }
+            //if (cookieService.Authenticated)
+            //{
+            //    CurrentUserProfile = await cookieService.GetCurrentUser();
+            //    Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
+            //    AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
+            //}
 
-            ChatInfo = encryptionService.EncryptString(streamingChannel != null ? streamingChannel.ArchivedVideoId : FeaturedArchivedVideo.Id);
+            //ChatInfo = encryptionService.EncryptString(streamingChannel != null ? streamingChannel.ArchivedVideoId : FeaturedArchivedVideo.Id);
         }
     }
 }

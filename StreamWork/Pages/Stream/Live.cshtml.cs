@@ -20,16 +20,16 @@ namespace StreamWork.Pages.Stream
         private readonly NotificationService notificationService;
         private readonly EncryptionService encryptionService;
 
-        public DataModels.Profiles UserProfile { get; set; }
-        public DataModels.Profiles CurrentUserProfile { get; set; }
+        public Profile UserProfile { get; set; }
+        public Profile CurrentUserProfile { get; set; }
         public Channel UserChannel { get; set; }
         public string ChatInfo { get; set; }
         public string StreamSubjectPicture { get; set; }
         public string FollowValue { get; set; }
         public List<Video> UserArchivedStreams { get; set; }
-        public List<DataModels.Profiles> RelatedTutors { get; set; }
+        public List<Profile> RelatedTutors { get; set; }
         public List<Section> Sections { get; set; }
-        public List<Schedule> Schedule { get; set; }
+        public List<ScheduledStream> Schedule { get; set; }
         public int NumberOfStreams { get; set; }
         public int NumberOfFollowers { get; set; }
         public int NumberOfViews { get; set; }
@@ -49,38 +49,38 @@ namespace StreamWork.Pages.Stream
 
         public async Task<IActionResult> OnGet(string tutor)
         {
-            if (!cookieService.Authenticated)
-            {
-                return Redirect(cookieService.Url("/Home/SignIn/" + encryptionService.EncryptString("/Stream/Live/" + tutor)));
-            }
+            //if (!cookieService.Authenticated)
+            //{
+            //    return Redirect(cookieService.Url("/Home/SignIn/" + encryptionService.EncryptString("/Stream/Live/" + tutor)));
+            //}
 
-            CurrentUserProfile = await cookieService.GetCurrentUser();
-            UserProfile = await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, tutor);
-            UserChannel = await storageService.Get<Channel>(SQLQueries.GetUserChannelWithUsername, tutor);
+            //CurrentUserProfile = await cookieService.GetCurrentUser();
+            //UserProfile = await storageService.Get<DataModels.Profiles>(SQLQueries.GetUserWithUsername, tutor);
+            //UserChannel = await storageService.Get<Channel>(SQLQueries.GetUserChannelWithUsername, tutor);
 
-            if(UserChannel.StreamTitle == null)
-            {
-                return Redirect(cookieService.Url("/Profiles/Tutor/" + UserProfile.Username));
-            }
+            //if(UserChannel.StreamTitle == null)
+            //{
+            //    return Redirect(cookieService.Url("/Profiles/Tutor/" + UserProfile.Username));
+            //}
 
-            UserChannel.StreamSubjectIcon = MiscHelperMethods.GetCorrespondingSubjectThumbnail(UserChannel.StreamSubject);
-            ChatInfo = encryptionService.EncryptString(UserChannel.ArchivedVideoId);
-            FollowValue = await followService.IsFollowingFollowee(CurrentUserProfile.Id, UserProfile.Id);
+            //UserChannel.StreamSubjectIcon = MiscHelperMethods.GetCorrespondingSubjectThumbnail(UserChannel.StreamSubject);
+            //ChatInfo = encryptionService.EncryptString(UserChannel.ArchivedVideoId);
+            //FollowValue = await followService.IsFollowingFollowee(CurrentUserProfile.Id, UserProfile.Id);
 
-            UserArchivedStreams = await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { UserProfile.Username });
-            RelatedTutors = (await storageService.GetList<DataModels.Profiles>(SQLQueries.GetAllTutorsNotInTheList, new string[] { UserProfile.Id })).GetRange(0, 5);
-            Sections = profileService.GetSections(UserProfile);
-            Schedule = await scheduleService.GetSchedule(UserProfile);
+            //UserArchivedStreams = await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsWithUsername, new string[] { UserProfile.Username });
+            //RelatedTutors = (await storageService.GetList<DataModels.Profiles>(SQLQueries.GetAllTutorsNotInTheList, new string[] { UserProfile.Id })).GetRange(0, 5);
+            //Sections = profileService.GetSections(UserProfile);
+            //Schedule = await scheduleService.GetSchedule(UserProfile);
 
-            NumberOfStreams = UserArchivedStreams.Count;
-            NumberOfFollowers = await followService.GetNumberOfFollowers(UserProfile.Id);
-            NumberOfViews = UserArchivedStreams.Sum(x => x.Views);
+            //NumberOfStreams = UserArchivedStreams.Count;
+            //NumberOfFollowers = await followService.GetNumberOfFollowers(UserProfile.Id);
+            //NumberOfViews = UserArchivedStreams.Sum(x => x.Views);
 
-            Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
-            AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
+            //Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
+            //AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
 
-            UserChannel.Views += 1;
-            await storageService.Save(UserChannel.Id, UserChannel);
+            //UserChannel.Views += 1;
+            //await storageService.Save(UserChannel.Id, UserChannel);
 
             return Page();
         }

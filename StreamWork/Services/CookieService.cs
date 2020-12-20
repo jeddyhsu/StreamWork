@@ -29,28 +29,28 @@ namespace StreamWork.Services
         public async Task<Profile> SignIn(string username, string password)
         {
 
-            var userProfile = await Get<Profile>(SQLQueries.GetUserWithUsernameAndPassword, new string[] { username, password });
+            //var userProfile = await Get<Profile>(SQLQueries.GetUserWithUsernameAndPassword, new string[] { username, password });
 
-            if (userProfile != null)
-            {
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, userProfile.Username),
-                    new Claim(ClaimTypes.Email, userProfile.EmailAddress),
-                    new Claim(ClaimTypes.NameIdentifier, userProfile.Username)
-                    //new Claim(ClaimTypes.UserData, MiscHelperMethods.GetRandomChatColor())
-                };
+            //if (userProfile != null)
+            //{
+            //    var claims = new List<Claim>
+            //    {
+            //        new Claim(ClaimTypes.Name, userProfile.Username),
+            //        new Claim(ClaimTypes.Email, userProfile.EmailAddress),
+            //        new Claim(ClaimTypes.NameIdentifier, userProfile.Username)
+            //        //new Claim(ClaimTypes.UserData, MiscHelperMethods.GetRandomChatColor())
+            //    };
 
-                var userIdentity = new ClaimsIdentity(claims, "cookie");
+            //    var userIdentity = new ClaimsIdentity(claims, "cookie");
 
-                ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
-                await httpContext.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+            //    ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
+            //    await httpContext.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-                userProfile.LastLogin = DateTime.UtcNow;
-                await Save(userProfile.Id, userProfile);
+            //    userProfile.LastLogin = DateTime.UtcNow;
+            //    await Save(userProfile.Id, userProfile);
 
-                return userProfile;
-            }
+            //    return userProfile;
+            //}
 
             return null;
         }
@@ -60,10 +60,12 @@ namespace StreamWork.Services
             await httpContext.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         }
 
-        public async Task<Profiles> ValidateUser(string username)
+        public async Task<Profile> ValidateUser(string username)
         {
-            var userProfile = await Get<Profiles>(SQLQueries.GetUserWithUsername, new string[] { username });
-            return userProfile;
+            //var userProfile = await Get<Profile>(SQLQueries.GetUserWithUsername, new string[] { username });
+            //return userProfile;
+
+            return null;
         }
 
         public string Url(string path)
@@ -71,39 +73,43 @@ namespace StreamWork.Services
             return host + path;
         }
 
-        public async Task<Profiles> GetCurrentUser()
+        public async Task<Profile> GetCurrentUser()
         {
             if (httpContext.HttpContext.User.Identity.Name == null) return null;
 
-            return await Get<Profiles>(SQLQueries.GetUserWithUsername, new string[] { httpContext.HttpContext.User.Identity.Name });
+            //return await Get<Profile>(SQLQueries.GetUserWithUsername, new string[] { httpContext.HttpContext.User.Identity.Name });
+            return null;
         }
 
         public async Task<bool> ValidateUserType(string username, string type)
         {
-            var currentUser = await Get<Profiles>(SQLQueries.GetUserWithUsername, username);
-            if (currentUser.ProfileType == type) return true;
+            //var currentUser = await Get<Profile>(SQLQueries.GetUserWithUsername, username);
+            //if (currentUser.ProfileType == type) return true;
+
+            //return false;
+
 
             return false;
         }
 
-        public JsonResult Route(Profiles userProfile, string route, EncryptionService encryptionService)
+        public JsonResult Route(Profile userProfile, string route, EncryptionService encryptionService)
         {
-            if (userProfile != null)
-            {
-                if (route != "SW")
-                {
-                    var decryptedRoute = encryptionService.DecryptString(route);
-                    return new JsonResult(new { Message = "Route", Route = decryptedRoute });
-                }
-                else if (userProfile.ProfileType == "tutor")
-                    return new JsonResult(new { Message = JsonResponse.Tutor.ToString() });
-                else
-                    return new JsonResult(new { Message = JsonResponse.Student.ToString() });
-            }
-            else
-            {
-                return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
-            }
+            //if (userProfile != null)
+            //{
+            //    if (route != "SW")
+            //    {
+            //        var decryptedRoute = encryptionService.DecryptString(route);
+            //        return new JsonResult(new { Message = "Route", Route = decryptedRoute });
+            //    }
+            //    else if (userProfile. == "tutor")
+            //        return new JsonResult(new { Message = JsonResponse.Tutor.ToString() });
+            //    else
+            //        return new JsonResult(new { Message = JsonResponse.Student.ToString() });
+            //}
+            //else
+            //{
+            //    return new JsonResult(new { Message = JsonResponse.Failed.ToString() });
+            //}
         }
     }
 }

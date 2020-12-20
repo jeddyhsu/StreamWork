@@ -18,9 +18,9 @@ namespace StreamWork.Pages.Student
         private readonly FollowService followService;
         private readonly ScheduleService scheduleService;
 
-        public DataModels.Profiles CurrentUserProfile { get; set; }
+        public Profile CurrentUserProfile { get; set; }
         public Channel UserChannel { get; set; }
-        public List<DataModels.Profiles> RelatedTutors { get; set; }
+        public List<Profile> RelatedTutors { get; set; }
         public List<FollowedTutors> FollowedTutors { get; set; }
         public List<Section> Sections { get; set; }
         public List<Topic> Topics { get; set; }
@@ -42,44 +42,47 @@ namespace StreamWork.Pages.Student
 
         public async Task<IActionResult> OnGet()
         {
-            if (!cookieService.Authenticated || (await cookieService.GetCurrentUser()).ProfileType != "student")
-            {
-                return Redirect(cookieService.Url("/Home/SignIn/SW"));
-            }
+            //if (!cookieService.Authenticated || (await cookieService.GetCurrentUser()).ProfileType != "student")
+            //{
+            //    return Redirect(cookieService.Url("/Home/SignIn/SW"));
+            //}
 
-            CurrentUserProfile = await cookieService.GetCurrentUser();
+            //CurrentUserProfile = await cookieService.GetCurrentUser();
 
-            RelatedTutors = (await storageService.GetList<DataModels.Profiles>(SQLQueries.GetAllTutorsNotInTheList, new string[] { CurrentUserProfile.Id })).GetRange(0, 3);
-            FollowedTutors = await GetFollowedTutors(CurrentUserProfile.Id);
-            Sections = profileService.GetSections(CurrentUserProfile);
-            Topics = profileService.GetTopics(CurrentUserProfile);
+            //RelatedTutors = (await storageService.GetList<DataModels.Profiles>(SQLQueries.GetAllTutorsNotInTheList, new string[] { CurrentUserProfile.Id })).GetRange(0, 3);
+            //FollowedTutors = await GetFollowedTutors(CurrentUserProfile.Id);
+            //Sections = profileService.GetSections(CurrentUserProfile);
+            //Topics = profileService.GetTopics(CurrentUserProfile);
 
-            Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
-            AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
-            DefaultBanner = MiscHelperMethods.defaultBanner;
-            DefaultProfilePicture = MiscHelperMethods.defaultProfilePicture;
+            //Notifications = await notificationService.GetNotifications(CurrentUserProfile.Username);
+            //AreThereUnseenNotifications = await notificationService.AreThereUnseenNotifications(CurrentUserProfile.Username);
+            //DefaultBanner = MiscHelperMethods.defaultBanner;
+            //DefaultProfilePicture = MiscHelperMethods.defaultProfilePicture;
 
             return Page();
         }
 
         private async Task<List<FollowedTutors>> GetFollowedTutors(string followeeId)
         {
-            List<FollowedTutors> followedTutorsList = new List<FollowedTutors>();
-            var followedTutors = await followService.GetAllFollowees(followeeId);
+            //List<FollowedTutors> followedTutorsList = new List<FollowedTutors>();
+            //var followedTutors = await followService.GetAllFollowees(followeeId);
 
-            if(followedTutors != null && followedTutors.Count > 0)
-            {
-                foreach (var tutor in followedTutors)
-                {
-                    var previousStreams = (await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsWithUsername, tutor.Username)).Count >= 3 ? (await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsWithUsername, tutor.Username)).GetRange(0, 3) : (await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsWithUsername, tutor.Username));
-                    var latestScheduledStream = (await scheduleService.GetSchedule(tutor)).Count == 0 ? null : (await scheduleService.GetSchedule(tutor))[0];
-                    var followValue = await followService.IsFollowingFollowee(CurrentUserProfile.Id, tutor.Id);
+            //if(followedTutors != null && followedTutors.Count > 0)
+            //{
+            //    foreach (var tutor in followedTutors)
+            //    {
+            //        var previousStreams = (await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsWithUsername, tutor.Username)).Count >= 3 ? (await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsWithUsername, tutor.Username)).GetRange(0, 3) : (await storageService.GetList<Video>(SQLQueries.GetArchivedStreamsWithUsername, tutor.Username));
+            //        var latestScheduledStream = (await scheduleService.GetSchedule(tutor)).Count == 0 ? null : (await scheduleService.GetSchedule(tutor))[0];
+            //        var followValue = await followService.IsFollowingFollowee(CurrentUserProfile.Id, tutor.Id);
 
-                    followedTutorsList.Add(new FollowedTutors(tutor, previousStreams, latestScheduledStream, followValue));
-                }
-            }
+            //        followedTutorsList.Add(new FollowedTutors(tutor, previousStreams, latestScheduledStream, followValue));
+            //    }
+            //}
 
-            return followedTutorsList;
+            //return followedTutorsList;
+
+
+            return null;
         }
     }
 }
