@@ -3,17 +3,15 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MongoDB.Bson.Serialization.Attributes;
+using StreamWork.Base;
 using StreamWork.Framework;
 
 namespace StreamWork.DataModels
 {
-    public class DebugLog : IStorageBase<DebugLog>
+    public class DebugLog : StorageBase
     {
-        [BsonElement("_id")]
-        public string Id { get; set; }
-
-        [BsonElement("timestamp")]
-        public DateTime Timestamp { get; set; }
+        [BsonElement("time")]
+        public DateTime Time { get; set; }
 
         [BsonElement("message")]
         public string Message { get; set; }

@@ -8,11 +8,8 @@ using StreamWork.Framework;
 
 namespace StreamWork.DataModels
 {
-    public class Profile : IStorageBase<Profile>
+    public class Profile : StorageBase
     {
-        [BsonElement("_id")]
-        public string Id { get; set; }
-
         [BsonElement("user_id")]
         public string UserId { get; set; }
 
@@ -57,13 +54,5 @@ namespace StreamWork.DataModels
 
         [BsonElement("follower_ids")]
         public string[] FollowerIds { get; set; }
-
-        [Timestamp] [JsonIgnore]
-        public byte[] RowVersion { get; set; }
-
-        public virtual void Configure(EntityTypeBuilder<Profile> builder)
-        {
-
-        }
     }
 }

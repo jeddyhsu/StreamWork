@@ -24,10 +24,7 @@ namespace StreamWork.DataModels
         [BsonElement("notification_ids")]
         public string[] NotificationIds { get; set; }
 
-        [Timestamp] [JsonIgnore]
-        public byte[] RowVersion { get; set; }
-
-        public virtual void Configure(EntityTypeBuilder<Account> builder)
+        public Account ()
         {
 
         }

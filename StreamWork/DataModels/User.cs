@@ -2,15 +2,13 @@
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MongoDB.Bson.Serialization.Attributes;
+using StreamWork.Base;
 using StreamWork.Framework;
 
 namespace StreamWork.DataModels
 {
-    public class User : IStorageBase<User>
+    public class User : StorageBase
     {
-        [BsonElement("_id")]
-        public string Id { get; set; }
-
         [BsonElement("email_address")]
         public string EmailAddress { get; set; }
 
@@ -25,13 +23,5 @@ namespace StreamWork.DataModels
 
         [BsonElement("channel_id")]
         public string ChannelId { get; set; }
-
-        [Timestamp] [JsonIgnore]
-        public byte[] RowVersion { get; set; }
-
-        public virtual void Configure(EntityTypeBuilder<User> builder)
-        {
-
-        }
     }
 }

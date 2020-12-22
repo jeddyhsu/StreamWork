@@ -2,15 +2,13 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MongoDB.Bson.Serialization.Attributes;
+using StreamWork.Base;
 using StreamWork.Framework;
 
 namespace StreamWork.DataModels
 {
-    public class Notification : IStorageBase<Notification>
+    public class Notification : StorageBase
     {
-        [BsonElement("_id")]
-        public string Id { get; set; }
-
         [BsonElement("active")]
         public bool Active { get; set; }
 
@@ -22,13 +20,5 @@ namespace StreamWork.DataModels
 
         [BsonElement("data")]
         public object Data { get; set; }
-
-        [Timestamp]
-        public byte[] RowVersion { get; set; }
-
-        public void Configure(EntityTypeBuilder<Notification> builder)
-        {
-            
-        }
     }
 }

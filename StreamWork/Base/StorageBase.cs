@@ -16,8 +16,8 @@ namespace StreamWork.Base
         public string Id { get; set; }
 
         [IgnoreProperty]
-        [System.Text.Json.Serialization.JsonPropertyName("user_id")]
-        public string UserId { get; set; }
+        [BsonIgnore]
+        public string UserId_ { get; set; }
 
         //[Ignore]
         [IgnoreProperty]
@@ -32,7 +32,7 @@ namespace StreamWork.Base
         //[Ignore]
         [JsonIgnore]
         [BsonIgnore]
-        public string PartitionKey { get { return UserId; } set { UserId = value; } }
+        public string PartitionKey { get { return UserId_; } set { UserId_ = value; } }
 
         //[Ignore]
         [JsonIgnore]

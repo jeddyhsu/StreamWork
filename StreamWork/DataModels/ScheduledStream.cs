@@ -3,15 +3,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MongoDB.Bson.Serialization.Attributes;
+using StreamWork.Base;
 using StreamWork.Framework;
 
 namespace StreamWork.DataModels
 {
-    public class ScheduledStream : IStorageBase<ScheduledStream>
+    public class ScheduledStream : StorageBase
     {
-        [BsonElement("_id")]
-        public string Id { get; set; }
-
         [BsonElement("channel_id")]
         public string ChannelId { get; set; }
 
@@ -35,13 +33,5 @@ namespace StreamWork.DataModels
 
         [BsonElement("tag_ids")]
         public string[] TagIds { get; set; }
-
-        [Timestamp] [JsonIgnore]
-        public byte[] RowVersion { get; set; }
-
-        public virtual void Configure(EntityTypeBuilder<ScheduledStream> builder)
-        {
-
-        }
     }
 }
