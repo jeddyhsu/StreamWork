@@ -1,20 +1,21 @@
 ﻿using System.Text.Json.Serialization;
+using MongoDB.Bson.Serialization.Attributes;
 using StreamWork.Base;
 
 namespace StreamWork.DataModels
 {
     public class Chat : StorageBase
     {
-        [JsonPropertyName("stream_id")]
+        [BsonElement("stream_id")]
         public string StreamId { get; set; }
 
-        [JsonPropertyName("commenter_id")]
+        [BsonElement("commenter_id")]
         public string CommenterId { get; set; }
 
-        [JsonPropertyName("recipient_id")]
+        [BsonElement("recipient_id")]
         public string RecipientId { get; set; }
 
-        [JsonPropertyName("message")]
+        [BsonElement("message")]
         public string Message { get; set; }
     }
 }

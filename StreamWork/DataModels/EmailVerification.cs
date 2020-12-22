@@ -2,19 +2,20 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using MongoDB.Bson.Serialization.Attributes;
 using StreamWork.Framework;
 
 namespace StreamWork.DataModels
 {
     public class EmailVerification : IStorageBase<EmailVerification>
     {
-        [JsonPropertyName("_id")]
+        [BsonElement("_id")]
         public string Id { get; set; }
 
-        [JsonPropertyName("email_address")]
+        [BsonElement("email_address")]
         public string EmailAddress { get; set; }
 
-        [JsonPropertyName("verification_code")]
+        [BsonElement("verification_code")]
         public string VerificationCode { get; set; }
 
         [Timestamp] [JsonIgnore]

@@ -1,28 +1,29 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using MongoDB.Bson.Serialization.Attributes;
 using StreamWork.Framework;
 
 namespace StreamWork.DataModels
 {
     public class User : IStorageBase<User>
     {
-        [JsonPropertyName("_id")]
+        [BsonElement("_id")]
         public string Id { get; set; }
 
-        [JsonPropertyName("email_address")]
+        [BsonElement("email_address")]
         public string EmailAddress { get; set; }
 
-        [JsonPropertyName("password")]
+        [BsonElement("password")]
         public string Password { get; set; }
 
-        [JsonPropertyName("account_id")]
+        [BsonElement("account_id")]
         public string AccountId { get; set; }
 
-        [JsonPropertyName("profile_id")]
+        [BsonElement("profile_id")]
         public string ProfileId { get; set; }
 
-        [JsonPropertyName("channel_id")]
+        [BsonElement("channel_id")]
         public string ChannelId { get; set; }
 
         [Timestamp] [JsonIgnore]

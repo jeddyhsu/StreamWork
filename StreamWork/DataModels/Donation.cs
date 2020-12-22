@@ -2,31 +2,32 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using MongoDB.Bson.Serialization.Attributes;
 using StreamWork.Framework;
 
 namespace StreamWork.DataModels
 {
     public class Donation : IStorageBase<Donation>
     {
-        [JsonPropertyName("_id")]
+        [BsonElement("_id")]
         public string Id { get; set; }
 
-        [JsonPropertyName("donor_id")]
+        [BsonElement("donor_id")]
         public string DonorId { get; set; }
 
-        [JsonPropertyName("donee_id")]
+        [BsonElement("donee_id")]
         public string DoneeId { get; set; }
 
-        [JsonPropertyName("value")]
+        [BsonElement("value")]
         public float Value { get; set; }
 
-        [JsonPropertyName("timestamp")]
+        [BsonElement("timestamp")]
         public DateTime Timestamp { get; set; }
 
-        [JsonPropertyName("transaction_id")]
+        [BsonElement("transaction_id")]
         public string TransactionId { get; set; }
 
-        [JsonPropertyName("transaction")]
+        [BsonElement("transaction")]
         public object Transaction { get; set; }
 
         [Timestamp] [JsonIgnore]

@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using MongoDB.Bson.Serialization.Attributes;
 using StreamWork.Base;
 using StreamWork.Framework;
 
@@ -9,52 +10,52 @@ namespace StreamWork.DataModels
 {
     public class Profile : IStorageBase<Profile>
     {
-        [JsonPropertyName("_id")]
+        [BsonElement("_id")]
         public string Id { get; set; }
 
-        [JsonPropertyName("user_id")]
+        [BsonElement("user_id")]
         public string UserId { get; set; }
 
-        [JsonPropertyName("first_name")]
+        [BsonElement("first_name")]
         public string FirstName { get; set; }
 
-        [JsonPropertyName("last_name")]
+        [BsonElement("last_name")]
         public string LastName { get; set; }
 
-        [JsonPropertyName("caption")]
+        [BsonElement("caption")]
         public string Caption { get; set; }
 
-        [JsonPropertyName("description")]
+        [BsonElement("description")]
         public string Description { get; set; }
 
-        [JsonPropertyName("location")]
+        [BsonElement("location")]
         public string Location { get; set; }
 
-        [JsonPropertyName("color")]
+        [BsonElement("color")]
         public string Color { get; set; }
 
-        [JsonPropertyName("picture")]
+        [BsonElement("picture")]
         public string Picture { get; set; }
 
-        [JsonPropertyName("banner")]
+        [BsonElement("banner")]
         public string Banner { get; set; }
 
-        [JsonPropertyName("linkedin_url")]
+        [BsonElement("linkedin_url")]
         public string LinkedInUrl { get; set; }
 
-        [JsonPropertyName("instagram_url")]
+        [BsonElement("instagram_url")]
         public string InstagramUrl { get; set; }
 
-        [JsonPropertyName("facebook_url")]
+        [BsonElement("facebook_url")]
         public string FacebookUrl { get; set; }
 
-        [JsonPropertyName("twitter_url")]
+        [BsonElement("twitter_url")]
         public string TwitterUrl { get; set; }
 
-        [JsonPropertyName("follow_ids")]
+        [BsonElement("follow_ids")]
         public string[] FollowIds { get; set; }
 
-        [JsonPropertyName("follower_ids")]
+        [BsonElement("follower_ids")]
         public string[] FollowerIds { get; set; }
 
         [Timestamp] [JsonIgnore]

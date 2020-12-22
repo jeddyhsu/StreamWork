@@ -1,23 +1,24 @@
 ﻿using System.Text.Json.Serialization;
+using MongoDB.Bson.Serialization.Attributes;
 using StreamWork.Base;
 
 namespace StreamWork.DataModels
 {
     public class Comment : StorageBase
     {
-        [JsonPropertyName("commenter_id")]
+        [BsonElement("commenter_id")]
         public string CommenterId { get; set; }
 
-        [JsonPropertyName("recipient_id")]
+        [BsonElement("recipient_id")]
         public string RecipientId { get; set; }
 
-        [JsonPropertyName("parent_id")]
+        [BsonElement("parent_id")]
         public string ParentId { get; set; }
 
-        [JsonPropertyName("message")]
+        [BsonElement("message")]
         public string Message { get; set; }
 
-        [JsonPropertyName("edited")]
+        [BsonElement("edited")]
         public bool Edited { get; set; }
     }
 }

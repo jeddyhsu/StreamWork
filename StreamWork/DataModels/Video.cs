@@ -1,39 +1,40 @@
 ﻿using System;
 using System.Text.Json.Serialization;
+using MongoDB.Bson.Serialization.Attributes;
 using StreamWork.Base;
 
 namespace StreamWork.DataModels
 {
     public class Video : StorageBase
     {
-        [JsonPropertyName("channel_id")]
+        [BsonElement("channel_id")]
         public string ChannelId { get; set; }
 
-        [JsonPropertyName("title")]
+        [BsonElement("title")]
         public string Title { get; set; }
 
-        [JsonPropertyName("start_time")]
+        [BsonElement("start_time")]
         public DateTime StartTime { get; set; }
 
-        [JsonPropertyName("thumbnail")]
+        [BsonElement("thumbnail")]
         public string Thumbnail { get; set; }
 
-        [JsonPropertyName("description")]
+        [BsonElement("description")]
         public string Description { get; set; }
 
-        [JsonPropertyName("view_count")]
+        [BsonElement("view_count")]
         public float ViewCount { get; set; }
 
-        [JsonPropertyName("topic")]
+        [BsonElement("topic")]
         public string Topic { get; set; }
 
-        [JsonPropertyName("tag_ids")]
+        [BsonElement("tag_ids")]
         public string[] TagIds { get; set; }
 
-        [JsonPropertyName("chat_ids")]
+        [BsonElement("chat_ids")]
         public string[] ChatIds { get; set; }
 
-        [JsonPropertyName("comment_ids")]
+        [BsonElement("comment_ids")]
         public string[] CommentIds { get; set; }
     }
 }

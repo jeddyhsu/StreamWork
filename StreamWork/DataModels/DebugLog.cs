@@ -2,19 +2,20 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using MongoDB.Bson.Serialization.Attributes;
 using StreamWork.Framework;
 
 namespace StreamWork.DataModels
 {
     public class DebugLog : IStorageBase<DebugLog>
     {
-        [JsonPropertyName("_id")]
+        [BsonElement("_id")]
         public string Id { get; set; }
 
-        [JsonPropertyName("timestamp")]
+        [BsonElement("timestamp")]
         public DateTime Timestamp { get; set; }
 
-        [JsonPropertyName("message")]
+        [BsonElement("message")]
         public string Message { get; set; }
 
         [Timestamp] [JsonIgnore]

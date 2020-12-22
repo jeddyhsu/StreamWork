@@ -2,31 +2,32 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using MongoDB.Bson.Serialization.Attributes;
 using StreamWork.Framework;
 
 namespace StreamWork.DataModels
 {
     public class Tag : IStorageBase<Tag>
     {
-        [JsonPropertyName("_id")]
+        [BsonElement("_id")]
         public string Id { get; set; }
 
-        [JsonPropertyName("name")]
+        [BsonElement("name")]
         public string Name { get; set; }
 
-        [JsonPropertyName("hidden")]
+        [BsonElement("hidden")]
         public bool Hidden { get; set; }
 
-        [JsonPropertyName("channel_ids")]
+        [BsonElement("channel_ids")]
         public string[] ChannelIds { get; set; }
 
-        [JsonPropertyName("scheduled_stream_ids")]
+        [BsonElement("scheduled_stream_ids")]
         public string[] ScheduledStreamIds { get; set; }
 
-        [JsonPropertyName("stream_ids")]
+        [BsonElement("stream_ids")]
         public string[] StreamIds { get; set; }
 
-        [JsonPropertyName("video_ids")]
+        [BsonElement("video_ids")]
         public string[] VideoIds { get; set; }
 
         [Timestamp] [JsonIgnore]
