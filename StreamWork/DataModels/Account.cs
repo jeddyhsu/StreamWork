@@ -26,7 +26,12 @@ namespace StreamWork.DataModels
 
         public Account ()
         {
-
+            Id = Guid.NewGuid().ToString();
+            ChangePasswordKey = null;
+            SubscribedToEmail = true;
+            TimeZone = null;
+            SignUpDate = DateTime.UtcNow;
+            NotificationIds = new string[] { };
         }
     }
 }

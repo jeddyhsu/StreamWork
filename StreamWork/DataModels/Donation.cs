@@ -27,5 +27,16 @@ namespace StreamWork.DataModels
 
         [BsonElement("transaction")]
         public object Transaction { get; set; }
+
+        public Donation(object transaction) // TODO Parse from transaction
+        {
+            Id = Guid.NewGuid().ToString();
+            DonorId = default;
+            DoneeId = default;
+            Value = default;
+            Time = default;
+            TransactionId = default;
+            Transaction = transaction;
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.Text.Json.Serialization;
 using MongoDB.Bson.Serialization.Attributes;
 using StreamWork.Base;
 
@@ -8,15 +9,6 @@ namespace StreamWork.DataModels
     {
         [BsonElement("key")]
         public string Key { get; set; }
-
-        [BsonElement("title")]
-        public string Title { get; set; }
-
-        [BsonElement("category")]
-        public string Category { get; set; }
-
-        [BsonElement("description")]
-        public string Description { get; set; }
 
         [BsonElement("view_count")]
         public float ViewCount { get; set; }
@@ -37,6 +29,19 @@ namespace StreamWork.DataModels
         public string StreamId { get; set; }
 
         [BsonElement("video_ids")]
-        public string[] VideoIds { get; set; } 
+        public string[] VideoIds { get; set; }
+
+        public Channel (string key, string payPalAddress)
+        {
+            Id = Guid.NewGuid().ToString();
+            Key = key;
+            ViewCount = 0;
+            Partnered = false;
+            Balance = 0;
+            PayPalAddress = payPalAddress;
+            ScheduledStreamIds = new string[] { };
+            StreamId = null;
+            VideoIds = new string[] { };
+        }
     }
 }

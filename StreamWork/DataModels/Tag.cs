@@ -27,5 +27,16 @@ namespace StreamWork.DataModels
 
         [BsonElement("video_ids")]
         public string[] VideoIds { get; set; }
+
+        public Tag (string name)
+        {
+            Id = Guid.NewGuid().ToString();
+            Name = name;
+            Hidden = false;
+            ChannelIds = new string[] { };
+            ScheduledStreamIds = new string[] { };
+            StreamIds = new string[] { };
+            VideoIds = new string[] { };
+        }
     }
 }

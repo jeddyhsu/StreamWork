@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text.Json.Serialization;
 using MongoDB.Bson.Serialization.Attributes;
 using StreamWork.Base;
@@ -36,5 +37,23 @@ namespace StreamWork.DataModels
 
         [BsonElement("comment_ids")]
         public string[] CommentIds { get; set; }
+
+        public Video(Channel channel, string title, DateTime startTime, string thumbnail, string description, string topic, Tag[] tags, Chat[] chats)
+            : this(channel.Id, title, startTime, thumbnail, description, topic, tags.ToList().Select(tag => tag.Id).ToArray(), chats.ToList().Select(tag => tag.Id).ToArray()) { }
+
+        public Video(string channelId, string title, DateTime startTime, string thumbnail, string description, string topic, string[] tagIds, string[] chatIds)
+        {
+            Id = Guid.NewGuid().ToString();
+            ChannelId = channelId;
+            Title = title;
+            StartTime = startTime;
+            Thumbnail = thumbnail;
+            Description = description;
+            ViewCount = 0;
+            Topic = topic;
+            TagIds = tagIds;
+            ChatIds = chatIds;
+            CommentIds = new string[] { };
+        }
     }
 }

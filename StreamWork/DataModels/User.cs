@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MongoDB.Bson.Serialization.Attributes;
@@ -23,5 +24,17 @@ namespace StreamWork.DataModels
 
         [BsonElement("channel_id")]
         public string ChannelId { get; set; }
+
+        public User (out Account account, out Profile profile, string emailAddress, string password, string firstName, string lastName)
+        {
+            Id = Guid.NewGuid().ToString();
+            EmailAddress = emailAddress;
+            Password = password; // Should already be encrypted
+            account = new Account();
+            AccountId = account.Id;
+            profile = new Profile(Id, firstName, lastName);
+            ProfileId = profile.Id;
+            ChannelId = null;
+        }
     }
 }

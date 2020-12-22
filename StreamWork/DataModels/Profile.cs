@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MongoDB.Bson.Serialization.Attributes;
 using StreamWork.Base;
 using StreamWork.Framework;
+using StreamWork.HelperMethods;
 
 namespace StreamWork.DataModels
 {
@@ -54,5 +55,27 @@ namespace StreamWork.DataModels
 
         [BsonElement("follower_ids")]
         public string[] FollowerIds { get; set; }
+
+        public Profile(User user, string firstName, string lastName) : this(user.Id, firstName, lastName) { }
+
+        public Profile (string userId, string firstName, string lastName)
+        {
+            Id = Guid.NewGuid().ToString();
+            UserId = userId;
+            FirstName = firstName;
+            LastName = lastName;
+            Caption = null;
+            Description = null;
+            Location = null;
+            Color = MiscHelperMethods.GetRandomColor();
+            Picture = MiscHelperMethods.defaultProfilePicture;
+            Banner = MiscHelperMethods.defaultBanner;
+            LinkedInUrl = null;
+            InstagramUrl = null;
+            FacebookUrl = null;
+            TwitterUrl = null;
+            FollowIds = new string[] { };
+            FollowerIds = new string[] { }; // TODO Add team as followers
+        }
     }
 }

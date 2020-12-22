@@ -15,5 +15,12 @@ namespace StreamWork.DataModels
 
         [BsonElement("verification_code")]
         public string VerificationCode { get; set; }
+
+        public EmailVerification(string emailAddress)
+        {
+            Id = Guid.NewGuid().ToString();
+            EmailAddress = emailAddress;
+            VerificationCode = new Random().Next(10000000, 99999999).ToString();
+        }
     }
 }

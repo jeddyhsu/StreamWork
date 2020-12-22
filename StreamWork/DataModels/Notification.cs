@@ -20,5 +20,14 @@ namespace StreamWork.DataModels
 
         [BsonElement("data")]
         public object Data { get; set; }
+
+        public Notification (string type, object data)
+        {
+            Id = Guid.NewGuid().ToString();
+            Active = true;
+            Date = DateTime.UtcNow;
+            Type = type;
+            Data = data;
+        }
     }
 }

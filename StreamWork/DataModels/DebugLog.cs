@@ -16,12 +16,11 @@ namespace StreamWork.DataModels
         [BsonElement("message")]
         public string Message { get; set; }
 
-        [Timestamp] [JsonIgnore]
-        public byte[] RowVersion { get; set; }
-
-        public void Configure(EntityTypeBuilder<DebugLog> builder)
+        public DebugLog(string message)
         {
-
+            Id = Guid.NewGuid().ToString();
+            Time = DateTime.UtcNow;
+            Message = message;
         }
     }
 }
