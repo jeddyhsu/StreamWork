@@ -6,7 +6,7 @@ using StreamWork.DataModels;
 using StreamWork.HelperMethods;
 using StreamWork.Services;
 
-namespace StreamWork.Pages.Chat
+namespace StreamWork.Pages.ChatSW
 {
     public class Live : PageModel
     {

@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StreamWork.DataModels;
-using StreamWork.HelperMethods;
 using StreamWork.Services;
 
-namespace StreamWork.Pages.Chat
+namespace StreamWork.Pages.ChatSW
 {
     public class ArchiveChat : PageModel
     {
@@ -16,7 +14,7 @@ namespace StreamWork.Pages.Chat
         private readonly ChatService chatService;
 
         public string ChatId { get; set; }
-        public List<DataModels.Chat> Chats { get; set; }
+        public List<Chat> Chats { get; set; }
         public Dictionary<string, Profile> ChatProfiles { get; set; }
         public User CurrentUser { get; set; }
         public Profile CurrentUserProfile { get; set; }
@@ -31,6 +29,17 @@ namespace StreamWork.Pages.Chat
 
         public async Task<IActionResult> OnGet(string streamId)
         {
+            
+
+
+
+
+
+
+
+
+
+
             //var stream = await storageService.Get<Video>(SQLQueries.GetArchivedStreamsWithId, streamId);
             ////Chats = await chatService.GetAllChatsWithChatId(stream.Username, streamId);
             //CurrentUserProfile = await cookieService.GetCurrentUser();
