@@ -893,3 +893,107 @@
 2021-02-07 19:34:14.718 -08:00 [INF] Sending ["bytes 13385728-55309964/55309965"] of file /Users/rithvik/C#/StreamWork/StreamWork/wwwroot/StreamWorkAd.mp4
 2021-02-07 19:34:14.987 -08:00 [INF] Connection id "0HM6BS78GPGMP", Request id "0HM6BS78GPGMP:00000001": the application aborted the connection.
 2021-02-07 19:34:14.988 -08:00 [INF] Request finished in 270.4075ms 206 video/mp4
+2021-02-07 19:41:48.332 -08:00 [INF] User profile is available. Using '/Users/rithvik/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2021-02-07 19:41:48.538 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2021-02-07 19:41:48.545 -08:00 [WRN] Failed to determine the https port for redirect.
+2021-02-07 19:41:48.632 -08:00 [INF] Executing endpoint '/Index'
+2021-02-07 19:41:48.671 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2021-02-07 19:41:48.681 -08:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2021-02-07 19:41:50.615 -08:00 [INF] Executed handler method OnGet, returned result .
+2021-02-07 19:41:50.619 -08:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2021-02-07 19:41:50.619 -08:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2021-02-07 19:41:51.050 -08:00 [INF] Executed page /Index in 2375.2768ms
+2021-02-07 19:41:51.051 -08:00 [INF] Executed endpoint '/Index'
+2021-02-07 19:41:51.056 -08:00 [INF] Request finished in 2520.9014ms 200 text/html; charset=utf-8
+2021-02-07 19:41:52.219 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2021-02-07 19:41:52.222 -08:00 [INF] Executing endpoint '/Index'
+2021-02-07 19:41:52.223 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2021-02-07 19:41:52.227 -08:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2021-02-07 19:41:52.616 -08:00 [INF] Executed handler method OnGet, returned result .
+2021-02-07 19:41:52.616 -08:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2021-02-07 19:41:52.616 -08:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2021-02-07 19:41:52.626 -08:00 [INF] Executed page /Index in 402.9843ms
+2021-02-07 19:41:52.626 -08:00 [INF] Executed endpoint '/Index'
+2021-02-07 19:41:52.627 -08:00 [INF] Request finished in 407.608ms 200 text/html; charset=utf-8
+2021-02-07 19:41:52.669 -08:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2021-02-07 19:41:52.670 -08:00 [INF] CORS policy execution successful.
+2021-02-07 19:41:52.674 -08:00 [INF] No CORS policy found for the specified request.
+2021-02-07 19:41:52.676 -08:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2021-02-07 19:41:52.688 -08:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2021-02-07 19:41:52.688 -08:00 [INF] Request finished in 18.9801ms 200 application/json
+2021-02-07 19:41:52.812 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Chat/Archive/e9c04960-604b-47bc-abc0-15bba95bc28c  
+2021-02-07 19:41:52.821 -08:00 [INF] Executing endpoint '/Chat/Archive'
+2021-02-07 19:41:52.832 -08:00 [INF] Route matched with {page = "/Chat/Archive"}. Executing page /Chat/Archive
+2021-02-07 19:41:52.835 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=T8aC1b5JvttBtq3gZU-JyQ  
+2021-02-07 19:41:52.836 -08:00 [INF] CORS policy execution successful.
+2021-02-07 19:41:52.836 -08:00 [INF] No CORS policy found for the specified request.
+2021-02-07 19:41:52.836 -08:00 [INF] Executing endpoint '/pushnotificationhub'
+2021-02-07 19:41:52.839 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Julia.mp4  
+2021-02-07 19:41:52.863 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/StreamWorkAd.mp4  
+2021-02-07 19:41:52.874 -08:00 [INF] Request finished in 34.9954ms 404 
+2021-02-07 19:41:52.883 -08:00 [INF] Executing handler method StreamWork.Pages.Chat.ArchiveChat.OnGet - ModelState is "Valid"
+2021-02-07 19:41:52.887 -08:00 [INF] Sending ["bytes 0-1/55309965"] of file /Users/rithvik/C#/StreamWork/StreamWork/wwwroot/StreamWorkAd.mp4
+2021-02-07 19:41:52.894 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/StreamWorkAd.mp4  
+2021-02-07 19:41:52.894 -08:00 [INF] Sending ["bytes 0-55309964/55309965"] of file /Users/rithvik/C#/StreamWork/StreamWork/wwwroot/StreamWorkAd.mp4
+2021-02-07 19:41:53.097 -08:00 [INF] Request finished in 233.2025ms 206 video/mp4
+2021-02-07 19:41:53.194 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/StreamWorkAd.mp4  
+2021-02-07 19:41:53.241 -08:00 [INF] Sending ["bytes 2424832-2490367/55309965"] of file /Users/rithvik/C#/StreamWork/StreamWork/wwwroot/StreamWorkAd.mp4
+2021-02-07 19:41:53.412 -08:00 [INF] Request finished in 217.3332ms 206 video/mp4
+2021-02-07 19:41:53.412 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/StreamWorkAd.mp4  
+2021-02-07 19:41:53.412 -08:00 [INF] Sending ["bytes 2490368-55309964/55309965"] of file /Users/rithvik/C#/StreamWork/StreamWork/wwwroot/StreamWorkAd.mp4
+2021-02-07 19:41:53.724 -08:00 [INF] Connection id "0HM6BSDRDPGF0", Request id "0HM6BSDRDPGF0:00000002": the application aborted the connection.
+2021-02-07 19:41:53.725 -08:00 [INF] Request finished in 831.0596ms 206 video/mp4
+2021-02-07 19:41:54.211 -08:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2021-02-07 19:41:54.386 -08:00 [INF] Connection id "0HM6BSDRDPGF2", Request id "0HM6BSDRDPGF2:00000001": the application aborted the connection.
+2021-02-07 19:41:54.386 -08:00 [INF] Request finished in 974.12ms 206 video/mp4
+2021-02-07 19:41:54.408 -08:00 [INF] Executed page /Chat/Archive in 1576.2182ms
+2021-02-07 19:41:54.408 -08:00 [INF] Executed endpoint '/Chat/Archive'
+2021-02-07 19:41:54.408 -08:00 [INF] Request finished in 1596.2947ms 200 text/html; charset=utf-8
+2021-02-07 19:42:25.944 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/  
+2021-02-07 19:42:28.552 -08:00 [INF] Executing endpoint '/Index'
+2021-02-07 19:42:28.555 -08:00 [INF] Route matched with {page = "/Index"}. Executing page /Index
+2021-02-07 19:42:28.555 -08:00 [INF] Executing handler method StreamWork.Pages.IndexModel.OnGet - ModelState is "Valid"
+2021-02-07 19:42:29.005 -08:00 [INF] Executed handler method OnGet, returned result .
+2021-02-07 19:42:29.005 -08:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2021-02-07 19:42:29.005 -08:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2021-02-07 19:42:29.026 -08:00 [INF] Executed page /Index in 471.3466ms
+2021-02-07 19:42:29.026 -08:00 [INF] Executed endpoint '/Index'
+2021-02-07 19:42:29.026 -08:00 [INF] Request finished in 3083.1928ms 200 text/html; charset=utf-8
+2021-02-07 19:42:29.045 -08:00 [INF] Request starting HTTP/1.1 POST http://localhost:58539/pushnotificationhub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+2021-02-07 19:42:29.046 -08:00 [INF] CORS policy execution successful.
+2021-02-07 19:42:29.046 -08:00 [INF] No CORS policy found for the specified request.
+2021-02-07 19:42:29.046 -08:00 [INF] Executing endpoint '/pushnotificationhub/negotiate'
+2021-02-07 19:42:29.047 -08:00 [INF] Executed endpoint '/pushnotificationhub/negotiate'
+2021-02-07 19:42:29.047 -08:00 [INF] Request finished in 1.6532ms 200 application/json
+2021-02-07 19:42:29.207 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Julia.mp4  
+2021-02-07 19:42:29.207 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/Chat/Archive/e9c04960-604b-47bc-abc0-15bba95bc28c  
+2021-02-07 19:42:29.210 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/StreamWorkAd.mp4  
+2021-02-07 19:42:29.210 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/pushnotificationhub?id=ayiBX3xgOngE25jecpXIcQ  
+2021-02-07 19:42:29.210 -08:00 [INF] CORS policy execution successful.
+2021-02-07 19:42:29.212 -08:00 [INF] Sending ["bytes 0-1/55309965"] of file /Users/rithvik/C#/StreamWork/StreamWork/wwwroot/StreamWorkAd.mp4
+2021-02-07 19:42:29.214 -08:00 [INF] No CORS policy found for the specified request.
+2021-02-07 19:42:29.215 -08:00 [INF] Request finished in 5.2204ms 206 video/mp4
+2021-02-07 19:42:29.216 -08:00 [INF] Executing endpoint '/pushnotificationhub'
+2021-02-07 19:42:29.216 -08:00 [INF] Request finished in 10.1897ms 404 
+2021-02-07 19:42:29.216 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/StreamWorkAd.mp4  
+2021-02-07 19:42:29.219 -08:00 [INF] Sending ["bytes 0-55309964/55309965"] of file /Users/rithvik/C#/StreamWork/StreamWork/wwwroot/StreamWorkAd.mp4
+2021-02-07 19:42:29.353 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/StreamWorkAd.mp4  
+2021-02-07 19:42:29.475 -08:00 [INF] Sending ["bytes 2424832-2490367/55309965"] of file /Users/rithvik/C#/StreamWork/StreamWork/wwwroot/StreamWorkAd.mp4
+2021-02-07 19:42:29.503 -08:00 [INF] Request starting HTTP/1.1 GET http://localhost:58539/StreamWorkAd.mp4  
+2021-02-07 19:42:29.549 -08:00 [INF] Sending ["bytes 2490368-55309964/55309965"] of file /Users/rithvik/C#/StreamWork/StreamWork/wwwroot/StreamWorkAd.mp4
+2021-02-07 19:42:29.575 -08:00 [INF] Executing endpoint '/Chat/Archive'
+2021-02-07 19:42:29.600 -08:00 [INF] Request finished in 246.7047ms 206 video/mp4
+2021-02-07 19:42:29.649 -08:00 [INF] Connection id "0HM6BSDRDPGF4", Request id "0HM6BSDRDPGF4:00000002": the application aborted the connection.
+2021-02-07 19:42:29.649 -08:00 [INF] Request finished in 433.0611ms 206 video/mp4
+2021-02-07 19:42:29.682 -08:00 [INF] Executed endpoint '/pushnotificationhub'
+2021-02-07 19:42:29.682 -08:00 [INF] Route matched with {page = "/Chat/Archive"}. Executing page /Chat/Archive
+2021-02-07 19:42:29.682 -08:00 [INF] Request finished in 36846.9501ms 101 
+2021-02-07 19:42:29.685 -08:00 [INF] Executing handler method StreamWork.Pages.Chat.ArchiveChat.OnGet - ModelState is "Valid"
+2021-02-07 19:42:30.515 -08:00 [INF] Connection id "0HM6BSDRDPGF5", Request id "0HM6BSDRDPGF5:00000001": the application aborted the connection.
+2021-02-07 19:42:30.517 -08:00 [INF] Request finished in 1014.4229ms 206 video/mp4
+2021-02-07 19:42:30.604 -08:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2021-02-07 19:42:30.607 -08:00 [INF] Executed page /Chat/Archive in 924.7148ms
+2021-02-07 19:42:30.607 -08:00 [INF] Executed endpoint '/Chat/Archive'
+2021-02-07 19:42:30.607 -08:00 [INF] Request finished in 1401.6466ms 200 text/html; charset=utf-8
+2021-02-07 19:42:36.448 -08:00 [INF] Executed endpoint '/pushnotificationhub'
+2021-02-07 19:42:36.448 -08:00 [INF] Request finished in 7238.6124ms 101 
